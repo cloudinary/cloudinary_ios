@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		723C80BB163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
+		723C80C0163885C7003FB3FB /* Cloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* Cloudinary.h */; };
+		723C80C2163885C7003FB3FB /* Cloudinary.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80C1163885C7003FB3FB /* Cloudinary.m */; };
+		723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80C9163885C7003FB3FB /* SenTestingKit.framework */; };
+		723C80CC163885C7003FB3FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80CB163885C7003FB3FB /* UIKit.framework */; };
+		723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
+		723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80B7163885C7003FB3FB /* libCloudinary.a */; };
+		723C80D6163885C7003FB3FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 723C80D4163885C7003FB3FB /* InfoPlist.strings */; };
+		723C80D9163885C7003FB3FB /* CloudinaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80D8163885C7003FB3FB /* CloudinaryTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		723C80CE163885C7003FB3FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 723C80AE163885C7003FB3FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 723C80B6163885C7003FB3FB;
+			remoteInfo = Cloudinary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		723C80B5163885C7003FB3FB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				723C80C0163885C7003FB3FB /* Cloudinary.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		723C80B7163885C7003FB3FB /* libCloudinary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCloudinary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		723C80BA163885C7003FB3FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		723C80BE163885C7003FB3FB /* Cloudinary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cloudinary-Prefix.pch"; sourceTree = "<group>"; };
+		723C80BF163885C7003FB3FB /* Cloudinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cloudinary.h; sourceTree = "<group>"; };
+		723C80C1163885C7003FB3FB /* Cloudinary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cloudinary.m; sourceTree = "<group>"; };
+		723C80C8163885C7003FB3FB /* CloudinaryTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudinaryTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		723C80C9163885C7003FB3FB /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		723C80CB163885C7003FB3FB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		723C80D3163885C7003FB3FB /* CloudinaryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudinaryTests-Info.plist"; sourceTree = "<group>"; };
+		723C80D5163885C7003FB3FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		723C80D7163885C7003FB3FB /* CloudinaryTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudinaryTests.h; sourceTree = "<group>"; };
+		723C80D8163885C7003FB3FB /* CloudinaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudinaryTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		723C80B4163885C7003FB3FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				723C80BB163885C7003FB3FB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		723C80C4163885C7003FB3FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */,
+				723C80CC163885C7003FB3FB /* UIKit.framework in Frameworks */,
+				723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */,
+				723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		723C80AC163885C7003FB3FB = {
+			isa = PBXGroup;
+			children = (
+				723C80BC163885C7003FB3FB /* Cloudinary */,
+				723C80D1163885C7003FB3FB /* CloudinaryTests */,
+				723C80B9163885C7003FB3FB /* Frameworks */,
+				723C80B8163885C7003FB3FB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		723C80B8163885C7003FB3FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				723C80B7163885C7003FB3FB /* libCloudinary.a */,
+				723C80C8163885C7003FB3FB /* CloudinaryTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		723C80B9163885C7003FB3FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				723C80BA163885C7003FB3FB /* Foundation.framework */,
+				723C80C9163885C7003FB3FB /* SenTestingKit.framework */,
+				723C80CB163885C7003FB3FB /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		723C80BC163885C7003FB3FB /* Cloudinary */ = {
+			isa = PBXGroup;
+			children = (
+				723C80BF163885C7003FB3FB /* Cloudinary.h */,
+				723C80C1163885C7003FB3FB /* Cloudinary.m */,
+				723C80BD163885C7003FB3FB /* Supporting Files */,
+			);
+			path = Cloudinary;
+			sourceTree = "<group>";
+		};
+		723C80BD163885C7003FB3FB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				723C80BE163885C7003FB3FB /* Cloudinary-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		723C80D1163885C7003FB3FB /* CloudinaryTests */ = {
+			isa = PBXGroup;
+			children = (
+				723C80D7163885C7003FB3FB /* CloudinaryTests.h */,
+				723C80D8163885C7003FB3FB /* CloudinaryTests.m */,
+				723C80D2163885C7003FB3FB /* Supporting Files */,
+			);
+			path = CloudinaryTests;
+			sourceTree = "<group>";
+		};
+		723C80D2163885C7003FB3FB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				723C80D3163885C7003FB3FB /* CloudinaryTests-Info.plist */,
+				723C80D4163885C7003FB3FB /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		723C80B6163885C7003FB3FB /* Cloudinary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 723C80DC163885C7003FB3FB /* Build configuration list for PBXNativeTarget "Cloudinary" */;
+			buildPhases = (
+				723C80B3163885C7003FB3FB /* Sources */,
+				723C80B4163885C7003FB3FB /* Frameworks */,
+				723C80B5163885C7003FB3FB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Cloudinary;
+			productName = Cloudinary;
+			productReference = 723C80B7163885C7003FB3FB /* libCloudinary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		723C80C7163885C7003FB3FB /* CloudinaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 723C80DF163885C7003FB3FB /* Build configuration list for PBXNativeTarget "CloudinaryTests" */;
+			buildPhases = (
+				723C80C3163885C7003FB3FB /* Sources */,
+				723C80C4163885C7003FB3FB /* Frameworks */,
+				723C80C5163885C7003FB3FB /* Resources */,
+				723C80C6163885C7003FB3FB /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				723C80CF163885C7003FB3FB /* PBXTargetDependency */,
+			);
+			name = CloudinaryTests;
+			productName = CloudinaryTests;
+			productReference = 723C80C8163885C7003FB3FB /* CloudinaryTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		723C80AE163885C7003FB3FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Cloudinary Ltd";
+			};
+			buildConfigurationList = 723C80B1163885C7003FB3FB /* Build configuration list for PBXProject "Cloudinary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 723C80AC163885C7003FB3FB;
+			productRefGroup = 723C80B8163885C7003FB3FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				723C80B6163885C7003FB3FB /* Cloudinary */,
+				723C80C7163885C7003FB3FB /* CloudinaryTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		723C80C5163885C7003FB3FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				723C80D6163885C7003FB3FB /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		723C80C6163885C7003FB3FB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		723C80B3163885C7003FB3FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				723C80C2163885C7003FB3FB /* Cloudinary.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		723C80C3163885C7003FB3FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				723C80D9163885C7003FB3FB /* CloudinaryTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		723C80CF163885C7003FB3FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 723C80B6163885C7003FB3FB /* Cloudinary */;
+			targetProxy = 723C80CE163885C7003FB3FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		723C80D4163885C7003FB3FB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				723C80D5163885C7003FB3FB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		723C80DA163885C7003FB3FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		723C80DB163885C7003FB3FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		723C80DD163885C7003FB3FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Cloudinary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		723C80DE163885C7003FB3FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Cloudinary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		723C80E0163885C7003FB3FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
+				INFOPLIST_FILE = "CloudinaryTests/CloudinaryTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		723C80E1163885C7003FB3FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
+				INFOPLIST_FILE = "CloudinaryTests/CloudinaryTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		723C80B1163885C7003FB3FB /* Build configuration list for PBXProject "Cloudinary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				723C80DA163885C7003FB3FB /* Debug */,
+				723C80DB163885C7003FB3FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		723C80DC163885C7003FB3FB /* Build configuration list for PBXNativeTarget "Cloudinary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				723C80DD163885C7003FB3FB /* Debug */,
+				723C80DE163885C7003FB3FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		723C80DF163885C7003FB3FB /* Build configuration list for PBXNativeTarget "CloudinaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				723C80E0163885C7003FB3FB /* Debug */,
+				723C80E1163885C7003FB3FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 723C80AE163885C7003FB3FB /* Project object */;
+}
