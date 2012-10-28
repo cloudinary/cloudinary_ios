@@ -7,7 +7,10 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "Cloudinary.h"
 
-@interface CloudinaryTests : SenTestCase
+@interface CloudinaryTests : SenTestCase {
+    Cloudinary *cloudinary;
+}
 
 @end
