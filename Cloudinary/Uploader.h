@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Cloudinary.h"
 
+@protocol UploaderDelegate <NSObject>
+- (void) success:(NSDictionary*)result context:(id)context;
+- (void) error:(NSString*)result code:(int) code context:(id)context;
+@end
+
 @interface Uploader : NSObject
-- (id) init:(Cloudinary*)cloudinary delegate:(id)delegate;
+- (id) init:(Cloudinary*)cloudinary delegate:(id <UploaderDelegate> )delegate;
 - (void) upload:(id)file options:(NSDictionary*) options;
 - (void) destroy:(NSString*)publicId options:(NSDictionary*) options;
 - (void) explicit:(NSString*)publicId options:(NSDictionary*) options;
@@ -18,17 +23,4 @@
 - (void) removeTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
 - (void) replaceTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
 - (void) text:(NSString*)text options:(NSDictionary*) options;
-
-// internal
-- (void) callApi:(NSString*)action file:(id)file params:(NSDictionary*)params options:(NSDictionary*) options;
-- (void) callTagsApi:(NSString*)tag command:(NSString*)command publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
-- (NSString*) buildEager:(NSArray*)transformations;
-- (NSString*) buildCustomHeaders:(id)headers;
-- (NSDictionary*) buildUploadParams:(NSDictionary*) options;
-
-@end
-
-@protocol UploaderDelegate <NSObject>
-- (void) success:(NSDictionary*)result;
-- (void) error:(NSString*)result;
 @end

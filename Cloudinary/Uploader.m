@@ -14,9 +14,16 @@
 @interface Uploader () {
     Cloudinary *cloudinary;
     id delegate;
+    id context;
     NSMutableData *responseData;
     NSHTTPURLResponse *response;
+    NSURLConnection *connection;
 }
+- (void) callApi:(NSString*)action file:(id)file params:(NSDictionary*)params options:(NSDictionary*) options;
+- (void) callTagsApi:(NSString*)tag command:(NSString*)command publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
+- (NSString*) buildEager:(NSArray*)transformations;
+- (NSString*) buildCustomHeaders:(id)headers;
+- (NSDictionary*) buildUploadParams:(NSDictionary*) options;
 @end
 
 @implementation Uploader
@@ -89,13 +96,23 @@
     [self callApi:@"text" file:nil params:params options:options];
 }
 
+- (void) cancel
+{
+    if (connection != nil) {
+        [connection cancel];
+        connection = nil;
+    }
+    [responseData setLength:0];
+}
+
 // internal
 - (void) callApi:(NSString*) action file:(id)file params:(NSMutableDictionary*)params options:(NSDictionary*) options
 {
     if (options == nil) options = [NSDictionary dictionary];
-    NSString* apiKey = [cloudinary get:@"api_key" options:options defaultValue:nil];
+    context = [options valueForKey:@"context"];
+    NSString* apiKey = [cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
     if (apiKey == nil) [NSException raise:@"ArgumentError" format:@"Must supply api_key"];
-    if ([options valueForKey:@"signature"] == nil) {
+    if ([params valueForKey:@"signature"] == nil) {
         NSString* apiSecret = [cloudinary get:@"api_secret" options:options defaultValue:nil];
         if (apiSecret == nil) [NSException raise:@"ArgumentError" format:@"Must supply api_secret"];
         NSDate *today = [NSDate date];
@@ -108,9 +125,9 @@
 
     NSURLRequest *req = [self request:apiUrl params:params file:file];
     // create the connection with the request and start loading the data
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:req delegate:self];
+    connection = [NSURLConnection connectionWithRequest:req delegate:self];
     if (connection == nil) {
-        [delegate error:@"Failed to initiate connection"];
+        [delegate error:@"Failed to initiate connection" code:0 context:context];
     }
 }
 
@@ -128,9 +145,12 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)nserror
 {
+    int code = [response statusCode];
+
     [delegate error:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
           [nserror localizedDescription],
-          [[nserror userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]]];
+          [[nserror userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]]
+               code:code context:context];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -139,24 +159,24 @@
     int code = [response statusCode];
     
     if (code != 200 && code != 400 && code != 401 && code != 500) {
-        [delegate error:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]]];
+        [delegate error:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code context:context];
         return;
     }
     
     SBJsonParser *parser = [SBJsonParser new];
     NSDictionary* result = [parser objectWithData:responseData];
     if (result == nil) {
-        [delegate error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", parser.error, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]]];
+        [delegate error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", parser.error, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code context:context];
         return;
     }
     NSDictionary* errorResponse = [result valueForKey:@"error"];
     if (errorResponse == nil)
     {
-        [delegate success:result];
+        [delegate success:result context:context];
     }
     else
     {
-        [delegate error:[errorResponse valueForKey:@"message"]];
+        [delegate error:[errorResponse valueForKey:@"message"] code:code context:context];
     }
 }
 

@@ -10,7 +10,7 @@
 #import "Uploader.h"
 #import "Transformation.h"
 
-@interface UploaderTests () {
+@interface UploaderTests () <UploaderDelegate> {
     NSString* error;
     NSDictionary* result;
 }
@@ -55,12 +55,12 @@
     }
 }
 
-- (void)success:(NSDictionary*)res
+- (void)success:(NSDictionary*)res context:(id)context
 {
     result = res;
 }
 
-- (void)error:(NSString*)err
+- (void)error:(NSString*)err code:(int) code context:(id)context
 {
     error = err;
 }
@@ -87,8 +87,8 @@
     VerifyAPISecret();
     Uploader* uploader = [[Uploader alloc] init:cloudinary delegate:self];
     Transformation* transformation = [Transformation transformation];
-    [transformation crop:@"scale"];
-    [transformation fwidth:2.0];
+    [transformation setCrop:@"scale"];
+    [transformation setWidthWithFloat:2.0];
     [uploader explicit:@"cloudinary" options:[NSDictionary dictionaryWithObjectsAndKeys:
                                               [NSArray arrayWithObject:transformation], @"eager",
                                               @"twitter_name", @"type"
@@ -111,8 +111,8 @@
     VerifyAPISecret();
     Uploader* uploader = [[Uploader alloc] init:cloudinary delegate:self];
     Transformation* transformation = [Transformation transformation];
-    [transformation crop:@"scale"];
-    [transformation fwidth:2.0];
+    [transformation setCrop:@"scale"];
+    [transformation setWidthWithFloat:2.0];
     [uploader upload:[self logo] options:[NSDictionary dictionaryWithObjectsAndKeys:
                                                [NSArray arrayWithObject:transformation], @"eager",
                                                nil]];

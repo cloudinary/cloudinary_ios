@@ -2,7 +2,6 @@
 //  Cloudinary.m
 //  Cloudinary
 //
-//  Created by Tal Lev-Ami on 24/10/12.
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
@@ -166,7 +165,7 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
     if (transformation == nil) transformation = [Transformation transformation];
     if ([type isEqualToString:@"fetch"] && [format length] > 0)
     {
-        [transformation fetchFormat:format];
+        [transformation setFetchFormat:format];
         format = nil;
     }
     NSString* transformationStr = [transformation generate];

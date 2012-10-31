@@ -9,65 +9,59 @@
 #import <Foundation/Foundation.h>
 
 @interface Transformation : NSObject
-{
-	NSMutableDictionary* transformation;
-	NSMutableArray* transformations;
-	NSString* htmlWidth;
-	NSString* htmlHeight;
-}
 
 - (id) initWithDictionaries: (NSArray*) transformations;
 - (id) init;
 + (id) transformation;
 
-- (void) width: (id) value;
-- (void) iwidth: (int) value;
-- (void) fwidth: (float) value;
-- (void) height: (id) value;
-- (void) iheight: (int) value;
-- (void) fheight: (float) value;
-- (void) named: (id) value; // Supports array
-- (void) crop: (NSString *) value;
-- (void) background: (NSString *) value;
-- (void) effect: (NSString *) value;
-- (void) effect: (NSString *) value param:(id) param;
-- (void) angle: (id) value; // Supports array
-- (void) iangle: (int) value; // Supports array
-- (void) border: (NSString *) value;
-- (void) border: (int) width color:(NSString *) color;
-- (void) x: (id) value;
-- (void) ix: (int) value;
-- (void) fx: (float) value;
-- (void) y: (id) value;
-- (void) iy: (int) value;
-- (void) fy: (float) value;
-- (void) radius: (id) value;
-- (void) iradius: (int) value;
-- (void) quality: (id) value;
-- (void) fquality: (float) value;
-- (void) defaultImage: (NSString *) value;
-- (void) gravity: (NSString *) value;
-- (void) colorSpace: (NSString *) value;
-- (void) prefix: (NSString *) value;
-- (void) overlay: (NSString *) value;
-- (void) underlay: (NSString *) value;
-- (void) fetchFormat: (NSString *) value;
-- (void) density: (id) value;
-- (void) idensity: (int) value;
-- (void) page: (id) value;
-- (void) ipage: (int) value;
-- (void) delay: (id) value;
-- (void) idelay: (int) value;
-- (void) rawTransformation: (NSString *) value;
-- (void) flags: (NSString *) value; // Supports array
+@property id width;
+- (void) setWidthWithInt:(int)value;
+- (void) setWidthWithFloat:(float)value;
+@property id height;
+- (void) setHeightWithInt:(int)value;
+- (void) setHeightWithFloat:(float)value;
+@property id named; // Supports array
+@property NSString* crop;
+@property NSString* background;
+@property NSString* effect;
+- (void) setEffect: (NSString *) value param:(id) param;
+@property id angle; // Supports array
+- (void) setAngleWithInt:(int)value;
+@property NSString* border;
+- (void) setBorder: (int) width color:(NSString *) color;
+@property id x;
+- (void) setXWithInt:(int)value;
+- (void) setXWithFloat:(float)value;
+@property id y;
+- (void) setYWithInt:(int)value;
+- (void) setYWithFloat:(float)value;
+@property id radius;
+- (void) setRadiusWithInt:(int)value;
+@property id quality;
+- (void) setQualityWithFloat:(float)value;
+@property NSString* defaultImage;
+@property NSString* gravity;
+@property NSString* colorSpace;
+@property NSString* prefix;
+@property NSString* overlay;
+@property NSString* underlay;
+@property NSString* fetchFormat;
+@property id density;
+- (void) setDensityWithInt:(int)value;
+@property id page;
+- (void) setPageWithInt:(int)value;
+@property id delay;
+- (void) setDelayWithInt:(int)value;
+@property NSString* rawTransformation;
+@property id flags; // Supports array
 
-- (void) params: (NSDictionary *) value;
+@property NSDictionary* params;
 - (void) chain;
 - (void) param: (NSString *) param value: (id) value;
+
+@property (readonly) NSString* htmlWidth;
+@property (readonly) NSString* htmlHeight;
+
 - (NSString*) generate;
-- (NSString*) generateWithDictionaries:(NSArray*) dictionaries;
-- (NSString*) generateWithOptions:(NSDictionary*) options;
-- (NSString*) htmlWidth;
-- (NSString*) htmlHeight;
 
 @end
