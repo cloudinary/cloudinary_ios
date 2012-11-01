@@ -120,6 +120,10 @@
         [params setValue:[NSNumber numberWithInt:(int) [today timeIntervalSince1970]] forKey:@"timestamp"];
         [params setValue:[cloudinary apiSignRequest:params secret:apiSecret] forKey:@"signature"];
         [params setValue:apiKey forKey:@"api_key"];
+    } else {
+        [params setValue:[options valueForKey:@"timestamp"] forKey:@"timestamp"];
+        [params setValue:[options valueForKey:@"signature"] forKey:@"signature"];
+        [params setValue:apiKey forKey:@"api_key"];
     }
     
     NSString* apiUrl = [cloudinary cloudinaryApiUrl:action options:options];
