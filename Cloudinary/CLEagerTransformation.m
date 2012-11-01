@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
-#import "EagerTransformation.h"
+#import "CLEagerTransformation.h"
 
-@implementation EagerTransformation
+@implementation CLEagerTransformation
 @synthesize format;
 
 @end

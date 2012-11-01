@@ -10,7 +10,7 @@
 #include "Cloudinary.h"
 
 @interface UploaderTests : SenTestCase {
-    Cloudinary* cloudinary;
+    CLCloudinary* cloudinary;
 }
 
 @end

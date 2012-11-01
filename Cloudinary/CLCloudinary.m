@@ -5,17 +5,24 @@
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
-#import "Cloudinary.h"
+#import "CLCloudinary.h"
 #import "Security/Security.h"
 #import <CommonCrypto/CommonDigest.h>
-#import "Transformation.h"
+#import "CLTransformation.h"
 #import "NSString+URLEncoding.h"
+#import "NSDictionary+Utilities.h"
 
-NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
+NSString * const CL_VERSION = @"0.2.1";
 
-@implementation Cloudinary
+NSString * const CL_SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
 
-- (Cloudinary *)init
+@implementation CLCloudinary
++ (NSString*) version
+{
+    return CL_VERSION;
+}
+
+- (CLCloudinary *)init
 {
     if ( self = [super init] )
     {
@@ -29,14 +36,14 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
     return self;
 }
 
-- (Cloudinary *)initWithUrl: (NSString*)url
+- (CLCloudinary *)initWithUrl: (NSString*)url
 {
-    Cloudinary* cloudinary = [self init];
+    CLCloudinary* cloudinary = [self init];
     [cloudinary parseUrl:url];
     return cloudinary;
 }
 
-- (Cloudinary *)initWithDictionary: (NSDictionary*)options
+- (CLCloudinary *)initWithDictionary: (NSDictionary*)options
 {
     if ( self = [super init] )
     {
@@ -71,7 +78,7 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
 {
     NSString* upload_prefix = [self get:@"upload_prefix" options:options defaultValue: @"https://api.cloudinary.com"];
     NSString* cloud_name = [self get:@"cloud_name" options:options defaultValue: nil];
-    if (cloud_name == nil) [NSException raise:@"ArgumentError" format:@"Must supply cloud_name in tag or in configuration"];
+    if (cloud_name == nil) [NSException raise:@"CloudinaryError" format:@"Must supply cloud_name in tag or in configuration"];
     NSString* resource_type = [options valueForKey:@"resource_type" defaultValue:@"image"];
     NSArray* components = [NSArray arrayWithObjects:upload_prefix, @"v1_1", cloud_name, resource_type, action, nil];
     return [components componentsJoinedByString:@"/"];
@@ -111,7 +118,7 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
     NSMutableArray *params = [NSMutableArray arrayWithCapacity:[paramsToSign count]];
     paramNames = [paramNames sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     for (NSString* param in paramNames) {
-        NSString* paramValue = [Cloudinary asString:[paramsToSign valueForKey:param]];
+        NSString* paramValue = [CLCloudinary asString:[paramsToSign valueForKey:param]];
         if ([paramValue length] == 0) continue;
         NSArray* encoded = [NSArray arrayWithObjects:param, paramValue, nil];
         [params addObject:[encoded componentsJoinedByString:@"="]];
@@ -148,7 +155,7 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
 {
     NSString* cloudName = [self get:@"cloud_name" options:options defaultValue:nil];
     if ([cloudName length] == 0) {
-        [NSException raise:@"ArgumentException" format:@"Must supply cloud_name in tag or in configuration"];
+        [NSException raise:@"CloudinaryError" format:@"Must supply cloud_name in tag or in configuration"];
     }
 
     NSString* type = [options valueForKey:@"type" defaultValue:@"upload"];
@@ -159,10 +166,10 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
     NSNumber* cdnSubdomain = [self get:@"cdn_subdomain" options:options defaultValue:[NSNumber numberWithBool:NO]];
     NSString* secureDistribution = [self get:@"secure_distribution" options:options defaultValue:nil];
     NSString* cname = [self get:@"cname" options:options defaultValue:nil];
-    NSString* version = [Cloudinary asString:[options valueForKey:@"version" defaultValue:@""]];
+    NSString* version = [CLCloudinary asString:[options valueForKey:@"version" defaultValue:@""]];
 
-    Transformation* transformation = [options valueForKey:@"transformation"];
-    if (transformation == nil) transformation = [Transformation transformation];
+    CLTransformation* transformation = [options valueForKey:@"transformation"];
+    if (transformation == nil) transformation = [CLTransformation transformation];
     if ([type isEqualToString:@"fetch"] && [format length] > 0)
     {
         [transformation setFetchFormat:format];
@@ -187,10 +194,10 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
     {
         if ([privateCdn boolValue])
         {
-            [NSException raise:@"ArgumentException" format:@"secure_distribution not defined"];
+            [NSException raise:@"CloudinaryError" format:@"secure_distribution not defined"];
         } else
         {
-            secureDistribution = SHARED_CDN;
+            secureDistribution = CL_SHARED_CDN;
         }
     }
     NSMutableString* prefix = [NSMutableString string];
@@ -253,10 +260,10 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
 - (NSString*) imageTag:(NSString*) source options:(NSDictionary*) _options htmlOptions:(NSDictionary*) htmlOptions
 {
     NSMutableDictionary* options = [NSMutableDictionary dictionaryWithDictionary:_options];
-    Transformation* transformation = [options objectForKey:@"transformation"];
+    CLTransformation* transformation = [options objectForKey:@"transformation"];
     if (transformation == nil)
     {
-        transformation = [Transformation transformation];
+        transformation = [CLTransformation transformation];
         [options setValue:transformation forKey:@"transformation"];
     }
     NSString* url = [self url:source options:options];
@@ -297,7 +304,7 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
         NSNumber* number = value;
         return [number stringValue];
     } else {
-        [NSException raise:@"ArgumentException" format:@"Expected NSString or NSNumber"];
+        [NSException raise:@"CloudinaryError" format:@"Expected NSString or NSNumber"];
         return nil;
     }
 }
@@ -311,7 +318,7 @@ NSString * const SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
     } else if ([value isKindOfClass:[NSNumber class]]) {
         return [NSNumber numberWithBool:[(NSNumber*)value integerValue] == 1];
     } else {
-        [NSException raise:@"ArgumentException" format:@"Expected NSString or NSNumber"];
+        [NSException raise:@"CloudinaryError" format:@"Expected NSString or NSNumber"];
         return nil;
     }
 }

@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
-#import "Transformation.h"
-#import "Cloudinary.h"
+#import "CLTransformation.h"
+#import "CLCloudinary.h"
 
-@interface Transformation ()
+@interface CLTransformation ()
 {
 	NSMutableDictionary* params;
 	NSMutableArray* transformations;
@@ -21,7 +21,7 @@
 @end;
 
 
-@implementation Transformation
+@implementation CLTransformation
 
 @synthesize htmlHeight;
 @synthesize htmlWidth;
@@ -44,7 +44,7 @@
 
 + (id) transformation
 {
-    return [[Transformation alloc] init];
+    return [[CLTransformation alloc] init];
 }
 
 - (void) setWidth: (id) value { [self param:@"width" value:value]; }
@@ -163,8 +163,8 @@
 
 - (NSString*) generateWithParams:(NSDictionary*) options
 {
-    NSString* width = [Cloudinary asString:[options valueForKey:@"width"]];
-    NSString* height = [Cloudinary asString:[options valueForKey:@"height"]];
+    NSString* width = [CLCloudinary asString:[options valueForKey:@"width"]];
+    NSString* height = [CLCloudinary asString:[options valueForKey:@"height"]];
     NSString* size = [options valueForKey:@"size"];
     if (size != nil)
     {
@@ -177,7 +177,7 @@
     BOOL hasLayer = [[options valueForKey:@"overlay"] length] > 0 || [[options valueForKey:@"underlay"] length] > 0;
     
     NSString* crop = [options valueForKey:@"crop"];
-    NSString* angle = [[Cloudinary asArray:[options valueForKey:@"angle"]] componentsJoinedByString:@"."];
+    NSString* angle = [[CLCloudinary asArray:[options valueForKey:@"angle"]] componentsJoinedByString:@"."];
     
     BOOL noHtmlSizes = hasLayer || [angle length] > 0 || [crop isEqualToString:@"fit"] || [crop isEqualToString:@"limit"];
     
@@ -195,7 +195,7 @@
     {
         background = [background stringByReplacingOccurrencesOfString:@"#" withString:@"rgb:"];
     }
-    NSArray* transformationParam = [Cloudinary asArray:[options valueForKey:@"transformation"]];
+    NSArray* transformationParam = [CLCloudinary asArray:[options valueForKey:@"transformation"]];
     BOOL allNamed = TRUE;
     for (id trans in transformationParam) {
         if (![trans isKindOfClass:[NSString class]])
@@ -225,7 +225,7 @@
             }
         }
     }
-    NSString* flags = [[Cloudinary asArray:[options valueForKey:@"flags"]] componentsJoinedByString:@"."];
+    NSString* flags = [[CLCloudinary asArray:[options valueForKey:@"flags"]] componentsJoinedByString:@"."];
     
     NSMutableArray* transformation = [NSMutableArray array];
     [transformation addObject:[NSArray arrayWithObjects:@"w", width, nil]];
@@ -244,7 +244,7 @@
     {
         NSString* paramShort = [simpleParams objectAtIndex:i];
         NSString* paramName = [simpleParams objectAtIndex:i+1];
-        NSString* value = [Cloudinary asString:[options valueForKey:paramName]];
+        NSString* value = [CLCloudinary asString:[options valueForKey:paramName]];
         [transformation addObject:[NSArray arrayWithObjects:paramShort, value, nil]];
     }
     [transformation sortUsingComparator: ^(NSArray* obj1, NSArray* obj2) {

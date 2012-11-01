@@ -6,13 +6,14 @@
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
-#import "Uploader.h"
-#import "EagerTransformation.h"
-#import "Transformation.h"
+#import "CLUploader.h"
+#import "CLEagerTransformation.h"
+#import "CLTransformation.h"
 #import "SBJson.h"
+#import "NSDictionary+Utilities.h"
 
-@interface Uploader () {
-    Cloudinary *cloudinary;
+@interface CLUploader () {
+    CLCloudinary *cloudinary;
     id delegate;
     id context;
     NSMutableData *responseData;
@@ -26,9 +27,9 @@
 - (NSDictionary*) buildUploadParams:(NSDictionary*) options;
 @end
 
-@implementation Uploader
+@implementation CLUploader
 
-- (id) init:(Cloudinary*)cloudinary_ delegate:(id)delegate_
+- (id) init:(CLCloudinary*)cloudinary_ delegate:(id)delegate_
 {
     if ( self = [super init] )
     {
@@ -60,14 +61,14 @@
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
-    NSArray* tags = [Cloudinary asArray:[options valueForKey:@"tags"]];
+    NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];    
     [self callApi:@"explicit" file:nil params:params options:options];
 }
 - (void) addTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options
 {
     if (options == nil) options = [NSDictionary dictionary];
-    NSNumber* exclusive = [Cloudinary asBool:[options valueForKey:@"exclusive"]];
+    NSNumber* exclusive = [CLCloudinary asBool:[options valueForKey:@"exclusive"]];
     NSString* command = [exclusive boolValue] ? @"set_exclusive" : @"add";
     [self callTagsApi:tag command:command publicIds:publicIds options:options];
 }
@@ -90,7 +91,7 @@
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setValue:text forKey:@"text"];
     for (NSString* param in TEXT_PARAMS) {
-        NSString* paramValue = [Cloudinary asString:[options valueForKey:param]];
+        NSString* paramValue = [CLCloudinary asString:[options valueForKey:param]];
         [params setValue:paramValue forKey:param];
     }
     [self callApi:@"text" file:nil params:params options:options];
@@ -111,10 +112,10 @@
     if (options == nil) options = [NSDictionary dictionary];
     context = [options valueForKey:@"context"];
     NSString* apiKey = [cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
-    if (apiKey == nil) [NSException raise:@"ArgumentError" format:@"Must supply api_key"];
+    if (apiKey == nil) [NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
     if ([params valueForKey:@"signature"] == nil) {
         NSString* apiSecret = [cloudinary get:@"api_secret" options:options defaultValue:nil];
-        if (apiSecret == nil) [NSException raise:@"ArgumentError" format:@"Must supply api_secret"];
+        if (apiSecret == nil) [NSException raise:@"CloudinaryError" format:@"Must supply api_secret"];
         NSDate *today = [NSDate date];
         [params setValue:[NSNumber numberWithInt:(int) [today timeIntervalSince1970]] forKey:@"timestamp"];
         [params setValue:[cloudinary apiSignRequest:params secret:apiSecret] forKey:@"signature"];
@@ -127,7 +128,7 @@
     // create the connection with the request and start loading the data
     connection = [NSURLConnection connectionWithRequest:req delegate:self];
     if (connection == nil) {
-        [delegate error:@"Failed to initiate connection" code:0 context:context];
+        [delegate uploaderError:@"Failed to initiate connection" code:0 context:context];
     }
 }
 
@@ -147,7 +148,7 @@
 {
     int code = [response statusCode];
 
-    [delegate error:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
+    [delegate uploaderError:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
           [nserror localizedDescription],
           [[nserror userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]]
                code:code context:context];
@@ -159,24 +160,24 @@
     int code = [response statusCode];
     
     if (code != 200 && code != 400 && code != 401 && code != 500) {
-        [delegate error:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code context:context];
+        [delegate uploaderError:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code context:context];
         return;
     }
     
     SBJsonParser *parser = [SBJsonParser new];
     NSDictionary* result = [parser objectWithData:responseData];
     if (result == nil) {
-        [delegate error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", parser.error, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code context:context];
+        [delegate uploaderError:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", parser.error, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code context:context];
         return;
     }
     NSDictionary* errorResponse = [result valueForKey:@"error"];
     if (errorResponse == nil)
     {
-        [delegate success:result context:context];
+        [delegate uploaderSuccess:result context:context];
     }
     else
     {
-        [delegate error:[errorResponse valueForKey:@"message"] code:code context:context];
+        [delegate uploaderError:[errorResponse valueForKey:@"message"] code:code context:context];
     }
 }
 
@@ -196,7 +197,7 @@
     
     NSMutableData* postBody = [NSMutableData data];
     for (NSString* param in [params allKeys]) {
-        NSString* paramValue = [Cloudinary asString:[params valueForKey:param]];
+        NSString* paramValue = [CLCloudinary asString:[params valueForKey:param]];
         if ([paramValue length] == 0) continue;
         [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [postBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -222,7 +223,7 @@
                 NSError* error = nil;
                 data = [NSData dataWithContentsOfFile:file options:0 error:&error];
                 if (error != nil) {
-                    [NSException raise:@"ArgumentException" format:@"Error reading requested file - %@ %@",
+                    [NSException raise:@"CloudinaryError" format:@"Error reading requested file - %@ %@",
                                  [error localizedDescription],
                                  [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey], nil];
                 }
@@ -235,7 +236,7 @@
         }
         else
         {
-            [NSException raise:@"ArgumentException" format:@"file number be either url, path to file or NSData"];
+            [NSException raise:@"CloudinaryError" format:@"file number be either url, path to file or NSData"];
         }
         if (data != nil)
         {
@@ -267,16 +268,16 @@
         return nil;
     }
     NSMutableArray* eager = [NSMutableArray arrayWithCapacity:[transformations count]];
-    for (Transformation* transformation in transformations) {
+    for (CLTransformation* transformation in transformations) {
         NSMutableArray* singleEager = [NSMutableArray array];
         NSString* transformationString = [transformation generate];
         if ([transformationString length] > 0)
         {
             [singleEager addObject:transformationString];
         }
-        if ([transformation isKindOfClass:[EagerTransformation class]])
+        if ([transformation isKindOfClass:[CLEagerTransformation class]])
         {
-            EagerTransformation* eagerTransformation = (EagerTransformation*) transformation;
+            CLEagerTransformation* eagerTransformation = (CLEagerTransformation*) transformation;
             if ([eagerTransformation.format length] > 0)
             {
                 [singleEager addObject:eagerTransformation.format];
@@ -322,14 +323,14 @@
     if (options == nil) options = [NSDictionary dictionary];
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     id transformation = [options valueForKey:@"transformation" defaultValue:@""];
-    if ([transformation isKindOfClass:[Transformation class]]) {
-        transformation = [((Transformation*) transformation) generate];
+    if ([transformation isKindOfClass:[CLTransformation class]]) {
+        transformation = [((CLTransformation*) transformation) generate];
     }
     [params setValue:transformation forKey:@"transformation"];
     [params setValue:[options valueForKey:@"public_id"] forKey:@"public_id"];
     [params setValue:[options valueForKey:@"format"] forKey:@"format"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
-    NSNumber* backup = [Cloudinary asBool:[options valueForKey:@"backup"]];
+    NSNumber* backup = [CLCloudinary asBool:[options valueForKey:@"backup"]];
     if (backup != nil)
     {
         NSString* backupString = [backup boolValue] ? @"true" : @"false";
@@ -337,7 +338,7 @@
     }
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
-    NSArray* tags = [Cloudinary asArray:[options valueForKey:@"tags"]];
+    NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
     return params;    
 }

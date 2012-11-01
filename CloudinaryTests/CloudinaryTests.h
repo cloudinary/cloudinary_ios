@@ -10,7 +10,7 @@
 #import "Cloudinary.h"
 
 @interface CloudinaryTests : SenTestCase {
-    Cloudinary *cloudinary;
+    CLCloudinary *cloudinary;
 }
 
 @end

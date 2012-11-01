@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
-#import "Transformation.h"
+#import "CLTransformation.h"
 
-@interface EagerTransformation : Transformation
+@interface CLEagerTransformation : CLTransformation
 
 @property NSString* format;
 

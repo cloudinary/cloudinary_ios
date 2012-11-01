@@ -7,15 +7,13 @@
 //
 
 #import "CloudinaryTests.h"
-#import "Cloudinary.h"
-#import "Transformation.h"
 
 @implementation CloudinaryTests
 
 - (void)setUp
 {
     [super setUp];
-    cloudinary = [[Cloudinary alloc] initWithUrl:@"cloudinary://a:b@test123"];
+    cloudinary = [[CLCloudinary alloc] initWithUrl:@"cloudinary://a:b@test123"];
 }
 
 - (void)tearDown
@@ -25,7 +23,7 @@
 
 - (void)testParseCloudinaryUrlNoPrivateCdn
 {
-    Cloudinary *cloudinary2 = [[Cloudinary alloc] initWithUrl:@"cloudinary://abc:def@ghi"];
+    CLCloudinary *cloudinary2 = [[CLCloudinary alloc] initWithUrl:@"cloudinary://abc:def@ghi"];
     NSDictionary *config = [cloudinary2 config];
     STAssertEqualObjects([config valueForKey:@"api_key"], @"abc", nil);
     STAssertEqualObjects([config valueForKey:@"api_secret"], @"def", nil);
@@ -35,7 +33,7 @@
 
 - (void)testParseCloudinaryUrlWithPrivateCdn
 {
-    Cloudinary *cloudinary2 = [[Cloudinary alloc] initWithUrl:@"cloudinary://abc:def@ghi/jkl"];
+    CLCloudinary *cloudinary2 = [[CLCloudinary alloc] initWithUrl:@"cloudinary://abc:def@ghi/jkl"];
     NSDictionary *config = [cloudinary2 config];
     STAssertEqualObjects([config valueForKey:@"api_key"], @"abc", nil);
     STAssertEqualObjects([config valueForKey:@"api_secret"], @"def", nil);
@@ -82,7 +80,7 @@
     // secure_distribution
     [cloudinary.config setValue:[NSNumber numberWithBool:YES] forKey:@"private_cdn"];
     NSDictionary* options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"secure"];
-    STAssertThrowsSpecificNamed([cloudinary url:@"test" options:options], NSException, @"ArgumentException", nil);
+    STAssertThrowsSpecificNamed([cloudinary url:@"test" options:options], NSException, @"CloudinaryError", nil);
 }
 
 - (void) testFormat {
@@ -93,14 +91,14 @@
 
 
 - (void) testCrop {
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setWidthWithInt:100];
     [transformation setHeightWithInt:101];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/h_101,w_100/test", result, nil);
     STAssertEqualObjects(@"101", transformation.htmlHeight, nil);
     STAssertEqualObjects(@"100", transformation.htmlWidth, nil);
-    transformation = [Transformation transformation];
+    transformation = [CLTransformation transformation];
     [transformation setWidth:[NSNumber numberWithInt:100]];
     [transformation setHeight:[NSNumber numberWithInt:101]];
     [transformation setCrop:@"crop"];
@@ -112,7 +110,7 @@
 
 - (void) testVariousOptions {
     // should use x, y, radius, prefix, gravity and quality from options
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setXWithInt:1];
     [transformation setYWithInt:2];
     [transformation setRadiusWithInt:3];
@@ -126,7 +124,7 @@
 
 - (void) testTransformationSimple {
     // should support named transformation
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setNamed:@"blip"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/t_blip/test", result, nil);
@@ -135,7 +133,7 @@
 
 - (void) testTransformationArray {
     // should support array of named transformations
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setNamed:[NSArray arrayWithObjects:@"blip", @"blop",nil]];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/t_blip.blop/test", result, nil);
@@ -144,7 +142,7 @@
 
 - (void) testBaseTransformations {
     // should support base transformation
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setXWithInt:100];
     [transformation setYWithInt:100];
     [transformation setCrop:@"fill"];
@@ -160,7 +158,7 @@
 
 - (void) testBaseTransformationArray {
     // should support array of base transformations
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setXWithInt:100];
     [transformation setYWithInt:100];
     [transformation setWidthWithInt:200];
@@ -179,7 +177,7 @@
 
 - (void) testNoEmptyTransformation {
     // should not include empty transformations
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setXWithInt:100];
     [transformation setYWithInt:100];
     [transformation setCrop:@"fill"];
@@ -245,11 +243,11 @@
 
 - (void) testBackground {
     // should support background
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setBackground:@"red"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/b_red/test", result, nil);
-    transformation = [Transformation transformation];
+    transformation = [CLTransformation transformation];
     [transformation setBackground:@"#112233"];
     result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/b_rgb:112233/test", result, nil);
@@ -258,7 +256,7 @@
 
 - (void) testDefaultImage {
     // should support default_image
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setDefaultImage:@"default"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/d_default/test", result, nil);
@@ -267,11 +265,11 @@
 
 - (void) testAngle {
     // should support angle
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setAngleWithInt:12];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/a_12/test", result, nil);
-    transformation = [Transformation transformation];
+    transformation = [CLTransformation transformation];
     [transformation setAngle:[NSArray arrayWithObjects:@"exif", @"12", nil]];
     result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/a_exif.12/test", result, nil);
@@ -280,12 +278,12 @@
 
 - (void) testOverlay {
     // should support overlay
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setOverlay:@"text:hello"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/l_text:hello/test", result, nil);
     // should not pass width/height to html if overlay
-    transformation = [Transformation transformation];
+    transformation = [CLTransformation transformation];
     [transformation setOverlay:@"text:hello"];
     [transformation setWidth:@"100"];
     [transformation setHeight:@"100"];
@@ -297,12 +295,12 @@
 
 
 - (void) testUnderlay {
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setUnderlay:@"text:hello"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/u_text:hello/test", result, nil);
     // should not pass width/height to html if overlay
-    transformation = [Transformation transformation];
+    transformation = [CLTransformation transformation];
     [transformation setUnderlay:@"text:hello"];
     [transformation setWidth:@"100"];
     [transformation setHeight:@"100"];
@@ -322,7 +320,7 @@
 
 - (void) testEffect {
     // should support effect
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setEffect:@"sepia"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/e_sepia/test", result, nil);
@@ -331,7 +329,7 @@
 
 - (void) testEffectWithParam {
     // should support effect with param
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setEffect:@"sepia" param:[NSNumber numberWithInt:10]];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/e_sepia:10/test", result, nil);
@@ -340,7 +338,7 @@
 
 - (void) testDensity {
     // should support density
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setDensityWithInt:150];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/dn_150/test", result, nil);
@@ -349,7 +347,7 @@
 
 - (void) testPage {
     // should support page
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setPageWithInt:5];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/pg_5/test", result, nil);
@@ -358,15 +356,15 @@
 
 - (void) testBorder {
     // should support border
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setBorder:5 color:@"black"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/bo_5px_solid_black/test", result, nil);
-    transformation = [Transformation transformation];
+    transformation = [CLTransformation transformation];
     [transformation setBorder:5 color:@"#ffaabbdd"];
     result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/bo_5px_solid_rgb:ffaabbdd/test", result, nil);
-    transformation = [Transformation transformation];
+    transformation = [CLTransformation transformation];
     [transformation setBorder:@"1px_solid_blue"];
     result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/bo_1px_solid_blue/test", result, nil);
@@ -375,11 +373,11 @@
 
 - (void) testFlags {
     // should support flags
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setFlags:@"abc"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/fl_abc/test", result, nil);
-    transformation = [Transformation transformation];
+    transformation = [CLTransformation transformation];
     [transformation setFlags:[NSArray arrayWithObjects:@"abc", @"def", nil]];
     result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/fl_abc.def/test", result, nil);
@@ -387,7 +385,7 @@
 
 
 - (void) testImageTag {
-    Transformation* transformation = [Transformation transformation];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setWidthWithInt:100];
     [transformation setHeightWithInt:101];
     [transformation setCrop:@"crop"];

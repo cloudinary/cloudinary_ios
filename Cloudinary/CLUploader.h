@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Cloudinary.h"
+#import "CLCloudinary.h"
 
-@protocol UploaderDelegate <NSObject>
-- (void) success:(NSDictionary*)result context:(id)context;
-- (void) error:(NSString*)result code:(int) code context:(id)context;
+@protocol CLUploaderDelegate <NSObject>
+- (void) uploaderSuccess:(NSDictionary*)result context:(id)context;
+- (void) uploaderError:(NSString*)result code:(int) code context:(id)context;
 @end
 
-@interface Uploader : NSObject
-- (id) init:(Cloudinary*)cloudinary delegate:(id <UploaderDelegate> )delegate;
+@interface CLUploader : NSObject
+- (id) init:(CLCloudinary*)cloudinary delegate:(id <CLUploaderDelegate> )delegate;
 - (void) upload:(id)file options:(NSDictionary*) options;
 - (void) destroy:(NSString*)publicId options:(NSDictionary*) options;
 - (void) explicit:(NSString*)publicId options:(NSDictionary*) options;

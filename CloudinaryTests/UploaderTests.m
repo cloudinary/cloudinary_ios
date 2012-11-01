@@ -7,10 +7,8 @@
 //
 
 #import "UploaderTests.h"
-#import "Uploader.h"
-#import "Transformation.h"
 
-@interface UploaderTests () <UploaderDelegate> {
+@interface UploaderTests () <CLUploaderDelegate> {
     NSString* error;
     NSDictionary* result;
 }
@@ -27,7 +25,7 @@
 - (void)setUp
 {
     [super setUp];
-    cloudinary = [[Cloudinary alloc] init];
+    cloudinary = [[CLCloudinary alloc] init];
     error = nil;
     result = nil;
 }
@@ -55,12 +53,12 @@
     }
 }
 
-- (void)success:(NSDictionary*)res context:(id)context
+- (void)uploaderSuccess:(NSDictionary*)res context:(id)context
 {
     result = res;
 }
 
-- (void)error:(NSString*)err code:(int) code context:(id)context
+- (void)uploaderError:(NSString*)err code:(int) code context:(id)context
 {
     error = err;
 }
@@ -68,7 +66,7 @@
 - (void)testUpload
 {
     VerifyAPISecret();
-    Uploader* uploader = [[Uploader alloc] init:cloudinary delegate:self];
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:[NSDictionary dictionary]];
     [self waitForCompletion];
     STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
@@ -85,8 +83,8 @@
 - (void)testExplicit
 {
     VerifyAPISecret();
-    Uploader* uploader = [[Uploader alloc] init:cloudinary delegate:self];
-    Transformation* transformation = [Transformation transformation];
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setCrop:@"scale"];
     [transformation setWidthWithFloat:2.0];
     [uploader explicit:@"cloudinary" options:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -109,8 +107,8 @@
 - (void) testEager
 {
     VerifyAPISecret();
-    Uploader* uploader = [[Uploader alloc] init:cloudinary delegate:self];
-    Transformation* transformation = [Transformation transformation];
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    CLTransformation* transformation = [CLTransformation transformation];
     [transformation setCrop:@"scale"];
     [transformation setWidthWithFloat:2.0];
     [uploader upload:[self logo] options:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -123,7 +121,7 @@
 - (void) testHeaders
 {
     VerifyAPISecret();
-    Uploader* uploader = [[Uploader alloc] init:cloudinary delegate:self];
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:[NSDictionary dictionaryWithObject:[NSArray arrayWithObject:@"Link: 1"]
                                                                            forKey:@"headers"]];
     [uploader upload:[self logo] options:[NSDictionary dictionaryWithObject:
@@ -135,7 +133,7 @@
 - (void) testText
 {
     VerifyAPISecret();
-    Uploader* uploader = [[Uploader alloc] init:cloudinary delegate:self];
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader text:@"hello world" options:[NSDictionary dictionary]];
     [self waitForCompletion];
     STAssertTrue([(NSNumber*)[result valueForKey:@"width"] integerValue] > 1, nil);

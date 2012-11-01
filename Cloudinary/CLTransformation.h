@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Transformation : NSObject
+@interface CLTransformation : NSObject
 
 - (id) initWithDictionaries: (NSArray*) transformations;
 - (id) init;

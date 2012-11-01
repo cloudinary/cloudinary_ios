@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		723C80BB163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
-		723C80C0163885C7003FB3FB /* Cloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* Cloudinary.h */; };
-		723C80C2163885C7003FB3FB /* Cloudinary.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80C1163885C7003FB3FB /* Cloudinary.m */; };
+		723C80C0163885C7003FB3FB /* CLCloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* CLCloudinary.h */; };
+		723C80C2163885C7003FB3FB /* CLCloudinary.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80C1163885C7003FB3FB /* CLCloudinary.m */; };
 		723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80C9163885C7003FB3FB /* SenTestingKit.framework */; };
 		723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
 		723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80B7163885C7003FB3FB /* libCloudinary.a */; };
@@ -17,12 +17,12 @@
 		723C80D9163885C7003FB3FB /* CloudinaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80D8163885C7003FB3FB /* CloudinaryTests.m */; };
 		723C80E41638FD7A003FB3FB /* NSDictionary+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */; };
 		723C80E616393B13003FB3FB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80E516393B13003FB3FB /* Security.framework */; };
-		723C80EB16394BAA003FB3FB /* Transformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80EA16394BAA003FB3FB /* Transformation.m */; };
+		723C80EB16394BAA003FB3FB /* CLTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80EA16394BAA003FB3FB /* CLTransformation.m */; };
 		723C80F51639C820003FB3FB /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80F41639C820003FB3FB /* NSString+URLEncoding.m */; };
 		723C81011639E937003FB3FB /* NSDictionary+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */; };
 		723C81021639E940003FB3FB /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80F41639C820003FB3FB /* NSString+URLEncoding.m */; };
-		723C8105163A9118003FB3FB /* Uploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8104163A9118003FB3FB /* Uploader.m */; };
-		723C8108163AB193003FB3FB /* EagerTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8107163AB193003FB3FB /* EagerTransformation.m */; };
+		723C8105163A9118003FB3FB /* CLUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8104163A9118003FB3FB /* CLUploader.m */; };
+		723C8108163AB193003FB3FB /* CLEagerTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8107163AB193003FB3FB /* CLEagerTransformation.m */; };
 		723C8122163C461E003FB3FB /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C810A163C461B003FB3FB /* NSObject+SBJson.m */; };
 		723C8123163C461E003FB3FB /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C810D163C461B003FB3FB /* SBJsonParser.m */; };
 		723C8124163C461E003FB3FB /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C810F163C461B003FB3FB /* SBJsonStreamParser.m */; };
@@ -37,6 +37,10 @@
 		723C812D163C461E003FB3FB /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8121163C461E003FB3FB /* SBJsonWriter.m */; };
 		723C8131163C707C003FB3FB /* UploaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8130163C707C003FB3FB /* UploaderTests.m */; };
 		723C8193163D3EC2003FB3FB /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 723C8192163D3EC2003FB3FB /* logo.png */; };
+		723E72341642B9F7004CFB6E /* CLTransformation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C80E916394BAA003FB3FB /* CLTransformation.h */; };
+		723E72351642B9F7004CFB6E /* CLUploader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8103163A9118003FB3FB /* CLUploader.h */; };
+		723E72361642B9F7004CFB6E /* CLEagerTransformation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8106163AB193003FB3FB /* CLEagerTransformation.h */; };
+		723E72381642D487004CFB6E /* Cloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723E72371642D295004CFB6E /* Cloudinary.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +60,11 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
-				723C80C0163885C7003FB3FB /* Cloudinary.h in CopyFiles */,
+				723E72381642D487004CFB6E /* Cloudinary.h in CopyFiles */,
+				723E72341642B9F7004CFB6E /* CLTransformation.h in CopyFiles */,
+				723E72351642B9F7004CFB6E /* CLUploader.h in CopyFiles */,
+				723E72361642B9F7004CFB6E /* CLEagerTransformation.h in CopyFiles */,
+				723C80C0163885C7003FB3FB /* CLCloudinary.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,8 +74,8 @@
 		723C80B7163885C7003FB3FB /* libCloudinary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCloudinary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		723C80BA163885C7003FB3FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		723C80BE163885C7003FB3FB /* Cloudinary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cloudinary-Prefix.pch"; sourceTree = "<group>"; };
-		723C80BF163885C7003FB3FB /* Cloudinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cloudinary.h; sourceTree = "<group>"; };
-		723C80C1163885C7003FB3FB /* Cloudinary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cloudinary.m; sourceTree = "<group>"; };
+		723C80BF163885C7003FB3FB /* CLCloudinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLCloudinary.h; sourceTree = "<group>"; };
+		723C80C1163885C7003FB3FB /* CLCloudinary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLCloudinary.m; sourceTree = "<group>"; };
 		723C80C8163885C7003FB3FB /* CloudinaryTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudinaryTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		723C80C9163885C7003FB3FB /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		723C80D3163885C7003FB3FB /* CloudinaryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudinaryTests-Info.plist"; sourceTree = "<group>"; };
@@ -77,14 +85,14 @@
 		723C80E21638FD7A003FB3FB /* NSDictionary+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Utilities.h"; sourceTree = "<group>"; };
 		723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Utilities.m"; sourceTree = "<group>"; };
 		723C80E516393B13003FB3FB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		723C80E916394BAA003FB3FB /* Transformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transformation.h; sourceTree = "<group>"; };
-		723C80EA16394BAA003FB3FB /* Transformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transformation.m; sourceTree = "<group>"; };
+		723C80E916394BAA003FB3FB /* CLTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTransformation.h; sourceTree = "<group>"; };
+		723C80EA16394BAA003FB3FB /* CLTransformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTransformation.m; sourceTree = "<group>"; };
 		723C80F31639C820003FB3FB /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		723C80F41639C820003FB3FB /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
-		723C8103163A9118003FB3FB /* Uploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Uploader.h; sourceTree = "<group>"; };
-		723C8104163A9118003FB3FB /* Uploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Uploader.m; sourceTree = "<group>"; };
-		723C8106163AB193003FB3FB /* EagerTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EagerTransformation.h; sourceTree = "<group>"; };
-		723C8107163AB193003FB3FB /* EagerTransformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EagerTransformation.m; sourceTree = "<group>"; };
+		723C8103163A9118003FB3FB /* CLUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUploader.h; sourceTree = "<group>"; };
+		723C8104163A9118003FB3FB /* CLUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLUploader.m; sourceTree = "<group>"; };
+		723C8106163AB193003FB3FB /* CLEagerTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLEagerTransformation.h; sourceTree = "<group>"; };
+		723C8107163AB193003FB3FB /* CLEagerTransformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLEagerTransformation.m; sourceTree = "<group>"; };
 		723C8109163C461B003FB3FB /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		723C810A163C461B003FB3FB /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		723C810B163C461B003FB3FB /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -113,6 +121,7 @@
 		723C812F163C707C003FB3FB /* UploaderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploaderTests.h; sourceTree = "<group>"; };
 		723C8130163C707C003FB3FB /* UploaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderTests.m; sourceTree = "<group>"; };
 		723C8192163D3EC2003FB3FB /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		723E72371642D295004CFB6E /* Cloudinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cloudinary.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,19 +180,20 @@
 			isa = PBXGroup;
 			children = (
 				723C812E163C4629003FB3FB /* SBJson */,
-				723C80BF163885C7003FB3FB /* Cloudinary.h */,
-				723C80C1163885C7003FB3FB /* Cloudinary.m */,
+				723C80BF163885C7003FB3FB /* CLCloudinary.h */,
+				723C80C1163885C7003FB3FB /* CLCloudinary.m */,
 				723C80F31639C820003FB3FB /* NSString+URLEncoding.h */,
 				723C80F41639C820003FB3FB /* NSString+URLEncoding.m */,
 				723C80BD163885C7003FB3FB /* Supporting Files */,
 				723C80E21638FD7A003FB3FB /* NSDictionary+Utilities.h */,
 				723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */,
-				723C80E916394BAA003FB3FB /* Transformation.h */,
-				723C80EA16394BAA003FB3FB /* Transformation.m */,
-				723C8103163A9118003FB3FB /* Uploader.h */,
-				723C8104163A9118003FB3FB /* Uploader.m */,
-				723C8106163AB193003FB3FB /* EagerTransformation.h */,
-				723C8107163AB193003FB3FB /* EagerTransformation.m */,
+				723C80E916394BAA003FB3FB /* CLTransformation.h */,
+				723C80EA16394BAA003FB3FB /* CLTransformation.m */,
+				723C8103163A9118003FB3FB /* CLUploader.h */,
+				723C8104163A9118003FB3FB /* CLUploader.m */,
+				723C8106163AB193003FB3FB /* CLEagerTransformation.h */,
+				723C8107163AB193003FB3FB /* CLEagerTransformation.m */,
+				723E72371642D295004CFB6E /* Cloudinary.h */,
 			);
 			path = Cloudinary;
 			sourceTree = "<group>";
@@ -349,12 +359,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				723C80C2163885C7003FB3FB /* Cloudinary.m in Sources */,
+				723C80C2163885C7003FB3FB /* CLCloudinary.m in Sources */,
 				723C80E41638FD7A003FB3FB /* NSDictionary+Utilities.m in Sources */,
-				723C80EB16394BAA003FB3FB /* Transformation.m in Sources */,
+				723C80EB16394BAA003FB3FB /* CLTransformation.m in Sources */,
 				723C80F51639C820003FB3FB /* NSString+URLEncoding.m in Sources */,
-				723C8105163A9118003FB3FB /* Uploader.m in Sources */,
-				723C8108163AB193003FB3FB /* EagerTransformation.m in Sources */,
+				723C8105163A9118003FB3FB /* CLUploader.m in Sources */,
+				723C8108163AB193003FB3FB /* CLEagerTransformation.m in Sources */,
 				723C8122163C461E003FB3FB /* NSObject+SBJson.m in Sources */,
 				723C8123163C461E003FB3FB /* SBJsonParser.m in Sources */,
 				723C8124163C461E003FB3FB /* SBJsonStreamParser.m in Sources */,
@@ -424,7 +434,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -445,7 +455,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -456,6 +466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/Cloudinary.dst;
+				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -473,6 +484,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/Cloudinary.dst;
+				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
