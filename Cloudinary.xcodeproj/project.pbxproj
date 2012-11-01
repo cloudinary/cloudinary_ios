@@ -11,7 +11,6 @@
 		723C80C0163885C7003FB3FB /* Cloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* Cloudinary.h */; };
 		723C80C2163885C7003FB3FB /* Cloudinary.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80C1163885C7003FB3FB /* Cloudinary.m */; };
 		723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80C9163885C7003FB3FB /* SenTestingKit.framework */; };
-		723C80CC163885C7003FB3FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80CB163885C7003FB3FB /* UIKit.framework */; };
 		723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
 		723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80B7163885C7003FB3FB /* libCloudinary.a */; };
 		723C80D6163885C7003FB3FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 723C80D4163885C7003FB3FB /* InfoPlist.strings */; };
@@ -71,7 +70,6 @@
 		723C80C1163885C7003FB3FB /* Cloudinary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cloudinary.m; sourceTree = "<group>"; };
 		723C80C8163885C7003FB3FB /* CloudinaryTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudinaryTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		723C80C9163885C7003FB3FB /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		723C80CB163885C7003FB3FB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		723C80D3163885C7003FB3FB /* CloudinaryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudinaryTests-Info.plist"; sourceTree = "<group>"; };
 		723C80D5163885C7003FB3FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		723C80D7163885C7003FB3FB /* CloudinaryTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudinaryTests.h; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */,
-				723C80CC163885C7003FB3FB /* UIKit.framework in Frameworks */,
 				723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */,
 				723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */,
 			);
@@ -166,7 +163,6 @@
 				723C80E516393B13003FB3FB /* Security.framework */,
 				723C80BA163885C7003FB3FB /* Foundation.framework */,
 				723C80C9163885C7003FB3FB /* SenTestingKit.framework */,
-				723C80CB163885C7003FB3FB /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
