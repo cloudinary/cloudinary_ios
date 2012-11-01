@@ -80,6 +80,21 @@
     STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
 }
 
+- (void)testUploadExternalSignature
+{
+    VerifyAPISecret();
+    CLCloudinary* emptyCloudinary = [[CLCloudinary alloc] initWithUrl:@"cloudinary://a"];
+    CLUploader* uploader = [[CLUploader alloc] init:emptyCloudinary delegate:self];
+    NSDate *today = [NSDate date];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:(int) [today timeIntervalSince1970]] forKey:@"timestamp"];
+    NSString* signature = [cloudinary apiSignRequest:params secret:[cloudinary.config valueForKey:@"api_secret"]];
+    [params setValue:signature forKey:@"signature"];
+    [params setValue:[cloudinary.config valueForKey:@"api_key"] forKey:@"api_key"];
+    [params setValue:[cloudinary.config valueForKey:@"cloud_name"] forKey:@"cloud_name"];
+    [uploader upload:[self logo] options:params];
+    [self waitForCompletion];
+}
+
 - (void)testExplicit
 {
     VerifyAPISecret();

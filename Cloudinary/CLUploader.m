@@ -113,7 +113,7 @@
     context = [options valueForKey:@"context"];
     NSString* apiKey = [cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
     if (apiKey == nil) [NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
-    if ([params valueForKey:@"signature"] == nil) {
+    if ([options valueForKey:@"signature"] == nil || [options valueForKey:@"timestamp"] == nil) {
         NSString* apiSecret = [cloudinary get:@"api_secret" options:options defaultValue:nil];
         if (apiSecret == nil) [NSException raise:@"CloudinaryError" format:@"Must supply api_secret"];
         NSDate *today = [NSDate date];
