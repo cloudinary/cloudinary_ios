@@ -74,10 +74,10 @@ The following example creates a `CLCloudinary` object initializd with a `CLOUDIN
 
 You can also set any configuration parameter programatically:
 
-    CLCloudinary *simpleCloudinary = [[CLCloudinary alloc] init];
-    [simpleCloudinary.config setValue:@"n07t21i7" forKey:@"cloud_name"];
-    [simpleCloudinary.config setValue:@"123456789012345" forKey:@"api_key"];
-    [simpleCloudinary.config setValue:@"abcdeghijklmnopqrstuvwxyz12" forKey:@"api_secret"];
+    CLCloudinary *cloudinary = [[CLCloudinary alloc] init];
+    [cloudinary.config setValue:@"n07t21i7" forKey:@"cloud_name"];
+    [cloudinary.config setValue:@"123456789012345" forKey:@"api_key"];
+    [cloudinary.config setValue:@"abcdeghijklmnopqrstuvwxyz12" forKey:@"api_secret"];
 
 
 ### Embedding and transforming images
@@ -208,6 +208,8 @@ Cloudinary's iOS SDK allows providing server-generated signature and any additio
 The following example intializes CLCloudinary without any authentication parameters:
 
 	CLCloudinary *mobileCloudinary = [[CLCloudinary alloc] init];
+
+    [mobileCloudinary.config setValue:@"n07t21i7" forKey:@"cloud_name"];
 
 Your server can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java, Perl, .Net, etc.) for generating the signature. The following JSON in an example of a response of an upload authorization request to your server:  
 
