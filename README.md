@@ -15,7 +15,8 @@ For iOS, Cloudinary provides an SDK for simplifying the integration even further
 
 Download the latest SDK version from the following URL: 
 
-	https://github.com/cloudinary/cloudinary_ios/downloads
+[https://github.com/cloudinary/cloudinary_ios/downloads](https://github.com/cloudinary/cloudinary_ios/downloads)
+	
 
 Extract the ZIP file and drag `libCloudinary.a` to the `Frameworks` folder of your Xcode project. Drag the `Cloudinary` folder that contains all .h include files to your Xcode project.
  
