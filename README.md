@@ -18,7 +18,9 @@ Download the latest SDK version from the following URL:
 [https://github.com/cloudinary/cloudinary_ios/downloads](https://github.com/cloudinary/cloudinary_ios/downloads)
 	
 
-Extract the ZIP file and drag `libCloudinary.a` to the `Frameworks` folder of your Xcode project. Drag the `Cloudinary` folder that contains all .h include files to your Xcode project.
+Extract the ZIP file and drag `libCloudinary.a` and `libSBjson.a` to the `Frameworks` folder of your Xcode project. Drag the `Cloudinary` folder that contains all .h include files to your Xcode project.
+
+*Note: If you already use `SBJson` in your project, you should not copy `libSBjson.a` to your project. 
  
 In Xcode, double-click the target's name under `Targets` in the `Project` window. Choose the `Build Settings` tab. Search for the `Other Linker Flags` build setting under the `Linking` collection and set its value to `-ObjC`.
 
@@ -131,7 +133,7 @@ See [our documentation](http://cloudinary.com/documentation/image_transformation
 
 Assuming you have your Cloudinary configuration parameters defined (`cloud_name`, `api_key`, `api_secret`), uploading to Cloudinary is very simple.
     
-First you need to implement the `CLUploaderDelegate` protocol for receiving successful and failed upload callbacks. For example:
+First you need to implement the `CLUploaderDelegate` protocol for receiving successful and failed upload callbacks as well as upload progress notification. For example:
 
 	#import "ViewController.h"
 	#import "Cloudinary/Cloudinary.h"
@@ -145,11 +147,15 @@ First you need to implement the `CLUploaderDelegate` protocol for receiving succ
 	
 	- (void) uploaderSuccess:(NSDictionary*)result context:(id)context {
 	    NSString* publicId = [result valueForKey:@"public_id"];
-	    NSLog(@"Updload success. Public ID=%@, Full result=%@", publicId, result);
+	    NSLog(@"Upload success. Public ID=%@, Full result=%@", publicId, result);
 	}
 	
 	- (void) uploaderError:(NSString*)result code:(int) code context:(id)context {
 	    NSLog(@"Upload error: %@, %d", result, code);
+	}
+
+	- (void) uploaderProgress:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite context:(id)context {
+	    NSLog(@"Upload progress: %d/%d (+%d)", totalBytesWritten, totalBytesExpectedToWrite, bytesWritten);
 	}
 	
 	@end
@@ -193,7 +199,22 @@ You can also specify your own public ID. In the following example the actual dat
 The following example uploads an image based on a given remote URL:
 
     [uploader upload:@"http://cloudinary.com/images/logo.png" options:[NSDictionary dictionary]];
-    
+
+Instead of implementing the `CLUploaderDelegate` you can provide block parameters for receiving uploading progress and completion events. The following example uploaded a local image while providing `withCompletion` & `andProgress` blocks:
+
+    [uploader upload:imageFilePath options:[NSDictionary dictionary] withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
+        if (successResult) {
+            NSString* publicId = [successResult valueForKey:@"public_id"];
+            NSLog(@"Block upload success. Public ID=%@, Full result=%@", publicId, successResult);
+        } else {
+            NSLog(@"Block upload error: %@, %d", errorResult, code);
+            
+        }
+    } andProgress:^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite, id context) {
+        NSLog(@"Block upload progress: %d/%d (+%d)", totalBytesWritten, totalBytesExpectedToWrite, bytesWritten);        
+    }];
+
+*Note: A dedicated `CLUploader` instance must be used for each file uploading. 
         
 See [our documentation](http://cloudinary.com/documentation/upload_images) for plenty more options of direct uploading to the cloud. 
 
