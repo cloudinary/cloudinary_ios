@@ -58,9 +58,14 @@
     result = res;
 }
 
-- (void)uploaderError:(NSString*)err code:(int) code context:(id)context
+- (void)uploaderError:(NSString*)err code:(NSInteger) code context:(id)context
 {
     error = err;
+}
+
+- (void) uploaderProgress:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite context:(id)context
+{
+    NSLog(@"%d/%d (+%d)", totalBytesWritten, totalBytesExpectedToWrite, bytesWritten);
 }
 
 - (void)testUpload
@@ -78,6 +83,19 @@
                             nil];
     NSString* expectedSignature = [cloudinary apiSignRequest:toSign secret:[cloudinary.config valueForKey:@"api_secret"]];
     STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
+}
+
+- (void)testUploadWithBlock
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:nil];
+    [uploader upload:[self logo] options:[NSDictionary dictionary] withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
+        result = success;
+        error = errorResult;
+    } andProgress:nil];
+    [self waitForCompletion];
+    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
+    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
 }
 
 - (void)testUploadExternalSignature

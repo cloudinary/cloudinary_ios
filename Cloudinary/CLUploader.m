@@ -12,10 +12,12 @@
 #import "SBJson.h"
 #import "NSDictionary+Utilities.h"
 
-@interface CLUploader () {
+@interface CLUploader () <NSURLConnectionDataDelegate> {
     CLCloudinary *cloudinary;
     id delegate;
     id context;
+    CLUploaderCompletion completion;
+    CLUploaderProgress progress;
     NSMutableData *responseData;
     NSHTTPURLResponse *response;
     NSURLConnection *connection;
@@ -40,21 +42,67 @@
     return self;    
 }
 
+- (void) setCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+{
+    completion = completionBlock;
+    progress = progressBlock;
+}
+
 - (void) upload:(id)file options:(NSDictionary*) options
 {
+    [self upload:file options:options withCompletion:nil andProgress:nil];
+}
+
+- (void) destroy:(NSString*)publicId options:(NSDictionary*) options
+{
+    [self destroy:publicId options:options withCompletion:nil andProgress:nil];
+}
+
+- (void) explicit:(NSString*)publicId options:(NSDictionary*) options
+{
+    [self explicit:publicId options:options withCompletion:nil andProgress:nil];
+}
+
+- (void) addTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options
+{
+    [self addTag:tag publicIds:publicIds options:options withCompletion:nil andProgress:nil];
+}
+
+- (void) removeTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
+{
+    [self removeTag:tag publicIds:publicIds options:options withCompletion:nil andProgress:nil];
+}
+
+- (void) replaceTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
+{
+    [self replaceTag:tag publicIds:publicIds options:options withCompletion:nil andProgress:nil];
+}
+
+- (void) text:(NSString*)text options:(NSDictionary*) options;
+{
+    [self text:text options:options withCompletion:nil andProgress:nil];
+}
+
+- (void) upload:(id)file options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+{
+    [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil) options = [NSDictionary dictionary];
     NSDictionary* params = [self buildUploadParams:options];
     [self callApi:@"upload" file:file params:params options:options];
 }
-- (void) destroy:(NSString*)publicId options:(NSDictionary*) options
+
+- (void) destroy:(NSString*)publicId options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
+    [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil) options = [NSDictionary dictionary];
     NSString* type = [options valueForKey:@"type" defaultValue:@"upload"];
     NSDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", publicId, @"public_id", nil];
     [self callApi:@"destroy" file:nil params:params options:options];
 }
-- (void) explicit:(NSString*)publicId options:(NSDictionary*) options
+
+- (void) explicit:(NSString*)publicId options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
+    [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil) options = [NSDictionary dictionary];
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setValue:publicId forKey:@"public_id"];
@@ -65,25 +113,29 @@
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];    
     [self callApi:@"explicit" file:nil params:params options:options];
 }
-- (void) addTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options
+- (void) addTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
+    [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil) options = [NSDictionary dictionary];
     NSNumber* exclusive = [CLCloudinary asBool:[options valueForKey:@"exclusive"]];
     NSString* command = [exclusive boolValue] ? @"set_exclusive" : @"add";
     [self callTagsApi:tag command:command publicIds:publicIds options:options];
 }
-- (void) removeTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options
+- (void) removeTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
+    [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil) options = [NSDictionary dictionary];
     [self callTagsApi:tag command:@"remove" publicIds:publicIds options:options];
 }
-- (void) replaceTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options
+- (void) replaceTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
+    [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil) options = [NSDictionary dictionary];
     [self callTagsApi:tag command:@"replace" publicIds:publicIds options:options];
 }
-- (void) text:(NSString*)text options:(NSDictionary*) options
+- (void) text:(NSString*)text options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
+    [self setCompletion:completionBlock andProgress:progressBlock];
     NSArray* TEXT_PARAMS = [NSArray arrayWithObjects:
         @"public_id", @"font_family", @"font_size", @"font_color", @"text_align", @"font_weight",
         @"font_style", @"background", @"opacity", @"text_decoration", nil];
@@ -132,10 +184,9 @@
     // create the connection with the request and start loading the data
     connection = [NSURLConnection connectionWithRequest:req delegate:self];
     if (connection == nil) {
-        [delegate uploaderError:@"Failed to initiate connection" code:0 context:context];
+        [self error:@"Failed to initiate connection" code:0];
     }
 }
-
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse*)response_
 {
@@ -150,38 +201,38 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)nserror
 {
-    int code = [response statusCode];
+    NSInteger code = [response statusCode];
 
-    [delegate uploaderError:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
+    [self error:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
           [nserror localizedDescription],
           [[nserror userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]]
-               code:code context:context];
+               code:code];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 
-    int code = [response statusCode];
+    NSInteger code = [response statusCode];
     
     if (code != 200 && code != 400 && code != 401 && code != 500) {
-        [delegate uploaderError:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code context:context];
+        [self error:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code];
         return;
     }
     
     SBJsonParser *parser = [SBJsonParser new];
     NSDictionary* result = [parser objectWithData:responseData];
     if (result == nil) {
-        [delegate uploaderError:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", parser.error, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code context:context];
+        [self error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", parser.error, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code];
         return;
     }
     NSDictionary* errorResponse = [result valueForKey:@"error"];
     if (errorResponse == nil)
     {
-        [delegate uploaderSuccess:result context:context];
+        [self success:result];
     }
     else
     {
-        [delegate uploaderError:[errorResponse valueForKey:@"message"] code:code context:context];
+        [self error:[errorResponse valueForKey:@"message"] code:code];
     }
 }
 
@@ -347,5 +398,39 @@
     return params;    
 }
 
+- (void) success:(NSDictionary*)result
+{
+    if (completion != nil)
+    {
+        completion(result, nil, 200, context);
+    }
+    if (delegate != nil && [delegate respondsToSelector:@selector(uploaderSuccess:context:)])
+    {
+        [delegate uploaderSuccess:result context:context];
+    }
+}
+
+- (void) error:(NSString*)result code:(NSInteger)code
+{
+    if (completion != nil)
+    {
+        completion(nil, result, code, context);
+    }
+    if (delegate != nil && [delegate respondsToSelector:@selector(uploaderSuccess:context:)])
+    {
+        [delegate uploaderError:result code:code context:context];
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
+{
+    if (progress != nil)
+    {
+        progress(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, context);
+    }
+    if (delegate != nil && [delegate respondsToSelector:@selector(uploaderProgress:totalBytesWritten:totalBytesExpectedToWrite:context:)]) {
+        [delegate uploaderProgress:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite context:context];
+    }
+}
 
 @end
