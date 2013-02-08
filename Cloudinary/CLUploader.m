@@ -136,9 +136,12 @@
 - (void) text:(NSString*)text options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    NSArray* TEXT_PARAMS = [NSArray arrayWithObjects:
-        @"public_id", @"font_family", @"font_size", @"font_color", @"text_align", @"font_weight",
-        @"font_style", @"background", @"opacity", @"text_decoration", nil];
+    static NSArray* TEXT_PARAMS = nil;
+    if (TEXT_PARAMS == nil) {
+        TEXT_PARAMS = [NSArray arrayWithObjects:
+                       @"public_id", @"font_family", @"font_size", @"font_color", @"text_align", @"font_weight",
+                       @"font_style", @"background", @"opacity", @"text_decoration", nil];
+    }
     if (options == nil) options = [NSDictionary dictionary];
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setValue:text forKey:@"text"];
@@ -385,11 +388,16 @@
     [params setValue:[options valueForKey:@"public_id"] forKey:@"public_id"];
     [params setValue:[options valueForKey:@"format"] forKey:@"format"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
-    NSNumber* backup = [CLCloudinary asBool:[options valueForKey:@"backup"]];
-    if (backup != nil)
-    {
-        NSString* backupString = [backup boolValue] ? @"true" : @"false";
-        [options setValue:backupString forKey:@"backup"];
+    static NSArray * CL_BOOLEAN_UPLOAD_OPTIONS = nil;
+    if (CL_BOOLEAN_UPLOAD_OPTIONS == nil)
+        CL_BOOLEAN_UPLOAD_OPTIONS = [NSArray arrayWithObjects:@"backup", @"exif", @"faces", @"colors", @"image_metadata", nil];
+
+    for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS) {
+        NSNumber* value = [CLCloudinary asBool:[options valueForKey:flag]];
+        if (value != nil) {
+            NSString* valueString = [value boolValue] ? @"true" : @"false";
+            [options setValue:valueString forKey:flag];
+        }
     }
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];

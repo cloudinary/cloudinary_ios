@@ -21,6 +21,8 @@ typedef void(^CLUploaderProgress)(NSInteger bytesWritten, NSInteger totalBytesWr
 
 @interface CLUploader : NSObject
 - (id) init:(CLCloudinary*)cloudinary delegate:(id <CLUploaderDelegate> )delegate;
+- (void) cancel;
+
 - (void) upload:(id)file options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
 - (void) destroy:(NSString*)publicId options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
 - (void) explicit:(NSString*)publicId options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
