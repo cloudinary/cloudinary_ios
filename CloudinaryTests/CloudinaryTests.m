@@ -58,7 +58,7 @@
 - (void) testSecureDistribution {
     // should use default secure distribution if secure=TRUE
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"secure"]];
-    STAssertEqualObjects(@"https://d3jpl91pxevbkh.cloudfront.net/test123/image/upload/test", result, nil);
+    STAssertEqualObjects(@"https://cloudinary-a.akamaihd.net/test123/image/upload/test", result, nil);
 }
 
 - (void) testSecureDistributionOverwrite {
@@ -75,12 +75,22 @@
     STAssertEqualObjects(@"https://config.secure.distribution.com/test123/image/upload/test", result, nil);
 }
 
-- (void) testMissingSecureDistribution {
-    // should raise exception if secure is given with private_cdn and no
-    // secure_distribution
-    [cloudinary.config setValue:[NSNumber numberWithBool:YES] forKey:@"private_cdn"];
-    NSDictionary* options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"secure"];
-    STAssertThrowsSpecificNamed([cloudinary url:@"test" options:options], NSException, @"CloudinaryError", nil);
+- (void) testSecureAkamai {
+    // should default to akamai if secure is given with private_cdn and no secure_distribution
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure", [NSNumber numberWithBool:YES], @"private_cdn", nil]];
+    STAssertEqualObjects(@"https://cloudinary-a.akamaihd.net/test123/image/upload/test", result, nil);
+}
+
+- (void) testSecureNonAkamai {
+    // should not add cloud_name if private_cdn and secure non akamai secure_distribution
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure", [NSNumber numberWithBool:YES], @"private_cdn", @"something.cloudfront.net", @"secure_distribution", nil]];
+    STAssertEqualObjects(@"https://something.cloudfront.net/image/upload/test", result, nil);
+}
+
+- (void) testHttpPrivateCdn {
+    // should not add cloud_name if private_cdn and not secure
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"private_cdn", nil]];
+    STAssertEqualObjects(@"http://test123-res.cloudinary.com/image/upload/test", result, nil);
 }
 
 - (void) testFormat {

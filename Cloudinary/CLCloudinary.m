@@ -14,7 +14,9 @@
 
 NSString * const CL_VERSION = @"1.0.1";
 
-NSString * const CL_SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
+NSString * const CL_CF_SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
+NSString * const CL_AKAMAI_SHARED_CDN = @"cloudinary-a.akamaihd.net";
+NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
 
 @implementation CLCloudinary
 + (NSString*) version
@@ -192,13 +194,7 @@ NSString * const CL_SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
     }
     if ([secure boolValue] && [secureDistribution length] == 0)
     {
-        if ([privateCdn boolValue])
-        {
-            [NSException raise:@"CloudinaryError" format:@"secure_distribution not defined"];
-        } else
-        {
-            secureDistribution = CL_SHARED_CDN;
-        }
+        secureDistribution = CL_SHARED_CDN;
     }
     NSMutableString* prefix = [NSMutableString string];
     if ([secure boolValue]) {
@@ -225,7 +221,7 @@ NSString * const CL_SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
             [prefix appendString:@"res.cloudinary.com"];
         }
     }
-    if (![privateCdn boolValue])
+    if (![privateCdn boolValue] || ([secure boolValue] && [CL_AKAMAI_SHARED_CDN isEqualToString:secureDistribution]))
     {
         [prefix appendString:@"/"];
         [prefix appendString:cloudName];

@@ -9,6 +9,9 @@
 #import <Foundation/NSDictionary.h>
 
 extern NSString * const CL_SHARED_CDN;
+extern NSString * const CL_CF_SHARED_CDN;
+extern NSString * const CL_AKAMAI_SHARED_CDN;
+
 
 @interface CLCloudinary : NSObject {
     NSMutableDictionary* config;
