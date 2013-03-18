@@ -9,6 +9,5 @@
 #import "CLEagerTransformation.h"
 
 @implementation CLEagerTransformation
-@synthesize format;
 
 @end
