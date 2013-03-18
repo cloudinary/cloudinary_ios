@@ -29,33 +29,6 @@
 		723E72351642B9F7004CFB6E /* CLUploader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8103163A9118003FB3FB /* CLUploader.h */; };
 		723E72361642B9F7004CFB6E /* CLEagerTransformation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8106163AB193003FB3FB /* CLEagerTransformation.h */; };
 		723E72381642D487004CFB6E /* Cloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723E72371642D295004CFB6E /* Cloudinary.h */; };
-		725A4D8416D956E4004C0242 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D6B16D956E4004C0242 /* NSObject+SBJson.h */; };
-		725A4D8516D956E4004C0242 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D6C16D956E4004C0242 /* NSObject+SBJson.m */; };
-		725A4D8616D956E4004C0242 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D6D16D956E4004C0242 /* SBJson.h */; };
-		725A4D8716D956E4004C0242 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D6E16D956E4004C0242 /* SBJsonParser.h */; };
-		725A4D8816D956E4004C0242 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D6F16D956E4004C0242 /* SBJsonParser.m */; };
-		725A4D8916D956E4004C0242 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D7016D956E4004C0242 /* SBJsonStreamParser.h */; };
-		725A4D8A16D956E4004C0242 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D7116D956E4004C0242 /* SBJsonStreamParser.m */; };
-		725A4D8B16D956E4004C0242 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D7216D956E4004C0242 /* SBJsonStreamParserAccumulator.h */; };
-		725A4D8C16D956E4004C0242 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D7316D956E4004C0242 /* SBJsonStreamParserAccumulator.m */; };
-		725A4D8D16D956E4004C0242 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D7416D956E4004C0242 /* SBJsonStreamParserAdapter.h */; };
-		725A4D8E16D956E4004C0242 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D7516D956E4004C0242 /* SBJsonStreamParserAdapter.m */; };
-		725A4D8F16D956E4004C0242 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D7616D956E4004C0242 /* SBJsonStreamParserState.h */; };
-		725A4D9016D956E4004C0242 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D7716D956E4004C0242 /* SBJsonStreamParserState.m */; };
-		725A4D9116D956E4004C0242 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D7816D956E4004C0242 /* SBJsonStreamWriter.h */; };
-		725A4D9216D956E4004C0242 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D7916D956E4004C0242 /* SBJsonStreamWriter.m */; };
-		725A4D9316D956E4004C0242 /* SBJsonStreamWriterAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D7A16D956E4004C0242 /* SBJsonStreamWriterAccumulator.h */; };
-		725A4D9416D956E4004C0242 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D7B16D956E4004C0242 /* SBJsonStreamWriterAccumulator.m */; };
-		725A4D9516D956E4004C0242 /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D7C16D956E4004C0242 /* SBJsonStreamWriterState.h */; };
-		725A4D9616D956E4004C0242 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D7D16D956E4004C0242 /* SBJsonStreamWriterState.m */; };
-		725A4D9716D956E4004C0242 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D7E16D956E4004C0242 /* SBJsonTokeniser.h */; };
-		725A4D9816D956E4004C0242 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D7F16D956E4004C0242 /* SBJsonTokeniser.m */; };
-		725A4D9916D956E4004C0242 /* SBJsonUTF8Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D8016D956E4004C0242 /* SBJsonUTF8Stream.h */; };
-		725A4D9A16D956E4004C0242 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D8116D956E4004C0242 /* SBJsonUTF8Stream.m */; };
-		725A4D9B16D956E4004C0242 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 725A4D8216D956E4004C0242 /* SBJsonWriter.h */; };
-		725A4D9C16D956E4004C0242 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 725A4D8316D956E4004C0242 /* SBJsonWriter.m */; };
-		7295130A1646F3D90065DDA6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
-		7295130B1646F4440065DDA6 /* libSBjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 729512EA1646F2040065DDA6 /* libSBjson.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,13 +38,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 723C80B6163885C7003FB3FB;
 			remoteInfo = Cloudinary;
-		};
-		729513061646F2B40065DDA6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 723C80AE163885C7003FB3FB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 729512E91646F2040065DDA6;
-			remoteInfo = SBjson;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -119,33 +85,6 @@
 		723C8130163C707C003FB3FB /* UploaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderTests.m; sourceTree = "<group>"; };
 		723C8192163D3EC2003FB3FB /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		723E72371642D295004CFB6E /* Cloudinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cloudinary.h; sourceTree = "<group>"; };
-		725A4D6B16D956E4004C0242 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJson.h"; path = "SBJson/NSObject+SBJson.h"; sourceTree = SOURCE_ROOT; };
-		725A4D6C16D956E4004C0242 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJson.m"; path = "SBJson/NSObject+SBJson.m"; sourceTree = SOURCE_ROOT; };
-		725A4D6D16D956E4004C0242 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson.h; path = SBJson/SBJson.h; sourceTree = SOURCE_ROOT; };
-		725A4D6E16D956E4004C0242 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonParser.h; path = SBJson/SBJsonParser.h; sourceTree = SOURCE_ROOT; };
-		725A4D6F16D956E4004C0242 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonParser.m; path = SBJson/SBJsonParser.m; sourceTree = SOURCE_ROOT; };
-		725A4D7016D956E4004C0242 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParser.h; path = SBJson/SBJsonStreamParser.h; sourceTree = SOURCE_ROOT; };
-		725A4D7116D956E4004C0242 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParser.m; path = SBJson/SBJsonStreamParser.m; sourceTree = SOURCE_ROOT; };
-		725A4D7216D956E4004C0242 /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAccumulator.h; path = SBJson/SBJsonStreamParserAccumulator.h; sourceTree = SOURCE_ROOT; };
-		725A4D7316D956E4004C0242 /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAccumulator.m; path = SBJson/SBJsonStreamParserAccumulator.m; sourceTree = SOURCE_ROOT; };
-		725A4D7416D956E4004C0242 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAdapter.h; path = SBJson/SBJsonStreamParserAdapter.h; sourceTree = SOURCE_ROOT; };
-		725A4D7516D956E4004C0242 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAdapter.m; path = SBJson/SBJsonStreamParserAdapter.m; sourceTree = SOURCE_ROOT; };
-		725A4D7616D956E4004C0242 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserState.h; path = SBJson/SBJsonStreamParserState.h; sourceTree = SOURCE_ROOT; };
-		725A4D7716D956E4004C0242 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserState.m; path = SBJson/SBJsonStreamParserState.m; sourceTree = SOURCE_ROOT; };
-		725A4D7816D956E4004C0242 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriter.h; path = SBJson/SBJsonStreamWriter.h; sourceTree = SOURCE_ROOT; };
-		725A4D7916D956E4004C0242 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriter.m; path = SBJson/SBJsonStreamWriter.m; sourceTree = SOURCE_ROOT; };
-		725A4D7A16D956E4004C0242 /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterAccumulator.h; path = SBJson/SBJsonStreamWriterAccumulator.h; sourceTree = SOURCE_ROOT; };
-		725A4D7B16D956E4004C0242 /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterAccumulator.m; path = SBJson/SBJsonStreamWriterAccumulator.m; sourceTree = SOURCE_ROOT; };
-		725A4D7C16D956E4004C0242 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterState.h; path = SBJson/SBJsonStreamWriterState.h; sourceTree = SOURCE_ROOT; };
-		725A4D7D16D956E4004C0242 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterState.m; path = SBJson/SBJsonStreamWriterState.m; sourceTree = SOURCE_ROOT; };
-		725A4D7E16D956E4004C0242 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonTokeniser.h; path = SBJson/SBJsonTokeniser.h; sourceTree = SOURCE_ROOT; };
-		725A4D7F16D956E4004C0242 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonTokeniser.m; path = SBJson/SBJsonTokeniser.m; sourceTree = SOURCE_ROOT; };
-		725A4D8016D956E4004C0242 /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonUTF8Stream.h; path = SBJson/SBJsonUTF8Stream.h; sourceTree = SOURCE_ROOT; };
-		725A4D8116D956E4004C0242 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonUTF8Stream.m; path = SBJson/SBJsonUTF8Stream.m; sourceTree = SOURCE_ROOT; };
-		725A4D8216D956E4004C0242 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = SBJson/SBJsonWriter.h; sourceTree = SOURCE_ROOT; };
-		725A4D8316D956E4004C0242 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = SBJson/SBJsonWriter.m; sourceTree = SOURCE_ROOT; };
-		729512EA1646F2040065DDA6 /* libSBjson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSBjson.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		729512F31646F2040065DDA6 /* SBjson-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBjson-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,30 +101,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7295130B1646F4440065DDA6 /* libSBjson.a in Frameworks */,
 				723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */,
 				723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */,
 				723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		729512E71646F2040065DDA6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7295130A1646F3D90065DDA6 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26DE806C16F68DBF0099F2E2 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				723C80F31639C820003FB3FB /* NSString+URLEncoding.h */,
+				723C80F41639C820003FB3FB /* NSString+URLEncoding.m */,
+				723C80E21638FD7A003FB3FB /* NSDictionary+Utilities.h */,
+				723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		723C80AC163885C7003FB3FB = {
 			isa = PBXGroup;
 			children = (
 				723C80BC163885C7003FB3FB /* Cloudinary */,
 				723C80D1163885C7003FB3FB /* CloudinaryTests */,
-				729512F11646F2040065DDA6 /* SBjson */,
 				723C80B9163885C7003FB3FB /* Frameworks */,
 				723C80B8163885C7003FB3FB /* Products */,
 			);
@@ -196,7 +136,6 @@
 			children = (
 				723C80B7163885C7003FB3FB /* libCloudinary.a */,
 				723C80C8163885C7003FB3FB /* CloudinaryTests.octest */,
-				729512EA1646F2040065DDA6 /* libSBjson.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -214,20 +153,17 @@
 		723C80BC163885C7003FB3FB /* Cloudinary */ = {
 			isa = PBXGroup;
 			children = (
+				723C80BD163885C7003FB3FB /* Supporting Files */,
+				26DE806C16F68DBF0099F2E2 /* Categories */,
+				723E72371642D295004CFB6E /* Cloudinary.h */,
 				723C80BF163885C7003FB3FB /* CLCloudinary.h */,
 				723C80C1163885C7003FB3FB /* CLCloudinary.m */,
-				723C80F31639C820003FB3FB /* NSString+URLEncoding.h */,
-				723C80F41639C820003FB3FB /* NSString+URLEncoding.m */,
-				723C80BD163885C7003FB3FB /* Supporting Files */,
-				723C80E21638FD7A003FB3FB /* NSDictionary+Utilities.h */,
-				723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */,
 				723C80E916394BAA003FB3FB /* CLTransformation.h */,
 				723C80EA16394BAA003FB3FB /* CLTransformation.m */,
 				723C8103163A9118003FB3FB /* CLUploader.h */,
 				723C8104163A9118003FB3FB /* CLUploader.m */,
 				723C8106163AB193003FB3FB /* CLEagerTransformation.h */,
 				723C8107163AB193003FB3FB /* CLEagerTransformation.m */,
-				723E72371642D295004CFB6E /* Cloudinary.h */,
 			);
 			path = Cloudinary;
 			sourceTree = "<group>";
@@ -243,9 +179,9 @@
 		723C80D1163885C7003FB3FB /* CloudinaryTests */ = {
 			isa = PBXGroup;
 			children = (
+				723C80D2163885C7003FB3FB /* Supporting Files */,
 				723C80D7163885C7003FB3FB /* CloudinaryTests.h */,
 				723C80D8163885C7003FB3FB /* CloudinaryTests.m */,
-				723C80D2163885C7003FB3FB /* Supporting Files */,
 				723C812F163C707C003FB3FB /* UploaderTests.h */,
 				723C8130163C707C003FB3FB /* UploaderTests.m */,
 			);
@@ -262,71 +198,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		729512F11646F2040065DDA6 /* SBjson */ = {
-			isa = PBXGroup;
-			children = (
-				725A4D6B16D956E4004C0242 /* NSObject+SBJson.h */,
-				725A4D6C16D956E4004C0242 /* NSObject+SBJson.m */,
-				725A4D6D16D956E4004C0242 /* SBJson.h */,
-				725A4D6E16D956E4004C0242 /* SBJsonParser.h */,
-				725A4D6F16D956E4004C0242 /* SBJsonParser.m */,
-				725A4D7016D956E4004C0242 /* SBJsonStreamParser.h */,
-				725A4D7116D956E4004C0242 /* SBJsonStreamParser.m */,
-				725A4D7216D956E4004C0242 /* SBJsonStreamParserAccumulator.h */,
-				725A4D7316D956E4004C0242 /* SBJsonStreamParserAccumulator.m */,
-				725A4D7416D956E4004C0242 /* SBJsonStreamParserAdapter.h */,
-				725A4D7516D956E4004C0242 /* SBJsonStreamParserAdapter.m */,
-				725A4D7616D956E4004C0242 /* SBJsonStreamParserState.h */,
-				725A4D7716D956E4004C0242 /* SBJsonStreamParserState.m */,
-				725A4D7816D956E4004C0242 /* SBJsonStreamWriter.h */,
-				725A4D7916D956E4004C0242 /* SBJsonStreamWriter.m */,
-				725A4D7A16D956E4004C0242 /* SBJsonStreamWriterAccumulator.h */,
-				725A4D7B16D956E4004C0242 /* SBJsonStreamWriterAccumulator.m */,
-				725A4D7C16D956E4004C0242 /* SBJsonStreamWriterState.h */,
-				725A4D7D16D956E4004C0242 /* SBJsonStreamWriterState.m */,
-				725A4D7E16D956E4004C0242 /* SBJsonTokeniser.h */,
-				725A4D7F16D956E4004C0242 /* SBJsonTokeniser.m */,
-				725A4D8016D956E4004C0242 /* SBJsonUTF8Stream.h */,
-				725A4D8116D956E4004C0242 /* SBJsonUTF8Stream.m */,
-				725A4D8216D956E4004C0242 /* SBJsonWriter.h */,
-				725A4D8316D956E4004C0242 /* SBJsonWriter.m */,
-				729512F21646F2040065DDA6 /* Supporting Files */,
-			);
-			path = SBjson;
-			sourceTree = "<group>";
-		};
-		729512F21646F2040065DDA6 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				729512F31646F2040065DDA6 /* SBjson-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		729512E81646F2040065DDA6 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				725A4D8416D956E4004C0242 /* NSObject+SBJson.h in Headers */,
-				725A4D8616D956E4004C0242 /* SBJson.h in Headers */,
-				725A4D8716D956E4004C0242 /* SBJsonParser.h in Headers */,
-				725A4D8916D956E4004C0242 /* SBJsonStreamParser.h in Headers */,
-				725A4D8B16D956E4004C0242 /* SBJsonStreamParserAccumulator.h in Headers */,
-				725A4D8D16D956E4004C0242 /* SBJsonStreamParserAdapter.h in Headers */,
-				725A4D8F16D956E4004C0242 /* SBJsonStreamParserState.h in Headers */,
-				725A4D9116D956E4004C0242 /* SBJsonStreamWriter.h in Headers */,
-				725A4D9316D956E4004C0242 /* SBJsonStreamWriterAccumulator.h in Headers */,
-				725A4D9516D956E4004C0242 /* SBJsonStreamWriterState.h in Headers */,
-				725A4D9716D956E4004C0242 /* SBJsonTokeniser.h in Headers */,
-				725A4D9916D956E4004C0242 /* SBJsonUTF8Stream.h in Headers */,
-				725A4D9B16D956E4004C0242 /* SBJsonWriter.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		723C80B6163885C7003FB3FB /* Cloudinary */ = {
@@ -359,31 +231,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				729513071646F2B40065DDA6 /* PBXTargetDependency */,
 				723C80CF163885C7003FB3FB /* PBXTargetDependency */,
 			);
 			name = CloudinaryTests;
 			productName = CloudinaryTests;
 			productReference = 723C80C8163885C7003FB3FB /* CloudinaryTests.octest */;
 			productType = "com.apple.product-type.bundle";
-		};
-		729512E91646F2040065DDA6 /* SBjson */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 729512F71646F2040065DDA6 /* Build configuration list for PBXNativeTarget "SBjson" */;
-			buildPhases = (
-				729512E61646F2040065DDA6 /* Sources */,
-				729512E71646F2040065DDA6 /* Frameworks */,
-				729512E81646F2040065DDA6 /* Headers */,
-				7291D3D516481CDF00B708CA /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SBjson;
-			productName = SBjson;
-			productReference = 729512EA1646F2040065DDA6 /* libSBjson.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -408,7 +261,6 @@
 			targets = (
 				723C80B6163885C7003FB3FB /* Cloudinary */,
 				723C80C7163885C7003FB3FB /* CloudinaryTests */,
-				729512E91646F2040065DDA6 /* SBjson */,
 			);
 		};
 /* End PBXProject section */
@@ -452,19 +304,6 @@
 			shellPath = /bin/sh;
 			shellScript = "#\n# c.f. StackOverflow question/answer here: http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4\n#\n# Version 2.4\n#\n# Latest Change:\n# - Apple's handling of \"project files\" is broken; added a workaround for Xcode 4.5\n# - Added automatic FAIL BUILD if any of the internal commands fail\n#\n# Purpose:\n#   Create a static library for iPhone from within XCode\n#   Because Apple staff DELIBERATELY broke Xcode to make this impossible from the GUI (Xcode 3.2.3 specifically states this in the Release notes!)\n#   ...no, I don't understand why they did this!\n#\n# Author: Adam Martin - http://twitter.com/redglassesapps\n# Based on: original script from Eonil (main changes: Eonil's script WILL NOT WORK in Xcode GUI - it WILL CRASH YOUR COMPUTER)\n#\n\nset -e\nset -o pipefail\n\n#################[ Tests: helps workaround any future bugs in Xcode ]########\n#\nDEBUG_THIS_SCRIPT=\"false\"\n\nif [ $DEBUG_THIS_SCRIPT = \"true\" ]\nthen\necho \"########### TESTS #############\"\necho \"Use the following variables when debugging this script; note that they may change on recursions\"\necho \"BUILD_DIR = $BUILD_DIR\"\necho \"BUILD_ROOT = $BUILD_ROOT\"\necho \"CONFIGURATION_BUILD_DIR = $CONFIGURATION_BUILD_DIR\"\necho \"BUILT_PRODUCTS_DIR = $BUILT_PRODUCTS_DIR\"\necho \"CONFIGURATION_TEMP_DIR = $CONFIGURATION_TEMP_DIR\"\necho \"TARGET_BUILD_DIR = $TARGET_BUILD_DIR\"\nfi\n\n#####################[ part 1 ]##################\n# First, work out the BASESDK version number (NB: Apple ought to report this, but they hide it)\n#    (incidental: searching for substrings in sh is a nightmare! Sob)\n\nSDK_VERSION=$(echo ${SDK_NAME} | grep -o '.\\{3\\}$')\n\n# Next, work out if we're in SIM or DEVICE\n\nif [ ${PLATFORM_NAME} = \"iphonesimulator\" ]\nthen\nOTHER_SDK_TO_BUILD=iphoneos${SDK_VERSION}\nelse\nOTHER_SDK_TO_BUILD=iphonesimulator${SDK_VERSION}\nfi\n\necho \"XCode has selected SDK: ${PLATFORM_NAME} with version: ${SDK_VERSION} (although back-targetting: ${IPHONEOS_DEPLOYMENT_TARGET})\"\necho \"...therefore, OTHER_SDK_TO_BUILD = ${OTHER_SDK_TO_BUILD}\"\n#\n#####################[ end of part 1 ]##################\n\n#####################[ part 2 ]##################\n#\n# IF this is the original invocation, invoke WHATEVER other builds are required\n#\n# Xcode is already building ONE target...\n#\n# ...but this is a LIBRARY, so Apple is wrong to set it to build just one.\n# ...we need to build ALL targets\n# ...we MUST NOT re-build the target that is ALREADY being built: Xcode WILL CRASH YOUR COMPUTER if you try this (infinite recursion!)\n#\n#\n# So: build ONLY the missing platforms/configurations.\n\nif [ \"true\" == ${ALREADYINVOKED:-false} ]\nthen\necho \"RECURSION: I am NOT the root invocation, so I'm NOT going to recurse\"\nelse\n# CRITICAL:\n# Prevent infinite recursion (Xcode sucks)\nexport ALREADYINVOKED=\"true\"\n\necho \"RECURSION: I am the root ... recursing all missing build targets NOW...\"\necho \"RECURSION: ...about to invoke: xcodebuild -configuration \\\"${CONFIGURATION}\\\" -project \\\"${PROJECT_NAME}.xcodeproj\\\" -target \\\"${TARGET_NAME}\\\" -sdk \\\"${OTHER_SDK_TO_BUILD}\\\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO\" BUILD_DIR=\\\"${BUILD_DIR}\\\" BUILD_ROOT=\\\"${BUILD_ROOT}\\\" SYMROOT=\\\"${SYMROOT}\\\"\n\nxcodebuild -configuration \"${CONFIGURATION}\" -project \"${PROJECT_NAME}.xcodeproj\" -target \"${TARGET_NAME}\" -sdk \"${OTHER_SDK_TO_BUILD}\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\"\n\nACTION=\"build\"\n\n#Merge all platform binaries as a fat binary for each configurations.\n\n# Calculate where the (multiple) built files are coming from:\nCURRENTCONFIG_DEVICE_DIR=${SYMROOT}/${CONFIGURATION}-iphoneos\nCURRENTCONFIG_SIMULATOR_DIR=${SYMROOT}/${CONFIGURATION}-iphonesimulator\n\necho \"Taking device build from: ${CURRENTCONFIG_DEVICE_DIR}\"\necho \"Taking simulator build from: ${CURRENTCONFIG_SIMULATOR_DIR}\"\n\nCREATING_UNIVERSAL_DIR=${SYMROOT}/${CONFIGURATION}-universal\necho \"...I will output a universal build to: ${CREATING_UNIVERSAL_DIR}\"\n\nmkdir -p \"${CREATING_UNIVERSAL_DIR}\"\n\n#\necho \"lipo: for current configuration (${CONFIGURATION}) creating output file: ${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\"\nlipo -create -output \"${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_DEVICE_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_SIMULATOR_DIR}/${EXECUTABLE_NAME}\"\n\n#########\n#\n# Added: StackOverflow suggestion to also copy \"include\" files\n#    (untested, but should work OK)\n#\nif [ -d \"${CURRENTCONFIG_DEVICE_DIR}/include\" ]\nthen\nmkdir -p \"${CREATING_UNIVERSAL_DIR}/include\"\n# * needs to be outside the double quotes?\ncp -r \"${CURRENTCONFIG_DEVICE_DIR}/include/\"* \"${CREATING_UNIVERSAL_DIR}/include\"\nfi\nfi";
 		};
-		7291D3D516481CDF00B708CA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#\n# c.f. StackOverflow question/answer here: http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4\n#\n# Version 2.4\n#\n# Latest Change:\n# - Apple's handling of \"project files\" is broken; added a workaround for Xcode 4.5\n# - Added automatic FAIL BUILD if any of the internal commands fail\n#\n# Purpose:\n#   Create a static library for iPhone from within XCode\n#   Because Apple staff DELIBERATELY broke Xcode to make this impossible from the GUI (Xcode 3.2.3 specifically states this in the Release notes!)\n#   ...no, I don't understand why they did this!\n#\n# Author: Adam Martin - http://twitter.com/redglassesapps\n# Based on: original script from Eonil (main changes: Eonil's script WILL NOT WORK in Xcode GUI - it WILL CRASH YOUR COMPUTER)\n#\n\nset -e\nset -o pipefail\n\n#################[ Tests: helps workaround any future bugs in Xcode ]########\n#\nDEBUG_THIS_SCRIPT=\"false\"\n\nif [ $DEBUG_THIS_SCRIPT = \"true\" ]\nthen\necho \"########### TESTS #############\"\necho \"Use the following variables when debugging this script; note that they may change on recursions\"\necho \"BUILD_DIR = $BUILD_DIR\"\necho \"BUILD_ROOT = $BUILD_ROOT\"\necho \"CONFIGURATION_BUILD_DIR = $CONFIGURATION_BUILD_DIR\"\necho \"BUILT_PRODUCTS_DIR = $BUILT_PRODUCTS_DIR\"\necho \"CONFIGURATION_TEMP_DIR = $CONFIGURATION_TEMP_DIR\"\necho \"TARGET_BUILD_DIR = $TARGET_BUILD_DIR\"\nfi\n\n#####################[ part 1 ]##################\n# First, work out the BASESDK version number (NB: Apple ought to report this, but they hide it)\n#    (incidental: searching for substrings in sh is a nightmare! Sob)\n\nSDK_VERSION=$(echo ${SDK_NAME} | grep -o '.\\{3\\}$')\n\n# Next, work out if we're in SIM or DEVICE\n\nif [ ${PLATFORM_NAME} = \"iphonesimulator\" ]\nthen\nOTHER_SDK_TO_BUILD=iphoneos${SDK_VERSION}\nelse\nOTHER_SDK_TO_BUILD=iphonesimulator${SDK_VERSION}\nfi\n\necho \"XCode has selected SDK: ${PLATFORM_NAME} with version: ${SDK_VERSION} (although back-targetting: ${IPHONEOS_DEPLOYMENT_TARGET})\"\necho \"...therefore, OTHER_SDK_TO_BUILD = ${OTHER_SDK_TO_BUILD}\"\n#\n#####################[ end of part 1 ]##################\n\n#####################[ part 2 ]##################\n#\n# IF this is the original invocation, invoke WHATEVER other builds are required\n#\n# Xcode is already building ONE target...\n#\n# ...but this is a LIBRARY, so Apple is wrong to set it to build just one.\n# ...we need to build ALL targets\n# ...we MUST NOT re-build the target that is ALREADY being built: Xcode WILL CRASH YOUR COMPUTER if you try this (infinite recursion!)\n#\n#\n# So: build ONLY the missing platforms/configurations.\n\nif [ \"true\" == ${ALREADYINVOKED:-false} ]\nthen\necho \"RECURSION: I am NOT the root invocation, so I'm NOT going to recurse\"\nelse\n# CRITICAL:\n# Prevent infinite recursion (Xcode sucks)\nexport ALREADYINVOKED=\"true\"\n\necho \"RECURSION: I am the root ... recursing all missing build targets NOW...\"\necho \"RECURSION: ...about to invoke: xcodebuild -configuration \\\"${CONFIGURATION}\\\" -project \\\"${PROJECT_NAME}.xcodeproj\\\" -target \\\"${TARGET_NAME}\\\" -sdk \\\"${OTHER_SDK_TO_BUILD}\\\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO\" BUILD_DIR=\\\"${BUILD_DIR}\\\" BUILD_ROOT=\\\"${BUILD_ROOT}\\\" SYMROOT=\\\"${SYMROOT}\\\"\n\nxcodebuild -configuration \"${CONFIGURATION}\" -project \"${PROJECT_NAME}.xcodeproj\" -target \"${TARGET_NAME}\" -sdk \"${OTHER_SDK_TO_BUILD}\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\"\n\nACTION=\"build\"\n\n#Merge all platform binaries as a fat binary for each configurations.\n\n# Calculate where the (multiple) built files are coming from:\nCURRENTCONFIG_DEVICE_DIR=${SYMROOT}/${CONFIGURATION}-iphoneos\nCURRENTCONFIG_SIMULATOR_DIR=${SYMROOT}/${CONFIGURATION}-iphonesimulator\n\necho \"Taking device build from: ${CURRENTCONFIG_DEVICE_DIR}\"\necho \"Taking simulator build from: ${CURRENTCONFIG_SIMULATOR_DIR}\"\n\nCREATING_UNIVERSAL_DIR=${SYMROOT}/${CONFIGURATION}-universal\necho \"...I will output a universal build to: ${CREATING_UNIVERSAL_DIR}\"\n\nmkdir -p \"${CREATING_UNIVERSAL_DIR}\"\n\n#\necho \"lipo: for current configuration (${CONFIGURATION}) creating output file: ${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\"\nlipo -create -output \"${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_DEVICE_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_SIMULATOR_DIR}/${EXECUTABLE_NAME}\"\nfi";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -492,25 +331,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		729512E61646F2040065DDA6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				725A4D8516D956E4004C0242 /* NSObject+SBJson.m in Sources */,
-				725A4D8816D956E4004C0242 /* SBJsonParser.m in Sources */,
-				725A4D8A16D956E4004C0242 /* SBJsonStreamParser.m in Sources */,
-				725A4D8C16D956E4004C0242 /* SBJsonStreamParserAccumulator.m in Sources */,
-				725A4D8E16D956E4004C0242 /* SBJsonStreamParserAdapter.m in Sources */,
-				725A4D9016D956E4004C0242 /* SBJsonStreamParserState.m in Sources */,
-				725A4D9216D956E4004C0242 /* SBJsonStreamWriter.m in Sources */,
-				725A4D9416D956E4004C0242 /* SBJsonStreamWriterAccumulator.m in Sources */,
-				725A4D9616D956E4004C0242 /* SBJsonStreamWriterState.m in Sources */,
-				725A4D9816D956E4004C0242 /* SBJsonTokeniser.m in Sources */,
-				725A4D9A16D956E4004C0242 /* SBJsonUTF8Stream.m in Sources */,
-				725A4D9C16D956E4004C0242 /* SBJsonWriter.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -518,11 +338,6 @@
 			isa = PBXTargetDependency;
 			target = 723C80B6163885C7003FB3FB /* Cloudinary */;
 			targetProxy = 723C80CE163885C7003FB3FB /* PBXContainerItemProxy */;
-		};
-		729513071646F2B40065DDA6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 729512E91646F2040065DDA6 /* SBjson */;
-			targetProxy = 729513061646F2B40065DDA6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -617,6 +432,7 @@
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
+				OTHER_CFLAGS = "-DNDEBUG=1";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -653,44 +469,6 @@
 			};
 			name = Release;
 		};
-		729512F81646F2040065DDA6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SBjson/SBjson-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		729512F91646F2040065DDA6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SBjson/SBjson-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -717,15 +495,6 @@
 			buildConfigurations = (
 				723C80E0163885C7003FB3FB /* Debug */,
 				723C80E1163885C7003FB3FB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		729512F71646F2040065DDA6 /* Build configuration list for PBXNativeTarget "SBjson" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				729512F81646F2040065DDA6 /* Debug */,
-				729512F91646F2040065DDA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -12,30 +12,28 @@ extern NSString * const CL_SHARED_CDN;
 extern NSString * const CL_CF_SHARED_CDN;
 extern NSString * const CL_AKAMAI_SHARED_CDN;
 
+@interface CLCloudinary : NSObject
 
-@interface CLCloudinary : NSObject {
-    NSMutableDictionary* config;
-}
-+ (NSString*) version;
++ (NSString *)version;
 
-- (CLCloudinary*) init;
-- (CLCloudinary*) initWithUrl: (NSString *)cloudinaryUrl;
-- (NSMutableDictionary*) config;
+- (CLCloudinary *)init;
+- (CLCloudinary *)initWithUrl:(NSString *)cloudinaryUrl;
+- (NSMutableDictionary *)config;
 
-- (NSString*) url:(NSString*) source;
-- (NSString*) url:(NSString*) source options:(NSDictionary*) options;
-- (NSString*) imageTag:(NSString*) source;
-- (NSString*) imageTag:(NSString*) source options:(NSDictionary*) options;
-- (NSString*) imageTag:(NSString*) source options:(NSDictionary*) options htmlOptions:(NSDictionary*) htmlOptions;
+- (NSString *)url:(NSString *)source;
+- (NSString *)url:(NSString *)source options:(NSDictionary*)options;
+- (NSString *)imageTag:(NSString *)source;
+- (NSString *)imageTag:(NSString *)source options:(NSDictionary*)options;
+- (NSString *)imageTag:(NSString *)source options:(NSDictionary*)options htmlOptions:(NSDictionary*)htmlOptions;
 
-- (id) get:(NSString*)key options:(NSDictionary*)options defaultValue:(id)defaultValue;
+- (id)get:(NSString *)key options:(NSDictionary*)options defaultValue:(id)defaultValue;
 
-- (NSString *) cloudinaryApiUrl: (NSString*) action options: (NSDictionary*) options;
-- (NSString *) apiSignRequest: (NSDictionary*) paramsToSign secret:(NSString*) apiSecret;
-- (NSString *) randomPublicId;
+- (NSString *)cloudinaryApiUrl:(NSString *)action options:(NSDictionary *)options;
+- (NSString *)apiSignRequest:(NSDictionary*)paramsToSign secret:(NSString *)apiSecret;
+- (NSString *)randomPublicId;
 
-+ (NSArray*) asArray: (id) value;
-+ (NSString*) asString: (id) value;
-+ (NSNumber*) asBool: (id) value;
++ (NSArray *)asArray:(id)value;
++ (NSString *)asString:(id)value;
++ (NSNumber *)asBool:(id)value;
 
 @end

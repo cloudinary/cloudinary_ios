@@ -10,158 +10,152 @@
 #import "CLCloudinary.h"
 
 @interface CLTransformation ()
-{
-	NSMutableDictionary* params;
-	NSMutableArray* transformations;
-	NSString* htmlWidth;
-	NSString* htmlHeight;
-}
 
-- (NSString*) generateWithParams:(NSDictionary*) params;
+- (NSString *) generateWithParams:(NSDictionary *)params;
+
 @end;
 
-
 @implementation CLTransformation
-
-@synthesize htmlHeight;
-@synthesize htmlWidth;
-
-- (id) init
 {
-    return [self initWithDictionaries:[NSArray array]];
+	NSMutableDictionary *_params;
+	NSMutableArray *_transformations;
 }
 
-- (id) initWithDictionaries: (NSArray*) dictionaries
+- (id)init
+{
+    return [self initWithDictionaries:@[]];
+}
+
+- (id)initWithDictionaries:(NSArray *)dictionaries
 {
     if ( self = [super init] )
     {
-        transformations = [NSMutableArray arrayWithArray:dictionaries];
+        _transformations = [NSMutableArray arrayWithArray:dictionaries];
         [self chain];
     }
     return self;
 }
 
-
-+ (id) transformation
++ (id)transformation
 {
     return [[CLTransformation alloc] init];
 }
 
-- (void) setWidth: (id) value { [self param:@"width" value:value]; }
-- (id) width { return [params valueForKey:@"width"]; }
-- (void) setWidthWithInt: (int) value { [self setWidth:[NSNumber numberWithInt:value]]; }
-- (void) setWidthWithFloat: (float) value { [self setWidth:[NSNumber numberWithFloat:value]]; }
-- (void) setHeight: (id) value { [self param:@"height" value:value]; }
-- (id) height { return [params valueForKey:@"height"]; }
-- (void) setHeightWithInt: (int) value { [self setHeight:[NSNumber numberWithInt:value]]; }
-- (void) setHeightWithFloat: (float) value { [self setHeight:[NSNumber numberWithFloat:value]]; }
-- (void) setNamed: (id) value { [self param:@"transformation" value:value]; }
-- (id) named { return [params valueForKey:@"transformation"]; }
+- (void)setWidth:(id)value { [self param:@"width" value:value]; }
+- (id)width { return [_params valueForKey:@"width"]; }
+- (void)setWidthWithInt:(int)value { [self setWidth:@(value)]; }
+- (void)setWidthWithFloat:(float)value { [self setWidth:@(value)]; }
+- (void)setHeight:(id)value { [self param:@"height" value:value]; }
+- (id)height { return [_params valueForKey:@"height"]; }
+- (void)setHeightWithInt:(int)value { [self setHeight:@(value)]; }
+- (void)setHeightWithFloat:(float)value { [self setHeight:@(value)]; }
+- (void)setNamed:(id)value { [self param:@"transformation" value:value]; }
+- (id)named { return [_params valueForKey:@"transformation"]; }
 
-- (void) setCrop: (NSString *) value { [self param:@"crop" value:value]; }
-- (NSString *) crop { return [params valueForKey:@"crop"]; }
+- (void)setCrop:(NSString *)value { [self param:@"crop" value:value]; }
+- (NSString *)crop { return [_params valueForKey:@"crop"]; }
 
-- (void) setBackground: (NSString *) value { [self param:@"background" value:value]; }
-- (NSString *) background { return [params valueForKey:@"background"]; }
+- (void)setBackground:(NSString *)value { [self param:@"background" value:value]; }
+- (NSString *)background { return [_params valueForKey:@"background"]; }
 
-- (void) setEffect: (NSString *) value { [self param:@"effect" value:value]; }
-- (NSString *) effect { return [params valueForKey:@"effect"]; }
-- (void) setEffect: (NSString *) value param:(id) param
+- (void)setEffect:(NSString *)value { [self param:@"effect" value:value]; }
+- (NSString *)effect { return [_params valueForKey:@"effect"]; }
+- (void)setEffect:(NSString *)value param:(id)param
 {
     [self setEffect:[NSString stringWithFormat:@"%@:%@", value, param]];
 }
-- (void) setAngle: (id) value { [self param:@"angle" value:value]; }
-- (id) angle { return [params valueForKey:@"angle"]; }
-- (void) setAngleWithInt: (int) value { [self setAngle:[NSNumber numberWithInt:value]]; }
-- (void) setBorder: (NSString *) value { [self param:@"border" value:value]; }
-- (NSString *) border { return [params valueForKey:@"border"]; }
-- (void) setBorder: (int) width color:(NSString *) color
+- (void)setAngle:(id)value { [self param:@"angle" value:value]; }
+- (id)angle { return [_params valueForKey:@"angle"]; }
+- (void)setAngleWithInt:(int)value { [self setAngle:@(value)]; }
+- (void)setBorder:(NSString *)value { [self param:@"border" value:value]; }
+- (NSString *)border { return [_params valueForKey:@"border"]; }
+- (void)setBorder:(int)width color:(NSString *)color
 {
     color = [color stringByReplacingOccurrencesOfString:@"#" withString:@"rgb:"];
     [self setBorder:[NSString stringWithFormat:@"%dpx_solid_%@", width, color]];
 }
-- (void) setX: (id) value { [self param:@"x" value:value]; }
-- (id) x { return [params valueForKey:@"x"]; }
-- (void) setXWithInt: (int) value { [self setX:[NSNumber numberWithInt:value]]; }
-- (void) setXWithFloat: (float) value { [self setX:[NSNumber numberWithFloat:value]]; }
+- (void)setX:(id)value { [self param:@"x" value:value]; }
+- (id)x { return [_params valueForKey:@"x"]; }
+- (void)setXWithInt:(int)value { [self setX:@(value)]; }
+- (void)setXWithFloat:(float)value { [self setX:@(value)]; }
 
-- (void) setY: (id) value { [self param:@"y" value:value]; }
-- (id) y { return [params valueForKey:@"y"]; }
-- (void) setYWithInt: (int) value { [self setY:[NSNumber numberWithInt:value]]; }
-- (void) setYWithFloat: (float) value { [self setY:[NSNumber numberWithFloat:value]]; }
+- (void)setY:(id)value { [self param:@"y" value:value]; }
+- (id)y { return [_params valueForKey:@"y"]; }
+- (void)setYWithInt:(int)value { [self setY:@(value)]; }
+- (void)setYWithFloat:(float)value { [self setY:@(value)]; }
 
-- (void) setRadius: (id) value { [self param:@"radius" value:value]; }
-- (id) radius { return [params valueForKey:@"radius"]; }
-- (void) setRadiusWithInt: (int) value { [self setRadius:[NSNumber numberWithInt:value]]; }
+- (void)setRadius:(id)value { [self param:@"radius" value:value]; }
+- (id)radius { return [_params valueForKey:@"radius"]; }
+- (void)setRadiusWithInt:(int)value { [self setRadius:@(value)]; }
 
-- (void) setQuality: (id) value { [self param:@"quality" value:value]; }
-- (id) quality { return [params valueForKey:@"quality"]; }
-- (void) setQualityWithFloat: (float) value { [self setQuality:[NSNumber numberWithFloat:value]]; }
+- (void)setQuality:(id)value { [self param:@"quality" value:value]; }
+- (id)quality { return [_params valueForKey:@"quality"]; }
+- (void)setQualityWithFloat:(float)value { [self setQuality:@(value)]; }
 
-- (void) setDefaultImage: (NSString *) value { [self param:@"default_image" value:value]; }
-- (NSString *) defaultImage { return [params valueForKey:@"default_image"]; }
+- (void)setDefaultImage:(NSString *)value { [self param:@"default_image" value:value]; }
+- (NSString *)defaultImage { return [_params valueForKey:@"default_image"]; }
 
-- (void) setGravity: (NSString *) value { [self param:@"gravity" value:value]; }
-- (NSString *) gravity { return [params valueForKey:@"gravity"]; }
+- (void)setGravity:(NSString *)value { [self param:@"gravity" value:value]; }
+- (NSString *)gravity { return [_params valueForKey:@"gravity"]; }
 
-- (void) setColorSpace: (NSString *) value { [self param:@"color_space" value:value]; }
-- (NSString *) colorSpace { return [params valueForKey:@"color_space"]; }
+- (void)setColorSpace:(NSString *)value { [self param:@"color_space" value:value]; }
+- (NSString *)colorSpace { return [_params valueForKey:@"color_space"]; }
 
-- (void) setPrefix: (NSString *) value { [self param:@"prefix" value:value]; }
-- (NSString *) prefix { return [params valueForKey:@"prefix"]; }
+- (void)setPrefix:(NSString *)value { [self param:@"prefix" value:value]; }
+- (NSString *) prefix { return [_params valueForKey:@"prefix"]; }
 
-- (void) setOverlay: (NSString *) value { [self param:@"overlay" value:value]; }
-- (NSString *) overlay { return [params valueForKey:@"overlay"]; }
+- (void)setOverlay:(NSString *)value { [self param:@"overlay" value:value]; }
+- (NSString *) overlay { return [_params valueForKey:@"overlay"]; }
 
-- (void) setUnderlay: (NSString *) value { [self param:@"underlay" value:value]; }
-- (NSString *) underlay { return [params valueForKey:@"underlay"]; }
+- (void)setUnderlay:(NSString *)value { [self param:@"underlay" value:value]; }
+- (NSString *)underlay { return [_params valueForKey:@"underlay"]; }
 
-- (void) setFetchFormat: (NSString *) value { [self param:@"fetch_format" value:value]; }
-- (NSString *) fetchFormat { return [params valueForKey:@"fetch_format"]; }
+- (void)setFetchFormat:(NSString *)value { [self param:@"fetch_format" value:value]; }
+- (NSString *) fetchFormat { return [_params valueForKey:@"fetch_format"]; }
 
-- (void) setDensity: (id) value { [self param:@"density" value:value]; }
-- (id) density { return [params valueForKey:@"density"]; }
-- (void) setDensityWithInt: (int) value { [self setDensity:[NSNumber numberWithInt:value]]; }
+- (void)setDensity:(id)value { [self param:@"density" value:value]; }
+- (id) density { return [_params valueForKey:@"density"]; }
+- (void)setDensityWithInt:(int)value { [self setDensity:@(value)]; }
 
-- (void) setPage: (id) value { [self param:@"page" value:value]; }
-- (id) page { return [params valueForKey:@"page"]; }
-- (void) setPageWithInt: (int) value { [self setPage:[NSNumber numberWithInt:value]]; }
+- (void)setPage:(id)value { [self param:@"page" value:value]; }
+- (id) page { return [_params valueForKey:@"page"]; }
+- (void) setPageWithInt:(int)value { [self setPage:@(value)]; }
 
-- (void) setDelay: (id) value { [self param:@"delay" value:value]; }
-- (id) delay { return [params valueForKey:@"delay"]; }
-- (void) setDelayWithInt: (int) value { [self setDelay:[NSNumber numberWithInt:value]]; }
+- (void)setDelay:(id)value { [self param:@"delay" value:value]; }
+- (id)delay { return [_params valueForKey:@"delay"]; }
+- (void)setDelayWithInt:(int) value { [self setDelay:@(value)]; }
 
-- (void) setRawTransformation:(NSString *) value { [self param:@"raw_transformation" value:value]; }
-- (id) rawTransformation { return [params valueForKey:@"raw_transformation"]; }
+- (void)setRawTransformation:(NSString *)value { [self param:@"raw_transformation" value:value]; }
+- (id)rawTransformation { return [_params valueForKey:@"raw_transformation"]; }
 
-- (void) setFlags: (id) value { [self param:@"flags" value:value]; }
-- (id) flags { return [params valueForKey:@"flags"]; }
+- (void)setFlags:(id)value { [self param:@"flags" value:value]; }
+- (id)flags { return [_params valueForKey:@"flags"]; }
 
-- (void) setParams: (NSDictionary *) value
+- (void)setParams:(NSDictionary *)value
 {
-    [params addEntriesFromDictionary:value];
+    [_params addEntriesFromDictionary:value];
 }
-- (NSDictionary*) params { return params; }
+- (NSDictionary*)params { return _params; }
 
-- (void) chain;
+- (void)chain;
 {
-    params = [NSMutableDictionary dictionary];
-    [transformations addObject: params];
+    _params = [NSMutableDictionary dictionary];
+    [_transformations addObject: _params];
 }
-- (void) param: (NSString *) param value: (id) value
+- (void)param:(NSString *)param value:(id)value
 {
-    [params setValue:value forKey:param];
+    [_params setValue:value forKey:param];
 }
-- (NSString*) generate
+- (NSString*)generate
 {
     NSMutableArray* components = [NSMutableArray array];
-    for (NSDictionary* options in transformations) {
+    for (NSDictionary* options in _transformations) {
         [components addObject:[self generateWithParams:options]];
     }
     return [components componentsJoinedByString:@"/"];
 }
 
-- (NSString*) generateWithParams:(NSDictionary*) options
+- (NSString*)generateWithParams:(NSDictionary *)options
 {
     NSString* width = [CLCloudinary asString:[options valueForKey:@"width"]];
     NSString* height = [CLCloudinary asString:[options valueForKey:@"height"]];
@@ -169,11 +163,11 @@
     if (size != nil)
     {
         NSArray* sizeComponents = [size componentsSeparatedByString:@"x"];
-        width = [sizeComponents objectAtIndex:0];
-        height = [sizeComponents objectAtIndex:1];
+        width = sizeComponents[0];
+        height = sizeComponents[1];
     }
-    htmlWidth = width;
-    htmlHeight = height;
+    _htmlWidth = width;
+    _htmlHeight = height;
     BOOL hasLayer = [[options valueForKey:@"overlay"] length] > 0 || [[options valueForKey:@"underlay"] length] > 0;
     
     NSString* crop = [options valueForKey:@"crop"];
@@ -183,11 +177,11 @@
     
     if (width != nil && ([width rangeOfString:@"."].location != NSNotFound || noHtmlSizes))
     {
-        htmlWidth = nil;
+        _htmlWidth = nil;
     }
     if (height != nil && ([height rangeOfString:@"."].location != NSNotFound || noHtmlSizes))
     {
-        htmlHeight = nil;
+        _htmlHeight = nil;
     }
     
     NSString* background = [options valueForKey:@"background"];
@@ -216,7 +210,7 @@
         for (id trans in transformationParam) {
             if ([trans isKindOfClass:[NSString class]])
             {
-                NSDictionary* transOptions = [NSDictionary dictionaryWithObject:trans forKey:@"transformation"];
+                NSDictionary* transOptions = @{@"transformation": trans};
                 [baseTransformations addObject:[self generateWithParams:transOptions]];
             }
             else
@@ -228,39 +222,37 @@
     NSString* flags = [[CLCloudinary asArray:[options valueForKey:@"flags"]] componentsJoinedByString:@"."];
     
     NSMutableArray* transformation = [NSMutableArray array];
-    [transformation addObject:[NSArray arrayWithObjects:@"w", width, nil]];
-    [transformation addObject:[NSArray arrayWithObjects:@"h", height, nil]];
-    [transformation addObject:[NSArray arrayWithObjects:@"t", namedTransformations, nil]];
-    [transformation addObject:[NSArray arrayWithObjects:@"c", crop, nil]];
-    [transformation addObject:[NSArray arrayWithObjects:@"b", background, nil]];
-    [transformation addObject:[NSArray arrayWithObjects:@"a", angle, nil]];
-    [transformation addObject:[NSArray arrayWithObjects:@"fl", flags, nil]];
-    NSArray* simpleParams = [NSArray arrayWithObjects:
-        @"x", @"x", @"y", @"y", @"r", @"radius", @"d", @"default_image", @"g", @"gravity", @"cs", @"color_space",
+    if (width)      [transformation addObject:@[@"w", width]];
+    if (height)     [transformation addObject:@[@"h", height]];
+    if (namedTransformations) [transformation addObject:@[@"t", namedTransformations]];
+    if (crop)       [transformation addObject:@[@"c", crop]];
+    if (background) [transformation addObject:@[@"b", background]];
+    if (angle)      [transformation addObject:@[@"a", angle]];
+    if (flags)      [transformation addObject:@[@"fl", flags]];
+    NSArray* simpleParams = @[@"x", @"x", @"y", @"y", @"r", @"radius", @"d", @"default_image", @"g", @"gravity", @"cs", @"color_space",
         @"p", @"prefix", @"l", @"overlay", @"u", @"underlay", @"f", @"fetch_format", @"dn", @"density",
-        @"pg", @"page", @"dl", @"delay", @"e", @"effect", @"bo", @"border", @"q", @"quality", nil
-    ];
+        @"pg", @"page", @"dl", @"delay", @"e", @"effect", @"bo", @"border", @"q", @"quality"];
     for (int i = 0; i < [simpleParams count]; i+=2)
     {
-        NSString* paramShort = [simpleParams objectAtIndex:i];
-        NSString* paramName = [simpleParams objectAtIndex:i+1];
+        NSString* paramShort = simpleParams[i];
+        NSString* paramName = simpleParams[i+1];
         NSString* value = [CLCloudinary asString:[options valueForKey:paramName]];
-        [transformation addObject:[NSArray arrayWithObjects:paramShort, value, nil]];
+        if (value) [transformation addObject:@[paramShort, value]];
     }
     [transformation sortUsingComparator: ^(NSArray* obj1, NSArray* obj2) {
-        NSString* name1 = [obj1 objectAtIndex:0];
-        NSString* name2 = [obj2 objectAtIndex:0];
+        NSString* name1 = obj1[0];
+        NSString* name2 = obj2[0];
         return [name1 compare:name2];
     }];
     
     NSMutableArray* components = [NSMutableArray array];
     for (NSArray* param in transformation) {
         if ([param count] == 1) continue;
-        NSString* paramName = [param objectAtIndex:0];
-        NSString* paramValue = [param objectAtIndex:1];
+        NSString* paramName = param[0];
+        NSString* paramValue = param[1];
         if ([paramValue length] > 0)
         {
-            NSArray* encoded = [NSArray arrayWithObjects:paramName, paramValue, nil];
+            NSArray* encoded = @[paramName, paramValue];
             [components addObject:[encoded componentsJoinedByString:@"_"]];            
         }
     }
@@ -276,6 +268,5 @@
     }
     return [baseTransformations componentsJoinedByString:@"/"];
 }
-
 
 @end

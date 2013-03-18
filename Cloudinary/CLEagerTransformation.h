@@ -10,6 +10,6 @@
 
 @interface CLEagerTransformation : CLTransformation
 
-@property NSString* format;
+@property NSString *format;
 
 @end

@@ -9,101 +9,96 @@
 #import "CLUploader.h"
 #import "CLEagerTransformation.h"
 #import "CLTransformation.h"
-#import "SBJson.h"
 #import "NSDictionary+Utilities.h"
 
-@interface CLUploader () <NSURLConnectionDataDelegate> {
-    CLCloudinary *cloudinary;
-    id delegate;
-    id context;
-    CLUploaderCompletion completion;
-    CLUploaderProgress progress;
-    NSMutableData *responseData;
+@interface CLUploader ()<NSURLConnectionDataDelegate>
+
+@property (readwrite, strong, nonatomic) CLCloudinary *cloudinary;
+
+@end
+
+@implementation CLUploader {
+    id _context;
+    CLUploaderCompletion _completion;
+    CLUploaderProgress _progress;
+    NSMutableData *_responseData;
     NSHTTPURLResponse *response;
     NSURLConnection *connection;
 }
-- (void) callApi:(NSString*)action file:(id)file params:(NSDictionary*)params options:(NSDictionary*) options;
-- (void) callTagsApi:(NSString*)tag command:(NSString*)command publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
-- (NSString*) buildEager:(NSArray*)transformations;
-- (NSString*) buildCustomHeaders:(id)headers;
-- (NSDictionary*) buildUploadParams:(NSDictionary*) options;
-@end
 
-@implementation CLUploader
-
-- (id) init:(CLCloudinary*)cloudinary_ delegate:(id)delegate_
+- (id)init:(CLCloudinary *)cloudinary delegate:(id<CLUploaderDelegate>)delegate
 {
     if ( self = [super init] )
     {
-        delegate = delegate_;
-        cloudinary = cloudinary_;
-        responseData = [NSMutableData data];
+        _delegate = delegate;
+        _cloudinary = cloudinary;
+        _responseData = [NSMutableData data];
     }
     return self;    
 }
 
-- (void) setCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)setCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
-    completion = completionBlock;
-    progress = progressBlock;
+    _completion = completionBlock;
+    _progress = progressBlock;
 }
 
-- (void) upload:(id)file options:(NSDictionary*) options
+- (void)upload:(id)file options:(NSDictionary *)options
 {
     [self upload:file options:options withCompletion:nil andProgress:nil];
 }
 
-- (void) destroy:(NSString*)publicId options:(NSDictionary*) options
+- (void)destroy:(NSString *)publicId options:(NSDictionary *)options
 {
     [self destroy:publicId options:options withCompletion:nil andProgress:nil];
 }
 
-- (void) explicit:(NSString*)publicId options:(NSDictionary*) options
+- (void)explicit:(NSString *)publicId options:(NSDictionary *)options
 {
     [self explicit:publicId options:options withCompletion:nil andProgress:nil];
 }
 
-- (void) addTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options
+- (void)addTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options
 {
     [self addTag:tag publicIds:publicIds options:options withCompletion:nil andProgress:nil];
 }
 
-- (void) removeTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
+- (void)removeTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options;
 {
     [self removeTag:tag publicIds:publicIds options:options withCompletion:nil andProgress:nil];
 }
 
-- (void) replaceTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options;
+- (void)replaceTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options;
 {
     [self replaceTag:tag publicIds:publicIds options:options withCompletion:nil andProgress:nil];
 }
 
-- (void) text:(NSString*)text options:(NSDictionary*) options;
+- (void)text:(NSString *)text options:(NSDictionary *)options;
 {
     [self text:text options:options withCompletion:nil andProgress:nil];
 }
 
-- (void) upload:(id)file options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)upload:(id)file options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil) options = [NSDictionary dictionary];
-    NSDictionary* params = [self buildUploadParams:options];
+    if (options == nil)options = @{};
+    NSMutableDictionary *params = (NSMutableDictionary *)[self buildUploadParams:options];
     [self callApi:@"upload" file:file params:params options:options];
 }
 
-- (void) destroy:(NSString*)publicId options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)destroy:(NSString *)publicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil) options = [NSDictionary dictionary];
+    if (options == nil)options = @{};
     NSString* type = [options valueForKey:@"type" defaultValue:@"upload"];
-    NSDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", publicId, @"public_id", nil];
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", publicId, @"public_id", nil];
     [self callApi:@"destroy" file:nil params:params options:options];
 }
 
-- (void) explicit:(NSString*)publicId options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)explicit:(NSString *)publicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil) options = [NSDictionary dictionary];
+    if (options == nil)options = @{};
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setValue:publicId forKey:@"public_id"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
@@ -113,67 +108,66 @@
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];    
     [self callApi:@"explicit" file:nil params:params options:options];
 }
-- (void) addTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)addTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil) options = [NSDictionary dictionary];
+    if (options == nil)options = @{};
     NSNumber* exclusive = [CLCloudinary asBool:[options valueForKey:@"exclusive"]];
     NSString* command = [exclusive boolValue] ? @"set_exclusive" : @"add";
     [self callTagsApi:tag command:command publicIds:publicIds options:options];
 }
-- (void) removeTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)removeTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil) options = [NSDictionary dictionary];
+    if (options == nil)options = @{};
     [self callTagsApi:tag command:@"remove" publicIds:publicIds options:options];
 }
-- (void) replaceTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)replaceTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil) options = [NSDictionary dictionary];
+    if (options == nil)options = @{};
     [self callTagsApi:tag command:@"replace" publicIds:publicIds options:options];
 }
-- (void) text:(NSString*)text options:(NSDictionary*) options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)text:(NSString *)text options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
     static NSArray* TEXT_PARAMS = nil;
-    if (TEXT_PARAMS == nil) {
-        TEXT_PARAMS = [NSArray arrayWithObjects:
-                       @"public_id", @"font_family", @"font_size", @"font_color", @"text_align", @"font_weight",
-                       @"font_style", @"background", @"opacity", @"text_decoration", nil];
+    if (TEXT_PARAMS == nil){
+        TEXT_PARAMS = @[@"public_id", @"font_family", @"font_size", @"font_color", @"text_align", @"font_weight",
+                       @"font_style", @"background", @"opacity", @"text_decoration"];
     }
-    if (options == nil) options = [NSDictionary dictionary];
+    if (options == nil)options = @{};
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setValue:text forKey:@"text"];
-    for (NSString* param in TEXT_PARAMS) {
+    for (NSString* param in TEXT_PARAMS){
         NSString* paramValue = [CLCloudinary asString:[options valueForKey:param]];
         [params setValue:paramValue forKey:param];
     }
     [self callApi:@"text" file:nil params:params options:options];
 }
 
-- (void) cancel
+- (void)cancel
 {
-    if (connection != nil) {
+    if (connection != nil){
         [connection cancel];
         connection = nil;
     }
-    [responseData setLength:0];
+    [_responseData setLength:0];
 }
 
 // internal
-- (void) callApi:(NSString*) action file:(id)file params:(NSMutableDictionary*)params options:(NSDictionary*) options
+- (void)callApi:(NSString *)action file:(id)file params:(NSMutableDictionary *)params options:(NSDictionary *)options
 {
-    if (options == nil) options = [NSDictionary dictionary];
-    context = [options valueForKey:@"context"];
-    NSString* apiKey = [cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
-    if (apiKey == nil) [NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
-    if ([options valueForKey:@"signature"] == nil || [options valueForKey:@"timestamp"] == nil) {
-        NSString* apiSecret = [cloudinary get:@"api_secret" options:options defaultValue:nil];
-        if (apiSecret == nil) [NSException raise:@"CloudinaryError" format:@"Must supply api_secret"];
+    if (options == nil)options = @{};
+    _context = [options valueForKey:@"context"];
+    NSString* apiKey = [_cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
+    if (apiKey == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
+    if ([options valueForKey:@"signature"] == nil || [options valueForKey:@"timestamp"] == nil){
+        NSString* apiSecret = [_cloudinary get:@"api_secret" options:options defaultValue:nil];
+        if (apiSecret == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_secret"];
         NSDate *today = [NSDate date];
-        [params setValue:[NSNumber numberWithInt:(int) [today timeIntervalSince1970]] forKey:@"timestamp"];
-        [params setValue:[cloudinary apiSignRequest:params secret:apiSecret] forKey:@"signature"];
+        [params setValue:@((int)[today timeIntervalSince1970])forKey:@"timestamp"];
+        [params setValue:[_cloudinary apiSignRequest:params secret:apiSecret] forKey:@"signature"];
         [params setValue:apiKey forKey:@"api_key"];
     } else {
         [params setValue:[options valueForKey:@"timestamp"] forKey:@"timestamp"];
@@ -181,25 +175,25 @@
         [params setValue:apiKey forKey:@"api_key"];
     }
     
-    NSString* apiUrl = [cloudinary cloudinaryApiUrl:action options:options];
+    NSString* apiUrl = [_cloudinary cloudinaryApiUrl:action options:options];
 
     NSURLRequest *req = [self request:apiUrl params:params file:file];
     // create the connection with the request and start loading the data
     connection = [NSURLConnection connectionWithRequest:req delegate:self];
-    if (connection == nil) {
+    if (connection == nil){
         [self error:@"Failed to initiate connection" code:0];
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse*)response_
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response_
 {
-    [responseData setLength:0];
+    [_responseData setLength:0];
     response = response_;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    [responseData appendData:data];
+    [_responseData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)nserror
@@ -208,7 +202,7 @@
 
     [self error:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
           [nserror localizedDescription],
-          [[nserror userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]]
+          [nserror userInfo][NSURLErrorFailingURLStringErrorKey]]
                code:code];
 }
 
@@ -217,32 +211,39 @@
 
     NSInteger code = [response statusCode];
     
-    if (code != 200 && code != 400 && code != 401 && code != 500) {
-        [self error:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code];
+    if (code != 200 && code != 400 && code != 401 && code != 500){
+        [self error:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
         return;
     }
+
+    NSData *data = (NSData *)_responseData;
+    NSError *error = nil;
+    // parse the JSON and use it
+    id json = [NSJSONSerialization JSONObjectWithData:data options:nil error:&error];
     
-    SBJsonParser *parser = [SBJsonParser new];
-    NSDictionary* result = [parser objectWithData:responseData];
-    if (result == nil) {
-        [self error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", parser.error, [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]] code:code];
-        return;
+    if (error){
+        // log the error
+        DebugLog(@"Error: %@", error);[self error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", error, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
     }
-    NSDictionary* errorResponse = [result valueForKey:@"error"];
-    if (errorResponse == nil)
-    {
-        [self success:result];
+    else if ([json isKindOfClass:[NSDictionary class]]){
+        NSDictionary *dict = (NSDictionary *)json;
+        
+        NSDictionary* errorResponse = [dict valueForKey:@"error"];
+        if (errorResponse == nil){
+            [self success:dict];
+        }
+        else {
+            [self error:[errorResponse valueForKey:@"message"] code:code];
+        }
     }
-    else
-    {
-        [self error:[errorResponse valueForKey:@"message"] code:code];
+    else {
+        NSAssert(NO, @"Condition should never be met");
     }
 }
 
-
-- (NSURLRequest*) request:(NSString*)url params:(NSDictionary*)params file:(id)file
+- (NSURLRequest *)request:(NSString *)url params:(NSDictionary *)params file:(id)file
 {
-    NSString *boundary = [cloudinary randomPublicId];
+    NSString *boundary = [_cloudinary randomPublicId];
     
     NSMutableURLRequest *req=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                   cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -254,9 +255,9 @@
     [req setValue:contentType forHTTPHeaderField:@"Content-type"];
     
     NSMutableData* postBody = [NSMutableData data];
-    for (NSString* param in [params allKeys]) {
+    for (NSString* param in [params allKeys]){
         NSString* paramValue = [CLCloudinary asString:[params valueForKey:param]];
-        if ([paramValue length] == 0) continue;
+        if ([paramValue length] == 0)continue;
         [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [postBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
         [postBody appendData:[paramValue dataUsingEncoding:NSUTF8StringEncoding]];
@@ -268,7 +269,7 @@
         NSData *data;
         if ([file isKindOfClass:[NSString class]])
         {
-            if ([(NSString*)file rangeOfString:@"^https?:/.*" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location != NSNotFound)
+            if ([(NSString *)file rangeOfString:@"^https?:/.*" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location != NSNotFound)
             {
                 [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
                 [postBody appendData:[@"Content-Disposition: form-data; name=\"file\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
@@ -280,10 +281,10 @@
             {
                 NSError* error = nil;
                 data = [NSData dataWithContentsOfFile:file options:0 error:&error];
-                if (error != nil) {
+                if (error != nil){
                     [NSException raise:@"CloudinaryError" format:@"Error reading requested file - %@ %@",
                                  [error localizedDescription],
-                                 [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey], nil];
+                                 [error userInfo][NSURLErrorFailingURLStringErrorKey], nil];
                 }
                 filename = [file lastPathComponent];
             }
@@ -310,9 +311,9 @@
     return req;
 }
 
-- (void) callTagsApi:(NSString*)tag command:(NSString*)command publicIds:(NSArray*)publicIds options:(NSDictionary*) options
+- (void)callTagsApi:(NSString *)tag command:(NSString *)command publicIds:(NSArray *)publicIds options:(NSDictionary *)options
 {
-    if (options == nil) options = [NSDictionary dictionary];
+    if (options == nil)options = @{};
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setValue:tag forKey:@"tag"];
     [params setValue:command forKey:@"command"];
@@ -320,13 +321,13 @@
     [params setValue:[publicIds componentsJoinedByString:@","] forKey:@"public_ids"];
     [self callApi:@"tags" file:nil params:params options:options];
 }
-- (NSString*) buildEager:(NSArray*)transformations
+- (NSString *)buildEager:(NSArray *)transformations
 {
-    if (transformations == nil) {
+    if (transformations == nil){
         return nil;
     }
     NSMutableArray* eager = [NSMutableArray arrayWithCapacity:[transformations count]];
-    for (CLTransformation* transformation in transformations) {
+    for (CLTransformation* transformation in transformations){
         NSMutableArray* singleEager = [NSMutableArray array];
         NSString* transformationString = [transformation generate];
         if ([transformationString length] > 0)
@@ -335,7 +336,7 @@
         }
         if ([transformation isKindOfClass:[CLEagerTransformation class]])
         {
-            CLEagerTransformation* eagerTransformation = (CLEagerTransformation*) transformation;
+            CLEagerTransformation* eagerTransformation = (CLEagerTransformation *)transformation;
             if ([eagerTransformation.format length] > 0)
             {
                 [singleEager addObject:eagerTransformation.format];
@@ -346,7 +347,7 @@
     return [eager componentsJoinedByString:@"|"];
     
 }
-- (NSString*) buildCustomHeaders:(id)headers
+- (NSString *)buildCustomHeaders:(id)headers
 {
     if (headers == nil)
     {
@@ -359,15 +360,15 @@
     else if ([headers isKindOfClass:[NSArray class]])
     {
         NSMutableString* headersString = [NSMutableString string];
-        for (NSString* header in (NSArray*)headers) {
+        for (NSString* header in (NSArray *)headers){
             [headersString appendString:header];
             [headersString appendString:@"\n"];
         }
         return headersString;
     } else {
-        NSDictionary* headersDict = (NSDictionary*)headers;
+        NSDictionary* headersDict = (NSDictionary *)headers;
         NSMutableString* headersString = [NSMutableString string];
-        for (NSString* header in [headersDict allKeys]) {
+        for (NSString* header in [headersDict allKeys]){
             [headersString appendString:header];
             [headersString appendString:@": "];
             [headersString appendString:[headersDict valueForKey:header]];
@@ -376,13 +377,13 @@
         return headersString;
     }
 }
-- (NSDictionary*) buildUploadParams:(NSDictionary*) options
+- (NSDictionary *)buildUploadParams:(NSDictionary *)options
 {
-    if (options == nil) options = [NSDictionary dictionary];
+    if (options == nil)options = @{};
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     id transformation = [options valueForKey:@"transformation" defaultValue:@""];
-    if ([transformation isKindOfClass:[CLTransformation class]]) {
-        transformation = [((CLTransformation*) transformation) generate];
+    if ([transformation isKindOfClass:[CLTransformation class]]){
+        transformation = [((CLTransformation *)transformation)generate];
     }
     [params setValue:transformation forKey:@"transformation"];
     [params setValue:[options valueForKey:@"public_id"] forKey:@"public_id"];
@@ -390,11 +391,11 @@
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
     static NSArray * CL_BOOLEAN_UPLOAD_OPTIONS = nil;
     if (CL_BOOLEAN_UPLOAD_OPTIONS == nil)
-        CL_BOOLEAN_UPLOAD_OPTIONS = [NSArray arrayWithObjects:@"backup", @"exif", @"faces", @"colors", @"image_metadata", nil];
+        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata"];
 
-    for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS) {
+    for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS){
         NSNumber* value = [CLCloudinary asBool:[options valueForKey:flag]];
-        if (value != nil) {
+        if (value != nil){
             NSString* valueString = [value boolValue] ? @"true" : @"false";
             [options setValue:valueString forKey:flag];
         }
@@ -406,38 +407,38 @@
     return params;    
 }
 
-- (void) success:(NSDictionary*)result
+- (void)success:(NSDictionary *)result
 {
-    if (completion != nil)
+    if (_completion != nil)
     {
-        completion(result, nil, 200, context);
+        _completion(result, nil, 200, _context);
     }
-    if (delegate != nil && [delegate respondsToSelector:@selector(uploaderSuccess:context:)])
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderSuccess:context:)])
     {
-        [delegate uploaderSuccess:result context:context];
+        [_delegate uploaderSuccess:result context:_context];
     }
 }
 
-- (void) error:(NSString*)result code:(NSInteger)code
+- (void)error:(NSString *)result code:(NSInteger)code
 {
-    if (completion != nil)
+    if (_completion != nil)
     {
-        completion(nil, result, code, context);
+        _completion(nil, result, code, _context);
     }
-    if (delegate != nil && [delegate respondsToSelector:@selector(uploaderSuccess:context:)])
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderSuccess:context:)])
     {
-        [delegate uploaderError:result code:code context:context];
+        [_delegate uploaderError:result code:code context:_context];
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
-    if (progress != nil)
+    if (_progress != nil)
     {
-        progress(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, context);
+        _progress(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, _context);
     }
-    if (delegate != nil && [delegate respondsToSelector:@selector(uploaderProgress:totalBytesWritten:totalBytesExpectedToWrite:context:)]) {
-        [delegate uploaderProgress:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite context:context];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderProgress:totalBytesWritten:totalBytesExpectedToWrite:context:)]){
+        [_delegate uploaderProgress:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite context:_context];
     }
 }
 

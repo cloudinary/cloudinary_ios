@@ -42,65 +42,65 @@
     STAssertEqualObjects([config valueForKey:@"secure_distribution"], @"jkl", nil);
 }
 
-- (void) testCloudName {
+- (void)testCloudName {
     // should use cloud_name from config
     NSString* result = [cloudinary url:@"test"];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/test", result, nil);
 }
 
 
-- (void) testCloudNameOptions {
+- (void)testCloudNameOptions {
     // should allow overriding cloud_name in options
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:@"test321" forKey:@"cloud_name"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test321/image/upload/test", result, nil);
 }
 
-- (void) testSecureDistribution {
+- (void)testSecureDistribution {
     // should use default secure distribution if secure=TRUE
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"secure"]];
     STAssertEqualObjects(@"https://cloudinary-a.akamaihd.net/test123/image/upload/test", result, nil);
 }
 
-- (void) testSecureDistributionOverwrite {
+- (void)testSecureDistributionOverwrite {
     // should allow overwriting secure distribution if secure=TRUE
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure",
                                                          @"something.else.com", @"secure_distribution", nil]];
     STAssertEqualObjects(@"https://something.else.com/test123/image/upload/test", result, nil);
 }
 
-- (void) testSecureDistibution {
+- (void)testSecureDistibution {
     // should take secure distribution from config if secure=TRUE
     [cloudinary.config setValue:@"config.secure.distribution.com" forKey:@"secure_distribution"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"secure"]];
     STAssertEqualObjects(@"https://config.secure.distribution.com/test123/image/upload/test", result, nil);
 }
 
-- (void) testSecureAkamai {
+- (void)testSecureAkamai {
     // should default to akamai if secure is given with private_cdn and no secure_distribution
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure", [NSNumber numberWithBool:YES], @"private_cdn", nil]];
     STAssertEqualObjects(@"https://cloudinary-a.akamaihd.net/test123/image/upload/test", result, nil);
 }
 
-- (void) testSecureNonAkamai {
+- (void)testSecureNonAkamai {
     // should not add cloud_name if private_cdn and secure non akamai secure_distribution
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure", [NSNumber numberWithBool:YES], @"private_cdn", @"something.cloudfront.net", @"secure_distribution", nil]];
     STAssertEqualObjects(@"https://something.cloudfront.net/image/upload/test", result, nil);
 }
 
-- (void) testHttpPrivateCdn {
+- (void)testHttpPrivateCdn {
     // should not add cloud_name if private_cdn and not secure
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"private_cdn", nil]];
     STAssertEqualObjects(@"http://test123-res.cloudinary.com/image/upload/test", result, nil);
 }
 
-- (void) testFormat {
+- (void)testFormat {
     // should use format from options
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:@"jpg" forKey:@"format"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/test.jpg", result, nil);
 }
 
 
-- (void) testCrop {
+- (void)testCrop {
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setWidthWithInt:100];
     [transformation setHeightWithInt:101];
@@ -118,7 +118,7 @@
 }
 
 
-- (void) testVariousOptions {
+- (void)testVariousOptions {
     // should use x, y, radius, prefix, gravity and quality from options
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setXWithInt:1];
@@ -132,7 +132,7 @@
 }
 
 
-- (void) testTransformationSimple {
+- (void)testTransformationSimple {
     // should support named transformation
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setNamed:@"blip"];
@@ -141,7 +141,7 @@
 }
 
 
-- (void) testTransformationArray {
+- (void)testTransformationArray {
     // should support array of named transformations
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setNamed:[NSArray arrayWithObjects:@"blip", @"blop",nil]];
@@ -150,7 +150,7 @@
 }
 
 
-- (void) testBaseTransformations {
+- (void)testBaseTransformations {
     // should support base transformation
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setXWithInt:100];
@@ -166,7 +166,7 @@
 }
 
 
-- (void) testBaseTransformationArray {
+- (void)testBaseTransformationArray {
     // should support array of base transformations
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setXWithInt:100];
@@ -185,7 +185,7 @@
 }
 
 
-- (void) testNoEmptyTransformation {
+- (void)testNoEmptyTransformation {
     // should not include empty transformations
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setXWithInt:100];
@@ -198,21 +198,21 @@
 }
 
 
-- (void) testType {
+- (void)testType {
     // should use type from options
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:@"facebook" forKey:@"type"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/facebook/test", result, nil);
 }
 
 
-- (void) testResourceType {
+- (void)testResourceType {
     // should use resource_type from options
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:@"raw" forKey:@"resource_type"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/raw/upload/test", result, nil);
 }
 
 
-- (void) testIgnoreHttp {
+- (void)testIgnoreHttp {
     // should ignore http links only if type is not given or is asset
     NSString* result = [cloudinary url:@"http://test"];
     STAssertEqualObjects(@"http://test", result, nil);
@@ -223,35 +223,35 @@
 }
 
 
-- (void) testFetch {
+- (void)testFetch {
     // should escape fetch urls
     NSString* result = [cloudinary url:@"http://blah.com/hello?a=b" options:[NSDictionary dictionaryWithObject:@"fetch" forKey:@"type"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/fetch/http://blah.com/hello%3Fa%3Db", result, nil);
 }
 
 
-- (void) testCname {
+- (void)testCname {
     // should support extenal cname
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:@"hello.com" forKey:@"cname"]];
     STAssertEqualObjects(@"http://hello.com/test123/image/upload/test", result, nil);
 }
 
 
-- (void) testCnameSubdomain {
+- (void)testCnameSubdomain {
     // should support extenal cname with cdn_subdomain on
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:@"hello.com", @"cname", [NSNumber numberWithInt:YES], @"cdn_subdomain", nil]];
     STAssertEqualObjects(@"http://a2.hello.com/test123/image/upload/test", result, nil);
 }
 
 
-- (void) testHttpEscape {
+- (void)testHttpEscape {
     // should escape http urls
     NSString* result = [cloudinary url:@"http://www.youtube.com/watch?v=d9NF2edxy-M" options:[NSDictionary dictionaryWithObject:@"youtube" forKey:@"type"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/youtube/http://www.youtube.com/watch%3Fv%3Dd9NF2edxy-M", result, nil);
 }
 
 
-- (void) testBackground {
+- (void)testBackground {
     // should support background
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setBackground:@"red"];
@@ -264,7 +264,7 @@
 }
 
 
-- (void) testDefaultImage {
+- (void)testDefaultImage {
     // should support default_image
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setDefaultImage:@"default"];
@@ -273,10 +273,10 @@
 }
 
 
-- (void) testAngle {
+- (void)testAngle {
     // should support angle
     CLTransformation* transformation = [CLTransformation transformation];
-    [transformation setAngleWithInt:12];
+    [transformation setAngleWithInt:12]; 
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/a_12/test", result, nil);
     transformation = [CLTransformation transformation];
@@ -286,7 +286,7 @@
 }
 
 
-- (void) testOverlay {
+- (void)testOverlay {
     // should support overlay
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setOverlay:@"text:hello"];
@@ -304,7 +304,7 @@
 }
 
 
-- (void) testUnderlay {
+- (void)testUnderlay {
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setUnderlay:@"text:hello"];
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
@@ -321,14 +321,14 @@
 }
 
 
-- (void) testFetchFormat {
+- (void)testFetchFormat {
     // should support format for fetch urls
     NSString* result = [cloudinary url:@"http://cloudinary.com/images/logo.png" options:[NSDictionary dictionaryWithObjectsAndKeys:@"fetch", @"type", @"jpg", @"format", nil]];
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/fetch/f_jpg/http://cloudinary.com/images/logo.png", result, nil);
 }
 
 
-- (void) testEffect {
+- (void)testEffect {
     // should support effect
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setEffect:@"sepia"];
@@ -337,7 +337,7 @@
 }
 
 
-- (void) testEffectWithParam {
+- (void)testEffectWithParam {
     // should support effect with param
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setEffect:@"sepia" param:[NSNumber numberWithInt:10]];
@@ -346,7 +346,7 @@
 }
 
 
-- (void) testDensity {
+- (void)testDensity {
     // should support density
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setDensityWithInt:150];
@@ -355,7 +355,7 @@
 }
 
 
-- (void) testPage {
+- (void)testPage {
     // should support page
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setPageWithInt:5];
@@ -364,7 +364,7 @@
 }
 
 
-- (void) testBorder {
+- (void)testBorder {
     // should support border
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setBorder:5 color:@"black"];
@@ -381,7 +381,7 @@
 }
 
 
-- (void) testFlags {
+- (void)testFlags {
     // should support flags
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setFlags:@"abc"];
@@ -394,7 +394,7 @@
 }
 
 
-- (void) testImageTag {
+- (void)testImageTag {
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setWidthWithInt:100];
     [transformation setHeightWithInt:101];
@@ -404,7 +404,7 @@
     STAssertEqualObjects(@"<img src='http://res.cloudinary.com/test123/image/upload/c_crop,h_101,w_100/test' alt='my image' width='100' height='101'/>", result, nil);
 }
 
-- (void) testSignature {
+- (void)testSignature {
     NSString* sig = [cloudinary apiSignRequest:[NSDictionary dictionaryWithObjectsAndKeys:@"b", @"a", @"d", @"c", @"", @"e", nil] secret:@"abcd"];
     STAssertEqualObjects(sig, @"ef1f04e0c1af08208a3dd28483107bc7f4a61209", nil);
 }
