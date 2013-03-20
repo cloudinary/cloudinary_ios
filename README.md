@@ -18,10 +18,8 @@ Download the latest SDK version from the following URL:
 [http://res.cloudinary.com/cloudinary/raw/upload/cloudinary_ios_v1.0.2.zip](http://res.cloudinary.com/cloudinary/raw/upload/cloudinary_ios_v1.0.2.zip)
 	
 
-Extract the ZIP file and drag `libCloudinary.a` and `libSBjson.a` to the `Frameworks` folder of your Xcode project. Drag the `Cloudinary` folder that contains all .h include files to your Xcode project.
+Extract the ZIP file and drag `libCloudinary.a` to the `Frameworks` folder of your Xcode project. Drag the `Cloudinary` folder that contains all .h include files to your Xcode project.
 
-*Note: If you already use `SBJson` in your project, you should not copy `libSBjson.a` to your project. 
- 
 In Xcode, double-click the target's name under `Targets` in the `Project` window. Choose the `Build Settings` tab. Search for the `Other Linker Flags` build setting under the `Linking` collection and set its value to `-ObjC`.
 
 ## Try it right away

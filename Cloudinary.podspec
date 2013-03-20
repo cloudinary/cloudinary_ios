@@ -18,5 +18,4 @@ Pod::Spec.new do |s|
   s.public_header_files = 'Cloudinary/**/*.h'
   s.framework  = 'Security', 'Foundation'
   s.requires_arc = true
-  s.dependency 'SBJson', '~> 3.2'
 end
