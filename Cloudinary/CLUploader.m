@@ -415,9 +415,11 @@
     [params setValue:[options valueForKey:@"public_id"] forKey:@"public_id"];
     [params setValue:[options valueForKey:@"format"] forKey:@"format"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
+    [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
+    [params setValue:[options valueForKey:@"eager_notification_url"] forKey:@"eager_notification_url"];
     static NSArray * CL_BOOLEAN_UPLOAD_OPTIONS = nil;
     if (CL_BOOLEAN_UPLOAD_OPTIONS == nil)
-        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata"];
+        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"eager_async"];
 
     for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS){
         NSNumber* value = [CLCloudinary asBool:[options valueForKey:flag]];
