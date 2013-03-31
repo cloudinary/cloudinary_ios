@@ -85,6 +85,21 @@
     STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
 }
 
+- (void)testRename
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{}];
+    [self waitForCompletion];
+    NSString* publicId = [result valueForKey:@"public_id"];
+    [uploader rename:publicId toPublicId:[publicId stringByAppendingString:@"2"] options:@{}];
+
+    [uploader upload:[self logo] options:@{}];
+    [self waitForCompletion];
+    NSString* publicId2 = [result valueForKey:@"public_id"];
+    [uploader rename:[publicId stringByAppendingString:@"2"] toPublicId:publicId2 options:@{@"overwrite": @YES}];
+}
+
 - (void)testUploadWithBlock
 {
     VerifyAPISecret();
@@ -171,6 +186,24 @@
     [self waitForCompletion];
     STAssertTrue([(NSNumber*)[result valueForKey:@"width"] integerValue] > 1, nil);
     STAssertTrue([(NSNumber*)[result valueForKey:@"height"] integerValue] > 1, nil);
+}
+
+- (void)testTags
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:[NSDictionary dictionary]];
+    [self waitForCompletion];
+    NSString* publicId = [result valueForKey:@"public_id"];
+
+    [uploader addTag:@"tag1" publicIds: @[publicId] options:@{}];
+    [self waitForCompletion];
+    [uploader addTag:@"tag2" publicIds: @[publicId] options:@{}];
+    [self waitForCompletion];
+    [uploader removeTag:@"tag2" publicIds: @[publicId] options:@{}];
+    [self waitForCompletion];
+    [uploader replaceTag:@"tag3" publicIds: @[publicId] options:@{}];
+    [self waitForCompletion];
 }
 
 @end

@@ -53,6 +53,11 @@
     [self destroy:publicId options:options withCompletion:nil andProgress:nil];
 }
 
+- (void)rename:(NSString *)fromPublicId toPublicId:(NSString *)toPublicId options:(NSDictionary *)options
+{
+    [self rename:fromPublicId toPublicId:toPublicId options:options withCompletion:nil andProgress:nil];
+}
+
 - (void)explicit:(NSString *)publicId options:(NSDictionary *)options
 {
     [self explicit:publicId options:options withCompletion:nil andProgress:nil];
@@ -93,6 +98,17 @@
     NSString* type = [options valueForKey:@"type" defaultValue:@"upload"];
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", publicId, @"public_id", nil];
     [self callApi:@"destroy" file:nil params:params options:options];
+}
+
+- (void)rename:(NSString *)fromPublicId toPublicId:(NSString *)toPublicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+{
+    [self setCompletion:completionBlock andProgress:progressBlock];
+    if (options == nil)options = @{};
+    NSString* type = [options valueForKey:@"type" defaultValue:@"upload"];
+    NSNumber* overwriteBool = [CLCloudinary asBool:[options valueForKey:@"overwrite"]];
+    NSString* overwrite = [overwriteBool boolValue] ? @"true" : @"false";
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", fromPublicId, @"from_public_id", toPublicId, @"to_public_id", overwrite, @"overwrite", nil];
+    [self callApi:@"rename" file:nil params:params options:options];
 }
 
 - (void)explicit:(NSString *)publicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
