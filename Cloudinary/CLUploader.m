@@ -121,7 +121,7 @@
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
     NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
-    [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];    
+    [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
     [self callApi:@"explicit" file:nil params:params options:options];
 }
 - (void)addTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
@@ -257,6 +257,14 @@
     }
 }
 
+- (void)encodeParam:(NSMutableData*)postBody param:(NSString*)param paramValue:(NSString*)paramValue boundary:(NSString*)boundary
+{
+    [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[paramValue dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
 - (NSURLRequest *)request:(NSString *)url params:(NSDictionary *)params file:(id)file
 {
     NSString *boundary = [_cloudinary randomPublicId];
@@ -272,12 +280,17 @@
     
     NSMutableData* postBody = [NSMutableData data];
     for (NSString* param in [params allKeys]){
-        NSString* paramValue = [CLCloudinary asString:[params valueForKey:param]];
-        if ([paramValue length] == 0)continue;
-        [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [postBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
-        [postBody appendData:[paramValue dataUsingEncoding:NSUTF8StringEncoding]];
-        [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        NSObject* value = [params valueForKey:param];
+        if ([value isKindOfClass:[NSArray class]]) {
+            NSArray *arrayValue = (NSArray*) value;
+            for (NSString *paramValue in arrayValue) {
+                [self encodeParam:postBody param:[param stringByAppendingString:@"[]"] paramValue:paramValue boundary:boundary];
+            }
+        } else {
+            NSString *paramValue = [CLCloudinary asString:value];
+            if ([paramValue length] == 0) continue;
+            [self encodeParam:postBody param:param paramValue:paramValue boundary:boundary];
+        }
     }
     if (file != nil)
     {
@@ -287,10 +300,7 @@
         {
             if ([(NSString *)file rangeOfString:@"^https?:/.*" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location != NSNotFound)
             {
-                [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-                [postBody appendData:[@"Content-Disposition: form-data; name=\"file\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [postBody appendData:[file dataUsingEncoding:NSUTF8StringEncoding]];
-                [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                [self encodeParam:postBody param:@"file" paramValue:file boundary:boundary];
                 data = nil;
             }
             else
@@ -334,7 +344,7 @@
     [params setValue:tag forKey:@"tag"];
     [params setValue:command forKey:@"command"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
-    [params setValue:[publicIds componentsJoinedByString:@","] forKey:@"public_ids"];
+    [params setValue:publicIds forKey:@"public_ids"];
     [self callApi:@"tags" file:nil params:params options:options];
 }
 - (NSString *)buildEager:(NSArray *)transformations

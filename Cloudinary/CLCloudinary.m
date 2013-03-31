@@ -122,8 +122,16 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
     NSMutableArray *params = [NSMutableArray arrayWithCapacity:[paramsToSign count]];
     paramNames = [paramNames sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     for (NSString *param in paramNames) {
-        NSString *paramValue = [CLCloudinary asString:[paramsToSign valueForKey:param]];
-        if ([paramValue length] == 0) continue;
+        NSObject* value = [paramsToSign valueForKey:param];
+        NSString* paramValue;
+        if ([value isKindOfClass:[NSArray class]]) {
+            NSArray *arrayValue = (NSArray*) value;
+            if ([arrayValue count] == 0) continue;
+            paramValue = [arrayValue componentsJoinedByString:@","];
+        } else {
+            paramValue = [CLCloudinary asString:value];
+            if ([paramValue length] == 0) continue;
+        }
         NSArray* encoded = @[param, paramValue];
         [params addObject:[encoded componentsJoinedByString:@"="]];
     }

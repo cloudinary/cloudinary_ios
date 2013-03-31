@@ -40,6 +40,12 @@
     return [[NSBundle bundleWithIdentifier:@"com.cloudinary.CloudinaryTests"] pathForResource:@"logo" ofType:@"png"];
 }
 
+- (void)reset
+{
+    error = nil;
+    result = nil;
+}
+
 - (void)waitForCompletion
 {
     
@@ -72,7 +78,7 @@
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader upload:[self logo] options:[NSDictionary dictionary]];
+    [uploader upload:[self logo] options:@{}];
     [self waitForCompletion];
     STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
     STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
@@ -104,7 +110,7 @@
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:nil];
-    [uploader upload:[self logo] options:[NSDictionary dictionary] withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
+    [uploader upload:[self logo] options:@{} withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
         result = success;
         error = errorResult;
     } andProgress:nil];
@@ -135,17 +141,9 @@
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setCrop:@"scale"];
     [transformation setWidthWithFloat:2.0];
-    [uploader explicit:@"cloudinary" options:[NSDictionary dictionaryWithObjectsAndKeys:
-                                              [NSArray arrayWithObject:transformation], @"eager",
-                                              @"twitter_name", @"type"
-                                              , nil]];
+    [uploader explicit:@"cloudinary" options:@{@"eager": @[transformation], @"type": @"twitter_name"}];
     [self waitForCompletion];
-    NSString* url = [cloudinary url:@"cloudinary" options:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                           @"png", @"format",
-                                                           [result valueForKey:@"version"], @"version",
-                                                           @"twitter_name", @"type",
-                                                           transformation, @"transformation",
-                                                           nil]];
+    NSString* url = [cloudinary url:@"cloudinary" options:@{@"format": @"png", @"version":[result valueForKey:@"version"], @"type": @"twitter_name", @"transformation": transformation}];
     NSArray* derivedList = [result valueForKey:@"eager"];
     NSDictionary* derived = [derivedList objectAtIndex:0];
     
@@ -182,7 +180,7 @@
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader text:@"hello world" options:[NSDictionary dictionary]];
+    [uploader text:@"hello world" options:@{}];
     [self waitForCompletion];
     STAssertTrue([(NSNumber*)[result valueForKey:@"width"] integerValue] > 1, nil);
     STAssertTrue([(NSNumber*)[result valueForKey:@"height"] integerValue] > 1, nil);
@@ -192,18 +190,34 @@
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader upload:[self logo] options:[NSDictionary dictionary]];
+    [uploader upload:[self logo] options:@{}];
     [self waitForCompletion];
     NSString* publicId = [result valueForKey:@"public_id"];
 
-    [uploader addTag:@"tag1" publicIds: @[publicId] options:@{}];
+    [self reset];
+    [uploader upload:[self logo] options:@{}];
     [self waitForCompletion];
+    NSString* publicId2 = [result valueForKey:@"public_id"];
+
+    [self reset];
+    [uploader addTag:@"tag1" publicIds: @[publicId, publicId2] options:@{}];
+    [self waitForCompletion];
+    NSArray* publicIds = [result valueForKey:@"public_ids"];
+    NSArray* expectedPublicIds = @[publicId, publicId2];
+    STAssertEqualObjects(publicIds, expectedPublicIds, @"changed public ids");
+    [self reset];
     [uploader addTag:@"tag2" publicIds: @[publicId] options:@{}];
     [self waitForCompletion];
+    STAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
+    [self reset];
     [uploader removeTag:@"tag2" publicIds: @[publicId] options:@{}];
     [self waitForCompletion];
+
+    STAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
+    [self reset];
     [uploader replaceTag:@"tag3" publicIds: @[publicId] options:@{}];
     [self waitForCompletion];
+    STAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
 }
 
 @end
