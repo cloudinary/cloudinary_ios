@@ -179,6 +179,7 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
     NSString *secureDistribution = [self get:@"secure_distribution" options:options defaultValue:nil];
     NSString *cname = [self get:@"cname" options:options defaultValue:nil];
     NSString *version = [CLCloudinary asString:[options valueForKey:@"version" defaultValue:@""]];
+    NSNumber* shorten = [self get:@"shorten" options:options defaultValue:@NO];
 
     CLTransformation* transformation = [options valueForKey:@"transformation"];
     if (transformation == nil) transformation = [CLTransformation transformation];
@@ -235,6 +236,12 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
     {
         [prefix appendString:@"/"];
         [prefix appendString:cloudName];
+    }
+
+    if ([shorten boolValue] && [resourceType isEqualToString:@"image"] && [type isEqualToString:@"upload"])
+    {
+        resourceType = @"iu";
+        type = @"";
     }
     if ([source rangeOfString:@"/"].location != NSNotFound &&
         [source rangeOfString:@"^v[0-9]+/.*" options:NSRegularExpressionSearch].location == NSNotFound &&

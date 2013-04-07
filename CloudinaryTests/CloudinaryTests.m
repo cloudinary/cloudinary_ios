@@ -423,4 +423,10 @@
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/v1234/test", result, nil);
 }
 
+- (void)testShorten {
+    // should allow to shorted image/upload urls
+    NSString* result = [cloudinary url:@"test" options:@{@"shorten": @YES}];
+    STAssertEqualObjects(@"http://res.cloudinary.com/test123/iu/test", result, nil);
+}
+
 @end
