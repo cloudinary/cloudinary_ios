@@ -409,5 +409,18 @@
     STAssertEqualObjects(sig, @"ef1f04e0c1af08208a3dd28483107bc7f4a61209", nil);
 }
 
+- (void)testFolders {
+    // should add version if public_id contains /
+    NSString* result = [cloudinary url:@"folder/test" options:@{}];
+    STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/v1/folder/test", result, nil);
+    result = [cloudinary url:@"folder/test" options:@{@"version": @"123"}];
+    STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/v123/folder/test", result, nil);
+}
+
+- (void)testFoldersWithVersion {
+    // should not add version if public_id contains version already
+    NSString* result = [cloudinary url:@"v1234/test" options:@{}];
+    STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/v1234/test", result, nil);
+}
 
 @end

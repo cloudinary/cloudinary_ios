@@ -236,6 +236,14 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
         [prefix appendString:@"/"];
         [prefix appendString:cloudName];
     }
+    if ([source rangeOfString:@"/"].location != NSNotFound &&
+        [source rangeOfString:@"^v[0-9]+/.*" options:NSRegularExpressionSearch].location == NSNotFound &&
+        [source rangeOfString:@"^https?:/.*" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location == NSNotFound &&
+        [version length] == 0)
+    {
+        version = @"1";
+    }
+    
     if ([version length] > 0)
     {
         version = [NSString stringWithFormat:@"v%@", version];
