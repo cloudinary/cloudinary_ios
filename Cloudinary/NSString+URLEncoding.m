@@ -11,12 +11,15 @@
 
 -(NSString *)smartEncodeUrl:(NSStringEncoding)encoding
 {
-	return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                               (CFStringRef)self,
-                                                               NULL,
-                                                               (CFStringRef)@"!*'\"();@&=+$,?%#[]% ",
-                                                               CFStringConvertNSStringEncodingToEncoding(encoding));    
+    CFStringRef ref = CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                              (CFStringRef)self,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              CFStringConvertNSStringEncodingToEncoding(encoding));
+    NSString *encoded = [NSString stringWithString: (__bridge NSString *)ref];
+    CFRelease( ref );
+    
+    return encoded;
 }
-
 
 @end
