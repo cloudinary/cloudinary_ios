@@ -14,7 +14,7 @@
     CFStringRef ref = CFURLCreateStringByAddingPercentEscapes(NULL,
                                                               (CFStringRef)self,
                                                               NULL,
-                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              (CFStringRef)@"!*'\"();@&=+$,?%#[] ",
                                                               CFStringConvertNSStringEncodingToEncoding(encoding));
     NSString *encoded = [NSString stringWithString: (__bridge NSString *)ref];
     CFRelease( ref );
