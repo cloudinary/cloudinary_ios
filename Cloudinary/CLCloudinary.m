@@ -9,8 +9,8 @@
 #import "Security/Security.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "CLTransformation.h"
-#import "NSString+URLEncoding.h"
-#import "NSDictionary+Utilities.h"
+#import "NSString+CLURLEncoding.h"
+#import "NSDictionary+CLUtilities.h"
 
 NSString * const CL_VERSION = @"1.0.2";
 
@@ -84,7 +84,7 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
     NSString *upload_prefix = [self get:@"upload_prefix" options:options defaultValue: @"https://api.cloudinary.com"];
     NSString *cloud_name = [self get:@"cloud_name" options:options defaultValue: nil];
     if (cloud_name == nil)[NSException raise:@"CloudinaryError" format:@"Must supply cloud_name in tag or in configuration"];
-    NSString *resource_type = [options valueForKey:@"resource_type" defaultValue:@"image"];
+    NSString *resource_type = [options cl_valueForKey:@"resource_type" defaultValue:@"image"];
     NSArray* components = @[upload_prefix, @"v1_1", cloud_name, resource_type, action];
     return [components componentsJoinedByString:@"/"];
 }
@@ -159,7 +159,7 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
 
 - (id)get:(NSString *)key options:(NSDictionary *)options defaultValue:(id)defaultValue
 {
-    return [options valueForKey:key defaultValue:[_config valueForKey:key defaultValue:defaultValue]];
+    return [options cl_valueForKey:key defaultValue:[_config cl_valueForKey:key defaultValue:defaultValue]];
     
 }
 
@@ -170,15 +170,15 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
         [NSException raise:@"CloudinaryError" format:@"Must supply cloud_name in tag or in configuration"];
     }
 
-    NSString *type = [options valueForKey:@"type" defaultValue:@"upload"];
-    NSString *resourceType = [options valueForKey:@"resource_type" defaultValue:@"image"];
+    NSString *type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
+    NSString *resourceType = [options cl_valueForKey:@"resource_type" defaultValue:@"image"];
     NSString *format = [options valueForKey:@"format"];
     NSNumber* secure = [self get:@"secure" options:options defaultValue:@NO];
     NSNumber* privateCdn = [self get:@"private_cdn" options:options defaultValue:@NO];
     NSNumber* cdnSubdomain = [self get:@"cdn_subdomain" options:options defaultValue:@NO];
     NSString *secureDistribution = [self get:@"secure_distribution" options:options defaultValue:nil];
     NSString *cname = [self get:@"cname" options:options defaultValue:nil];
-    NSString *version = [CLCloudinary asString:[options valueForKey:@"version" defaultValue:@""]];
+    NSString *version = [CLCloudinary asString:[options cl_valueForKey:@"version" defaultValue:@""]];
     NSNumber* shorten = [self get:@"shorten" options:options defaultValue:@NO];
 
     CLTransformation* transformation = [options valueForKey:@"transformation"];
@@ -199,7 +199,7 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
         {
             return originalSource;
         }
-        source = [source smartEncodeUrl:NSUTF8StringEncoding];
+        source = [source cl_smartEncodeUrl:NSUTF8StringEncoding];
     } else if (format != nil) {
         source = [NSString stringWithFormat:@"%@.%@", source, format];
     }
