@@ -15,12 +15,8 @@
 		723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80B7163885C7003FB3FB /* libCloudinary.a */; };
 		723C80D6163885C7003FB3FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 723C80D4163885C7003FB3FB /* InfoPlist.strings */; };
 		723C80D9163885C7003FB3FB /* CloudinaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80D8163885C7003FB3FB /* CloudinaryTests.m */; };
-		723C80E41638FD7A003FB3FB /* NSDictionary+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */; };
 		723C80E616393B13003FB3FB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80E516393B13003FB3FB /* Security.framework */; };
 		723C80EB16394BAA003FB3FB /* CLTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80EA16394BAA003FB3FB /* CLTransformation.m */; };
-		723C80F51639C820003FB3FB /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80F41639C820003FB3FB /* NSString+URLEncoding.m */; };
-		723C81011639E937003FB3FB /* NSDictionary+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */; };
-		723C81021639E940003FB3FB /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80F41639C820003FB3FB /* NSString+URLEncoding.m */; };
 		723C8105163A9118003FB3FB /* CLUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8104163A9118003FB3FB /* CLUploader.m */; };
 		723C8108163AB193003FB3FB /* CLEagerTransformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8107163AB193003FB3FB /* CLEagerTransformation.m */; };
 		723C8131163C707C003FB3FB /* UploaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C8130163C707C003FB3FB /* UploaderTests.m */; };
@@ -29,6 +25,10 @@
 		723E72351642B9F7004CFB6E /* CLUploader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8103163A9118003FB3FB /* CLUploader.h */; };
 		723E72361642B9F7004CFB6E /* CLEagerTransformation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8106163AB193003FB3FB /* CLEagerTransformation.h */; };
 		723E72381642D487004CFB6E /* Cloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723E72371642D295004CFB6E /* Cloudinary.h */; };
+		7287435C172511F80070E094 /* NSDictionary+CLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */; };
+		7287435D172511F80070E094 /* NSString+CLURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */; };
+		72EFFE0E17250CA600005AC9 /* NSDictionary+CLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */; };
+		72EFFE0F17250CA600005AC9 /* NSString+CLURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,13 +70,9 @@
 		723C80D5163885C7003FB3FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		723C80D7163885C7003FB3FB /* CloudinaryTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudinaryTests.h; sourceTree = "<group>"; };
 		723C80D8163885C7003FB3FB /* CloudinaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudinaryTests.m; sourceTree = "<group>"; };
-		723C80E21638FD7A003FB3FB /* NSDictionary+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Utilities.h"; sourceTree = "<group>"; };
-		723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Utilities.m"; sourceTree = "<group>"; };
 		723C80E516393B13003FB3FB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		723C80E916394BAA003FB3FB /* CLTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTransformation.h; sourceTree = "<group>"; };
 		723C80EA16394BAA003FB3FB /* CLTransformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTransformation.m; sourceTree = "<group>"; };
-		723C80F31639C820003FB3FB /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
-		723C80F41639C820003FB3FB /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		723C8103163A9118003FB3FB /* CLUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUploader.h; sourceTree = "<group>"; };
 		723C8104163A9118003FB3FB /* CLUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLUploader.m; sourceTree = "<group>"; };
 		723C8106163AB193003FB3FB /* CLEagerTransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLEagerTransformation.h; sourceTree = "<group>"; };
@@ -85,6 +81,10 @@
 		723C8130163C707C003FB3FB /* UploaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderTests.m; sourceTree = "<group>"; };
 		723C8192163D3EC2003FB3FB /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		723E72371642D295004CFB6E /* Cloudinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cloudinary.h; sourceTree = "<group>"; };
+		72EFFE0A17250CA600005AC9 /* NSDictionary+CLUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CLUtilities.h"; sourceTree = "<group>"; };
+		72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CLUtilities.m"; sourceTree = "<group>"; };
+		72EFFE0C17250CA600005AC9 /* NSString+CLURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CLURLEncoding.h"; sourceTree = "<group>"; };
+		72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CLURLEncoding.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,10 +113,10 @@
 		26DE806C16F68DBF0099F2E2 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				723C80F31639C820003FB3FB /* NSString+URLEncoding.h */,
-				723C80F41639C820003FB3FB /* NSString+URLEncoding.m */,
-				723C80E21638FD7A003FB3FB /* NSDictionary+Utilities.h */,
-				723C80E31638FD7A003FB3FB /* NSDictionary+Utilities.m */,
+				72EFFE0A17250CA600005AC9 /* NSDictionary+CLUtilities.h */,
+				72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */,
+				72EFFE0C17250CA600005AC9 /* NSString+CLURLEncoding.h */,
+				72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -312,11 +312,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				723C80C2163885C7003FB3FB /* CLCloudinary.m in Sources */,
-				723C80E41638FD7A003FB3FB /* NSDictionary+Utilities.m in Sources */,
 				723C80EB16394BAA003FB3FB /* CLTransformation.m in Sources */,
-				723C80F51639C820003FB3FB /* NSString+URLEncoding.m in Sources */,
 				723C8105163A9118003FB3FB /* CLUploader.m in Sources */,
 				723C8108163AB193003FB3FB /* CLEagerTransformation.m in Sources */,
+				72EFFE0E17250CA600005AC9 /* NSDictionary+CLUtilities.m in Sources */,
+				72EFFE0F17250CA600005AC9 /* NSString+CLURLEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,9 +324,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7287435C172511F80070E094 /* NSDictionary+CLUtilities.m in Sources */,
+				7287435D172511F80070E094 /* NSString+CLURLEncoding.m in Sources */,
 				723C80D9163885C7003FB3FB /* CloudinaryTests.m in Sources */,
-				723C81011639E937003FB3FB /* NSDictionary+Utilities.m in Sources */,
-				723C81021639E940003FB3FB /* NSString+URLEncoding.m in Sources */,
 				723C8131163C707C003FB3FB /* UploaderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
