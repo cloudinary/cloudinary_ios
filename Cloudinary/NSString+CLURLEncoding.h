@@ -7,6 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (URLEncoding)
--(NSString *)smartEncodeUrl:(NSStringEncoding)encoding;
+@interface NSString (CLURLEncoding)
+-(NSString *)cl_smartEncodeUrl:(NSStringEncoding)encoding;
 @end

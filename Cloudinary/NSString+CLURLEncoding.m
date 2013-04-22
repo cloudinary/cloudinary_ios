@@ -5,11 +5,11 @@
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
-#import "NSString+URLEncoding.h"
+#import "NSString+CLURLEncoding.h"
 
-@implementation NSString (URLEncoding)
+@implementation NSString (CLURLEncoding)
 
--(NSString *)smartEncodeUrl:(NSStringEncoding)encoding
+-(NSString *)cl_smartEncodeUrl:(NSStringEncoding)encoding
 {
     CFStringRef ref = CFURLCreateStringByAddingPercentEscapes(NULL,
                                                               (CFStringRef)self,

@@ -9,7 +9,7 @@
 #import "CLUploader.h"
 #import "CLEagerTransformation.h"
 #import "CLTransformation.h"
-#import "NSDictionary+Utilities.h"
+#import "NSDictionary+CLUtilities.h"
 
 @interface CLUploader ()<NSURLConnectionDataDelegate>
 
@@ -95,7 +95,7 @@
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil)options = @{};
-    NSString* type = [options valueForKey:@"type" defaultValue:@"upload"];
+    NSString* type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", publicId, @"public_id",[CLCloudinary asBool:[options valueForKey:@"invalidate"]], @"invalidate", nil];
     [self callApi:@"destroy" file:nil params:params options:options];
 }
@@ -104,7 +104,7 @@
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil)options = @{};
-    NSString* type = [options valueForKey:@"type" defaultValue:@"upload"];
+    NSString* type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
     NSNumber* overwriteBool = [CLCloudinary asBool:[options valueForKey:@"overwrite"]];
     NSString* overwrite = [overwriteBool boolValue] ? @"true" : @"false";
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", fromPublicId, @"from_public_id", toPublicId, @"to_public_id", overwrite, @"overwrite", nil];
@@ -407,7 +407,7 @@
 {
     if (options == nil)options = @{};
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
-    id transformation = [options valueForKey:@"transformation" defaultValue:@""];
+    id transformation = [options cl_valueForKey:@"transformation" defaultValue:@""];
     if ([transformation isKindOfClass:[CLTransformation class]]){
         transformation = [((CLTransformation *)transformation)generate];
     }

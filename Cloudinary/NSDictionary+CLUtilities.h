@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDictionary (Utilities)
-- (id) valueForKey:(NSString*)key defaultValue: (id)value;
+@interface NSDictionary (CLUtilities)
+- (id) cl_valueForKey:(NSString*)key defaultValue: (id)value;
 @end

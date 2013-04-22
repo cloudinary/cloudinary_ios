@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
-#import "NSDictionary+Utilities.h"
+#import "NSDictionary+CLUtilities.h"
 
-@implementation NSDictionary (Utilities)
-- (id) valueForKey:(NSString*)key defaultValue: (id)defaultValue
+@implementation NSDictionary (CLUtilities)
+- (id) cl_valueForKey:(NSString*)key defaultValue: (id)defaultValue
 {
     id value = [self valueForKey:key];
     if (value == nil) value = defaultValue;
