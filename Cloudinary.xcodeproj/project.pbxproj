@@ -12,7 +12,7 @@
 		723C80C2163885C7003FB3FB /* CLCloudinary.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80C1163885C7003FB3FB /* CLCloudinary.m */; };
 		723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80C9163885C7003FB3FB /* SenTestingKit.framework */; };
 		723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
-		723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80B7163885C7003FB3FB /* libCloudinary.a */; };
+		723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80B7163885C7003FB3FB /* libCloudinary.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		723C80D6163885C7003FB3FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 723C80D4163885C7003FB3FB /* InfoPlist.strings */; };
 		723C80D9163885C7003FB3FB /* CloudinaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80D8163885C7003FB3FB /* CloudinaryTests.m */; };
 		723C80E616393B13003FB3FB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80E516393B13003FB3FB /* Security.framework */; };
@@ -25,8 +25,6 @@
 		723E72351642B9F7004CFB6E /* CLUploader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8103163A9118003FB3FB /* CLUploader.h */; };
 		723E72361642B9F7004CFB6E /* CLEagerTransformation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8106163AB193003FB3FB /* CLEagerTransformation.h */; };
 		723E72381642D487004CFB6E /* Cloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723E72371642D295004CFB6E /* Cloudinary.h */; };
-		7287435C172511F80070E094 /* NSDictionary+CLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */; };
-		7287435D172511F80070E094 /* NSString+CLURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */; };
 		72EFFE0E17250CA600005AC9 /* NSDictionary+CLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */; };
 		72EFFE0F17250CA600005AC9 /* NSString+CLURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */; };
 /* End PBXBuildFile section */
@@ -226,7 +224,7 @@
 				723C80C3163885C7003FB3FB /* Sources */,
 				723C80C4163885C7003FB3FB /* Frameworks */,
 				723C80C5163885C7003FB3FB /* Resources */,
-				723C80C6163885C7003FB3FB /* ShellScript */,
+				723C80C6163885C7003FB3FB /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -278,13 +276,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		723C80C6163885C7003FB3FB /* ShellScript */ = {
+		723C80C6163885C7003FB3FB /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,8 +323,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7287435C172511F80070E094 /* NSDictionary+CLUtilities.m in Sources */,
-				7287435D172511F80070E094 /* NSString+CLURLEncoding.m in Sources */,
 				723C80D9163885C7003FB3FB /* CloudinaryTests.m in Sources */,
 				723C8131163C707C003FB3FB /* UploaderTests.m in Sources */,
 			);
@@ -449,6 +446,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
 				INFOPLIST_FILE = "CloudinaryTests/CloudinaryTests-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -464,6 +462,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
 				INFOPLIST_FILE = "CloudinaryTests/CloudinaryTests-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
