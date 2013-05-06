@@ -195,9 +195,22 @@
 
     NSURLRequest *req = [self request:apiUrl params:params file:file];
     // create the connection with the request and start loading the data
-    connection = [NSURLConnection connectionWithRequest:req delegate:self];
-    if (connection == nil){
-        [self error:@"Failed to initiate connection" code:0];
+    if ([[_cloudinary get:@"sync" options:options defaultValue:@NO] boolValue]) {
+        NSError* nserror = nil;
+        NSURLResponse* nsresponse = nil;
+        NSData* data = [NSURLConnection sendSynchronousRequest:req returningResponse:&nsresponse error:&nserror];
+        if (nserror != NULL) {
+            [self connection:NULL didFailWithError:nserror];
+        } else {
+            [self connection:NULL didReceiveResponse:nsresponse];
+            [self connection:NULL didReceiveData:data];
+            [self connectionDidFinishLoading:NULL];
+        }
+    } else {
+        connection = [NSURLConnection connectionWithRequest:req delegate:self];
+        if (connection == nil){
+            [self error:@"Failed to initiate connection" code:0];
+        }
     }
 }
 

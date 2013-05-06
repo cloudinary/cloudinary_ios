@@ -213,6 +213,8 @@ Instead of implementing the `CLUploaderDelegate` you can provide block parameter
     }];
 
 *Note: A dedicated `CLUploader` instance must be used for each file uploading. 
+
+Synchronous upload is supported and is required for using the upload API from within an NSOperation. Simply set the "sync" option to @YES.
         
 See [our documentation](http://cloudinary.com/documentation/upload_images) for plenty more options of direct uploading to the cloud. 
 

@@ -119,6 +119,25 @@
     STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
 }
 
+- (void)testUploadSync
+{
+    VerifyAPISecret();
+    result = nil;
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:nil];
+    NSOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
+        [uploader upload:[self logo] options:@{@"sync": @YES} withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
+            result = success;
+            error = errorResult;
+        } andProgress:nil];
+        STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
+        STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    } ];
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    [queue addOperation:operation];
+    [queue waitUntilAllOperationsAreFinished];
+    STAssertNotNil(result, @"Result not found");
+}
+
 - (void)testUploadExternalSignature
 {
     VerifyAPISecret();
