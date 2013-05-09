@@ -11,6 +11,7 @@
 @interface UploaderTests () <CLUploaderDelegate> {
     NSString* error;
     NSDictionary* result;
+    BOOL progress;
 }
 @end
 
@@ -136,6 +137,30 @@
     [queue addOperation:operation];
     [queue waitUntilAllOperationsAreFinished];
     STAssertNotNil(result, @"Result not found");
+}
+
+- (void)testUploadRunLoop
+{
+    VerifyAPISecret();
+    result = nil;
+    progress = false;
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:nil];
+    NSOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
+        [uploader upload:[self logo] options:@{@"runLoop": @YES} withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
+            result = success;
+            error = errorResult;
+        } andProgress:^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite, id context) {
+            progress = TRUE;
+        }];
+        [[NSRunLoop currentRunLoop] run];
+        STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
+        STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    } ];
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    [queue addOperation:operation];
+    [queue waitUntilAllOperationsAreFinished];
+    STAssertNotNil(result, @"Result not found");
+    STAssertTrue(progress, @"Progress not called");
 }
 
 - (void)testUploadExternalSignature

@@ -24,6 +24,7 @@
     NSMutableData *_responseData;
     NSHTTPURLResponse *response;
     NSURLConnection *connection;
+    NSPort* _port;
 }
 
 - (id)init:(CLCloudinary *)cloudinary delegate:(id<CLUploaderDelegate>)delegate
@@ -33,6 +34,7 @@
         _delegate = delegate;
         _cloudinary = cloudinary;
         _responseData = [NSMutableData data];
+        _port = nil;
     }
     return self;    
 }
@@ -207,10 +209,17 @@
             [self connectionDidFinishLoading:NULL];
         }
     } else {
-        connection = [NSURLConnection connectionWithRequest:req delegate:self];
+        connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
         if (connection == nil){
             [self error:@"Failed to initiate connection" code:0];
         }
+        if ([[_cloudinary get:@"runLoop" options:options defaultValue:@NO] boolValue]) {
+            _port = [NSPort port];
+            NSRunLoop* runloop = [NSRunLoop currentRunLoop];
+            [runloop addPort:_port forMode:NSDefaultRunLoopMode];
+            [connection scheduleInRunLoop:runloop forMode:NSDefaultRunLoopMode];
+        }
+        [connection start];
     }
 }
 
@@ -227,6 +236,11 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)nserror
 {
+    if (_port != nil) {
+        [[NSRunLoop currentRunLoop] removePort:_port forMode:NSDefaultRunLoopMode];
+        _port = nil;
+    }
+
     NSInteger code = [response statusCode];
 
     [self error:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
@@ -237,6 +251,10 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    if (_port != nil) {
+        [[NSRunLoop currentRunLoop] removePort:_port forMode:NSDefaultRunLoopMode];
+        _port = nil;
+    }
 
     NSInteger code = [response statusCode];
     
@@ -252,7 +270,7 @@
     
     if (error){
         // log the error
-        DebugLog(@"Error: %@", error);[self error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", error, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
+        [self error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", error, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
     }
     else if ([json isKindOfClass:[NSDictionary class]]){
         NSDictionary *dict = (NSDictionary *)json;
