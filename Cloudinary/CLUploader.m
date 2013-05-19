@@ -450,7 +450,7 @@
     [params setValue:[options valueForKey:@"eager_notification_url"] forKey:@"eager_notification_url"];
     static NSArray * CL_BOOLEAN_UPLOAD_OPTIONS = nil;
     if (CL_BOOLEAN_UPLOAD_OPTIONS == nil)
-        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"eager_async", @"invalidate"];
+        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"discard_original_filename", @"eager_async", @"invalidate"];
 
     for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS){
         NSNumber* value = [CLCloudinary asBool:[options valueForKey:flag]];
