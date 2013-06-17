@@ -79,10 +79,12 @@
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader upload:[self logo] options:@{}];
+    [uploader upload:[self logo] options:@{@"colors": @YES}];
     [self waitForCompletion];
     STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
     STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    STAssertNotNil([result valueForKey:@"colors"], nil);
+    STAssertNotNil([result valueForKey:@"predominant"], nil);
 
     NSDictionary* toSign = [NSDictionary dictionaryWithObjectsAndKeys:
                             [result valueForKey:@"public_id"], @"public_id",

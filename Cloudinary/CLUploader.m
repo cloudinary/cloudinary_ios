@@ -456,7 +456,7 @@
         NSNumber* value = [CLCloudinary asBool:[options valueForKey:flag]];
         if (value != nil){
             NSString* valueString = [value boolValue] ? @"true" : @"false";
-            [options setValue:valueString forKey:flag];
+            [params setValue:valueString forKey:flag];
         }
     }
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
