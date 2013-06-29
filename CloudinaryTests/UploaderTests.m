@@ -94,6 +94,40 @@
     STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
 }
 
+- (void)testUploadUrl
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:@"http://cloudinary.com/images/logo.png" options:@{}];
+    [self waitForCompletion];
+    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
+    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    
+    NSDictionary* toSign = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [result valueForKey:@"public_id"], @"public_id",
+                            [result valueForKey:@"version"], @"version",
+                            nil];
+    NSString* expectedSignature = [cloudinary apiSignRequest:toSign secret:[cloudinary.config valueForKey:@"api_secret"]];
+    STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
+}
+
+- (void)testUploadDataUri
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:@"data:image/png;base64,iVBORw0KGgoAA\nAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0l\nEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6\nP9/AFGGFyjOXZtQAAAAAElFTkSuQmCC" options:@{}];
+    [self waitForCompletion];
+    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:16], nil);
+    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:16], nil);
+    
+    NSDictionary* toSign = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [result valueForKey:@"public_id"], @"public_id",
+                            [result valueForKey:@"version"], @"version",
+                            nil];
+    NSString* expectedSignature = [cloudinary apiSignRequest:toSign secret:[cloudinary.config valueForKey:@"api_secret"]];
+    STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
+}
+
 - (void)testRename
 {
     VerifyAPISecret();
