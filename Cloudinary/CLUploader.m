@@ -329,7 +329,7 @@
         NSData *data;
         if ([file isKindOfClass:[NSString class]])
         {
-            if ([(NSString *)file rangeOfString:@"^https?:|^s3:|^data:image/\\w*;base64,([a-zA-Z0-9/+\n=]+)$" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location != NSNotFound)
+            if ([(NSString *)file rangeOfString:@"^https?:|^s3:|^data:[^;]*;base64,([a-zA-Z0-9/+\n=]+)$" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location != NSNotFound)
             {
                 [self encodeParam:postBody param:@"file" paramValue:file boundary:boundary];
                 data = nil;
