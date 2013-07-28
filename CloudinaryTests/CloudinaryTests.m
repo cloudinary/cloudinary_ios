@@ -58,7 +58,7 @@
 - (void)testSecureDistribution {
     // should use default secure distribution if secure=TRUE
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"secure"]];
-    STAssertEqualObjects(@"https://cloudinary-a.akamaihd.net/test123/image/upload/test", result, nil);
+    STAssertEqualObjects(@"https://res.cloudinary.com/test123/image/upload/test", result, nil);
 }
 
 - (void)testSecureDistributionOverwrite {
@@ -78,7 +78,7 @@
 - (void)testSecureAkamai {
     // should default to akamai if secure is given with private_cdn and no secure_distribution
     NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure", [NSNumber numberWithBool:YES], @"private_cdn", nil]];
-    STAssertEqualObjects(@"https://cloudinary-a.akamaihd.net/test123/image/upload/test", result, nil);
+    STAssertEqualObjects(@"https://test123-res.cloudinary.com/image/upload/test", result, nil);
 }
 
 - (void)testSecureNonAkamai {

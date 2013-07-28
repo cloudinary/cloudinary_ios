@@ -10,6 +10,7 @@
 
 extern NSString * const CL_SHARED_CDN;
 extern NSString * const CL_CF_SHARED_CDN;
+extern NSString * const CL_OLD_AKAMAI_SHARED_CDN;
 extern NSString * const CL_AKAMAI_SHARED_CDN;
 
 @interface CLCloudinary : NSObject

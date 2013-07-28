@@ -15,8 +15,9 @@
 NSString * const CL_VERSION = @"1.0.5";
 
 NSString * const CL_CF_SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
-NSString * const CL_AKAMAI_SHARED_CDN = @"cloudinary-a.akamaihd.net";
-NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
+NSString * const CL_OLD_AKAMAI_SHARED_CDN = @"cloudinary-a.akamaihd.net";
+NSString * const CL_AKAMAI_SHARED_CDN = @"res.cloudinary.com";
+NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
 
 @implementation CLCloudinary {
     NSMutableDictionary *_config;
@@ -203,14 +204,16 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
     } else if (format != nil) {
         source = [NSString stringWithFormat:@"%@.%@", source, format];
     }
-    if ([secure boolValue] && [secureDistribution length] == 0)
-    {
-        secureDistribution = CL_SHARED_CDN;
-    }
     NSMutableString* prefix = [NSMutableString string];
-    if ([secure boolValue]) {
-        [prefix appendString:@"https://"];
-        [prefix appendString:secureDistribution];
+    BOOL sharedDomain = ![privateCdn boolValue];
+    if ([secure boolValue])
+    {
+        if ([secureDistribution length] == 0 || [secureDistribution isEqualToString:CL_OLD_AKAMAI_SHARED_CDN])
+        {
+            secureDistribution = [privateCdn boolValue] ? [NSString stringWithFormat:@"%@-res.cloudinary.com", cloudName] : CL_SHARED_CDN;
+        }
+        sharedDomain = sharedDomain || [secureDistribution isEqualToString:CL_SHARED_CDN];
+        [prefix appendFormat:@"https://%@", secureDistribution];
     }
     else
     {
@@ -232,7 +235,7 @@ NSString * const CL_SHARED_CDN = @"cloudinary-a.akamaihd.net";
             [prefix appendString:@"res.cloudinary.com"];
         }
     }
-    if (![privateCdn boolValue] || ([secure boolValue] && [CL_AKAMAI_SHARED_CDN isEqualToString:secureDistribution]))
+    if (sharedDomain)
     {
         [prefix appendString:@"/"];
         [prefix appendString:cloudName];
