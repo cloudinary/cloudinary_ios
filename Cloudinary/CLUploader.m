@@ -461,6 +461,8 @@
     }
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
+    [params setValue:[options valueForKey:@"proxy"] forKey:@"proxy"];
+    [params setValue:[options valueForKey:@"folder"] forKey:@"folder"];
     NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
     return params;    
