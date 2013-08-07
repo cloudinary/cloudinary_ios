@@ -429,4 +429,20 @@
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/iu/test", result, nil);
 }
 
+- (void) testEscapePublicId {
+    // should escape public_ids
+    NSDictionary* tests = @{
+                   @"a b": @"a%20b",
+                   @"a+b": @"a%2Bb",
+                   @"a%20b": @"a%20b",
+                   @"a-b": @"a-b",
+                   @"a??b": @"a%3F%3Fb"};
+    for(NSString* source in tests) {
+        NSString* result = [cloudinary url:source options:@{}];
+        NSString* target = [tests valueForKey:source];
+        NSString* expected = [NSString stringWithFormat:@"http://res.cloudinary.com/test123/image/upload/%@", target];
+        STAssertEqualObjects(expected, result, nil);
+    }
+}
+
 @end

@@ -201,8 +201,11 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
             return originalSource;
         }
         source = [source cl_smartEncodeUrl:NSUTF8StringEncoding];
-    } else if (format != nil) {
-        source = [NSString stringWithFormat:@"%@.%@", source, format];
+    } else {
+        source = [[source stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] cl_smartEncodeUrl:NSUTF8StringEncoding];        
+        if (format != nil) {
+            source = [NSString stringWithFormat:@"%@.%@", source, format];
+        }
     }
     NSMutableString* prefix = [NSMutableString string];
     BOOL sharedDomain = ![privateCdn boolValue];
