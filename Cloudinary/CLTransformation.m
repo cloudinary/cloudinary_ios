@@ -58,6 +58,9 @@
 - (void)setBackground:(NSString *)value { [self param:@"background" value:value]; }
 - (NSString *)background { return [_params valueForKey:@"background"]; }
 
+- (void)setColor:(NSString *)value { [self param:@"color" value:value]; }
+- (NSString *)color { return [_params valueForKey:@"color"]; }
+
 - (void)setEffect:(NSString *)value { [self param:@"effect" value:value]; }
 - (NSString *)effect { return [_params valueForKey:@"effect"]; }
 - (void)setEffect:(NSString *)value param:(id)param
@@ -189,6 +192,11 @@
     {
         background = [background stringByReplacingOccurrencesOfString:@"#" withString:@"rgb:"];
     }
+    NSString* color = [options valueForKey:@"color"];
+    if (color != nil)
+    {
+        color = [color stringByReplacingOccurrencesOfString:@"#" withString:@"rgb:"];
+    }
     NSArray* transformationParam = [CLCloudinary asArray:[options valueForKey:@"transformation"]];
     BOOL allNamed = TRUE;
     for (id trans in transformationParam) {
@@ -227,6 +235,7 @@
     if (namedTransformations) [transformation addObject:@[@"t", namedTransformations]];
     if (crop)       [transformation addObject:@[@"c", crop]];
     if (background) [transformation addObject:@[@"b", background]];
+    if (color)      [transformation addObject:@[@"co", color]];
     if (angle)      [transformation addObject:@[@"a", angle]];
     if (flags)      [transformation addObject:@[@"fl", flags]];
     NSArray* simpleParams = @[@"x", @"x", @"y", @"y", @"r", @"radius", @"d", @"default_image", @"g", @"gravity", @"cs", @"color_space",
