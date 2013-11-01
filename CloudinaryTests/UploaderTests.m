@@ -143,6 +143,32 @@
     [uploader rename:[publicId stringByAppendingString:@"2"] toPublicId:publicId2 options:@{@"overwrite": @YES}];
 }
 
+- (void)testUseFilename
+{
+    VerifyAPISecret();
+    NSError *reerror = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"logo_[a-z0-9]{6}" options:0 error:&reerror];
+    
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"use_filename": @YES}];
+    [self waitForCompletion];
+    NSString *resultPublicId = [result valueForKey:@"public_id"];
+    NSUInteger matches = [regex numberOfMatchesInString:resultPublicId options:0 range:NSMakeRange(0, resultPublicId.length)];
+    NSUInteger expectedMatches = 1;
+    STAssertEquals(matches, expectedMatches, Nil);
+}
+
+- (void)testUniqueFilename
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"use_filename": @YES, @"unique_filename": @"false"}];
+    [self waitForCompletion];
+    STAssertEqualObjects([result valueForKey:@"public_id"], @"logo", Nil);
+
+}
+
+
 - (void)testUploadWithBlock
 {
     VerifyAPISecret();
