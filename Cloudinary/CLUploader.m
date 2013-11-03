@@ -119,9 +119,7 @@
     [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil)options = @{};
     NSString* type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
-    NSNumber* overwriteBool = [CLCloudinary asBool:[options valueForKey:@"overwrite"]];
-    NSString* overwrite = [overwriteBool boolValue] ? @"true" : @"false";
-    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", fromPublicId, @"from_public_id", toPublicId, @"to_public_id", overwrite, @"overwrite", nil];
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", fromPublicId, @"from_public_id", toPublicId, @"to_public_id", [CLCloudinary asBool:[options valueForKey:@"overwrite"]], @"overwrite", nil];
     [self callApi:@"rename" file:nil params:params options:options];
 }
 
@@ -147,11 +145,7 @@
     
     [params setValue:tag forKey:@"tag"];
     [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
-    
-    id async = [options valueForKey:@"async"];
-    if (async != nil) {
-        [params setValue:([async boolValue] ? @"true" : @"false") forKey:@"async"];
-    }
+    [params setValue:[CLCloudinary asBool:[options valueForKey:@"async"]] forKey:@"async"];
     
     id transParam = [options valueForKey:@"transformation"];
     CLTransformation* transformation = nil;
@@ -184,11 +178,7 @@
     [params setValue:tag forKey:@"tag"];
     [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
     [params setValue:[options valueForKey:@"format"] forKey:@"format"];
-    
-    id async = [options valueForKey:@"async"];
-    if (async != nil) {
-        [params setValue:([async boolValue] ? @"true" : @"false") forKey:@"async"];
-    }
+    [params setValue:[CLCloudinary asBool:[options valueForKey:@"async"]] forKey:@"async"];
     
     id transformation = [options cl_valueForKey:@"transformation" defaultValue:@""];
     if ([transformation isKindOfClass:[CLTransformation class]]){
@@ -525,11 +515,7 @@
         CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"unique_filename", @"discard_original_filename", @"eager_async", @"invalidate"];
 
     for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS){
-        NSNumber* value = [CLCloudinary asBool:[options valueForKey:flag]];
-        if (value != nil){
-            NSString* valueString = [value boolValue] ? @"true" : @"false";
-            [params setValue:valueString forKey:flag];
-        }
+        [params setValue:[CLCloudinary asBool:[options valueForKey:flag]] forKey:flag];
     }
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
