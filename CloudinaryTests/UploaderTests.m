@@ -384,7 +384,7 @@
     
     CLTransformation* transformation = [[CLTransformation alloc] init];
     [transformation setWidthWithInt: 111];
-    [uploader multi:@"sprite_test_tag" options:@{@"transformation": transformation, @"format": @"pdf"}];
+    [uploader multi:@"multi_test_tag" options:@{@"transformation": transformation, @"format": @"pdf"}];
     [self waitForCompletion];
     url = (NSString*) [result valueForKey:@"url"];
     STAssertTrue([url rangeOfString:@"w_111"].location != NSNotFound, @"index of transformation string in url");
