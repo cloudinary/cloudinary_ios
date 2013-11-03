@@ -30,6 +30,9 @@ typedef void(^CLUploaderProgress)(NSInteger bytesWritten, NSInteger totalBytesWr
 - (void)removeTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
 - (void)replaceTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
 - (void)text:(NSString*)text options:(NSDictionary*)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
+- (void)multi:(NSString*)tag options:(NSDictionary*)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
+- (void)generateSprite:(NSString*)tag options:(NSDictionary*)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
+
 
 - (void)upload:(id)file options:(NSDictionary*)options;
 - (void)destroy:(NSString*)publicId options:(NSDictionary*)options;
@@ -38,6 +41,8 @@ typedef void(^CLUploaderProgress)(NSInteger bytesWritten, NSInteger totalBytesWr
 - (void)addTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*)options;
 - (void)removeTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*)options;
 - (void)replaceTag:(NSString*)tag publicIds:(NSArray*)publicIds options:(NSDictionary*)options;
+- (void)multi:(NSString*)tag options:(NSDictionary*)options;
+- (void)generateSprite:(NSString*)tag options:(NSDictionary*)options;
 - (void)text:(NSString*)text options:(NSDictionary*)options;
 
 @end

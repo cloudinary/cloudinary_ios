@@ -326,4 +326,71 @@
     STAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
 }
 
+- (void) testSprite
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"tags": @"sprite_test_tag", @"public_id" : @"sprite_test_tag_1"}];
+    [self waitForCompletion];
+    [self reset];
+    
+    [uploader upload:[self logo] options:@{@"tags": @"sprite_test_tag", @"public_id" : @"sprite_test_tag_2"}];
+    [self waitForCompletion];
+    [self reset];
+    
+    [uploader generateSprite:@"sprite_test_tag" options:@{}];
+    [self waitForCompletion];
+    
+    NSDictionary* infos = (NSDictionary*) [result valueForKey:@"image_infos"];
+    STAssertEquals(infos.allValues.count, (NSUInteger) 2, @"number of image infos");
+    [self reset];
+    
+    [uploader generateSprite:@"sprite_test_tag" options:@{@"transformation": @"w_100"}];
+    [self waitForCompletion];
+    STAssertTrue([[result valueForKey:@"css_url"] rangeOfString:@"w_100"].location != NSNotFound, @"index of transformation string in css_url");
+    [self reset];
+    
+    CLTransformation* transformation = [[CLTransformation alloc] init];
+    [transformation setWidthWithInt: 100];
+    [uploader generateSprite:@"sprite_test_tag" options:@{@"transformation": transformation, @"format": @"jpg"}];
+    [self waitForCompletion];
+    STAssertTrue([[result valueForKey:@"css_url"] rangeOfString:@"f_jpg,w_100"].location != NSNotFound, @"index of transformation string in css_url");
+    [self reset];
+}
+
+- (void) testMulti
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"tags": @"multi_test_tag", @"public_id" : @"multi_test_tag_1"}];
+    [self waitForCompletion];
+    [self reset];
+    
+    [uploader upload:[self logo] options:@{@"tags": @"multi_test_tag", @"public_id" : @"multi_test_tag_2"}];
+    [self waitForCompletion];
+    [self reset];
+    
+    [uploader multi:@"multi_test_tag" options:@{}];
+    [self waitForCompletion];
+    NSString* url = (NSString*) [result valueForKey:@"url"];
+    STAssertEquals([url rangeOfString:@".gif"].location, [url length] - 4 , @"index of .gif in url");
+    [self reset];
+    
+    [uploader multi:@"multi_test_tag" options:@{@"transformation": @"w_100"}];
+    [self waitForCompletion];
+    url = (NSString*) [result valueForKey:@"url"];
+    STAssertTrue([url rangeOfString:@"w_100"].location != NSNotFound, @"index of transformation string in url");
+    [self reset];
+    
+    CLTransformation* transformation = [[CLTransformation alloc] init];
+    [transformation setWidthWithInt: 111];
+    [uploader multi:@"sprite_test_tag" options:@{@"transformation": transformation, @"format": @"pdf"}];
+    [self waitForCompletion];
+    url = (NSString*) [result valueForKey:@"url"];
+    STAssertTrue([url rangeOfString:@"w_111"].location != NSNotFound, @"index of transformation string in url");
+    STAssertEquals([url rangeOfString:@".pdf"].location, [url length] - 4 , @"index of .pdf in url");
+    [self reset];
+}
+
+
 @end

@@ -85,6 +85,18 @@
     [self text:text options:options withCompletion:nil andProgress:nil];
 }
 
+- (void) generateSprite:(NSString *) tag options:(NSDictionary *)options
+{
+    [self generateSprite: tag options:options withCompletion:nil andProgress:nil];
+}
+
+
+- (void) multi:(NSString *) tag options:(NSDictionary *)options
+{
+    [self multi: tag options:options withCompletion:nil andProgress:nil];
+}
+
+
 - (void)upload:(id)file options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
@@ -126,6 +138,66 @@
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
     [self callApi:@"explicit" file:nil params:params options:options];
 }
+
+- (void) generateSprite:(NSString *)tag options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+{
+    [self setCompletion:completionBlock andProgress:progressBlock];
+    if (options == nil)options = @{};
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    
+    [params setValue:tag forKey:@"tag"];
+    [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
+    
+    id async = [options valueForKey:@"async"];
+    if (async != nil) {
+        [params setValue:([async boolValue] ? @"true" : @"false") forKey:@"async"];
+    }
+    
+    id transParam = [options valueForKey:@"transformation"];
+    CLTransformation* transformation = nil;
+    if ([transParam isKindOfClass:[CLTransformation class]]){
+        transformation = (CLTransformation *) transParam;
+    } else if ([transParam isKindOfClass:[NSString class]]) {
+        transformation = [[CLTransformation alloc] init];
+        transformation.rawTransformation = transParam;
+    } else {
+        transformation = [[CLTransformation alloc] init];
+    }
+    
+    NSString* format = (NSString*) [options valueForKey:@"format"];
+    if (format != nil) {
+        transformation.fetchFormat = format;
+    }
+    
+    [params setValue:[transformation generate] forKey:@"transformation"];
+    
+    [self callApi:@"sprite" file:nil params:params options:options];
+}
+
+
+- (void) multi:(NSString *)tag options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+{
+    [self setCompletion:completionBlock andProgress:progressBlock];
+    if (options == nil)options = @{};
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    
+    [params setValue:tag forKey:@"tag"];
+    [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
+    [params setValue:[options valueForKey:@"format"] forKey:@"format"];
+    
+    id async = [options valueForKey:@"async"];
+    if (async != nil) {
+        [params setValue:([async boolValue] ? @"true" : @"false") forKey:@"async"];
+    }
+    
+    id transformation = [options cl_valueForKey:@"transformation" defaultValue:@""];
+    if ([transformation isKindOfClass:[CLTransformation class]]){
+        transformation = [((CLTransformation *)transformation)generate];
+    }
+    [params setValue:transformation forKey:@"transformation"];
+    [self callApi:@"multi" file:nil params:params options:options];
+}
+
 - (void)addTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
