@@ -141,9 +141,9 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     CC_SHA1_CTX ctx;
     CC_SHA1_Init(&ctx);
     NSData *stringBytes = [toSign dataUsingEncoding: NSUTF8StringEncoding];
-    CC_SHA1_Update(&ctx, [stringBytes bytes], [stringBytes length]);
+    CC_SHA1_Update(&ctx, [stringBytes bytes], (CC_LONG) [stringBytes length]);
     stringBytes = [apiSecret dataUsingEncoding: NSUTF8StringEncoding];
-    CC_SHA1_Update(&ctx, [stringBytes bytes], [stringBytes length]);
+    CC_SHA1_Update(&ctx, [stringBytes bytes], (CC_LONG) [stringBytes length]);
 
     CC_SHA1_Final(digest, &ctx);
     NSMutableString     *hexString  = [NSMutableString stringWithCapacity:(CC_SHA1_DIGEST_LENGTH * 2)];
@@ -363,9 +363,9 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     int crc = 0;
     unsigned int x = 0;
     int y = 0;
-    int iTop = [str length];
+    unsigned int iTop = [str length];
     crc = crc ^ (-1);
-    for (int i = 0; i < iTop; i++) {
+    for (unsigned int i = 0; i < iTop; i++) {
         char ch = [str characterAtIndex:i];
         y = (crc ^ ch) & 0xFF;
         NSString *tableEntry = [table substringWithRange:(NSRange){y*9, 8}];
