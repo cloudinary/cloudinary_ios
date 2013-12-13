@@ -392,5 +392,26 @@
     [self reset];
 }
 
+- (void)testUploadSafeWithCallback
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                            @"dummy callback", @"callback",
+                            nil];
+    NSDate *today = [NSDate date];
+    [params setValue:@((int)[today timeIntervalSince1970])forKey:@"timestamp"];
+
+    NSString* expectedSignature = [cloudinary apiSignRequest:params secret:[cloudinary.config valueForKey:@"api_secret"]];
+    [params setValue:expectedSignature forKey:@"signature"];
+    [params setValue:[cloudinary.config valueForKey:@"api_key"] forKey:@"api_key"];
+    
+    [uploader upload:[self logo] options:params];
+    [self waitForCompletion];
+    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
+    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+}
+
 
 @end

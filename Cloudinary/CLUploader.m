@@ -427,6 +427,7 @@
     }
     [postBody appendData:[[NSString stringWithFormat:@"--%@--", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [req setHTTPBody:postBody];
+    [req setValue:@"XMLHttpRequest" forHTTPHeaderField:@"X-Requested-With"];
     return req;
 }
 
@@ -506,6 +507,7 @@
     }
     [params setValue:transformation forKey:@"transformation"];
     [params setValue:[options valueForKey:@"public_id"] forKey:@"public_id"];
+    [params setValue:[options valueForKey:@"callback"] forKey:@"callback"];
     [params setValue:[options valueForKey:@"format"] forKey:@"format"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
     [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
