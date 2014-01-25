@@ -274,11 +274,19 @@
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader upload:[self logo] options:[NSDictionary dictionaryWithObject:[NSArray arrayWithObject:@"Link: 1"]
-                                                                           forKey:@"headers"]];
-    [uploader upload:[self logo] options:[NSDictionary dictionaryWithObject:
-                                                [NSDictionary dictionaryWithObject:@"1" forKey:@"Link"]
-                                                                           forKey:@"headers"]];
+    [uploader upload:[self logo] options:@{@"headers": @[@"Link: 1"]}];
+    [uploader upload:[self logo] options:@{@"headers": @{@"Link": @"1"}, @"context": @{@"caption": @"My Logo"}}];
+
+    [self waitForCompletion];
+}
+
+- (void) testFaceCoordinates
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"face_coordinates": @"10,10,100,100"}];
+    [uploader upload:[self logo] options:@{@"face_coordinates": @[@[@"10", @"10",@"100",@"100"]]}];
+    
     [self waitForCompletion];
 }
 

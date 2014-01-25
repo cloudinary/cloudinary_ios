@@ -370,6 +370,8 @@
     
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data, boundary=%@", boundary];
     [req setValue:contentType forHTTPHeaderField:@"Content-type"];
+    NSString *userAgent = [NSString stringWithFormat:@"cld-ios-%@", [CLCloudinary version]];
+    [req setValue:userAgent forHTTPHeaderField:@"User-Agent"];
     
     NSMutableData* postBody = [NSMutableData data];
     for (NSString* param in [params allKeys]){
@@ -465,7 +467,37 @@
         [eager addObject:[singleEager componentsJoinedByString:@"/"]];
     }
     return [eager componentsJoinedByString:@"|"];
-    
+}
+- (NSString *)buildContext:(NSDictionary *)context
+{
+    if (context == nil) {
+        return nil;
+    }
+    NSMutableArray* contextStrings = [NSMutableArray arrayWithCapacity:[context count]];
+    for (NSString* key in context){
+        NSString* value = [context valueForKey:key];
+        [contextStrings addObject:[@[key, value] componentsJoinedByString:@"="]];
+    }
+    return [contextStrings componentsJoinedByString:@"|"];
+}
+- (NSString *)buildFaceCoordinates:(id) faceCoordinates
+{
+    if (faceCoordinates == nil){
+        return nil;
+    }
+    faceCoordinates = [CLCloudinary asArray:faceCoordinates];
+    NSMutableArray* coordinates = [NSMutableArray arrayWithCapacity:[faceCoordinates count]];
+    for (id face in faceCoordinates){
+        if ([face isKindOfClass:[NSString class]])
+        {
+            [coordinates addObject:face];
+        }
+        else
+        {
+            [coordinates addObject:[face componentsJoinedByString:@","]];
+        }
+    }
+    return [coordinates componentsJoinedByString:@"|"];
 }
 - (NSString *)buildCustomHeaders:(id)headers
 {
@@ -514,7 +546,7 @@
     [params setValue:[options valueForKey:@"eager_notification_url"] forKey:@"eager_notification_url"];
     static NSArray * CL_BOOLEAN_UPLOAD_OPTIONS = nil;
     if (CL_BOOLEAN_UPLOAD_OPTIONS == nil)
-        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"unique_filename", @"discard_original_filename", @"eager_async", @"invalidate"];
+        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"unique_filename", @"discard_original_filename", @"eager_async", @"invalidate", @"overwrite"];
 
     for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS){
         [params setValue:[CLCloudinary asBool:[options valueForKey:flag]] forKey:flag];
@@ -525,7 +557,12 @@
     [params setValue:[options valueForKey:@"folder"] forKey:@"folder"];
     NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
-    return params;    
+    NSArray* allowedFormats = [CLCloudinary asArray:[options valueForKey:@"allowed_formats"]];
+    [params setValue:[allowedFormats componentsJoinedByString:@","] forKey:@"allowed_formats"];
+    [params setValue:[self buildContext:[options valueForKey:@"context"]] forKey:@"context"];
+    [params setValue:[self buildFaceCoordinates:[options valueForKey:@"face_coordinates"]] forKey:@"face_coordinates"];
+    
+    return params;
 }
 
 - (void)success:(NSDictionary *)result
