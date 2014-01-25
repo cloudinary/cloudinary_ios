@@ -429,6 +429,16 @@
     STAssertEqualObjects(@"http://res.cloudinary.com/test123/iu/test", result, nil);
 }
 
+- (void)testSignUrls {
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setWidthWithInt:10];
+    [transformation setHeightWithInt:20];
+    [transformation setCrop: @"crop"];
+
+    NSString* result = [cloudinary url:@"image.jpg" options:@{@"transformation": transformation, @"sign_url": @YES, @"version": @"1234"}];
+    STAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/s--MaRXzoEC--/c_crop,h_20,w_10/v1234/image.jpg", result, nil);
+}
+
 - (void) testEscapePublicId {
     // should escape public_ids
     NSDictionary* tests = @{

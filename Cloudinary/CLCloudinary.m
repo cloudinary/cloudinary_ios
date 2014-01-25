@@ -181,6 +181,11 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     NSString *cname = [self get:@"cname" options:options defaultValue:nil];
     NSString *version = [CLCloudinary asString:[options cl_valueForKey:@"version" defaultValue:@""]];
     NSNumber* shorten = [self get:@"shorten" options:options defaultValue:@NO];
+    NSNumber* signUrl = [self get:@"sign_url" options:options defaultValue:@NO];
+    NSString* apiSecret = [self get:@"api_secret" options:options defaultValue:nil];
+    if ([signUrl boolValue] && apiSecret == NULL) {
+        [NSException raise:@"CloudinaryError" format:@"Must supply api_secret for signing urls"];
+    }
 
     CLTransformation* transformation = [options valueForKey:@"transformation"];
     if (transformation == nil) transformation = [CLTransformation transformation];
@@ -261,17 +266,23 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     {
         version = [NSString stringWithFormat:@"v%@", version];
     }
-    NSString *url = [@[prefix, resourceType, type, transformationStr, version, source] componentsJoinedByString:@"/"];    
+    NSString *rest = [@[transformationStr, version, source] componentsJoinedByString:@"/"];
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([^:])\\/+"
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
+    rest = [regex stringByReplacingMatchesInString:rest options:0 range:NSMakeRange(0, [rest length]) withTemplate:@"$1/"];
+    NSString* signature = @"";
+    if ([signUrl boolValue])
+    {
+        NSString *encoded = [self sha1Base64:[rest stringByAppendingString:apiSecret]];
+
+        signature = [NSString stringWithFormat:@"s--%@--", [encoded substringWithRange:NSMakeRange(0, 8)]];
+    }
     
-    return [regex stringByReplacingMatchesInString:url
-                  options:0
-                  range:NSMakeRange(0, [url length])
-                  withTemplate:@"$1/"];
- 
+    NSString *url = [@[prefix, resourceType, type, signature, rest] componentsJoinedByString:@"/"];
+    
+    return [regex stringByReplacingMatchesInString:url options:0 range:NSMakeRange(0, [url length]) withTemplate:@"$1/"];
 }
 
 - (NSString *)imageTag:(NSString *)source
@@ -350,6 +361,20 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         [NSException raise:@"CloudinaryError" format:@"Expected NSString or NSNumber"];
         return nil;
     }
+}
+
+- (NSString *)sha1Base64:(NSString *)string
+{
+    unsigned char sha1[CC_SHA1_DIGEST_LENGTH];
+    const char *cStr = [string UTF8String];
+    CC_SHA1(cStr, strlen(cStr), sha1);
+    NSData *pwHashData = [[NSData alloc] initWithBytes:sha1 length: sizeof sha1];
+    NSString *base64 =  [pwHashData base64EncodedStringWithOptions:0];
+    NSString *encoded = [[[base64
+                           stringByReplacingOccurrencesOfString:@"/" withString:@"_"]
+                           stringByReplacingOccurrencesOfString:@"+" withString:@"-"]
+                           stringByReplacingOccurrencesOfString:@"=" withString:@""];
+    return encoded;
 }
 
 - (unsigned)crc32:(NSString *)str
