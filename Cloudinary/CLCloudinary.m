@@ -73,6 +73,11 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         [_config setValue:@YES forKey:@"private_cdn"];
         [_config setValue:[[uri path] substringFromIndex:1] forKey:@"secure_distribution"];
     }
+    for (NSString *param in [[uri query] componentsSeparatedByString:@"&"]) {
+        NSArray *elts = [param componentsSeparatedByString:@"="];
+        if([elts count] < 2) continue;
+        [_config setValue:[elts objectAtIndex:1] forKey:[elts objectAtIndex:0]];
+    }
 }
 
 - (NSDictionary *)config
