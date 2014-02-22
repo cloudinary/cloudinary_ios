@@ -319,8 +319,8 @@
     }
 
     NSInteger code = [response statusCode];
-    
-    if (code != 200 && code != 400 && code != 401 && code != 500){
+
+    if (code != 200 && code != 400 && code != 401 && code != 403 && code != 404 && code != 500){
         [self error:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
         return;
     }
@@ -561,6 +561,13 @@
     [params setValue:[allowedFormats componentsJoinedByString:@","] forKey:@"allowed_formats"];
     [params setValue:[self buildContext:[options valueForKey:@"context"]] forKey:@"context"];
     [params setValue:[self buildFaceCoordinates:[options valueForKey:@"face_coordinates"]] forKey:@"face_coordinates"];
+    [params setValue:[options valueForKey:@"moderation"] forKey:@"moderation"];
+    [params setValue:[options valueForKey:@"raw_convert"] forKey:@"raw_convert"];
+    [params setValue:[options valueForKey:@"ocr"] forKey:@"ocr"];
+    [params setValue:[options valueForKey:@"categorization"] forKey:@"categorization"];
+    [params setValue:[options valueForKey:@"detection"] forKey:@"detection"];
+    [params setValue:[options valueForKey:@"similarity_search"] forKey:@"similarity_search"];
+    [params setValue:[options valueForKey:@"auto_tagging"] forKey:@"auto_tagging"];
     
     return params;
 }

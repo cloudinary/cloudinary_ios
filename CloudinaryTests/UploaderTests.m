@@ -41,13 +41,19 @@
     return [[NSBundle bundleWithIdentifier:@"com.cloudinary.CloudinaryTests"] pathForResource:@"logo" ofType:@"png"];
 }
 
+- (NSString*) docx
+{
+    return [[NSBundle bundleWithIdentifier:@"com.cloudinary.CloudinaryTests"] pathForResource:@"docx" ofType:@"docx"];
+}
+
+
 - (void)reset
 {
     error = nil;
     result = nil;
 }
 
-- (void)waitForCompletion
+- (void)waitForCompletionAllowError
 {
     
     while (error == nil && result == nil)
@@ -55,6 +61,11 @@
         NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:1];
         [[NSRunLoop currentRunLoop] runUntilDate:timeoutDate];
     }
+}
+
+- (void)waitForCompletion
+{
+    [self waitForCompletionAllowError];
     if (error != nil) {
         STFail(error);
     }
@@ -419,6 +430,73 @@
     [self waitForCompletion];
     STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
     STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+}
+
+- (void)testManualModeration
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"moderation": @"manual"}];
+    [self waitForCompletion];
+    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
+    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    NSDictionary* moderation = [result valueForKey:@"moderation"][0];
+    STAssertEqualObjects([moderation valueForKey:@"status"], @"pending", nil);
+    STAssertEqualObjects([moderation valueForKey:@"kind"], @"manual", nil);
+}
+
+- (void)testOcr
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"ocr": @"illegal"}];
+    [self waitForCompletionAllowError];
+    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+}
+
+- (void)testRawConversion
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self docx] options:@{@"raw_convert": @"illegal", @"resource_type": @"raw"}];
+    [self waitForCompletionAllowError];
+    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+}
+
+- (void)testCategorization
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"categorization": @"illegal"}];
+    [self waitForCompletionAllowError];
+    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+}
+
+- (void)testDetection
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"detection": @"illegal"}];
+    [self waitForCompletionAllowError];
+    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+}
+
+- (void)testSimilarity
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"similarity_search": @"illegal"}];
+    [self waitForCompletionAllowError];
+    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+}
+
+- (void)testAutoTagging
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"auto_tagging": @0.5}];
+    [self waitForCompletionAllowError];
+    STAssertTrue([error rangeOfString:@"^Must use.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
 }
 
 

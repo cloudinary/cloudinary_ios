@@ -25,6 +25,7 @@
 		723E72351642B9F7004CFB6E /* CLUploader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8103163A9118003FB3FB /* CLUploader.h */; };
 		723E72361642B9F7004CFB6E /* CLEagerTransformation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C8106163AB193003FB3FB /* CLEagerTransformation.h */; };
 		723E72381642D487004CFB6E /* Cloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723E72371642D295004CFB6E /* Cloudinary.h */; };
+		72A8B29018B88694008BAEF7 /* docx.docx in Resources */ = {isa = PBXBuildFile; fileRef = 72A8B28F18B88694008BAEF7 /* docx.docx */; };
 		72EFFE0E17250CA600005AC9 /* NSDictionary+CLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */; };
 		72EFFE0F17250CA600005AC9 /* NSString+CLURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,7 @@
 		723C8130163C707C003FB3FB /* UploaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderTests.m; sourceTree = "<group>"; };
 		723C8192163D3EC2003FB3FB /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		723E72371642D295004CFB6E /* Cloudinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cloudinary.h; sourceTree = "<group>"; };
+		72A8B28F18B88694008BAEF7 /* docx.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = docx.docx; sourceTree = "<group>"; };
 		72EFFE0A17250CA600005AC9 /* NSDictionary+CLUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CLUtilities.h"; sourceTree = "<group>"; };
 		72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CLUtilities.m"; sourceTree = "<group>"; };
 		72EFFE0C17250CA600005AC9 /* NSString+CLURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CLURLEncoding.h"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		723C80D2163885C7003FB3FB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				72A8B28F18B88694008BAEF7 /* docx.docx */,
 				723C8192163D3EC2003FB3FB /* logo.png */,
 				723C80D3163885C7003FB3FB /* CloudinaryTests-Info.plist */,
 				723C80D4163885C7003FB3FB /* InfoPlist.strings */,
@@ -268,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				723C8193163D3EC2003FB3FB /* logo.png in Resources */,
+				72A8B29018B88694008BAEF7 /* docx.docx in Resources */,
 				723C80D6163885C7003FB3FB /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
