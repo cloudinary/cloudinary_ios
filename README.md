@@ -191,7 +191,7 @@ The uploaded image is assigned a randomly generated public ID. The image is imme
 You can also specify your own public ID. In the following example the actual data of the image is given to the upload method:    
 
     NSData *imageData = [NSData dataWithContentsOfFile:imageFilePath];
-    [uploader upload:imageData options:@{"public_id": @"ios_image_1"}];
+    [uploader upload:imageData options:@{@"public_id": @"ios_image_1"}];
 
 The following example uploads an image based on a given remote URL:
 
@@ -215,7 +215,7 @@ Instead of implementing the `CLUploaderDelegate` you can provide block parameter
 
 Synchronous upload is supported and is required for using the upload API from within an NSOperation. Simply set the `sync` option to @YES.
     
-    [uploader upload:imageFilePath options:@{"sync": @YES}];
+    [uploader upload:imageFilePath options:@{@"sync": @YES}];
         
 See [our documentation](http://cloudinary.com/documentation/upload_images) for plenty more options of direct uploading to the cloud. 
 
@@ -242,7 +242,7 @@ Your server can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Djang
       "cloud_name": "n07t21i7"
     }
 
-The following code uploads an image to Cloudinary with the parameters generated safely on the server side (e.g., from a JSON as in the example above):
+The following code uploads an image to Cloudinary with the parameters generated safely on the server side (e.g., from a JSON as in the example above). Note that the `imageData` parameter can either be the actual image data or a path of a local image file.
 
     CLUploader* mobileUploader = [[CLUploader alloc] init:mobileCloudinary delegate:self];
     [mobileUploader upload:imageData options:@{@"public_id": public_id, @"signature": signature, 
