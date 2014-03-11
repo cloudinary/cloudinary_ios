@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Cloudinary"
-  s.version      = "1.0.8"
+  s.version      = "1.0.9"
   s.summary      = "Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline."
   s.description  = <<-DESC
     Easily upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software. 
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.homepage     = "http://cloudinary.com"
   s.license      = 'MIT'
   s.author       = { "Cloudinary" => "info@cloudinary.com" }
-  s.source       = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => "1.0.8" }
+  s.source       = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => "1.0.9" }
   s.platform     = :ios
   s.source_files = 'Cloudinary', 'Cloudinary/**/*.{h,m}'
   s.public_header_files = 'Cloudinary/**/*.h'

@@ -531,44 +531,46 @@
 }
 - (NSDictionary *)buildUploadParams:(NSDictionary *)options
 {
-    if (options == nil)options = @{};
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
-    id transformation = [options cl_valueForKey:@"transformation" defaultValue:@""];
-    if ([transformation isKindOfClass:[CLTransformation class]]){
-        transformation = [((CLTransformation *)transformation)generate];
-    }
-    [params setValue:transformation forKey:@"transformation"];
-    [params setValue:[options valueForKey:@"public_id"] forKey:@"public_id"];
-    [params setValue:[options valueForKey:@"callback"] forKey:@"callback"];
-    [params setValue:[options valueForKey:@"format"] forKey:@"format"];
-    [params setValue:[options valueForKey:@"type"] forKey:@"type"];
-    [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
-    [params setValue:[options valueForKey:@"eager_notification_url"] forKey:@"eager_notification_url"];
     static NSArray * CL_BOOLEAN_UPLOAD_OPTIONS = nil;
     if (CL_BOOLEAN_UPLOAD_OPTIONS == nil)
         CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"unique_filename", @"discard_original_filename", @"eager_async", @"invalidate", @"overwrite"];
+    static NSArray * CL_SIMPLE_UPLOAD_OPTIONS = nil;
+    if (CL_SIMPLE_UPLOAD_OPTIONS == nil)
+        CL_SIMPLE_UPLOAD_OPTIONS = @[@"public_id", @"callback", @"format", @"type", @"notification_url", @"eager_notification_url", @"proxy", @"folder", @"moderation", @"raw_convert", @"ocr", @"categorization", @"detection", @"similarity_search", @"auto_tagging"];
 
-    for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS){
-        [params setValue:[CLCloudinary asBool:[options valueForKey:flag]] forKey:flag];
-    }
-    [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
-    [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
-    [params setValue:[options valueForKey:@"proxy"] forKey:@"proxy"];
-    [params setValue:[options valueForKey:@"folder"] forKey:@"folder"];
-    NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
-    [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
-    NSArray* allowedFormats = [CLCloudinary asArray:[options valueForKey:@"allowed_formats"]];
-    [params setValue:[allowedFormats componentsJoinedByString:@","] forKey:@"allowed_formats"];
-    [params setValue:[self buildContext:[options valueForKey:@"context"]] forKey:@"context"];
-    [params setValue:[self buildFaceCoordinates:[options valueForKey:@"face_coordinates"]] forKey:@"face_coordinates"];
-    [params setValue:[options valueForKey:@"moderation"] forKey:@"moderation"];
-    [params setValue:[options valueForKey:@"raw_convert"] forKey:@"raw_convert"];
-    [params setValue:[options valueForKey:@"ocr"] forKey:@"ocr"];
-    [params setValue:[options valueForKey:@"categorization"] forKey:@"categorization"];
-    [params setValue:[options valueForKey:@"detection"] forKey:@"detection"];
-    [params setValue:[options valueForKey:@"similarity_search"] forKey:@"similarity_search"];
-    [params setValue:[options valueForKey:@"auto_tagging"] forKey:@"auto_tagging"];
+    if (options == nil)options = @{};
     
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    for (NSString* param in CL_SIMPLE_UPLOAD_OPTIONS){
+        [params setValue:options[param] forKey:param];
+    }
+    for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS){
+        [params setValue:[CLCloudinary asBool:options[flag]] forKey: flag];
+    }
+
+    if (options[@"signature"] == nil) {
+        id transformation = [options cl_valueForKey:@"transformation" defaultValue:@""];
+        if ([transformation isKindOfClass:[CLTransformation class]]){
+            transformation = [((CLTransformation *)transformation)generate];
+        }
+        [params setValue:transformation forKey:@"transformation"];
+        NSArray* tags = [CLCloudinary asArray:options[@"tags"]];
+        [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
+        NSArray* allowedFormats = [CLCloudinary asArray:options[@"allowed_formats"]];
+        [params setValue:[allowedFormats componentsJoinedByString:@","] forKey:@"allowed_formats"];
+        [params setValue:[self buildContext:options[@"context"]] forKey:@"context"];
+        [params setValue:[self buildFaceCoordinates:options[@"face_coordinates"]] forKey:@"face_coordinates"];
+        [params setValue:[self buildEager:options[@"eager"]] forKey:@"eager"];
+        [params setValue:[self buildCustomHeaders:options[@"headers"]] forKey:@"headers"];
+    } else {
+        [params setValue:options[@"transformation"] forKey:@"transformation"];
+        [params setValue:options[@"tags"] forKey:@"tags"];
+        [params setValue:options[@"allowed_formats"] forKey:@"allowed_formats"];
+        [params setValue:options[@"context"] forKey:@"context"];
+        [params setValue:options[@"face_coordinates"] forKey:@"face_coordinates"];
+        [params setValue:options[@"eager"] forKey:@"eager"];
+        [params setValue:options[@"headers"] forKey:@"headers"];
+    }
     return params;
 }
 
