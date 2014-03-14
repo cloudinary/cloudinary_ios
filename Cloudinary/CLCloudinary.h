@@ -32,6 +32,7 @@ extern NSString * const CL_AKAMAI_SHARED_CDN;
 - (NSString *)cloudinaryApiUrl:(NSString *)action options:(NSDictionary *)options;
 - (NSString *)apiSignRequest:(NSDictionary*)paramsToSign secret:(NSString *)apiSecret;
 - (NSString *)randomPublicId;
+- (NSString *)signedPreloadedImage:(NSDictionary*)uploadResult;
 
 + (NSArray *)asArray:(id)value;
 + (NSString *)asString:(id)value;

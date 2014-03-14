@@ -108,7 +108,9 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
 {
     NSMutableString     *identifier;
     [identifier appendString:[result valueForKey:@"resource_type"]];
-    [identifier appendString:@"/upload/v"];
+    [identifier appendString:@"/"];
+    [identifier appendString:[result valueForKey:@"type"]];
+    [identifier appendString:@"/v"];
     [identifier appendString:[result valueForKey:@"version"]];
     [identifier appendString:@"/"];
     [identifier appendString:[result valueForKey:@"public_id"]];
