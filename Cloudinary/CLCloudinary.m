@@ -372,7 +372,7 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
 {
     unsigned char sha1[CC_SHA1_DIGEST_LENGTH];
     const char *cStr = [string UTF8String];
-    CC_SHA1(cStr, strlen(cStr), sha1);
+    CC_SHA1(cStr, (CC_LONG) strlen(cStr), sha1);
     NSData *pwHashData = [[NSData alloc] initWithBytes:sha1 length: sizeof sha1];
     NSString *base64 =  [pwHashData base64EncodedStringWithOptions:0];
     NSString *encoded = [[[base64
@@ -393,9 +393,9 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     int crc = 0;
     unsigned int x = 0;
     int y = 0;
-    unsigned int iTop = [str length];
+    unsigned long iTop = [str length];
     crc = crc ^ (-1);
-    for (unsigned int i = 0; i < iTop; i++) {
+    for (unsigned long i = 0; i < iTop; i++) {
         char ch = [str characterAtIndex:i];
         y = (crc ^ ch) & 0xFF;
         NSString *tableEntry = [table substringWithRange:(NSRange){y*9, 8}];

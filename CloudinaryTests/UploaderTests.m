@@ -67,7 +67,8 @@
 {
     [self waitForCompletionAllowError];
     if (error != nil) {
-        STFail(error);
+        NSLog(@"%@", error);
+        XCTFail();
     }
 }
 
@@ -83,7 +84,7 @@
 
 - (void) uploaderProgress:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite context:(id)context
 {
-    NSLog(@"%d/%d (+%d)", totalBytesWritten, totalBytesExpectedToWrite, bytesWritten);
+    NSLog(@"%ld/%ld (+%ld)", (long)totalBytesWritten, (long)totalBytesExpectedToWrite, (long)bytesWritten);
 }
 
 - (void)testUpload
@@ -92,17 +93,17 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"colors": @YES}];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
-    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
-    STAssertNotNil([result valueForKey:@"colors"], nil);
-    STAssertNotNil([result valueForKey:@"predominant"], nil);
+    XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
+    XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
+    XCTAssertNotNil([result valueForKey:@"colors"]);
+    XCTAssertNotNil([result valueForKey:@"predominant"]);
 
     NSDictionary* toSign = [NSDictionary dictionaryWithObjectsAndKeys:
                             [result valueForKey:@"public_id"], @"public_id",
                             [result valueForKey:@"version"], @"version",
                             nil];
     NSString* expectedSignature = [cloudinary apiSignRequest:toSign secret:[cloudinary.config valueForKey:@"api_secret"]];
-    STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
+    XCTAssertEqualObjects([result valueForKey:@"signature"], expectedSignature);
 }
 
 - (void)testUploadUrl
@@ -111,15 +112,15 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:@"http://cloudinary.com/images/logo.png" options:@{}];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
-    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
+    XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
     
     NSDictionary* toSign = [NSDictionary dictionaryWithObjectsAndKeys:
                             [result valueForKey:@"public_id"], @"public_id",
                             [result valueForKey:@"version"], @"version",
                             nil];
     NSString* expectedSignature = [cloudinary apiSignRequest:toSign secret:[cloudinary.config valueForKey:@"api_secret"]];
-    STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
+    XCTAssertEqualObjects([result valueForKey:@"signature"], expectedSignature);
 }
 
 - (void)testUploadDataUri
@@ -128,15 +129,15 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:@"data:image/png;base64,iVBORw0KGgoAA\nAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0l\nEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6\nP9/AFGGFyjOXZtQAAAAAElFTkSuQmCC" options:@{}];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:16], nil);
-    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:16], nil);
+    XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:16]);
+    XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:16]);
     
     NSDictionary* toSign = [NSDictionary dictionaryWithObjectsAndKeys:
                             [result valueForKey:@"public_id"], @"public_id",
                             [result valueForKey:@"version"], @"version",
                             nil];
     NSString* expectedSignature = [cloudinary apiSignRequest:toSign secret:[cloudinary.config valueForKey:@"api_secret"]];
-    STAssertEqualObjects([result valueForKey:@"signature"], expectedSignature, nil);
+    XCTAssertEqualObjects([result valueForKey:@"signature"], expectedSignature);
 }
 
 - (void)testRename
@@ -166,7 +167,7 @@
     NSString *resultPublicId = [result valueForKey:@"public_id"];
     NSUInteger matches = [regex numberOfMatchesInString:resultPublicId options:0 range:NSMakeRange(0, resultPublicId.length)];
     NSUInteger expectedMatches = 1;
-    STAssertEquals(matches, expectedMatches, Nil);
+    XCTAssertEqual(matches, expectedMatches);
 }
 
 - (void)testUniqueFilename
@@ -175,7 +176,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"use_filename": @YES, @"unique_filename": @"false"}];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"public_id"], @"logo", Nil);
+    XCTAssertEqualObjects([result valueForKey:@"public_id"], @"logo");
 
 }
 
@@ -189,8 +190,8 @@
         error = errorResult;
     } andProgress:nil];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
-    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
+    XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
 }
 
 - (void)testUploadSync
@@ -203,13 +204,13 @@
             result = success;
             error = errorResult;
         } andProgress:nil];
-        STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
-        STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+        XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
+        XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
     } ];
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     [queue addOperation:operation];
     [queue waitUntilAllOperationsAreFinished];
-    STAssertNotNil(result, @"Result not found");
+    XCTAssertNotNil(result, @"Result not found");
 }
 
 - (void)testUploadRunLoop
@@ -226,14 +227,14 @@
             progress = TRUE;
         }];
         [[NSRunLoop currentRunLoop] run];
-        STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
-        STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+        XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
+        XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
     } ];
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     [queue addOperation:operation];
     [queue waitUntilAllOperationsAreFinished];
-    STAssertNotNil(result, @"Result not found");
-    STAssertTrue(progress, @"Progress not called");
+    XCTAssertNotNil(result, @"Result not found");
+    XCTAssertTrue(progress, @"Progress not called");
 }
 
 - (void)testUploadExternalSignature
@@ -264,7 +265,7 @@
     NSArray* derivedList = [result valueForKey:@"eager"];
     NSDictionary* derived = [derivedList objectAtIndex:0];
     
-    STAssertEqualObjects([derived valueForKey:@"url"], url, nil);
+    XCTAssertEqualObjects([derived valueForKey:@"url"], url);
 }
 
 - (void) testEager
@@ -307,8 +308,8 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader text:@"hello world" options:@{}];
     [self waitForCompletion];
-    STAssertTrue([(NSNumber*)[result valueForKey:@"width"] integerValue] > 1, nil);
-    STAssertTrue([(NSNumber*)[result valueForKey:@"height"] integerValue] > 1, nil);
+    XCTAssertTrue([(NSNumber*)[result valueForKey:@"width"] integerValue] > 1);
+    XCTAssertTrue([(NSNumber*)[result valueForKey:@"height"] integerValue] > 1);
 }
 
 - (void)testTags
@@ -329,20 +330,20 @@
     [self waitForCompletion];
     NSArray* publicIds = [result valueForKey:@"public_ids"];
     NSArray* expectedPublicIds = @[publicId, publicId2];
-    STAssertEqualObjects(publicIds, expectedPublicIds, @"changed public ids");
+    XCTAssertEqualObjects(publicIds, expectedPublicIds, @"changed public ids");
     [self reset];
     [uploader addTag:@"tag2" publicIds: @[publicId] options:@{}];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
+    XCTAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
     [self reset];
     [uploader removeTag:@"tag2" publicIds: @[publicId] options:@{}];
     [self waitForCompletion];
 
-    STAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
+    XCTAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
     [self reset];
     [uploader replaceTag:@"tag3" publicIds: @[publicId] options:@{}];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
+    XCTAssertEqualObjects([result valueForKey:@"public_ids"], @[publicId], @"changed public ids");
 }
 
 - (void) testSprite
@@ -361,19 +362,19 @@
     [self waitForCompletion];
     
     NSDictionary* infos = (NSDictionary*) [result valueForKey:@"image_infos"];
-    STAssertEquals(infos.allValues.count, (NSUInteger) 2, @"number of image infos");
+    XCTAssertEqual(infos.allValues.count, (NSUInteger) 2, @"number of image infos");
     [self reset];
     
     [uploader generateSprite:@"sprite_test_tag" options:@{@"transformation": @"w_100"}];
     [self waitForCompletion];
-    STAssertTrue([[result valueForKey:@"css_url"] rangeOfString:@"w_100"].location != NSNotFound, @"index of transformation string in css_url");
+    XCTAssertTrue([[result valueForKey:@"css_url"] rangeOfString:@"w_100"].location != NSNotFound, @"index of transformation string in css_url");
     [self reset];
     
     CLTransformation* transformation = [[CLTransformation alloc] init];
     [transformation setWidthWithInt: 100];
     [uploader generateSprite:@"sprite_test_tag" options:@{@"transformation": transformation, @"format": @"jpg"}];
     [self waitForCompletion];
-    STAssertTrue([[result valueForKey:@"css_url"] rangeOfString:@"f_jpg,w_100"].location != NSNotFound, @"index of transformation string in css_url");
+    XCTAssertTrue([[result valueForKey:@"css_url"] rangeOfString:@"f_jpg,w_100"].location != NSNotFound, @"index of transformation string in css_url");
     [self reset];
 }
 
@@ -392,13 +393,13 @@
     [uploader multi:@"multi_test_tag" options:@{}];
     [self waitForCompletion];
     NSString* url = (NSString*) [result valueForKey:@"url"];
-    STAssertEquals([url rangeOfString:@".gif"].location, [url length] - 4 , @"index of .gif in url");
+    XCTAssertEqual([url rangeOfString:@".gif"].location, [url length] - 4 , @"index of .gif in url");
     [self reset];
     
     [uploader multi:@"multi_test_tag" options:@{@"transformation": @"w_100"}];
     [self waitForCompletion];
     url = (NSString*) [result valueForKey:@"url"];
-    STAssertTrue([url rangeOfString:@"w_100"].location != NSNotFound, @"index of transformation string in url");
+    XCTAssertTrue([url rangeOfString:@"w_100"].location != NSNotFound, @"index of transformation string in url");
     [self reset];
     
     CLTransformation* transformation = [[CLTransformation alloc] init];
@@ -406,8 +407,8 @@
     [uploader multi:@"multi_test_tag" options:@{@"transformation": transformation, @"format": @"pdf"}];
     [self waitForCompletion];
     url = (NSString*) [result valueForKey:@"url"];
-    STAssertTrue([url rangeOfString:@"w_111"].location != NSNotFound, @"index of transformation string in url");
-    STAssertEquals([url rangeOfString:@".pdf"].location, [url length] - 4 , @"index of .pdf in url");
+    XCTAssertTrue([url rangeOfString:@"w_111"].location != NSNotFound, @"index of transformation string in url");
+    XCTAssertEqual([url rangeOfString:@".pdf"].location, [url length] - 4 , @"index of .pdf in url");
     [self reset];
 }
 
@@ -428,8 +429,8 @@
     
     [uploader upload:[self logo] options:params];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
-    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
+    XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
 }
 
 - (void)testManualModeration
@@ -438,11 +439,11 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"moderation": @"manual"}];
     [self waitForCompletion];
-    STAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241], nil);
-    STAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51], nil);
+    XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
+    XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
     NSDictionary* moderation = [result valueForKey:@"moderation"][0];
-    STAssertEqualObjects([moderation valueForKey:@"status"], @"pending", nil);
-    STAssertEqualObjects([moderation valueForKey:@"kind"], @"manual", nil);
+    XCTAssertEqualObjects([moderation valueForKey:@"status"], @"pending");
+    XCTAssertEqualObjects([moderation valueForKey:@"kind"], @"manual");
 }
 
 - (void)testOcr
@@ -451,7 +452,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"ocr": @"illegal"}];
     [self waitForCompletionAllowError];
-    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 - (void)testRawConversion
@@ -460,7 +461,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self docx] options:@{@"raw_convert": @"illegal", @"resource_type": @"raw"}];
     [self waitForCompletionAllowError];
-    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 - (void)testCategorization
@@ -469,7 +470,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"categorization": @"illegal"}];
     [self waitForCompletionAllowError];
-    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 - (void)testDetection
@@ -478,7 +479,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"detection": @"illegal"}];
     [self waitForCompletionAllowError];
-    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 - (void)testSimilarity
@@ -487,7 +488,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"similarity_search": @"illegal"}];
     [self waitForCompletionAllowError];
-    STAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 - (void)testAutoTagging
@@ -496,7 +497,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"auto_tagging": @0.5}];
     [self waitForCompletionAllowError];
-    STAssertTrue([error rangeOfString:@"^Must use.*" options:NSRegularExpressionSearch].location != NSNotFound, nil);
+    XCTAssertTrue([error rangeOfString:@"^Must use.*" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 

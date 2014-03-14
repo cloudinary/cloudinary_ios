@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Cloudinary Ltd. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #include "Cloudinary.h"
 
-@interface UploaderTests : SenTestCase {
+@interface UploaderTests : XCTestCase {
     CLCloudinary* cloudinary;
 }
 

@@ -321,7 +321,7 @@
     NSInteger code = [response statusCode];
 
     if (code != 200 && code != 400 && code != 401 && code != 403 && code != 404 && code != 500){
-        [self error:[NSString stringWithFormat:@"Server returned unexpected status code - %d - %@", code, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
+        [self error:[NSString stringWithFormat:@"Server returned unexpected status code - %ld - %@", (long) code, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
         return;
     }
 

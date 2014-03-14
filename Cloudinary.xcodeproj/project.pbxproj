@@ -10,7 +10,6 @@
 		723C80BB163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
 		723C80C0163885C7003FB3FB /* CLCloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* CLCloudinary.h */; };
 		723C80C2163885C7003FB3FB /* CLCloudinary.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C80C1163885C7003FB3FB /* CLCloudinary.m */; };
-		723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80C9163885C7003FB3FB /* SenTestingKit.framework */; };
 		723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
 		723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80B7163885C7003FB3FB /* libCloudinary.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		723C80D6163885C7003FB3FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 723C80D4163885C7003FB3FB /* InfoPlist.strings */; };
@@ -63,8 +62,7 @@
 		723C80BE163885C7003FB3FB /* Cloudinary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cloudinary-Prefix.pch"; sourceTree = "<group>"; };
 		723C80BF163885C7003FB3FB /* CLCloudinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLCloudinary.h; sourceTree = "<group>"; };
 		723C80C1163885C7003FB3FB /* CLCloudinary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLCloudinary.m; sourceTree = "<group>"; };
-		723C80C8163885C7003FB3FB /* CloudinaryTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudinaryTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		723C80C9163885C7003FB3FB /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		723C80C8163885C7003FB3FB /* CloudinaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudinaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		723C80D3163885C7003FB3FB /* CloudinaryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudinaryTests-Info.plist"; sourceTree = "<group>"; };
 		723C80D5163885C7003FB3FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		723C80D7163885C7003FB3FB /* CloudinaryTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudinaryTests.h; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				723C80CA163885C7003FB3FB /* SenTestingKit.framework in Frameworks */,
 				723C80CD163885C7003FB3FB /* Foundation.framework in Frameworks */,
 				723C80D0163885C7003FB3FB /* libCloudinary.a in Frameworks */,
 			);
@@ -135,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				723C80B7163885C7003FB3FB /* libCloudinary.a */,
-				723C80C8163885C7003FB3FB /* CloudinaryTests.octest */,
+				723C80C8163885C7003FB3FB /* CloudinaryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,7 +142,6 @@
 			children = (
 				723C80E516393B13003FB3FB /* Security.framework */,
 				723C80BA163885C7003FB3FB /* Foundation.framework */,
-				723C80C9163885C7003FB3FB /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -235,8 +231,8 @@
 			);
 			name = CloudinaryTests;
 			productName = CloudinaryTests;
-			productReference = 723C80C8163885C7003FB3FB /* CloudinaryTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 723C80C8163885C7003FB3FB /* CloudinaryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -244,6 +240,7 @@
 		723C80AE163885C7003FB3FB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Cloudinary Ltd";
 			};
@@ -433,8 +430,9 @@
 			buildSettings = {
 				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"\\\"$(SDKROOT)/Developer/Library/Frameworks\\\"",
+					"\\\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\\\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
@@ -442,7 +440,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7 armv7s";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -450,8 +447,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"\\\"$(SDKROOT)/Developer/Library/Frameworks\\\"",
+					"\\\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\\\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cloudinary/Cloudinary-Prefix.pch";
@@ -459,7 +457,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7 armv7s";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
