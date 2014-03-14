@@ -455,4 +455,15 @@
     }
 }
 
+- (void) testPreloadedImage {
+    NSString* url = [cloudinary url:@"raw/private/v1234567/document.docx"];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/raw/private/v1234567/document.docx", url);
+
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setWidthWithFloat:1.1];
+    [transformation setCrop:@"scale"];
+
+    url = [cloudinary url:@"image/private/v1234567/img.jpg" options:@{@"transformation": transformation}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/private/c_scale,w_1.1/v1234567/img.jpg", url);
+}
 @end

@@ -193,6 +193,16 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     if ([signUrl boolValue] && apiSecret == NULL) {
         [NSException raise:@"CloudinaryError" format:@"Must supply api_secret for signing urls"];
     }
+    
+    NSRegularExpression *preloadedRegex = [NSRegularExpression regularExpressionWithPattern:@"^([^/]+)/([^/]+)/v([0-9]+)/([^#]+)$" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray *preloadedComponentsMatch = [preloadedRegex matchesInString:source options:0 range:NSMakeRange(0, [source length])];
+    if ([preloadedComponentsMatch count] > 0) {
+        NSTextCheckingResult* preloadedComponents = preloadedComponentsMatch[0];
+        resourceType = [source substringWithRange:[preloadedComponents rangeAtIndex:1]];
+        type = [source substringWithRange:[preloadedComponents rangeAtIndex:2]];
+        version = [source substringWithRange:[preloadedComponents rangeAtIndex:3]];
+        source = [source substringWithRange:[preloadedComponents rangeAtIndex:4]];
+    }
 
     CLTransformation* transformation = [options valueForKey:@"transformation"];
     if (transformation == nil) transformation = [CLTransformation transformation];
@@ -274,10 +284,9 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         version = [NSString stringWithFormat:@"v%@", version];
     }
     NSString *rest = [@[transformationStr, version, source] componentsJoinedByString:@"/"];
-    NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([^:])\\/+"
                                                                            options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
+                                                                             error:nil];
     rest = [regex stringByReplacingMatchesInString:rest options:0 range:NSMakeRange(0, [rest length]) withTemplate:@"$1/"];
     NSString* signature = @"";
     if ([signUrl boolValue])
