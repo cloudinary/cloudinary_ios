@@ -239,36 +239,36 @@ Your server can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Djang
       "public_id": "abdbasdasda76asd7sa789",
       "timestamp": 1346925631,
       "api_key": "123456789012345",
-      "cloud_name": "n07t21i7"
     }
 
 The following code uploads an image to Cloudinary with the parameters generated safely on the server side (e.g., from a JSON as in the example above). Note that the `imageData` parameter can either be the actual image data or a path of a local image file.
 
     CLUploader* mobileUploader = [[CLUploader alloc] init:mobileCloudinary delegate:self];
-    [mobileUploader upload:imageData options:@{@"public_id": public_id, @"signature": signature, 
-        @"timestamp": timestamp, @"api_key": api_key, @"cloud_name": cloud_name}];
+    NSDictionary* uploadResponse = [mobileUploader upload:imageData options:signedRequest];
+
+The signedPreloadedImage can be used to create a serialized format of the upload result that can be validated by the server.
+
+    NSString *signedIdentifier = [cloudinary signedPreloadedImage:uploadResponse];
+
+    // image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg#298hg20j2eoalgh3ekl
 
 You might want to reference uploaded Cloudinary images and raw files using an identifier string of the following format:
 
-    resource_type:type:identifier.format
+    {resource_type}/{type}/v{version}/{public_id}.{format}
     
-The following example generates a Cloudinary URL based on an idenfier of the format mentioned above:      
+Cloudinary URL can be directly generated from an idenfier in either formats mentioned above:      
   
-    NSString *imageIdentifier = @"image:upload:dfhjghjkdisudgfds7iyf.jpg";
-    NSArray *components = [imageIdentifier componentsSeparatedByString:@":"];
-    NSString *url = [cloudinary url:[components objectAtIndex:2] options:@{@"type": [components objectAtIndex:1], 
-                                                                  @"resource_type": [components objectAtIndex:0]}];
+    NSString *imageIdentifier = @"image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg";
+    NSString *url = [cloudinary url:imageIdentifier];
 
-    // http://res.cloudinary.com/n07t21i7/image/upload/dfhjghjkdisudgfds7iyf.jpg
+    // http://res.cloudinary.com/n07t21i7/image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg
 
 Same can work for raw file uploads:    
   
-    NSString *rawIdentifier = @"raw:upload:cguysfdsfuydsfyuds31.doc";
-    NSArray *components = [rawIdentifier componentsSeparatedByString:@":"];
-    NSString *url = [cloudinary url:[components objectAtIndex:2] options:@{@"type": [components objectAtIndex:1], 
-                                                                  @"resource_type": [components objectAtIndex:0]}];
+    NSString *rawIdentifier = @"raw/upload/v1234567/cguysfdsfuydsfyuds31.doc";
+    NSString *url = [cloudinary url:rawIdentifier];
     
-    // http://res.cloudinary.com/n07t21i7/raw/upload/cguysfdsfuydsfyuds31.doc
+    // http://res.cloudinary.com/n07t21i7/raw/upload/v1234567/cguysfdsfuydsfyuds31.doc
 
 ## Additional resources ##########################################################
 
