@@ -250,6 +250,15 @@
     [params setValue:[cloudinary.config valueForKey:@"cloud_name"] forKey:@"cloud_name"];
     [uploader upload:[self logo] options:params];
     [self waitForCompletion];
+    NSString* preloadedImage = [cloudinary signedPreloadedImage:result];
+    NSString* url = [cloudinary url:preloadedImage];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSError* nserror = nil;
+    NSHTTPURLResponse* nsresponse = nil;
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&nsresponse error:&nserror];
+    XCTAssertNil(nserror, @"Should not fail");
+    XCTAssertEqual([nsresponse statusCode], 200);
 }
 
 - (void)testExplicit

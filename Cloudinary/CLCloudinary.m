@@ -106,21 +106,18 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
 
 - (NSString *)signedPreloadedImage:(NSDictionary *)result
 {
-    NSMutableString     *identifier;
-    [identifier appendString:[result valueForKey:@"resource_type"]];
-    [identifier appendString:@"/"];
-    [identifier appendString:[result valueForKey:@"type"]];
-    [identifier appendString:@"/v"];
-    [identifier appendString:[result valueForKey:@"version"]];
-    [identifier appendString:@"/"];
-    [identifier appendString:[result valueForKey:@"public_id"]];
+    NSMutableString     *identifier = [NSMutableString stringWithCapacity:40];
+    [identifier appendFormat:@"%@/%@/v%@/%@",
+     [result valueForKey:@"resource_type"],
+     [result valueForKey:@"type"],
+     [result valueForKey:@"version"],
+     [result valueForKey:@"public_id"]];
+    
     NSString *format = [result valueForKey:@"format"];
     if (format != nil) {
-        [identifier appendString:@"."];
-        [identifier appendString:format];
+        [identifier appendFormat:@".%@", format];
     }
-    [identifier appendString:@"#"];
-    [identifier appendString:[result valueForKey:@"signature"]];
+    [identifier appendFormat:@"#%@", [result valueForKey:@"signature"]];
     return [NSString stringWithString:identifier];
 }
 
@@ -194,7 +191,7 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         [NSException raise:@"CloudinaryError" format:@"Must supply api_secret for signing urls"];
     }
     
-    NSRegularExpression *preloadedRegex = [NSRegularExpression regularExpressionWithPattern:@"^([^/]+)/([^/]+)/v([0-9]+)/([^#]+)$" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSRegularExpression *preloadedRegex = [NSRegularExpression regularExpressionWithPattern:@"^([^/]+)/([^/]+)/v([0-9]+)/([^#]+)(#[0-9a-f]+)?$" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *preloadedComponentsMatch = [preloadedRegex matchesInString:source options:0 range:NSMakeRange(0, [source length])];
     if ([preloadedComponentsMatch count] > 0) {
         NSTextCheckingResult* preloadedComponents = preloadedComponentsMatch[0];
