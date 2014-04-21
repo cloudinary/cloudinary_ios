@@ -455,22 +455,13 @@
     XCTAssertEqualObjects([moderation valueForKey:@"kind"], @"manual");
 }
 
-- (void)testOcr
-{
-    VerifyAPISecret();
-    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader upload:[self logo] options:@{@"ocr": @"illegal"}];
-    [self waitForCompletionAllowError];
-    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
-}
-
 - (void)testRawConversion
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self docx] options:@{@"raw_convert": @"illegal", @"resource_type": @"raw"}];
     [self waitForCompletionAllowError];
-    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
+    XCTAssertTrue([error rangeOfString:@"illegal is not a valid" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 - (void)testCategorization
@@ -479,7 +470,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"categorization": @"illegal"}];
     [self waitForCompletionAllowError];
-    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
+    XCTAssertTrue([error rangeOfString:@"illegal is not a valid" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 - (void)testDetection
@@ -488,16 +479,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"detection": @"illegal"}];
     [self waitForCompletionAllowError];
-    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
-}
-
-- (void)testSimilarity
-{
-    VerifyAPISecret();
-    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader upload:[self logo] options:@{@"similarity_search": @"illegal"}];
-    [self waitForCompletionAllowError];
-    XCTAssertTrue([error rangeOfString:@"^Illegal value.*" options:NSRegularExpressionSearch].location != NSNotFound);
+    XCTAssertTrue([error rangeOfString:@"illegal is not a valid" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
 - (void)testAutoTagging
