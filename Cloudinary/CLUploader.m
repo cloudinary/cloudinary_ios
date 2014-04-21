@@ -253,7 +253,7 @@
 - (void)callApi:(NSString *)action file:(id)file params:(NSMutableDictionary *)params options:(NSDictionary *)options
 {
     if (options == nil)options = @{};
-    _context = [options valueForKey:@"context"];
+    _context = [options valueForKey:@"_context"];
     NSString* apiKey = [_cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
     if (apiKey == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
     if ([options valueForKey:@"unsigned"]) {
