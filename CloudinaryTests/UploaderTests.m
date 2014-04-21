@@ -106,6 +106,23 @@
     XCTAssertEqualObjects([result valueForKey:@"signature"], expectedSignature);
 }
 
+- (void)testUnsignedUpload
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader unsigned_upload:[self logo] upload_preset:@"sample_preset_dhfjhriu" options:@{@"api_secret": @"wrong secret just for testing"}];
+    [self waitForCompletion];
+    XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
+    XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
+    
+    NSDictionary* toSign = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [result valueForKey:@"public_id"], @"public_id",
+                            [result valueForKey:@"version"], @"version",
+                            nil];
+    NSString* expectedSignature = [cloudinary apiSignRequest:toSign secret:[cloudinary.config valueForKey:@"api_secret"]];
+    XCTAssertEqualObjects([result valueForKey:@"signature"], expectedSignature);
+}
+
 - (void)testUploadUrl
 {
     VerifyAPISecret();
