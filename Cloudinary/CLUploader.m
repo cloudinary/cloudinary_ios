@@ -344,7 +344,7 @@
     NSData *data = (NSData *)_responseData;
     NSError *error = nil;
     // parse the JSON and use it
-    id json = [NSJSONSerialization JSONObjectWithData:data options:nil error:&error];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     
     if (error){
         // log the error
