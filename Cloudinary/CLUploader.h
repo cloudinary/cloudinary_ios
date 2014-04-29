@@ -23,7 +23,7 @@ typedef void(^CLUploaderProgress)(NSInteger bytesWritten, NSInteger totalBytesWr
 - (void)cancel;
 
 - (void)upload:(id)file options:(NSDictionary*)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
-- (void)unsigned_upload:(id)file upload_preset:(NSString*)upload_preset options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
+- (void)unsignedUpload:(id)file uploadPreset:(NSString*)uploadPreset options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
 - (void)destroy:(NSString*)publicId options:(NSDictionary*)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
 - (void)rename:(NSString *)fromPublicId toPublicId:(NSString *)toPublicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
 - (void)explicit:(NSString*)publicId options:(NSDictionary*)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock;
@@ -36,7 +36,7 @@ typedef void(^CLUploaderProgress)(NSInteger bytesWritten, NSInteger totalBytesWr
 
 
 - (void)upload:(id)file options:(NSDictionary*)options;
-- (void)unsigned_upload:(id)file upload_preset:(NSString*)upload_preset options:(NSDictionary *)options;
+- (void)unsignedUpload:(id)file uploadPreset:(NSString*)uploadPreset options:(NSDictionary *)options;
 - (void)destroy:(NSString*)publicId options:(NSDictionary*)options;
 - (void)rename:(NSString*)fromPublicId toPublicId:(NSString*)toPublicId options:(NSDictionary*)options;
 - (void)explicit:(NSString*)publicId options:(NSDictionary*)options;

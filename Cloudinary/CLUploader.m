@@ -50,9 +50,9 @@
     [self upload:file options:options withCompletion:nil andProgress:nil];
 }
 
-- (void)unsigned_upload:(id)file upload_preset:(NSString*)upload_preset options:(NSDictionary *)options
+- (void)unsignedUpload:(id)file uploadPreset:(NSString*)uploadPreset options:(NSDictionary *)options
 {
-    [self unsigned_upload:file upload_preset:upload_preset options:options withCompletion:nil andProgress:nil];
+    [self unsignedUpload:file uploadPreset:uploadPreset options:options withCompletion:nil andProgress:nil];
 }
 
 - (void)destroy:(NSString *)publicId options:(NSDictionary *)options
@@ -110,13 +110,13 @@
     [self callApi:@"upload" file:file params:params options:options];
 }
 
-- (void)unsigned_upload:(id)file upload_preset:(NSString*)upload_preset options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)unsignedUpload:(id)file uploadPreset:(NSString*)uploadPreset options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
-    NSMutableDictionary *extra_options = [NSMutableDictionary dictionaryWithDictionary:@{@"upload_preset": upload_preset, @"unsigned": @YES}];
+    NSMutableDictionary *extraOptions = [NSMutableDictionary dictionaryWithDictionary:@{@"upload_preset": uploadPreset, @"unsigned": @YES}];
     if (options != nil) {
-        [extra_options addEntriesFromDictionary:options];
+        [extraOptions addEntriesFromDictionary:options];
     }
-    return [self upload:file options:extra_options withCompletion:completionBlock andProgress:progressBlock];
+    return [self upload:file options:extraOptions withCompletion:completionBlock andProgress:progressBlock];
 }
 
 - (void)destroy:(NSString *)publicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
@@ -257,7 +257,7 @@
     NSString* apiKey = [_cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
     if (apiKey == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
     if ([options valueForKey:@"unsigned"]) {
-        [params setValue:apiKey forKey:@"api_key"];
+        // Nothing to do
     } else if ([options valueForKey:@"signature"] == nil || [options valueForKey:@"timestamp"] == nil){
         NSString* apiSecret = [_cloudinary get:@"api_secret" options:options defaultValue:nil];
         if (apiSecret == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_secret"];

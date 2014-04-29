@@ -110,7 +110,7 @@
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader unsigned_upload:[self logo] upload_preset:@"sample_preset_dhfjhriu" options:@{@"api_secret": @"wrong secret just for testing"}];
+    [uploader unsignedUpload:[self logo] uploadPreset:@"sample_preset_dhfjhriu" options:@{@"api_secret": @"wrong secret just for testing"}];
     [self waitForCompletion];
     XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
     XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
