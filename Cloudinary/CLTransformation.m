@@ -44,11 +44,11 @@
 - (void)setWidth:(id)value { [self param:@"width" value:value]; }
 - (id)width { return [_params valueForKey:@"width"]; }
 - (void)setWidthWithInt:(int)value { [self setWidth:@(value)]; }
-- (void)setWidthWithFloat:(float)value { [self setWidth:@(value)]; }
+- (void)setWidthWithFloat:(float)value { [self setWidth:[self formatFloat:value]]; }
 - (void)setHeight:(id)value { [self param:@"height" value:value]; }
 - (id)height { return [_params valueForKey:@"height"]; }
 - (void)setHeightWithInt:(int)value { [self setHeight:@(value)]; }
-- (void)setHeightWithFloat:(float)value { [self setHeight:@(value)]; }
+- (void)setHeightWithFloat:(float)value { [self setHeight:[self formatFloat:value]]; }
 - (void)setNamed:(id)value { [self param:@"transformation" value:value]; }
 - (id)named { return [_params valueForKey:@"transformation"]; }
 
@@ -80,12 +80,12 @@
 - (void)setX:(id)value { [self param:@"x" value:value]; }
 - (id)x { return [_params valueForKey:@"x"]; }
 - (void)setXWithInt:(int)value { [self setX:@(value)]; }
-- (void)setXWithFloat:(float)value { [self setX:@(value)]; }
+- (void)setXWithFloat:(float)value { [self setX:[self formatFloat:value]]; }
 
 - (void)setY:(id)value { [self param:@"y" value:value]; }
 - (id)y { return [_params valueForKey:@"y"]; }
 - (void)setYWithInt:(int)value { [self setY:@(value)]; }
-- (void)setYWithFloat:(float)value { [self setY:@(value)]; }
+- (void)setYWithFloat:(float)value { [self setY:[self formatFloat:value]]; }
 
 - (void)setRadius:(id)value { [self param:@"radius" value:value]; }
 - (id)radius { return [_params valueForKey:@"radius"]; }
@@ -134,6 +134,10 @@
 - (void)setFlags:(id)value { [self param:@"flags" value:value]; }
 - (id)flags { return [_params valueForKey:@"flags"]; }
 
+- (void)setDpr:(id)value { [self param:@"dpr" value:value]; }
+- (id)dpr { return [_params valueForKey:@"dpr"]; }
+- (void)setDprWithFloat:(float)value { [self setDpr:[self formatFloat:value]]; }
+
 - (void)setParams:(NSDictionary *)value
 {
     [_params addEntriesFromDictionary:value];
@@ -156,6 +160,11 @@
         [components addObject:[self generateWithParams:options]];
     }
     return [components componentsJoinedByString:@"/"];
+}
+
+- (NSString*) formatFloat:(float)value
+{
+    return [NSString stringWithFormat:@"%1.1f", value];
 }
 
 - (NSString*)generateWithParams:(NSDictionary *)options
@@ -228,7 +237,7 @@
         }
     }
     NSString* flags = [[CLCloudinary asArray:[options valueForKey:@"flags"]] componentsJoinedByString:@"."];
-    
+
     NSMutableArray* transformation = [NSMutableArray array];
     if (width)      [transformation addObject:@[@"w", width]];
     if (height)     [transformation addObject:@[@"h", height]];
@@ -238,9 +247,10 @@
     if (color)      [transformation addObject:@[@"co", color]];
     if (angle)      [transformation addObject:@[@"a", angle]];
     if (flags)      [transformation addObject:@[@"fl", flags]];
+    
     NSArray* simpleParams = @[@"x", @"x", @"y", @"y", @"r", @"radius", @"d", @"default_image", @"g", @"gravity", @"cs", @"color_space",
         @"p", @"prefix", @"l", @"overlay", @"u", @"underlay", @"f", @"fetch_format", @"dn", @"density",
-        @"pg", @"page", @"dl", @"delay", @"e", @"effect", @"bo", @"border", @"q", @"quality"];
+        @"pg", @"page", @"dl", @"delay", @"e", @"effect", @"bo", @"border", @"q", @"quality", @"dpr", @"dpr"];
     for (int i = 0; i < [simpleParams count]; i+=2)
     {
         NSString* paramShort = simpleParams[i];

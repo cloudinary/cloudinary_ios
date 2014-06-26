@@ -380,7 +380,6 @@
     XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/bo_1px_solid_blue/test", result);
 }
 
-
 - (void)testFlags {
     // should support flags
     CLTransformation* transformation = [CLTransformation transformation];
@@ -393,6 +392,13 @@
     XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/fl_abc.def/test", result);
 }
 
+- (void)testDpr {
+    // should support dpr
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setDprWithFloat:2.0];
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/dpr_2.0/test", result);
+}
 
 - (void)testImageTag {
     CLTransformation* transformation = [CLTransformation transformation];

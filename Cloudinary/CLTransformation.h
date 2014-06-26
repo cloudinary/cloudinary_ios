@@ -54,6 +54,8 @@
 - (void)setDelayWithInt:(int)value;
 @property NSString *rawTransformation;
 @property id flags; // Supports array
+@property id dpr;
+- (void)setDprWithFloat:(float)value;
 
 @property NSDictionary *params;
 - (void)chain;
