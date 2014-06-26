@@ -254,21 +254,23 @@
 {
     if (options == nil)options = @{};
     _context = [options valueForKey:@"_context"];
-    NSString* apiKey = [_cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
-    if (apiKey == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
     if ([options valueForKey:@"unsigned"]) {
         // Nothing to do
-    } else if ([options valueForKey:@"signature"] == nil || [options valueForKey:@"timestamp"] == nil){
-        NSString* apiSecret = [_cloudinary get:@"api_secret" options:options defaultValue:nil];
-        if (apiSecret == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_secret"];
-        NSDate *today = [NSDate date];
-        [params setValue:@((int)[today timeIntervalSince1970])forKey:@"timestamp"];
-        [params setValue:[_cloudinary apiSignRequest:params secret:apiSecret] forKey:@"signature"];
-        [params setValue:apiKey forKey:@"api_key"];
     } else {
-        [params setValue:[options valueForKey:@"timestamp"] forKey:@"timestamp"];
-        [params setValue:[options valueForKey:@"signature"] forKey:@"signature"];
-        [params setValue:apiKey forKey:@"api_key"];
+        NSString* apiKey = [_cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
+        if (apiKey == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
+        if ([options valueForKey:@"signature"] == nil || [options valueForKey:@"timestamp"] == nil){
+            NSString* apiSecret = [_cloudinary get:@"api_secret" options:options defaultValue:nil];
+            if (apiSecret == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_secret"];
+            NSDate *today = [NSDate date];
+            [params setValue:@((int)[today timeIntervalSince1970])forKey:@"timestamp"];
+            [params setValue:[_cloudinary apiSignRequest:params secret:apiSecret] forKey:@"signature"];
+            [params setValue:apiKey forKey:@"api_key"];
+        } else {
+            [params setValue:[options valueForKey:@"timestamp"] forKey:@"timestamp"];
+            [params setValue:[options valueForKey:@"signature"] forKey:@"signature"];
+            [params setValue:apiKey forKey:@"api_key"];
+        }
     }
     
     NSString* apiUrl = [_cloudinary cloudinaryApiUrl:action options:options];
