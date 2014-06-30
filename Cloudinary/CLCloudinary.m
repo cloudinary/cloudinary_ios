@@ -12,7 +12,7 @@
 #import "NSString+CLURLEncoding.h"
 #import "NSDictionary+CLUtilities.h"
 
-NSString * const CL_VERSION = @"1.0.11";
+NSString * const CL_VERSION = @"1.0.12";
 
 NSString * const CL_CF_SHARED_CDN = @"d3jpl91pxevbkh.cloudfront.net";
 NSString * const CL_OLD_AKAMAI_SHARED_CDN = @"cloudinary-a.akamaihd.net";
