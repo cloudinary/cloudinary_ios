@@ -509,5 +509,25 @@
     XCTAssertTrue([error rangeOfString:@"^Must use.*" options:NSRegularExpressionSearch].location != NSNotFound);
 }
 
+- (void)testDeleteByToken
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:nil];
+    [uploader upload:[self logo] options:@{@"return_delete_token": @true} withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
+        result = success;
+        error = errorResult;
+    } andProgress:nil];
+    [self waitForCompletion];
+    NSString* delete_token = [result valueForKey:@"delete_token"];
+    XCTAssertNotNil(delete_token);
+    result = nil;
+    [uploader deleteByToken:delete_token options:@{} withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
+        result = success;
+        error = errorResult;
+    }];
+    [self waitForCompletion];
+    XCTAssertEqualObjects([result valueForKey:@"result"], @"ok");
+}
+
 
 @end

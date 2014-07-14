@@ -47,6 +47,9 @@ typedef void(^CLUploaderProgress)(NSInteger bytesWritten, NSInteger totalBytesWr
 - (void)generateSprite:(NSString*)tag options:(NSDictionary*)options;
 - (void)text:(NSString*)text options:(NSDictionary*)options;
 
+- (void)deleteByToken:(NSString*)token options:(NSDictionary *)options;
+- (void)deleteByToken:(NSString*)token options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock;
+
 @end
 
 @protocol CLUploaderDelegate <NSObject>

@@ -249,6 +249,20 @@
     [_responseData setLength:0];
 }
 
+- (void)deleteByToken:(NSString*)token options:(NSDictionary *)options
+{
+    [self deleteByToken:token options:options withCompletion:nil];
+}
+
+- (void)deleteByToken:(NSString*)token options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock
+{
+    [self setCompletion:completionBlock andProgress:nil];
+    if (options == nil) options = @{};
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObject:token forKey:@"token"];
+    
+    [self callApi:@"delete_by_token" file:nil params:params options:options];
+}
+
 // internal
 - (void)callApi:(NSString *)action file:(id)file params:(NSMutableDictionary *)params options:(NSDictionary *)options
 {
@@ -549,7 +563,7 @@
 {
     static NSArray * CL_BOOLEAN_UPLOAD_OPTIONS = nil;
     if (CL_BOOLEAN_UPLOAD_OPTIONS == nil)
-        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"unique_filename", @"discard_original_filename", @"eager_async", @"invalidate", @"overwrite", @"phash"];
+        CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"unique_filename", @"discard_original_filename", @"eager_async", @"invalidate", @"overwrite", @"phash", @"return_delete_token"];
     static NSArray * CL_SIMPLE_UPLOAD_OPTIONS = nil;
     if (CL_SIMPLE_UPLOAD_OPTIONS == nil)
         CL_SIMPLE_UPLOAD_OPTIONS = @[@"public_id", @"callback", @"format", @"type", @"notification_url", @"eager_notification_url", @"proxy", @"folder", @"moderation", @"raw_convert", @"ocr", @"categorization", @"detection", @"similarity_search", @"auto_tagging", @"upload_preset"];

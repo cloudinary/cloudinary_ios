@@ -87,11 +87,18 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
 
 - (NSString *)cloudinaryApiUrl:(NSString *)action options:(NSDictionary *)options
 {
+    NSMutableArray* components = [NSMutableArray arrayWithCapacity:5];
     NSString *upload_prefix = [self get:@"upload_prefix" options:options defaultValue: @"https://api.cloudinary.com"];
+    [components addObject:upload_prefix];
+    [components addObject:@"v1_1"];
     NSString *cloud_name = [self get:@"cloud_name" options:options defaultValue: nil];
     if (cloud_name == nil)[NSException raise:@"CloudinaryError" format:@"Must supply cloud_name in tag or in configuration"];
-    NSString *resource_type = [options cl_valueForKey:@"resource_type" defaultValue:@"image"];
-    NSArray* components = @[upload_prefix, @"v1_1", cloud_name, resource_type, action];
+    [components addObject:cloud_name];
+    if (![action isEqualToString:@"delete_by_token"]) {
+        NSString *resource_type = [options cl_valueForKey:@"resource_type" defaultValue:@"image"];
+        [components addObject:resource_type];
+    }
+    [components addObject:action];
     return [components componentsJoinedByString:@"/"];
 }
 
