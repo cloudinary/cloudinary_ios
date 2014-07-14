@@ -324,6 +324,7 @@
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self logo] options:@{@"face_coordinates": @"10,10,100,100"}];
     [uploader upload:[self logo] options:@{@"face_coordinates": @[@[@"10", @"10",@"100",@"100"]]}];
+    [uploader upload:[self logo] options:@{@"custom_coordinates":@[@"10", @"10",@"100",@"100"]}];
     
     [self waitForCompletion];
 }

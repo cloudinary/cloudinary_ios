@@ -498,25 +498,23 @@
     }
     return [contextStrings componentsJoinedByString:@"|"];
 }
-- (NSString *)buildFaceCoordinates:(id) faceCoordinates
+- (NSString *)buildCoordinates:(id) coordinates
 {
-    if (faceCoordinates == nil){
+    if (coordinates == nil){
         return nil;
     }
-    faceCoordinates = [CLCloudinary asArray:faceCoordinates];
-    NSMutableArray* coordinates = [NSMutableArray arrayWithCapacity:[faceCoordinates count]];
-    for (id face in faceCoordinates){
-        if ([face isKindOfClass:[NSString class]])
-        {
-            [coordinates addObject:face];
+    coordinates = [CLCloudinary asArray:coordinates];
+    if ([coordinates count] > 0 && [coordinates[0] isKindOfClass:[NSString class]]) {
+        return [coordinates componentsJoinedByString:@","];
+    } else {
+        NSMutableArray* coordinate_strings = [NSMutableArray arrayWithCapacity:[coordinates count]];
+        for (id tuple in coordinates) {
+            [coordinate_strings addObject:[tuple componentsJoinedByString:@","]];
         }
-        else
-        {
-            [coordinates addObject:[face componentsJoinedByString:@","]];
-        }
+        return [coordinate_strings componentsJoinedByString:@"|"];
     }
-    return [coordinates componentsJoinedByString:@"|"];
 }
+                                    
 - (NSString *)buildCustomHeaders:(id)headers
 {
     if (headers == nil)
@@ -577,7 +575,8 @@
         NSArray* allowedFormats = [CLCloudinary asArray:options[@"allowed_formats"]];
         [params setValue:[allowedFormats componentsJoinedByString:@","] forKey:@"allowed_formats"];
         [params setValue:[self buildContext:options[@"context"]] forKey:@"context"];
-        [params setValue:[self buildFaceCoordinates:options[@"face_coordinates"]] forKey:@"face_coordinates"];
+        [params setValue:[self buildCoordinates:options[@"face_coordinates"]] forKey:@"face_coordinates"];
+        [params setValue:[self buildCoordinates:options[@"custom_coordinates"]] forKey:@"custom_coordinates"];
         [params setValue:[self buildEager:options[@"eager"]] forKey:@"eager"];
         [params setValue:[self buildCustomHeaders:options[@"headers"]] forKey:@"headers"];
     } else {
@@ -586,6 +585,7 @@
         [params setValue:options[@"allowed_formats"] forKey:@"allowed_formats"];
         [params setValue:options[@"context"] forKey:@"context"];
         [params setValue:options[@"face_coordinates"] forKey:@"face_coordinates"];
+        [params setValue:options[@"custom_coordinates"] forKey:@"custom_coordinates"];
         [params setValue:options[@"eager"] forKey:@"eager"];
         [params setValue:options[@"headers"] forKey:@"headers"];
     }
