@@ -126,6 +126,7 @@ Embedding a Facebook profile to match your graphic design is very simple:
                            
 See [our documentation](http://cloudinary.com/documentation/image_transformations) for more information about displaying and transforming images.                                         
 
+*Note: Until version 1.0.11 there was an issue in setWidthWithFloat (and similar methods) that caused round floats to be serialized as integers (e.g. setWidthWithFloat(2.0) => w_2) this was fixed in version 1.0.12.*
 
 ### Upload
 
