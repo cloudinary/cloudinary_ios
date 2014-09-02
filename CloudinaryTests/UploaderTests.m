@@ -529,5 +529,25 @@
     XCTAssertEqualObjects([result valueForKey:@"result"], @"ok");
 }
 
+- (void)testRaw
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:nil];
+    [uploader upload:[self logo] options:@{@"resource_type": @"raw"} withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
+        result = success;
+        error = errorResult;
+    } andProgress:nil];
+    [self waitForCompletion];
+    XCTAssertEqualObjects([result valueForKey:@"resource_type"], @"raw");
+    NSString* publicId = [result valueForKey:@"public_id"];
+    result = nil;
+    [uploader destroy:publicId options:@{@"resource_type": @"raw"} withCompletion:^(NSDictionary *success, NSString *errorResult, NSInteger code, id context) {
+        result = success;
+        error = errorResult;
+    } andProgress:nil];
+    [self waitForCompletion];
+    XCTAssertEqualObjects([result valueForKey:@"result"], @"ok");
+}
+
 
 @end
