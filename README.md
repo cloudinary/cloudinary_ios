@@ -203,6 +203,8 @@ In order to upload a raw file, set the `resource_type` parameter to `raw`:
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
     [uploader upload:[self file] options:@{@"resource_type": @"raw"}];
     
+Alternatively, you can set the `resource_type` parameter to `auto`, as demonstrated in the [blog post](http://cloudinary.com/blog/using_cloudinary_to_manage_all_your_website_s_assets_in_the_cloud).
+
 Instead of implementing the `CLUploaderDelegate` you can provide block parameters for receiving uploading progress and completion events. The following example uploaded a local image while providing `withCompletion` & `andProgress` blocks:
 
     [uploader upload:imageFilePath options:@{} withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
