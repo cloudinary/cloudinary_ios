@@ -198,6 +198,11 @@ The following example uploads an image based on a given remote URL:
 
     [uploader upload:@"http://cloudinary.com/images/logo.png" options:@{}];
 
+In order to upload a raw file, set the `resource_type` parameter to `raw`:
+
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self file] options:@{@"resource_type": @"raw"}];
+    
 Instead of implementing the `CLUploaderDelegate` you can provide block parameters for receiving uploading progress and completion events. The following example uploaded a local image while providing `withCompletion` & `andProgress` blocks:
 
     [uploader upload:imageFilePath options:@{} withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
