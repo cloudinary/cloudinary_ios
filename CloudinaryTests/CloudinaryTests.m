@@ -28,7 +28,7 @@
     XCTAssertEqualObjects([config valueForKey:@"api_key"], @"abc");
     XCTAssertEqualObjects([config valueForKey:@"api_secret"], @"def");
     XCTAssertEqualObjects([config valueForKey:@"cloud_name"], @"ghi");
-    XCTAssertEqualObjects([config valueForKey:@"private_cdn"], [NSNumber numberWithBool:NO]);
+    XCTAssertEqualObjects([config valueForKey:@"private_cdn"], @NO);
 }
 
 - (void)testParseCloudinaryUrlWithPrivateCdn
@@ -38,7 +38,7 @@
     XCTAssertEqualObjects([config valueForKey:@"api_key"], @"abc");
     XCTAssertEqualObjects([config valueForKey:@"api_secret"], @"def");
     XCTAssertEqualObjects([config valueForKey:@"cloud_name"], @"ghi");
-    XCTAssertEqualObjects([config valueForKey:@"private_cdn"], [NSNumber numberWithBool:YES]);
+    XCTAssertEqualObjects([config valueForKey:@"private_cdn"], @YES);
     XCTAssertEqualObjects([config valueForKey:@"secure_distribution"], @"jkl");
 }
 
@@ -57,13 +57,13 @@
 
 - (void)testSecureDistribution {
     // should use default secure distribution if secure=TRUE
-    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"secure"]];
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:@YES forKey:@"secure"]];
     XCTAssertEqualObjects(@"https://res.cloudinary.com/test123/image/upload/test", result);
 }
 
 - (void)testSecureDistributionOverwrite {
     // should allow overwriting secure distribution if secure=TRUE
-    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure",
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:@YES, @"secure",
                                                          @"something.else.com", @"secure_distribution", nil]];
     XCTAssertEqualObjects(@"https://something.else.com/test123/image/upload/test", result);
 }
@@ -71,26 +71,44 @@
 - (void)testSecureDistibution {
     // should take secure distribution from config if secure=TRUE
     [cloudinary.config setValue:@"config.secure.distribution.com" forKey:@"secure_distribution"];
-    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"secure"]];
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:@YES forKey:@"secure"]];
     XCTAssertEqualObjects(@"https://config.secure.distribution.com/test123/image/upload/test", result);
 }
 
 - (void)testSecureAkamai {
     // should default to akamai if secure is given with private_cdn and no secure_distribution
-    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure", [NSNumber numberWithBool:YES], @"private_cdn", nil]];
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:@YES, @"secure", @YES, @"private_cdn", nil]];
     XCTAssertEqualObjects(@"https://test123-res.cloudinary.com/image/upload/test", result);
 }
 
 - (void)testSecureNonAkamai {
     // should not add cloud_name if private_cdn and secure non akamai secure_distribution
-    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"secure", [NSNumber numberWithBool:YES], @"private_cdn", @"something.cloudfront.net", @"secure_distribution", nil]];
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:@YES, @"secure", @YES, @"private_cdn", @"something.cloudfront.net", @"secure_distribution", nil]];
     XCTAssertEqualObjects(@"https://something.cloudfront.net/image/upload/test", result);
 }
 
 - (void)testHttpPrivateCdn {
     // should not add cloud_name if private_cdn and not secure
-    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"private_cdn", nil]];
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObjectsAndKeys:@YES, @"private_cdn", nil]];
     XCTAssertEqualObjects(@"http://test123-res.cloudinary.com/image/upload/test", result);
+}
+
+- (void)testCdnSubDomain {
+    // should support new cdn_subdomain format
+    NSString* result = [cloudinary url:@"test" options:@{@"cdn_subdomain": @YES}];
+    XCTAssertEqualObjects(@"http://res-2.cloudinary.com/test123/image/upload/test", result);
+}
+
+- (void)testSecureCdnSubDomainFalse {
+    // should support secure_cdn_subdomain false override with secure
+    NSString* result = [cloudinary url:@"test" options:@{@"cdn_subdomain": @YES, @"secure": @YES, @"secure_cdn_subdomain": @NO}];
+    XCTAssertEqualObjects(@"https://res.cloudinary.com/test123/image/upload/test", result);
+}
+
+- (void)testSecureCdnSubDomainTrue {
+    // should support secure_cdn_subdomain true override with secure
+    NSString* result = [cloudinary url:@"test" options:@{@"cdn_subdomain": @YES, @"secure": @YES, @"secure_cdn_subdomain": @YES, @"private_cdn": @YES}];
+    XCTAssertEqualObjects(@"https://test123-res-2.cloudinary.com/image/upload/test", result);
 }
 
 - (void)testFormat {
