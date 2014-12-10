@@ -10,29 +10,29 @@
 	<string>Cloudinary</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>172750A6-0EDA-495F-ADFE-72B321D4D714</key>
-		<string>ssh://github.com/cloudinary/cloudinary_ios.git</string>
+		<key>EF062D304BCCF9E38F3173406C17450A1F20AD20</key>
+		<string>github.com:cloudinary/cloudinary_ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Cloudinary.xcodeproj/project.xcworkspace</string>
+	<string>Cloudinary.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>172750A6-0EDA-495F-ADFE-72B321D4D714</key>
+		<key>EF062D304BCCF9E38F3173406C17450A1F20AD20</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/cloudinary/cloudinary_ios.git</string>
+	<string>github.com:cloudinary/cloudinary_ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>172750A6-0EDA-495F-ADFE-72B321D4D714</string>
+	<string>EF062D304BCCF9E38F3173406C17450A1F20AD20</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>172750A6-0EDA-495F-ADFE-72B321D4D714</string>
+			<string>EF062D304BCCF9E38F3173406C17450A1F20AD20</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Cloudinary</string>
 		</dict>

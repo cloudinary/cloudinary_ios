@@ -211,18 +211,6 @@
     XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/raw/upload/test", result);
 }
 
-
-- (void)testIgnoreHttp {
-    // should ignore http links only if type is not given or is asset
-    NSString* result = [cloudinary url:@"http://test"];
-    XCTAssertEqualObjects(@"http://test", result);
-    result = [cloudinary url:@"http://test" options:[NSDictionary dictionaryWithObject:@"asset" forKey:@"type"]];
-    XCTAssertEqualObjects(@"http://test", result);
-    result = [cloudinary url:@"http://test" options:[NSDictionary dictionaryWithObject:@"fetch" forKey:@"type"]];
-    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/fetch/http://test", result);
-}
-
-
 - (void)testFetch {
     // should escape fetch urls
     NSString* result = [cloudinary url:@"http://blah.com/hello?a=b" options:[NSDictionary dictionaryWithObject:@"fetch" forKey:@"type"]];
@@ -243,6 +231,94 @@
     XCTAssertEqualObjects(@"http://a2.hello.com/test123/image/upload/test", result);
 }
 
+- (void)testUrlSuffixShared {
+    // should disallow url_suffix in shared distribution
+    XCTAssertThrows([cloudinary url:@"test" options:@{@"url_suffix": @"hello"}]);
+}
+
+- (void)testUrlSuffixNonUpload {
+    // should disallow url_suffix for non upload types
+    NSDictionary* options = @{@"url_suffix": @"hello", @"private_cdn": @YES, @"type": @"facebook"};
+    XCTAssertThrows([cloudinary url:@"test" options:options]);
+}
+
+- (void)testUrlSuffixDisallowedChars {
+    // should disallow url_suffix with / or .
+    NSDictionary* options = @{@"url_suffix": @"hello/world", @"private_cdn": @YES};
+    XCTAssertThrows([cloudinary url:@"test" options:options]);
+    options = @{@"url_suffix": @"hello.world", @"private_cdn": @YES};
+    XCTAssertThrows([cloudinary url:@"test" options:options]);
+}
+
+- (void)testUrlSuffixPrivateCdn {
+    // should support url_suffix for private_cdn
+    NSString* result = [cloudinary url:@"test" options:@{@"url_suffix": @"hello", @"private_cdn": @YES}];
+    XCTAssertEqualObjects(@"http://test123-res.cloudinary.com/images/test/hello", result);
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setAngleWithInt:0];
+    result = [cloudinary url:@"test" options:@{@"url_suffix": @"hello", @"private_cdn": @YES, @"transformation": transformation}];
+    XCTAssertEqualObjects(@"http://test123-res.cloudinary.com/images/a_0/test/hello", result);
+}
+
+- (void)testUrlSuffixFormat {
+    // should put format after url_suffix
+    NSString* result = [cloudinary url:@"test" options:@{@"url_suffix": @"hello", @"private_cdn": @YES, @"format": @"jpg"}];
+    XCTAssertEqualObjects(@"http://test123-res.cloudinary.com/images/test/hello.jpg", result);
+}
+
+- (void)testUrlSuffixSign {
+    // should not sign the url_suffix
+    NSString* result = [cloudinary url:@"test" options:@{@"sign_url": @YES, @"format": @"jpg"}];
+    NSString* signature1 = [result componentsSeparatedByString:@"--"][1];
+    
+    result = [cloudinary url:@"test" options:@{@"url_suffix": @"hello", @"private_cdn": @YES, @"format": @"jpg", @"sign_url": @YES}];
+    NSString* signature2 = [result componentsSeparatedByString:@"--"][1];
+    
+    XCTAssertEqualObjects(signature1, signature2);
+
+    result = [cloudinary url:@"test" options:@{@"sign_url": @YES, @"format": @"jpg", @"angle": @0}];
+    signature1 = [result componentsSeparatedByString:@"--"][1];
+    
+    result = [cloudinary url:@"test" options:@{@"url_suffix": @"hello", @"private_cdn": @YES, @"format": @"jpg", @"angle": @0, @"sign_url": @YES}];
+    signature2 = [result componentsSeparatedByString:@"--"][1];
+    
+    XCTAssertEqualObjects(signature1, signature2);
+}
+
+- (void)testUrlSuffixRaw {
+    // should support url_suffix for raw uploads
+    NSString* result = [cloudinary url:@"test" options:@{@"url_suffix": @"hello", @"private_cdn": @YES, @"resource_type": @"raw"}];
+    XCTAssertEqualObjects(@"http://test123-res.cloudinary.com/files/test/hello", result);
+}
+
+- (void)testUseRootPathShared {
+    // should disllow use_root_path in shared distribution
+    XCTAssertThrows([cloudinary url:@"test" options:@{@"use_root_path": @YES}]);
+}
+
+- (void)testUseRootPathNonImageUpload {
+    // should disllow use_root_path if not image/upload
+    NSDictionary* options = @{@"use_root_path": @YES, @"private_cdn": @YES, @"type": @"facebook"};
+    XCTAssertThrows([cloudinary url:@"test" options:options]);
+    options = @{@"use_root_path": @YES, @"private_cdn": @YES, @"resource_type": @"raw"};
+    XCTAssertThrows([cloudinary url:@"test" options:options]);
+}
+
+- (void)testUseRootPathPrivateCdn {
+    // should support use_root_path for private_cdn
+    NSString* result = [cloudinary url:@"test" options:@{@"use_root_path": @YES, @"private_cdn": @YES}];
+    XCTAssertEqualObjects(@"http://test123-res.cloudinary.com/test", result);
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setAngleWithInt:0];
+    result = [cloudinary url:@"test" options:@{@"use_root_path": @YES, @"private_cdn": @YES, @"transformation": transformation}];
+    XCTAssertEqualObjects(@"http://test123-res.cloudinary.com/a_0/test", result);
+}
+
+- (void)testUseRootPathUrlSuffixPrivateCdn {
+    // should support use_root_path with url_suffix for private_cdn
+    NSString* result = [cloudinary url:@"test" options:@{@"use_root_path": @YES, @"url_suffix": @"hello", @"private_cdn": @YES}];
+    XCTAssertEqualObjects(@"http://test123-res.cloudinary.com/test/hello", result);
+}
 
 - (void)testHttpEscape {
     // should escape http urls
@@ -442,7 +518,7 @@
     [transformation setCrop: @"crop"];
 
     NSString* result = [cloudinary url:@"image.jpg" options:@{@"transformation": transformation, @"sign_url": @YES, @"version": @"1234"}];
-    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/s--MaRXzoEC--/c_crop,h_20,w_10/v1234/image.jpg", result);
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/s--Ai4Znfl3--/c_crop,h_20,w_10/v1234/image.jpg", result);
 }
 
 - (void) testEscapePublicId {

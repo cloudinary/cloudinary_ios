@@ -175,6 +175,32 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     
 }
 
+- (NSString*) finalizeResourceType:(NSString*)resourceType type:(NSString*)type urlSuffix:(NSString*)urlSuffix useRootPath:(NSNumber*)useRootPath shorten:(NSNumber*)shorten
+{
+    NSString* resourceTypeAndType = [NSString stringWithFormat:@"%@/%@", resourceType, type];
+    if ([urlSuffix length] > 0) {
+        if ([resourceTypeAndType isEqualToString:@"image/upload"]) {
+            resourceTypeAndType = @"images";
+        } else if ([resourceTypeAndType isEqualToString:@"raw/upload"]) {
+            resourceTypeAndType = @"files";
+        } else {
+            [NSException raise:@"CloudinaryError" format:@"URL Suffix only supported for image/upload and raw/upload"];
+        }
+    }
+    if ([useRootPath boolValue]) {
+        if ([resourceTypeAndType isEqualToString:@"image/upload"] || [resourceTypeAndType isEqualToString:@"images"]) {
+            resourceTypeAndType = @"";
+        } else {
+            [NSException raise:@"CloudinaryError" format:@"Root path only supported for image/upload"];
+        }
+    }
+    if ([shorten boolValue] && [resourceTypeAndType isEqualToString:@"image/upload"])
+    {
+        resourceTypeAndType = @"iu";
+    }
+    return resourceTypeAndType;
+}
+
 - (NSString *)url:(NSString *)source options:(NSDictionary *)options
 {
     NSString *cloudName = [self get:@"cloud_name" options:options defaultValue:nil];
@@ -194,8 +220,18 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     NSNumber* shorten = [self get:@"shorten" options:options defaultValue:@NO];
     NSNumber* signUrl = [self get:@"sign_url" options:options defaultValue:@NO];
     NSString* apiSecret = [self get:@"api_secret" options:options defaultValue:nil];
+    NSString* urlSuffix = [self get:@"url_suffix" options:options defaultValue:nil];
+    NSNumber* useRootPath = [self get:@"use_root_path" options:options defaultValue:@NO];
     if ([signUrl boolValue] && apiSecret == NULL) {
         [NSException raise:@"CloudinaryError" format:@"Must supply api_secret for signing urls"];
+    }
+    if (![privateCdn boolValue]) {
+        if ([urlSuffix length] > 0) {
+            [NSException raise:@"CloudinaryError" format:@"URL Suffix only supported in private CDN"];
+        }
+        if ([useRootPath boolValue]) {
+            [NSException raise:@"CloudinaryError" format:@"Root path only supported in private CDN"];
+        }
     }
     
     NSRegularExpression *preloadedRegex = [NSRegularExpression regularExpressionWithPattern:@"^([^/]+)/([^/]+)/v([0-9]+)/([^#]+)(#[0-9a-f]+)?$" options:NSRegularExpressionCaseInsensitive error:nil];
@@ -218,19 +254,40 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     NSString *transformationStr = [transformation generate];
     
     if (source == nil) return nil;
-    NSString *originalSource = source;
     
+    if ([source rangeOfString:@"/"].location != NSNotFound &&
+        [source rangeOfString:@"^v[0-9]+/.*" options:NSRegularExpressionSearch].location == NSNotFound &&
+        [source rangeOfString:@"^https?:/.*" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location == NSNotFound &&
+        [version length] == 0)
+    {
+        version = @"1";
+    }
+    
+    if ([version length] > 0)
+    {
+        version = [NSString stringWithFormat:@"v%@", version];
+    }
+
+    NSString *toSign = @"";
+    if ([transformationStr length] > 0) {
+        toSign = [NSString stringWithFormat:@"%@/", transformationStr];
+    }
     if ([source rangeOfString:@"^https?:/.*" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location != NSNotFound)
     {
-        if ([type isEqualToString:@"upload"] || [type isEqualToString:@"asset"])
-        {
-            return originalSource;
-        }
         source = [source cl_smartEncodeUrl:NSUTF8StringEncoding];
+        toSign = [NSString stringWithFormat:@"%@%@", toSign, source];
     } else {
-        source = [[source stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] cl_smartEncodeUrl:NSUTF8StringEncoding];        
+        source = [[source stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] cl_smartEncodeUrl:NSUTF8StringEncoding];
+        toSign = [NSString stringWithFormat:@"%@%@", toSign, source];
+        if ([urlSuffix length] > 0) {
+            if ([urlSuffix rangeOfString:@"[/\\.]" options:NSRegularExpressionSearch].location != NSNotFound) {
+                [NSException raise:@"CloudinaryError" format:@"url_suffix should not include . or /"];
+            }
+            source = [NSString stringWithFormat:@"%@/%@", source, urlSuffix];
+        }
         if (format != nil) {
             source = [NSString stringWithFormat:@"%@.%@", source, format];
+            toSign = [NSString stringWithFormat:@"%@.%@", toSign, format];
         }
     }
     NSMutableString* prefix = [NSMutableString string];
@@ -270,37 +327,21 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         [prefix appendString:cloudName];
     }
 
-    if ([shorten boolValue] && [resourceType isEqualToString:@"image"] && [type isEqualToString:@"upload"])
-    {
-        resourceType = @"iu";
-        type = @"";
-    }
-    if ([source rangeOfString:@"/"].location != NSNotFound &&
-        [source rangeOfString:@"^v[0-9]+/.*" options:NSRegularExpressionSearch].location == NSNotFound &&
-        [source rangeOfString:@"^https?:/.*" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location == NSNotFound &&
-        [version length] == 0)
-    {
-        version = @"1";
-    }
+    NSString* resourceTypeAndType = [self finalizeResourceType:resourceType type:type urlSuffix:urlSuffix useRootPath:useRootPath shorten:shorten];
     
-    if ([version length] > 0)
-    {
-        version = [NSString stringWithFormat:@"v%@", version];
-    }
-    NSString *rest = [@[transformationStr, version, source] componentsJoinedByString:@"/"];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([^:])\\/+"
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:nil];
-    rest = [regex stringByReplacingMatchesInString:rest options:0 range:NSMakeRange(0, [rest length]) withTemplate:@"$1/"];
     NSString* signature = @"";
     if ([signUrl boolValue])
     {
-        NSString *encoded = [self sha1Base64:[rest stringByAppendingString:apiSecret]];
+        toSign = [regex stringByReplacingMatchesInString:toSign options:0 range:NSMakeRange(0, [toSign length]) withTemplate:@"$1/"];
+        NSString *encoded = [self sha1Base64:[toSign stringByAppendingString:apiSecret]];
 
         signature = [NSString stringWithFormat:@"s--%@--", [encoded substringWithRange:NSMakeRange(0, 8)]];
     }
     
-    NSString *url = [@[prefix, resourceType, type, signature, rest] componentsJoinedByString:@"/"];
+    NSString *url = [@[prefix, resourceTypeAndType, signature, transformationStr, version, source] componentsJoinedByString:@"/"];
     
     return [regex stringByReplacingMatchesInString:url options:0 range:NSMakeRange(0, [url length]) withTemplate:@"$1/"];
 }
