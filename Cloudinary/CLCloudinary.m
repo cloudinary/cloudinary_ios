@@ -324,17 +324,18 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         version = [NSString stringWithFormat:@"v%@", version];
     }
 
-    NSString *toSign = @"";
+    NSMutableString *toSign = [NSMutableString string];
     if ([transformationStr length] > 0) {
-        toSign = [NSString stringWithFormat:@"%@/", transformationStr];
+        [toSign appendString:transformationStr];
+        [toSign appendString:@"/"];
     }
     if ([source rangeOfString:@"^https?:/.*" options:NSCaseInsensitiveSearch|NSRegularExpressionSearch].location != NSNotFound)
     {
         source = [source cl_smartEncodeUrl:NSUTF8StringEncoding];
-        toSign = [NSString stringWithFormat:@"%@%@", toSign, source];
+        [toSign appendString:source];
     } else {
         source = [[source stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] cl_smartEncodeUrl:NSUTF8StringEncoding];
-        toSign = [NSString stringWithFormat:@"%@%@", toSign, source];
+        [toSign appendString:source];
         if ([urlSuffix length] > 0) {
             if ([urlSuffix rangeOfString:@"[/\\.]" options:NSRegularExpressionSearch].location != NSNotFound) {
                 [NSException raise:@"CloudinaryError" format:@"url_suffix should not include . or /"];
@@ -343,7 +344,8 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         }
         if (format != nil) {
             source = [NSString stringWithFormat:@"%@.%@", source, format];
-            toSign = [NSString stringWithFormat:@"%@.%@", toSign, format];
+            [toSign appendString:@"."];
+            [toSign appendString:format];
         }
     }
 
@@ -356,8 +358,8 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     NSString* signature = @"";
     if ([signUrl boolValue])
     {
-        toSign = [regex stringByReplacingMatchesInString:toSign options:0 range:NSMakeRange(0, [toSign length]) withTemplate:@"$1/"];
-        NSString *encoded = [self sha1Base64:[toSign stringByAppendingString:apiSecret]];
+        [toSign appendString:apiSecret];
+        NSString *encoded = [self sha1Base64:toSign];
 
         signature = [NSString stringWithFormat:@"s--%@--", [encoded substringWithRange:NSMakeRange(0, 8)]];
     }
