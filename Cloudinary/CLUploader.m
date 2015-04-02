@@ -289,7 +289,7 @@
     
     NSString* apiUrl = [_cloudinary cloudinaryApiUrl:action options:options];
 
-    NSURLRequest *req = [self request:apiUrl params:params file:file];
+    NSURLRequest *req = [self request:apiUrl params:params file:file timeout:[options valueForKey:@"timeout"]];
     // create the connection with the request and start loading the data
     if ([[_cloudinary get:@"sync" options:options defaultValue:@NO] boolValue]) {
         NSError* nserror = nil;
@@ -390,13 +390,14 @@
     [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (NSURLRequest *)request:(NSString *)url params:(NSDictionary *)params file:(id)file
+- (NSURLRequest *)request:(NSString *)url params:(NSDictionary *)params file:(id)file timeout:(NSNumber*)timeout
 {
     NSString *boundary = [_cloudinary randomPublicId];
+    float timeoutInternal = timeout ? [timeout floatValue] : 60.0;
     
     NSMutableURLRequest *req=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                   cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                  timeoutInterval:60.0];
+                                                  timeoutInterval:timeoutInternal];
 
     [req setHTTPMethod:@"POST"];
     

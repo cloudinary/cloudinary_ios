@@ -549,5 +549,13 @@
     XCTAssertEqualObjects([result valueForKey:@"result"], @"ok");
 }
 
+- (void)testTimeout
+{
+    VerifyAPISecret();
+    CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
+    [uploader upload:[self logo] options:@{@"timeout": @(0.01)}];
+    [self waitForCompletionAllowError];
+    XCTAssertTrue([error rangeOfString:@"request timed out" options:NSRegularExpressionSearch].location != NSNotFound);
+}
 
 @end
