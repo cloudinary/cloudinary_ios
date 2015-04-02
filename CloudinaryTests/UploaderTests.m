@@ -127,7 +127,7 @@
 {
     VerifyAPISecret();
     CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-    [uploader upload:@"http://cloudinary.com/images/logo.png" options:@{}];
+    [uploader upload:@"http://cloudinary.com/images/old_logo.png" options:@{}];
     [self waitForCompletion];
     XCTAssertEqualObjects([result valueForKey:@"width"], [NSNumber numberWithInt:241]);
     XCTAssertEqualObjects([result valueForKey:@"height"], [NSNumber numberWithInt:51]);
@@ -355,8 +355,8 @@
     [self reset];
     [uploader addTag:@"tag1" publicIds: @[publicId, publicId2] options:@{}];
     [self waitForCompletion];
-    NSArray* publicIds = [result valueForKey:@"public_ids"];
-    NSArray* expectedPublicIds = @[publicId, publicId2];
+    NSArray* publicIds = [[result valueForKey:@"public_ids"] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray* expectedPublicIds = [@[publicId, publicId2] sortedArrayUsingSelector:@selector(compare:)];
     XCTAssertEqualObjects(publicIds, expectedPublicIds, @"changed public ids");
     [self reset];
     [uploader addTag:@"tag2" publicIds: @[publicId] options:@{}];
