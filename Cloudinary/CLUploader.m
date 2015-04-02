@@ -145,6 +145,8 @@
     [params setValue:publicId forKey:@"public_id"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
+    [params setValue:[options valueForKey:@"eager_notification_url"] forKey:@"eager_notification_url"];
+    [params setValue:[CLCloudinary asBool:[options valueForKey:@"eager_async"]] forKey: @"eager_async"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
     NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
