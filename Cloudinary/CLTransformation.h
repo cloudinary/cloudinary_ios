@@ -57,6 +57,32 @@
 @property id dpr;
 - (void)setDprWithFloat:(float)value;
 
+@property id zoom;
+- (void)setZoomWithFloat:(float)value;
+@property NSString *audioCodec;
+@property id audioFrequency;
+- (void)setAudioFrequencyWithInt:(int)value;
+@property id bitRate;
+- (void)setBitRateWithInt:(int)bitRate;
+- (void)setBitRateKilobytesWithInt:(int)bitRate;
+@property id videoSampling;
+- (void)setVideoSamplingDelayWithFloat:(float)videoSamplingDelay;
+- (void)setVideoSamplingFramesWithInt:(int)videoSamplingFrames;
+@property id duration;
+- (void)setDurationSecondsWithFloat:(float)durationSeconds;
+- (void)setDurationPercentsWithFloat:(float)durationPercents;
+@property id startOffset;
+- (void)setStartOffsetSecondsWithFloat:(float)startOffsetSeconds;
+- (void)setStartOffsetPercentsWithFloat:(float)startOffsetPercents;
+@property id endOffset;
+- (void)setEndOffsetSecondsWithFloat:(float)endOffsetSeconds;
+- (void)setEndOffsetPercentsWithFloat:(float)endOffsetPercents;
+- (void)setStartOffsetSecondsWithFloat:(float)startOffsetSeconds andEndOffsetSeconds:(float)endOffsetSeconds;
+- (void)setStartOffsetPercentsWithFloat:(float)startOffsetPercents andEndOffsetPercents:(float)endOffsetPercents;
+@property NSString* videoCodec;
+- (void)setVideoCodec:(NSString*)videoCodec andVideoProfile:(NSString*)videoProfile;
+- (void)setVideoCodec:(NSString*)videoCodec andVideoProfile:(NSString*)videoProfile andLevel:(NSString*)level;
+
 @property NSDictionary *params;
 - (void)chain;
 - (void)param:(NSString *)param value:(id)value;

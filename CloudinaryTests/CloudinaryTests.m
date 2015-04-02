@@ -566,4 +566,75 @@
     url = [cloudinary url:@"image/private/v1234567/img.jpg" options:@{@"transformation": transformation}];
     XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/private/c_scale,w_1.1/v1234567/img.jpg", url);
 }
+
+- (void)testVideoCodec {
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setVideoCodec:@"auto"];
+    
+    NSString* result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/vc_auto/video_id", result);
+
+    transformation = [CLTransformation transformation];
+    [transformation setVideoCodec:@"h264" andVideoProfile:@"basic" andLevel:@"3.1"];
+    result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/vc_h264:basic:3.1/video_id", result);
+}
+
+- (void)testAudioCodec {
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setAudioCodec:@"acc"];
+    
+    NSString* result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/ac_acc/video_id", result);
+}
+
+- (void)testBitRate {
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setBitRate:@"1m"];
+    
+    NSString* result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/br_1m/video_id", result);
+    
+    transformation = [CLTransformation transformation];
+    [transformation setBitRateWithInt:2048];
+    result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/br_2048/video_id", result);
+
+    transformation = [CLTransformation transformation];
+    [transformation setBitRateKilobytesWithInt:44];
+    result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/br_44k/video_id", result);
+}
+
+- (void)testAudioFrequency {
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setAudioFrequency:@"44100"];
+    
+    NSString* result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/af_44100/video_id", result);
+
+    transformation = [CLTransformation transformation];
+    [transformation setAudioFrequencyWithInt:44100];
+    result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/af_44100/video_id", result);
+}
+
+- (void)testVideoSampling {
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setVideoSampling:@"20"];
+    
+    NSString* result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/vs_20/video_id", result);
+    
+    transformation = [CLTransformation transformation];
+    [transformation setVideoSamplingFramesWithInt:20];
+    result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/vs_20/video_id", result);
+
+    transformation = [CLTransformation transformation];
+    [transformation setVideoSamplingDelayWithFloat:2.3];
+    result = [cloudinary url:@"video_id" options:@{@"transformation": transformation, @"resource_type": @"video"}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/vs_2.3s/video_id", result);
+}
+
 @end

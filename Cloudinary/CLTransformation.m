@@ -138,6 +138,50 @@
 - (id)dpr { return [_params valueForKey:@"dpr"]; }
 - (void)setDprWithFloat:(float)value { [self setDpr:[self formatFloat:value]]; }
 
+- (void)setZoom:(id)value { [self param:@"zoom" value:value]; }
+- (id)zoom { return [_params valueForKey:@"zoom"]; }
+- (void)setZoomWithFloat:(float)value { [self setZoom:[self formatFloat:value]]; }
+
+- (void)setAudioCodec:(NSString *)value { [self param:@"audio_codec" value:value]; }
+- (NSString *)audioCodec { return [_params valueForKey:@"audio_codec"]; }
+
+- (void)setAudioFrequency:(id)value { [self param:@"audio_frequency" value:value]; }
+- (id)audioFrequency { return [_params valueForKey:@"audio_frequency"]; }
+- (void)setAudioFrequencyWithInt:(int)value { [self setAudioFrequency:@(value)]; }
+
+- (void)setBitRate:(id)value { [self param:@"bit_rate" value:value]; }
+- (id)bitRate { return [_params valueForKey:@"bit_rate"]; }
+- (void)setBitRateWithInt:(int)value { [self setBitRate:@(value)]; }
+- (void)setBitRateKilobytesWithInt:(int)value { [self setBitRate:[NSString stringWithFormat:@"%dk", value]]; }
+
+- (void)setVideoSampling:(id)value { [self param:@"video_sampling" value:value]; }
+- (id)videoSampling { return [_params valueForKey:@"video_sampling"]; }
+- (void)setVideoSamplingDelayWithFloat:(float)value { [self setVideoSampling:[NSString stringWithFormat:@"%@s", [self formatFloat:value]]]; }
+- (void)setVideoSamplingFramesWithInt:(int)value { [self setVideoSampling:@(value)]; }
+
+- (void)setDuration:(id)value { [self param:@"duration" value:value]; }
+- (id)duration { return [_params valueForKey:@"duration"]; }
+- (void)setDurationSecondsWithFloat:(float)value { [self setDuration:@(value)]; }
+- (void)setDurationPercentsWithFloat:(float)value { [self setDuration:[NSString stringWithFormat:@"%@p", [self formatFloat:value]]]; }
+
+- (void)setStartOffset:(id)value { [self param:@"start_offset" value:value]; }
+- (id)startOffset { return [_params valueForKey:@"start_offset"]; }
+- (void)setStartOffsetSecondsWithFloat:(float)value { [self setStartOffset:@(value)]; }
+- (void)setStartOffsetPercentsWithFloat:(float)value { [self setStartOffset:[NSString stringWithFormat:@"%@p", [self formatFloat:value]]]; }
+
+- (void)setEndOffset:(id)value { [self param:@"end_offset" value:value]; }
+- (id)endOffset { return [_params valueForKey:@"end_offset"]; }
+- (void)setEndOffsetSecondsWithFloat:(float)value { [self setEndOffset:@(value)]; }
+- (void)setEndOffsetPercentsWithFloat:(float)value { [self setEndOffset:[NSString stringWithFormat:@"%@p", [self formatFloat:value]]]; }
+
+- (void)setStartOffsetSecondsWithFloat:(float)startOffsetSeconds andEndOffsetSeconds:(float)endOffsetSeconds { [self setStartOffsetSecondsWithFloat: startOffsetSeconds]; [self setEndOffsetSecondsWithFloat:endOffsetSeconds]; };
+- (void)setStartOffsetPercentsWithFloat:(float)startOffsetPercents andEndOffsetPercents:(float)endOffsetPercents { [self setStartOffsetPercentsWithFloat:startOffsetPercents]; [self setEndOffsetSecondsWithFloat:endOffsetPercents];}
+
+- (void)setVideoCodec:(NSString *)value { [self param:@"video_codec" value:value]; }
+- (NSString *)videoCodec { return [_params valueForKey:@"video_codec"]; }
+- (void)setVideoCodec:(NSString*)videoCodec andVideoProfile:(NSString*)videoProfile { [self setVideoCodec:[NSString stringWithFormat:@"%@:%@", videoCodec, videoProfile]]; }
+- (void)setVideoCodec:(NSString*)videoCodec andVideoProfile:(NSString*)videoProfile andLevel:(NSString*)level { [self setVideoCodec:[NSString stringWithFormat:@"%@:%@:%@", videoCodec, videoProfile, level]]; }
+
 - (void)setParams:(NSDictionary *)value
 {
     [_params addEntriesFromDictionary:value];
@@ -248,9 +292,34 @@
     if (angle)      [transformation addObject:@[@"a", angle]];
     if (flags)      [transformation addObject:@[@"fl", flags]];
     
-    NSArray* simpleParams = @[@"x", @"x", @"y", @"y", @"r", @"radius", @"d", @"default_image", @"g", @"gravity", @"cs", @"color_space",
-        @"p", @"prefix", @"l", @"overlay", @"u", @"underlay", @"f", @"fetch_format", @"dn", @"density",
-        @"pg", @"page", @"dl", @"delay", @"e", @"effect", @"bo", @"border", @"q", @"quality", @"dpr", @"dpr"];
+    NSArray* simpleParams = @[
+        @"ac", @"audio_codec",
+        @"af", @"audio_frequency",
+        @"bo", @"border",
+        @"br", @"bit_rate",
+        @"cs", @"color_space",
+        @"d", @"default_image",
+        @"dl", @"delay",
+        @"dn", @"density",
+        @"dpr", @"dpr",
+        @"du", @"duration",
+        @"e", @"effect",
+        @"eo", @"end_offset",
+        @"f", @"fetch_format",
+        @"g", @"gravity",
+        @"l", @"overlay",
+        @"p", @"prefix",
+        @"pg", @"page",
+        @"q", @"quality",
+        @"r", @"radius",
+        @"so", @"start_offset",
+        @"u", @"underlay",
+        @"vs", @"video_sampling",
+        @"vc", @"video_codec",
+        @"x", @"x",
+        @"y", @"y",
+        @"z", @"zoom",
+        ];
     for (int i = 0; i < [simpleParams count]; i+=2)
     {
         NSString* paramShort = simpleParams[i];
