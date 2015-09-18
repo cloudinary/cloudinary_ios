@@ -297,12 +297,13 @@
         NSError* nserror = nil;
         NSURLResponse* nsresponse = nil;
         NSData* data = [NSURLConnection sendSynchronousRequest:req returningResponse:&nsresponse error:&nserror];
+        NSURLConnection* dummyConnection = [NSURLConnection alloc];
         if (nserror != NULL) {
-            [self connection:NULL didFailWithError:nserror];
+            [self connection:dummyConnection didFailWithError:nserror];
         } else {
-            [self connection:NULL didReceiveResponse:nsresponse];
-            [self connection:NULL didReceiveData:data];
-            [self connectionDidFinishLoading:NULL];
+            [self connection:dummyConnection didReceiveResponse:nsresponse];
+            [self connection:dummyConnection didReceiveData:data];
+            [self connectionDidFinishLoading:dummyConnection];
         }
     } else {
         connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
