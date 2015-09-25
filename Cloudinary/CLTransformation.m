@@ -187,6 +187,9 @@
 - (void)setVideoCodec:(NSString*)videoCodec andVideoProfile:(NSString*)videoProfile { [self setVideoCodec:[NSString stringWithFormat:@"%@:%@", videoCodec, videoProfile]]; }
 - (void)setVideoCodec:(NSString*)videoCodec andVideoProfile:(NSString*)videoProfile andLevel:(NSString*)level { [self setVideoCodec:[NSString stringWithFormat:@"%@:%@:%@", videoCodec, videoProfile, level]]; }
 
+- (void)setOverlayWithLayer:(CLLayer*)layer { [self setOverlay:[layer generate:@"overlay"]];}
+- (void)setUnderlayWithLayer:(CLLayer*)layer { [self setUnderlay:[layer generate:@"underlay"]];}
+
 - (void)setParams:(NSDictionary *)value
 {
     [_params addEntriesFromDictionary:value];

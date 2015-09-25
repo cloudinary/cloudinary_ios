@@ -660,4 +660,77 @@
     XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/video/upload/vs_2.3s/video_id", result);
 }
 
+- (void) testOverlayOptions {
+    CLLayer* layer;
+    
+    layer = [CLLayer layer];
+    [layer setPublicId:@"logo"];
+    XCTAssertEqualObjects(@"logo", [layer generate:@"overlay"]);
+
+    layer = [CLLayer layer];
+    [layer setPublicId:@"logo"];
+    [layer setType:@"private"];
+    XCTAssertEqualObjects(@"private:logo", [layer generate:@"overlay"]);
+    
+    layer = [CLLayer layer];
+    [layer setPublicId:@"logo"];
+    [layer setFormat:@"png"];
+    XCTAssertEqualObjects(@"logo.png", [layer generate:@"overlay"]);
+
+    layer = [CLLayer layer];
+    [layer setPublicId:@"folder/logo"];
+    XCTAssertEqualObjects(@"folder:logo", [layer generate:@"overlay"]);
+
+    layer = [CLLayer layer];
+    [layer setPublicId:@"cat"];
+    [layer setResourceType:@"video"];
+    XCTAssertEqualObjects(@"video:cat", [layer generate:@"overlay"]);
+
+    layer = [CLLayer layer];
+    [layer setText:@"Hello World, Nice to meet you?"];
+    [layer setFontFamily:@"Arial"];
+    [layer setFontSizeWithInt:18];
+    XCTAssertEqualObjects(@"text:Arial_18:Hello%20World%E2%80%9A%20Nice%20to%20meet%20you%3F", [layer generate:@"overlay"]);
+
+    layer = [CLLayer layer];
+    [layer setText:@"Hello World, Nice to meet you?"];
+    [layer setFontFamily:@"Arial"];
+    [layer setFontSizeWithInt:18];
+    [layer setFontStyle:@"italic"];
+    [layer setFontWeight:@"bold"];
+    [layer setLetterSpacingWithInt:4];
+    XCTAssertEqualObjects(@"text:Arial_18_bold_italic_letter_spacing_4:Hello%20World%E2%80%9A%20Nice%20to%20meet%20you%3F", [layer generate:@"overlay"]);
+
+    layer = [CLLayer layer];
+    [layer setPublicId:@"sample_sub_en.srt"];
+    [layer setResourceType:@"subtitles"];
+    XCTAssertEqualObjects(@"subtitles:sample_sub_en.srt", [layer generate:@"overlay"]);
+
+    layer = [CLLayer layer];
+    [layer setPublicId:@"sample_sub_he.srt"];
+    [layer setResourceType:@"subtitles"];
+    [layer setFontFamily:@"Arial"];
+    [layer setFontSizeWithInt:40];
+    XCTAssertEqualObjects(@"subtitles:Arial_40:sample_sub_he.srt", [layer generate:@"overlay"]);
+
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setOverlayWithLayer:layer];
+    XCTAssertEqualObjects(@"l_subtitles:Arial_40:sample_sub_he.srt", [transformation generate]);
+}
+
+- (void) testOverlayErrors {
+    CLLayer* layer;
+    CLTransformation* transformation = [CLTransformation transformation];
+    
+    layer = [CLLayer layer];
+    [layer setText:@"text"];
+    [layer setFontStyle:@"italic"];
+    XCTAssertThrows([transformation setOverlayWithLayer:layer]);
+
+    layer = [CLLayer layer];
+    [layer setResourceType:@"video"];
+    XCTAssertThrows([transformation setUnderlayWithLayer:layer]);
+}
+
+
 @end

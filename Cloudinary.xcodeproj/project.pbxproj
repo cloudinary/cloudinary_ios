@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		721E57D01BB555B700F7FDD1 /* CLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E57CF1BB555B700F7FDD1 /* CLLayer.m */; settings = {ASSET_TAGS = (); }; };
 		72222DD618D2FCAF00780A5A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72222DD518D2FCAF00780A5A /* XCTest.framework */; };
 		723C80BB163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
 		723C80C0163885C7003FB3FB /* CLCloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* CLCloudinary.h */; };
@@ -58,6 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		721E57CE1BB555B700F7FDD1 /* CLLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLayer.h; sourceTree = "<group>"; };
+		721E57CF1BB555B700F7FDD1 /* CLLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLayer.m; sourceTree = "<group>"; };
 		72222DD518D2FCAF00780A5A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		723C80B7163885C7003FB3FB /* libCloudinary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCloudinary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		723C80BA163885C7003FB3FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -159,6 +162,8 @@
 				723C80BF163885C7003FB3FB /* CLCloudinary.h */,
 				723C80C1163885C7003FB3FB /* CLCloudinary.m */,
 				723C80E916394BAA003FB3FB /* CLTransformation.h */,
+				721E57CE1BB555B700F7FDD1 /* CLLayer.h */,
+				721E57CF1BB555B700F7FDD1 /* CLLayer.m */,
 				723C80EA16394BAA003FB3FB /* CLTransformation.m */,
 				723C8103163A9118003FB3FB /* CLUploader.h */,
 				723C8104163A9118003FB3FB /* CLUploader.m */,
@@ -288,6 +293,7 @@
 				723C8105163A9118003FB3FB /* CLUploader.m in Sources */,
 				723C8108163AB193003FB3FB /* CLEagerTransformation.m in Sources */,
 				72EFFE0E17250CA600005AC9 /* NSDictionary+CLUtilities.m in Sources */,
+				721E57D01BB555B700F7FDD1 /* CLLayer.m in Sources */,
 				72EFFE0F17250CA600005AC9 /* NSString+CLURLEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
