@@ -349,6 +349,11 @@
     XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/youtube/http://www.youtube.com/watch%3Fv%3Dd9NF2edxy-M", result);
 }
 
+- (void)testDoubleSlash {
+    // should convert double stash to single slash
+    NSString* result = [cloudinary url:@"http://cloudinary.com//images//logo.png" options:[NSDictionary dictionaryWithObject:@"youtube" forKey:@"type"]];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/youtube/http://cloudinary.com/images/logo.png", result);
+}
 
 - (void)testBackground {
     // should support background
