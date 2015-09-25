@@ -60,6 +60,9 @@
 @property id zoom;
 - (void)setZoomWithFloat:(float)value;
 @property NSString *audioCodec;
+@property NSString *aspectRatio;
+- (void)setAspectRatioWithNominator:(int)nom andDemominator:(int)denom;
+- (void)setAspectRatioWithFloat:(float)value;
 @property id audioFrequency;
 - (void)setAudioFrequencyWithInt:(int)value;
 @property id bitRate;

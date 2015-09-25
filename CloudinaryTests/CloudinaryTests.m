@@ -504,6 +504,19 @@
     XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/dpr_2.0/test", result);
 }
 
+- (void)testAspectRatio {
+    // should support aspect_ratio
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setAspectRatioWithFloat:2.0];
+    NSString* result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/ar_2.0/test", result);
+
+    transformation = [CLTransformation transformation];
+    [transformation setAspectRatioWithNominator:3 andDemominator:2];
+    result = [cloudinary url:@"test" options:[NSDictionary dictionaryWithObject:transformation forKey:@"transformation"]];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/image/upload/ar_3:2/test", result);
+}
+
 - (void)testImageTag {
     CLTransformation* transformation = [CLTransformation transformation];
     [transformation setWidthWithInt:100];
