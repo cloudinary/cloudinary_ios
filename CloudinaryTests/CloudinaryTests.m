@@ -310,8 +310,13 @@
 }
 
 - (void)testUseRootPathShared {
-    // should disllow use_root_path in shared distribution
-    XCTAssertThrows([cloudinary url:@"test" options:@{@"use_root_path": @YES}]);
+    // should support use_root_path in shared distribution
+    NSString* result = [cloudinary url:@"test" options:@{@"use_root_path": @YES}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/test", result);
+    CLTransformation* transformation = [CLTransformation transformation];
+    [transformation setAngleWithInt:0];
+    result = [cloudinary url:@"test" options:@{@"use_root_path": @YES, @"transformation": transformation}];
+    XCTAssertEqualObjects(@"http://res.cloudinary.com/test123/a_0/test", result);
 }
 
 - (void)testUseRootPathNonImageUpload {

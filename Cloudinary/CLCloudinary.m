@@ -185,9 +185,6 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         if ([urlSuffix length] > 0) {
             [NSException raise:@"CloudinaryError" format:@"URL Suffix only supported in private CDN"];
         }
-        if ([useRootPath boolValue]) {
-            [NSException raise:@"CloudinaryError" format:@"Root path only supported in private CDN"];
-        }
     }
     
     NSString* resourceTypeAndType = [NSString stringWithFormat:@"%@/%@", resourceType, type];
