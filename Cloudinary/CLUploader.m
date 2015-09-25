@@ -133,7 +133,12 @@
     [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil)options = @{};
     NSString* type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
-    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", fromPublicId, @"from_public_id", toPublicId, @"to_public_id", [CLCloudinary asBool:[options valueForKey:@"overwrite"]], @"overwrite", nil];
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setValue:fromPublicId forKey:@"from_public_id"];
+    [params setValue:toPublicId forKey:@"to_public_id"];
+    [params setValue:type forKey:@"type"];
+    [params setValue:[CLCloudinary asBool:[options valueForKey:@"overwrite"]] forKey: @"overwrite"];
+    [params setValue:[CLCloudinary asBool:[options valueForKey:@"invalidate"]] forKey: @"invalidate"];
     [self callApi:@"rename" file:nil params:params options:options];
 }
 
