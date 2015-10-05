@@ -142,6 +142,11 @@
 - (id)zoom { return [_params valueForKey:@"zoom"]; }
 - (void)setZoomWithFloat:(float)value { [self setZoom:[self formatFloat:value]]; }
 
+- (void)setAspectRatio:(NSString *)value { [self param:@"aspect_ratio" value:value]; }
+- (void)setAspectRatioWithNominator:(int)nom andDemominator:(int)denom { [self setAspectRatio:[NSString stringWithFormat:@"%d:%d", nom, denom]]; }
+- (void)setAspectRatioWithFloat:(float)value { [self setAspectRatio:[self formatFloat:value]]; }
+- (NSString *)aspectRatio { return [_params valueForKey:@"aspect_ratio"]; }
+
 - (void)setAudioCodec:(NSString *)value { [self param:@"audio_codec" value:value]; }
 - (NSString *)audioCodec { return [_params valueForKey:@"audio_codec"]; }
 
@@ -181,6 +186,9 @@
 - (NSString *)videoCodec { return [_params valueForKey:@"video_codec"]; }
 - (void)setVideoCodec:(NSString*)videoCodec andVideoProfile:(NSString*)videoProfile { [self setVideoCodec:[NSString stringWithFormat:@"%@:%@", videoCodec, videoProfile]]; }
 - (void)setVideoCodec:(NSString*)videoCodec andVideoProfile:(NSString*)videoProfile andLevel:(NSString*)level { [self setVideoCodec:[NSString stringWithFormat:@"%@:%@:%@", videoCodec, videoProfile, level]]; }
+
+- (void)setOverlayWithLayer:(CLLayer*)layer { [self setOverlay:[layer generate:@"overlay"]];}
+- (void)setUnderlayWithLayer:(CLLayer*)layer { [self setUnderlay:[layer generate:@"underlay"]];}
 
 - (void)setParams:(NSDictionary *)value
 {
@@ -295,6 +303,7 @@
     NSArray* simpleParams = @[
         @"ac", @"audio_codec",
         @"af", @"audio_frequency",
+        @"ar", @"aspect_ratio",
         @"bo", @"border",
         @"br", @"bit_rate",
         @"cs", @"color_space",

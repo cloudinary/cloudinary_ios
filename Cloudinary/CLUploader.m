@@ -133,7 +133,12 @@
     [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil)options = @{};
     NSString* type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
-    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", fromPublicId, @"from_public_id", toPublicId, @"to_public_id", [CLCloudinary asBool:[options valueForKey:@"overwrite"]], @"overwrite", nil];
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setValue:fromPublicId forKey:@"from_public_id"];
+    [params setValue:toPublicId forKey:@"to_public_id"];
+    [params setValue:type forKey:@"type"];
+    [params setValue:[CLCloudinary asBool:[options valueForKey:@"overwrite"]] forKey: @"overwrite"];
+    [params setValue:[CLCloudinary asBool:[options valueForKey:@"invalidate"]] forKey: @"invalidate"];
     [self callApi:@"rename" file:nil params:params options:options];
 }
 
@@ -147,6 +152,7 @@
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
     [params setValue:[options valueForKey:@"eager_notification_url"] forKey:@"eager_notification_url"];
     [params setValue:[CLCloudinary asBool:[options valueForKey:@"eager_async"]] forKey: @"eager_async"];
+    [params setValue:[CLCloudinary asBool:[options valueForKey:@"invalidate"]] forKey: @"invalidate"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
     NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
@@ -297,12 +303,13 @@
         NSError* nserror = nil;
         NSURLResponse* nsresponse = nil;
         NSData* data = [NSURLConnection sendSynchronousRequest:req returningResponse:&nsresponse error:&nserror];
+        NSURLConnection* dummyConnection = [NSURLConnection alloc];
         if (nserror != NULL) {
-            [self connection:NULL didFailWithError:nserror];
+            [self connection:dummyConnection didFailWithError:nserror];
         } else {
-            [self connection:NULL didReceiveResponse:nsresponse];
-            [self connection:NULL didReceiveData:data];
-            [self connectionDidFinishLoading:NULL];
+            [self connection:dummyConnection didReceiveResponse:nsresponse];
+            [self connection:dummyConnection didReceiveData:data];
+            [self connectionDidFinishLoading:dummyConnection];
         }
     } else {
         connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];

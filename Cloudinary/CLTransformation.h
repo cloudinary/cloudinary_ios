@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CLLayer.h"
 
 @interface CLTransformation : NSObject
 
@@ -44,6 +45,8 @@
 @property NSString *colorSpace;
 @property NSString *prefix;
 @property NSString *overlay;
+- (void)setOverlayWithLayer:(CLLayer*)layer;
+- (void)setUnderlayWithLayer:(CLLayer*)layer;
 @property NSString *underlay;
 @property NSString *fetchFormat;
 @property id density;
@@ -60,6 +63,9 @@
 @property id zoom;
 - (void)setZoomWithFloat:(float)value;
 @property NSString *audioCodec;
+@property NSString *aspectRatio;
+- (void)setAspectRatioWithNominator:(int)nom andDemominator:(int)denom;
+- (void)setAspectRatioWithFloat:(float)value;
 @property id audioFrequency;
 - (void)setAudioFrequencyWithInt:(int)value;
 @property id bitRate;
