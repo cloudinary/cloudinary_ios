@@ -29,6 +29,8 @@
 		72A8B29018B88694008BAEF7 /* docx.docx in Resources */ = {isa = PBXBuildFile; fileRef = 72A8B28F18B88694008BAEF7 /* docx.docx */; };
 		72EFFE0E17250CA600005AC9 /* NSDictionary+CLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */; };
 		72EFFE0F17250CA600005AC9 /* NSString+CLURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */; };
+		FA5E28E61BC2D08D00D500C5 /* CLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E57CF1BB555B700F7FDD1 /* CLLayer.m */; settings = {ASSET_TAGS = (); }; };
+		FA5E28E71BC2D09000D500C5 /* CLLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 721E57CE1BB555B700F7FDD1 /* CLLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7C4A531AE948FD00647312 /* Cloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7C4A4F1AE9488700647312 /* Cloudinary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7C4A541AE9490000647312 /* Cloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = 723E72371642D295004CFB6E /* Cloudinary.h */; };
 		FA7C4A551AE9490800647312 /* CLCloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* CLCloudinary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -295,6 +297,7 @@
 				FA7C4A561AE9490900647312 /* CLTransformation.h in Headers */,
 				FA7C4A571AE9490C00647312 /* CLUploader.h in Headers */,
 				FA7C4A581AE9490E00647312 /* CLEagerTransformation.h in Headers */,
+				FA5E28E71BC2D09000D500C5 /* CLLayer.h in Headers */,
 				FA7C4A541AE9490000647312 /* Cloudinary.h in Headers */,
 				FA7C4A591AE9491200647312 /* NSDictionary+CLUtilities.h in Headers */,
 				FA7C4A5A1AE9491400647312 /* NSString+CLURLEncoding.h in Headers */,
@@ -444,6 +447,7 @@
 				FA7C4A611AE949D800647312 /* CLUploader.m in Sources */,
 				FA7C4A621AE949D900647312 /* CLEagerTransformation.m in Sources */,
 				FA7C4A5D1AE949D000647312 /* NSDictionary+CLUtilities.m in Sources */,
+				FA5E28E61BC2D08D00D500C5 /* CLLayer.m in Sources */,
 				FA7C4A5E1AE949D200647312 /* NSString+CLURLEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
