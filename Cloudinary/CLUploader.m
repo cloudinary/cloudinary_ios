@@ -412,7 +412,7 @@
     
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data, boundary=%@", boundary];
     [req setValue:contentType forHTTPHeaderField:@"Content-type"];
-    NSString *userAgent = [NSString stringWithFormat:@"cld-ios-%@", [CLCloudinary version]];
+    NSString *userAgent = [NSString stringWithFormat:@"CloudinaryiOS/%@", [CLCloudinary version]];
     [req setValue:userAgent forHTTPHeaderField:@"User-Agent"];
     
     NSMutableData* postBody = [NSMutableData data];
