@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		721E57D01BB555B700F7FDD1 /* CLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E57CF1BB555B700F7FDD1 /* CLLayer.m */; settings = {ASSET_TAGS = (); }; };
+		721E57D01BB555B700F7FDD1 /* CLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E57CF1BB555B700F7FDD1 /* CLLayer.m */; };
 		72222DD618D2FCAF00780A5A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72222DD518D2FCAF00780A5A /* XCTest.framework */; };
 		723C80BB163885C7003FB3FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723C80BA163885C7003FB3FB /* Foundation.framework */; };
 		723C80C0163885C7003FB3FB /* CLCloudinary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* CLCloudinary.h */; };
@@ -31,6 +31,7 @@
 		72EFFE0F17250CA600005AC9 /* NSString+CLURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */; };
 		FA5E28E61BC2D08D00D500C5 /* CLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E57CF1BB555B700F7FDD1 /* CLLayer.m */; settings = {ASSET_TAGS = (); }; };
 		FA5E28E71BC2D09000D500C5 /* CLLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 721E57CE1BB555B700F7FDD1 /* CLLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D6611FB91BE2DC080096623E /* CLLayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 721E57CE1BB555B700F7FDD1 /* CLLayer.h */; };
 		FA7C4A531AE948FD00647312 /* Cloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7C4A4F1AE9488700647312 /* Cloudinary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7C4A541AE9490000647312 /* Cloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = 723E72371642D295004CFB6E /* Cloudinary.h */; };
 		FA7C4A551AE9490800647312 /* CLCloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* CLCloudinary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,6 +67,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				D6611FB91BE2DC080096623E /* CLLayer.h in CopyFiles */,
 				723E72381642D487004CFB6E /* Cloudinary.h in CopyFiles */,
 				723E72341642B9F7004CFB6E /* CLTransformation.h in CopyFiles */,
 				723E72351642B9F7004CFB6E /* CLUploader.h in CopyFiles */,
