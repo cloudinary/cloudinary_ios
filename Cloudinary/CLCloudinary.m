@@ -290,11 +290,11 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
         [NSException raise:@"CloudinaryError" format:@"Must supply api_secret for signing urls"];
     }
 
-	static NSRegularExpression *preloadedRegex;
-	static dispatch_once_t preloadedOnceToken;
-	dispatch_once(&preloadedOnceToken, ^{
-		preloadedRegex = [NSRegularExpression regularExpressionWithPattern:@"^([^/]+)/([^/]+)/v([0-9]+)/([^#]+)(#[0-9a-f]+)?$" options:NSRegularExpressionCaseInsensitive error:nil];
-	});
+    static NSRegularExpression *preloadedRegex;
+    static dispatch_once_t preloadedOnceToken;
+    dispatch_once(&preloadedOnceToken, ^{
+        preloadedRegex = [NSRegularExpression regularExpressionWithPattern:@"^([^/]+)/([^/]+)/v([0-9]+)/([^#]+)(#[0-9a-f]+)?$" options:NSRegularExpressionCaseInsensitive error:nil];
+    });
 
     NSArray *preloadedComponentsMatch = [preloadedRegex matchesInString:source options:0 range:NSMakeRange(0, [source length])];
     if ([preloadedComponentsMatch count] > 0) {
@@ -357,14 +357,14 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     NSString* prefix = [self finalizePrefix:source options:options];
     NSString* resourceTypeAndType = [self finalizeResourceType:resourceType type:type options:options];
 
-	static NSRegularExpression *regex;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		regex = [NSRegularExpression regularExpressionWithPattern:@"([^:])\\/+"
-														  options:NSRegularExpressionCaseInsensitive
-															error:nil];
-	});
-	
+    static NSRegularExpression *regex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"([^:])\\/+"
+                                                          options:NSRegularExpressionCaseInsensitive
+                                                            error:nil];
+    });
+    
     NSString* signature = @"";
     if ([signUrl boolValue])
     {
