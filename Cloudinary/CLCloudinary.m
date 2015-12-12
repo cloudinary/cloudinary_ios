@@ -286,8 +286,13 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
     if ([signUrl boolValue] && apiSecret == NULL) {
         [NSException raise:@"CloudinaryError" format:@"Must supply api_secret for signing urls"];
     }
-    
-    NSRegularExpression *preloadedRegex = [NSRegularExpression regularExpressionWithPattern:@"^([^/]+)/([^/]+)/v([0-9]+)/([^#]+)(#[0-9a-f]+)?$" options:NSRegularExpressionCaseInsensitive error:nil];
+
+    static NSRegularExpression *preloadedRegex;
+    static dispatch_once_t preloadedOnceToken;
+    dispatch_once(&preloadedOnceToken, ^{
+        preloadedRegex = [NSRegularExpression regularExpressionWithPattern:@"^([^/]+)/([^/]+)/v([0-9]+)/([^#]+)(#[0-9a-f]+)?$" options:NSRegularExpressionCaseInsensitive error:nil];
+    });
+
     NSArray *preloadedComponentsMatch = [preloadedRegex matchesInString:source options:0 range:NSMakeRange(0, [source length])];
     if ([preloadedComponentsMatch count] > 0) {
         NSTextCheckingResult* preloadedComponents = preloadedComponentsMatch[0];
@@ -348,10 +353,15 @@ NSString * const CL_SHARED_CDN = @"res.cloudinary.com";
 
     NSString* prefix = [self finalizePrefix:source options:options];
     NSString* resourceTypeAndType = [self finalizeResourceType:resourceType type:type options:options];
+
+    static NSRegularExpression *regex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"([^:])\\/+"
+                                                          options:NSRegularExpressionCaseInsensitive
+                                                            error:nil];
+    });
     
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([^:])\\/+"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:nil];
     NSString* signature = @"";
     if ([signUrl boolValue])
     {
