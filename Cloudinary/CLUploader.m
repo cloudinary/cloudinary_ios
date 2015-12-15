@@ -322,6 +322,11 @@
             [runloop addPort:_port forMode:NSDefaultRunLoopMode];
             [connection scheduleInRunLoop:runloop forMode:NSDefaultRunLoopMode];
         }
+        else
+        {
+            [connection scheduleInRunLoop:[NSRunLoop mainRunLoop]
+                                  forMode:NSDefaultRunLoopMode];
+        }
         [connection start];
     }
 }
