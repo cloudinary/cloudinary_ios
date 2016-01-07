@@ -639,7 +639,7 @@
     {
         _completion(nil, result, code, _context);
     }
-    if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderSuccess:context:)])
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderError:code:context:)])
     {
         [_delegate uploaderError:result code:code context:_context];
     }
