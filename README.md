@@ -83,7 +83,7 @@ CLCloudinary *cloudinary = [[CLCloudinary alloc] init];
 [cloudinary.config setValue:@"abcdeghijklmnopqrstuvwxyz12" forKey:@"api_secret"];
 ```
 
-:warning: The API includes operations that require authentication using the `api_secret`. However because it is not possible to secure the `api_secret` in applications running on client devices (such as a mobile app) **it is recommended not to include `api_secret` in such applications.**
+:warning: The API includes operations that require authentication using the `api_secret`. However because it is not possible to secure the `api_secret` in applications running on client devices (such as a mobile app) **it is hardly recommended to use CloudKit public database and iOS keychain to securely retrieve and store API credentials.**
 
 ### Embedding and transforming images
 
