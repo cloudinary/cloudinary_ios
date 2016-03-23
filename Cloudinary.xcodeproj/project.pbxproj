@@ -29,9 +29,9 @@
 		72A8B29018B88694008BAEF7 /* docx.docx in Resources */ = {isa = PBXBuildFile; fileRef = 72A8B28F18B88694008BAEF7 /* docx.docx */; };
 		72EFFE0E17250CA600005AC9 /* NSDictionary+CLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0B17250CA600005AC9 /* NSDictionary+CLUtilities.m */; };
 		72EFFE0F17250CA600005AC9 /* NSString+CLURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EFFE0D17250CA600005AC9 /* NSString+CLURLEncoding.m */; };
-		FA5E28E61BC2D08D00D500C5 /* CLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E57CF1BB555B700F7FDD1 /* CLLayer.m */; settings = {ASSET_TAGS = (); }; };
-		FA5E28E71BC2D09000D500C5 /* CLLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 721E57CE1BB555B700F7FDD1 /* CLLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D6611FB91BE2DC080096623E /* CLLayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 721E57CE1BB555B700F7FDD1 /* CLLayer.h */; };
+		FA5E28E61BC2D08D00D500C5 /* CLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E57CF1BB555B700F7FDD1 /* CLLayer.m */; };
+		FA5E28E71BC2D09000D500C5 /* CLLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 721E57CE1BB555B700F7FDD1 /* CLLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7C4A531AE948FD00647312 /* Cloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7C4A4F1AE9488700647312 /* Cloudinary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7C4A541AE9490000647312 /* Cloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = 723E72371642D295004CFB6E /* Cloudinary.h */; };
 		FA7C4A551AE9490800647312 /* CLCloudinary.h in Headers */ = {isa = PBXBuildFile; fileRef = 723C80BF163885C7003FB3FB /* CLCloudinary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -370,7 +370,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Cloudinary Ltd";
 				TargetAttributes = {
 					FA7C4A341AE947AF00647312 = {
@@ -631,6 +631,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudinary.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Cloudinary;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -675,6 +676,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = "-DNDEBUG=1";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudinary.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Cloudinary;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
