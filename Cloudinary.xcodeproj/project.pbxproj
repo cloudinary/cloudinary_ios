@@ -171,6 +171,7 @@
 				723C80B8163885C7003FB3FB /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		723C80B8163885C7003FB3FB /* Products */ = {
 			isa = PBXGroup;
