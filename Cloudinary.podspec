@@ -9,13 +9,14 @@ Pod::Spec.new do |s|
     Cloudinary offers comprehensive APIs and administration capabilities and is easy to integrate with any web application, existing or new.
     Cloudinary provides URL and HTTP based APIs that can be easily integrated with any Web development framework. 
   DESC
-  s.homepage     = "http://cloudinary.com"
-  s.license      = 'MIT'
-  s.author       = { "Cloudinary" => "info@cloudinary.com" }
-  s.source       = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => "1.0.15" }
-  s.platform     = :ios
-  s.source_files = 'Cloudinary', 'Cloudinary/**/*.{h,m}'
-  s.public_header_files = 'Cloudinary/**/*.h'
-  s.framework  = 'Security', 'Foundation'
-  s.requires_arc = true
+  s.homepage     			= "http://cloudinary.com"
+  s.license      			= 'MIT'
+  s.author       			= { "Cloudinary" => "info@cloudinary.com" }
+  s.source       			= { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => "1.0.15" }
+  s.ios.deployment_target 	= "8.0"
+  s.tvos.deployment_target 	= "9.0"
+  s.source_files 			= 'Cloudinary', 'Cloudinary/**/*.{h,m}'
+  s.public_header_files 	= 'Cloudinary/**/*.h'
+  s.framework  				= 'Security', 'Foundation'
+  s.requires_arc 			= true
 end
