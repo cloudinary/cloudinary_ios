@@ -18,7 +18,7 @@
     NSMutableData *_responseData;
     NSHTTPURLResponse *response;
     NSURLConnection *connection;
-    NSPort* _port;
+    NSPort *_port;
 }
 
 @property (readwrite, strong, nonatomic) CLCloudinary *cloudinary;
@@ -50,7 +50,7 @@
     [self upload:file options:options withCompletion:nil andProgress:nil];
 }
 
-- (void)unsignedUpload:(id)file uploadPreset:(NSString*)uploadPreset options:(NSDictionary *)options
+- (void)unsignedUpload:(id)file uploadPreset:(NSString *)uploadPreset options:(NSDictionary *)options
 {
     [self unsignedUpload:file uploadPreset:uploadPreset options:options withCompletion:nil andProgress:nil];
 }
@@ -379,11 +379,11 @@
     // parse the JSON and use it
     id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     
-    if (error){
+    if (error) {
         // log the error
         [self error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", error, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
     }
-    else if ([json isKindOfClass:[NSDictionary class]]){
+    else if ([json isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dict = (NSDictionary *)json;
         
         NSDictionary* errorResponse = [dict valueForKey:@"error"];
@@ -493,9 +493,10 @@
     [params setValue:publicIds forKey:@"public_ids"];
     [self callApi:@"tags" file:nil params:params options:options];
 }
+
 - (NSString *)buildEager:(NSArray *)transformations
 {
-    if (transformations == nil){
+    if (transformations == nil) {
         return nil;
     }
     NSMutableArray *eager = [NSMutableArray arrayWithCapacity:[transformations count]];
@@ -518,6 +519,7 @@
     }
     return [eager componentsJoinedByString:@"|"];
 }
+
 - (NSString *)buildContext:(NSDictionary *)context
 {
     if (context == nil) {
@@ -530,6 +532,7 @@
     }
     return [contextStrings componentsJoinedByString:@"|"];
 }
+
 - (NSString *)buildCoordinates:(id) coordinates
 {
     if (coordinates == nil) {
@@ -627,35 +630,30 @@
 
 - (void)success:(NSDictionary *)result
 {
-    if (_completion != nil)
-    {
+    if (_completion != nil) {
         _completion(result, nil, 200, _context);
     }
-    if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderSuccess:context:)])
-    {
+    if ([_delegate respondsToSelector:@selector(uploaderSuccess:context:)]) {
         [_delegate uploaderSuccess:result context:_context];
     }
 }
 
 - (void)error:(NSString *)result code:(NSInteger)code
 {
-    if (_completion != nil)
-    {
+    if (_completion != nil) {
         _completion(nil, result, code, _context);
     }
-    if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderSuccess:context:)])
-    {
+    if ([_delegate respondsToSelector:@selector(uploaderSuccess:context:)]) {
         [_delegate uploaderError:result code:code context:_context];
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
-    if (_progress != nil)
-    {
+    if (_progress != nil) {
         _progress(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, _context);
     }
-    if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderProgress:totalBytesWritten:totalBytesExpectedToWrite:context:)]){
+    if ([_delegate respondsToSelector:@selector(uploaderProgress:totalBytesWritten:totalBytesExpectedToWrite:context:)]) {
         [_delegate uploaderProgress:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite context:_context];
     }
 }
