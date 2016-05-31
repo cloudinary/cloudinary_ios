@@ -11,13 +11,7 @@
 #import "CLTransformation.h"
 #import "NSDictionary+CLUtilities.h"
 
-@interface CLUploader ()<NSURLConnectionDataDelegate>
-
-@property (readwrite, strong, nonatomic) CLCloudinary *cloudinary;
-
-@end
-
-@implementation CLUploader {
+@interface CLUploader ()<NSURLConnectionDataDelegate> {
     id _context;
     CLUploaderCompletion _completion;
     CLUploaderProgress _progress;
@@ -26,6 +20,12 @@
     NSURLConnection *connection;
     NSPort* _port;
 }
+
+@property (readwrite, strong, nonatomic) CLCloudinary *cloudinary;
+
+@end
+
+@implementation CLUploader
 
 - (id)init:(CLCloudinary *)cloudinary delegate:(id<CLUploaderDelegate>)delegate
 {
@@ -90,22 +90,22 @@
     [self text:text options:options withCompletion:nil andProgress:nil];
 }
 
-- (void) generateSprite:(NSString *) tag options:(NSDictionary *)options
+- (void)generateSprite:(NSString *)tag options:(NSDictionary *)options
 {
-    [self generateSprite: tag options:options withCompletion:nil andProgress:nil];
+    [self generateSprite:tag options:options withCompletion:nil andProgress:nil];
 }
 
 
-- (void) multi:(NSString *) tag options:(NSDictionary *)options
+- (void)multi:(NSString *)tag options:(NSDictionary *)options
 {
-    [self multi: tag options:options withCompletion:nil andProgress:nil];
+    [self multi:tag options:options withCompletion:nil andProgress:nil];
 }
 
 
 - (void)upload:(id)file options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil)options = @{};
+    if (options == nil) options = @{};
     NSMutableDictionary *params = (NSMutableDictionary *)[self buildUploadParams:options];
     [self callApi:@"upload" file:file params:params options:options];
 }
@@ -122,18 +122,18 @@
 - (void)destroy:(NSString *)publicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil)options = @{};
-    NSString* type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
-    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", publicId, @"public_id",[CLCloudinary asBool:[options valueForKey:@"invalidate"]], @"invalidate", nil];
+    if (options == nil) options = @{};
+    NSString *type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type", publicId, @"public_id",[CLCloudinary asBool:[options valueForKey:@"invalidate"]], @"invalidate", nil];
     [self callApi:@"destroy" file:nil params:params options:options];
 }
 
 - (void)rename:(NSString *)fromPublicId toPublicId:(NSString *)toPublicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil)options = @{};
+    if (options == nil) options = @{};
     NSString* type = [options cl_valueForKey:@"type" defaultValue:@"upload"];
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:fromPublicId forKey:@"from_public_id"];
     [params setValue:toPublicId forKey:@"to_public_id"];
     [params setValue:type forKey:@"type"];
@@ -145,8 +145,8 @@
 - (void)explicit:(NSString *)publicId options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil)options = @{};
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    if (options == nil) options = @{};
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:publicId forKey:@"public_id"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
     [params setValue:[self buildEager:[options valueForKey:@"eager"]] forKey:@"eager"];
@@ -154,23 +154,23 @@
     [params setValue:[CLCloudinary asBool:[options valueForKey:@"eager_async"]] forKey: @"eager_async"];
     [params setValue:[CLCloudinary asBool:[options valueForKey:@"invalidate"]] forKey: @"invalidate"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
-    NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
+    NSArray *tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
     [self callApi:@"explicit" file:nil params:params options:options];
 }
 
-- (void) generateSprite:(NSString *)tag options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)generateSprite:(NSString *)tag options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil)options = @{};
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    if (options == nil) options = @{};
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params setValue:tag forKey:@"tag"];
     [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
     [params setValue:[CLCloudinary asBool:[options valueForKey:@"async"]] forKey:@"async"];
     
     id transParam = [options valueForKey:@"transformation"];
-    CLTransformation* transformation = nil;
+    CLTransformation *transformation = nil;
     if ([transParam isKindOfClass:[CLTransformation class]]){
         transformation = (CLTransformation *) transParam;
     } else if ([transParam isKindOfClass:[NSString class]]) {
@@ -180,7 +180,7 @@
         transformation = [[CLTransformation alloc] init];
     }
     
-    NSString* format = (NSString*) [options valueForKey:@"format"];
+    NSString *format = (NSString *) [options valueForKey:@"format"];
     if (format != nil) {
         transformation.fetchFormat = format;
     }
@@ -191,11 +191,11 @@
 }
 
 
-- (void) multi:(NSString *)tag options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
+- (void)multi:(NSString *)tag options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    if (options == nil)options = @{};
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    if (options == nil) options = @{};
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params setValue:tag forKey:@"tag"];
     [params setValue:[options valueForKey:@"notification_url"] forKey:@"notification_url"];
@@ -218,31 +218,34 @@
     NSString* command = [exclusive boolValue] ? @"set_exclusive" : @"add";
     [self callTagsApi:tag command:command publicIds:publicIds options:options];
 }
+
 - (void)removeTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil)options = @{};
     [self callTagsApi:tag command:@"remove" publicIds:publicIds options:options];
 }
+
 - (void)replaceTag:(NSString *)tag publicIds:(NSArray *)publicIds options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
     if (options == nil)options = @{};
     [self callTagsApi:tag command:@"replace" publicIds:publicIds options:options];
 }
+
 - (void)text:(NSString *)text options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock andProgress:(CLUploaderProgress)progressBlock
 {
     [self setCompletion:completionBlock andProgress:progressBlock];
-    static NSArray* TEXT_PARAMS = nil;
+    static NSArray *TEXT_PARAMS = nil;
     if (TEXT_PARAMS == nil){
         TEXT_PARAMS = @[@"public_id", @"font_family", @"font_size", @"font_color", @"text_align", @"font_weight",
                        @"font_style", @"background", @"opacity", @"text_decoration"];
     }
     if (options == nil)options = @{};
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:text forKey:@"text"];
-    for (NSString* param in TEXT_PARAMS){
-        NSString* paramValue = [CLCloudinary asString:[options valueForKey:param]];
+    for (NSString *param in TEXT_PARAMS){
+        NSString *paramValue = [CLCloudinary asString:[options valueForKey:param]];
         [params setValue:paramValue forKey:param];
     }
     [self callApi:@"text" file:nil params:params options:options];
@@ -250,23 +253,23 @@
 
 - (void)cancel
 {
-    if (connection != nil){
+    if (connection != nil) {
         [connection cancel];
         connection = nil;
     }
     [_responseData setLength:0];
 }
 
-- (void)deleteByToken:(NSString*)token options:(NSDictionary *)options
+- (void)deleteByToken:(NSString *)token options:(NSDictionary *)options
 {
     [self deleteByToken:token options:options withCompletion:nil];
 }
 
-- (void)deleteByToken:(NSString*)token options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock
+- (void)deleteByToken:(NSString *)token options:(NSDictionary *)options withCompletion:(CLUploaderCompletion)completionBlock
 {
     [self setCompletion:completionBlock andProgress:nil];
     if (options == nil) options = @{};
-    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObject:token forKey:@"token"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObject:token forKey:@"token"];
     
     [self callApi:@"delete_by_token" file:nil params:params options:options];
 }
@@ -274,15 +277,15 @@
 // internal
 - (void)callApi:(NSString *)action file:(id)file params:(NSMutableDictionary *)params options:(NSDictionary *)options
 {
-    if (options == nil)options = @{};
+    if (options == nil) options = @{};
     _context = [options valueForKey:@"_context"];
     if ([options valueForKey:@"unsigned"]) {
         // Nothing to do
     } else {
-        NSString* apiKey = [_cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
+        NSString *apiKey = [_cloudinary get:@"api_key" options:options defaultValue:[params valueForKey:@"api_key"]];
         if (apiKey == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_key"];
         if ([options valueForKey:@"signature"] == nil || [options valueForKey:@"timestamp"] == nil){
-            NSString* apiSecret = [_cloudinary get:@"api_secret" options:options defaultValue:nil];
+            NSString *apiSecret = [_cloudinary get:@"api_secret" options:options defaultValue:nil];
             if (apiSecret == nil)[NSException raise:@"CloudinaryError" format:@"Must supply api_secret"];
             NSDate *today = [NSDate date];
             [params setValue:@((int)[today timeIntervalSince1970])forKey:@"timestamp"];
@@ -295,15 +298,15 @@
         }
     }
     
-    NSString* apiUrl = [_cloudinary cloudinaryApiUrl:action options:options];
+    NSString *apiUrl = [_cloudinary cloudinaryApiUrl:action options:options];
 
     NSURLRequest *req = [self request:apiUrl params:params file:file timeout:[options valueForKey:@"timeout"]];
     // create the connection with the request and start loading the data
     if ([[_cloudinary get:@"sync" options:options defaultValue:@NO] boolValue]) {
-        NSError* nserror = nil;
-        NSURLResponse* nsresponse = nil;
-        NSData* data = [NSURLConnection sendSynchronousRequest:req returningResponse:&nsresponse error:&nserror];
-        NSURLConnection* dummyConnection = [NSURLConnection alloc];
+        NSError *nserror = nil;
+        NSURLResponse *nsresponse = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:req returningResponse:&nsresponse error:&nserror];
+        NSURLConnection *dummyConnection = [NSURLConnection alloc];
         if (nserror != NULL) {
             [self connection:dummyConnection didFailWithError:nserror];
         } else {
@@ -318,7 +321,7 @@
         }
         if ([[_cloudinary get:@"runLoop" options:options defaultValue:@NO] boolValue]) {
             _port = [NSPort port];
-            NSRunLoop* runloop = [NSRunLoop currentRunLoop];
+            NSRunLoop *runloop = [NSRunLoop currentRunLoop];
             [runloop addPort:_port forMode:NSDefaultRunLoopMode];
             [connection scheduleInRunLoop:runloop forMode:NSDefaultRunLoopMode];
         }
@@ -420,9 +423,9 @@
     NSString *userAgent = [NSString stringWithFormat:@"CloudinaryiOS/%@", [CLCloudinary version]];
     [req setValue:userAgent forHTTPHeaderField:@"User-Agent"];
     
-    NSMutableData* postBody = [NSMutableData data];
-    for (NSString* param in [params allKeys]){
-        NSObject* value = [params valueForKey:param];
+    NSMutableData *postBody = [NSMutableData data];
+    for (NSString *param in [params allKeys]){
+        NSObject *value = [params valueForKey:param];
         if ([value isKindOfClass:[NSArray class]]) {
             NSArray *arrayValue = (NSArray*) value;
             for (NSString *paramValue in arrayValue) {
@@ -436,7 +439,7 @@
     }
     if (file != nil)
     {
-        NSString* filename = @"file";
+        NSString *filename = @"file";
         NSData *data;
         if ([file isKindOfClass:[NSString class]])
         {
@@ -447,7 +450,7 @@
             }
             else
             {
-                NSError* error = nil;
+                NSError *error = nil;
                 data = [NSData dataWithContentsOfFile:file options:0 error:&error];
                 if (error != nil){
                     [NSException raise:@"CloudinaryError" format:@"Error reading requested file - %@ %@",
@@ -483,7 +486,7 @@
 - (void)callTagsApi:(NSString *)tag command:(NSString *)command publicIds:(NSArray *)publicIds options:(NSDictionary *)options
 {
     if (options == nil)options = @{};
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:tag forKey:@"tag"];
     [params setValue:command forKey:@"command"];
     [params setValue:[options valueForKey:@"type"] forKey:@"type"];
@@ -495,17 +498,17 @@
     if (transformations == nil){
         return nil;
     }
-    NSMutableArray* eager = [NSMutableArray arrayWithCapacity:[transformations count]];
-    for (CLTransformation* transformation in transformations){
-        NSMutableArray* singleEager = [NSMutableArray array];
-        NSString* transformationString = [transformation generate];
+    NSMutableArray *eager = [NSMutableArray arrayWithCapacity:[transformations count]];
+    for (CLTransformation *transformation in transformations){
+        NSMutableArray *singleEager = [NSMutableArray array];
+        NSString *transformationString = [transformation generate];
         if ([transformationString length] > 0)
         {
             [singleEager addObject:transformationString];
         }
         if ([transformation isKindOfClass:[CLEagerTransformation class]])
         {
-            CLEagerTransformation* eagerTransformation = (CLEagerTransformation *)transformation;
+            CLEagerTransformation *eagerTransformation = (CLEagerTransformation *)transformation;
             if ([eagerTransformation.format length] > 0)
             {
                 [singleEager addObject:eagerTransformation.format];
@@ -520,23 +523,23 @@
     if (context == nil) {
         return nil;
     }
-    NSMutableArray* contextStrings = [NSMutableArray arrayWithCapacity:[context count]];
-    for (NSString* key in context){
-        NSString* value = [context valueForKey:key];
+    NSMutableArray *contextStrings = [NSMutableArray arrayWithCapacity:[context count]];
+    for (NSString *key in context){
+        NSString *value = [context valueForKey:key];
         [contextStrings addObject:[@[key, value] componentsJoinedByString:@"="]];
     }
     return [contextStrings componentsJoinedByString:@"|"];
 }
 - (NSString *)buildCoordinates:(id) coordinates
 {
-    if (coordinates == nil){
+    if (coordinates == nil) {
         return nil;
     }
     coordinates = [CLCloudinary asArray:coordinates];
     if ([coordinates count] > 0 && [coordinates[0] isKindOfClass:[NSString class]]) {
         return [coordinates componentsJoinedByString:@","];
     } else {
-        NSMutableArray* coordinate_strings = [NSMutableArray arrayWithCapacity:[coordinates count]];
+        NSMutableArray *coordinate_strings = [NSMutableArray arrayWithCapacity:[coordinates count]];
         for (id tuple in coordinates) {
             [coordinate_strings addObject:[tuple componentsJoinedByString:@","]];
         }
@@ -556,16 +559,16 @@
     }
     else if ([headers isKindOfClass:[NSArray class]])
     {
-        NSMutableString* headersString = [NSMutableString string];
-        for (NSString* header in (NSArray *)headers){
+        NSMutableString *headersString = [NSMutableString string];
+        for (NSString *header in (NSArray *)headers) {
             [headersString appendString:header];
             [headersString appendString:@"\n"];
         }
         return headersString;
     } else {
-        NSDictionary* headersDict = (NSDictionary *)headers;
-        NSMutableString* headersString = [NSMutableString string];
-        for (NSString* header in [headersDict allKeys]){
+        NSDictionary *headersDict = (NSDictionary *)headers;
+        NSMutableString *headersString = [NSMutableString string];
+        for (NSString *header in [headersDict allKeys]) {
             [headersString appendString:header];
             [headersString appendString:@": "];
             [headersString appendString:[headersDict valueForKey:header]];
@@ -574,22 +577,23 @@
         return headersString;
     }
 }
+
 - (NSDictionary *)buildUploadParams:(NSDictionary *)options
 {
-    static NSArray * CL_BOOLEAN_UPLOAD_OPTIONS = nil;
+    static NSArray *CL_BOOLEAN_UPLOAD_OPTIONS = nil;
     if (CL_BOOLEAN_UPLOAD_OPTIONS == nil)
         CL_BOOLEAN_UPLOAD_OPTIONS = @[@"backup", @"exif", @"faces", @"colors", @"image_metadata", @"use_filename", @"unique_filename", @"discard_original_filename", @"eager_async", @"invalidate", @"overwrite", @"phash", @"return_delete_token"];
-    static NSArray * CL_SIMPLE_UPLOAD_OPTIONS = nil;
+    static NSArray *CL_SIMPLE_UPLOAD_OPTIONS = nil;
     if (CL_SIMPLE_UPLOAD_OPTIONS == nil)
         CL_SIMPLE_UPLOAD_OPTIONS = @[@"public_id", @"callback", @"format", @"type", @"notification_url", @"eager_notification_url", @"proxy", @"folder", @"moderation", @"raw_convert", @"ocr", @"categorization", @"detection", @"similarity_search", @"auto_tagging", @"upload_preset"];
 
-    if (options == nil)options = @{};
+    if (options == nil) options = @{};
     
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
-    for (NSString* param in CL_SIMPLE_UPLOAD_OPTIONS){
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    for (NSString *param in CL_SIMPLE_UPLOAD_OPTIONS){
         [params setValue:options[param] forKey:param];
     }
-    for (NSString* flag in CL_BOOLEAN_UPLOAD_OPTIONS){
+    for (NSString *flag in CL_BOOLEAN_UPLOAD_OPTIONS){
         [params setValue:[CLCloudinary asBool:options[flag]] forKey: flag];
     }
 
@@ -599,9 +603,9 @@
             transformation = [((CLTransformation *)transformation)generate];
         }
         [params setValue:transformation forKey:@"transformation"];
-        NSArray* tags = [CLCloudinary asArray:options[@"tags"]];
+        NSArray *tags = [CLCloudinary asArray:options[@"tags"]];
         [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
-        NSArray* allowedFormats = [CLCloudinary asArray:options[@"allowed_formats"]];
+        NSArray *allowedFormats = [CLCloudinary asArray:options[@"allowed_formats"]];
         [params setValue:[allowedFormats componentsJoinedByString:@","] forKey:@"allowed_formats"];
         [params setValue:[self buildContext:options[@"context"]] forKey:@"context"];
         [params setValue:[self buildCoordinates:options[@"face_coordinates"]] forKey:@"face_coordinates"];

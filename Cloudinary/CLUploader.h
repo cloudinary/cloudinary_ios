@@ -53,8 +53,11 @@ typedef void(^CLUploaderProgress)(NSInteger bytesWritten, NSInteger totalBytesWr
 @end
 
 @protocol CLUploaderDelegate <NSObject>
+
 @optional
+
 - (void)uploaderProgress:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite context:(id)context;
 - (void)uploaderSuccess:(NSDictionary *)result context:(id)context;
 - (void)uploaderError:(NSString *)result code:(NSInteger)code context:(id)context;
+
 @end
