@@ -708,8 +708,8 @@ totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+
+    response = (NSHTTPURLResponse *) dataTask.response;
     _responseData = [NSMutableData dataWithData:data];
     [self connectionDidFinishLoading:nil];
 }
