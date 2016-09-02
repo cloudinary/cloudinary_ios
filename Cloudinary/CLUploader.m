@@ -326,7 +326,7 @@
             [self connectionDidFinishLoading:dummyConnection];
         }
     } else if ([[_cloudinary get:@"background_upload" options:options defaultValue:@NO] boolValue]) {
-        [[[self backgroundNSURLSession] dataTaskWithRequest:req] resume];
+        [[[self backgroundNSURLSession] uploadTaskWithStreamedRequest:req] resume];
     }
     else {
         connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
