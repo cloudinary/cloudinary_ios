@@ -36,6 +36,7 @@ typedef void(^CLUploaderProgress)(NSInteger bytesWritten, NSInteger totalBytesWr
 
 
 - (void)upload:(id)file options:(NSDictionary*)options;
+- (void)uploadInBackground:(id)file options:(NSDictionary *)options;
 - (void)unsignedUpload:(id)file uploadPreset:(NSString*)uploadPreset options:(NSDictionary *)options;
 - (void)destroy:(NSString*)publicId options:(NSDictionary*)options;
 - (void)rename:(NSString*)fromPublicId toPublicId:(NSString*)toPublicId options:(NSDictionary*)options;

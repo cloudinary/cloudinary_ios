@@ -17,6 +17,11 @@
 
 @end
 
+@interface CLUploader (BackgroundSessionSupport) <NSURLSessionDelegate>
+- (NSURLSession *)backgroundNSURLSession;
+@end
+
+
 @implementation CLUploader {
     id _context;
     CLUploaderCompletion _completion;
@@ -48,6 +53,15 @@
 - (void)upload:(id)file options:(NSDictionary *)options
 {
     [self upload:file options:options withCompletion:nil andProgress:nil];
+}
+
+
+- (void)uploadInBackground:(id)file options:(NSDictionary *)options
+{
+    
+    NSMutableDictionary *opts = [options mutableCopy];
+    opts[@"background_upload"] = @YES;
+    [self upload:file options:[NSDictionary dictionaryWithDictionary:opts] withCompletion:nil andProgress:nil];
 }
 
 - (void)unsignedUpload:(id)file uploadPreset:(NSString*)uploadPreset options:(NSDictionary *)options
@@ -311,7 +325,10 @@
             [self connection:dummyConnection didReceiveData:data];
             [self connectionDidFinishLoading:dummyConnection];
         }
-    } else {
+    } else if ([[_cloudinary get:@"background_upload" options:options defaultValue:@NO] boolValue]) {
+        [[[self backgroundNSURLSession] uploadTaskWithStreamedRequest:req] resume];
+    }
+    else {
         connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
         if (connection == nil){
             [self error:@"Failed to initiate connection" code:0];
@@ -331,6 +348,8 @@
     }
 }
 
+#pragma mark - NSURLConnection Delegate
+
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response_
 {
     [_responseData setLength:0];
@@ -349,12 +368,7 @@
         _port = nil;
     }
 
-    NSInteger code = [response statusCode];
-
-    [self error:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
-          [nserror localizedDescription],
-          [nserror userInfo][NSURLErrorFailingURLStringErrorKey]]
-               code:code];
+    [self uploadDidFailWithError:nserror];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -364,37 +378,10 @@
         _port = nil;
     }
 
-    NSInteger code = [response statusCode];
-
-    if (code != 200 && code != 400 && code != 401 && code != 403 && code != 404 && code != 500){
-        [self error:[NSString stringWithFormat:@"Server returned unexpected status code - %ld - %@", (long) code, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
-        return;
-    }
-
-    NSData *data = (NSData *)_responseData;
-    NSError *error = nil;
-    // parse the JSON and use it
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-    
-    if (error){
-        // log the error
-        [self error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", error, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
-    }
-    else if ([json isKindOfClass:[NSDictionary class]]){
-        NSDictionary *dict = (NSDictionary *)json;
-        
-        NSDictionary* errorResponse = [dict valueForKey:@"error"];
-        if (errorResponse == nil){
-            [self success:dict];
-        }
-        else {
-            [self error:[errorResponse valueForKey:@"message"] code:code];
-        }
-    }
-    else {
-        NSAssert(NO, @"Condition should never be met");
-    }
+    [self uploadDidFinishLoading];
 }
+
+#pragma mark -
 
 - (void)encodeParam:(NSMutableData*)postBody param:(NSString*)param paramValue:(NSString*)paramValue boundary:(NSString*)boundary
 {
@@ -647,6 +634,55 @@
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
+    [self uploadDidSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
+}
+
+#pragma mark - Upload Connection updates
+
+- (void)uploadDidFinishLoading {
+    
+    NSInteger code = [response statusCode];
+    
+    if (code != 200 && code != 400 && code != 401 && code != 403 && code != 404 && code != 500){
+        [self error:[NSString stringWithFormat:@"Server returned unexpected status code - %ld - %@", (long) code, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
+        return;
+    }
+    
+    NSData *data = (NSData *)_responseData;
+    NSError *error = nil;
+    // parse the JSON and use it
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    
+    if (error){
+        // log the error
+        [self error:[NSString stringWithFormat:@"Error parsing response. Error - %@. Response - %@.", error, [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding]] code:code];
+    }
+    else if ([json isKindOfClass:[NSDictionary class]]){
+        NSDictionary *dict = (NSDictionary *)json;
+        
+        NSDictionary* errorResponse = [dict valueForKey:@"error"];
+        if (errorResponse == nil){
+            [self success:dict];
+        }
+        else {
+            [self error:[errorResponse valueForKey:@"message"] code:code];
+        }
+    }
+    else {
+        NSAssert(NO, @"Condition should never be met");
+    }
+}
+
+- (void)uploadDidFailWithError:(NSError *)nserror {
+    NSInteger code = [response statusCode];
+    
+    [self error:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
+                 [nserror localizedDescription],
+                 [nserror userInfo][NSURLErrorFailingURLStringErrorKey]]
+           code:code];
+}
+
+- (void)uploadDidSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     if (_progress != nil)
     {
         _progress(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, _context);
@@ -654,6 +690,58 @@
     if (_delegate != nil && [_delegate respondsToSelector:@selector(uploaderProgress:totalBytesWritten:totalBytesExpectedToWrite:context:)]){
         [_delegate uploaderProgress:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite context:_context];
     }
+}
+
+#pragma mark -
+
+@end
+
+
+static NSURLSession *sharedBackgroundSession = nil;
+@implementation CLUploader (BackgroundSessionSupport)
+
++ (NSURLSession *)sharedBackgroundURLSession:(id<NSURLSessionDelegate>)delegate {
+
+    if (sharedBackgroundSession == nil) {
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.cloudinary.Cloudinary"];
+        sharedBackgroundSession = [NSURLSession sessionWithConfiguration:configuration delegate:delegate delegateQueue:[NSOperationQueue mainQueue]];
+    }
+    
+    return sharedBackgroundSession;
+}
+
+- (NSURLSession *)backgroundNSURLSession {
+    return [CLUploader sharedBackgroundURLSession:self];
+}
+
+#pragma mark - URL Session Delegate Support
+
+- (void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * __nullable credential))completionHandler{
+    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, challenge.proposedCredential);
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+   didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent
+totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
+    [self uploadDidSendBodyData:bytesSent totalBytesWritten:totalBytesSent totalBytesExpectedToWrite:totalBytesExpectedToSend];
+}
+
+- (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error {
+    sharedBackgroundSession = nil;
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error{
+    
+    if (error) {[self uploadDidFailWithError:error];}
+    [session finishTasksAndInvalidate];
+}
+
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data{
+    
+    response = (NSHTTPURLResponse *) dataTask.response;
+    _responseData = [NSMutableData dataWithData:data];
+    [self uploadDidFinishLoading];
 }
 
 @end
