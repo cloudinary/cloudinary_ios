@@ -53,7 +53,10 @@
 
 - (void)uploadInBackground:(id)file options:(NSDictionary *)options
 {
-    [self upload:file options:options withCompletion:nil andProgress:nil];
+    
+    NSMutableDictionary *opts = [options mutableCopy];
+    opts[@"background_upload"] = @YES;
+    [self upload:file options:[NSDictionary dictionaryWithDictionary:opts] withCompletion:nil andProgress:nil];
 }
 
 - (void)unsignedUpload:(id)file uploadPreset:(NSString*)uploadPreset options:(NSDictionary *)options
@@ -317,31 +320,32 @@
             [self connection:dummyConnection didReceiveData:data];
             [self connectionDidFinishLoading:dummyConnection];
         }
-    } else {
+    } else if ([[_cloudinary get:@"background_upload" options:options defaultValue:@"NO"] boolValue]) {
         
         NSString *appID = [[NSBundle mainBundle] bundleIdentifier];
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:appID];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
         
-        NSURLSessionUploadTask *task = [session uploadTaskWithRequest:req fromData:[NSData data]];
+        NSURLSessionUploadTask *task = [session uploadTaskWithRequest:req fromData:nil];
         [task resume];
-        
-        //        connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
-        //        if (connection == nil){
-        //            [self error:@"Failed to initiate connection" code:0];
-        //        }
-        //        if ([[_cloudinary get:@"runLoop" options:options defaultValue:@NO] boolValue]) {
-        //            _port = [NSPort port];
-        //            NSRunLoop* runloop = [NSRunLoop currentRunLoop];
-        //            [runloop addPort:_port forMode:NSDefaultRunLoopMode];
-        //            [connection scheduleInRunLoop:runloop forMode:NSDefaultRunLoopMode];
-        //        }
-        //        else
-        //        {
-        //            [connection scheduleInRunLoop:[NSRunLoop mainRunLoop]
-        //                                  forMode:NSDefaultRunLoopMode];
-        //        }
-        //        [connection start];
+    }
+    else {
+        connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
+        if (connection == nil){
+            [self error:@"Failed to initiate connection" code:0];
+        }
+        if ([[_cloudinary get:@"runLoop" options:options defaultValue:@NO] boolValue]) {
+            _port = [NSPort port];
+            NSRunLoop* runloop = [NSRunLoop currentRunLoop];
+            [runloop addPort:_port forMode:NSDefaultRunLoopMode];
+            [connection scheduleInRunLoop:runloop forMode:NSDefaultRunLoopMode];
+        }
+        else
+        {
+            [connection scheduleInRunLoop:[NSRunLoop mainRunLoop]
+                                  forMode:NSDefaultRunLoopMode];
+        }
+        [connection start];
     }
 }
 
