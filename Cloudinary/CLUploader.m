@@ -320,12 +320,12 @@
             [self connection:dummyConnection didReceiveData:data];
             [self connectionDidFinishLoading:dummyConnection];
         }
-    } else if ([[_cloudinary get:@"background_upload" options:options defaultValue:@"NO"] boolValue]) {
+    } else if ([[_cloudinary get:@"background_upload" options:options defaultValue:@NO] boolValue]) {
         
         NSString *appID = [[NSBundle mainBundle] bundleIdentifier];
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:appID];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-        
+
         NSURLSessionUploadTask *task = [session uploadTaskWithRequest:req fromData:nil];
         [task resume];
     }
@@ -698,17 +698,24 @@
    didSendBodyData:(int64_t)bytesSent
     totalBytesSent:(int64_t)totalBytesSent
 totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     [self connection:nil didSendBodyData:bytesSent totalBytesWritten:totalBytesSent totalBytesExpectedToWrite:totalBytesExpectedToSend];
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     if (error) {
         [self connection:nil didFailWithError:error];
     }
+    
+    [session finishTasksAndInvalidate];
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data{
-
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     response = (NSHTTPURLResponse *) dataTask.response;
     _responseData = [NSMutableData dataWithData:data];
     [self connectionDidFinishLoading:nil];
