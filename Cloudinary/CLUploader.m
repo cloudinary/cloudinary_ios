@@ -11,7 +11,7 @@
 #import "CLTransformation.h"
 #import "NSDictionary+CLUtilities.h"
 
-@interface CLUploader ()<NSURLConnectionDataDelegate>
+@interface CLUploader ()<NSURLConnectionDataDelegate, NSURLSessionDelegate>
 
 @property (readwrite, strong, nonatomic) CLCloudinary *cloudinary;
 
@@ -46,6 +46,12 @@
 }
 
 - (void)upload:(id)file options:(NSDictionary *)options
+{
+    [self upload:file options:options withCompletion:nil andProgress:nil];
+}
+
+
+- (void)uploadInBackground:(id)file options:(NSDictionary *)options
 {
     [self upload:file options:options withCompletion:nil andProgress:nil];
 }
@@ -312,22 +318,30 @@
             [self connectionDidFinishLoading:dummyConnection];
         }
     } else {
-        connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
-        if (connection == nil){
-            [self error:@"Failed to initiate connection" code:0];
-        }
-        if ([[_cloudinary get:@"runLoop" options:options defaultValue:@NO] boolValue]) {
-            _port = [NSPort port];
-            NSRunLoop* runloop = [NSRunLoop currentRunLoop];
-            [runloop addPort:_port forMode:NSDefaultRunLoopMode];
-            [connection scheduleInRunLoop:runloop forMode:NSDefaultRunLoopMode];
-        }
-        else
-        {
-            [connection scheduleInRunLoop:[NSRunLoop mainRunLoop]
-                                  forMode:NSDefaultRunLoopMode];
-        }
-        [connection start];
+        
+        NSString *appID = [[NSBundle mainBundle] bundleIdentifier];
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:appID];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+        
+        NSURLSessionUploadTask *task = [session uploadTaskWithRequest:req fromData:[NSData data]];
+        [task resume];
+        
+        //        connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
+        //        if (connection == nil){
+        //            [self error:@"Failed to initiate connection" code:0];
+        //        }
+        //        if ([[_cloudinary get:@"runLoop" options:options defaultValue:@NO] boolValue]) {
+        //            _port = [NSPort port];
+        //            NSRunLoop* runloop = [NSRunLoop currentRunLoop];
+        //            [runloop addPort:_port forMode:NSDefaultRunLoopMode];
+        //            [connection scheduleInRunLoop:runloop forMode:NSDefaultRunLoopMode];
+        //        }
+        //        else
+        //        {
+        //            [connection scheduleInRunLoop:[NSRunLoop mainRunLoop]
+        //                                  forMode:NSDefaultRunLoopMode];
+        //        }
+        //        [connection start];
     }
 }
 
@@ -657,3 +671,44 @@
 }
 
 @end
+
+
+@interface CLUploader (BackgroundSessionSupport)
+
+@end
+
+@implementation CLUploader (BackgroundSessionSupport)
+
+#pragma mark - URL Session support
+
+- (void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * __nullable credential))completionHandler{
+    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, challenge.proposedCredential);
+}
+
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+   didSendBodyData:(int64_t)bytesSent
+    totalBytesSent:(int64_t)totalBytesSent
+totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
+    [self connection:nil didSendBodyData:bytesSent totalBytesWritten:totalBytesSent totalBytesExpectedToWrite:totalBytesExpectedToSend];
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error{
+    if (error) {
+        [self connection:nil didFailWithError:error];
+    }
+}
+
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    _responseData = [NSMutableData dataWithData:data];
+    [self connectionDidFinishLoading:nil];
+}
+
+@end
+
