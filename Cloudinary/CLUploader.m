@@ -697,14 +697,21 @@
 @end
 
 
+static NSURLSession *sharedBackgroundSession = nil;
 @implementation CLUploader (BackgroundSessionSupport)
 
-- (NSURLSession *)backgroundNSURLSession {
-    NSString *appID = [[NSBundle mainBundle] bundleIdentifier];
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:appID];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
++ (NSURLSession *)sharedBackgroundURLSession:(id<NSURLSessionDelegate>)delegate {
 
-    return session;
+    if (sharedBackgroundSession == nil) {
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.cloudinary.Cloudinary"];
+        sharedBackgroundSession = [NSURLSession sessionWithConfiguration:configuration delegate:delegate delegateQueue:[NSOperationQueue mainQueue]];
+    }
+    
+    return sharedBackgroundSession;
+}
+
+- (NSURLSession *)backgroundNSURLSession {
+    return [CLUploader sharedBackgroundURLSession:self];
 }
 
 #pragma mark - URL Session Delegate Support
@@ -718,6 +725,10 @@
    didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent
 totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
     [self uploadDidSendBodyData:bytesSent totalBytesWritten:totalBytesSent totalBytesExpectedToWrite:totalBytesExpectedToSend];
+}
+
+- (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error {
+    sharedBackgroundSession = nil;
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error{
