@@ -154,6 +154,7 @@
     [params setValue:[CLCloudinary asBool:[options valueForKey:@"eager_async"]] forKey: @"eager_async"];
     [params setValue:[CLCloudinary asBool:[options valueForKey:@"invalidate"]] forKey: @"invalidate"];
     [params setValue:[self buildCustomHeaders:[options valueForKey:@"headers"]] forKey:@"headers"];
+    [params setValue:[self buildCoordinates:options[@"face_coordinates"]] forKey:@"face_coordinates"];
     NSArray* tags = [CLCloudinary asArray:[options valueForKey:@"tags"]];
     [params setValue:[tags componentsJoinedByString:@","] forKey:@"tags"];
     [self callApi:@"explicit" file:nil params:params options:options];
