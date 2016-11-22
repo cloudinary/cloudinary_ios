@@ -140,70 +140,6 @@ See [our documentation](http://cloudinary.com/documentation/image_transformation
 
 *:information_source: Until version 1.0.11 there was an issue in `setWidthWithFloat` (and similar methods) that caused round floats to be serialized as integers (e.g. `setWidthWithFloat(2.0)` produced `"w_2"`) this was  fixed in version 1.0.12.*
 
-
-### Safe mobile uploading  
-
-iOS applications might prefer to avoid keeping the sensitive `api_secret` on the mobile device. It is recommended to generate the upload authentication signature on the server side.
-This way the `api_secret` is stored only on the much safer server-side.
-
-Cloudinary's iOS SDK allows providing server-generated signature and any additional parameters that were generated on the server side (instead of signing using `api_secret` locally).
-
-The following example initializes CLCloudinary without any authentication parameters:
-
-```Objective-C
-CLCloudinary *mobileCloudinary = [[CLCloudinary alloc] init];
-
-[mobileCloudinary.config setValue:@"n07t21i7" forKey:@"cloud_name"];
-```
-
-You can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java, Perl, .Net, etc.) on your server to generating the upload signature. The following JSON in an example of a response of an upload authorization request to your server:  
-
-```Objective-C
-{
-  "signature": "sgjfdoigfjdgfdogidf9g87df98gfdb8f7d6gfdg7gfd8",
-  "public_id": "abdbasdasda76asd7sa789",
-  "timestamp": 1346925631,
-  "api_key": "123456789012345",
-}
-```
-
-The following code uploads an image to Cloudinary with the parameters generated safely on the server side (e.g., from a JSON as in the example above). Note that the `imageData` parameter can either be the actual image data or a path of a local image file.
-
-```Objective-C
-CLUploader* mobileUploader = [[CLUploader alloc] init:mobileCloudinary delegate:self];
-NSDictionary* uploadResponse = [mobileUploader upload:imageData options:signedRequest];
-```
-
-The `signedPreloadedImage` can be used to create a serialized format of the upload result that can be validated by the server.
-
-```Objective-C
-NSString *signedIdentifier = [cloudinary signedPreloadedImage:uploadResponse];
-
-// image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg#298hg20j2eoalgh3ekl
-```
-
-You might want to reference uploaded Cloudinary images and raw files using an identifier string of the following format:
-
-    {resource_type}/{type}/v{version}/{public_id}.{format}
-
-Cloudinary URL can be directly generated from an idenfier in either formats mentioned above:
-
-```Objective-C
-NSString *imageIdentifier = @"image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg";
-NSString *url = [cloudinary url:imageIdentifier];
-
-// http://res.cloudinary.com/n07t21i7/image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg
-```
-
-Same can work for raw file uploads:
-
-```Objective-C
-NSString *rawIdentifier = @"raw/upload/v1234567/cguysfdsfuydsfyuds31.doc";
-NSString *url = [cloudinary url:rawIdentifier];
-
-// http://res.cloudinary.com/n07t21i7/raw/upload/v1234567/cguysfdsfuydsfyuds31.doc
-```
-
 ### Upload
 
 :warning: It is recommended not to include `api_secret` in mobile applications. See [Safe mobile uploading](#safe-mobile-uploading) below for an alternative method.
@@ -316,7 +252,6 @@ Synchronous upload is supported and is required for using the upload API from wi
 [uploader upload:imageFilePath options:@{@"sync": @YES}];
 ```
 See [our documentation](http://cloudinary.com/documentation/upload_images) for plenty more options of direct uploading to the cloud.
-
 
 ### Safe mobile uploading  
 
