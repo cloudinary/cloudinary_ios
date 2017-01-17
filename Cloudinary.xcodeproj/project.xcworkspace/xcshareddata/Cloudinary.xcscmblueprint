@@ -1,0 +1,20 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "05CFA14AA7726F5F10A82B50AF71EE3EE5FC85E8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "05CFA14AA7726F5F10A82B50AF71EE3EE5FC85E8" : 0,
+    "8BF971125E7C5BCCF2B29A7782CE50E331B45226" : 0,
+    "67620B5EFA902936DF04070AF595B76AB0333747" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B2842370-BF05-49C6-B854-6FF04F5B9374",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "05CFA14AA7726F5F10A82B50AF71EE3EE5FC85E8" : "cloudinary_ios\/",
+    "8BF971125E7C5BCCF2B29A7782CE50E331B45226" : "",
+    "67620B5EFA902936DF04070AF595B76AB0333747" : "cloudinary_ios\/Cloudinary\/Frameworks\/Alamofire\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Cloudinary",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Cloudinary.xcodeproj"
+}

@@ -1,0 +1,5 @@
+[submodule "Cloudinary/Frameworks/Alamofire"]
+	path = Cloudinary/Frameworks/Alamofire
+	url = https://github.com/Alamofire/Alamofire.git
+[submodule "Alamofire"]
+	branch = 4.0.1

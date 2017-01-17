@@ -1,7 +1,12 @@
+![Cloudinary: Image And Video Management In The Cloud](http://res-1.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png)
+==================
+
 Cloudinary iOS SDK
 ==================
 
-Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline.
+Cloudinary is a cloud service that offers a solution to an application's entire image management pipeline.
+
+## Features
 
 Easily upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software. Integrate Facebook or Twitter profile image extraction in a snap, in any dimension and style to match your website’s graphics requirements. Images are seamlessly delivered through a fast CDN, and much much more.
 
@@ -11,376 +16,288 @@ Cloudinary provides URL and HTTP based APIs that can be easily integrated with a
 
 For iOS, Cloudinary provides an SDK for simplifying the integration even further.
 
-## Setup ######################################################################
+[Complete Documentation](http://cloudinary.com/documentation/)
 
-Download the latest SDK version from the following URL:
+## Requirements
 
-[http://res.cloudinary.com/cloudinary/raw/upload/cloudinary_ios_v1.0.15.zip](http://res.cloudinary.com/cloudinary/raw/upload/cloudinary_ios_v1.0.15.zip)
+- iOS 8.0+
 
+## Integration
 
-Extract the ZIP file and drag `libCloudinary.a` to the `Frameworks` folder of your Xcode project. Drag the `Cloudinary` folder that contains all .h include files to your Xcode project.
+### CocoaPods
 
-In Xcode, double-click the target's name under `Targets` in the `Project` window. Choose the `Build Settings` tab. Search for the `Other Linker Flags` build setting under the `Linking` collection and set its value to `-ObjC`.
+[CocoaPods](http://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects. 
+To install it run the following command:
 
-## Try it right away
+```bash
+$ sudo gem install cocoapods
+```
+If you don't have a `Podfile` in your project yet, add it by running the command:
+```bash
+$ pod init
+```
 
-Sign up for a [free account](https://cloudinary.com/users/register/free) so you can try out image transformations and seamless image delivery through CDN.
+Add the Cloudinary SDK to your `Podfile`:
 
-*:information_source: Replace `demo` in all the following examples with your Cloudinary's `cloud name`.*  
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
 
-Accessing an uploaded image with the `sample` public ID through a CDN:
+target 'MyApp' do
+  pod 'Cloudinary', '~> 2.0'
+end
+```
 
-    http://res.cloudinary.com/demo/image/upload/sample.jpg
+Then, run the command:
 
-![Sample](https://res.cloudinary.com/demo/image/upload/w_0.4/sample.jpg "Sample")
+```bash
+$ pod install
+```
 
-Generating a 150x100 version of the `sample` image and downloading it through a CDN:
+### Manually
 
-    http://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill/sample.jpg
+If you rather not use a dependency manager, you can add Cloudinary manually by adding it as a submodule to your project.
+To do so, first open Terminal and navigate to your project's top level directory.
 
-![Sample 150x100](https://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill/sample.jpg "Sample 150x100")
+If your project is not initialized as a git repository, run the command:
 
-Converting to a 150x100 PNG with rounded corners of 20 pixels:
+```bash
+$ git init
+```
 
-    http://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill,r_20/sample.png
+To add cloudinary as a git submodule, run the command:
 
-![Sample 150x150 Rounded PNG](https://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill,r_20/sample.png "Sample 150x150 Rounded PNG")
+```bash
+$ git submodule add http://git.zemingo.com/Cloudinary/CloudinarySDK-iOS.git
+```
 
-For plenty more transformation options, see our [image transformations documentation](http://cloudinary.com/documentation/image_transformations).
+#### Embedded Framework
 
-Generating a 120x90 thumbnail based on automatic face detection of the Facebook profile picture of Bill Clinton:
+- Drag the `Cloudinary.xcodeproj` into the Project Navigator of your application's Xcode project, it should appear under your application's blue project icon.
+- Select `Cloudinary.xcodeproj` and make sure the deployment target matches that of your application target.
+- Select your application project, under 'TARGETS' select your application, open the 'General' tab, click on the `+` button under the "Embedded Binaries" and Select 'Cloudinary.framework'.
 
-    http://res.cloudinary.com/demo/image/facebook/c_thumb,g_face,h_90,w_120/billclinton.jpg
+#### Dependecies
 
-![Facebook 90x120](https://res.cloudinary.com/demo/image/facebook/c_thumb,g_face,h_90,w_120/billclinton.jpg "Facebook 90x200")
+Cloudinary SDK depends on the  [Alamofire](https://github.com/Alamofire/Alamofire), if you add Cloudinary manually you will need to [add Alamofire manually to your project](https://github.com/Alamofire/Alamofire/tree/3.2.1#manually). Make sure to checkout the correct version after adding the submodule ([as explained here](#submodule)).
 
-For more details, see our documentation for embedding [Facebook](http://cloudinary.com/documentation/facebook_profile_pictures) and [Twitter](http://cloudinary.com/documentation/twitter_profile_pictures) profile pictures.
+### Build Framework
 
+Here's the steps to get the framework project to build, in case you want to work on the project itself.
+
+After cloning the repository, you will need to add Alamofire v3.2.1, there are several ways to do so:
+
+##### Submodule
+
+- Open terminal, navigate to Cloudinary's cloned repository folder, then add Alamofire as a git submodule by running the command:
+
+```bash
+$ git submodule add https://github.com/Alamofire/Alamofire.git
+```
+
+- Checkout the desired Alamofire version:
+```bash
+$ cd Alamofire/
+```
+
+- Then:
+```bash
+$ git checkout 3.2.1
+```
+
+###### Add library
+
+- Open the new Alamofire folder and drag `Alamofire.xcodeproj` file into the Project Navigator of Cloudinary's Xcode project.
+- Select Cloudinary project, under 'TARGETS' select Cloudinary, open the 'General' tab, click on the `+` button under the "Linked Frameworks and Libraries" and Select 'Alamofire.framework'.
+
+##### Download source
+
+You can download Alamofire v3.2.1 from [here](https://github.com/Alamofire/Alamofire/archive/3.2.1.zip), then follow [Add library](#add_library)
 
 ## Usage
 
 ### Configuration
 
-Each request for building a URL of a remote cloud resource must have the `cloud_name` parameter set.
-Each request to our secure APIs (e.g., image uploads, eager sprite generation) must have the `api_key` and `api_secret` parameters set. See [API, URLs and access identifiers](http://cloudinary.com/documentation/api_and_access_identifiers) for more details.
+To use the API, you will need a CLDCloudinary instance, which is initialized with an instance of CLDConfiguration.
 
-Setting the `cloud_name`, `api_key` and `api_secret` parameters can be done either directly in each call to a Cloudinary method or by globally setting using the CLOUDINARY_URL variable.
+The CLDConfiguration must have its `cloudName` and `apiKey` properties set, other properties are optional, but secure API requests must be signed using the `apiSecret` param (or alternatively by using [Safe Mobile Requests](#safe-mobile-requests)). 
 
-The following example creates a `CLCloudinary` object initializd with a `CLOUDINARY_URL` varaible.   
+See [API, URLs and access identifiers](http://cloudinary.com/documentation/api_and_access_identifiers) for more details.
 
-```Objective-C
-#import "Cloudinary/Cloudinary.h"
-
-CLCloudinary *cloudinary = [[CLCloudinary alloc] initWithUrl: @"cloudinary://123456789012345:abcdeghijklmnopqrstuvwxyz12@n07t21i7"];
+There are several ways to initialize CLDConfiguration, you can simply call its constructor with the desired params:
+```swift
+let config = CLDConfiguration(cloudName: "CLOUD_NAME", apiKey: "API_KEY")
 ```
 
-You can also set any configuration parameter programatically:
-
-```Objective-C
-CLCloudinary *cloudinary = [[CLCloudinary alloc] init];
-[cloudinary.config setValue:@"n07t21i7" forKey:@"cloud_name"];
-[cloudinary.config setValue:@"123456789012345" forKey:@"api_key"];
-[cloudinary.config setValue:@"abcdeghijklmnopqrstuvwxyz12" forKey:@"api_secret"];
+Another way is by passing a URL of the form: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+```swift
+let config = CLDConfiguration(cloudinaryUrl: "cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>")
 ```
 
-:warning: The API includes operations that require authentication using the `api_secret`. However because it is not possible to secure the `api_secret` in applications running on client devices (such as a mobile app) **it is recommended not to include `api_secret` in such applications.**
+You can also add the same URL as an environment parameters under `CLOUDINARY_URL`, then initialize CLDConfiguration using its static initializer
+```swift
+let config = CLDConfiguration.initWithEnvParams()
+```
 
-### Embedding and transforming images
+Now you can create a CLDCloudinary instance to work with
+```swift
+let cloudinary = CLDCloudinary(configuration: config)
+```
 
-Any image uploaded to Cloudinary can be transformed and embedded using powerful view helper methods:
+### Safe Mobile Requests
+
+iOS applications might prefer to avoid keeping the sensitive `apiSecret` on the mobile device. It is recommended to generate the upload authentication signature on the server side.
+This way the `apiSecret` is stored only on the much safer server-side.
+
+Cloudinary's iOS SDK allows providing server-generated signature and any additional parameters that were generated on the server side (instead of signing using `apiSecret` locally).
+
+You can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java, Perl, .Net, etc.)
+ on your server to generating the upload signature. The following JSON in an example of a response of an upload
+  authorization request to your server:  
+
+```Objective-C
+{
+  "signature": "sgjfdoigfjdgfdogidf9g87df98gfdb8f7d6gfdg7gfd8",
+  "public_id": "abdbasdasda76asd7sa789",
+  "timestamp": 1346925631,
+  "api_key": "123456789012345",
+}
+```
+
+Then create a CLDSignature instance and pass it to the desired secure request, in this case, to upload a file:
+```swift
+let config = CLDConfiguration(cloudName: "CLOUD_NAME", apiKey: "API_KEY", apiSecret: nil)
+let cloudinary = CLDCloudinary(configuration: config)
+let signature = CLDSignature(signature: signature, timestamp: timestamp)
+let params = CLDUploadRequestParams()
+params.setSignature(signature)
+cloudinary.createUploader().upload(file: fileURL, params: params, completionHandler: { (response, error) in
+            // Handle respone
+        })
+```
+
+### URL generation
 
 The following example generates a URL on an uploaded `sample` image:
+```swift
+cloudinary.createUrl().generate("sample.jpg")
 
-```Objective-C
-NSString *url = [cloudinary url:@"sample.jpg"];
-
-// http://res.cloudinary.com/n07t21i7/image/upload/sample.jpg
+// http://res.cloudinary.com/CLOUD_NAME/image/upload/sample.jpg
 ```
+
 The following example generates an image URL of an uploaded `sample` image while transforming it to fill a 100x150 rectangle:
 
-```Objective-C
-CLTransformation *transformation = [CLTransformation transformation];
-[transformation setWidthWithInt: 100];
-[transformation setHeightWithInt: 150];
-[transformation setCrop: @"fill"];
+```swift
+let transformation = CLDTransformation().setWidth(100).setHeight(150).setCrop(.Crop)
+cloudinary.createUrl().setTransformation(transformation).generate("sample.jpg")
 
-NSString *url = [cloudinary url:@"sample.jpg" options:@{@"transformation": transformation}];
-
-// http://res.cloudinary.com/n07t21i7/image/upload/c_fill,h_150,w_100/sample.jpg
+// http://res.cloudinary.com/CLOUD_NAME/image/upload/c_fill,h_150,w_100/sample.jpg
 ```
 
-Another example, embedding a smaller version of an uploaded image while generating a 90x90 face detection based thumbnail. This time using a dictionary of parameters:
+Another example, embedding a smaller version of an uploaded image while generating a 90x90 face detection based thumbnail:
 
-```Objective-C
-CLTransformation *transformation = [CLTransformation transformation];
-[transformation setParams: @{@"width": @90, @"height": @90, @"crop": @"thumb", @"gravity": @"face"}];
+```swift
+let transformation = CLDTransformation().setWidth(90).setHeight(90).setCrop(.Thumb).setGravity(.Face)
+cloudinary.createUrl().setTransformation(transformation).generate("sample.jpg")
 
-NSString *url = [cloudinary url:@"sample.jpg" options:@{@"transformation": transformation}];
-
-// http://res.cloudinary.com/n07t21i7/image/upload/c_thumb,g_face,h_90,w_90/sample.jpg
+// http://res.cloudinary.com/CLOUD_NAME/image/upload/c_thumb,g_face,h_90,w_90/sample.jpg
 ```
 
 You can provide either a Facebook name or a numeric ID of a Facebook profile or a fan page.  
 
 Embedding a Facebook profile to match your graphic design is very simple:
 
-```Objective-C
-CLTransformation *transformation = [CLTransformation transformation];
-[transformation setWidthWithInt: 90];
-[transformation setHeightWithInt: 130];
-[transformation setCrop: @"fill"];
-[transformation setGravity: @"north_west"];
+```swift
+let url = cloudinary.createUrl().setTransformation(CLDTransformation().setWidth(90).setHeight(130).setGravity(.Face).setCrop(.Fill)).setType(.Facebook).generate("billclinton.jpg")
 
-NSString *url = [cloudinary url:@"billclinton.jpg" options:@{@"transformation": transformation, @"type": @"facebook"}];
+// http://res.cloudinary.com/CLOUD_NAME/image/facebook/c_fill,g_face,h_130,w_90/billclinton.jpg
+```
 
-// http://res.cloudinary.com/n07t21i7/image/facebook/c_fill,g_north_west,h_130,w_90/billclinton.jpg
+You can also chain transformations together:
+
+```swift
+let transformation = CLDTransformation().setWidth(100).setHeight(150).chain().setCrop(.Fit)
+let url = cloudinary.createUrl().setTransformation().generate("sample.jpg")
+
+// http://res.cloudinary.com/CLOUD_NAME/image/facebook/h_150,w_100/c_fit/sample.jpg
 ```
 
 See [our documentation](http://cloudinary.com/documentation/image_transformations) for more information about displaying and transforming images.
 
-*:information_source: Until version 1.0.11 there was an issue in `setWidthWithFloat` (and similar methods) that caused round floats to be serialized as integers (e.g. `setWidthWithFloat(2.0)` produced `"w_2"`) this was  fixed in version 1.0.12.*
-
-
-### Safe mobile uploading  
-
-iOS applications might prefer to avoid keeping the sensitive `api_secret` on the mobile device. It is recommended to generate the upload authentication signature on the server side.
-This way the `api_secret` is stored only on the much safer server-side.
-
-Cloudinary's iOS SDK allows providing server-generated signature and any additional parameters that were generated on the server side (instead of signing using `api_secret` locally).
-
-The following example initializes CLCloudinary without any authentication parameters:
-
-```Objective-C
-CLCloudinary *mobileCloudinary = [[CLCloudinary alloc] init];
-
-[mobileCloudinary.config setValue:@"n07t21i7" forKey:@"cloud_name"];
-```
-
-You can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java, Perl, .Net, etc.) on your server to generating the upload signature. The following JSON in an example of a response of an upload authorization request to your server:  
-
-```Objective-C
-{
-  "signature": "sgjfdoigfjdgfdogidf9g87df98gfdb8f7d6gfdg7gfd8",
-  "public_id": "abdbasdasda76asd7sa789",
-  "timestamp": 1346925631,
-  "api_key": "123456789012345",
-}
-```
-
-The following code uploads an image to Cloudinary with the parameters generated safely on the server side (e.g., from a JSON as in the example above). Note that the `imageData` parameter can either be the actual image data or a path of a local image file.
-
-```Objective-C
-CLUploader* mobileUploader = [[CLUploader alloc] init:mobileCloudinary delegate:self];
-NSDictionary* uploadResponse = [mobileUploader upload:imageData options:signedRequest];
-```
-
-The `signedPreloadedImage` can be used to create a serialized format of the upload result that can be validated by the server.
-
-```Objective-C
-NSString *signedIdentifier = [cloudinary signedPreloadedImage:uploadResponse];
-
-// image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg#298hg20j2eoalgh3ekl
-```
-
-You might want to reference uploaded Cloudinary images and raw files using an identifier string of the following format:
-
-    {resource_type}/{type}/v{version}/{public_id}.{format}
-
-Cloudinary URL can be directly generated from an idenfier in either formats mentioned above:
-
-```Objective-C
-NSString *imageIdentifier = @"image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg";
-NSString *url = [cloudinary url:imageIdentifier];
-
-// http://res.cloudinary.com/n07t21i7/image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg
-```
-
-Same can work for raw file uploads:
-
-```Objective-C
-NSString *rawIdentifier = @"raw/upload/v1234567/cguysfdsfuydsfyuds31.doc";
-NSString *url = [cloudinary url:rawIdentifier];
-
-// http://res.cloudinary.com/n07t21i7/raw/upload/v1234567/cguysfdsfuydsfyuds31.doc
-```
-
 ### Upload
 
-:warning: It is recommended not to include `api_secret` in mobile applications. See [Safe mobile uploading](#safe-mobile-uploading) below for an alternative method.
+Uploading to your cloud is very straightforward.
 
-Assuming you have your Cloudinary configuration parameters defined (`cloud_name`, `api_key`, `api_secret`), uploading to Cloudinary is very simple.
+In the following example the file located at `fileUrl` is uploaded to your cloud:
 
-First you need to implement the `CLUploaderDelegate` protocol for receiving successful and failed upload callbacks as well as upload progress notification. For example:
-
-```Objective-C
-#import "ViewController.h"
-#import "Cloudinary/Cloudinary.h"
-
-@interface ViewController () <CLUploaderDelegate>
-@end
-
-@implementation ViewController
-
-...
-
-- (void) uploaderSuccess:(NSDictionary*)result context:(id)context {
-    NSString* publicId = [result valueForKey:@"public_id"];
-    NSLog(@"Upload success. Public ID=%@, Full result=%@", publicId, result);
-}
-
-- (void) uploaderError:(NSString*)result code:(int) code context:(id)context {
-    NSLog(@"Upload error: %@, %d", result, code);
-}
-
-- (void) uploaderProgress:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite context:(id)context {
-    NSLog(@"Upload progress: %d/%d (+%d)", totalBytesWritten, totalBytesExpectedToWrite, bytesWritten);
-}
-
-@end
+```swift
+cloudinary.createUploader().upload(file: fileUrl)
 ```
 
-The following example uploads a local PNG to the cloud. The path of the image is given to the upload method.
+`fileUrl` can point to either a local or a remote file.
 
-```Objective-C
-CLCloudinary *cloudinary = [[CLCloudinary alloc] initWithUrl: @"cloudinary://123456789012345:abcdeghijklmnopqrstuvwxyz12@n07t21i7"];
+You can also upload data:
 
-CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:@"logo" ofType:@"png"];
-
-[uploader upload:imageFilePath options:@{}];
+```swift
+cloudinary.createUploader().upload(data: data)
 ```
 
-Here is a sample log printing of the result dictionary received by the `uploaderSuccess` callback:
+The uploaded image is assigned a randomly generated public ID, which is returned as part of the response.
 
-    {
-        format = png;
-        height = 51;
-        "public_id" = nmnbdil0cjbuxjmxmzgt;
-        "resource_type" = image;
-        "secure_url" = "https://.../n07t21i7/image/upload/v1351796439/nmnbdil0cjbuxjmxmzgt.png";
-        signature = 3a09d19f85ea029d7862fe1f58ff3a25164c6270;
-        url = "http://.../n07t21i7/image/upload/v1351796439/nmnbdil0cjbuxjmxmzgt.png";
-        version = 1351796439;
-        width = 241;
-    }
+You can pass  an instance of CLDUploadRequestParams for extra parameters you'd want to pass as part of the upload request.
 
-The uploaded image is assigned a randomly generated public ID. The image is immediately available for download through a CDN:
+You can also pass a `progress` closure that is called periodically during the data transfer, and a `completionHandler` closure to be called once the request has finished, holding either the response object or the error.
 
-```Objective-C
-[cloudinary url:@"nmnbdil0cjbuxjmxmzgt.png"]
+You can also specify your own public ID.
 
-// http://res.cloudinary.com/n07t21i7/image/upload/nmnbdil0cjbuxjmxmzgt.png
-```
-
-You can also specify your own public ID. In the following example the actual data of the image is given to the upload method:
-
-```Objective-C
-NSData *imageData = [NSData dataWithContentsOfFile:imageFilePath];
-[uploader upload:imageData options:@{@"public_id": @"ios_image_1"}];
-```
-The following example uploads an image based on a given remote URL:
-
-```Objective-C
-[uploader upload:@"http://cloudinary.com/images/logo.png" options:@{}];
-```
-In order to upload a raw file, set the `resource_type` parameter to `raw`:
-
-```Objective-C
-CLUploader* uploader = [[CLUploader alloc] init:cloudinary delegate:self];
-[uploader upload:[self file] options:@{@"resource_type": @"raw"}];
-```
-
-Alternatively, you can set the `resource_type` parameter to `auto`, as demonstrated in this [blog post](http://cloudinary.com/blog/using_cloudinary_to_manage_all_your_website_s_assets_in_the_cloud).
-
-Instead of implementing the `CLUploaderDelegate` you can provide block parameters for receiving uploading progress and completion events. The following example uploaded a local image while providing `withCompletion` & `andProgress` blocks:
-
-```Objective-C
-[uploader upload:imageFilePath options:@{} withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
-    if (successResult) {
-        NSString* publicId = [successResult valueForKey:@"public_id"];
-        NSLog(@"Block upload success. Public ID=%@, Full result=%@", publicId, successResult);
-    } else {
-        NSLog(@"Block upload error: %@, %d", errorResult, code);
-
-    }
-} andProgress:^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite, id context) {
-    NSLog(@"Block upload progress: %d/%d (+%d)", totalBytesWritten, totalBytesExpectedToWrite, bytesWritten);
-}];
-```
-
-*:information_source: A dedicated `CLUploader` instance must be used for each file uploading.*
-
-Synchronous upload is supported and is required for using the upload API from within an `NSOperation`. Simply set the `sync` option to `@YES`.
-
-```Objective-C
-[uploader upload:imageFilePath options:@{@"sync": @YES}];
-```
-See [our documentation](http://cloudinary.com/documentation/upload_images) for plenty more options of direct uploading to the cloud.
-
-
-### Safe mobile uploading  
-
-iOS applications might prefer to avoid keeping the sensitive `api_secret` on the mobile device. It is recommended to generate the upload authentication signature on the server side.
-This way the `api_secret` is stored only on the much safer server-side.
-
-Cloudinary's iOS SDK allows providing server-generated signature and any additional parameters that were generated on the server side (instead of signing using `api_secret` locally).
-
-The following example initializes CLCloudinary without any authentication parameters:
-
-```Objective-C
-CLCloudinary *mobileCloudinary = [[CLCloudinary alloc] init];
-
-[mobileCloudinary.config setValue:@"n07t21i7" forKey:@"cloud_name"];
-```
-
-You can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java, Perl, .Net, etc.) on your server to generating the upload signature. The following JSON in an example of a response of an upload authorization request to your server:  
-
-```Objective-C
-{
-  "signature": "sgjfdoigfjdgfdogidf9g87df98gfdb8f7d6gfdg7gfd8",
-  "public_id": "abdbasdasda76asd7sa789",
-  "timestamp": 1346925631,
-  "api_key": "123456789012345",
+In the following example, we apply an incoming transformation as part of the upload request, the transformation is applied before saving the image in the cloud.
+We also specify a public ID and pass closures for the upload progress and completion handler.
+```swift
+let params = CLDUploadRequestParams()
+params.setTransformation(CLDTransformation().setGravity(.NorthWest))
+params.setPublicId("my_public_id")
+let request = cloudinary.createUploader().upload(file: fileUrl, params: params, progress: { (bytes, totalBytes, totalBytesExpected) in
+    // Handle progress
+    }) { (response, error) in
+        // Handle response
 }
 ```
 
-The following code uploads an image to Cloudinary with the parameters generated safely on the server side (e.g., from a JSON as in the example above). Note that the `imageData` parameter can either be the actual image data or a path of a local image file.
+Every upload request returns a CLDUploadRequest instance, allowing options such as cancelling, suspending or resuming it.
 
-```Objective-C
-CLUploader* mobileUploader = [[CLUploader alloc] init:mobileCloudinary delegate:self];
-NSDictionary* uploadResponse = [mobileUploader upload:imageData options:signedRequest];
+### Download
+
+The SDK provides some convenient methods for downloading files from your cloud:
+
+```swift
+cloudinary.createDownloader().fetchImage(url)
 ```
 
-The `signedPreloadedImage` can be used to create a serialized format of the upload result that can be validated by the server.
+You can also pass a `progress` closure that is called periodically during the data transfer, and a `completionHandler` closure to be called once the request has finished, holding either the fetched UIImage or an error.
 
-```Objective-C
-NSString *signedIdentifier = [cloudinary signedPreloadedImage:uploadResponse];
-
-// image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg#298hg20j2eoalgh3ekl
+```swift
+let request = cloudinary.createDownloader().fetchImage(url, progress: { (bytes, totalBytes, totalBytesExpected) in
+            // Handle progress
+            }) { (responseImage, error) in
+                // Handle response
+        }
 ```
 
-You might want to reference uploaded Cloudinary images and raw files using an identifier string of the following format:
+Every download request returns an instance implementing CLDFetchImageRequest, allowing options such as cancelling, suspending or resuming it.
 
-    {resource_type}/{type}/v{version}/{public_id}.{format}
+The downloaded image is cached both to the memory and the disk (customizable), the disk cache size is limitted and can be changed.
 
-Cloudinary URL can be directly generated from an idenfier in either formats mentioned above:
+### Other APIs
 
-```Objective-C
-NSString *imageIdentifier = @"image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg";
-NSString *url = [cloudinary url:imageIdentifier];
-
-// http://res.cloudinary.com/n07t21i7/image/upload/v1234567/dfhjghjkdisudgfds7iyf.jpg
+Management APIs are available as well, via CLDManagementApi
+```swift
+cloudinary.createManagementApi()
 ```
 
-Same can work for raw file uploads:
+See out [documentation](http://cloudinary.com/documentation/image_upload_api_reference) for further details.
 
-```Objective-C
-NSString *rawIdentifier = @"raw/upload/v1234567/cguysfdsfuydsfyuds31.doc";
-NSString *url = [cloudinary url:rawIdentifier];
-
-// http://res.cloudinary.com/n07t21i7/raw/upload/v1234567/cguysfdsfuydsfyuds31.doc
-```
-## Additional resources ##########################################################
+## Additional resources
 
 Additional resources are available at:
 
@@ -394,10 +311,10 @@ Additional resources are available at:
 
 You can [open an issue through GitHub](https://github.com/cloudinary/cloudinary_ios/issues).
 
-Contact us at [info@cloudinary.com](mailto:info@cloudinary.com)
+Contact us at [http://cloudinary.com/contact](http://cloudinary.com/contact).
 
-Or via Twitter: [@cloudinary](https://twitter.com/cloudinary)
+Stay tuned for updates, tips and tutorials: [Blog](http://cloudinary.com/blog), [Twitter](https://twitter.com/cloudinary), [Facebook](http://www.facebook.com/Cloudinary).
 
-## License #######################################################################
+## License
 
-Released under the MIT license.
+Cloudinary is released under the MIT license. See LICENSE for details.
