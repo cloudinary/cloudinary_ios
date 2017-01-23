@@ -23,9 +23,6 @@ Pod::Spec.new do |s|
   #
   s.prepare_command = <<-CMD
   touch prepare_command.txt
-  echo 'Running prepare_command'
-  pwd
-  echo Running GenerateCLDCryptoModule
   swift ./CLDCrypto/GenerateCLDCryptoModule.swift iphonesimulator .
   swift ./CLDCrypto/GenerateCLDCryptoModule.swift iphoneos .
 
@@ -34,11 +31,10 @@ Pod::Spec.new do |s|
   s.framework = "UIKit", "Foundation"
   s.source_files = "Cloudinary/**/*.swift"
   s.exclude_files = "Cloudinary/Frameworks/Alamofire/**/*"
-
   s.preserve_paths = "Cloudinary/Frameworks/CLDCrypto/**/*"
   s.xcconfig = {
-    "SWIFT_INCLUDE_PATHS"         => "#{File.dirname(__FILE__)}/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)",
-    "FRAMEWORK_SEARCH_PATHS"      => "#{File.dirname(__FILE__)}/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)"
+    "SWIFT_INCLUDE_PATHS"         => "\"#{ENV['PWD']}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)\" \"#{ENV['PWD']}/Frameworks/CLDCrypto/$(PLATFORM_NAME)\"",
+    "FRAMEWORK_SEARCH_PATHS"      => "\"#{ENV['PWD']}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)\" \"#{ENV['PWD']}/Frameworks/CLDCrypto/$(PLATFORM_NAME)\""
   }
 
 end
