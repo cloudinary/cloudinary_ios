@@ -126,7 +126,7 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result, "response should not be nil")
-        let derivedUrl = eager.first?.url ?? ""
+        let derivedUrl = eager.first?.secureUrl ?? ""
         
         if let url = cloudinary!.createUrl().setFormat(resource.resourceExtension).setVersion(version).setTransformation(trans).generate(publicId){
             XCTAssertEqual(url, derivedUrl)
