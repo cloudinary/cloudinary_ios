@@ -1,4 +1,13 @@
 
+2.0.1 / 2017-01-24
+==================
+
+  * Fix pod install issue. Fixes #57.
+  * Fix shellScript
+  * Fix URLs in tests
+  * Increment Alamofire to ~>4.1. Fixes #59.
+  * Update configuration
+
 2.0.1 / 2017-01-22
 ==================
 
