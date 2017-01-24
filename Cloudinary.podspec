@@ -16,25 +16,31 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
   s.source       = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => s.version.to_s }
 
-  s.dependency 'Alamofire', '~> 4.0.1'
+  s.dependency 'Alamofire', '~> 4.1'
 
   #
   # Create the dummy CLDCrypto.framework structures
   #
   s.prepare_command = <<-CMD
-  touch prepare_command.txt
-  swift ./CLDCrypto/GenerateCLDCryptoModule.swift iphonesimulator .
-  swift ./CLDCrypto/GenerateCLDCryptoModule.swift iphoneos .
-
+      swift ./CLDCrypto/GenerateCLDCryptoModule.swift iphonesimulator .
+      swift ./CLDCrypto/GenerateCLDCryptoModule.swift iphoneos .
   CMD
 
   s.framework = "UIKit", "Foundation"
   s.source_files = "Cloudinary/**/*.swift"
   s.exclude_files = "Cloudinary/Frameworks/Alamofire/**/*"
-  s.preserve_paths = "Cloudinary/Frameworks/CLDCrypto/**/*"
-  s.xcconfig = {
-    "SWIFT_INCLUDE_PATHS"         => "\"#{ENV['PWD']}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)\" \"#{ENV['PWD']}/Frameworks/CLDCrypto/$(PLATFORM_NAME)\"",
-    "FRAMEWORK_SEARCH_PATHS"      => "\"#{ENV['PWD']}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)\" \"#{ENV['PWD']}/Frameworks/CLDCrypto/$(PLATFORM_NAME)\""
+  s.preserve_paths = "Cloudinary/Frameworks/CLDCrypto"
+  s.xcconfig ={
+    "SWIFT_INCLUDE_PATHS"         => "$(PODS_ROOT)/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME) #{File.dirname(__FILE__)}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)",
+    "FRAMEWORK_SEARCH_PATHS"      => "$(PODS_ROOT)/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME) #{File.dirname(__FILE__)}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)"
   }
+#  s.xcconfig = {
+#    "SWIFT_INCLUDE_PATHS"         => "#{File.dirname(__FILE__)}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)",
+#    "FRAMEWORK_SEARCH_PATHS"      => "#{File.dirname(__FILE__)}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)"
+#  }
+#  s.xcconfig = {
+#    "SWIFT_INCLUDE_PATHS"         => "${PODS_ROOT}/Cloudinary/Frameworks/$(PLATFORM_NAME)",
+#    "FRAMEWORK_SEARCH_PATHS"      => "${PODS_ROOT}/Cloudinary/Frameworks/$(PLATFORM_NAME)"
+#  }
 
 end
