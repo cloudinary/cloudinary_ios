@@ -905,7 +905,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ! -e $PROJECT_DIR/Frameworks/CLDCrypto/$PLATFORM_NAME ] ; then\necho Generating $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)/CLDCrypto.framework\nxcrun -sdk macosx swift ./CLDCrypto/GenerateCLDCryptoModule.swift $PLATFORM_NAME $PROJECT_DIR\nelse\necho Directory exists, skipping generation of $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)/CLDCrypto.framework\nfi";
+			shellScript = "if [ ! -e $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/$PLATFORM_NAME ] ; then\necho Generating $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/${PLATFORM_NAME}/CLDCrypto.framework\nxcrun -sdk macosx swift ./CLDCrypto/GenerateCLDCryptoModule.swift $PLATFORM_NAME $PROJECT_DIR\nelse\necho Directory exists, skipping generation of $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/${PLATFORM_NAME}/CLDCrypto.framework\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1163,6 +1163,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXCLUDED_SOURCE_FILE_NAMES = GenerateCLDCryptoModule.swift;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Cloudinary/Info.plist;
@@ -1194,6 +1195,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXCLUDED_SOURCE_FILE_NAMES = GenerateCLDCryptoModule.swift;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Cloudinary/Info.plist;
