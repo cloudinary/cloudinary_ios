@@ -26,7 +26,7 @@ For iOS, Cloudinary provides an SDK for simplifying the integration even further
 
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects. 
+[CocoaPods](http://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
 To install it run the following command:
 
 ```bash
@@ -80,13 +80,13 @@ $ git submodule add http://git.zemingo.com/Cloudinary/CloudinarySDK-iOS.git
 
 #### Dependecies
 
-Cloudinary SDK depends on the  [Alamofire](https://github.com/Alamofire/Alamofire), if you add Cloudinary manually you will need to [add Alamofire manually to your project](https://github.com/Alamofire/Alamofire/tree/3.2.1#manually). Make sure to checkout the correct version after adding the submodule ([as explained here](#submodule)).
+Cloudinary SDK depends on the  [Alamofire](https://github.com/Alamofire/Alamofire), if you add Cloudinary manually you will need to [add Alamofire manually to your project](https://github.com/Alamofire/Alamofire/tree/4.1.0#manually). Make sure to checkout the correct version after adding the submodule ([as explained here](#submodule)).
 
 ### Build Framework
 
 Here's the steps to get the framework project to build, in case you want to work on the project itself.
 
-After cloning the repository, you will need to add Alamofire v3.2.1, there are several ways to do so:
+After cloning the repository, you will need to add Alamofire v4.1.0, there are several ways to do so:
 
 ##### Submodule
 
@@ -113,7 +113,7 @@ $ git checkout 3.2.1
 
 ##### Download source
 
-You can download Alamofire v3.2.1 from [here](https://github.com/Alamofire/Alamofire/archive/3.2.1.zip), then follow [Add library](#add_library)
+You can download Alamofire v4.1.0 from [here](https://github.com/Alamofire/Alamofire/archive/4.1.0.zip), then follow [Add library](#add_library)
 
 ## Usage
 
@@ -121,7 +121,7 @@ You can download Alamofire v3.2.1 from [here](https://github.com/Alamofire/Alamo
 
 To use the API, you will need a CLDCloudinary instance, which is initialized with an instance of CLDConfiguration.
 
-The CLDConfiguration must have its `cloudName` and `apiKey` properties set, other properties are optional, but secure API requests must be signed using the `apiSecret` param (or alternatively by using [Safe Mobile Requests](#safe-mobile-requests)). 
+The CLDConfiguration must have its `cloudName` and `apiKey` properties set, other properties are optional, but secure API requests must be signed using the `apiSecret` param (or alternatively by using [Safe Mobile Requests](#safe-mobile-requests)).
 
 See [API, URLs and access identifiers](http://cloudinary.com/documentation/api_and_access_identifiers) for more details.
 
@@ -154,7 +154,7 @@ Cloudinary's iOS SDK allows providing server-generated signature and any additio
 
 You can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java, Perl, .Net, etc.)
  on your server to generating the upload signature. The following JSON in an example of a response of an upload
-  authorization request to your server:  
+  authorization request to your server:
 
 ```Objective-C
 {
@@ -204,7 +204,7 @@ cloudinary.createUrl().setTransformation(transformation).generate("sample.jpg")
 // http://res.cloudinary.com/CLOUD_NAME/image/upload/c_thumb,g_face,h_90,w_90/sample.jpg
 ```
 
-You can provide either a Facebook name or a numeric ID of a Facebook profile or a fan page.  
+You can provide either a Facebook name or a numeric ID of a Facebook profile or a fan page.
 
 Embedding a Facebook profile to match your graphic design is very simple:
 
