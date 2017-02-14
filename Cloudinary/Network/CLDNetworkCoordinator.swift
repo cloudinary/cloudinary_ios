@@ -74,20 +74,27 @@ internal class CLDNetworkCoordinator {
     
     fileprivate func getSignedRequestParams(_ requestParams: CLDRequestParams) -> [String : Any] {
         var params: [String : Any] = requestParams.params
+        
+        guard let apiKey = config.apiKey else {
+            printLog(.error, text: "Must supply api key for a signed request")
+            return params
+        }
+        
         if let signatureObj = requestParams.signature {
             params[CLDSignature.SignatureParam.Signature.rawValue] = signatureObj.signature
-            params[CLDSignature.SignatureParam.Timestamp.rawValue] = signatureObj.timestamp
+            params[CLDSignature.SignatureParam.Timestamp.rawValue] = cldParamValueAsString(value: signatureObj.timestamp)
         }
-        else if let apiSecret = config.apiSecret, let apiKey = config.apiKey {
+        else if let apiSecret = config.apiSecret {
             let timestamp = Int(Date().timeIntervalSince1970)
             params[CLDSignature.SignatureParam.Timestamp.rawValue] = cldParamValueAsString(value: timestamp)
             let signature = cloudinarySignParamsUsingSecret(params, cloudinaryApiSecret: apiSecret)
             params[CLDSignature.SignatureParam.Signature.rawValue] = signature
-            params[CLDNetworkCoordinatorConsts.API_KEY] = apiKey
         }
         else {
-            printLog(.error, text: "Must supply api key and secret for a signed request")
+            printLog(.error, text: "Must supply api secret for a signed request")
         }
+        
+        params[CLDNetworkCoordinatorConsts.API_KEY] = apiKey
         return params
     }
     
