@@ -31,16 +31,7 @@ Pod::Spec.new do |s|
   s.exclude_files = "Cloudinary/Frameworks/Alamofire/**/*"
   s.preserve_paths = "Cloudinary/Frameworks/CLDCrypto"
   s.xcconfig ={
-    "SWIFT_INCLUDE_PATHS"         => "$(PODS_ROOT)/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME) #{File.dirname(__FILE__)}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)",
-    "FRAMEWORK_SEARCH_PATHS"      => "$(PODS_ROOT)/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME) #{File.dirname(__FILE__)}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)"
+    "SWIFT_INCLUDE_PATHS"         => "$(PODS_ROOT)/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)",
+    "FRAMEWORK_SEARCH_PATHS"      => "$(PODS_ROOT)/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)"
   }
-#  s.xcconfig = {
-#    "SWIFT_INCLUDE_PATHS"         => "#{File.dirname(__FILE__)}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)",
-#    "FRAMEWORK_SEARCH_PATHS"      => "#{File.dirname(__FILE__)}/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)"
-#  }
-#  s.xcconfig = {
-#    "SWIFT_INCLUDE_PATHS"         => "${PODS_ROOT}/Cloudinary/Frameworks/$(PLATFORM_NAME)",
-#    "FRAMEWORK_SEARCH_PATHS"      => "${PODS_ROOT}/Cloudinary/Frameworks/$(PLATFORM_NAME)"
-#  }
-
 end
