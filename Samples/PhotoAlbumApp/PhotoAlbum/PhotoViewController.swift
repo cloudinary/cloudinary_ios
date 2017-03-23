@@ -13,6 +13,9 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var leftImage: UIImageView!
+    @IBOutlet weak var middleImage: UIImageView!
+    @IBOutlet weak var rightImage: UIImageView!
 
     var publicId: String?
     var cld = CLDCloudinary(configuration: CLDConfiguration(cloudName: AppDelegate.cloudName, secure: true))
@@ -33,11 +36,35 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         if let photo = photo {
             let size: CGSize = self.photoImageView.frame.size
             let transformation = CLDTransformation().setWidth(Int(size.width)).setHeight(Int(size.height)).setCrop(.fit)
-            print("transformation: \(transformation.width)x\(transformation.height)")
+            let leftSize = self.leftImage.frame.size
+            let leftTransformation = CLDTransformation().setWidth(Int(leftSize.width)).setHeight(Int(leftSize.height))
+                    .setCrop(.fit)
+                    .setRadius("max")
+                    .setEffect(.grayscale)
+            let middleSize = self.middleImage.frame.size
+            let middleTransformation = CLDTransformation().setWidth(Int(middleSize.width)).setHeight(Int(middleSize.height))
+                    .setCrop(.fit)
+                    .setOverlayWithLayer(CLDTextLayer().setFontFamily(fontFamily: "Arial").setFontSize(80).setText(text: "Cloudinary"))
+                    .setColor("white")
+                    .chain()
+                    .setAngle(20)
+            let rightSize = self.rightImage.frame.size
+            let rightTransformation = CLDTransformation().setWidth(Int(rightSize.width)).setHeight(Int(rightSize.height))
+                    .setCrop(.fit)
+                    .setBorder(10, color: "blue")
             navigationItem.title = photo.name
             nameTextField.text = photo.name
             if let publicId = photo.publicId {
                 photoImageView.cldSetImage(publicId: publicId, cloudinary: cld, transformation: transformation, placeholder: placeholder)
+                leftImage.cldSetImage(publicId: publicId, cloudinary: cld, transformation: leftTransformation, placeholder: placeholder)
+                middleImage.cldSetImage(publicId: publicId, cloudinary: cld, transformation: middleTransformation, placeholder: placeholder)
+                rightImage.cldSetImage(publicId: publicId, cloudinary: cld, transformation: rightTransformation, placeholder: placeholder)
+                // pre-fetch transformations
+                let downloader = cld.createDownloader()
+                let url = cld.createUrl()
+                downloader.fetchImage(url.setTransformation(leftTransformation.setHeight(Float(size.height)).setWidth(Float(size.width))).generate(publicId)!)
+                downloader.fetchImage(url.setTransformation(middleTransformation.setHeight(Float(size.height)).setWidth(Float(size.width))).generate(publicId)!)
+                downloader.fetchImage(url.setTransformation(rightTransformation.setHeight(Float(size.height)).setWidth(Float(size.width))).generate(publicId)!)
             } else {
                 photoImageView.image = photo.image
             }
@@ -79,6 +106,9 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         }
         // Set photoImageView to display the selected image.
         photoImageView.image = selectedImage
+        leftImage.image = nil
+        middleImage.image = nil
+        rightImage.image = nil
         photo?.publicId = nil
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
@@ -122,6 +152,7 @@ class PhotoViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     //MARK: Actions
+
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
         
         // Hide the keyboard.
