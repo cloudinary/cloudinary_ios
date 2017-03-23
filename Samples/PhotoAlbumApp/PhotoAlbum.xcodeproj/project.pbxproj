@@ -11,6 +11,7 @@
 		2936A5541E1ED169009B7FAF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2936A5531E1ED169009B7FAF /* CoreData.framework */; };
 		2944B6661E2F67A9003AB794 /* AppDelegate+config.swift.copy in Resources */ = {isa = PBXBuildFile; fileRef = 2944B6651E2F67A9003AB794 /* AppDelegate+config.swift.copy */; };
 		29858F7A1E2EC94E009FA3D1 /* AppDelegate+config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29858F791E2EC94E009FA3D1 /* AppDelegate+config.swift */; };
+		299EC7BA1E83F679009C7C16 /* ProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299EC7B91E83F679009C7C16 /* ProgressStyle.swift */; };
 		2DBE5B249F90E49D2C46F7B8 /* PhotoTableViewController+message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE5ED5D4B5E9EC4DB681C4 /* PhotoTableViewController+message.swift */; };
 		936B4B821DB54E8F0090E3EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4B811DB54E8F0090E3EE /* AppDelegate.swift */; };
 		936B4B841DB54E8F0090E3EE /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4B831DB54E8F0090E3EE /* PhotoViewController.swift */; };
@@ -38,6 +39,7 @@
 		2936A5531E1ED169009B7FAF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2944B6651E2F67A9003AB794 /* AppDelegate+config.swift.copy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "AppDelegate+config.swift.copy"; sourceTree = "<group>"; };
 		29858F791E2EC94E009FA3D1 /* AppDelegate+config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+config.swift"; sourceTree = "<group>"; };
+		299EC7B91E83F679009C7C16 /* ProgressStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressStyle.swift; sourceTree = "<group>"; };
 		2DBE5ED5D4B5E9EC4DB681C4 /* PhotoTableViewController+message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoTableViewController+message.swift"; sourceTree = "<group>"; };
 		4C34DB5A0BA521DD10403EF3 /* Pods_PhotoAlbum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAlbum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		515C767D7FCA4F4899551AD0 /* Pods_PhotoAlbumTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAlbumTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,8 +139,8 @@
 				936B4B8D1DB54E8F0090E3EE /* Info.plist */,
 				2DBE5ED5D4B5E9EC4DB681C4 /* PhotoTableViewController+message.swift */,
 				29858F791E2EC94E009FA3D1 /* AppDelegate+config.swift */,
+				299EC7B91E83F679009C7C16 /* ProgressStyle.swift */,
 			);
-			name = PhotoAlbum;
 			path = PhotoAlbum;
 			sourceTree = "<group>";
 		};
@@ -148,7 +150,6 @@
 				936B4B961DB54E8F0090E3EE /* PhotoAlbumTests.swift */,
 				936B4B981DB54E8F0090E3EE /* Info.plist */,
 			);
-			name = PhotoAlbumTests;
 			path = PhotoAlbumTests;
 			sourceTree = "<group>";
 		};
@@ -364,6 +365,7 @@
 				29858F7A1E2EC94E009FA3D1 /* AppDelegate+config.swift in Sources */,
 				93B36E631DDB8D3A00334F4A /* PhotoTableViewCell.swift in Sources */,
 				2DBE5B249F90E49D2C46F7B8 /* PhotoTableViewController+message.swift in Sources */,
+				299EC7BA1E83F679009C7C16 /* ProgressStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

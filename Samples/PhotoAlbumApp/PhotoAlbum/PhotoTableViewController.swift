@@ -6,6 +6,7 @@
 import UIKit
 import os.log
 import Cloudinary
+import GradientCircularProgress
 
 class PhotoTableViewController: UITableViewController {
 
@@ -46,6 +47,7 @@ class PhotoTableViewController: UITableViewController {
     }
 
 
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "PhotoTableViewCell"
@@ -62,30 +64,41 @@ class PhotoTableViewController: UITableViewController {
         let size: CGSize = cell.photoImageView.frame.size
         let transformation = CLDTransformation().setWidth(Int(size.width)).setHeight(Int(size.height)).setCrop(.fit)
         // Get the image from cache or download it
+
         if let publicId = photo.publicId {
             cell.photoImageView.cldSetImage(publicId: publicId, cloudinary: cld, transformation: transformation)
         } else {
+            let progressIndicator = GradientCircularProgress()
+            let baseView = cell.photoImageView!
+            var progressStyle = ProgressStyle()
+            let frame = getRect(baseView)
+            progressStyle.progressSize = min(frame.width, frame.height) / 2
+            let progressView = progressIndicator.showAtRatio(frame: frame, display: true, style: progressStyle)
             // Image was not uploaded to Cloudinary yet.
             if let image = photo.image, let data = UIImageJPEGRepresentation(image, 1.0) {
                 cell.photoImageView.image = image
                 showMessage("Uploading to Cloudinary")
+                baseView.addSubview(progressView!)
                 let progressHandler = { (progress: Progress) in
-                    self.showMessage(String("Uploading to Cloudinary: \(Int(progress.fractionCompleted * 100))%"))
+                    let ratio: CGFloat = CGFloat(progress.completedUnitCount) / CGFloat(progress.totalUnitCount)
+                    progressIndicator.updateRatio(ratio)
                 }
                 cld.createUploader().upload(data: data, uploadPreset: AppDelegate.uploadPreset, progress: progressHandler) { (result, error) in
-                            if let error = error {
-                                os_log("Error uploading image %@", error)
-                            } else {
-                                if let result = result, let publicId = result.publicId {
-                                    self.showMessage("Image uploaded to Cloudinary successfully")
-                                    self.hideMessage()
-                                    self.photos[row].publicId = publicId
-                                    self.photos[row].image = nil // remove the reference to the original image
-                                    cell.photoImageView.cldSetImage(publicId: publicId, cloudinary: self.cld, transformation: transformation, placeholder: image)
-                                    self.savePhotos()
-                                }
-                            }
+                    progressIndicator.dismiss(progress: progressView!)
+
+                    if let error = error {
+                        os_log("Error uploading image %@", error)
+                    } else {
+                        if let result = result, let publicId = result.publicId {
+                            self.showMessage("Image uploaded to Cloudinary successfully")
+                            self.hideMessage()
+                            self.photos[row].publicId = publicId
+                            self.photos[row].image = nil // remove the reference to the original image
+                            cell.photoImageView.cldSetImage(publicId: publicId, cloudinary: self.cld, transformation: transformation, placeholder: image)
+                            self.savePhotos()
                         }
+                    }
+                }
             }
         }
         return cell
@@ -218,4 +231,7 @@ class PhotoTableViewController: UITableViewController {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Photo.ArchiveURL.path) as? [Photo]
     }
 
+    fileprivate func getRect(_ view: UIView) -> CGRect {
+        return view.bounds
+    }
 }
