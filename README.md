@@ -8,7 +8,12 @@ Cloudinary is a cloud service that offers a solution to an application's entire 
 
 ## Features
 
-Easily upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software. Integrate Facebook or Twitter profile image extraction in a snap, in any dimension and style to match your website’s graphics requirements. Images are seamlessly delivered through a fast CDN, and much much more.
+* Easily upload images and videos to the cloud.
+* Automatically perform smart image resizing, cropping and conversion without installing complex software.
+* Integrate Facebook or Twitter profile images in a snap, in any dimension and style to match your website’s graphics requirements.
+* Media resources are seamlessly delivered through a fast CDN.
+
+and much much more...
 
 Cloudinary offers comprehensive APIs and administration capabilities and is easy to integrate with any web application, existing or new.
 
@@ -27,7 +32,7 @@ For iOS, Cloudinary provides an SDK for simplifying the integration even further
 ### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects. 
-To install it run the following command:
+To install CocoaPods:
 
 ```bash
 $ sudo gem install cocoapods
@@ -55,10 +60,11 @@ Then, run the command:
 $ pod install
 ```
 
-### Manually
+### Working with the Cloudinary iOS SDK Manually
 
-If you rather not use a dependency manager, you can add Cloudinary manually by adding it as a submodule to your project.
-To do so, first open Terminal and navigate to your project's top level directory.
+If you prefer not use a dependency manager, you can add Cloudinary manually by adding it as a submodule to your project:
+
+Open Terminal and navigate to your project's top level directory.
 
 If your project is not initialized as a git repository, run the command:
 
@@ -74,13 +80,13 @@ $ git submodule add http://git.zemingo.com/Cloudinary/CloudinarySDK-iOS.git
 
 #### Embedded Framework
 
-- Drag the `Cloudinary.xcodeproj` into the Project Navigator of your application's Xcode project, it should appear under your application's blue project icon.
-- Select `Cloudinary.xcodeproj` and make sure the deployment target matches that of your application target.
-- Select your application project, under 'TARGETS' select your application, open the 'General' tab, click on the `+` button under the "Embedded Binaries" and Select 'Cloudinary.framework'.
+1. Drag `Cloudinary.xcodeproj` into the Project Navigator of your application's Xcode project. It should appear under your application's blue project icon.
+2. Select `Cloudinary.xcodeproj` and make sure the deployment target matches that of your application target.
+3. Select your application project. Under 'TARGETS' select your application, open the 'General' tab, click on the `+` button under the 'Embedded Binaries' and Select 'Cloudinary.framework'.
 
-#### Dependecies
+#### Dependencies
 
-Cloudinary SDK depends on the  [Alamofire](https://github.com/Alamofire/Alamofire), if you add Cloudinary manually you will need to [add Alamofire manually to your project](https://github.com/Alamofire/Alamofire/tree/3.2.1#manually). Make sure to checkout the correct version after adding the submodule ([as explained here](#submodule)).
+The Cloudinary iOS SDK depends on [Alamofire](https://github.com/Alamofire/Alamofire). If you add Cloudinary manually you will need to [add Alamofire manually to your project](https://github.com/Alamofire/Alamofire/tree/3.2.1#manually). Make sure to checkout the correct version after adding the submodule ([as explained here](#submodule)).
 
 ### Build Framework
 
@@ -90,30 +96,29 @@ After cloning the repository, you will need to add Alamofire v3.2.1, there are s
 
 ##### Submodule
 
-- Open terminal, navigate to Cloudinary's cloned repository folder, then add Alamofire as a git submodule by running the command:
+1. Open Terminal, navigate to Cloudinary's cloned repository folder, then add Alamofire as a git submodule by running the command:
 
 ```bash
 $ git submodule add https://github.com/Alamofire/Alamofire.git
 ```
 
-- Checkout the desired Alamofire version:
+2. Checkout the desired Alamofire version:
 ```bash
 $ cd Alamofire/
 ```
 
-- Then:
 ```bash
 $ git checkout 3.2.1
 ```
 
 ###### Add library
 
-- Open the new Alamofire folder and drag `Alamofire.xcodeproj` file into the Project Navigator of Cloudinary's Xcode project.
-- Select Cloudinary project, under 'TARGETS' select Cloudinary, open the 'General' tab, click on the `+` button under the "Linked Frameworks and Libraries" and Select 'Alamofire.framework'.
+1. Open the new Alamofire folder and drag `Alamofire.xcodeproj` into the Project Navigator of Cloudinary's Xcode project.
+2. Select the Cloudinary project, and under 'TARGETS' select Cloudinary. Then open the 'General' tab, click on the `+` button under the 'Linked Frameworks and Libraries' and Select 'Alamofire.framework'.
 
 ##### Download source
 
-You can download Alamofire v3.2.1 from [here](https://github.com/Alamofire/Alamofire/archive/3.2.1.zip), then follow [Add library](#add_library)
+You can download Alamofire v3.2.1 from [here](https://github.com/Alamofire/Alamofire/archive/3.2.1.zip). Then follow the instruction in [Add library](#add_library)
 
 ## Usage
 
@@ -121,11 +126,11 @@ You can download Alamofire v3.2.1 from [here](https://github.com/Alamofire/Alamo
 
 To use the API, you will need a CLDCloudinary instance, which is initialized with an instance of CLDConfiguration.
 
-The CLDConfiguration must have its `cloudName` and `apiKey` properties set, other properties are optional, but secure API requests must be signed using the `apiSecret` param (or alternatively by using [Safe Mobile Requests](#safe-mobile-requests)). 
+The CLDConfiguration must have its `cloudName` and `apiKey` properties set. Other properties are optional, but secure API requests must be signed using the `apiSecret` param (or alternatively by using [Safe Mobile Requests](#safe-mobile-requests)). 
 
 See [API, URLs and access identifiers](http://cloudinary.com/documentation/api_and_access_identifiers) for more details.
 
-There are several ways to initialize CLDConfiguration, you can simply call its constructor with the desired params:
+There are several ways to initialize CLDConfiguration. You can simply call its constructor with the desired params:
 ```swift
 let config = CLDConfiguration(cloudName: "CLOUD_NAME", apiKey: "API_KEY")
 ```
@@ -147,13 +152,12 @@ let cloudinary = CLDCloudinary(configuration: config)
 
 ### Safe Mobile Requests
 
-iOS applications might prefer to avoid keeping the sensitive `apiSecret` on the mobile device. It is recommended to generate the upload authentication signature on the server side.
-This way the `apiSecret` is stored only on the much safer server-side.
+You should avoid keeping the sensitive `apiSecret` on the mobile device. Instead, it is recommended to generate the upload authentication signature on the server side.
 
-Cloudinary's iOS SDK allows providing server-generated signature and any additional parameters that were generated on the server side (instead of signing using `apiSecret` locally).
+Cloudinary's iOS SDK allows providing a server-generated signature and any additional parameters that were generated on the server side (instead of signing using the `apiSecret` locally).
 
 You can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java, Perl, .Net, etc.)
- on your server to generating the upload signature. The following JSON in an example of a response of an upload
+ on your server to generate the upload signature. The following JSON in an example response of an upload
   authorization request to your server:  
 
 ```Objective-C
@@ -165,7 +169,7 @@ You can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java,
 }
 ```
 
-Then create a CLDSignature instance and pass it to the desired secure request, in this case, to upload a file:
+After generating the signature on your server, create a `CLDSignature` instance and pass it to the desired secure request, in this case, to upload a file:
 ```swift
 let config = CLDConfiguration(cloudName: "CLOUD_NAME", apiKey: "API_KEY", apiSecret: nil)
 let cloudinary = CLDCloudinary(configuration: config)
@@ -245,11 +249,12 @@ cloudinary.createUploader().upload(data: data)
 
 The uploaded image is assigned a randomly generated public ID, which is returned as part of the response.
 
-You can pass  an instance of CLDUploadRequestParams for extra parameters you'd want to pass as part of the upload request.
+You can pass  an instance of `CLDUploadRequestParams` for extra parameters you'd want to pass as part of the upload request. For example, you can specify your own public ID instead of a randomly generated one.
+                                                                                                                             
+For a full list of available upload parameters, see [the Upload API Reference](http://dev.cloudinary.com/documentation/image_upload_api_reference#upload) documentation.
 
 You can also pass a `progress` closure that is called periodically during the data transfer, and a `completionHandler` closure to be called once the request has finished, holding either the response object or the error.
 
-You can also specify your own public ID.
 
 In the following example, we apply an incoming transformation as part of the upload request, the transformation is applied before saving the image in the cloud.
 We also specify a public ID and pass closures for the upload progress and completion handler.
@@ -286,7 +291,7 @@ let request = cloudinary.createDownloader().fetchImage(url, progress: { (bytes, 
 
 Every download request returns an instance implementing CLDFetchImageRequest, allowing options such as cancelling, suspending or resuming it.
 
-The downloaded image is cached both to the memory and the disk (customizable), the disk cache size is limitted and can be changed.
+The downloaded image is cached both to the memory and the disk (customizable). The disk cache size is limited and can be changed.
 
 ### Other APIs
 
