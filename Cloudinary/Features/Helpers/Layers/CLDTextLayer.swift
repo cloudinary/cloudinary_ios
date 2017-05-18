@@ -300,8 +300,8 @@ import Foundation
         }
         if let text = text , !text.isEmpty {
             if let text = text.cldSmartEncodeUrl() {
-                var textToAdd = text.replacingOccurrences(of: "%2C", with: "%E2%80%9A")
-                textToAdd = textToAdd.replacingOccurrences(of: "/", with: "%E2%81%84")
+                var textToAdd = text.replacingOccurrences(of: "%2C", with: "%252C")
+                textToAdd = textToAdd.replacingOccurrences(of: "/", with: "%252F")
                 components.append(textToAdd)
             }
         }
