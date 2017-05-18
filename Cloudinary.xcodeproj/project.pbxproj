@@ -905,7 +905,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ! -e $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/$PLATFORM_NAME ] ; then\necho Generating $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/${PLATFORM_NAME}/CLDCrypto.framework\nxcrun -sdk macosx swift ./CLDCrypto/GenerateCLDCryptoModule.swift $PLATFORM_NAME $PROJECT_DIR\nelse\necho Directory exists, skipping generation of $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/${PLATFORM_NAME}/CLDCrypto.framework\nfi";
+			shellScript = "echo Generating $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/${PLATFORM_NAME}/CLDCrypto.framework\nxcrun -sdk macosx swift ./CLDCrypto/GenerateCLDCryptoModule.swift $PLATFORM_NAME $PROJECT_DIR\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
