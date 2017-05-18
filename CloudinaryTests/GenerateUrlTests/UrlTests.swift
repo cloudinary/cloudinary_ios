@@ -250,7 +250,13 @@ class UrlTests: XCTestCase {
         cloudinary = CLDCloudinary(configuration: config)
         XCTAssertEqual(cloudinary?.createUrl().setSuffix("hello").setResourceType(.raw).generate("test"), "http://test123-res.cloudinary.com/files/test/hello")
     }
-    
+
+    func testUrlSuffixPrivate() {
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
+        cloudinary = CLDCloudinary(configuration: config)
+        XCTAssertEqual(cloudinary?.createUrl().setSuffix("hello").setResourceType(.image).setType(.private).generate("test"), "http://test123-res.cloudinary.com/private_images/test/hello")
+    }
+
     func testUseRootPathShared() {
         XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).generate("test"), "\(prefix)/test")
         XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).setTransformation(CLDTransformation().setAngle(0)).generate("test"), "\(prefix)/a_0/test")

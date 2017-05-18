@@ -421,11 +421,14 @@ import Foundation
             if resourceTypeAndType == "\(String(describing: CLDUrlResourceType.image))/\(String(describing: CLDType.upload))" {
                resourceTypeAndType = "images"
             }
+            else if resourceTypeAndType == "\(String(describing: CLDUrlResourceType.image))/\(String(describing: CLDType.private))" {
+                resourceTypeAndType = "private_images"
+            }
             else if resourceTypeAndType == "\(String(describing: CLDUrlResourceType.raw))/\(String(describing: CLDType.upload))" {
                 resourceTypeAndType = "files"
             }
             else {
-                printLog(.error, text: "URL Suffix only supported for image/upload and raw/upload")
+                printLog(.error, text: "URL Suffix only supported for image/upload, image/private and raw/upload")
                 return nil
             }
         }
