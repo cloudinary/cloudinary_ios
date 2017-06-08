@@ -404,7 +404,66 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-    
+
+    func testContext() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        var expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        let customContext = ["caption": "some cäption", "alt": "alternativè"]
+        params.setContext(customContext)
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            if let error = error {
+                print(error)
+            }
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        if let context = result!.context {
+            if let custom = context["custom"] {
+                XCTAssertTrue(NSDictionary(dictionary: custom).isEqual(to: customContext))
+            } else {
+                XCTFail("Context should have a 'custom' key")
+            }
+        } else {
+            XCTFail("Result should include a 'context' key")
+        }
+
+        expectation = self.expectation(description: "Explicit should succeed")
+        let differentContext = ["caption": "different = caption", "alt2": "alt|alternative alternative"]
+
+        let exParams: CLDExplicitRequestParams? = CLDExplicitRequestParams().setType(.upload).setContext(differentContext)
+        cloudinary!.createManagementApi().explicit(result!.publicId!, type: .upload, params: exParams).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        if let context = result!.context {
+            if let custom = context["custom"] {
+                XCTAssertTrue(NSDictionary(dictionary: custom).isEqual(to: differentContext))
+            } else {
+                XCTFail("Context should have a 'custom' key")
+            }
+        } else {
+            XCTFail("Result should include a 'context' key")
+        }
+
+    }
+
     func testManualModeration() {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")

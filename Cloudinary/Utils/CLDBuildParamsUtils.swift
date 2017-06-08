@@ -36,7 +36,11 @@ internal func buildEagerString(_ eager: [CLDTransformation]) -> String {
 }
 
 internal func buildContextString(_ context: [String : String]) -> String {
-    return context.map{"\($0)=\($1)"}.joined(separator: "|")
+    return context.map{"\($0)=\(encodeContextValue($1))"}.joined(separator: "|")
+}
+
+internal func encodeContextValue(_ value: String) -> String {
+    return value.replacingOccurrences(of: "|", with: "\\|").replacingOccurrences(of: "=", with: "\\=")
 }
 
 internal func buildHeadersString(_ headers: [String : String]) -> String {    

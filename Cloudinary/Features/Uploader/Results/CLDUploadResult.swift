@@ -71,7 +71,18 @@ import Foundation
     open var moderation: AnyObject? {
         return getParam(.moderation)
     }
-    
+
+    open var context: [String:[String:String]]? {
+        var result: [String:[String:String]]? = nil
+        if let c = getParam(.context) as? [String:AnyObject] {
+            result = [:]
+            for k in c.keys {
+                result![k] = c[k] as? [String:String]
+            }
+        }
+        return result;
+    }
+
     // MARK: Image Params
     
     open var width: Int? {

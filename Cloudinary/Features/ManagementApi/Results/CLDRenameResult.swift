@@ -146,13 +146,12 @@ import Foundation
     }
 
     fileprivate enum RenameResultKey: CustomStringConvertible {
-        case nextCursor, derived, context, predominant, coordinates
+        case nextCursor, derived, predominant, coordinates
         
         var description: String {
             switch self {
             case .nextCursor:       return "next_cursor"
             case .derived:          return "derived"            
-            case .context:          return "context"
             case .predominant:      return "predominant"
             case .coordinates:      return "coordinates"
             }
