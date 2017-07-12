@@ -75,7 +75,7 @@ $ git init
 To add cloudinary as a git submodule, run the command:
 
 ```bash
-$ git submodule add http://git.zemingo.com/Cloudinary/CloudinarySDK-iOS.git
+$ git submodule add https://github.com/cloudinary/cloudinary_ios.git
 ```
 
 #### Embedded Framework
