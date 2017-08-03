@@ -140,8 +140,8 @@ import Foundation
         return getParam(.RAW_TRANSFORMATION)
     }
     
-    open var adaptiveStreaming: String? {
-        return getParam(.ADAPTIVE_STREAMING)
+    open var streamingProfile: String? {
+        return getParam(.STREAMING_PROFILE)
     }
     
     open var flags: String? {
@@ -863,15 +863,27 @@ import Foundation
     }
     
     /**
-     Set a Adaptive streaming transformation
+     Set a streaming profile transformation
      
-     - parameter adaptiveStreaming:     The raw transformation to add.
+     - parameter streamingProfile:     The raw transformation to add.
      
      - returns:                         The same instance of CLDTransformation.
      */
     @discardableResult
-    open func setAdaptiveStreaming(_ adaptiveStreaming: String) -> CLDTransformation {
-        return setParam(TransformationParam.ADAPTIVE_STREAMING, value: adaptiveStreaming)
+    open func setStreamingProfile(_ streamingProfile: CLDStreamingProfiles) -> CLDTransformation {
+        return setParam(TransformationParam.STREAMING_PROFILE, value: String(describing: streamingProfile))
+    }
+    
+    /**
+     Set a custom streaming profile transformation
+     
+     - parameter streamingProfile:     The raw transformation to add.
+     
+     - returns:                         The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setCustomStreamingProfile(_ customProfile: String) -> CLDTransformation {
+        return setParam(TransformationParam.STREAMING_PROFILE, value: customProfile)
     }
     
     /**
@@ -1514,7 +1526,27 @@ import Foundation
         case END_OFFSET =                   "eo"
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
-        case ADAPTIVE_STREAMING =           "adaptive_streaming"
+        case STREAMING_PROFILE =            "sp"
+    }
+    
+    // MARK: Streaming profile
+    
+    @objc public enum CLDStreamingProfiles: Int, CustomStringConvertible {
+        case fourK, fullHD, HD, SD, fullHDWifi, fullHDLean, hdLean
+        
+        public var description: String {
+            get {
+                switch self {
+                    case .fourK:         return "4k"
+                    case .fullHD:        return "full_hd"
+                    case .HD:            return "hd"
+                    case .SD:            return "sd"
+                    case .fullHDWifi:    return "full_hd_wifi"
+                    case .fullHDLean:    return "full_hd_lean"
+                    case .hdLean:        return "hd_lean"
+                }
+            }
+        }
     }
     
     // MARK: Dimension
