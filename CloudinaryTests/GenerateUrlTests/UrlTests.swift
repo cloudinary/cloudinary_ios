@@ -477,6 +477,8 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setPublicId(publicId: "sample_sub_en.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:sample_sub_en.srt/test")
         
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily: "Arial").setFontSize(40).setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40:sample_sub_he.srt/test")
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDFetchLayer().setUrl("http://google.com"))).generate("test"), "\(prefix)/image/upload/l_fetch:aHR0cDovL2dvb2dsZS5jb20=/test")
     }
     
     func testOverlayErrors() {

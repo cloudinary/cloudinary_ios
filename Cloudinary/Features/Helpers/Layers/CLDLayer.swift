@@ -175,7 +175,7 @@ import Foundation
     // MARK: - Params
     
     @objc public enum LayerResourceType: Int, CustomStringConvertible {
-        case image, raw, auto, text, subtitles, video
+        case image, raw, auto, text, subtitles, video, fetch
         
         public var description: String {
             get {
@@ -186,6 +186,7 @@ import Foundation
                 case .text:         return "text"
                 case .subtitles:    return "subtitles"
                 case .video:        return "video"
+                case .fetch:        return "fetch"
                 }
             }
         }

@@ -101,6 +101,7 @@
 		36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */; };
 		36D00E211D9D833000BF4DD5 /* CLDBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */; };
 		860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */; };
+		E91E7C1F1F310C7B00CD1AAF /* CLDFetchLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91E7C1E1F310C7B00CD1AAF /* CLDFetchLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +262,7 @@
 		36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDFace.swift; sourceTree = "<group>"; };
 		36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDBoundingBox.swift; sourceTree = "<group>"; };
 		860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDNetworkUploadRequest.swift; sourceTree = "<group>"; };
+		E91E7C1E1F310C7B00CD1AAF /* CLDFetchLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDFetchLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -653,6 +655,7 @@
 				36B7FAD11D3E8093008754EF /* CLDLayer.swift */,
 				36B7FAD31D3E80A9008754EF /* CLDTextLayer.swift */,
 				36B7FAD51D3E80BF008754EF /* CLDSubtitlesLayer.swift */,
+				E91E7C1E1F310C7B00CD1AAF /* CLDFetchLayer.swift */,
 			);
 			name = Layers;
 			path = Features/Helpers/Layers;
@@ -966,6 +969,7 @@
 				36747B711CB13BD100087D10 /* CLDNetworkDownloadRequest.swift in Sources */,
 				36AC05371D4FB575002FC9DF /* CLDDeleteRequest.swift in Sources */,
 				36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */,
+				E91E7C1F1F310C7B00CD1AAF /* CLDFetchLayer.swift in Sources */,
 				36B7FAE81D41231E008754EF /* CLDExplicitRequestParams.swift in Sources */,
 				36B7FAE61D41231E008754EF /* CLDDeleteByTokenRequestParams.swift in Sources */,
 				36B246B61C95D18500122DB7 /* CLDGenericNetworkRequest.swift in Sources */,
