@@ -428,7 +428,7 @@ class UploaderTests: NetworkBaseTest {
         waitForExpectations(timeout: timeout, handler: nil)
 
         XCTAssertNotNil(result, "result should not be nil")
-        if let context = result!.context {
+        if let context = result?.context {
             if let custom = context["custom"] {
                 XCTAssertTrue(NSDictionary(dictionary: custom).isEqual(to: customContext))
             } else {
@@ -442,17 +442,22 @@ class UploaderTests: NetworkBaseTest {
         let differentContext = ["caption": "different = caption", "alt2": "alt|alternative alternative"]
 
         let exParams: CLDExplicitRequestParams? = CLDExplicitRequestParams().setType(.upload).setContext(differentContext)
-        cloudinary!.createManagementApi().explicit(result!.publicId!, type: .upload, params: exParams).response({ (resultRes, errorRes) in
-            result = resultRes
-            error = errorRes
+        if let publicId = result?.publicId {
+            cloudinary!.createManagementApi().explicit(publicId, type: .upload, params: exParams).response({ (resultRes, errorRes) in
+                result = resultRes
+                error = errorRes
 
-            expectation.fulfill()
-        })
+                expectation.fulfill()
+            })
+        }
+        else {
+            XCTFail("Result should include a 'publicId' key")
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         XCTAssertNotNil(result, "result should not be nil")
-        if let context = result!.context {
+        if let context = result?.context {
             if let custom = context["custom"] {
                 XCTAssertTrue(NSDictionary(dictionary: custom).isEqual(to: differentContext))
             } else {
