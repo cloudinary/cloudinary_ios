@@ -485,5 +485,11 @@ class UrlTests: XCTestCase {
         XCTAssertNil(cloudinary?.createUrl().setTransformation(CLDTransformation().setUnderlayWithLayer(CLDLayer().setResourceType(.video))).generate("test"))
     }
     
+    func testAdaptiveStreaming() {
+        let transformation = CLDTransformation().setAdaptiveStreaming("true")
+        let resultUrl = "\(prefix)/video/upload/adaptive_streaming_true/video_id"
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(transformation).setResourceType(.video).generate("video_id"), resultUrl)
+    }
+    
 }
 

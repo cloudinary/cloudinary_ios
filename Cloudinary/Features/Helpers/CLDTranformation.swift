@@ -140,6 +140,10 @@ import Foundation
         return getParam(.RAW_TRANSFORMATION)
     }
     
+    open var adaptiveStreaming: String? {
+        return getParam(.ADAPTIVE_STREAMING)
+    }
+    
     open var flags: String? {
         return getParam(.FLAGS)
     }
@@ -833,6 +837,18 @@ import Foundation
     }
     
     /**
+     Set a Adaptive streaming transformation
+     
+     - parameter adaptiveStreaming:     The raw transformation to add.
+     
+     - returns:                         The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setAdaptiveStreaming(_ adaptiveStreaming: String) -> CLDTransformation {
+        return setParam(TransformationParam.ADAPTIVE_STREAMING, value: adaptiveStreaming)
+    }
+    
+    /**
      Set one or more flags that alter the default transformation behavior.
      
      - parameter flags:     An array of the flags to apply.
@@ -1470,6 +1486,7 @@ import Foundation
         case END_OFFSET =                   "eo"
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
+        case ADAPTIVE_STREAMING =           "adaptive_streaming"
     }
     
     // MARK: Crop
