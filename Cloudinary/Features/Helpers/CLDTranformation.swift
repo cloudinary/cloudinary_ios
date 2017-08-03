@@ -240,6 +240,19 @@ import Foundation
     /**
      Set the image width.
      
+     - parameter dimension:     The dimension to set.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(setWidthWithDimension:)
+    @discardableResult
+    open func setWidth(_ dimension: CLDDimension) -> CLDTransformation {
+        return setWidth(String(describing: dimension))
+    }
+    
+    /**
+     Set the image width.
+     
      - parameter width:      The width to set.
      
      - returns:              The same instance of CLDTransformation.
@@ -273,6 +286,19 @@ import Foundation
     @discardableResult
     open func setHeight(_ height: Float) -> CLDTransformation {
         return setHeight(height.cldFloatFormat())
+    }
+    
+    /**
+     Set the image height.
+     
+     - parameter dimension:     The height to set.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(setHeightWithDimension:)
+    @discardableResult
+    open func setHeight(_ dimension: CLDDimension) -> CLDTransformation {
+        return setHeight(String(describing: dimension))
     }
     
     /**
@@ -1451,6 +1477,8 @@ import Foundation
     internal enum TransformationParam: String {
         case WIDTH =                        "w"
         case HEIGHT =                       "h"
+        case INITIAL_WIDTH =                "iw"
+        case INITIAL_HEIGHT =               "ih"
         case NAMED =                        "t"
         case CROP =                         "c"
         case BACKGROUND =                   "b"
@@ -1487,6 +1515,21 @@ import Foundation
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
         case ADAPTIVE_STREAMING =           "adaptive_streaming"
+    }
+    
+    // MARK: Dimension
+    
+    @objc public enum CLDDimension: Int, CustomStringConvertible {
+        case initialWidth, initialHeight
+        
+        public var description: String {
+            get {
+                switch self {
+                case .initialWidth:         return "iw"
+                case .initialHeight:        return "ih"
+                }
+            }
+        }
     }
     
     // MARK: Crop

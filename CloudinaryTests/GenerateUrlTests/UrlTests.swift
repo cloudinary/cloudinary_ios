@@ -486,9 +486,15 @@ class UrlTests: XCTestCase {
     }
     
     func testAdaptiveStreaming() {
-        let transformation = CLDTransformation().setAdaptiveStreaming("true")
+        let transformation = CLDTransformation().setAdaptiveStreaming("true").setCrop(.fill)
         let resultUrl = "\(prefix)/video/upload/adaptive_streaming_true/video_id"
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(transformation).setResourceType(.video).generate("video_id"), resultUrl)
+    }
+    
+    func testInitialDimension() {
+        let trans = CLDTransformation().setWidth(.initialHeight).setHeight(.initialWidth)
+        let url = cloudinary?.createUrl().setTransformation(trans).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/h_iw,w_ih/test")
     }
     
 }
