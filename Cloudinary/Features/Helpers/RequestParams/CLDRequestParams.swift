@@ -49,6 +49,8 @@ import Foundation
         super.init()
     }
     
+    open var method = "POST"
+    
     //MARK: - Set Param
     
     /**

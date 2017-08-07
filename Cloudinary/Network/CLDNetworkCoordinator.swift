@@ -54,8 +54,16 @@ internal class CLDNetworkCoordinator {
         let url = getUrl(action, resourceType: params.resourceType)
         let headers = getHeaders()
         let requestParams = getSignedRequestParams(params)
+
+        return networkAdapter.cloudinaryRequest(url, headers: headers, method: params.method, parameters: requestParams)
+    }
+    
+    internal func delete(params: CLDDeleteResourcesRequestParams) -> CLDNetworkDataRequest {
+        let url = getUrl(.Delete, resourceType: params.resourceType, signed: true)
+        let requestParams = getSignedRequestParams(params)
+        let headers = getHeaders()
         
-        return networkAdapter.cloudinaryRequest(url, headers: headers, parameters: requestParams)
+        return networkAdapter.cloudinaryRequest(url, headers: headers, method: params.method, parameters: requestParams)
     }
     
     internal func upload(_ data: Any, params: CLDUploadRequestParams) -> CLDNetworkDataRequest {
@@ -98,17 +106,37 @@ internal class CLDNetworkCoordinator {
         return params
     }
     
-    fileprivate func getUrl(_ action: CLDAPIAction, resourceType: String?) -> String {
+    fileprivate func getUrl(_ action: CLDAPIAction, resourceType: String?, signed: Bool = false) -> String {
         var urlComponents: [String] = []
-        let prefix = config.uploadPrefix ?? CLDNetworkCoordinatorConsts.BASE_CLOUDINARY_URL
+        var prefix = config.uploadPrefix ?? CLDNetworkCoordinatorConsts.BASE_CLOUDINARY_URL
+        if signed {
+            if let url = URL(string: prefix) {
+                prefix = url.scheme ?? "https"
+                prefix += "://"
+                prefix += (config.apiKey ?? "") + ":" + (config.apiSecret ?? "") + "@"
+                prefix += url.host ?? ""
+                if let port = url.port {
+                    prefix += ":\(port)"
+                }
+                
+            }
+        }
         urlComponents.append(prefix)
         urlComponents.append("v1_1")
         urlComponents.append(config.cloudName)
-        if action != CLDAPIAction.DeleteByToken {
+        if action == .Delete {
+            urlComponents.append("resources")
             let rescourceType = resourceType ?? String(describing: CLDUrlResourceType.image)
             urlComponents.append(rescourceType)
+            urlComponents.append("upload")
         }
-        urlComponents.append(action.rawValue)
+        else {
+            if action != CLDAPIAction.DeleteByToken {
+                let rescourceType = resourceType ?? String(describing: CLDUrlResourceType.image)
+                urlComponents.append(rescourceType)
+            }
+            urlComponents.append(action.rawValue)
+        }
         return urlComponents.joined(separator: "/")
     }
     
@@ -144,6 +172,7 @@ internal class CLDNetworkCoordinator {
         case Multi =                        "multi"
         case GenerateText =                 "text"
         case DeleteByToken =                "delete_by_token"
+        case Delete =                       "delete"
         
         var description: String {
             switch self {
@@ -158,6 +187,7 @@ internal class CLDNetworkCoordinator {
             case .Multi:                    return "multi"
             case .GenerateText:             return "text"
             case .DeleteByToken:            return "delete_by_token"
+            case .Delete:                   return "delete"
             }
         }
     }

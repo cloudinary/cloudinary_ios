@@ -351,6 +351,128 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertEqual(result?.result ?? "", "ok")
     }
+    
+    func testDeleteByPrefix() {
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        let uploadParams = CLDUploadRequestParams()
+        uploadParams.setReturnDeleteToken(true)
+        var publicId: String?
+        
+        uploadFile(params: uploadParams).response({ (result, error) in
+            XCTAssertNil(error, "File should be uploaded")
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Delete by prefix should succeed")
+        var result: CLDDeleteResourcesResult?
+        var error: Error?
+        
+        cloudinary!.createManagementApi().deleteBy(publicId!) { (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+    
+        XCTAssertGreaterThan(result?.deleted?.count ?? 0, 0, "delete some resources")
+    }
+    
+    func testDeleteByTransformation() {
+        var expectation = self.expectation(description: "Upload should succeed")
+
+        let uploadParams = CLDUploadRequestParams()
+        uploadParams.setReturnDeleteToken(true)
+        uploadFile(params: uploadParams).response({ (result, error) in
+            XCTAssertNil(error, "File should be uploaded")
+            expectation.fulfill()
+            
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Delete by transformation should succeed")
+        var result: CLDDeleteResourcesResult?
+        var error: Error?
+        
+        // test the params
+        let transformation = CLDTransformation().setWidth(960)
+        let params = CLDDeleteResourcesRequestParams(transformation: transformation)
+        params.setAll(true)
+        
+        cloudinary!.createManagementApi().deleteByDeleteParams(params) { (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+        
+        XCTAssertGreaterThan(result?.deleted?.count ?? 0, 0, "delete some resources")
+    }
+    
+    func testDeleteByPublicIds() {
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        var publicIds: [String] = []
+        
+        let uploadParams = CLDUploadRequestParams()
+        uploadParams.setReturnDeleteToken(true)
+        uploadFile(params: uploadParams).response({ (result, error) in
+            XCTAssertNil(error, "File should be uploaded")
+            if let publicId = result?.publicId {
+                publicIds.append(publicId)
+            }
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Upload should succeed")
+        
+        uploadParams.setReturnDeleteToken(true)
+        uploadFile(params: uploadParams).response({ (result, error) in
+            XCTAssertNil(error, "File should be uploaded")
+            if let publicId = result?.publicId {
+                publicIds.append(publicId)
+            }
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Delete by transformation should succeed")
+        var result: CLDDeleteResourcesResult?
+        var error: Error?
+        
+        // test the params
+        let transformation = CLDTransformation().setWidth(960)
+        let params = CLDDeleteResourcesRequestParams(transformation: transformation)
+        params.setPublicIDs(publicIds)
+        
+        cloudinary!.createManagementApi().deleteByDeleteParams(params) { (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+        
+        XCTAssertEqual(result?.deleted?.count ?? 0, publicIds.count, "delete some resources")
+    }
 
     func testDestroy() {
         
