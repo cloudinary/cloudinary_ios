@@ -101,6 +101,9 @@
 		36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */; };
 		36D00E211D9D833000BF4DD5 /* CLDBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */; };
 		860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */; };
+		E9B8519D1F3E60D600780280 /* CLDPublishResourcesRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B8519C1F3E60D600780280 /* CLDPublishResourcesRequestParams.swift */; };
+		E9B851A71F3E631300780280 /* CLDPublishResourcesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B851A61F3E631300780280 /* CLDPublishResourcesResult.swift */; };
+		E9B851A91F3E63B400780280 /* CLDPublishResourcesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B851A81F3E63B400780280 /* CLDPublishResourcesRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +264,9 @@
 		36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDFace.swift; sourceTree = "<group>"; };
 		36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDBoundingBox.swift; sourceTree = "<group>"; };
 		860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDNetworkUploadRequest.swift; sourceTree = "<group>"; };
+		E9B8519C1F3E60D600780280 /* CLDPublishResourcesRequestParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDPublishResourcesRequestParams.swift; sourceTree = "<group>"; };
+		E9B851A61F3E631300780280 /* CLDPublishResourcesResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDPublishResourcesResult.swift; sourceTree = "<group>"; };
+		E9B851A81F3E63B400780280 /* CLDPublishResourcesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDPublishResourcesRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,6 +395,7 @@
 				36AC051A1D4F8C20002FC9DF /* CLDSpriteResult.swift */,
 				36AC05201D4F9C0D002FC9DF /* CLDTagResult.swift */,
 				36AC05261D4F9EC0002FC9DF /* CLDTextResult.swift */,
+				E9B851A61F3E631300780280 /* CLDPublishResourcesResult.swift */,
 			);
 			path = Results;
 			sourceTree = "<group>";
@@ -529,6 +536,7 @@
 				36AC051C1D4F9196002FC9DF /* CLDSpriteRequest.swift */,
 				36AC05221D4F9CE4002FC9DF /* CLDTagRequest.swift */,
 				36AC05281D4F9F88002FC9DF /* CLDTextRequest.swift */,
+				E9B851A81F3E63B400780280 /* CLDPublishResourcesRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -681,6 +689,7 @@
 				36B7FAE21D41231E008754EF /* CLDSpriteRequestParams.swift */,
 				36B7FAE31D41231E008754EF /* CLDTagsRequestParams.swift */,
 				36B7FAE41D41231E008754EF /* CLDTextRequestParams.swift */,
+				E9B8519C1F3E60D600780280 /* CLDPublishResourcesRequestParams.swift */,
 			);
 			path = RequestsParams;
 			sourceTree = "<group>";
@@ -933,14 +942,17 @@
 				36C20DC11C936E10006EB15A /* CLDNetworkCoordinator.swift in Sources */,
 				36AC051B1D4F8C20002FC9DF /* CLDSpriteResult.swift in Sources */,
 				860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */,
+				E9B851A91F3E63B400780280 /* CLDPublishResourcesRequest.swift in Sources */,
 				36AC05191D4F8B75002FC9DF /* CLDRenameRequest.swift in Sources */,
 				36AC05131D4F8988002FC9DF /* CLDMultiResult.swift in Sources */,
 				2936A58F1E1EFF95009B7FAF /* README.md in Sources */,
 				367FA4D11DD34E20001C8A61 /* CLDAsyncNetworkUploadRequest.swift in Sources */,
 				36B7FAE91D41231E008754EF /* CLDExplodeRequestParams.swift in Sources */,
 				36AC05271D4F9EC0002FC9DF /* CLDTextResult.swift in Sources */,
+				E9B851A71F3E631300780280 /* CLDPublishResourcesResult.swift in Sources */,
 				362CB7721CA2EA9900C26E74 /* CLDNetworkDelegate.swift in Sources */,
 				369FB3811C7A0FCF003E81B6 /* CLDCloudinary.swift in Sources */,
+				E9B8519D1F3E60D600780280 /* CLDPublishResourcesRequestParams.swift in Sources */,
 				36B497181C9811E80083C935 /* CLDTranformation.swift in Sources */,
 				36AC053D1D4FB58B002FC9DF /* CLDDeleteResult.swift in Sources */,
 				36B7FAF21D413288008754EF /* CLDDictionaryUtils.swift in Sources */,

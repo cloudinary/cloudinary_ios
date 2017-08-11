@@ -422,4 +422,34 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertEqual(result?.status ?? "", "processing")
     }
     
+    func testPublishResourcesByTag() {
+        
+        let expectation = self.expectation(description: "Rename should succeed")
+        
+        var result: CLDPublishResourcesResult?
+        var error: Error?
+        
+        var params = CLDUploadRequestParams()
+        params = params.setType(.private)
+        uploadFile(params: params).response({ (uploadResult, uploadError) in
+            if let _ = uploadResult {
+                self.cloudinary!.createManagementApi().publishResourcesByTag(tag: "private").response({ (resultRes, errorRes) in
+                    result = resultRes
+                    error = errorRes
+                    
+                    expectation.fulfill()
+                })
+            }
+            else {
+                error = uploadError
+                expectation.fulfill()
+            }
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "response should not be nil")
+    }
+    
 }
