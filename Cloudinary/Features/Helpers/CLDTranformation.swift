@@ -606,6 +606,25 @@ import Foundation
     }
     
     /**
+     Automatically calculate the optimal quality for images: the smallest file size without affecting their perceptual quality. The parameter value accepts an optional `quality_level` value to select the level of quality (`good` by default) for the quality algorithm
+     * auto: Automatically calculate the optimal quality an image: the smallest file size without affecting its perceptual quality (1.9KB). Same as `auto:good`.
+     * best: Automatically calculate the optimal quality for images using a less aggressive algorithm (2.2KB).
+     * good: Automatically calculate the optimal quality for an image: the smallest file size without affecting its perceptual quality (1.9KB).
+     * eco: Automatically calculate the optimal quality for images using a more aggressive algorithm (1.7KB).
+     * low: Automatically calculate the optimal quality for images using the most aggressive algorithm (1.5KB).
+     * jpegmini: Use the JPEGmini Image Optimization add-on to automatically calculate the optimal compression for JPEG images without affecting their perceptual quality.
+     
+     - parameter autoLevel:   The level to apply.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(setQualityWithAutoLevel:)
+    @discardableResult
+    open func setQuality(_ autoLevel: CLDQualityAuto) -> CLDTransformation {
+        return setQuality(String(describing: autoLevel))
+    }
+    
+    /**
      Control the JPEG, WebP, GIF, JPEG XR and JPEG 2000 compression quality. 1 is the lowest quality and 100 is the highest. Reducing quality generates JPG images much smaller in file size. The default values are:
      * JPEG: 90
      * WebP: 80 (100 quality for WebP is lossless)
@@ -1471,6 +1490,26 @@ import Foundation
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
     }
+    
+    // MARK: Crop
+    
+    @objc public enum CLDQualityAuto: Int, CustomStringConvertible {
+        case best, good, eco, low, jpegmini, auto
+        
+        public var description: String {
+            get {
+                switch self {
+                case .auto:         return "auto"
+                case .best:         return "auto:best"
+                case .good:         return "auto:good"
+                case .eco:          return "auto:eco"
+                case .low:          return "auto:low"
+                case .jpegmini:     return "jpegmini"
+                }
+            }
+        }
+    }
+
     
     // MARK: Crop
     
