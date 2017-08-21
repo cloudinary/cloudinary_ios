@@ -197,6 +197,14 @@ import Foundation
         return getParam(.VIDEO_CODEC)
     }
     
+    open var isOCREnabled: Bool {
+        if let param = getParam(.GRAVITY),
+            param == String(describing: CLDGravity.ocrText) {
+            return true
+        }
+        return false
+    }
+    
     fileprivate func getParam(_ param: TransformationParam) -> String? {
         return getParam(param.rawValue)
     }
@@ -1234,6 +1242,24 @@ import Foundation
         return setParam(TransformationParam.VIDEO_CODEC, value: videoCodec)
     }
     
+    /**
+     Enable OCR detecting and append effect or layer to this area
+     
+     - parameter enable:        Is enable.
+     
+     - returns:                     The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setOCR(_ enable: Bool) -> CLDTransformation {
+        if enable == true {
+            return self.setGravity(CLDGravity.ocrText)
+        }
+        else {
+            currentTransformationParams.removeValue(forKey: String(describing: TransformationParam.GRAVITY))
+            return self
+        }
+    }
+    
     // MARK: Setters
     
     fileprivate func setParam(_ key: TransformationParam, value: String) -> CLDTransformation {
@@ -1557,7 +1583,7 @@ import Foundation
     // MARK: Gravity
     
     @objc public enum CLDGravity: Int, CustomStringConvertible {
-        case center, face, faceCenter, faces, facesCenter, advFace, advFaces, advEyes, north, northWest, northEast, south, southWest, southEast, east, west, xyCenter, custom, customFace, customFaces, customAdvFace, customAdvFaces
+        case center, face, faceCenter, faces, facesCenter, advFace, advFaces, advEyes, north, northWest, northEast, south, southWest, southEast, east, west, xyCenter, custom, customFace, customFaces, customAdvFace, customAdvFaces, ocrText
         
         public var description: String {
             get {
@@ -1584,6 +1610,7 @@ import Foundation
                 case .customFaces:      return "custom:faces"
                 case .customAdvFace:    return "custom:adv_face"
                 case .customAdvFaces:   return "custom:adv_faces"
+                case .ocrText:          return "ocr_text"
                 }
             }
         }

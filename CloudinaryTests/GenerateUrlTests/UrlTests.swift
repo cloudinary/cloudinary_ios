@@ -159,6 +159,12 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,w_200,x_100,y_100/r_10/c_crop,w_100/test")
     }
     
+    func testTransformationsWithOCR() {
+        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain().setCrop(.crop).setWidth(100).setOCR(true)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,x_100,y_100/c_crop,g_ocr_text,w_100/test")
+    }
+
+    
     func testNoEmptyTransformation() {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain()).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,x_100,y_100/test")
