@@ -363,6 +363,20 @@ import Foundation
     
     /**
      Apply a filter or an effect on an image.
+     The value includes the name of the effect and an additional parameter that controls the behavior of the specific effect.
+     
+     - parameter effect:        The effect to apply.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(setArtEffectWithFilter:)
+    @discardableResult
+    open func setArtEffect(_ filter: CLDArtFilters) -> CLDTransformation {
+        return setEffect(.art, param: String(describing: filter))
+    }
+    
+    /**
+     Apply a filter or an effect on an image.
      
      - parameter effect:    The effect to apply.
      
@@ -1501,7 +1515,7 @@ import Foundation
     // MARK: Effect
     
     @objc public enum CLDEffect: Int, CustomStringConvertible {
-        case hue, red, green, blue, negate, brightness, sepia, grayscale, blackwhite, saturation, colorize, contrast, autoContrast, vibrance, autoColor, improve, autoBrightness, fillLight, viesusCorrect, gamma, screen, multiply, overlay, makeTransparent, trim, shadow, distort, shear, displace, oilPaint, redeye, advRedeye, vignette, gradientFade, pixelate, pixelateRegion, pixelateFaces, blur, blurRegion, blurFaces, sharpen, unsharpMask, orderedDither
+        case hue, red, green, blue, negate, brightness, sepia, grayscale, blackwhite, saturation, colorize, contrast, autoContrast, vibrance, autoColor, improve, autoBrightness, fillLight, viesusCorrect, gamma, screen, multiply, overlay, makeTransparent, trim, shadow, distort, shear, displace, oilPaint, redeye, advRedeye, vignette, gradientFade, pixelate, pixelateRegion, pixelateFaces, blur, blurRegion, blurFaces, sharpen, unsharpMask, orderedDither, art
         
         public var description: String {
             get {
@@ -1549,6 +1563,43 @@ import Foundation
                 case .sharpen:          return "sharpen"
                 case .unsharpMask:      return "unsharp_mask"
                 case .orderedDither:    return "ordered_dither"
+                case .art:              return "art"
+                }
+            }
+        }
+    }
+    
+    // MARK: Artistic filters
+    
+    
+    
+    @objc public enum CLDArtFilters: Int, CustomStringConvertible {
+        case alDente, athena, audrey, aurora, daguerre, eucalyptus, fes, frost, hairspray, hokusai, incognito, linen, peacock, primavera, quartz, redRock, refresh, sizzle, sonnet, ukulele, zorro
+        
+        public var description: String {
+            get {
+                switch self {
+                case .alDente:           return "al_dente"
+                case .athena:            return "athena"
+                case .audrey:            return "audrey"
+                case .aurora:            return "aurora"
+                case .daguerre:          return "daguerre"
+                case .eucalyptus:        return "eucalyptus"
+                case .fes:               return "fes"
+                case .frost:             return "frost"
+                case .hairspray:         return "hairspray"
+                case .hokusai:           return "hokusai"
+                case .incognito:         return "incognito"
+                case .linen:             return "linen"
+                case .peacock:           return "peacock"
+                case .primavera:         return "primavera"
+                case .quartz:            return "quartz"
+                case .redRock:           return "red_rock"
+                case .refresh:           return "refresh"
+                case .sizzle:            return "sizzle"
+                case .sonnet:            return "sonnet"
+                case .ukulele:           return "ukulele"
+                case .zorro:             return "zorro"
                 }
             }
         }
