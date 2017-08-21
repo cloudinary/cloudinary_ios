@@ -139,6 +139,14 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(url, "\(prefix)/image/upload/g_center,p_a,q_0.4,r_3,x_1,y_2/test")
     }
     
+    func testAutoGravityOptions() {
+        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setAutoGravity(.customNoOverride).setQuality("0.4").setPrefix("a")).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/g_auto:custom_no_override,p_a,q_0.4,r_3,x_1,y_2/test")
+        
+        let url2 = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setAutoGravity(value: 50).setQuality("0.4").setPrefix("a")).generate("test")
+        XCTAssertEqual(url2, "\(prefix)/image/upload/g_auto:50,p_a,q_0.4,r_3,x_1,y_2/test")
+    }
+    
     func testTransformationSimple() {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setNamed(["blip"])).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/t_blip/test")
