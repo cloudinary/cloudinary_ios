@@ -33,6 +33,14 @@ import Foundation
         return CLDDetection(json: detection)
     }
     
+    open var ocr: CLDOcr? {
+        guard let ocr = getParam(.ocr) as? [String : AnyObject],
+            let advOcr = ocr["adv_ocr"] as? [String : AnyObject] else {
+            return nil
+        }
+        return CLDOcr(json: advOcr)
+    }
+    
     // MARK: - Private Helpers
     
     fileprivate func getParam(_ param: CLDInfoKey) -> AnyObject? {
@@ -40,11 +48,12 @@ import Foundation
     }
     
     fileprivate enum CLDInfoKey: CustomStringConvertible {
-        case detection
+        case detection, ocr
         
         var description: String {
             switch self {
             case .detection:           return "detection"
+            case .ocr:                 return "ocr"
             }
         }
     }

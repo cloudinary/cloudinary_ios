@@ -101,6 +101,7 @@
 		36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */; };
 		36D00E211D9D833000BF4DD5 /* CLDBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */; };
 		860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */; };
+		E9A8F4641F4B91DA009BD442 /* CLDOcr.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A8F4631F4B91DA009BD442 /* CLDOcr.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +262,7 @@
 		36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDFace.swift; sourceTree = "<group>"; };
 		36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDBoundingBox.swift; sourceTree = "<group>"; };
 		860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDNetworkUploadRequest.swift; sourceTree = "<group>"; };
+		E9A8F4631F4B91DA009BD442 /* CLDOcr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDOcr.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -711,6 +713,7 @@
 			children = (
 				36D00E161D9D6E8A00BF4DD5 /* CommonResultKeys.swift */,
 				36D00E181D9D822B00BF4DD5 /* CLDInfo.swift */,
+				E9A8F4631F4B91DA009BD442 /* CLDOcr.swift */,
 				36D00E1A1D9D825900BF4DD5 /* CLDDetection.swift */,
 				36D00E1C1D9D827F00BF4DD5 /* CLDRekognitionFace.swift */,
 				36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */,
@@ -951,6 +954,7 @@
 				3653B1991D43B3CB0093765C /* CLDError.swift in Sources */,
 				36784DBC1CCCCE1C00F3B777 /* CLDRequestParamsHelpers.swift in Sources */,
 				36B7FAE71D41231E008754EF /* CLDDestroyRequestParams.swift in Sources */,
+				E9A8F4641F4B91DA009BD442 /* CLDOcr.swift in Sources */,
 				3696FC561C9162FF00DE9568 /* CLDCryptoUtils.swift in Sources */,
 				36AC051D1D4F9196002FC9DF /* CLDSpriteRequest.swift in Sources */,
 				3653B1971D43B29B0093765C /* CLDImageCache.swift in Sources */,

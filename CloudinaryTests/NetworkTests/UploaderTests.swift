@@ -634,7 +634,40 @@ class UploaderTests: NetworkBaseTest {
         }
     }
     
-    
+    func testOCR() {
+        
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .logo
+        let file = resource.url
+        var result: CLDUploadResult?
+        var ocrResult: CLDOcr?
+        var error: NSError?
+        
+        let params = CLDUploadRequestParams()
+        params.setOCR(true)
+        XCTAssertTrue(params.isOCR, "result should be true")
+        
+        params.setOCR(false)
+        XCTAssertFalse(params.isOCR, "result should be nil")
+        
+        params.setOCR(true)
+        
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            ocrResult = resultRes?.info?.ocr
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNotNil(ocrResult, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
     //MARK: - Helpers
     
     func createUploadPresetIfNeeded(_ uploadPresetUrl: String, presetName: String) {
