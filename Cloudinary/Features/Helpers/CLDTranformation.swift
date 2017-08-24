@@ -1376,6 +1376,38 @@ import Foundation
         return setY(Float(point.y))
     }
     
+    /**
+     set if condition
+     
+     - parameter condition:     set condition
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func `if`(_ condition: String) -> CLDTransformation {
+        return setParam(.IF, value: condition)
+    }
+    
+    /**
+     Set else condition
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func `else`() -> CLDTransformation {
+        return setParam(.IF, value: "else")
+    }
+    
+    /**
+     Set end condition
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func end() -> CLDTransformation {
+        return setParam(.IF, value: "end")
+    }
+    
     // MARK: - Actions
     
     /**
@@ -1420,7 +1452,17 @@ import Foundation
             return nil
         }
         
-        var components: [String] = params.sorted{$0.0 < $1.0}
+        var components: [String] = params.sorted{
+                if($0.0 == TransformationParam.IF.rawValue) {
+                    return true
+                }
+                else if ($1.0 == TransformationParam.IF.rawValue) {
+                    return false
+                }
+                else {
+                    return $0.0 < $1.0
+                }
+            }
                                         .filter{$0.0 != TransformationParam.RAW_TRANSFORMATION.rawValue && !$0.1.isEmpty}
                                         .map{"\($0)_\($1)"}
 
@@ -1470,6 +1512,7 @@ import Foundation
         case END_OFFSET =                   "eo"
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
+        case IF =                           "if"
     }
     
     // MARK: Crop

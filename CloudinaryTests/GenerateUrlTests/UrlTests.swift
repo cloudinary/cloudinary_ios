@@ -164,6 +164,21 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,x_100,y_100/test")
     }
     
+    func testConditionalTransformations() {
+        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(300).setCrop(.limit).chain().if("iw_gt_300").setColor("white").setGravity("south_east").setOverlay("text:Arial_15_bold:Image scaled down to 300px")).generate("sample.jpg")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_limit,w_300/if_iw_gt_300,co_white,g_south_east,l_text:Arial_15_bold:Image scaled down to 300px/sample.jpg")
+    }
+    
+    func testIfElseConditionalTransformations() {
+        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().if("ils_gt_0.5").setWidth(120).setHeight(150).setCrop("pad").chain().else().setWidth(120).setHeight(150).setCrop("fill")).generate("sample.jpg")
+        XCTAssertEqual(url, "\(prefix)/image/upload/if_ils_gt_0.5,c_pad,h_150,w_120/if_else,c_fill,h_150,w_120/sample.jpg")
+    }
+    
+    func testMultipleConditionalTransformations() {
+        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().if("w_lt_600").chain().setOverlay("text:Arial_20:Image shown in full scale").setColor("white").setGravity("south_east").chain().setEffect("blur:400").setUnderlay("small_dinosaur").setWidth(600).setCrop("scale").chain().end()).generate("sample.jpg")
+        XCTAssertEqual(url, "\(prefix)/image/upload/if_w_lt_600/co_white,g_south_east,l_text:Arial_20:Image shown in full scale/c_scale,e_blur:400,u_small_dinosaur,w_600/if_end/sample.jpg")
+    }
+    
     func testType() {
         let url = cloudinary?.createUrl().setType(.facebook).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/facebook/test")
