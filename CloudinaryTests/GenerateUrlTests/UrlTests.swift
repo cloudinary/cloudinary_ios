@@ -167,6 +167,12 @@ class UrlTests: XCTestCase {
     func testConditionalTransformations() {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(300).setCrop(.limit).chain().if("iw_gt_300").setColor("white").setGravity("south_east").setOverlay("text:Arial_15_bold:Image scaled down to 300px")).generate("sample.jpg")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_limit,w_300/if_iw_gt_300,co_white,g_south_east,l_text:Arial_15_bold:Image scaled down to 300px/sample.jpg")
+        
+        let andCondition = CLDCondition().setTags(["new", "old"], .include)
+        let condition = CLDCondition(condition: "iw_gt_300").and(condition: andCondition)
+        let url2 = cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(300).setCrop(.limit).chain().if(condition: condition).setColor("white").setGravity("south_east").setOverlay("text:Arial_15_bold:Image scaled down to 300px")).generate("sample.jpg")
+        XCTAssertEqual(url2, "\(prefix)/image/upload/c_limit,w_300/if_iw_gt_300_and_if_!new:old!_in_tags,co_white,g_south_east,l_text:Arial_15_bold:Image scaled down to 300px/sample.jpg")
+        
     }
     
     func testIfElseConditionalTransformations() {

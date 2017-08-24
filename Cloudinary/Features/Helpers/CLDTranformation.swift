@@ -1383,9 +1383,23 @@ import Foundation
      
      - returns:             The same instance of CLDTransformation.
      */
+    @objc(ifWithString:)
     @discardableResult
     open func `if`(_ condition: String) -> CLDTransformation {
         return setParam(.IF, value: condition)
+    }
+    
+    /**
+     set if condition
+     
+     - parameter condition:     set condition
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(ifWithCondition:)
+    @discardableResult
+    open func `if`(condition: CLDCondition) -> CLDTransformation {
+        return self.if(condition.asString())
     }
     
     /**

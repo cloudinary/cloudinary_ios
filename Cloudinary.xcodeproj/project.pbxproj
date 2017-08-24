@@ -101,6 +101,7 @@
 		36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */; };
 		36D00E211D9D833000BF4DD5 /* CLDBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */; };
 		860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */; };
+		E9B8B6401F4F52B1007FFC98 /* CLDCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B8B63F1F4F52B1007FFC98 /* CLDCondition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +262,7 @@
 		36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDFace.swift; sourceTree = "<group>"; };
 		36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDBoundingBox.swift; sourceTree = "<group>"; };
 		860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDNetworkUploadRequest.swift; sourceTree = "<group>"; };
+		E9B8B63F1F4F52B1007FFC98 /* CLDCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLDCondition.swift; path = Features/Helpers/CLDCondition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				36B497161C9811E80083C935 /* CLDTranformation.swift */,
+				E9B8B63F1F4F52B1007FFC98 /* CLDCondition.swift */,
 				362CB77C1CA41E6B00C26E74 /* CLDDefinitions.swift */,
 				36747B6E1CB131E300087D10 /* CLDBaseNetworkObject.swift */,
 				36B7FACC1D3E8080008754EF /* Layers */,
@@ -988,6 +991,7 @@
 				36B7FAD21D3E8093008754EF /* CLDLayer.swift in Sources */,
 				363BE8D51CC3E94200124C46 /* CLDUploader.swift in Sources */,
 				362CB7771CA41D0F00C26E74 /* CLDBuildParamsUtils.swift in Sources */,
+				E9B8B6401F4F52B1007FFC98 /* CLDCondition.swift in Sources */,
 				36747B6F1CB131E300087D10 /* CLDBaseNetworkObject.swift in Sources */,
 				36B7FAEC1D41231E008754EF /* CLDSpriteRequestParams.swift in Sources */,
 				36D00E171D9D6E8A00BF4DD5 /* CommonResultKeys.swift in Sources */,
