@@ -49,6 +49,8 @@ import Foundation
         super.init()
     }
     
+    open var timeout: TimeInterval?
+    
     //MARK: - Set Param
     
     /**

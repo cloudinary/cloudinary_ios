@@ -54,17 +54,31 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
 
     // MARK: Features
 
-    internal func cloudinaryRequest(_ url: String, headers: [String: String], parameters: [String: Any]) -> CLDNetworkDataRequest {
-        let req: DataRequest = manager.request(url, method: .post, parameters: parameters, headers: headers)
+    internal func cloudinaryRequest(_ url: String, headers: [String: String], parameters: [String: Any], timeout: NSNumber?) -> CLDNetworkDataRequest {
+        let req: DataRequest
+        var originalRequest: URLRequest?
+        
+        do {
+            originalRequest = try URLRequest(url: url, method: .post, headers: headers)
+            var encodedURLRequest = try URLEncoding.default.encode(originalRequest!, with: parameters)
+            if let timeout = timeout {
+                encodedURLRequest.timeoutInterval = timeout.doubleValue
+            }
+            req = manager.request(encodedURLRequest)
+        } catch {
+            req = manager.request(url, method: .post, parameters: parameters, headers: headers)
+        }
+        
         req.resume()
         return CLDNetworkDataRequestImpl(request: req)
     }
 
-    internal func uploadToCloudinary(_ url: String, headers: [String: String], parameters: [String: Any], data: Any) -> CLDNetworkDataRequest {
-
+    internal func uploadToCloudinary(_ url: String, headers: [String: String], parameters: [String: Any], data: Any, timeout: NSNumber?) -> CLDNetworkDataRequest {
+        
         let asyncUploadRequest = CLDAsyncNetworkUploadRequest()
-        manager.upload(multipartFormData: { (multipartFormData) in
-
+        
+        let dataCloser: (MultipartFormData) -> Void = { (multipartFormData) in
+            
             if let data = data as? Data {
                 multipartFormData.append(data, withName: "file", fileName: "file", mimeType: "application/octet-stream")
             } else if let url = data as? URL {
@@ -76,7 +90,7 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
                     multipartFormData.append(url, withName: "file", fileName: url.lastPathComponent, mimeType: "application/octet-stream")
                 }
             }
-
+            
             for key in parameters.keys {
                 if let value = parameters[key], value is [String] {
                     if let valueArr = value as? [String] {
@@ -90,7 +104,7 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
                     if value.isEmpty {
                         continue
                     }
-
+                    
                     if let valueData = value.data(using: String.Encoding.utf8) {
                         multipartFormData.append(valueData, withName: key)
                     }
@@ -100,8 +114,9 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
                     }
                 }
             }
-
-        }, usingThreshold: UInt64(), to: url, method: .post, headers: headers) { (encodingResult) in
+        }
+        
+        let encodingCompletion: (SessionManager.MultipartFormDataEncodingResult) -> Void = { (encodingResult) in
             switch encodingResult {
             case .success(let upload, _, _):
                 upload.resume()
@@ -110,6 +125,17 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
             case .failure(let encodingError):
                 asyncUploadRequest.networkDataRequest = CLDRequestError(error: encodingError)
             }
+        }
+
+        let urlRequest = try? URLRequest(url: url, method: .post, headers: headers)
+        if var urlRequest = urlRequest {
+            if let timeout = timeout {
+                urlRequest.timeoutInterval = timeout.doubleValue
+            }
+            manager.upload(multipartFormData: dataCloser, usingThreshold: UInt64(), with: urlRequest, encodingCompletion: encodingCompletion)
+        }
+        else {
+            manager.upload(multipartFormData: dataCloser, usingThreshold: UInt64(), to: url, method: .post, headers: headers, encodingCompletion: encodingCompletion)
         }
 
         return asyncUploadRequest

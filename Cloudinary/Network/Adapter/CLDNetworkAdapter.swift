@@ -47,7 +47,7 @@ to use a custom network adapter you must implement the `CLDNetworkAdapter` proto
                                 allowing the options to add response closure to be called once the request has finished,
                                 as well as performing actions on the request, such as cancelling, suspending or resuming it.
     */
-    func cloudinaryRequest(_ url: String, headers: [String : String], parameters: [String : Any]) -> CLDNetworkDataRequest
+    func cloudinaryRequest(_ url: String, headers: [String : String], parameters: [String : Any], timeout: NSNumber?) -> CLDNetworkDataRequest
     
     /**
      Create a network upload request for the given URL, with the specified headers, body parameters and data.
@@ -62,7 +62,7 @@ to use a custom network adapter you must implement the `CLDNetworkAdapter` proto
                                 and a response closure to be called once the upload is finished,
                                 as well as performing actions on the request, such as cancelling, suspending or resuming it.
      */
-    func uploadToCloudinary(_ url: String, headers: [String : String], parameters: [String : Any],  data: Any) -> CLDNetworkDataRequest
+    func uploadToCloudinary(_ url: String, headers: [String : String], parameters: [String : Any],  data: Any,  timeout: NSNumber?) -> CLDNetworkDataRequest
     
     /**
      Download a file from the specified url.
