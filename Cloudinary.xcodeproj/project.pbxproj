@@ -101,6 +101,7 @@
 		36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */; };
 		36D00E211D9D833000BF4DD5 /* CLDBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */; };
 		860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */; };
+		E9B8B6E51F549733007FFC98 /* CLDVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B8B6E41F549733007FFC98 /* CLDVar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +262,7 @@
 		36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDFace.swift; sourceTree = "<group>"; };
 		36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDBoundingBox.swift; sourceTree = "<group>"; };
 		860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDNetworkUploadRequest.swift; sourceTree = "<group>"; };
+		E9B8B6E41F549733007FFC98 /* CLDVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLDVar.swift; path = Utils/CLDVar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,6 +464,7 @@
 				36B7FAF11D413288008754EF /* CLDDictionaryUtils.swift */,
 				3653B1961D43B29B0093765C /* CLDImageCache.swift */,
 				3653B1981D43B3CB0093765C /* CLDError.swift */,
+				E9B8B6E41F549733007FFC98 /* CLDVar.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				36AC053D1D4FB58B002FC9DF /* CLDDeleteResult.swift in Sources */,
 				36B7FAF21D413288008754EF /* CLDDictionaryUtils.swift in Sources */,
 				369F77611D994EEA00F1CC90 /* CLDUploadResult.swift in Sources */,
+				E9B8B6E51F549733007FFC98 /* CLDVar.swift in Sources */,
 				36BB95B11DD2051300665FC4 /* CLDErrorRequest.swift in Sources */,
 				363087771CBA5C6100782A57 /* UIButton+Cloudinary.swift in Sources */,
 				36AC05441D501621002FC9DF /* CLDUploadRequest.swift in Sources */,
