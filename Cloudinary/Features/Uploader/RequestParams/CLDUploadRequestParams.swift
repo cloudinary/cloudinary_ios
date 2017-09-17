@@ -871,11 +871,14 @@ import Foundation
      */
     @discardableResult
     open func setResponsiveBreakpoints(_ responsiveBreakpoints: [CLDResponsiveBreakpoints]) -> Self {
-        var responsiveBreakpointsJSON: [AnyObject] = []
+        var responsiveBreakpointsJSON: [String] = []
+        
         for rb in responsiveBreakpoints {
-            responsiveBreakpointsJSON.append(rb.params as AnyObject)
+            responsiveBreakpointsJSON.append(rb.description)
         }
-        super.setParam(UploadRequestParams.ResponsiveBreakpoints.rawValue, value: responsiveBreakpointsJSON)
+        
+        super.setParam(UploadRequestParams.ResponsiveBreakpoints.rawValue, value: "[\(responsiveBreakpointsJSON.joined(separator: ","))]")
+        
         return self
     }
     
