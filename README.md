@@ -1,4 +1,4 @@
-![Cloudinary: Image And Video Management In The Cloud](http://res-1.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png)
+![Cloudinary: Image And Video Management In The Cloud](https://res.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png)
 ==================
 
 Cloudinary iOS SDK
@@ -21,7 +21,7 @@ Cloudinary provides URL and HTTP based APIs that can be easily integrated with a
 
 For iOS, Cloudinary provides an SDK for simplifying the integration even further.
 
-[Complete Documentation](http://cloudinary.com/documentation/)
+[Complete Documentation](https://cloudinary.com/documentation/)
 
 ## Requirements
 
@@ -128,7 +128,7 @@ To use the API, you will need a CLDCloudinary instance, which is initialized wit
 
 The CLDConfiguration must have its `cloudName` and `apiKey` properties set. Other properties are optional, but secure API requests must be signed using the `apiSecret` param (or alternatively by using [Safe Mobile Requests](#safe-mobile-requests)). 
 
-See [API, URLs and access identifiers](http://cloudinary.com/documentation/api_and_access_identifiers) for more details.
+See [API, URLs and access identifiers](https://cloudinary.com/documentation/api_and_access_identifiers) for more details.
 
 There are several ways to initialize CLDConfiguration. You can simply call its constructor with the desired params:
 ```swift
@@ -227,7 +227,7 @@ let url = cloudinary.createUrl().setTransformation().generate("sample.jpg")
 // http://res.cloudinary.com/CLOUD_NAME/image/facebook/h_150,w_100/c_fit/sample.jpg
 ```
 
-See [our documentation](http://cloudinary.com/documentation/image_transformations) for more information about displaying and transforming images.
+See [our documentation](https://cloudinary.com/documentation/image_transformations) for more information about displaying and transforming images.
 
 ### Upload
 
@@ -251,7 +251,7 @@ The uploaded image is assigned a randomly generated public ID, which is returned
 
 You can pass  an instance of `CLDUploadRequestParams` for extra parameters you'd want to pass as part of the upload request. For example, you can specify your own public ID instead of a randomly generated one.
                                                                                                                              
-For a full list of available upload parameters, see [the Upload API Reference](http://dev.cloudinary.com/documentation/image_upload_api_reference#upload) documentation.
+For a full list of available upload parameters, see [the Upload API Reference](https://cloudinary.com/documentation/image_upload_api_reference#upload) documentation.
 
 You can also pass a `progress` closure that is called periodically during the data transfer, and a `completionHandler` closure to be called once the request has finished, holding either the response object or the error.
 
@@ -300,25 +300,27 @@ Management APIs are available as well, via CLDManagementApi
 cloudinary.createManagementApi()
 ```
 
-See out [documentation](http://cloudinary.com/documentation/image_upload_api_reference) for further details.
+See out [documentation](https://cloudinary.com/documentation/image_upload_api_reference) for further details.
 
 ## Additional resources
 
 Additional resources are available at:
 
-* [Website](http://cloudinary.com)
-* [Features overview](http://cloudinary.com/features)
-* [Documentation](http://cloudinary.com/documentation)
-* [Image transformations documentation](http://cloudinary.com/documentation/image_transformations)
-* [Upload API documentation](http://cloudinary.com/documentation/upload_images)
+* [Website](https://cloudinary.com)
+* [Interactive demo](https://demo.cloudinary.com/default)
+* [Features overview](https://cloudinary.com/features)
+* [Documentation](https://cloudinary.com/documentation)
+* [Knowledge Base](https://support.cloudinary.com/hc/en-us)
+* [Image transformations documentation](https://cloudinary.com/documentation/image_transformations)
+* [Upload API documentation](https://cloudinary.com/documentation/upload_images)
 
 ## Support
 
 You can [open an issue through GitHub](https://github.com/cloudinary/cloudinary_ios/issues).
 
-Contact us at [http://cloudinary.com/contact](http://cloudinary.com/contact).
+Contact us at [https://cloudinary.com/contact](https://cloudinary.com/contact).
 
-Stay tuned for updates, tips and tutorials: [Blog](http://cloudinary.com/blog), [Twitter](https://twitter.com/cloudinary), [Facebook](http://www.facebook.com/Cloudinary).
+Stay tuned for updates, tips and tutorials: [Blog](https://cloudinary.com/blog), [Twitter](https://twitter.com/cloudinary), [Facebook](https://www.facebook.com/Cloudinary).
 
 ## License
 
