@@ -59,6 +59,15 @@ import Foundation
         return getParam(.PublicId) as? String
     }
     
+    open var isOCR: Bool {
+        if let _ = getParam(.OCR) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     open var format: String? {
         return getParam(.Format) as? String
     }
@@ -190,8 +199,12 @@ import Foundation
     
     
     
-    fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
-        return getParam(CLDUploadRequestParams.UploadRequestParams(rawValue: param.rawValue)!)
+    fileprivate func getParam(_ param: UploadRequestParams) -> Any? {
+        return getParam(key: param.rawValue)
+    }
+    
+    open func getParam(key: String) -> Any? {
+        return params[key]
     }
     
     // MARK: Set Simple Params
@@ -404,6 +417,24 @@ import Foundation
     
     
     // MARK: Set Boolean Params
+    
+    /**
+     Set A boolean parameter that determines whether to backup the uploaded resource. Overrides the default backup settings of your account.
+     
+     - parameter isOCR:        The boolean parameter.
+     
+     - returns:                 The same instance of CLDExplicitRequestParams.
+     */
+    @discardableResult
+    open func setOCR(_ enable: Bool) -> Self {
+        if enable {
+            setParam(UploadRequestParams.OCR.rawValue, value: "adv_ocr")
+        }
+        else {
+            params.removeValue(forKey: UploadRequestParams.OCR.rawValue)
+        }
+        return self
+    }
     
     /**
      Set A boolean parameter that determines whether to backup the uploaded resource. Overrides the default backup settings of your account.
@@ -923,5 +954,7 @@ import Foundation
         case Eager =                                "eager"
         case Headers =                              "headers"
         case ResponsiveBreakpoints =                "responsive_breakpoints"
+        
+        case OCR =                                  "ocr"
     }
 }
