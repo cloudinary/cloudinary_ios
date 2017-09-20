@@ -116,6 +116,8 @@ The CLDResponsiveBreakpoints class describe the settings available for configuri
 Responsive breakpoints is used to request Cloudinary to automatically find the best breakpoints.
 */
 @objc open class CLDResponsiveBreakpoints: NSObject {
+    private var transformation: CLDTransformation?
+    private var breakpointFormat: String?
     
     internal var params: [String: AnyObject] = [:]
     
@@ -134,7 +136,18 @@ Responsive breakpoints is used to request Cloudinary to automatically find the b
         setParam(ResponsiveBreakpointsParams.CreateDerived.rawValue, value: createDerived as AnyObject?)
     }
     
-    // MARK - Set Param
+    internal func buildTransformationParam() {
+        var result = ""
+        if let trans = self.transformation?.asString() {
+            result += trans
+        }
+        
+        if (breakpointFormat != nil) {
+            result += "/\(breakpointFormat!)"
+        }
+
+        setParam(ResponsiveBreakpointsParams.Transformation.rawValue, value: result as AnyObject?)
+    }
     
     /**
     Set the base transformation to first apply to the image before finding the best breakpoints.
@@ -144,9 +157,8 @@ Responsive breakpoints is used to request Cloudinary to automatically find the b
     - returns:                      The same CLDResponsiveBreakpoints instance.
     */
     open func setTransformations(_ transformation: CLDTransformation) -> Self {
-        if let trans = transformation.asString() {
-            setParam(ResponsiveBreakpointsParams.Transformation.rawValue, value: trans as AnyObject?)
-        }
+        self.transformation = transformation
+        buildTransformationParam()
         return self
     }
     
@@ -195,11 +207,40 @@ Responsive breakpoints is used to request Cloudinary to automatically find the b
     open func setMaxImages(_ maxImages: Int) -> Self {
         return setParam(ResponsiveBreakpointsParams.MaxImages.rawValue, value: maxImages as AnyObject?)
     }
-    
+
+    /**
+     Set the format of the resulting images.
+
+     - parameter format:          The format to set.
+
+     - returns:                   The same CLDResponsiveBreakpoints instance.
+     */
+    open func setFormat(_ format: String) -> Self {
+        self.breakpointFormat = format
+        buildTransformationParam()
+        return self
+    }
+
     @discardableResult
     open func setParam(_ key: String, value: AnyObject?) -> Self {
         params[key] = value
         return self
+    }
+
+    open override var description: String {
+        get {
+            var components: [String] = []
+            for param in params {
+            
+                if param.value is Int || param.value is Bool {
+                    components.append("\"\(param.key)\":\(param.value)")
+                } else {
+                    components.append("\"\(param.key)\":\"\(param.value)\"")
+                }
+            }
+            
+            return "{\(components.joined(separator: ","))}"
+        }
     }
     
     
