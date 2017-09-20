@@ -54,6 +54,31 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
     
+    func testUploadTimeoutData() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload should succeed")
+        let data = TestResourceType.borderCollie.data
+        
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        let params = CLDUploadRequestParams()
+        params.setColors(true)
+        params.timeout = 0.01
+        cloudinary!.createUploader().signedUpload(data: data, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(result, "result should not be nil")
+        XCTAssertNotNil(error, "error should be nil")
+    }
+    
     func testUploadImageFile() {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")

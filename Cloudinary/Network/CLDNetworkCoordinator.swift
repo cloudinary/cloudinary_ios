@@ -54,16 +54,23 @@ internal class CLDNetworkCoordinator {
         let url = getUrl(action, resourceType: params.resourceType)
         let headers = getHeaders()
         let requestParams = getSignedRequestParams(params)
-        
-        return networkAdapter.cloudinaryRequest(url, headers: headers, parameters: requestParams)
+        var timeoutNumber: NSNumber?
+        if let timeout = params.timeout {
+            timeoutNumber = NSNumber(value: timeout)
+        }
+        return networkAdapter.cloudinaryRequest(url, headers: headers, parameters: requestParams, timeout: timeoutNumber)
     }
     
     internal func upload(_ data: Any, params: CLDUploadRequestParams) -> CLDNetworkDataRequest {
         let url = getUrl(.Upload, resourceType: params.resourceType)
         let requestParams = params.signed ? getSignedRequestParams(params) : params.params
         let headers = getHeaders()
+        var timeoutNumber: NSNumber?
+        if let timeout = params.timeout {
+            timeoutNumber = NSNumber(value: timeout)
+        }
         
-        return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data)
+        return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data, timeout: timeoutNumber)
     }
     
     internal func download(_ url: String) -> CLDFetchImageRequest {
