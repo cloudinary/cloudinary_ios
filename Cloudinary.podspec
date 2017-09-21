@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Cloudinary"
-  s.version      = "2.0.2"
+  s.version      = "2.1.0"
   s.summary      = "Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline."
   s.description  = <<-DESC
     Easily upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software.
