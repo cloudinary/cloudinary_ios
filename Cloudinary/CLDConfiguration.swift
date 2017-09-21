@@ -247,7 +247,7 @@ import Foundation
         if !uri.path.isEmpty {
             privateCdn = true
             let index1 = uri.path.characters.index(uri.path.startIndex, offsetBy: 1)
-            secureDistribution = uri.path.substring(from: index1)
+            secureDistribution = String(uri.path[index1...])
         }        
         
         if let params = uri.query?.components(separatedBy: "&") {

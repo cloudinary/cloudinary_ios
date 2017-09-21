@@ -45,6 +45,6 @@ internal struct CLDError {
     }
     
     static func error(domain: String = CLDError.domain, code: Int, userInfo: [AnyHashable: Any]?) -> NSError {
-        return NSError(domain: domain, code: code, userInfo: userInfo)
+        return NSError(domain: domain, code: code, userInfo: userInfo as? [String : Any])
     }
 }

@@ -273,10 +273,10 @@ import Foundation
         let preloadedComponentsMatch = GenerateUrlRegex.preloadedRegex.matches(in: sourceName, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, sourceName.characters.count))
         if preloadedComponentsMatch.count > 0 {
             if let preloadedComponents = preloadedComponentsMatch.first {
-                resourceType = (sourceName as NSString).substring(with: preloadedComponents.rangeAt(1))
-                type = (sourceName as NSString).substring(with: preloadedComponents.rangeAt(2))
-                version = (sourceName as NSString).substring(with: preloadedComponents.rangeAt(3))
-                sourceName = (sourceName as NSString).substring(with: preloadedComponents.rangeAt(4))
+                resourceType = (sourceName as NSString).substring(with: preloadedComponents.range(at: 1))
+                type = (sourceName as NSString).substring(with: preloadedComponents.range(at: 2))
+                version = (sourceName as NSString).substring(with: preloadedComponents.range(at: 3))
+                sourceName = (sourceName as NSString).substring(with: preloadedComponents.range(at: 4))
             }
         }
         
