@@ -65,7 +65,9 @@ fastlane/screenshots
 fastlane/test_output
 iOSInjectionProject/
 
+# Manual Frameworks
 Cloudinary/Frameworks/CLDCrypto
+Cloudinary/Frameworks/Alamofire
 
 # Samples
 AppDelegate+config.swift
