@@ -69,3 +69,7 @@ Cloudinary/Frameworks/CLDCrypto
 
 # Samples
 AppDelegate+config.swift
+
+# Sample/PhotoAlbumApp's CocoaPods depencencies
+Samples/PhotoAlbumApp/Podfile.lock
+Samples/PhotoAlbumApp/Pods
