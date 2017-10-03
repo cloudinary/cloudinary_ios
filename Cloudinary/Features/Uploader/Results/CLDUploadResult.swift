@@ -156,6 +156,10 @@ import Foundation
         return getParam(.duration) as? Double
     }
     
+    open var done: Bool? {
+        return getParam(.done) as? Bool
+    }
+    
     // MARK: - Private Helpers
     
     fileprivate func getParam(_ param: UploadResultKey) -> AnyObject? {
@@ -163,13 +167,14 @@ import Foundation
     }
     
     enum UploadResultKey: CustomStringConvertible {
-        case signature
+        case signature, done
         case deleteToken // Image
         case video, audio, frameRate, bitRate, duration // Video
         
         var description: String {
             switch self {
             case .signature:        return "signature"
+            case .done:             return "done"
                 
             case .deleteToken:      return "delete_token"
                 

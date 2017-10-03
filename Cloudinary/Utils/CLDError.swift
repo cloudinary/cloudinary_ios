@@ -32,6 +32,7 @@ internal struct CLDError {
         case generalErrorCode                       = -7000
         case failedCreatingImageFromData            = -7001
         case failedDownloadingImage                 = -7002
+        case failedRetrievingFileInfo               = -7003
                 
     }
     
