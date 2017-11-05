@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-import Cloudinary
+@testable import Cloudinary
 
 class FileUtilsTests: XCTestCase {
     override func setUp() {

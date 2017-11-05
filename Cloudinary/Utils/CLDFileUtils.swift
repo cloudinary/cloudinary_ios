@@ -23,23 +23,23 @@
 //
 import Foundation
 
-open class CLDFileUtils {
-    open static func getFileSize(url: URL)->Int64?{
+internal class CLDFileUtils {
+    internal static func getFileSize(url: URL)->Int64?{
         let attr = try? FileManager.default.attributesOfItem(atPath: url.path)
         return attr?[FileAttributeKey.size] as? Int64
     }
 
-    open static func removeFile(file: CLDPartDescriptor) {
+    internal static func removeFile(file: CLDPartDescriptor) {
         try? FileManager.default.removeItem(at: file.url)
     }
 
-    open static func removeFiles(files: [CLDPartDescriptor]) {
+    internal static func removeFiles(files: [CLDPartDescriptor]) {
         for file in files {
             removeFile (file: file)
         }
     }
 
-    open static func splitFile(url: URL, name:String, chunkSize: Int) -> [CLDPartDescriptor]?{
+    internal static func splitFile(url: URL, name:String, chunkSize: Int) -> [CLDPartDescriptor]?{
         let defaultBufferSize = 16 * 1024
         let inputStream = InputStream(url: url)
         var names = [URL]()
