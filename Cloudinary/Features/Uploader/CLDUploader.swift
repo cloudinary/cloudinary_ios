@@ -28,7 +28,7 @@ import Foundation
  The CLDUploader class is used to upload assets to your Cloudinary account's cloud.
 */
 @objc open class CLDUploader: CLDBaseNetworkObject {
-    static let DEFAULT_CHUNK_SIZE = 20 * 1024 * 1024
+    static public let DefaultChunkSize = 20 * 1024 * 1024
     
     // MARK: - Init
     
@@ -139,7 +139,7 @@ import Foundation
      - parameter preparedHandler:   The closure to be called once the request has finished, holding either the response object or the error.
      - parameter completionHandler: The closure to be called once the request is prepared, holding either the request object or an error
      */
-    open func signedUploadLarge(url: URL, params: CLDUploadRequestParams?, chunkSize: Int = DEFAULT_CHUNK_SIZE, progress: ((Progress) -> Void)? = nil,
+    open func signedUploadLarge(url: URL, params: CLDUploadRequestParams?, chunkSize: Int = DefaultChunkSize, progress: ((Progress) -> Void)? = nil,
                             preparedHandler: ((_ request: CLDUploadRequest?, _ error: NSError?)->())? = nil,
                           completionHandler:((_ response: CLDUploadResult?, _ error: NSError?) -> ())? = nil) {
         let params = params ?? CLDUploadRequestParams()
@@ -157,7 +157,7 @@ import Foundation
      - parameter preparedHandler:   The closure to be called once the request has finished, holding either the response object or the error.
      - parameter completionHandler: The closure to be called once the request is prepared, holding either the request object or an error
      */
-    open func uploadLarge(url: URL, uploadPreset: String, params: CLDUploadRequestParams?, chunkSize: Int = DEFAULT_CHUNK_SIZE, progress: ((Progress) -> Void)? = nil,
+    open func uploadLarge(url: URL, uploadPreset: String, params: CLDUploadRequestParams?, chunkSize: Int = DefaultChunkSize, progress: ((Progress) -> Void)? = nil,
                                 preparedHandler: ((_ request: CLDUploadRequest?, _ error: NSError?)->())? = nil,
                                 completionHandler:((_ response: CLDUploadResult?, _ error: NSError?) -> ())? = nil) {
         let params = params ?? CLDUploadRequestParams()

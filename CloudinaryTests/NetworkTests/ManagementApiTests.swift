@@ -308,7 +308,7 @@ class ManagementApiTests: NetworkBaseTest {
         if let multiUrl = multiUrl {
             let gifRange = multiUrl.range(of: ".gif")
             XCTAssertNotNil(gifRange)
-            XCTAssertEqual(multiUrl.distance(from: multiUrl.startIndex, to: gifRange!.lowerBound), multiUrl.characters.count - 4)
+            XCTAssertEqual(multiUrl.distance(from: multiUrl.startIndex, to: gifRange!.lowerBound), multiUrl.count - 4)
         }
     }
     

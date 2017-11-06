@@ -17,6 +17,7 @@
 		2DBE524D857B985C645CB203 /* CLDFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE577559387EC8E13E99A4 /* CLDFileUtils.swift */; };
 		2DBE553677A991DC96CF8BF7 /* CLDDefaultUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE5FA71FA94E77770E0137 /* CLDDefaultUploadRequest.swift */; };
 		2DBE5897854E36D2456095B9 /* CLDUploadLargeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE55CF2B3839B58D0EBCA2 /* CLDUploadLargeRequest.swift */; };
+		2DBE5D482C1A5EE752CF5F83 /* CLDCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE58BD4674612A096E8300 /* CLDCompatibility.swift */; };
 		362CB7721CA2EA9900C26E74 /* CLDNetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362CB7711CA2EA9900C26E74 /* CLDNetworkDelegate.swift */; };
 		362CB7771CA41D0F00C26E74 /* CLDBuildParamsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362CB7761CA41D0F00C26E74 /* CLDBuildParamsUtils.swift */; };
 		362CB77D1CA41E6B00C26E74 /* CLDDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362CB77C1CA41E6B00C26E74 /* CLDDefinitions.swift */; };
@@ -227,6 +228,7 @@
 		29CEE1A21E34A55600A2629D /* GenerateCLDCryptoModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateCLDCryptoModule.swift; sourceTree = "<group>"; };
 		2DBE55CF2B3839B58D0EBCA2 /* CLDUploadLargeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDUploadLargeRequest.swift; sourceTree = "<group>"; };
 		2DBE577559387EC8E13E99A4 /* CLDFileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLDFileUtils.swift; path = Utils/CLDFileUtils.swift; sourceTree = "<group>"; };
+		2DBE58BD4674612A096E8300 /* CLDCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDCompatibility.swift; sourceTree = "<group>"; };
 		2DBE5FA71FA94E77770E0137 /* CLDDefaultUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDDefaultUploadRequest.swift; sourceTree = "<group>"; };
 		362CB7711CA2EA9900C26E74 /* CLDNetworkDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLDNetworkDelegate.swift; path = Network/CLDNetworkDelegate.swift; sourceTree = "<group>"; };
 		362CB7761CA41D0F00C26E74 /* CLDBuildParamsUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLDBuildParamsUtils.swift; path = Utils/CLDBuildParamsUtils.swift; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 				36B7FAF11D413288008754EF /* CLDDictionaryUtils.swift */,
 				3653B1961D43B29B0093765C /* CLDImageCache.swift */,
 				3653B1981D43B3CB0093765C /* CLDError.swift */,
+				2DBE58BD4674612A096E8300 /* CLDCompatibility.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1137,6 +1140,7 @@
 				2DBE553677A991DC96CF8BF7 /* CLDDefaultUploadRequest.swift in Sources */,
 				2DBE524D857B985C645CB203 /* CLDFileUtils.swift in Sources */,
 				2DBE5897854E36D2456095B9 /* CLDUploadLargeRequest.swift in Sources */,
+				2DBE5D482C1A5EE752CF5F83 /* CLDCompatibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
