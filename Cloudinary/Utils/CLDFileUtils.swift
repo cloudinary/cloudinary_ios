@@ -40,42 +40,44 @@ internal class CLDFileUtils {
     }
 
     internal static func splitFile(url: URL, name:String, chunkSize: Int) -> [CLDPartDescriptor]?{
-        let defaultBufferSize = 16 * 1024
-        let inputStream = InputStream(url: url)
+        let maxBufferSize = 16 * 1024
         var names = [URL]()
-
-        guard (inputStream != nil) else {
-            return nil
-        }
-
-        defer {self.closeStream(inputStream)}
-        inputStream?.open()
-        
-        guard (inputStream!.hasBytesAvailable) else {
-            return nil
-        }
-        
-        var parts = [CLDPartDescriptor]()
-        let bufferSize = min(chunkSize, defaultBufferSize)
-        var buffer = [UInt8](repeating: 0, count: bufferSize)
-        
-        var currentChunkBytes = 0
-        var chunkIndex = 0
-        var targetUrl: URL!
-        var totalRead:Int64 = 0
-        var success = false
         var outputStream:OutputStream?
-        defer {closeStream(outputStream)}
+        var success = false
+        var parts = [CLDPartDescriptor]()
+        guard let inputStream = InputStream(url: url) else {
+            return nil
+        }
+    
         defer {
+            inputStream.close()
+            outputStream?.close()
+            
             // clean up files if something failed mid-process
             if (!success) {
                 removeFiles(files: parts)
             }
         }
         
-        while case let read = inputStream!.read(&buffer, maxLength: calcReadSize(currentChunkBytes, chunkSize, bufferSize)), inputStream!.hasBytesAvailable {
+        inputStream.open()
+        
+        let bufferSize = min(chunkSize, maxBufferSize)
+        var buffer = [UInt8](repeating: 0, count: bufferSize)
+        
+        var currentChunkBytes = 0
+        var chunkIndex = 0
+        var targetUrl: URL!
+        var totalRead:Int64 = 0
+        
+        while inputStream.hasBytesAvailable {
+            let read = inputStream.read(&buffer, maxLength: calcReadSize(currentChunkBytes, chunkSize, bufferSize))
+
+            if (read == 0) {
+                continue
+            }
+            
             if (outputStream == nil){
-                targetUrl = getTempFileUrl(name: name + "_part\(chunkIndex).mp4")
+                targetUrl = getTempFileUrl(fileName: name + "_part\(chunkIndex).mp4")
                 outputStream = OutputStream(url: targetUrl!, append: false)
                 
                 guard (outputStream != nil) else {
@@ -114,20 +116,8 @@ internal class CLDFileUtils {
         return maxLength
     }
 
-    fileprivate static func closeStream(_ stream: Stream?){
-        if (stream != nil){
-            stream!.close()
-        }
-    }
-    
-    fileprivate static func getTempFileUrl(name: String) -> URL{
-        let tempDirectoryURL = NSURL.fileURL(withPath: NSTemporaryDirectory(), isDirectory: true)
-     
-        if !FileManager.default.fileExists(atPath: tempDirectoryURL.path){
-            try! FileManager.default.createDirectory(atPath: tempDirectoryURL.path, withIntermediateDirectories: true)
-        }
-
-        return tempDirectoryURL.appendingPathComponent(name)
+    fileprivate static func getTempFileUrl(fileName: String) -> URL{
+        return NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)!
     }
 }
 

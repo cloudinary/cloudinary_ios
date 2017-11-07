@@ -28,7 +28,7 @@ import Foundation
  The CLDUploader class is used to upload assets to your Cloudinary account's cloud.
 */
 @objc open class CLDUploader: CLDBaseNetworkObject {
-    static let DEFAULT_CHUNK_SIZE = 20 * 1024 * 1024
+    static let defaultChunkSize = 20 * 1024 * 1024
     
     // MARK: - Init
     
@@ -139,10 +139,9 @@ import Foundation
      - parameter preparedHandler:   The closure to be called once the request has finished, holding either the response object or the error.
      - parameter completionHandler: The closure to be called once the request is prepared, holding either the request object or an error
      */
-    open func signedUploadLarge(url: URL, params: CLDUploadRequestParams?, chunkSize: Int = DEFAULT_CHUNK_SIZE, progress: ((Progress) -> Void)? = nil,
-                            preparedHandler: ((_ request: CLDUploadRequest?, _ error: NSError?)->())? = nil,
-                          completionHandler:((_ response: CLDUploadResult?, _ error: NSError?) -> ())? = nil) {
-        let params = params ?? CLDUploadRequestParams()
+    open func signedUploadLarge(url: URL, params: CLDUploadRequestParams = CLDUploadRequestParams(), chunkSize: Int = defaultChunkSize, progress: ((Progress) -> Void)? = nil,
+                            preparedHandler: (CLDUploadChunksPreparedHandler)? = nil,
+                          completionHandler:CLDUploadCompletionHandler? = nil) {
         params.setSigned(true)
         performUploadLarge(url: url, params: params, chunkSize:  chunkSize, progress: progress, preparedHandler: preparedHandler, completionHandler: completionHandler)
     }
@@ -157,18 +156,17 @@ import Foundation
      - parameter preparedHandler:   The closure to be called once the request has finished, holding either the response object or the error.
      - parameter completionHandler: The closure to be called once the request is prepared, holding either the request object or an error
      */
-    open func uploadLarge(url: URL, uploadPreset: String, params: CLDUploadRequestParams?, chunkSize: Int = DEFAULT_CHUNK_SIZE, progress: ((Progress) -> Void)? = nil,
-                                preparedHandler: ((_ request: CLDUploadRequest?, _ error: NSError?)->())? = nil,
-                                completionHandler:((_ response: CLDUploadResult?, _ error: NSError?) -> ())? = nil) {
-        let params = params ?? CLDUploadRequestParams()
+    open func uploadLarge(url: URL, uploadPreset: String, params: CLDUploadRequestParams = CLDUploadRequestParams(), chunkSize: Int = defaultChunkSize, progress: ((Progress) -> Void)? = nil,
+                                preparedHandler: CLDUploadChunksPreparedHandler? = nil,
+                                completionHandler: CLDUploadCompletionHandler? = nil) {
         params.setSigned(false)
         params.setUploadPreset(uploadPreset)
         performUploadLarge(url: url, params: params, chunkSize:  chunkSize, progress: progress, preparedHandler: preparedHandler, completionHandler: completionHandler)
     }
 
     fileprivate func performUploadLarge(url: URL, params: CLDUploadRequestParams, chunkSize: Int , progress: ((Progress) -> Void)? = nil,
-                          preparedHandler: ((_ request: CLDUploadRequest?, _ error: NSError?)->())? = nil,
-                          completionHandler:((_ response: CLDUploadResult?, _ error: NSError?) -> ())? = nil) {
+                          preparedHandler: CLDUploadChunksPreparedHandler? = nil,
+                          completionHandler:CLDUploadCompletionHandler? = nil) {
         
         DispatchQueue.global().async {
             guard chunkSize >= 5 * 1024 * 1024 else {
@@ -179,7 +177,7 @@ import Foundation
             let totalLength = CLDFileUtils.getFileSize(url: url)
             
             guard totalLength != nil else {
-                preparedHandler?(nil, CLDError.error(code: CLDError.CloudinaryErrorCode.failedRetrievingFileInfo, message: "Could not read file info."))
+                preparedHandler?(nil, CLDError.error(code: CLDError.CloudinaryErrorCode.failedRetrievingFileInfo, message: "zero file length"))
                 return
             }
             
@@ -212,12 +210,12 @@ import Foundation
                 }
             }
             
-            if completionHandler != nil {
-                uploadRequest.response(completionHandler!)
+            if let handler = completionHandler {
+                uploadRequest.response(handler)
             }
             
-            if progress != nil {
-                uploadRequest.progress(progress!)
+            if let progress = progress {
+                uploadRequest.progress(progress)
             }
             
             preparedHandler?(uploadRequest, nil)

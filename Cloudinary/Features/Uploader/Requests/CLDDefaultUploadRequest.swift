@@ -30,7 +30,7 @@ import Foundation
  and a response closure to be called once the transfer has finished,
  as well as performing actions on the request, such as cancelling, suspending or resuming it.
  */
-@objc open class CLDDefaultUploadRequest: CLDUploadRequest {
+@objc internal class CLDDefaultUploadRequest: CLDUploadRequest {
 
 
     internal var networkRequest: CLDNetworkDataRequest
@@ -91,12 +91,8 @@ import Foundation
         responseRaw { (response, error) in
             if let res = response as? [String : AnyObject] {
                 completionHandler(CLDUploadResult(json: res), nil)
-            }
-            else if let err = error {
-                completionHandler(nil, err)
-            }
-            else {
-                completionHandler(nil, CLDError.generalError())
+            } else {
+                completionHandler(nil, error ?? CLDError.generalError())
             }
         }
         return self

@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDUploadLargeRequest: CLDUploadRequest {
+@objc internal class CLDUploadLargeRequest: CLDUploadRequest {
     internal var totalLength: Int64
     internal var cancelled = false
     internal var totalProgress: Progress
@@ -92,12 +92,12 @@ import Foundation
                     self.cancelled = true
                     self.cancel()
                     self.requestDone(nil, error, false)
-                } else if let done = result?.done, done {
-                        // last part arrived successfully
-                        self.requestDone(result, nil, true)
+                } else if result?.done ?? false {
+                    // last part arrived successfully
+                    self.requestDone(result, nil, true)
                 } else if (self.requests.count == 1) {
-                    // If there's only one part we just propagate the result (since error is nil this is a successful result):
-                    self.requestDone(result, error, true)
+                    // If there's only one part the server doesn't return the 'done' flag
+                    self.requestDone(result, nil, true)
                 }
             }
         }
