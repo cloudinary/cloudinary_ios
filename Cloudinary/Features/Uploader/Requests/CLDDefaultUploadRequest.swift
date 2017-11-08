@@ -106,7 +106,7 @@ import Foundation
      - returns:                          The same instance of CLDUploadRequest.
      */
     @discardableResult
-    internal override func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadRequest {
+    open override func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadRequest {
         networkRequest.progress(progress)
         return self
     }

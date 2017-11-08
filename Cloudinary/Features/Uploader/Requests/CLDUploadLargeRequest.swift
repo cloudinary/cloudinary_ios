@@ -25,18 +25,82 @@
 import Foundation
 
 @objc internal class CLDUploadLargeRequest: CLDUploadRequest {
-    internal var totalLength: Int64
-    internal var cancelled = false
-    internal var totalProgress: Progress
-    internal var requests:[CLDUploadRequest]
-    internal var completionHandler: ((_ result: CLDUploadResult?, _ error: NSError?) -> ())?
+    private var state = RequestState.started
+    internal var totalLength: Int64 = 0
+    internal var totalProgress: Progress!
+    internal var progressHandler: ((Progress) -> Void)?
+    internal var requests: [CLDUploadRequest]? = nil
     internal var requestsProgress = [CLDUploadRequest: Int64]()
-    internal var cleanupHandler: ((Bool)->())?
+    internal var result: CLDUploadResult?
+    internal var error: NSError?
 
-    internal init(_ requests: [CLDUploadRequest], _ totalLength: Int64) {
+    fileprivate let closureQueue: OperationQueue = {
+        let operationQueue = OperationQueue()
+        operationQueue.maxConcurrentOperationCount = 1
+        operationQueue.isSuspended = true
+        return operationQueue
+    }()
+
+    internal override init() {
+    }
+
+    internal func setRequests(_ requests: [CLDUploadRequest], _ totalLength: Int64) {
         self.requests = requests
         self.totalLength = totalLength
         self.totalProgress = Progress(totalUnitCount: totalLength)
+
+        // setup closures and pending state
+        for request in requests {
+            request.response() { result, error in
+                guard (self.state != RequestState.cancelled && self.state != RequestState.error) else {
+                    return
+                }
+
+                if (error != nil) {
+                    // single part error fails everything
+                    self.state = RequestState.error
+                    self.cancel()
+                    self.requestDone(nil, error)
+                } else if result?.done ?? false {
+                    // last part arrived successfully
+                    self.state = RequestState.success
+                    self.requestDone(result, nil)
+                } else if (self.requests!.count == 1) {
+                    // If there's only one part the server doesn't return the 'done' flag
+                    self.state = RequestState.success
+                    self.requestDone(result, nil)
+                }
+            }
+
+            request.progress() { innerProgress in
+                guard (self.state != RequestState.cancelled && self.state != RequestState.error) else {
+                    return
+                }
+
+                self.requestsProgress[request] = innerProgress.completedUnitCount
+                self.totalProgress.completedUnitCount = self.requestsProgress.values.reduce(0, +)
+                self.progressHandler?(self.totalProgress)
+            }
+
+            if (state == RequestState.suspended) {
+                request.suspend()
+            } else if (state == RequestState.cancelled) {
+                request.cancel()
+            }
+        }
+    }
+
+    internal func setRequestError(_ error: NSError){
+        state = RequestState.error
+        requestDone(nil, error)
+    }
+
+    fileprivate func requestDone(_ result: CLDUploadResult?, _ error: NSError?) {
+        self.error = error
+        self.result = result
+        requestsProgress.removeAll()
+        requests?.removeAll()
+        closureQueue.isSuspended = false
     }
 
     // MARK: - Public
@@ -45,8 +109,11 @@ import Foundation
      Resume the request.
      */
     open override func resume() {
-        for request in requests {
-            request.resume()
+        state = RequestState.started
+        if let requests = self.requests {
+            for request in requests {
+                request.resume()
+            }
         }
     }
 
@@ -54,8 +121,11 @@ import Foundation
      Suspend the request.
      */
     open override func suspend() {
-        for request in requests {
-            request.suspend()
+        state = RequestState.suspended
+        if let requests = self.requests {
+            for request in requests {
+                request.suspend()
+            }
         }
     }
 
@@ -63,9 +133,11 @@ import Foundation
      Cancel the request.
      */
     open override func cancel() {
-        cancelled = true
-        for request in requests {
-            request.cancel()
+        state = RequestState.cancelled
+        if let requests = self.requests {
+            for request in requests {
+                request.cancel()
+            }
         }
     }
 
@@ -80,35 +152,11 @@ import Foundation
      */
     @discardableResult
     open override func response(_ completionHandler: @escaping (_ result: CLDUploadResult?, _ error: NSError?) -> ()) -> CLDUploadLargeRequest {
-        self.completionHandler = completionHandler
-        for request in requests {
-            request.response() { result, error in
-                guard (!self.cancelled) else {
-                    return
-                }
-
-                if (error != nil){
-                    // single part error fails everything
-                    self.cancelled = true
-                    self.cancel()
-                    self.requestDone(nil, error, false)
-                } else if result?.done ?? false {
-                    // last part arrived successfully
-                    self.requestDone(result, nil, true)
-                } else if (self.requests.count == 1) {
-                    // If there's only one part the server doesn't return the 'done' flag
-                    self.requestDone(result, nil, true)
-                }
-            }
+        closureQueue.addOperation {
+            completionHandler(self.result, self.error)
         }
-
+        
         return self
-    }
-
-    fileprivate func requestDone(_ result: CLDUploadResult?, _ error: NSError?, _ success: Bool){
-        completionHandler?(result, error)
-        cleanupHandler?(success)
-        requestsProgress.removeAll()
     }
 
     /**
@@ -119,24 +167,19 @@ import Foundation
      - returns:                          The same instance of CLDUploadLargeRequest.
      */
     @discardableResult
-    internal override func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadLargeRequest {
-
-        for request in requests {
-            request.progress() { innerProgress in
-                guard (!self.cancelled) else {
-                    return
-                }
-
-                self.requestsProgress[request] = innerProgress.completedUnitCount
-                self.totalProgress.completedUnitCount = self.requestsProgress.values.reduce(0, +)
-                progress(self.totalProgress)
-            }
-        }
-
+    open override func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadLargeRequest {
+        self.progressHandler = progress
         return self
     }
 
-    internal func cleanupHandler (handler: @escaping (_ success: Bool)->()) {
-        self.cleanupHandler = handler
+    internal func cleanupHandler(handler: @escaping (_ success: Bool) -> ()) -> CLDUploadLargeRequest {
+        closureQueue.addOperation {
+            handler(self.state == RequestState.success)
+        }
+        return self
     }
+}
+
+fileprivate enum RequestState: Int {
+    case started, suspended, cancelled, error, success
 }

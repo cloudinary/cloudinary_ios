@@ -84,7 +84,7 @@ open class CLDUploadRequest : NSObject {
      - returns:                          The same instance of CLDUploadRequest.
      */
     @discardableResult
-    internal func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadRequest{
+    open func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadRequest{
         return self
     }
 }
