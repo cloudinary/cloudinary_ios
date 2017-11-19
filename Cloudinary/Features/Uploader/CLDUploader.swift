@@ -163,8 +163,9 @@ import Foundation
     fileprivate func performUploadLarge(url: URL, params: CLDUploadRequestParams, chunkSize: Int, progress: ((Progress) -> Void)? = nil,
                                         completionHandler: CLDUploadCompletionHandler? = nil) -> CLDUploadRequest {
 
-        let uploadRequest = CLDUploadLargeRequest()
         let totalLength = CLDFileUtils.getFileSize(url: url)
+
+        let uploadRequest = CLDUploadLargeRequest(totalLength: totalLength)
 
         if let handler = completionHandler {
             uploadRequest.response(handler)
@@ -191,23 +192,19 @@ import Foundation
 
         DispatchQueue.global().async {
             let randomId = NSUUID().uuidString
-            let parts = CLDFileUtils.splitFile(url: url, name: randomId, chunkSize: chunkSize)
-
-            if (parts == nil) {
-                uploadRequest.setRequestError (CLDError.error(code: CLDError.CloudinaryErrorCode.failedRetrievingFileInfo, message: "Could not process file."))
-            } else {
-                var requests = [CLDUploadRequest]()
-                for part in parts! {
-                    let range = "bytes \(part.offset)-\(part.offset + Int64(part.length - 1))/\(totalLength!)"
-                    requests.append(self.performUpload(url: part.url, params: params, extraHeaders: ["X-Unique-Upload-Id": randomId, "Content-Range": range]))
-                }
-
-                uploadRequest.setRequests(requests, totalLength!)
+            if let parts = CLDFileUtils.splitFile(url: url, name: randomId, chunkSize: chunkSize) {
                 uploadRequest.cleanupHandler { success in
                     DispatchQueue.global().async {
-                        CLDFileUtils.removeFiles(files: parts!)
+                        CLDFileUtils.removeFiles(files: parts)
                     }
                 }
+
+                for part in parts {
+                    let range = "bytes \(part.offset)-\(part.offset + Int64(part.length - 1))/\(totalLength!)"
+                    uploadRequest.addRequest(self.performUpload(url: part.url, params: params, extraHeaders: ["X-Unique-Upload-Id": randomId, "Content-Range": range]))
+                }
+            } else {
+                uploadRequest.setRequestError (CLDError.error(code: CLDError.CloudinaryErrorCode.failedRetrievingFileInfo, message: "Could not process file."))
             }
         }
 

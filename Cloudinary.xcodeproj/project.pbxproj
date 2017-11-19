@@ -665,8 +665,7 @@
 				36AC052A1D4FA58F002FC9DF /* RequestParams */,
 				36AC052E1D4FA5C4002FC9DF /* Results */,
 			);
-			name = Uploader;
-			path = ../Uploader;
+			path = Uploader;
 			sourceTree = "<group>";
 		};
 		36B246A81C9571E900122DB7 /* RequestParams */ = {
