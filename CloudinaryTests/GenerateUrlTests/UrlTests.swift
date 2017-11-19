@@ -369,7 +369,7 @@ class UrlTests: XCTestCase {
         var dprValue = ""
         if let finalUrl = url, let range = finalUrl.range(of: "dpr_") {
             let startIndex = range.upperBound
-            dprValue = finalUrl[startIndex..<(finalUrl.index(startIndex, offsetBy: 1))]
+            dprValue = String(finalUrl[startIndex..<(finalUrl.index(startIndex, offsetBy: 1))])
         }
         
         if !dprValue.isEmpty {
