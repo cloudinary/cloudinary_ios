@@ -46,6 +46,11 @@ internal struct CLDError {
     }
     
     static func error(domain: String = CLDError.domain, code: Int, userInfo: [AnyHashable: Any]?) -> NSError {
-        return NSError(domain: domain, code: code, userInfo: userInfo)
+        var info = [String: Any]()
+        if let userInfo = userInfo {
+            userInfo.forEach {key, value in info[String(describing: key)] = value}
+        }
+        
+        return NSError(domain: domain, code: code, userInfo: info)
     }
 }

@@ -314,7 +314,7 @@ class UploaderTests: NetworkBaseTest {
         var matches = 0
         if let publicId = result?.publicId {
             let regex = try! NSRegularExpression(pattern: "\(filename)_[a-z0-9]{6}", options: NSRegularExpression.Options(rawValue: 0))
-            matches = regex.numberOfMatches(in: publicId, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, publicId.characters.count))
+            matches = regex.numberOfMatches(in: publicId, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, publicId.count))
         }
         
         XCTAssertEqual(1, matches)

@@ -28,8 +28,8 @@ import Foundation
  The CLDUploader class is used to upload assets to your Cloudinary account's cloud.
 */
 @objc open class CLDUploader: CLDBaseNetworkObject {
-    static let defaultChunkSize = 20 * 1024 * 1024
-
+    static public let defaultChunkSize = 20 * 1024 * 1024
+    
     // MARK: - Init
 
     fileprivate override init() {
@@ -143,7 +143,7 @@ import Foundation
         params.setSigned(true)
         return performUploadLarge(url: url, params: params, chunkSize: chunkSize, progress: progress, completionHandler: completionHandler)
     }
-
+    
     /**
      Uploads a file in chunks from the specified local-file URL to the configured cloud
      
@@ -170,21 +170,21 @@ import Foundation
         if let handler = completionHandler {
             uploadRequest.response(handler)
         }
-        
+
         if let progress = progress {
             uploadRequest.progress(progress)
         }
-        
+
         guard chunkSize >= 5 * 1024 * 1024 else {
             uploadRequest.setRequestError(CLDError.error(code: CLDError.CloudinaryErrorCode.generalErrorCode, message: "Chunk size must be greater than 5[MB]"))
             return uploadRequest
         }
-        
+
         guard totalLength != nil else {
             uploadRequest.setRequestError (CLDError.error(code: CLDError.CloudinaryErrorCode.failedRetrievingFileInfo, message: "zero file length"))
             return uploadRequest
         }
-        
+
         if (totalLength! < Int64(chunkSize)) {
             // One chunk - fallback to regular upload:
             return performUpload(url: url, params: params, progress: progress, completionHandler: completionHandler)

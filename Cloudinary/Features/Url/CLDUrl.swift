@@ -23,6 +23,7 @@
 //
 
 import Foundation
+//import CLDCompatibility
 
 /**
  The CLDUrl class represents a URL to a remote asset either on your Cloudinary cloud, or from another remote source.
@@ -270,7 +271,7 @@ import Foundation
         var format = self.format
         
         
-        let preloadedComponentsMatch = GenerateUrlRegex.preloadedRegex.matches(in: sourceName, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, sourceName.characters.count))
+        let preloadedComponentsMatch = GenerateUrlRegex.preloadedRegex.matches(in: sourceName, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, sourceName.count))
         if preloadedComponentsMatch.count > 0 {
             if let preloadedComponents = preloadedComponentsMatch.first {
                 resourceType = (sourceName as NSString).substring(with: preloadedComponents.rangeAt(1))
@@ -353,7 +354,7 @@ import Foundation
         
         let regex = try! NSRegularExpression(pattern: "([^:])\\/+", options: NSRegularExpression.Options.caseInsensitive)
         
-        return regex.stringByReplacingMatches(in: url, options: [], range: NSMakeRange(0, url.characters.count), withTemplate: "$1/")
+        return regex.stringByReplacingMatches(in: url, options: [], range: NSMakeRange(0, url.count), withTemplate: "$1/")
     }
     
     fileprivate struct GenerateUrlRegex {
