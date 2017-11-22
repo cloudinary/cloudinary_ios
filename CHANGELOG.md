@@ -1,4 +1,17 @@
 
+2.0.3 / 2017-11-23
+==================
+
+New functionality
+-----------------
+  * Add support for chunked upload
+
+Other changes
+-------------
+
+  * Update Readme to point to HTTPS URLs of cloudinary.com
+  * Fix manual installation repository url.
+
 2.0.2 / 2017-06-08
 ==================
 
