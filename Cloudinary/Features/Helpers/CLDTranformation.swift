@@ -240,6 +240,19 @@ import Foundation
      
      - returns:              The same instance of CLDTransformation.
      */
+    @objc(setWidthWithVar:)
+    @discardableResult
+    open func setWidth(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.WIDTH, value: String(describing: variable))
+    }
+    
+    /**
+     Set the image width.
+     
+     - parameter width:      The width to set.
+     
+     - returns:              The same instance of CLDTransformation.
+     */
     @discardableResult
     open func setWidth(_ width: String) -> CLDTransformation {
         return setParam(TransformationParam.WIDTH, value: width)
@@ -269,6 +282,19 @@ import Foundation
     @discardableResult
     open func setHeight(_ height: Float) -> CLDTransformation {
         return setHeight(height.cldFloatFormat())
+    }
+    
+    /**
+     Set the image height.
+     
+     - parameter height:      The height to set.
+     
+     - returns:              The same instance of CLDTransformation.
+     */
+    @objc(setHeightWithVar:)
+    @discardableResult
+    open func setHeight(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.HEIGHT, value: String(describing: variable))
     }
     
     /**
@@ -410,6 +436,20 @@ import Foundation
      
      - returns:             The same instance of CLDTransformation.
      */
+    
+    @objc(setEffectWithVar:)
+    @discardableResult
+    open func setEffect(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.EFFECT, value: String(describing: variable))
+    }
+    
+    /**
+     Apply a filter or an effect on an image.
+     
+     - parameter effect:    The effect to apply.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
     @discardableResult
     open func setEffect(_ effect: String) -> CLDTransformation {
         return setParam(TransformationParam.EFFECT, value: effect)
@@ -448,6 +488,19 @@ import Foundation
      
      - returns:             The same instance of CLDTransformation.
      */
+    @objc(setAngleWithVar:)
+    @discardableResult
+    open func setAngle(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.ANGLE, value: String(describing: variable))
+    }
+    
+    /**
+     Rotate or flip an image by the given degrees or automatically according to its orientation or available meta-data.
+     
+     - parameter angle:    The angle to rotate.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
     @discardableResult
     open func setAngle(_ angles: String) -> CLDTransformation {
         return setParam(TransformationParam.ANGLE, value: angles)
@@ -464,6 +517,19 @@ import Foundation
     @discardableResult
     open func setOpacity(_ opacity: Int) -> CLDTransformation {
         return setOpacity(String(opacity))
+    }
+    
+    /**
+     Adjust the opacity of the image and make it semi-transparent. 100 means opaque, while 0 is completely transparent.
+     
+     - parameter opacity:   The opacity level to apply.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(setOpacityWithVar:)
+    @discardableResult
+    open func setOpacity(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.OPACITY, value: String(describing: variable))
     }
     
     /**
@@ -530,6 +596,19 @@ import Foundation
         return setX(x.cldFloatFormat())
     }
     
+     /**
+     Horizontal position for custom-coordinates based cropping, overlay placement and certain region related effects.
+     
+     - parameter x:     The x position to add.
+     
+     - returns:         The same instance of CLDTransformation.
+     */
+    @objc(setXWithVar:)
+    @discardableResult
+    open func setX(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.X, value: String(describing: variable))
+    }
+    
     /**
      Horizontal position for custom-coordinates based cropping, overlay placement and certain region related effects.
      
@@ -575,6 +654,19 @@ import Foundation
      
      - returns:         The same instance of CLDTransformation.
      */
+    @objc(setYWithVar:)
+    @discardableResult
+    open func setY(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.Y, value: String(describing: variable))
+    }
+    
+    /**
+     Vertical position for custom-coordinates based cropping and overlay placement.
+     
+     - parameter y:     The y position to add.
+     
+     - returns:         The same instance of CLDTransformation.
+     */
     @discardableResult
     open func setY(_ y: String) -> CLDTransformation {
         return setParam(TransformationParam.Y, value: y)
@@ -591,6 +683,20 @@ import Foundation
     @discardableResult
     open func setRadius(_ radius: Int) -> CLDTransformation {
         return setRadius(String(radius))
+    }
+    
+    /**
+     Round the corners of an image or make it completely circular or oval (ellipse).
+     
+     - parameter radius:    The radius to apply.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+
+    @objc(setRadiusWithVar:)
+    @discardableResult
+    open func setRadius(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.RADIUS, value: String(describing: variable))
     }
     
     /**
@@ -620,6 +726,23 @@ import Foundation
     @discardableResult
     open func setQuality(_ quality: Int) -> CLDTransformation {
         return setQuality(String(quality))
+    }
+    
+    /**
+     Control the JPEG, WebP, GIF, JPEG XR and JPEG 2000 compression quality. 1 is the lowest quality and 100 is the highest. Reducing quality generates JPG images much smaller in file size. The default values are:
+     * JPEG: 90
+     * WebP: 80 (100 quality for WebP is lossless)
+     * GIF: lossless by default. 80 if the `lossy` flag is added
+     * JPEG XR and JPEG 2000: 70
+     
+     - parameter quality:   The quality to apply.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(setQualityWithVar:)
+    @discardableResult
+    open func setQuality(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.QUALITY, value: String(describing: variable))
     }
     
     /**
@@ -888,6 +1011,20 @@ import Foundation
      
      - returns:             The same instance of CLDTransformation.
      */
+    
+    @objc(setDprWithVar:)
+    @discardableResult
+    open func setDpr(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.DPR, value: String(describing: variable))
+    }
+    
+    /**
+     Deliver the image in the specified device pixel ratio. The parameter accepts any positive float value.
+     
+     - parameter dpr:       The DPR ot set.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
     @discardableResult
     open func setDpr(_ dpr: String) -> CLDTransformation {
         return setParam(TransformationParam.DPR, value: dpr)
@@ -904,6 +1041,19 @@ import Foundation
     @discardableResult
     open func setZoom(_ zoom: Float) -> CLDTransformation {
         return setZoom(zoom.cldFloatFormat())
+    }
+    
+    /**
+     Control how much of the original image surrounding the face to keep when using either the 'crop' or 'thumb' cropping modes with face detection. default is 1.0.
+     
+     - parameter zoom:      The zoom ot set.
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(setZoomWithVar:)
+    @discardableResult
+    open func setZoom(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.ZOOM, value: String(describing: variable))
     }
     
     /**
@@ -944,6 +1094,20 @@ import Foundation
     @discardableResult
     open func setAspectRatio(_ aspectRatio: Float) -> CLDTransformation {
         return setAspectRatio(aspectRatio.cldFloatFormat())
+    }
+    
+    /**
+     Resize or crop the image to a new aspect ratio.
+     This parameter is used together with a specified crop mode that determines how the image is adjusted to the new dimensions.
+     
+     - parameter aspectRatio:   The aspect ratio ot use.
+     
+     - returns:                 The same instance of CLDTransformation.
+     */
+    @objc(setAspectRatioWithVar:)
+    @discardableResult
+    open func setAspectRatio(_ variable: CLDVar) -> CLDTransformation {
+        return setParam(TransformationParam.ASPECT_RATIO, value: String(describing: variable))
     }
     
     /**
@@ -1243,6 +1407,24 @@ import Foundation
     @discardableResult
     open func setParam(_ key: String, value: String) -> CLDTransformation {
         currentTransformationParams[key] = value
+        return self
+    }
+    
+    
+    @discardableResult
+    open func setVar(variable: CLDVar) -> CLDTransformation {
+        if let value = variable.value {
+            self.setVar(variable.variable, value: value)
+        }
+        else {
+            print("CLDVar should have value")
+        }
+        return self
+    }
+    
+    @discardableResult
+    open func setVar(_ variable: String, value: String) -> CLDTransformation {
+        currentTransformationParams["$\(variable)"] = value
         return self
     }
     

@@ -484,6 +484,20 @@ class UrlTests: XCTestCase {
         
         XCTAssertNil(cloudinary?.createUrl().setTransformation(CLDTransformation().setUnderlayWithLayer(CLDLayer().setResourceType(.video))).generate("test"))
     }
+ 
+    func testVariables() {
+        let widthVariable = CLDVar("w", "200")
+        let transformation = CLDTransformation().setVar(variable: widthVariable).setVar("ar", value: "0.8").chain().setCrop(.fill).setWidth(widthVariable).setAspectRatio("$ar").setGravity(.face)
+        let url = cloudinary?.createUrl().setTransformation(transformation).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/$ar_0.8,$w_200/ar_$ar,c_fill,g_face,w_w/test")
+    }
     
+    func testArithmeticVariables() {
+        var widthVariable = CLDVar("w", "200")
+        widthVariable = widthVariable.equal(variable: CLDVar("h"))
+        let transformation = CLDTransformation().setVar(variable: widthVariable).setVar("ar", value: "0.8").chain().setCrop(.fill).setWidth(CLDVar("w").add(100)).setAspectRatio("$ar").setGravity(.face)
+        let url = cloudinary?.createUrl().setTransformation(transformation).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/$ar_0.8,$w_200/ar_$ar,c_fill,g_face,w_$w_add_100/test")
+    }
 }
 
