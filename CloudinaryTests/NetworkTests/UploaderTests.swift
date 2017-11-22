@@ -78,6 +78,55 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
     
+    func testUploadLargeErrors() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        var expectation = self.expectation(description: "Chunk size under 5MB should fail")
+        let file = TestResourceType.dog.url
+        var requestError: NSError?
+        
+        let params = CLDUploadRequestParams()
+        params.setResourceType(CLDUrlResourceType.video)
+        // chunk size is too small:
+        cloudinary!.createUploader().signedUploadLarge(url: file, params: params, chunkSize: 3 * 1024 * 1024, progress: nil).response({ (resultRes, errorRes) in
+            requestError = errorRes
+            expectation.fulfill()
+        })
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Uploading non-existing file should fail")
+        cloudinary!.createUploader().signedUploadLarge(url: URL(fileURLWithPath: "non/existing/file"), params: params, chunkSize: 10 * 1024 * 1024, progress: nil).response({ (resultRes, errorRes) in
+            requestError = errorRes
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(requestError, "Error should not be nil")
+    }
+    
+    func testUploadLarge() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload large should succeed")
+        let file = TestResourceType.dog.url
+        var requestResult: CLDUploadResult?
+        var requestError: NSError?
+        
+        let params = CLDUploadRequestParams()
+        params.setResourceType(CLDUrlResourceType.video)
+        
+        cloudinary!.createUploader().signedUploadLarge(url: file, params: params, chunkSize: 5 * 1024 * 1024).response({ (result, error) in
+            requestResult = result
+            requestError = error
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(requestResult, "result should not be nil")
+        XCTAssertNil(requestError, "error should be nil")
+    }
+    
     func testUploadVideoData() {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")

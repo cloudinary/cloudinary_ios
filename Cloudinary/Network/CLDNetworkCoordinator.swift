@@ -58,11 +58,11 @@ internal class CLDNetworkCoordinator {
         return networkAdapter.cloudinaryRequest(url, headers: headers, parameters: requestParams)
     }
     
-    internal func upload(_ data: Any, params: CLDUploadRequestParams) -> CLDNetworkDataRequest {
+    internal func upload(_ data: Any, params: CLDUploadRequestParams, extraHeaders: [String:String]?=[:]) -> CLDNetworkDataRequest {
         let url = getUrl(.Upload, resourceType: params.resourceType)
         let requestParams = params.signed ? getSignedRequestParams(params) : params.params
-        let headers = getHeaders()
-        
+        var headers :[String : String] = getHeaders()
+        headers.cldMerge(extraHeaders)
         return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data)
     }
     

@@ -1,7 +1,7 @@
 //
-//  CLDUploadRequest.swift
+//  CLDDefaultUploadRequest.swift
 //
-//  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2017 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -30,61 +30,84 @@ import Foundation
  and a response closure to be called once the transfer has finished,
  as well as performing actions on the request, such as cancelling, suspending or resuming it.
  */
-open class CLDUploadRequest : NSObject {
-    internal override init() {
+@objc internal class CLDDefaultUploadRequest: CLDUploadRequest {
+
+
+    internal var networkRequest: CLDNetworkDataRequest
+
+    internal init(networkDataRequest: CLDNetworkDataRequest) {
+        networkRequest = networkDataRequest
     }
-    
+
+
+    // MARK: - Public
+
     /**
      Resume the request.
      */
-    open func resume(){}
-    
+    open override func resume() {
+        networkRequest.resume()
+    }
+
     /**
      Suspend the request.
      */
-    open func suspend(){}
-    
+    open override func suspend() {
+        networkRequest.suspend()
+    }
+
     /**
      Cancel the request.
      */
-    open func cancel(){}
-    
+    open override func cancel() {
+        networkRequest.cancel()
+    }
+
     //MARK: Handlers
-    
+
     /**
      Set a response closure to be called once the request has finished.
-     
+
      - parameter completionHandler:      The closure to be called once the request has finished, holding either the response object or the error.
-     
+
      - returns:                          The same instance of CLDUploadRequest.
      */
-    
+
     @discardableResult
-    open func responseRaw(_ completionHandler: @escaping (_ response: Any?, _ error: NSError?) -> ()) -> CLDUploadRequest{
+    open override func responseRaw(_ completionHandler: @escaping (_ response: Any?, _ error: NSError?) -> ()) -> CLDUploadRequest {
+        networkRequest.response(completionHandler)
         return self
     }
-    
+
     /**
      Set a response closure to be called once the request has finished.
-     
+
      - parameter completionHandler:      The closure to be called once the request has finished, holding either the response object or the error.
-     
+
      - returns:                          The same instance of CLDUploadRequest.
      */
     @discardableResult
-    open func response(_ completionHandler: @escaping (_ result: CLDUploadResult?, _ error: NSError?) -> ()) -> CLDUploadRequest{
+    open override func response(_ completionHandler: @escaping (_ result: CLDUploadResult?, _ error: NSError?) -> ()) -> CLDUploadRequest {
+        responseRaw { (response, error) in
+            if let res = response as? [String : AnyObject] {
+                completionHandler(CLDUploadResult(json: res), nil)
+            } else {
+                completionHandler(nil, error ?? CLDError.generalError())
+            }
+        }
         return self
     }
-    
+
     /**
      Set a progress closure that is called periodically during the data transfer.
-     
+
      - parameter progressBlock:          The closure that is called periodically during the data transfer.
-     
+
      - returns:                          The same instance of CLDUploadRequest.
      */
     @discardableResult
-    open func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadRequest{
+    open override func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadRequest {
+        networkRequest.progress(progress)
         return self
     }
 }
