@@ -325,4 +325,45 @@ import Foundation
         deleteByTokenRequest.response(completionHandler)
         return deleteByTokenRequest
     }
+    
+    /**
+     This method deletes resources of a specific resource type and type (default = image, upload) according to the defined conditions:
+     
+     - parameter deleteParams:          A params for find and deleting resources.
+     - parameter params:                An object holding the available parameters for the request.
+     - parameter completionHandler:     The closure to be called once the request has finished, holding either the response object or the error.
+     
+     - returns:             An instance of `CLDDeleteRequest`,
+     allowing the options to add response closure to be called once the request has finished,
+     as well as performing actions on the request, such as cancelling, suspending or resuming it.
+     */
+    @discardableResult
+    open func deleteByParams(_ deleteParams: CLDDeleteResourcesRequestParams, params: [String: Any] = [:], completionHandler: ((_ result: CLDDeleteResourcesResult?, _ error: Error?) -> ())? = nil) -> CLDDeleteResourcesRequest {
+        deleteParams.params.cldMerge(params)
+        let request = networkCoordinator.delete(params: deleteParams)
+        let deleteByTransformationRequest = CLDDeleteResourcesRequest(networkRequest: request)
+        deleteByTransformationRequest.response(completionHandler)
+        return deleteByTransformationRequest
+    }
+    
+    /**
+     The Cloudinary library supports using a delete Delete all resources, including derived resources, where the public ID starts with the given prefix (up to a maximum of 1000 original resources).
+     
+     - parameter prefix:                The delete prefix
+     - parameter params:                An object holding the available parameters for the request.
+     - parameter completionHandler:     The closure to be called once the request has finished, holding either the response object or the error.
+     
+     - returns:             An instance of `CLDDeleteRequest`,
+     allowing the options to add response closure to be called once the request has finished,
+     as well as performing actions on the request, such as cancelling, suspending or resuming it.
+     */
+    @discardableResult
+    open func deleteBy(_ prefix: String, params: [String: Any] = [:], completionHandler: ((_ result: CLDDeleteResourcesResult?, _ error: Error?) -> ())? = nil) -> CLDDeleteResourcesRequest {
+        let deleteByTransformationParams = CLDDeleteResourcesRequestParams(prefix: prefix)
+        deleteByTransformationParams.params.cldMerge(params)
+        let request = networkCoordinator.delete(params: deleteByTransformationParams)
+        let deleteByTransformationRequest = CLDDeleteResourcesRequest(networkRequest: request)
+        deleteByTransformationRequest.response(completionHandler)
+        return deleteByTransformationRequest
+    }
 }

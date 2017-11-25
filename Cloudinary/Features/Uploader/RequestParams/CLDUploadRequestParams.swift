@@ -127,6 +127,10 @@ import Foundation
         return getParam(.EagerAsync) as? Bool
     }
     
+    open var async: Bool? {
+        return getParam(.Async) as? Bool
+    }
+    
     open var invalidate: Bool? {
         return getParam(.Invalidate) as? Bool
     }
@@ -470,6 +474,19 @@ import Foundation
     @discardableResult
     open func setEagerAsync(_ eagerAsync: Bool) -> Self {
         setBoolParam(.EagerAsync, value: eagerAsync)
+        return self
+    }
+    
+    /**
+     Set a boolean parameter indicating whether to perform the image generation in the background (asynchronously). default is false.
+     
+     - parameter async:         The boolean parameter.
+     
+     - returns:                      A new instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setAsync(_ async: Bool) -> Self {
+        super.setParam(UploadRequestParams.Async.rawValue, value: async)
         return self
     }
     
@@ -908,6 +925,7 @@ import Foundation
         case UniqueFilename =                       "unique_filename"
         case DiscardOriginalFilename =              "discard_original_filename"
         case EagerAsync =                           "eager_async"
+        case Async =                                "async"
         case Invalidate =                           "invalidate"
         case Overwrite =                            "overwrite"
         case Phash =                                "phash"

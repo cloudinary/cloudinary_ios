@@ -54,8 +54,13 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
 
     // MARK: Features
 
-    internal func cloudinaryRequest(_ url: String, headers: [String: String], parameters: [String: Any]) -> CLDNetworkDataRequest {
-        let req: DataRequest = manager.request(url, method: .post, parameters: parameters, headers: headers)
+    internal func cloudinaryRequest(_ url: String, headers: [String: String], method: String? = "POST", parameters: [String: Any]) -> CLDNetworkDataRequest {
+        var httpMethod: HTTPMethod = .post
+        if let currentMethod = method,
+            let currentHTTPMethod = HTTPMethod(rawValue: currentMethod) {
+            httpMethod = currentHTTPMethod
+        }
+        let req: DataRequest = manager.request(url, method: httpMethod, parameters: parameters, headers: headers)
         req.resume()
         return CLDNetworkDataRequestImpl(request: req)
     }

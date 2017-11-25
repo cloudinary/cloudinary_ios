@@ -67,7 +67,7 @@
 		36AC052C1D4FA5A0002FC9DF /* CLDUploadRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AC052B1D4FA5A0002FC9DF /* CLDUploadRequestParams.swift */; };
 		36AC05321D4FA983002FC9DF /* CLDExplicitResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AC05311D4FA983002FC9DF /* CLDExplicitResult.swift */; };
 		36AC05341D4FAD55002FC9DF /* CLDExplicitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AC05331D4FAD55002FC9DF /* CLDExplicitRequest.swift */; };
-		36AC05371D4FB575002FC9DF /* CLDDeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AC05361D4FB575002FC9DF /* CLDDeleteRequest.swift */; };
+		36AC05371D4FB575002FC9DF /* CLDDeleteResourcesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AC05361D4FB575002FC9DF /* CLDDeleteResourcesRequest.swift */; };
 		36AC053D1D4FB58B002FC9DF /* CLDDeleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AC053C1D4FB58B002FC9DF /* CLDDeleteResult.swift */; };
 		36AC05411D500C64002FC9DF /* dog.mov in Resources */ = {isa = PBXBuildFile; fileRef = 36AC053F1D500C64002FC9DF /* dog.mov */; };
 		36AC05421D500C64002FC9DF /* dog.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 36AC05401D500C64002FC9DF /* dog.mp4 */; };
@@ -105,6 +105,9 @@
 		36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */; };
 		36D00E211D9D833000BF4DD5 /* CLDBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */; };
 		860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */; };
+		E9B8517B1F389CB600780280 /* CLDDeleteResourcesRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B8517A1F389CB600780280 /* CLDDeleteResourcesRequestParams.swift */; };
+		E9B851861F38CB6400780280 /* CLDDeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B851851F38CB6400780280 /* CLDDeleteRequest.swift */; };
+		E9B851881F38CB9000780280 /* CLDDeleteResourcesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B851871F38CB9000780280 /* CLDDeleteResourcesResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,7 +284,7 @@
 		36AC052B1D4FA5A0002FC9DF /* CLDUploadRequestParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDUploadRequestParams.swift; sourceTree = "<group>"; };
 		36AC05311D4FA983002FC9DF /* CLDExplicitResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDExplicitResult.swift; sourceTree = "<group>"; };
 		36AC05331D4FAD55002FC9DF /* CLDExplicitRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDExplicitRequest.swift; sourceTree = "<group>"; };
-		36AC05361D4FB575002FC9DF /* CLDDeleteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDDeleteRequest.swift; sourceTree = "<group>"; };
+		36AC05361D4FB575002FC9DF /* CLDDeleteResourcesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDDeleteResourcesRequest.swift; sourceTree = "<group>"; };
 		36AC053C1D4FB58B002FC9DF /* CLDDeleteResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDDeleteResult.swift; sourceTree = "<group>"; };
 		36AC053F1D500C64002FC9DF /* dog.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = dog.mov; sourceTree = "<group>"; };
 		36AC05401D500C64002FC9DF /* dog.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dog.mp4; sourceTree = "<group>"; };
@@ -319,6 +322,9 @@
 		36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDFace.swift; sourceTree = "<group>"; };
 		36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDBoundingBox.swift; sourceTree = "<group>"; };
 		860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDNetworkUploadRequest.swift; sourceTree = "<group>"; };
+		E9B8517A1F389CB600780280 /* CLDDeleteResourcesRequestParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDDeleteResourcesRequestParams.swift; sourceTree = "<group>"; };
+		E9B851851F38CB6400780280 /* CLDDeleteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDDeleteRequest.swift; sourceTree = "<group>"; };
+		E9B851871F38CB9000780280 /* CLDDeleteResourcesResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDDeleteResourcesResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -453,6 +459,7 @@
 		367EF6581D45720900545D93 /* Results */ = {
 			isa = PBXGroup;
 			children = (
+				E9B851871F38CB9000780280 /* CLDDeleteResourcesResult.swift */,
 				36AC053C1D4FB58B002FC9DF /* CLDDeleteResult.swift */,
 				36AC05311D4FA983002FC9DF /* CLDExplicitResult.swift */,
 				36AC050C1D4F59CD002FC9DF /* CLDExplodeResult.swift */,
@@ -596,7 +603,8 @@
 		36AC05081D4F4C7A002FC9DF /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				36AC05361D4FB575002FC9DF /* CLDDeleteRequest.swift */,
+				E9B851851F38CB6400780280 /* CLDDeleteRequest.swift */,
+				36AC05361D4FB575002FC9DF /* CLDDeleteResourcesRequest.swift */,
 				36AC05331D4FAD55002FC9DF /* CLDExplicitRequest.swift */,
 				36AC050E1D4F5B5D002FC9DF /* CLDExplodeRequest.swift */,
 				36AC05101D4F8950002FC9DF /* CLDMultiRequest.swift */,
@@ -748,6 +756,7 @@
 		36B7FADB1D41231E008754EF /* RequestsParams */ = {
 			isa = PBXGroup;
 			children = (
+				E9B8517A1F389CB600780280 /* CLDDeleteResourcesRequestParams.swift */,
 				36B7FADC1D41231E008754EF /* CLDDeleteByTokenRequestParams.swift */,
 				36B7FADD1D41231E008754EF /* CLDDestroyRequestParams.swift */,
 				36B7FADE1D41231E008754EF /* CLDExplicitRequestParams.swift */,
@@ -1094,7 +1103,7 @@
 				36B7FAD41D3E80A9008754EF /* CLDTextLayer.swift in Sources */,
 				36D00E211D9D833000BF4DD5 /* CLDBoundingBox.swift in Sources */,
 				36747B711CB13BD100087D10 /* CLDNetworkDownloadRequest.swift in Sources */,
-				36AC05371D4FB575002FC9DF /* CLDDeleteRequest.swift in Sources */,
+				36AC05371D4FB575002FC9DF /* CLDDeleteResourcesRequest.swift in Sources */,
 				36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */,
 				36B7FAE81D41231E008754EF /* CLDExplicitRequestParams.swift in Sources */,
 				36B7FAE61D41231E008754EF /* CLDDeleteByTokenRequestParams.swift in Sources */,
@@ -1116,16 +1125,19 @@
 				36B7FAED1D41231E008754EF /* CLDTagsRequestParams.swift in Sources */,
 				366CDD101CA1979F0014361F /* CLDLogManager.swift in Sources */,
 				36B7FAD21D3E8093008754EF /* CLDLayer.swift in Sources */,
+				E9B8517B1F389CB600780280 /* CLDDeleteResourcesRequestParams.swift in Sources */,
 				363BE8D51CC3E94200124C46 /* CLDUploader.swift in Sources */,
 				362CB7771CA41D0F00C26E74 /* CLDBuildParamsUtils.swift in Sources */,
 				36747B6F1CB131E300087D10 /* CLDBaseNetworkObject.swift in Sources */,
 				36B7FAEC1D41231E008754EF /* CLDSpriteRequestParams.swift in Sources */,
 				36D00E171D9D6E8A00BF4DD5 /* CommonResultKeys.swift in Sources */,
 				36AC05111D4F8950002FC9DF /* CLDMultiRequest.swift in Sources */,
+				E9B851881F38CB9000780280 /* CLDDeleteResourcesResult.swift in Sources */,
 				36D00E1B1D9D825900BF4DD5 /* CLDDetection.swift in Sources */,
 				36D00E191D9D822B00BF4DD5 /* CLDInfo.swift in Sources */,
 				36B7FAE51D41231E008754EF /* CLDManagementApi.swift in Sources */,
 				36AC050D1D4F59CD002FC9DF /* CLDExplodeResult.swift in Sources */,
+				E9B851861F38CB6400780280 /* CLDDeleteRequest.swift in Sources */,
 				36AC050F1D4F5B5D002FC9DF /* CLDExplodeRequest.swift in Sources */,
 				36784DBA1CCCCE1100F3B777 /* CLDRequestParams.swift in Sources */,
 				36AC05071D4F4653002FC9DF /* CLDRequest.swift in Sources */,

@@ -24,7 +24,6 @@
 
 import Foundation
 
-
 // MARK: CLDNetworkAdapter
 
 /**
@@ -41,13 +40,14 @@ to use a custom network adapter you must implement the `CLDNetworkAdapter` proto
     
     - parameter url:            The URL to make the request to.
     - parameter headers:        A dictionary of the headers to set to the request.
+    - parameter method:         A HTTPMethod of the method to set to the request. Default .post
     - parameter parameters:     A dictionary of the parameters to set to the request.
     
     - returns:                  An instance implementing the protocol `CLDNetworkDataRequest`,
                                 allowing the options to add response closure to be called once the request has finished,
                                 as well as performing actions on the request, such as cancelling, suspending or resuming it.
     */
-    func cloudinaryRequest(_ url: String, headers: [String : String], parameters: [String : Any]) -> CLDNetworkDataRequest
+    func cloudinaryRequest(_ url: String, headers: [String : String], method: String?, parameters: [String : Any]) -> CLDNetworkDataRequest
     
     /**
      Create a network upload request for the given URL, with the specified headers, body parameters and data.

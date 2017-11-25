@@ -485,5 +485,21 @@ class UrlTests: XCTestCase {
         XCTAssertNil(cloudinary?.createUrl().setTransformation(CLDTransformation().setUnderlayWithLayer(CLDLayer().setResourceType(.video))).generate("test"))
     }
     
+    func testStreamingProfile() {
+        let transformation = CLDTransformation().setStreamingProfile(.fullHD).setCrop(.fill)
+        let resultUrl = "\(prefix)/video/upload/c_fill,sp_full_hd/video_id"
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(transformation).setResourceType(.video).generate("video_id"), resultUrl)
+        
+        let customTransformation = CLDTransformation().setCustomStreamingProfile("custom_profile").setCrop(.fill)
+        let customResultUrl = "\(prefix)/video/upload/c_fill,sp_custom_profile/video_id"
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(customTransformation).setResourceType(.video).generate("video_id"), customResultUrl)
+    }
+    
+    func testInitialDimension() {
+        let trans = CLDTransformation().setWidth(.initialHeight).setHeight(.initialWidth)
+        let url = cloudinary?.createUrl().setTransformation(trans).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/h_iw,w_ih/test")
+    }
+    
 }
 
