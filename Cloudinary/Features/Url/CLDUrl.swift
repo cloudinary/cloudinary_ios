@@ -23,7 +23,6 @@
 //
 
 import Foundation
-//import CLDCompatibility
 
 /**
  The CLDUrl class represents a URL to a remote asset either on your Cloudinary cloud, or from another remote source.

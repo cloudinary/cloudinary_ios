@@ -4,14 +4,6 @@
 //
 
 import Foundation
-//
-//func range(for obj:NSTextCheckingResult, at idx:Int) -> NSRange {
-//    #if swift(>=4.0)
-//        return obj.range(at: idx)
-//    #else
-//        return obj.rangeAt(idx)
-//    #endif
-//}
 
 #if swift(>=4.0)
 internal extension NSTextCheckingResult {
