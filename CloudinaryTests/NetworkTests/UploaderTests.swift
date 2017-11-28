@@ -651,39 +651,6 @@ class UploaderTests: NetworkBaseTest {
         }
     }
     
-    func testAutoTagging() {
-        
-        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
-        let expectation = self.expectation(description: "Upload should succeed")
-        let resource: TestResourceType = .borderCollie        
-        let file = resource.url
-        var result: CLDUploadResult?
-        var error: NSError?
-        
-        let params = CLDUploadRequestParams()
-        params.setAutoTagging(0.5)
-        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
-            result = resultRes
-            error = errorRes
-            
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        XCTAssertNil(result, "result should be nil")
-        XCTAssertNotNil(error, "error should not be nil")
-        
-        if let errMessage = error?.userInfo["message"] as? String {
-            XCTAssertNotNil(errMessage.range(of: "Must use "))
-        }
-        else {
-            XCTFail("Error should hold a message in its user info.")
-        }
-    }
-    
-    
     //MARK: - Helpers
     
     func createUploadPresetIfNeeded(_ uploadPresetUrl: String, presetName: String) {
