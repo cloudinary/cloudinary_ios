@@ -7,13 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E631D121FCFF3A700D8050F /* Data+HashFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF41FCFF3A700D8050F /* Data+HashFunction.swift */; };
+		1E631D131FCFF3A700D8050F /* Data+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF51FCFF3A700D8050F /* Data+Int.swift */; };
+		1E631D141FCFF3A700D8050F /* HashAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF71FCFF3A700D8050F /* HashAlgorithm.swift */; };
+		1E631D151FCFF3A700D8050F /* HashFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF81FCFF3A700D8050F /* HashFunction.swift */; };
+		1E631D161FCFF3A700D8050F /* HashFunctionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF91FCFF3A700D8050F /* HashFunctionOptions.swift */; };
+		1E631D171FCFF3A700D8050F /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CFB1FCFF3A700D8050F /* MD5.swift */; };
+		1E631D181FCFF3A700D8050F /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CFC1FCFF3A700D8050F /* SHA1.swift */; };
+		1E631D191FCFF3A700D8050F /* MerkleDamgardConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CFD1FCFF3A700D8050F /* MerkleDamgardConstructor.swift */; };
+		1E631D1A1FCFF3A700D8050F /* EndianRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CFF1FCFF3A700D8050F /* EndianRepresentable.swift */; };
+		1E631D1B1FCFF3A700D8050F /* ExpressibleByInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631D001FCFF3A700D8050F /* ExpressibleByInt.swift */; };
+		1E631D1C1FCFF3A700D8050F /* RotateOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631D011FCFF3A700D8050F /* RotateOperations.swift */; };
+		1E631D1E1FCFF49700D8050F /* CryptoUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631D1D1FCFF49700D8050F /* CryptoUtilsTests.swift */; };
 		2936A50D1E1D92A5009B7FAF /* Cloudinary.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2936A50C1E1D92A5009B7FAF /* Cloudinary.podspec */; };
 		2936A58E1E1EFF95009B7FAF /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 2936A58C1E1EFF95009B7FAF /* LICENCE */; };
 		2936A58F1E1EFF95009B7FAF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2936A58D1E1EFF95009B7FAF /* README.md */; };
 		2944B6731E2FB613003AB794 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 2944B6721E2FB613003AB794 /* CHANGELOG.md */; };
 		29B5F9051FAB718700032B8A /* FileUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B5F8FC1FAB718700032B8A /* FileUtilsTests.swift */; };
-		29CEE1A31E34A55600A2629D /* GenerateCLDCryptoModule in Resources */ = {isa = PBXBuildFile; fileRef = 29CEE1A11E34A55600A2629D /* GenerateCLDCryptoModule */; };
-		29CEE1A41E34A55600A2629D /* GenerateCLDCryptoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CEE1A21E34A55600A2629D /* GenerateCLDCryptoModule.swift */; };
 		2DBE524D857B985C645CB203 /* CLDFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE577559387EC8E13E99A4 /* CLDFileUtils.swift */; };
 		2DBE553677A991DC96CF8BF7 /* CLDDefaultUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE5FA71FA94E77770E0137 /* CLDDefaultUploadRequest.swift */; };
 		2DBE5897854E36D2456095B9 /* CLDUploadLargeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE55CF2B3839B58D0EBCA2 /* CLDUploadLargeRequest.swift */; };
@@ -266,6 +276,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E631CF41FCFF3A700D8050F /* Data+HashFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+HashFunction.swift"; sourceTree = "<group>"; };
+		1E631CF51FCFF3A700D8050F /* Data+Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Int.swift"; sourceTree = "<group>"; };
+		1E631CF71FCFF3A700D8050F /* HashAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashAlgorithm.swift; sourceTree = "<group>"; };
+		1E631CF81FCFF3A700D8050F /* HashFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashFunction.swift; sourceTree = "<group>"; };
+		1E631CF91FCFF3A700D8050F /* HashFunctionOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashFunctionOptions.swift; sourceTree = "<group>"; };
+		1E631CFB1FCFF3A700D8050F /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
+		1E631CFC1FCFF3A700D8050F /* SHA1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
+		1E631CFD1FCFF3A700D8050F /* MerkleDamgardConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerkleDamgardConstructor.swift; sourceTree = "<group>"; };
+		1E631CFF1FCFF3A700D8050F /* EndianRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndianRepresentable.swift; sourceTree = "<group>"; };
+		1E631D001FCFF3A700D8050F /* ExpressibleByInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressibleByInt.swift; sourceTree = "<group>"; };
+		1E631D011FCFF3A700D8050F /* RotateOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateOperations.swift; sourceTree = "<group>"; };
+		1E631D1D1FCFF49700D8050F /* CryptoUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoUtilsTests.swift; sourceTree = "<group>"; };
 		1ED714C71FBDB57B00C5367C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		2936A50C1E1D92A5009B7FAF /* Cloudinary.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cloudinary.podspec; sourceTree = "<group>"; };
 		2936A58C1E1EFF95009B7FAF /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
@@ -274,8 +296,6 @@
 		2944B6721E2FB613003AB794 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		29B5F8DD1FAB6B9200032B8A /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		29B5F8FC1FAB718700032B8A /* FileUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtilsTests.swift; sourceTree = "<group>"; };
-		29CEE1A11E34A55600A2629D /* GenerateCLDCryptoModule */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = GenerateCLDCryptoModule; sourceTree = "<group>"; };
-		29CEE1A21E34A55600A2629D /* GenerateCLDCryptoModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateCLDCryptoModule.swift; sourceTree = "<group>"; };
 		2DBE55CF2B3839B58D0EBCA2 /* CLDUploadLargeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDUploadLargeRequest.swift; sourceTree = "<group>"; };
 		2DBE577559387EC8E13E99A4 /* CLDFileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLDFileUtils.swift; path = Utils/CLDFileUtils.swift; sourceTree = "<group>"; };
 		2DBE58BD4674612A096E8300 /* CLDCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDCompatibility.swift; sourceTree = "<group>"; };
@@ -393,6 +413,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E631CF21FCFF3A700D8050F /* CryptoKit */ = {
+			isa = PBXGroup;
+			children = (
+				1E631CF31FCFF3A700D8050F /* Data Extensions */,
+				1E631CF61FCFF3A700D8050F /* Hash Algorithms */,
+				1E631CFE1FCFF3A700D8050F /* Math Protocols */,
+			);
+			name = CryptoKit;
+			path = Utils/CryptoKit;
+			sourceTree = "<group>";
+		};
+		1E631CF31FCFF3A700D8050F /* Data Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1E631CF41FCFF3A700D8050F /* Data+HashFunction.swift */,
+				1E631CF51FCFF3A700D8050F /* Data+Int.swift */,
+			);
+			path = "Data Extensions";
+			sourceTree = "<group>";
+		};
+		1E631CF61FCFF3A700D8050F /* Hash Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				1E631CF71FCFF3A700D8050F /* HashAlgorithm.swift */,
+				1E631CF81FCFF3A700D8050F /* HashFunction.swift */,
+				1E631CF91FCFF3A700D8050F /* HashFunctionOptions.swift */,
+				1E631CFA1FCFF3A700D8050F /* Implementations */,
+				1E631CFD1FCFF3A700D8050F /* MerkleDamgardConstructor.swift */,
+			);
+			path = "Hash Algorithms";
+			sourceTree = "<group>";
+		};
+		1E631CFA1FCFF3A700D8050F /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				1E631CFB1FCFF3A700D8050F /* MD5.swift */,
+				1E631CFC1FCFF3A700D8050F /* SHA1.swift */,
+			);
+			path = Implementations;
+			sourceTree = "<group>";
+		};
+		1E631CFE1FCFF3A700D8050F /* Math Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1E631CFF1FCFF3A700D8050F /* EndianRepresentable.swift */,
+				1E631D001FCFF3A700D8050F /* ExpressibleByInt.swift */,
+				1E631D011FCFF3A700D8050F /* RotateOperations.swift */,
+			);
+			path = "Math Protocols";
+			sourceTree = "<group>";
+		};
 		1ED714C81FBDB57B00C5367C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,15 +502,6 @@
 				29B5F8F51FAB6B9200032B8A /* Alamofire.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		29CEE1A01E34A55600A2629D /* CLDCrypto */ = {
-			isa = PBXGroup;
-			children = (
-				29CEE1A11E34A55600A2629D /* GenerateCLDCryptoModule */,
-				29CEE1A21E34A55600A2629D /* GenerateCLDCryptoModule.swift */,
-			);
-			path = CLDCrypto;
 			sourceTree = "<group>";
 		};
 		362CB78D1CA7D3E900C26E74 /* GenerateUrlTests */ = {
@@ -580,6 +642,7 @@
 		3696FBF21C8C6A3D00DE9568 /* CloudinaryTests */ = {
 			isa = PBXGroup;
 			children = (
+				1E631D1D1FCFF49700D8050F /* CryptoUtilsTests.swift */,
 				29B5F8FC1FAB718700032B8A /* FileUtilsTests.swift */,
 				362CB78D1CA7D3E900C26E74 /* GenerateUrlTests */,
 				362CB7901CA7D55D00C26E74 /* NetworkTests */,
@@ -593,6 +656,7 @@
 		3696FC041C8E012300DE9568 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1E631CF21FCFF3A700D8050F /* CryptoKit */,
 				2DBE577559387EC8E13E99A4 /* CLDFileUtils.swift */,
 				3696FC051C8E014500DE9568 /* CLDStringUtils.swift */,
 				3696FC551C9162FF00DE9568 /* CLDCryptoUtils.swift */,
@@ -618,7 +682,6 @@
 		369FB33C1C79D360003E81B6 = {
 			isa = PBXGroup;
 			children = (
-				29CEE1A01E34A55600A2629D /* CLDCrypto */,
 				2936A58B1E1EFF72009B7FAF /* Support Files */,
 				369FB3481C79D360003E81B6 /* Cloudinary */,
 				3696FBF21C8C6A3D00DE9568 /* CloudinaryTests */,
@@ -899,7 +962,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 369FB34E1C79D360003E81B6 /* Build configuration list for PBXNativeTarget "Cloudinary" */;
 			buildPhases = (
-				368604E61CC66DFD00DCEAE5 /* ShellScript */,
 				369FB3411C79D360003E81B6 /* Sources */,
 				369FB3421C79D360003E81B6 /* Frameworks */,
 				369FB3431C79D360003E81B6 /* Headers */,
@@ -1136,28 +1198,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2936A58E1E1EFF95009B7FAF /* LICENCE in Resources */,
-				29CEE1A31E34A55600A2629D /* GenerateCLDCryptoModule in Resources */,
 				2936A50D1E1D92A5009B7FAF /* Cloudinary.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		368604E61CC66DFD00DCEAE5 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo Generating $PROJECT_DIR/Cloudinary/Frameworks/CLDCrypto/${PLATFORM_NAME}/CLDCrypto.framework\nxcrun -sdk macosx swift ./CLDCrypto/GenerateCLDCryptoModule.swift $PLATFORM_NAME $PROJECT_DIR\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3696FBED1C8C6A3D00DE9568 /* Sources */ = {
@@ -1168,6 +1213,7 @@
 				36747B731CB1459800087D10 /* DownloaderTests.swift in Sources */,
 				36D00E081D9C735100BF4DD5 /* UIButtonTests.swift in Sources */,
 				362CB79C1CA7D72600C26E74 /* UploaderTests.swift in Sources */,
+				1E631D1E1FCFF49700D8050F /* CryptoUtilsTests.swift in Sources */,
 				36D00E0A1D9C742400BF4DD5 /* UIBaseTest.swift in Sources */,
 				362CB7A91CA7DAF700C26E74 /* NetworkBaseTest.swift in Sources */,
 				362CB7A31CA7D7DD00C26E74 /* UrlTests.swift in Sources */,
@@ -1185,8 +1231,10 @@
 				36AC051B1D4F8C20002FC9DF /* CLDSpriteResult.swift in Sources */,
 				860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */,
 				36AC05191D4F8B75002FC9DF /* CLDRenameRequest.swift in Sources */,
+				1E631D1B1FCFF3A700D8050F /* ExpressibleByInt.swift in Sources */,
 				36AC05131D4F8988002FC9DF /* CLDMultiResult.swift in Sources */,
 				2936A58F1E1EFF95009B7FAF /* README.md in Sources */,
+				1E631D191FCFF3A700D8050F /* MerkleDamgardConstructor.swift in Sources */,
 				367FA4D11DD34E20001C8A61 /* CLDAsyncNetworkUploadRequest.swift in Sources */,
 				36B7FAE91D41231E008754EF /* CLDExplodeRequestParams.swift in Sources */,
 				36AC05271D4F9EC0002FC9DF /* CLDTextResult.swift in Sources */,
@@ -1194,6 +1242,7 @@
 				369FB3811C7A0FCF003E81B6 /* CLDCloudinary.swift in Sources */,
 				36B497181C9811E80083C935 /* CLDTranformation.swift in Sources */,
 				36AC053D1D4FB58B002FC9DF /* CLDDeleteResult.swift in Sources */,
+				1E631D171FCFF3A700D8050F /* MD5.swift in Sources */,
 				36B7FAF21D413288008754EF /* CLDDictionaryUtils.swift in Sources */,
 				369F77611D994EEA00F1CC90 /* CLDUploadResult.swift in Sources */,
 				36BB95B11DD2051300665FC4 /* CLDErrorRequest.swift in Sources */,
@@ -1205,7 +1254,7 @@
 				3696FC561C9162FF00DE9568 /* CLDCryptoUtils.swift in Sources */,
 				36AC051D1D4F9196002FC9DF /* CLDSpriteRequest.swift in Sources */,
 				3653B1971D43B29B0093765C /* CLDImageCache.swift in Sources */,
-				29CEE1A41E34A55600A2629D /* GenerateCLDCryptoModule.swift in Sources */,
+				1E631D131FCFF3A700D8050F /* Data+Int.swift in Sources */,
 				36747B6D1CB130C200087D10 /* CLDDownloader.swift in Sources */,
 				362CB77D1CA41E6B00C26E74 /* CLDDefinitions.swift in Sources */,
 				3630877B1CBA6C4B00782A57 /* UIView+Cloudinary.swift in Sources */,
@@ -1218,6 +1267,7 @@
 				36AC05371D4FB575002FC9DF /* CLDDeleteRequest.swift in Sources */,
 				36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */,
 				36B7FAE81D41231E008754EF /* CLDExplicitRequestParams.swift in Sources */,
+				1E631D1C1FCFF3A700D8050F /* RotateOperations.swift in Sources */,
 				36B7FAE61D41231E008754EF /* CLDDeleteByTokenRequestParams.swift in Sources */,
 				36B246B61C95D18500122DB7 /* CLDGenericNetworkRequest.swift in Sources */,
 				36AC05151D4F8B14002FC9DF /* CLDRenameResult.swift in Sources */,
@@ -1228,6 +1278,7 @@
 				36B7FAEE1D41231E008754EF /* CLDTextRequestParams.swift in Sources */,
 				36AC05211D4F9C0D002FC9DF /* CLDTagResult.swift in Sources */,
 				3630877E1CC38E0200782A57 /* CLDFetchImageRequestImpl.swift in Sources */,
+				1E631D1A1FCFF3A700D8050F /* EndianRepresentable.swift in Sources */,
 				36B7FAEA1D41231E008754EF /* CLDMultiRequestParams.swift in Sources */,
 				36B246AC1C958EBF00122DB7 /* CLDNetworkAdapter.swift in Sources */,
 				36B7FAEB1D41231E008754EF /* CLDRenameRequestParams.swift in Sources */,
@@ -1238,9 +1289,13 @@
 				366CDD101CA1979F0014361F /* CLDLogManager.swift in Sources */,
 				36B7FAD21D3E8093008754EF /* CLDLayer.swift in Sources */,
 				363BE8D51CC3E94200124C46 /* CLDUploader.swift in Sources */,
+				1E631D151FCFF3A700D8050F /* HashFunction.swift in Sources */,
 				362CB7771CA41D0F00C26E74 /* CLDBuildParamsUtils.swift in Sources */,
 				36747B6F1CB131E300087D10 /* CLDBaseNetworkObject.swift in Sources */,
+				1E631D121FCFF3A700D8050F /* Data+HashFunction.swift in Sources */,
 				36B7FAEC1D41231E008754EF /* CLDSpriteRequestParams.swift in Sources */,
+				1E631D141FCFF3A700D8050F /* HashAlgorithm.swift in Sources */,
+				1E631D161FCFF3A700D8050F /* HashFunctionOptions.swift in Sources */,
 				36D00E171D9D6E8A00BF4DD5 /* CommonResultKeys.swift in Sources */,
 				36AC05111D4F8950002FC9DF /* CLDMultiRequest.swift in Sources */,
 				36D00E1B1D9D825900BF4DD5 /* CLDDetection.swift in Sources */,
@@ -1249,6 +1304,7 @@
 				36AC050D1D4F59CD002FC9DF /* CLDExplodeResult.swift in Sources */,
 				36AC050F1D4F5B5D002FC9DF /* CLDExplodeRequest.swift in Sources */,
 				36784DBA1CCCCE1100F3B777 /* CLDRequestParams.swift in Sources */,
+				1E631D181FCFF3A700D8050F /* SHA1.swift in Sources */,
 				36AC05071D4F4653002FC9DF /* CLDRequest.swift in Sources */,
 				3696FC061C8E014500DE9568 /* CLDStringUtils.swift in Sources */,
 				36AC052C1D4FA5A0002FC9DF /* CLDUploadRequestParams.swift in Sources */,
@@ -1422,8 +1478,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EXCLUDED_SOURCE_FILE_NAMES = GenerateCLDCryptoModule.swift;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Cloudinary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1455,8 +1509,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EXCLUDED_SOURCE_FILE_NAMES = GenerateCLDCryptoModule.swift;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Cloudinary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

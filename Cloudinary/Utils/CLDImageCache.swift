@@ -246,7 +246,7 @@ internal class CLDImageCache {
     }
     
     fileprivate func getFileNameFromKey(_ key: String) -> String {
-        return key.md5()
+        return key.cld_md5()
     }
     
     fileprivate func updateDiskImageModifiedDate(_ path: String) {

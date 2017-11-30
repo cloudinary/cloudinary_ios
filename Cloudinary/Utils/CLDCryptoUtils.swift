@@ -2,17 +2,17 @@
 //  CLDCryptoUtils.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
-//  
+//
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
 //  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 //  copies of the Software, and to permit persons to whom the Software is
 //  furnished to do so, subject to the following conditions:
-//  
+//
 //  The above copyright notice and this permission notice shall be included in all
 //  copies or substantial portions of the Software.
-//  
+//
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,8 +22,6 @@
 //  SOFTWARE.
 
 import Foundation
-import CLDCrypto
-
 
 public func cloudinarySignParamsUsingSecret(_ paramsToSign: [String : Any],cloudinaryApiSecret: String) -> String {
     var paramsArr: [String] = []
@@ -56,56 +54,38 @@ internal extension String {
     
     internal func sha1_base8(_ secret: String?) -> String {
         let data = self.data(using: String.Encoding.utf8)!
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-        let ctx = UnsafeMutablePointer<CC_SHA1_CTX>.allocate(capacity: 1)
-        CC_SHA1_Init(ctx)
-        
-        _ = data.withUnsafeBytes { bytes in
-            CC_SHA1_Update(ctx, bytes, CC_LONG(data.count))
-        }
-        
+        let result:Data
         if let secret = secret {
             let secretData = secret.data(using: String.Encoding.utf8)!
-            _ = secretData.withUnsafeBytes { bytes in
-                CC_SHA1_Update(ctx, bytes, CC_LONG(secretData.count))
-            }
+            result = (data + secretData).digest(using: .sha1)
+            
+        } else {
+            result = data.digest(using: .sha1)
         }
         
-        CC_SHA1_Final(&digest, ctx)
-        let hexBytes = digest.map { String(format: "%02hhx", $0) }
+        let hexBytes = result.map { String(format: "%02hhx", $0) }
         return hexBytes.joined()
     }
     
     internal func sha1_base64() -> String {
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-        let cStr = NSString(string: self).utf8String
-        CC_SHA1(cStr, CC_LONG(strlen(cStr)), &digest)
-        
-        let data = Data(bytes: digest, count: MemoryLayout<UInt8>.size * digest.count)
+        let data = self.data(using: String.Encoding.utf8)!.digest(using: .sha1)
         let base64 = data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         let encoded = base64.replacingOccurrences(of: "/", with: "_")
-                            .replacingOccurrences(of: "+", with: "-")
-                            .replacingOccurrences(of: "=", with: "")
-        
+            .replacingOccurrences(of: "+", with: "-")
+            .replacingOccurrences(of: "=", with: "")
         
         return encoded
     }
     
     internal func toCRC32() -> UInt32 {
         return crc32(self)
-    }    
+    }
     
-    internal func md5() -> String {
-        var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-        if let data = self.data(using: String.Encoding.utf8) {
-            _ = data.withUnsafeBytes { bytes in
-                CC_MD5(bytes, CC_LONG(data.count), &digest)
-            }
-        }
-        
+    internal func cld_md5() -> String {
+        let data = self.data(using: String.Encoding.utf8)!.digest(using: .md5)
         var digestHex = ""
-        for index in 0..<Int(CC_MD5_DIGEST_LENGTH) {
-            digestHex += String(format: "%02x", digest[index])
+        for index in 0..<Int(data.count) {
+            digestHex += String(format: "%02x", data[index])
         }
         
         return digestHex
