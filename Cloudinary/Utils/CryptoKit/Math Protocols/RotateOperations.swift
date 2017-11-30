@@ -13,7 +13,7 @@ import Foundation
 infix operator <<< : BitwiseShiftPrecedence
 infix operator >>> : BitwiseShiftPrecedence
 
-public protocol RotateOperations {
+internal protocol RotateOperations {
     static func <<<(lhs: Self, rhs: Self) -> Self
     static func >>>(lhs: Self, rhs: Self) -> Self
 }
@@ -29,8 +29,8 @@ extension Int64: RotateOperations {}
 extension UInt: RotateOperations {}
 extension Int: RotateOperations {}
 
-public extension RotateOperations where Self: FixedWidthInteger & ExpressibleByInt & BinaryInteger {
-    public static func <<<(lhs: Self, rhs: Self) -> Self {
+internal extension RotateOperations where Self: FixedWidthInteger & ExpressibleByInt & BinaryInteger {
+    internal static func <<<(lhs: Self, rhs: Self) -> Self {
         guard rhs != Self(0) else {
             return lhs
         }
@@ -39,8 +39,8 @@ public extension RotateOperations where Self: FixedWidthInteger & ExpressibleByI
         
         return (lhs << rhs) | (lhs >> (size - rhs))
     }
-    
-    public static func >>>(lhs: Self, rhs: Self) -> Self {
+
+    internal static func >>>(lhs: Self, rhs: Self) -> Self {
         guard rhs != Self(0) else {
             return lhs
         }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol HashAlgorithm {
+internal protocol HashAlgorithm {
     static var outputSize: UInt { get }
     static var blockSize: UInt { get }
     

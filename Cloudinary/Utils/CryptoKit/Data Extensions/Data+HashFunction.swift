@@ -8,12 +8,12 @@
 
 import Foundation
 
-public extension Data {
+internal extension Data {
     /// Calculate the digest (hash) of `self`.
     /// - parameters:
     ///   - hashFunction: The hash function used for generating the digest.
     /// - returns: The digest of `self`.
-    public func digest(using hashFunction: HashFunction) -> Data {
+    internal func digest(using hashFunction: HashFunction) -> Data {
         return hashFunction.digest(self)
     }
 }

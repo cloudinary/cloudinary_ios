@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol ExpressibleByInt {
+internal protocol ExpressibleByInt {
     init(_ value: Int)
 }
 

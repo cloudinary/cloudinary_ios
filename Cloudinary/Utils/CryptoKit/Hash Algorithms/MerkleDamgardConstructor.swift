@@ -10,12 +10,12 @@
 
 import Foundation
 
-public enum Endianess {
+internal enum Endianess {
     case bigEndian
     case littleEndian
 }
 
-public protocol MerkleDamgardConstructor: HashAlgorithm {
+internal protocol MerkleDamgardConstructor: HashAlgorithm {
     associatedtype BaseUnit: UnsignedInteger, FixedWidthInteger,
         RotateOperations, ExpressibleByInt, EndianRepresentable
     
@@ -34,16 +34,16 @@ public protocol MerkleDamgardConstructor: HashAlgorithm {
     static func finalize(vector: [BaseUnit]) -> Data
 }
 
-public extension MerkleDamgardConstructor {
-    public static var endianess: Endianess {
+internal extension MerkleDamgardConstructor {
+    internal static var endianess: Endianess {
         return .littleEndian
     }
-    
-    public static var lengthPaddingSize: UInt {
+
+    internal static var lengthPaddingSize: UInt {
         return self.blockSize / 8
     }
-    
-    public static func applyPadding(to message: Data) -> Data {
+
+    internal static func applyPadding(to message: Data) -> Data {
         let length = Int(self.blockSize)
         
         // Create mutable copy of message
@@ -94,14 +94,14 @@ public extension MerkleDamgardConstructor {
         
         return messageCopy
     }
-    
-    public static func finalize(vector: [BaseUnit]) -> Data {
+
+    internal static func finalize(vector: [BaseUnit]) -> Data {
         return vector.reduce(Data()) { (current, value) -> Data in
             current + Data(from: self.endianess == .littleEndian ? value : value.bigEndian)
         }
     }
-    
-    public static func digest(_ message: Data) -> Data {
+
+    internal static func digest(_ message: Data) -> Data {
         let paddedMessage = self.applyPadding(to: message)
         
         return self.finalize(vector: self.compress(paddedMessage))

@@ -8,25 +8,25 @@
 
 import Foundation
 
-public enum MD5: HashAlgorithm {
-    public static var outputSize: UInt {
+internal enum MD5: HashAlgorithm {
+    internal static var outputSize: UInt {
         return 16
     }
-    public static var blockSize: UInt {
+    internal static var blockSize: UInt {
         return 64
     }
 }
 
 extension MD5: MerkleDamgardConstructor {
-    public static var initializationVector: [UInt32] {
+    internal static var initializationVector: [UInt32] {
         return [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476]
     }
     
-    public static var rounds: UInt {
+    internal static var rounds: UInt {
         return 64
     }
     
-    public static func compress(_ data: Data) -> [UInt32] {
+    internal static func compress(_ data: Data) -> [UInt32] {
         // Initialize hash value
         var h = self.initializationVector
         

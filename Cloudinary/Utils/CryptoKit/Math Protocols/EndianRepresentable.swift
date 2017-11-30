@@ -8,19 +8,19 @@
 
 import Foundation
 
-public protocol EndianRepresentable {
+internal protocol EndianRepresentable {
     var littleEndian: Self { get }
     var bigEndian: Self { get }
 }
 
 extension UInt8: EndianRepresentable {
-    public var littleEndian: UInt8 { return self }
-    public var bigEndian: UInt8 { return self }
+    internal var littleEndian: UInt8 { return self }
+    internal var bigEndian: UInt8 { return self }
 }
 
 extension Int8: EndianRepresentable {
-    public var littleEndian: Int8 { return self }
-    public var bigEndian: Int8 { return self }
+    internal var littleEndian: Int8 { return self }
+    internal var bigEndian: Int8 { return self }
 }
 
 extension UInt16: EndianRepresentable {}
