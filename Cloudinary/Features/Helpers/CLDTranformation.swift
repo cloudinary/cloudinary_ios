@@ -657,6 +657,32 @@ import Foundation
      
      - returns:                     The same instance of CLDTransformation.
      */
+    @objc(setAutoGravityWithGravity:)
+    @discardableResult
+    open func setAutoGravity(_ param: CLDAutoGravityParams) -> CLDTransformation {
+        return setGravity("\(String(describing: CLDGravity.auto)):\(String(describing: param))")
+    }
+    
+    /**
+     (Only relevant when used with the 'thumb' crop mode). Automatically crop the image to include the most interesting regions while setting the level of aggressiveness of the cropping algorithm between 0 and 100 (set to 50 in this example), where 100 tries to keep more of the original image, and 0 crops more aggressively and then zooms in.
+     
+     - parameter value:           The auto gravity value to apply.
+     
+     - returns:                     The same instance of CLDTransformation.
+     */
+    @objc(setAutoGravityWithValue:)
+    @discardableResult
+    open func setAutoGravity(value: Int) -> CLDTransformation {
+        return setGravity("\(String(describing: CLDGravity.auto)):\(String(value))")
+    }
+    
+    /**
+     Decides which part of the image to keep while 'crop', 'pad' and 'fill' crop modes are used.
+     
+     - parameter gravity:           The gravity to apply.
+     
+     - returns:                     The same instance of CLDTransformation.
+     */
     @objc(setGravityWithGravity:)
     @discardableResult
     open func setGravity(_ gravity: CLDGravity) -> CLDTransformation {
@@ -1557,7 +1583,7 @@ import Foundation
     // MARK: Gravity
     
     @objc public enum CLDGravity: Int, CustomStringConvertible {
-        case center, face, faceCenter, faces, facesCenter, advFace, advFaces, advEyes, north, northWest, northEast, south, southWest, southEast, east, west, xyCenter, custom, customFace, customFaces, customAdvFace, customAdvFaces
+        case center, face, faceCenter, faces, facesCenter, advFace, advFaces, advEyes, north, northWest, northEast, south, southWest, southEast, east, west, xyCenter, custom, customFace, customFaces, customAdvFace, customAdvFaces, auto
         
         public var description: String {
             get {
@@ -1584,6 +1610,29 @@ import Foundation
                 case .customFaces:      return "custom:faces"
                 case .customAdvFace:    return "custom:adv_face"
                 case .customAdvFaces:   return "custom:adv_faces"
+                case .auto:             return "auto"
+                }
+            }
+        }
+    }
+    
+    // MARK: Auto Gravity Params
+    
+    @objc public enum CLDAutoGravityParams: Int, CustomStringConvertible {
+        case advFace, advFaces, advEyes, body, face, faces, noFaces, customNoOverride, none
+        
+        public var description: String {
+            get {
+                switch self {
+                case .advFace:           return "adv_face"
+                case .advFaces:          return "adv_faces"
+                case .advEyes:           return "adv_eyes"
+                case .body:              return "body"
+                case .face:              return "face"
+                case .faces:             return "faces"
+                case .noFaces:           return "no_faces"
+                case .customNoOverride:  return "custom_no_override"
+                case .none:              return "none"
                 }
             }
         }
