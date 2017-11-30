@@ -19,20 +19,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'Alamofire', '~> 4.5.1'
 
-  #
-  # Create the dummy CLDCrypto.framework structures
-  #
-  s.prepare_command = <<-CMD
-      swift ./CLDCrypto/GenerateCLDCryptoModule.swift iphonesimulator .
-      swift ./CLDCrypto/GenerateCLDCryptoModule.swift iphoneos .
-  CMD
-
   s.framework = "UIKit", "Foundation"
   s.source_files = "Cloudinary/**/*.swift"
   s.exclude_files = "Cloudinary/Frameworks/Alamofire/**/*"
-  s.preserve_paths = "Cloudinary/Frameworks/CLDCrypto"
-  s.xcconfig ={
-    "SWIFT_INCLUDE_PATHS"         => "$(PODS_ROOT)/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)",
-    "FRAMEWORK_SEARCH_PATHS"      => "$(PODS_ROOT)/Cloudinary/Cloudinary/Frameworks/CLDCrypto/$(PLATFORM_NAME)"
-  }
 end
