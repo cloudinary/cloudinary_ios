@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E5F904B1FD0162900796B45 /* CLDPreprocessChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F904A1FD0162900796B45 /* CLDPreprocessChain.swift */; };
+		1E5F90591FD58DEB00796B45 /* CLDPreprocessHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F90581FD58DEB00796B45 /* CLDPreprocessHelpers.swift */; };
+		1E5F90791FD6A64F00796B45 /* CLDImagePreprocessChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F90781FD6A64F00796B45 /* CLDImagePreprocessChain.swift */; };
 		1E631D121FCFF3A700D8050F /* Data+HashFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF41FCFF3A700D8050F /* Data+HashFunction.swift */; };
 		1E631D131FCFF3A700D8050F /* Data+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF51FCFF3A700D8050F /* Data+Int.swift */; };
 		1E631D141FCFF3A700D8050F /* HashAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF71FCFF3A700D8050F /* HashAlgorithm.swift */; };
@@ -26,7 +29,7 @@
 		29B5F9051FAB718700032B8A /* FileUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B5F8FC1FAB718700032B8A /* FileUtilsTests.swift */; };
 		2DBE524D857B985C645CB203 /* CLDFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE577559387EC8E13E99A4 /* CLDFileUtils.swift */; };
 		2DBE553677A991DC96CF8BF7 /* CLDDefaultUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE5FA71FA94E77770E0137 /* CLDDefaultUploadRequest.swift */; };
-		2DBE5897854E36D2456095B9 /* CLDUploadLargeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE55CF2B3839B58D0EBCA2 /* CLDUploadLargeRequest.swift */; };
+		2DBE5897854E36D2456095B9 /* CLDUploadRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE55CF2B3839B58D0EBCA2 /* CLDUploadRequestWrapper.swift */; };
 		2DBE5D482C1A5EE752CF5F83 /* CLDCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE58BD4674612A096E8300 /* CLDCompatibility.swift */; };
 		362CB7721CA2EA9900C26E74 /* CLDNetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362CB7711CA2EA9900C26E74 /* CLDNetworkDelegate.swift */; };
 		362CB7771CA41D0F00C26E74 /* CLDBuildParamsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362CB7761CA41D0F00C26E74 /* CLDBuildParamsUtils.swift */; };
@@ -276,6 +279,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E5F904A1FD0162900796B45 /* CLDPreprocessChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDPreprocessChain.swift; sourceTree = "<group>"; };
+		1E5F90581FD58DEB00796B45 /* CLDPreprocessHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDPreprocessHelpers.swift; sourceTree = "<group>"; };
+		1E5F90781FD6A64F00796B45 /* CLDImagePreprocessChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDImagePreprocessChain.swift; sourceTree = "<group>"; };
 		1E631CF41FCFF3A700D8050F /* Data+HashFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+HashFunction.swift"; sourceTree = "<group>"; };
 		1E631CF51FCFF3A700D8050F /* Data+Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Int.swift"; sourceTree = "<group>"; };
 		1E631CF71FCFF3A700D8050F /* HashAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashAlgorithm.swift; sourceTree = "<group>"; };
@@ -296,7 +302,7 @@
 		2944B6721E2FB613003AB794 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		29B5F8DD1FAB6B9200032B8A /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		29B5F8FC1FAB718700032B8A /* FileUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtilsTests.swift; sourceTree = "<group>"; };
-		2DBE55CF2B3839B58D0EBCA2 /* CLDUploadLargeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDUploadLargeRequest.swift; sourceTree = "<group>"; };
+		2DBE55CF2B3839B58D0EBCA2 /* CLDUploadRequestWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDUploadRequestWrapper.swift; sourceTree = "<group>"; };
 		2DBE577559387EC8E13E99A4 /* CLDFileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLDFileUtils.swift; path = Utils/CLDFileUtils.swift; sourceTree = "<group>"; };
 		2DBE58BD4674612A096E8300 /* CLDCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDCompatibility.swift; sourceTree = "<group>"; };
 		2DBE5FA71FA94E77770E0137 /* CLDDefaultUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDDefaultUploadRequest.swift; sourceTree = "<group>"; };
@@ -413,6 +419,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E5F90391FD015A200796B45 /* Preupload */ = {
+			isa = PBXGroup;
+			children = (
+				1E5F904A1FD0162900796B45 /* CLDPreprocessChain.swift */,
+				1E5F90581FD58DEB00796B45 /* CLDPreprocessHelpers.swift */,
+				1E5F90781FD6A64F00796B45 /* CLDImagePreprocessChain.swift */,
+			);
+			path = Preupload;
+			sourceTree = "<group>";
+		};
 		1E631CF21FCFF3A700D8050F /* CryptoKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -763,7 +779,7 @@
 			children = (
 				36AC05431D501621002FC9DF /* CLDUploadRequest.swift */,
 				2DBE5FA71FA94E77770E0137 /* CLDDefaultUploadRequest.swift */,
-				2DBE55CF2B3839B58D0EBCA2 /* CLDUploadLargeRequest.swift */,
+				2DBE55CF2B3839B58D0EBCA2 /* CLDUploadRequestWrapper.swift */,
 			);
 			name = Requests;
 			path = Cloudinary/Features/Uploader/Requests;
@@ -791,6 +807,7 @@
 		36B246A51C956FED00122DB7 /* Uploader */ = {
 			isa = PBXGroup;
 			children = (
+				1E5F90391FD015A200796B45 /* Preupload */,
 				363BE8D41CC3E94200124C46 /* CLDUploader.swift */,
 				36AC052D1D4FA5B3002FC9DF /* Requests */,
 				36AC052A1D4FA58F002FC9DF /* RequestParams */,
@@ -1249,6 +1266,7 @@
 				363087771CBA5C6100782A57 /* UIButton+Cloudinary.swift in Sources */,
 				36AC05441D501621002FC9DF /* CLDUploadRequest.swift in Sources */,
 				3653B1991D43B3CB0093765C /* CLDError.swift in Sources */,
+				1E5F90791FD6A64F00796B45 /* CLDImagePreprocessChain.swift in Sources */,
 				36784DBC1CCCCE1C00F3B777 /* CLDRequestParamsHelpers.swift in Sources */,
 				36B7FAE71D41231E008754EF /* CLDDestroyRequestParams.swift in Sources */,
 				3696FC561C9162FF00DE9568 /* CLDCryptoUtils.swift in Sources */,
@@ -1306,13 +1324,15 @@
 				36784DBA1CCCCE1100F3B777 /* CLDRequestParams.swift in Sources */,
 				1E631D181FCFF3A700D8050F /* SHA1.swift in Sources */,
 				36AC05071D4F4653002FC9DF /* CLDRequest.swift in Sources */,
+				1E5F90591FD58DEB00796B45 /* CLDPreprocessHelpers.swift in Sources */,
 				3696FC061C8E014500DE9568 /* CLDStringUtils.swift in Sources */,
 				36AC052C1D4FA5A0002FC9DF /* CLDUploadRequestParams.swift in Sources */,
 				36B7FAD61D3E80BF008754EF /* CLDSubtitlesLayer.swift in Sources */,
 				2944B6731E2FB613003AB794 /* CHANGELOG.md in Sources */,
 				2DBE553677A991DC96CF8BF7 /* CLDDefaultUploadRequest.swift in Sources */,
 				2DBE524D857B985C645CB203 /* CLDFileUtils.swift in Sources */,
-				2DBE5897854E36D2456095B9 /* CLDUploadLargeRequest.swift in Sources */,
+				2DBE5897854E36D2456095B9 /* CLDUploadRequestWrapper.swift in Sources */,
+				1E5F904B1FD0162900796B45 /* CLDPreprocessChain.swift in Sources */,
 				2DBE5D482C1A5EE752CF5F83 /* CLDCompatibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
