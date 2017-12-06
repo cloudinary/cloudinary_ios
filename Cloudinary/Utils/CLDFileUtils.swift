@@ -1,4 +1,5 @@
 //
+//
 //  CLDFileUtils.swift
 //
 //  Copyright (c) 2017 Cloudinary (http://cloudinary.com)
@@ -77,7 +78,7 @@ internal class CLDFileUtils {
             }
             
             if (outputStream == nil){
-                targetUrl = getTempFileUrl(fileName: name + "_part\(chunkIndex).mp4")
+                targetUrl = getTempFileUrl(fileName: name + "_part\(chunkIndex)")
                 outputStream = OutputStream(url: targetUrl!, append: false)
                 
                 guard (outputStream != nil) else {
@@ -116,7 +117,7 @@ internal class CLDFileUtils {
         return maxLength
     }
 
-    fileprivate static func getTempFileUrl(fileName: String) -> URL{
+    internal static func getTempFileUrl(fileName: String) -> URL{
         return NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)!
     }
 }
