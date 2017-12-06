@@ -26,7 +26,7 @@
 import Foundation
 
 /**
- The CLDImagePreprocessChain is used to run preprocessing on image resource before uploading.
+ The CLDImagePreprocessChain is used to run preprocessing on images before uploading.
  It support processing, validations and encoders, all fully customizable.
 */
 public class CLDImagePreprocessChain : CLDPreprocessChain<UIImage>{

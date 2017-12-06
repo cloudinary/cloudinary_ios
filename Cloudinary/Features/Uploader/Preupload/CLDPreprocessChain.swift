@@ -44,7 +44,9 @@ public class CLDPreprocessChain<T>{
     }
 
     /**
-     Add a step to the chain, for preprocess or validation,
+     Add a step to the chain, for preprocess or validation
+     
+      - parameter encoder:  A CLDPreprocessStep to be used to encode the resource after the processing
     */
     @discardableResult
     public func addStep(_ preprocess: @escaping CLDPreprocessStep<T>) -> Self{
@@ -54,6 +56,8 @@ public class CLDPreprocessChain<T>{
 
     /**
      Set a custom resource encoder to use when saving the resource after executing the chain
+     
+      - parameter encoder:  A CLDResourceEncoder to be used to encode the resource after the processing
     */
     @discardableResult
     public func setEncoder(encoder:@escaping CLDResourceEncoder<T>) -> Self{
