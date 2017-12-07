@@ -28,7 +28,7 @@ internal class CLDNetworkCoordinator {
     
     fileprivate struct CLDNetworkCoordinatorConsts {
         static let BASE_CLOUDINARY_URL =    "https://api.cloudinary.com"
-        static let DEFAULT_VERSION =        "2.0.3"
+        static let DEFAULT_VERSION =        "2.0.4-rc1"
         
         static let API_KEY =                "api_key"
     }
