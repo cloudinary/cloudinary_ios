@@ -128,7 +128,7 @@ internal class CLDNetworkCoordinator {
     }
     
     fileprivate func getVersion() -> String {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? CLDNetworkCoordinatorConsts.DEFAULT_VERSION
+        let version = CLDNetworkCoordinatorConsts.DEFAULT_VERSION
         return version
     }    
     
