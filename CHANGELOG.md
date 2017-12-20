@@ -1,4 +1,12 @@
 
+2.0.4 / 2017-12-20
+==================
+
+* Fix user-agent sdk version
+* Replace CommonCrypto wrapper with CryptoKit based code
+* Remove autotagging test (behaviour change)
+* Support Swift 4
+
 2.0.3 / 2017-11-23
 ==================
 
