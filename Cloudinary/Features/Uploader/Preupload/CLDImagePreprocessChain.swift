@@ -29,22 +29,22 @@ import Foundation
  The CLDImagePreprocessChain is used to run preprocessing on images before uploading.
  It support processing, validations and encoders, all fully customizable.
 */
-public class CLDImagePreprocessChain : CLDPreprocessChain<UIImage>{
-    public override init(){
+public class CLDImagePreprocessChain: CLDPreprocessChain<UIImage> {
+    public override init() {
     }
-    
+
     internal override func decodeResource(resourceData: Any) throws -> UIImage? {
         if let url = resourceData as? URL {
-            if let resourceData = try? Data(contentsOf: url){
+            if let resourceData = try? Data(contentsOf: url) {
                 return UIImage(data: resourceData)
             }
         } else if let data = resourceData as? Data {
-            return UIImage(data:data)
+            return UIImage(data: data)
         }
-        
+
         return nil
     }
-    
+
     internal override func verifyEncoder() throws {
         if (encoder == nil) {
             setEncoder(encoder: CLDPreprocessHelpers.defaultImageEncoder)
