@@ -24,32 +24,37 @@
 //
 
 import Foundation
+
 public typealias CLDPreprocessStep<T> = (T) throws -> T
 public typealias CLDResourceEncoder<T> = (T) throws -> URL?
 
 /**
  The CLDPreprocessChain is a generic base class used to run preprocessing on resources before uploading.
- It support processing, validations and encoders, all fully customizable.
+ Supports processing, validations and encoders, all fully customizable. Note: This class should not be used
+ directly, use a concrete subclass (e.g. CLDImagePreprocessingChain).
 */
-public class CLDPreprocessChain<T>{
-    internal var encoder:CLDResourceEncoder<T>?
-    
-    var chain=[CLDPreprocessStep<T>]()
-    
+public class CLDPreprocessChain<T> {
+    internal var encoder: CLDResourceEncoder<T>?
+
+    var chain = [CLDPreprocessStep<T>]()
+
     internal init() {
     }
-    
-    public func isEmpty() -> Bool{
+
+    /**
+      Returns true if the chain is empty (= NOP chain).
+    */
+    public func isEmpty() -> Bool {
         return encoder == nil && chain.isEmpty
     }
 
     /**
      Add a step to the chain, for preprocess or validation
      
-      - parameter encoder:  A CLDPreprocessStep to be used to encode the resource after the processing
+      - parameter preprocess:  A CLDPreprocessStep to be used to encode the resource after the processing
     */
     @discardableResult
-    public func addStep(_ preprocess: @escaping CLDPreprocessStep<T>) -> Self{
+    public func addStep(_ preprocess: @escaping CLDPreprocessStep<T>) -> Self {
         chain.append(preprocess)
         return self
     }
@@ -60,20 +65,20 @@ public class CLDPreprocessChain<T>{
       - parameter encoder:  A CLDResourceEncoder to be used to encode the resource after the processing
     */
     @discardableResult
-    public func setEncoder(encoder:@escaping CLDResourceEncoder<T>) -> Self{
+    public func setEncoder(encoder: @escaping CLDResourceEncoder<T>) -> Self {
         self.encoder = encoder
         return self
     }
-    
+
     internal func execute(resourceData: Any) throws -> URL {
-        let resource: T? = try decodeResource(resourceData: resourceData)
         try verifyEncoder()
+        let resource: T? = try decodeResource(resourceData: resourceData)
         if var resource = resource {
             for preprocess in chain {
                 resource = try preprocess(resource)
             }
-        
-            if let url = try encoder!(resource){
+
+            if let url = try encoder!(resource) {
                 return url
             } else {
                 throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "Error encoding resource")
@@ -82,11 +87,11 @@ public class CLDPreprocessChain<T>{
             throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "Error decoding resource")
         }
     }
-    
+
     internal func decodeResource(resourceData: Any) throws -> T? {
         throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "No decoder implemented - Did you mean to use ImagePreprocessChain?")
     }
-    
+
     internal func verifyEncoder() throws {
         if (encoder == nil) {
             throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "No encoder set - Did you mean to use ImagePreprocessChain?")

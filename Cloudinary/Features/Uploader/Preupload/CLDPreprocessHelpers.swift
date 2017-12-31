@@ -27,22 +27,22 @@
 import Foundation
 
 /**
- This class contains ready-to-use encoders and processing steps to be used in conjunction with CLDPreprocessChain
+ This class contains ready-to-use encoders and processing steps to be used with CLDPreprocessChain
 */
 public class CLDPreprocessHelpers {
     static let defaultImageEncoder: CLDResourceEncoder<UIImage> = CLDPreprocessHelpers.customImageEncoder(format: EncodingFormat.PNG, quality: 100)
 
     /**
-     Get a CLDPreprocessStep closure to send to CLDPreprocessChain. Scales down an image so it's dimensions
-     are never larger than the requested width and height. Aspect ratio is retained. If the image is already within
-     bounds it is returned as is without any processing.
+     Get a CLDPreprocessStep closure to send to CLDPreprocessChain. Scales down any image larger than width/height
+     params while retaining the original aspect ratio. If the original image is already within bounds it will be
+     returned unchanged (i.e. a smaller image won't be enlarged).
 
       - parameter width:             Maximum allowed width
       - parameter height:            Maximum allowed height
 
       - returns:                     A closure to use in a preprocessing chain.
     */
-    public static func scaleDownIfLargerThan(width: CGFloat, height: CGFloat) -> CLDPreprocessStep<UIImage> {
+    public static func limit(width: CGFloat, height: CGFloat) -> CLDPreprocessStep<UIImage> {
         return { image in
             if (image.size.width > width) {
                 return resizeImage(image: image, requiredSize: CGSize(width: width, height: height))
@@ -76,8 +76,8 @@ public class CLDPreprocessHelpers {
 
 
     /**
-     Get a CLDPreprocessStep to send to CLDPreprocessChain. This step will validate a given image's dimensions are
-     within chosen bounds. If it's not an exception is throw and the CLDUploadRequest fails.
+     Get a CLDPreprocessStep to send to CLDPreprocessChain. This step will validate that a given image's
+     dimensions are within the chosen bounds, otherwise an exception is throw and the CLDUploadRequest fails.
 
       - parameter minWidth:         Minimum width allowed.
       - parameter maxWidth:         Maximum width allowed.
@@ -99,7 +99,7 @@ public class CLDPreprocessHelpers {
         }
     }
 
-    static func encodeAs(image: UIImage, format: EncodingFormat, quality: CGFloat) -> Data? {
+    internal static func encodeAs(image: UIImage, format: EncodingFormat, quality: CGFloat) -> Data? {
 
         switch format {
         case EncodingFormat.JPEG:
@@ -109,7 +109,7 @@ public class CLDPreprocessHelpers {
         }
     }
 
-    static func resizeImage(image: UIImage, requiredSize: CGSize) -> UIImage {
+    internal static func resizeImage(image: UIImage, requiredSize: CGSize) -> UIImage {
         let widthRatio = requiredSize.width / image.size.width
         let heightRatio = requiredSize.height / image.size.height
 
