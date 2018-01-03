@@ -65,14 +65,14 @@ public class CLDPreprocessChain<T> {
       - parameter encoder:  A CLDResourceEncoder to be used to encode the resource after the processing
     */
     @discardableResult
-    public func setEncoder(encoder: @escaping CLDResourceEncoder<T>) -> Self {
+    public func setEncoder(_ encoder: @escaping CLDResourceEncoder<T>) -> Self {
         self.encoder = encoder
         return self
     }
 
     internal func execute(resourceData: Any) throws -> URL {
         try verifyEncoder()
-        let resource: T? = try decodeResource(resourceData: resourceData)
+        let resource: T? = try decodeResource(resourceData)
         if var resource = resource {
             for preprocess in chain {
                 resource = try preprocess(resource)
@@ -88,7 +88,7 @@ public class CLDPreprocessChain<T> {
         }
     }
 
-    internal func decodeResource(resourceData: Any) throws -> T? {
+    internal func decodeResource(_ resourceData: Any) throws -> T? {
         throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "No decoder implemented - Did you mean to use ImagePreprocessChain?")
     }
 
