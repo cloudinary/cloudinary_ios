@@ -87,7 +87,7 @@ class UploaderTests: NetworkBaseTest {
         var result: CLDUploadResult?
         var error: NSError?
         
-        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.scaleDownIfLargerThan(width: 500, height: 500))
+        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.limit(width: 500, height: 500))
         let params = CLDUploadRequestParams()
         params.setColors(true)
         cloudinary!.createUploader().signedUpload(url: file, params: params, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in

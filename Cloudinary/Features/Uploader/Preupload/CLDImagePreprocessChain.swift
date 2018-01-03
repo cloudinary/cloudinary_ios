@@ -33,7 +33,7 @@ public class CLDImagePreprocessChain: CLDPreprocessChain<UIImage> {
     public override init() {
     }
 
-    internal override func decodeResource(resourceData: Any) throws -> UIImage? {
+    internal override func decodeResource(_ resourceData: Any) throws -> UIImage? {
         if let url = resourceData as? URL {
             if let resourceData = try? Data(contentsOf: url) {
                 return UIImage(data: resourceData)
@@ -47,7 +47,7 @@ public class CLDImagePreprocessChain: CLDPreprocessChain<UIImage> {
 
     internal override func verifyEncoder() throws {
         if (encoder == nil) {
-            setEncoder(encoder: CLDPreprocessHelpers.defaultImageEncoder)
+            setEncoder(CLDPreprocessHelpers.defaultImageEncoder)
         }
     }
 }

@@ -23,7 +23,6 @@
 //
 
 import Foundation
-
 @objc internal class CLDUploadRequestWrapper: CLDUploadRequest {
     private var state = RequestState.started
     fileprivate var requestsCount: Int!
