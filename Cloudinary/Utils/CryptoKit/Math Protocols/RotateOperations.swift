@@ -25,7 +25,7 @@ extension UInt: RotateOperations {}
 extension Int: RotateOperations {}
 
 internal extension RotateOperations where Self: FixedWidthInteger & ExpressibleByInt & BinaryInteger {
-    internal func customShiftLeft(by: Self) -> Self {
+    internal func cldShiftLeft(by: Self) -> Self {
         guard by != Self(0) else {
             return self
         }
@@ -35,7 +35,7 @@ internal extension RotateOperations where Self: FixedWidthInteger & ExpressibleB
         return (self << by) | (self >> (size - by))
     }
     
-    internal func customShiftRight(by: Self) -> Self {
+    internal func cldShiftRight(by: Self) -> Self {
         guard by != Self(0) else {
             return self
         }

@@ -87,10 +87,10 @@ extension SHA1: MerkleDamgardConstructor {
                     k = 0
                 }
                 
-                let temp = (A.customShiftLeft(by: 5)) &+ F &+ E &+ k &+ w[i]
+                let temp = (A.cldShiftLeft(by: 5)) &+ F &+ E &+ k &+ w[i]
                 E = D
                 D = C
-                C = (B.customShiftLeft(by: 30))
+                C = (B.cldShiftLeft(by: 30))
                 B = A
                 A = temp
             }
