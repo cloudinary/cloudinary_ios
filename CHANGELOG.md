@@ -1,4 +1,21 @@
 
+2.1.0 / 2017-01-04
+==================
+
+New functionality
+-----------------
+
+  * Add image preprocessing and validations
+    * Resizing
+    * Format and quality settings
+    * Support for custom preprocessors and validators
+    
+Other changes
+-------------
+
+  * Remove custom operators
+  * Update Alamofire to version 4.6.0
+
 2.0.4 / 2017-12-20
 ==================
 
