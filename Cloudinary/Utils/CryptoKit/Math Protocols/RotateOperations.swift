@@ -10,12 +10,7 @@
 
 import Foundation
 
-infix operator <<< : BitwiseShiftPrecedence
-infix operator >>> : BitwiseShiftPrecedence
-
 internal protocol RotateOperations {
-    static func <<<(lhs: Self, rhs: Self) -> Self
-    static func >>>(lhs: Self, rhs: Self) -> Self
 }
 
 extension UInt8: RotateOperations {}
@@ -30,23 +25,23 @@ extension UInt: RotateOperations {}
 extension Int: RotateOperations {}
 
 internal extension RotateOperations where Self: FixedWidthInteger & ExpressibleByInt & BinaryInteger {
-    internal static func <<<(lhs: Self, rhs: Self) -> Self {
-        guard rhs != Self(0) else {
-            return lhs
+    internal func cldShiftLeft(by: Self) -> Self {
+        guard by != Self(0) else {
+            return self
         }
         
         let size = Self(MemoryLayout<Self>.size * 8)
         
-        return (lhs << rhs) | (lhs >> (size - rhs))
+        return (self << by) | (self >> (size - by))
     }
-
-    internal static func >>>(lhs: Self, rhs: Self) -> Self {
-        guard rhs != Self(0) else {
-            return lhs
+    
+    internal func cldShiftRight(by: Self) -> Self {
+        guard by != Self(0) else {
+            return self
         }
         
         let size = Self(MemoryLayout<Self>.size * 8)
         
-        return (lhs >> rhs) | (lhs << (size - rhs))
+        return (self >> by) | (self << (size - by))
     }
 }
