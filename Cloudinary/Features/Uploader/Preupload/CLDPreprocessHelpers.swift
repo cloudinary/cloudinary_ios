@@ -44,7 +44,7 @@ public class CLDPreprocessHelpers {
     */
     public static func limit(width: CGFloat, height: CGFloat) -> CLDPreprocessStep<UIImage> {
         return { image in
-            if (image.size.width > width) {
+            if (image.size.width > width || image.size.height > height) {
                 return resizeImage(image: image, requiredSize: CGSize(width: width, height: height))
             }
 
