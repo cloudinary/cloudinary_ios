@@ -78,7 +78,7 @@ extension MD5: MerkleDamgardConstructor {
                 }
                 
                 // Swap values
-                let newB = B &+  (A &+ F &+ K(i) &+ M[g]).customShiftLeft(by: s(i))
+                let newB = B &+  (A &+ F &+ K(i) &+ M[g]).cldShiftLeft(by: s(i))
                 let oldD = D
                 
                 D = C

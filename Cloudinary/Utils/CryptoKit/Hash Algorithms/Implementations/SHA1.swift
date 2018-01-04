@@ -52,7 +52,7 @@ extension SHA1: MerkleDamgardConstructor {
             
             // Extend 16 words to 80 words
             for i in 16..<80 {
-                w.append((w[i-3] ^ w[i-8] ^ w[i-14] ^ w[i-16]).customShiftLeft(by: 1))
+                w.append((w[i-3] ^ w[i-8] ^ w[i-14] ^ w[i-16]).cldShiftLeft(by: 1))
             }
             
             // Initialize hash value for this chunk
