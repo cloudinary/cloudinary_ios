@@ -23,12 +23,12 @@
 //
 
 import Foundation
-
-@objc internal class CLDUploadLargeRequest: CLDUploadRequest {
+@objc internal class CLDUploadRequestWrapper: CLDUploadRequest {
     private var state = RequestState.started
-    fileprivate let totalLength: Int64!
+    fileprivate var requestsCount: Int!
+    fileprivate var totalLength: Int64!
     fileprivate var requestsProgress = [CLDUploadRequest: Int64]()
-    fileprivate var totalProgress: Progress!
+    fileprivate var totalProgress: Progress?
     fileprivate var progressHandler: ((Progress) -> Void)?
     fileprivate var requests = [CLDUploadRequest]()
     fileprivate var result: CLDUploadResult?
@@ -40,8 +40,10 @@ import Foundation
         operationQueue.isSuspended = true
         return operationQueue
     }()
-
-    internal init(totalLength: Int64?) {
+    
+    internal func setRequestsData(count: Int, totalLength: Int64?) {
+        self.totalLength = totalLength ?? 0
+        self.requestsCount = count
         self.totalLength = totalLength ?? 0
         self.totalProgress = Progress(totalUnitCount: self.totalLength)
     }
@@ -66,22 +68,23 @@ import Foundation
                     self.state = RequestState.error
                     self.cancel()
                     self.requestDone(nil, error)
-                } else if result?.done ?? false {
+                } else if self.requestsCount == 1 || (result?.done ?? false) {
                     // last part arrived successfully
                     self.state = RequestState.success
                     self.requestDone(result, nil)
                 }
             }
 
-            if (self.totalLength > 0) {
-                request.progress() { innerProgress in
-                    guard (self.state != RequestState.cancelled && self.state != RequestState.error) else {
-                        return
-                    }
+            request.progress() { innerProgress in
+                guard (self.state != RequestState.cancelled && self.state != RequestState.error) else {
+                    return
+                }
 
-                    self.requestsProgress[request] = innerProgress.completedUnitCount
-                    self.totalProgress.completedUnitCount = self.requestsProgress.values.reduce(0, +)
-                    self.progressHandler?(self.totalProgress)
+                self.requestsProgress[request] = innerProgress.completedUnitCount
+                
+                if let totalProgress = self.totalProgress {
+                    totalProgress.completedUnitCount = self.requestsProgress.values.reduce(0, +)
+                    self.progressHandler?(totalProgress)
                 }
             }
 
@@ -150,7 +153,7 @@ import Foundation
      - returns:                          The same instance of CLDUploadLargeRequest.
      */
     @discardableResult
-    open override func response(_ completionHandler: @escaping (_ result: CLDUploadResult?, _ error: NSError?) -> ()) -> CLDUploadLargeRequest {
+    open override func response(_ completionHandler: @escaping (_ result: CLDUploadResult?, _ error: NSError?) -> ()) -> Self {
         closureQueue.addOperation {
             completionHandler(self.result, self.error)
         }
@@ -166,13 +169,13 @@ import Foundation
      - returns:                          The same instance of CLDUploadLargeRequest.
      */
     @discardableResult
-    open override func progress(_ progress: @escaping ((Progress) -> Void)) -> CLDUploadLargeRequest {
+    open override func progress(_ progress: @escaping ((Progress) -> Void)) -> Self {
         self.progressHandler = progress
         return self
     }
 
     @discardableResult
-    internal func cleanupHandler(handler: @escaping (_ success: Bool) -> ()) -> CLDUploadLargeRequest {
+    internal func cleanupHandler(handler: @escaping (_ success: Bool) -> ()) -> Self {
         closureQueue.addOperation {
             handler(self.state == RequestState.success)
         }

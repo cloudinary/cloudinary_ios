@@ -23,7 +23,7 @@
 //
 
 import XCTest
-import Cloudinary
+@testable import Cloudinary
 
 class UploaderTests: NetworkBaseTest {
     
@@ -76,6 +76,58 @@ class UploaderTests: NetworkBaseTest {
         
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
+    }
+    
+    func testUploadImageFileWithPreprocess() {
+        
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload should succeed")
+        let file = TestResourceType.borderCollie.url
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.limit(width: 500, height: 500))
+        let params = CLDUploadRequestParams()
+        params.setColors(true)
+        cloudinary!.createUploader().signedUpload(url: file, params: params, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertEqual(result?.width, 500)
+        XCTAssertEqual(result?.height, 500)
+    }
+    
+    
+    func testUploadWithPreprocessValidator(){
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload should fail")
+        let file = TestResourceType.logo.url
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.dimensionsValidator(minWidth:500, maxWidth:1500, minHeight:500, maxHeight:1500))
+        let params = CLDUploadRequestParams()
+        params.setColors(true)
+        cloudinary!.createUploader().signedUpload(url: file, params: params, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(result, "result should be nil")
+        XCTAssertNotNil(error, "error should not be nil")
     }
     
     func testUploadLargeErrors() {
