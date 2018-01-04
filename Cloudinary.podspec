@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => s.version.to_s }
 
-  s.dependency 'Alamofire', '~> 4.5.1'
+  s.dependency 'Alamofire', '~> 4.6.0'
 
   s.framework = "UIKit", "Foundation"
   s.source_files = "Cloudinary/**/*.swift"

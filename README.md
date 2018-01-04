@@ -86,13 +86,13 @@ $ git submodule add https://github.com/cloudinary/cloudinary_ios.git
 
 #### Dependencies
 
-The Cloudinary iOS SDK depends on [Alamofire](https://github.com/Alamofire/Alamofire). If you add Cloudinary manually you will need to [add Alamofire manually to your project](https://github.com/Alamofire/Alamofire/tree/4.5.1#manually). Make sure to checkout the correct version after adding the submodule ([as explained here](#submodule)).
+The Cloudinary iOS SDK depends on [Alamofire](https://github.com/Alamofire/Alamofire). If you add Cloudinary manually you will need to [add Alamofire manually to your project](https://github.com/Alamofire/Alamofire/tree/4.6.0#manually). Make sure to checkout the correct version after adding the submodule ([as explained here](#submodule)).
 
 ### Build Framework
 
 Here's the steps to get the framework project to build, in case you want to work on the project itself.
 
-After cloning the repository, you will need to add Alamofire v4.5.1, there are several ways to do so:
+After cloning the repository, you will need to add Alamofire v4.6.0, there are several ways to do so:
 
 ##### Submodule
 
@@ -108,7 +108,7 @@ $ cd Alamofire/
 ```
 
 ```bash
-$ git checkout 4.5.1
+$ git checkout 4.6.0
 ```
 
 ###### Add library
@@ -118,7 +118,7 @@ $ git checkout 4.5.1
 
 ##### Download source
 
-You can download Alamofire v4.5.1 from [here](https://github.com/Alamofire/Alamofire/archive/4.5.1.zip). Then follow the instruction in [Add library](#add_library)
+You can download Alamofire v4.6.0 from [here](https://github.com/Alamofire/Alamofire/archive/4.6.0.zip). Then follow the instruction in [Add library](#add_library)
 
 ## Usage
 
