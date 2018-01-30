@@ -68,7 +68,7 @@ class UIImageViewTests: UIBaseTest {
         
         var imageDownloadedAndSet = false
         let imageView = TestImageView { (image) in
-            if image != nil {
+            if image != nil && image!.size.width == 450 && image!.size.height == 600 {
                 imageDownloadedAndSet = true
             }
             expectation.fulfill()
@@ -77,6 +77,13 @@ class UIImageViewTests: UIBaseTest {
         let params = CLDResponsiveParams(autoWidth: true, autoHeight: true,
                                          cropMode: CLDTransformation.CLDCrop.fill,
                                          gravity: CLDTransformation.CLDGravity.faces)
+            .setStepSize(50)
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: 145, height: 172)
+        imageView.layoutMargins.bottom = 0
+        imageView.layoutMargins.top = 0
+        imageView.layoutMargins.left = 0
+        imageView.layoutMargins.right = 0
         
         imageView.cldSetImage(publicId: pubId, cloudinary: cloudinary!, responsiveParams: params)
         imageView.layoutSubviews()
@@ -142,5 +149,4 @@ class UIImageViewTests: UIBaseTest {
             fatalError("init(coder:) has not been implemented")
         }        
     }
-    
 }
