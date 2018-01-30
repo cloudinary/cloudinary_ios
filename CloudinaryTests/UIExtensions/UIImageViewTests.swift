@@ -23,6 +23,7 @@
 //
 
 import XCTest
+import Cloudinary
 
 class UIImageViewTests: UIBaseTest {
         
@@ -45,6 +46,45 @@ class UIImageViewTests: UIBaseTest {
         
         XCTAssertTrue(imageDownloadedAndSet)
         
+    }
+    
+    func testResponsiveImageDownloadedAndSetFromURL() {
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        var publicId: String?
+        uploadFile().response({ (result, error) in
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        guard let pubId = publicId else {
+            XCTFail("Public ID should not be nil at this point")
+            return
+        }
+        
+        expectation = self.expectation(description: "should succeed downloading and setting image.")
+        
+        var imageDownloadedAndSet = false
+        let imageView = TestImageView { (image) in
+            if image != nil {
+                imageDownloadedAndSet = true
+            }
+            expectation.fulfill()
+        }
+        
+        let params = CLDResponsiveParams(autoWidth: true, autoHeight: true,
+                                         cropMode: CLDTransformation.CLDCrop.fill,
+                                         gravity: CLDTransformation.CLDGravity.faces)
+        
+        imageView.cldSetImage(publicId: pubId, cloudinary: cloudinary!, responsiveParams: params)
+        imageView.layoutSubviews()
+
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertTrue(imageDownloadedAndSet)
+
     }
     
     func testImageDownloadedAndSetFromPublicID() {
@@ -83,7 +123,7 @@ class UIImageViewTests: UIBaseTest {
     
     // MARK: - Helpers
     
-    private class TestImageView: UIImageView {
+    private class TestImageView: CLDUIImageView {
         
         var imageSetListener: ((UIImage?) -> ())?
         

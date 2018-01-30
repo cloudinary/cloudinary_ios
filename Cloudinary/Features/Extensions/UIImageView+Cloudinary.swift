@@ -53,12 +53,13 @@ public extension UIImageView {
      
      - parameter publicId:          The remote asset's name (e.g. the public id of an uploaded image).
      - parameter cloudinary:        An instance of CLDCloudinary.
-     - parameter signUrl:           A boolean parameter indicating whether or not to generate a signiture out of the API secret and add it to the generated URL. Default is false.
+     - parameter signUrl:           A boolean parameter indicating whether or not to generate a signature out of the API secret and add it to the generated URL. Default is false.
+     - parameter resourceType       The resource type of the image to download (can be useful to display video frames for thumbnails).
      - parameter transformation:    An instance of CLDTransformation.
-     - parameter placeholder:       A placeholder image to be set as the background image untill the asynchronus download request finishes.
+     - parameter placeholder:       A placeholder image to be set as the background image until the asynchronus download request finishes.
      
      */
-    @objc public func cldSetImage(publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
+    @objc public func cldSetImage(publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, resourceType:CLDUrlResourceType = CLDUrlResourceType.image, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
         
         let urlGen = cloudinary.createUrl()
         
@@ -72,7 +73,7 @@ public extension UIImageView {
             }
         }
         
-        guard let url = urlGen.generate(publicId, signUrl: signUrl) else {
+        guard let url = urlGen.setResourceType(resourceType).generate(publicId, signUrl: signUrl) else {
             if let placeholder = placeholder {
                 setImageOnMainQueue(placeholder)
             }
@@ -82,8 +83,8 @@ public extension UIImageView {
         let fetchedImageHandler = { (image: UIImage) in
             setImageOnMainQueue(image)
         }
-        
+
         fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary, fetchedImageHandler: fetchedImageHandler)
     }
-    
+
 }
