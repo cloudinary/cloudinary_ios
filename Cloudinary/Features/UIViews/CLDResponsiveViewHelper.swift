@@ -86,8 +86,16 @@ import UIKit
             requestedHeight = 0
         }
         
+        if let crop = params.cropMode {
+            responsiveTransformation.setCrop(crop)
+        }
+        
+        if let gravity = params.gravity {
+            responsiveTransformation.setGravity(gravity)
+        }
+        
         // TODO: Evaluate DPR behaviour
-        return responsiveTransformation.setDpr(Float(UIScreen.main.scale)).setCrop(params.cropMode).setGravity(params.gravity)
+        return responsiveTransformation.setDpr(Float(UIScreen.main.scale))
     }
     
     fileprivate func getRoundedContentHeight(_ view: UIImageView) -> Int {

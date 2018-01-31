@@ -16,21 +16,30 @@ import Foundation
     
     internal let autoWidth: Bool
     internal let autoHeight: Bool
-    internal let cropMode: CLDTransformation.CLDCrop
-    internal let gravity: CLDTransformation.CLDGravity
+    internal let cropMode: CLDTransformation.CLDCrop?
+    internal let gravity: CLDTransformation.CLDGravity?
     internal var reloadOnSizeChange = defaultReloadOnSizeChange
     internal var stepSize = defaultStepSize
     internal var maxDimension = defaultMaxDimension
     internal var minDimension = defaultMinDimension
     
     // MARK: - Init
-    public init(autoWidth: Bool, autoHeight: Bool, cropMode: CLDTransformation.CLDCrop, gravity: CLDTransformation.CLDGravity) {
+    public init(autoWidth: Bool, autoHeight: Bool, cropMode: CLDTransformation.CLDCrop?, gravity: CLDTransformation.CLDGravity?) {
         self.autoWidth = autoWidth
         self.autoHeight = autoHeight
         self.cropMode = cropMode
         self.gravity = gravity
     }
+    
+    // MARK: - Presets
+    public static func fit () -> CLDResponsiveParams {
+        return CLDResponsiveParams(autoWidth: true, autoHeight: true, cropMode: CLDTransformation.CLDCrop.fit, gravity: nil)
+    }
 
+    public static func autoFill () -> CLDResponsiveParams {
+        return CLDResponsiveParams(autoWidth: true, autoHeight: true, cropMode: CLDTransformation.CLDCrop.fill, gravity: CLDTransformation.CLDGravity.faces)
+    }
+    
     // MARK: - Setters
     public func setStepSize(_ stepSize:Int) -> Self {
         self.stepSize = stepSize
@@ -50,10 +59,6 @@ import Foundation
     public func setReloadOnSizeChange(_ reload: Bool) -> Self {
         self.reloadOnSizeChange = reload
         return self
-    }
-    
-    @objc public enum CLDDimensions: Int {
-        case width, height, all
     }
 }
 

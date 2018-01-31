@@ -55,8 +55,8 @@ internal extension UIView {
     
     // check whether the url is in sync with the last request url on this view, if possible
     internal func isUrlStillRelevant(_ url: String) -> Bool {
-        // The associated propery `cldCurrentUrl` is only available on UIImageViews, for
-        // any other view we do not store the url
+        // The associated property `cldCurrentUrl` is only available on UIImageViews,
+        // we do not store the url for other UIViews
         if let imageView = self as? UIImageView, let lastRequestUrl = imageView.cldCurrentUrl {
             return url == lastRequestUrl
         }
