@@ -9,7 +9,10 @@
 import UIKit
 
 @objc open class CLDUIImageView: UIImageView {
-    let responsiveHelper: CLDResponsiveViewHelper = CLDResponsiveViewHelper()
+    // Delegate most of the logic to a helper instance. To use responsive downloads in situations
+    // where one cannot use CLDUIImageView a CLDResponsiveViewHelper can be used in any other custom UIVIew
+    // as long as these two methods are used.
+    internal let responsiveHelper: CLDResponsiveViewHelper = CLDResponsiveViewHelper()
 
     /**
      Download an image asynchronously from the specified URL and set it to the UIImageView's image.
@@ -26,12 +29,14 @@ import UIKit
      */
     @objc public func cldSetImage(publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, resourceType: CLDUrlResourceType = CLDUrlResourceType.image,
                                   responsiveParams: CLDResponsiveParams, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
-        responsiveHelper.cldSetImage (view: self, publicId: publicId, cloudinary: cloudinary, signUrl: signUrl, resourceType: resourceType,
-                                      responsiveParams: responsiveParams, transformation : transformation, placeholder: placeholder)
+
+        responsiveHelper.cldSetImage (view: self, publicId: publicId, cloudinary: cloudinary, signUrl: signUrl, resourceType: resourceType, responsiveParams: responsiveParams, transformation : transformation, placeholder: placeholder)
     }
-    
+
     override open func layoutSubviews() {
         super.layoutSubviews()
+
+        // notify the delegate that the view now knows it's own size
         responsiveHelper.onViewSizeKnown(view: self)
     }
 }
