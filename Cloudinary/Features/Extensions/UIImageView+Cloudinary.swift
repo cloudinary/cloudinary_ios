@@ -24,7 +24,6 @@
 
 import Foundation
 
-
 public extension UIImageView {
     
     /**
@@ -37,14 +36,9 @@ public extension UIImageView {
      
      */
     @objc public func cldSetImage(_ url: String, cloudinary: CLDCloudinary, placeholder: UIImage? = nil) {
-        
-        let setImageOnMainQueue = { [weak self] (image: UIImage) in
-            DispatchQueue.main.async {
-                self?.image = image
-            }
+        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary) { [weak self] (image: UIImage) in
+            self?.image = image
         }
-        
-        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary, fetchedImageHandler: setImageOnMainQueue)
     }
     
     /**
@@ -53,12 +47,13 @@ public extension UIImageView {
      
      - parameter publicId:          The remote asset's name (e.g. the public id of an uploaded image).
      - parameter cloudinary:        An instance of CLDCloudinary.
-     - parameter signUrl:           A boolean parameter indicating whether or not to generate a signiture out of the API secret and add it to the generated URL. Default is false.
+     - parameter signUrl:           A boolean parameter indicating whether or not to generate a signature out of the API secret and add it to the generated URL. Default is false.
+     - parameter resourceType       The resource type of the image to download (can be useful to display video frames for thumbnails).
      - parameter transformation:    An instance of CLDTransformation.
-     - parameter placeholder:       A placeholder image to be set as the background image untill the asynchronus download request finishes.
+     - parameter placeholder:       A placeholder image to be set as the background image until the asynchronus download request finishes.
      
      */
-    @objc public func cldSetImage(publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
+    @objc public func cldSetImage(publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, resourceType:CLDUrlResourceType = CLDUrlResourceType.image, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
         
         let urlGen = cloudinary.createUrl()
         
@@ -66,24 +61,39 @@ public extension UIImageView {
             urlGen.setTransformation(transformation)
         }
         
-        func setImageOnMainQueue(_ image: UIImage) {
-            DispatchQueue.main.async { [weak self] in
-                self?.image = image
-            }
-        }
-        
-        guard let url = urlGen.generate(publicId, signUrl: signUrl) else {
+        guard let url = urlGen.setResourceType(resourceType).generate(publicId, signUrl: signUrl) else {
             if let placeholder = placeholder {
-                setImageOnMainQueue(placeholder)
+                DispatchQueue.main.async { [weak self] in
+                    self?.image = placeholder
+                }
             }
+            
             return
         }
-        
-        let fetchedImageHandler = { (image: UIImage) in
-            setImageOnMainQueue(image)
+
+        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary) { [weak self] (image: UIImage) in
+            self?.image = image
         }
-        
-        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary, fetchedImageHandler: fetchedImageHandler)
     }
     
+    /**
+     Static var used to generate a unique address for the associated object
+     */
+    private struct AssociatedKeys {
+        static var cldCurrentUrl = "cldCurrentUrl"
+    }
+    
+    /**
+     Add an associated object to UIImageView so we can track the current url 'attached' to the image view.
+     This is important in case the view is used in an collection adapter where views are recycled, to verify
+     that when the async download finishes the associated url hasn't changed
+    */
+    internal var cldCurrentUrl:String? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.cldCurrentUrl) as? String
+        }
+        set {
+            objc_setAssociatedObject(self,  &AssociatedKeys.cldCurrentUrl, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
 }

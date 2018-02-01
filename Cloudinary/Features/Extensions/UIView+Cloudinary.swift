@@ -26,15 +26,41 @@ import Foundation
 
 internal extension UIView {    
     internal func fetchImageForUIElement(_ url: String, placeholder: UIImage?, cloudinary: CLDCloudinary, fetchedImageHandler: @escaping ((_ fetchedImage: UIImage) -> ())) {
-        
         if let placeholder = placeholder {
             fetchedImageHandler(placeholder)
         }
         
-        cloudinary.createDownloader().fetchImage(url) { (responseImage, error) in
+        DispatchQueue.main.async {
+            self.setInProgressUrl(url)
+        }
+        
+        cloudinary.createDownloader().fetchImage(url) { [weak self] (responseImage, error) in
             if let img = responseImage {
-                fetchedImageHandler(img)
+                DispatchQueue.main.async {
+                    if let view = self, view.isUrlStillRelevant(url) {
+                        fetchedImageHandler(img)
+                    }
+                }
             }
         }
+    }
+    
+    // set a url as the current request url for this view, if possible
+    internal func setInProgressUrl(_ url: String?){
+        // The associated propery `cldCurrentUrl` is only available on UIImageViews.
+        if let imageView = self as? UIImageView {
+            imageView.cldCurrentUrl = url
+        }
+    }
+    
+    // check whether the url is in sync with the last request url on this view, if possible
+    internal func isUrlStillRelevant(_ url: String) -> Bool {
+        // The associated property `cldCurrentUrl` is only available on UIImageViews,
+        // we do not store the url for other UIViews
+        if let imageView = self as? UIImageView, let lastRequestUrl = imageView.cldCurrentUrl {
+            return url == lastRequestUrl
+        }
+        
+        return true
     }
 }

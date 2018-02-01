@@ -38,14 +38,9 @@ public extension UIButton {
      
      */
     @objc public func cldSetImage(_ url: String, forState state: UIControlState, cloudinary: CLDCloudinary, placeholder: UIImage? = nil) {
-        
-        let setImageOnMainQueue = { [weak self] (image: UIImage) in
-            DispatchQueue.main.async {
-                self?.setImage(image, for: state)
-            }
+        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary) { [weak self] (image: UIImage) in
+            self?.setImage(image, for: state)
         }
-        
-        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary, fetchedImageHandler: setImageOnMainQueue)
     }
     
     /**
@@ -68,24 +63,19 @@ public extension UIButton {
             urlGen.setTransformation(transformation)
         }
         
-        func setImageOnMainQueue(_ image: UIImage) {
-            DispatchQueue.main.async { [weak self] in
-                self?.setImage(image, for: state)
-            }
-        }
-        
         guard let url = urlGen.generate(publicId, signUrl: signUrl) else {
             if let placeholder = placeholder {
-                setImageOnMainQueue(placeholder)
+                DispatchQueue.main.async { [weak self] in
+                    self?.setImage(placeholder, for: state)
+                }
             }
+            
             return
         }
         
-        let fetchedImageHandler = { (image: UIImage) in
-            setImageOnMainQueue(image)
+        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary) { [weak self] (image: UIImage) in
+            self?.setImage(image, for: state)
         }
-        
-        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary, fetchedImageHandler: fetchedImageHandler)
     }
     
     /**
@@ -130,24 +120,17 @@ public extension UIButton {
             urlGen.setTransformation(transformation)
         }
         
-        func setImageOnMainQueue(_ image: UIImage) {
-            DispatchQueue.main.async { [weak self] in
-                self?.setBackgroundImage(image, for: state)
-            }
-        }
-        
         guard let url = urlGen.generate(publicId, signUrl: signUrl) else {
             if let placeholder = placeholder {
-                setImageOnMainQueue(placeholder)
+                DispatchQueue.main.async { [weak self] in
+                    self?.setBackgroundImage(placeholder, for: state)
+                }
             }
             return
         }
         
-        let fetchedImageHandler = { (image: UIImage) in
-            setImageOnMainQueue(image)
+        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary) { [weak self] (image: UIImage) in
+            self?.setBackgroundImage(image, for: state)
         }
-        
-        fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary, fetchedImageHandler: fetchedImageHandler)
     }
-    
 }
