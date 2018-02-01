@@ -26,6 +26,7 @@
 		1E715109201F289F00CBF632 /* CLDResponsiveViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E715108201F289F00CBF632 /* CLDResponsiveViewHelper.swift */; };
 		1EAE06372017949F00042C90 /* CLDUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAE06362017949F00042C90 /* CLDUIImageView.swift */; };
 		1EBA5037200DFA070012305F /* CLDResponsiveParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA5036200DFA070012305F /* CLDResponsiveParams.swift */; };
+		1EBB2EE0202366E000276461 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1EBB2EDF202366E000276461 /* .travis.yml */; };
 		2936A50D1E1D92A5009B7FAF /* Cloudinary.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2936A50C1E1D92A5009B7FAF /* Cloudinary.podspec */; };
 		2936A58E1E1EFF95009B7FAF /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 2936A58C1E1EFF95009B7FAF /* LICENCE */; };
 		2936A58F1E1EFF95009B7FAF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2936A58D1E1EFF95009B7FAF /* README.md */; };
@@ -302,6 +303,7 @@
 		1E715108201F289F00CBF632 /* CLDResponsiveViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDResponsiveViewHelper.swift; sourceTree = "<group>"; };
 		1EAE06362017949F00042C90 /* CLDUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDUIImageView.swift; sourceTree = "<group>"; };
 		1EBA5036200DFA070012305F /* CLDResponsiveParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDResponsiveParams.swift; sourceTree = "<group>"; };
+		1EBB2EDF202366E000276461 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		1ED714C71FBDB57B00C5367C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		2936A50C1E1D92A5009B7FAF /* Cloudinary.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cloudinary.podspec; sourceTree = "<group>"; };
 		2936A58C1E1EFF95009B7FAF /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 		369FB33C1C79D360003E81B6 = {
 			isa = PBXGroup;
 			children = (
+				1EBB2EDF202366E000276461 /* .travis.yml */,
 				2936A58B1E1EFF72009B7FAF /* Support Files */,
 				369FB3481C79D360003E81B6 /* Cloudinary */,
 				3696FBF21C8C6A3D00DE9568 /* CloudinaryTests */,
@@ -1234,6 +1237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EBB2EE0202366E000276461 /* .travis.yml in Resources */,
 				2936A58E1E1EFF95009B7FAF /* LICENCE in Resources */,
 				2936A50D1E1D92A5009B7FAF /* Cloudinary.podspec in Resources */,
 			);
@@ -1445,6 +1449,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"CLOUDINARY_URL=$(CLOUDINARY_URL)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
