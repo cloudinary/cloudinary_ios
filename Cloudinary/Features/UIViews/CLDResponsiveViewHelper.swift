@@ -110,7 +110,6 @@ import UIKit
             responsiveTransformation.setGravity(gravity)
         }
         
-        // TODO: Evaluate DPR behaviour
         return responsiveTransformation.setDpr(Float(UIScreen.main.scale))
     }
     

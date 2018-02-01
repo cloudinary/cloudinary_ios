@@ -54,7 +54,7 @@ import Foundation
     }
 
     public static func autoFill () -> CLDResponsiveParams {
-        return CLDResponsiveParams(autoWidth: true, autoHeight: true, cropMode: CLDTransformation.CLDCrop.fill, gravity: CLDTransformation.CLDGravity.faces)
+        return CLDResponsiveParams(autoWidth: true, autoHeight: true, cropMode: CLDTransformation.CLDCrop.fill, gravity: CLDTransformation.CLDGravity.auto)
     }
     
     // MARK: - Setters

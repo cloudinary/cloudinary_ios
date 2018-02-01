@@ -425,6 +425,11 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(1.1).setCrop(.scale)).generate("image/private/v1234567/img.jpg"), "\(prefix)/image/private/c_scale,w_1.1/v1234567/img.jpg")
     }
     
+    func testGravityAuto() {
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(100).setCrop(CLDTransformation.CLDCrop.crop).setGravity(CLDTransformation.CLDGravity.auto)).generate("public_id"),
+                       "\(prefix)/image/upload/c_crop,g_auto,w_100/public_id")
+    }
+    
     func testVideoCodec() {
         
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoCodec("auto")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_auto/video_id")
