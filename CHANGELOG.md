@@ -1,5 +1,19 @@
 
-2.1.0 / 2017-01-04
+2.2.0 / 2018-02-01
+==================
+
+New functionality
+-----------------
+
+  * Add support for responsive image download
+  * Add `auto` to `CLDGravity`
+    
+Other changes
+-------------
+
+  * Fix synchronization issue when using `cldSetImage()` on `UIViews` within view collections.
+
+2.1.0 / 2018-01-04
 ==================
 
 New functionality
