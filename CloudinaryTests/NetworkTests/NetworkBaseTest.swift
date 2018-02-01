@@ -34,7 +34,12 @@ class NetworkBaseTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let config = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
+        let config: CLDConfiguration
+        if let url = Bundle(for: type(of: self)).infoDictionary?["cldCloudinaryUrl"] as? String, url.count > 0 {
+            config = CLDConfiguration(cloudinaryUrl: url)!
+        } else {
+            config = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
+        }
         cloudinary = CLDCloudinary(configuration: config, sessionConfiguration: URLSessionConfiguration.default)
     }
     
