@@ -263,16 +263,15 @@ class UploaderTests: NetworkBaseTest {
         let prefix = cloudinary!.config.apiSecret != nil ? "\(cloudinary!.config.apiKey!):\(cloudinary!.config.apiSecret!)" : cloudinary!.config.apiKey!
         let uploadPresetUrl = "https://\(prefix)@api.cloudinary.com/v1_1/\(cloudinary!.config.cloudName!)/upload_presets"
         let presetName = "ios_unsigned_upload"
-        let dict = ProcessInfo.processInfo.environment
-        guard let configUrl = dict["CLOUDINARY_URL_NO_SECRET"]
-            else {
-                XCTFail("you must set an environment variables for CLOUDINARY_URL_NO_SECRET with no secret to test unsigned upload.")
-                return
-        }
-        let config = CLDConfiguration(cloudinaryUrl: configUrl)!
-        cloudinary = CLDCloudinary(configuration: config, sessionConfiguration: URLSessionConfiguration.default)
         
-        XCTAssertNil(cloudinary!.config.apiSecret, "api secret should not be set to test unsigned upload")
+        var options = [String:AnyObject]()
+        options["api_key"] = cloudinary?.config.apiKey as AnyObject
+        options["cloud_name"] = cloudinary?.config.cloudName as AnyObject
+        
+        let config = CLDConfiguration(options: options)
+        let cloudinaryNoSecret = CLDCloudinary(configuration: config!, sessionConfiguration: URLSessionConfiguration.default)
+        
+        XCTAssertNil(cloudinaryNoSecret.config.apiSecret, "api secret should not be set to test unsigned upload")
         
         createUploadPresetIfNeeded(uploadPresetUrl, presetName: presetName)
         
@@ -282,7 +281,7 @@ class UploaderTests: NetworkBaseTest {
         var result: CLDUploadResult?
         var error: NSError?
         
-        cloudinary!.createUploader().upload(url: file, uploadPreset: presetName, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
+        cloudinaryNoSecret.createUploader().upload(url: file, uploadPreset: presetName, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
             
@@ -300,10 +299,6 @@ class UploaderTests: NetworkBaseTest {
             let sig = result?.signature
         {
             let toSign = ["public_id" : pubId, "version" : version]
-            
-            let config = CLDConfiguration.initWithEnvParams()
-            cloudinary = CLDCloudinary(configuration: config!)
-            
             let expectedSignature = cloudinarySignParamsUsingSecret(toSign, cloudinaryApiSecret: (cloudinary!.config.apiSecret)!)
             XCTAssertEqual(sig, expectedSignature)
         }
