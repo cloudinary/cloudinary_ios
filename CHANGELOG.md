@@ -1,4 +1,9 @@
 
+2.2.1 / 2018-02-14
+==================
+
+   * Fix objective-c compatibility issues with `CLDResponsiveParams` properties.
+
 2.2.0 / 2018-02-01
 ==================
 
