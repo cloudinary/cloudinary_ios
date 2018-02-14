@@ -30,16 +30,16 @@ import Foundation
     public static let defaultMaxDimension = 350
     public static let defaultMinDimension = 50
     public static let defaultReloadOnSizeChange = false
-    
+
     internal let autoWidth: Bool
     internal let autoHeight: Bool
     internal let cropMode: CLDTransformation.CLDCrop?
     internal let gravity: CLDTransformation.CLDGravity?
-    internal var reloadOnSizeChange = defaultReloadOnSizeChange
-    internal var stepSize = defaultStepSize
-    internal var maxDimension = defaultMaxDimension
-    internal var minDimension = defaultMinDimension
-    
+    internal var shouldReloadOnSizeChange = defaultReloadOnSizeChange
+    internal var stepSizePoints = defaultStepSize
+    internal var maxDimensionPoints = defaultMaxDimension
+    internal var minDimensionPoints = defaultMinDimension
+
     // MARK: - Init
     public init(autoWidth: Bool, autoHeight: Bool, cropMode: CLDTransformation.CLDCrop?, gravity: CLDTransformation.CLDGravity?) {
         self.autoWidth = autoWidth
@@ -47,7 +47,7 @@ import Foundation
         self.cropMode = cropMode
         self.gravity = gravity
     }
-    
+
     // MARK: - Presets
     public static func fit () -> CLDResponsiveParams {
         return CLDResponsiveParams(autoWidth: true, autoHeight: true, cropMode: CLDTransformation.CLDCrop.fit, gravity: nil)
@@ -56,25 +56,25 @@ import Foundation
     public static func autoFill () -> CLDResponsiveParams {
         return CLDResponsiveParams(autoWidth: true, autoHeight: true, cropMode: CLDTransformation.CLDCrop.fill, gravity: CLDTransformation.CLDGravity.auto)
     }
-    
+
     // MARK: - Setters
     public func setStepSize(_ stepSize:Int) -> Self {
-        self.stepSize = stepSize
+        self.stepSizePoints = stepSize
         return self
     }
-    
+
     public func setMaxDimension(_ maxDimension:Int) -> Self {
-        self.maxDimension = maxDimension
+        self.maxDimensionPoints = maxDimension
         return self
     }
-    
+
     public func setMinDimension(_ minDimension:Int) -> Self {
-        self.minDimension = minDimension
+        self.minDimensionPoints = minDimension
         return self
     }
-    
+
     public func setReloadOnSizeChange(_ reload: Bool) -> Self {
-        self.reloadOnSizeChange = reload
+        self.shouldReloadOnSizeChange = reload
         return self
     }
 }

@@ -60,7 +60,7 @@ import UIKit
         if let params = responsiveParams {
             // We fetch an image in two cases: 1) This is the first time, or 2) The view got larger and the deverloper requested to reload the image on resize.
             if (requestedWidth == 0 && requestedHeight == 0) ||
-                (params.reloadOnSizeChange && didGetLarger(view)) {
+                (params.shouldReloadOnSizeChange && didGetLarger(view)) {
                 doResponsive(view)
             }
         }
@@ -122,7 +122,7 @@ import UIKit
     }
     
     fileprivate func trimAndRoundUp(_ dimension: Int) -> Int {
-        let value = ((dimension - 1) / responsiveParams!.stepSize + 1) * responsiveParams!.stepSize;
-        return max(responsiveParams!.minDimension, min(value, responsiveParams!.maxDimension));
+        let value = ((dimension - 1) / responsiveParams!.stepSizePoints + 1) * responsiveParams!.stepSizePoints;
+        return max(responsiveParams!.minDimensionPoints, min(value, responsiveParams!.maxDimensionPoints));
     }
 }
