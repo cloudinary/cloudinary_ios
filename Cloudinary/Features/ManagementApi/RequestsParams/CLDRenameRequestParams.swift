@@ -27,7 +27,7 @@ import Foundation
 /**
  This class represents the different parameters that can be passed when performing a rename request.
  */
-@objc open class CLDRenameRequestParams: CLDRequestParams {
+@objcMembers open class CLDRenameRequestParams: CLDRequestParams {
 
     
     // MARK: Init

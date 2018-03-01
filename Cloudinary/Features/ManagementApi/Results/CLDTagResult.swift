@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDTagResult: CLDBaseResult {
+@objcMembers open class CLDTagResult: CLDBaseResult {
     
     
     // MARK: - Getters

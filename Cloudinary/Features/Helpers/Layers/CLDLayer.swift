@@ -27,7 +27,7 @@ import Foundation
 /**
  The CLDLayer is used to help adding an overlay or underlay layer to a transformation.
 */
-@objc open class CLDLayer: NSObject {
+@objcMembers open class CLDLayer: NSObject {
     
     internal var publicId: String?
     internal var format: String?

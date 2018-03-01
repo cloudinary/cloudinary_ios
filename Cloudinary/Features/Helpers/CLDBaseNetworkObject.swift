@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDBaseNetworkObject: NSObject {
+@objcMembers open class CLDBaseNetworkObject: NSObject {
 
     
     internal fileprivate(set) var networkCoordinator: CLDNetworkCoordinator!

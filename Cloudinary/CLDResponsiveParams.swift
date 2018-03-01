@@ -25,7 +25,7 @@
 
 import Foundation
 
-@objc open class CLDResponsiveParams: NSObject {
+@objcMembers open class CLDResponsiveParams: NSObject {
     public static let defaultStepSize = 50
     public static let defaultMaxDimension = 350
     public static let defaultMinDimension = 50

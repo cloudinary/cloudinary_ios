@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDSpriteResult: CLDBaseResult {
+@objcMembers open class CLDSpriteResult: CLDBaseResult {
     
     // MARK: - Getters
     
@@ -91,7 +91,7 @@ import Foundation
 }
 
 
-@objc open class CLDImageInfo: CLDBaseResult {
+@objcMembers open class CLDImageInfo: CLDBaseResult {
     
     open var x: Int? {
         return getParam(.x) as? Int

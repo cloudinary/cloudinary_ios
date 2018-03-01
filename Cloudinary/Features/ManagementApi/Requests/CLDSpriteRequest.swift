@@ -29,7 +29,7 @@ import Foundation
  It allows the options to add a response closure to be called once the request has finished,
  as well as performing actions on the request, such as cancelling, suspending or resuming it.
  */
-@objc open class CLDSpriteRequest: CLDRequest {
+@objcMembers open class CLDSpriteRequest: CLDRequest {
     
     /**
      Set a response closure to be called once the request has finished.

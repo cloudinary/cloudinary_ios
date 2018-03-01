@@ -27,7 +27,7 @@ import Foundation
 /**
  The CLDConfiguration class holds the configuration parameters to be used by the `CLDCloudinary` instance.
 */
-@objc open class CLDConfiguration: NSObject {
+@objcMembers open class CLDConfiguration: NSObject {
 
     fileprivate struct Defines {
         fileprivate static let ENV_VAR_CLOUDINARY_URL = "CLOUDINARY_URL"

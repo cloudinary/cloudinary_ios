@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDInfo: CLDBaseResult {
+@objcMembers open class CLDInfo: CLDBaseResult {
     
     open var detection: CLDDetection? {
         guard let detection = getParam(.detection) as? [String : AnyObject] else {

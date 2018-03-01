@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDRekognitionFace: CLDBaseResult {
+@objcMembers open class CLDRekognitionFace: CLDBaseResult {
     
     open var status: String? {
         return getParam(.status) as? String

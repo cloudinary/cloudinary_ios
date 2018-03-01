@@ -25,7 +25,7 @@
 import Foundation
 import UIKit
 
-@objc open class CLDResponsiveViewHelper : NSObject{
+@objcMembers open class CLDResponsiveViewHelper : NSObject{
     fileprivate var requestedWidth = 0
     fileprivate var requestedHeight = 0
     fileprivate var viewSizeKnown = false
@@ -38,7 +38,7 @@ import UIKit
     fileprivate var baseTransformation: String?
     fileprivate var placeholder: UIImage?
     
-    @objc public func cldSetImage(view: UIImageView, publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, resourceType: CLDUrlResourceType = CLDUrlResourceType.image,
+    public func cldSetImage(view: UIImageView, publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, resourceType: CLDUrlResourceType = CLDUrlResourceType.image,
                                   responsiveParams: CLDResponsiveParams, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
         self.publicId = publicId
         self.signUrl = signUrl

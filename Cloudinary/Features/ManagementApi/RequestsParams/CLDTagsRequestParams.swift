@@ -27,7 +27,7 @@ import Foundation
 /**
  This class represents the different parameters that can be passed when performing a tag request.
  */
-@objc open class CLDTagsRequestParams: CLDRequestParams {
+@objcMembers open class CLDTagsRequestParams: CLDRequestParams {
     
     //MARK: Init
     

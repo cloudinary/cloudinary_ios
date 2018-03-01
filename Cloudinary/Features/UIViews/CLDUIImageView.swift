@@ -25,7 +25,7 @@
 
 import UIKit
 
-@objc open class CLDUIImageView: UIImageView {
+@objcMembers open class CLDUIImageView: UIImageView {
     // Delegate most of the logic to a helper instance. To use responsive downloads in situations
     // where one cannot use CLDUIImageView a CLDResponsiveViewHelper can be used in any other custom UIVIew
     // as long as these two methods are used.

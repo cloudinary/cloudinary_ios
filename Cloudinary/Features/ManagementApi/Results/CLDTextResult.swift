@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDTextResult: CLDBaseResult {
+@objcMembers open class CLDTextResult: CLDBaseResult {
     
     
     // MARK: - Getters

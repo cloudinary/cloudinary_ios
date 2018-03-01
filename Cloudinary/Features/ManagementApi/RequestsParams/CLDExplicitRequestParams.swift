@@ -27,7 +27,7 @@ import Foundation
 /**
  This class represents the different parameters that can be passed when performing an `explicit` request.
  */
-@objc open class CLDExplicitRequestParams: CLDUploadRequestParams {
+@objcMembers open class CLDExplicitRequestParams: CLDUploadRequestParams {
 
     
     //MARK: Init

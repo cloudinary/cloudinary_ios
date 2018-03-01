@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDSubtitlesLayer: CLDTextLayer {
+@objcMembers open class CLDSubtitlesLayer: CLDTextLayer {
     
     // MARK: - Init
     

@@ -28,7 +28,7 @@ import Foundation
  The CLDRequestParams class is a base class for all different request params object.
  It holds a dictionary of the actual params, the request's resource type, the request signature for signing a request using an externaly generated signature, and the subclass' representing action.
 */
-@objc open class CLDRequestParams: NSObject {
+@objcMembers open class CLDRequestParams: NSObject {
 
     /**
      A dictionary of the params to be sent as part of the request.

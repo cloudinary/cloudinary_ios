@@ -27,7 +27,7 @@ import Foundation
 /**
  The CLDDownloader class is used to asynchronously fetch images either from the image cache if they exist or download them from a remote source.
 */
-@objc open class CLDDownloader: CLDBaseNetworkObject {
+@objcMembers open class CLDDownloader: CLDBaseNetworkObject {
     
     // MARK: - Init
     
