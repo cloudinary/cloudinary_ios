@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDExplicitResult: CLDUploadResult {
+@objcMembers open class CLDExplicitResult: CLDUploadResult {
         
     
     // MARK: - Getters    
@@ -61,7 +61,7 @@ import Foundation
     }
 }
 
-@objc open class CLDEagerResult: CLDBaseResult {
+@objcMembers open class CLDEagerResult: CLDBaseResult {
     
     // MARK: - Getters
     

@@ -27,7 +27,7 @@ import Foundation
 /**
  The CLDTransformation class represents a full transformation performed by Cloudinay on-the-fly on a certain asset.
  */
-@objc open class CLDTransformation: NSObject {
+@objcMembers open class CLDTransformation: NSObject {
     
     fileprivate var currentTransformationParams: [String : String] = [:]
     fileprivate var transformations: [[String : String]] = []

@@ -27,7 +27,7 @@ import Foundation
 /**
  This class represents the different parameters that can be passed when performing a request to generate a sprite.
  */
-@objc open class CLDSpriteRequestParams: CLDRequestParams {
+@objcMembers open class CLDSpriteRequestParams: CLDRequestParams {
 
     
     // MARK: Init

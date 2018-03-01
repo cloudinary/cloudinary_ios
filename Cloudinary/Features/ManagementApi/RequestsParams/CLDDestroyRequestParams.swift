@@ -27,7 +27,7 @@ import Foundation
 /**
  This class represents the different parameters that can be passed when performing a destroy request.
  */
-@objc open class CLDDestroyRequestParams: CLDRequestParams {
+@objcMembers open class CLDDestroyRequestParams: CLDRequestParams {
     
     //MARK: Init
     

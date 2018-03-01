@@ -27,7 +27,7 @@ import Foundation
 /**
  The CLDUrl class represents a URL to a remote asset either on your Cloudinary cloud, or from another remote source.
 */
-@objc open class CLDUrl: NSObject {
+@objcMembers open class CLDUrl: NSObject {
     
     fileprivate struct CLDUrlConsts {
         static let CLD_OLD_AKAMAI_CHARED_CDN = "cloudinary-a.akamaihd.net"

@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDExplodeResult: CLDBaseResult {
+@objcMembers open class CLDExplodeResult: CLDBaseResult {
     
     // MARK: - Getters
     

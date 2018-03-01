@@ -27,7 +27,7 @@ import Foundation
 /**
  The CLDManagementApi class is used to perform the available methods for managing your cloud assets.
 */
-@objc open class CLDManagementApi: CLDBaseNetworkObject {
+@objcMembers open class CLDManagementApi: CLDBaseNetworkObject {
     
     // MARK: - Init
     

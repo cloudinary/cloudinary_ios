@@ -27,7 +27,7 @@ import Foundation
 /**
  The CLDUploader class is used to upload assets to your Cloudinary account's cloud.
 */
-@objc open class CLDUploader: CLDBaseNetworkObject {
+@objcMembers open class CLDUploader: CLDBaseNetworkObject {
     static public let defaultChunkSize = 20 * 1024 * 1024
     
     // MARK: - Init

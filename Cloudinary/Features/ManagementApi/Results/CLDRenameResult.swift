@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDRenameResult: CLDBaseResult {
+@objcMembers open class CLDRenameResult: CLDBaseResult {
     
     // MARK: - Getters
     
@@ -162,7 +162,7 @@ import Foundation
 
 // MARK: - CLDCoordinates
 
-@objc open class CLDCoordinates: CLDBaseResult {
+@objcMembers open class CLDCoordinates: CLDBaseResult {
     
     open var custom: AnyObject? {
         return getParam(.custom)
@@ -192,7 +192,7 @@ import Foundation
 
 // MARK: - CLDPredominant
 
-@objc open class CLDPredominant: CLDBaseResult {
+@objcMembers open class CLDPredominant: CLDBaseResult {
     
     open var google: AnyObject? {
         return getParam(.google)
@@ -218,7 +218,7 @@ import Foundation
 
 // MARK: - CLDDerived
 
-@objc open class CLDDerived: CLDBaseResult {
+@objcMembers open class CLDDerived: CLDBaseResult {
     
     open var transformation: String? {
         return getParam(.transformation) as? String

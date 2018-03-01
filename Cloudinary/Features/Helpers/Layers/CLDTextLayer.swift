@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDTextLayer: CLDLayer {
+@objcMembers open class CLDTextLayer: CLDLayer {
     
     internal var text: String?
     internal var fontFamily: String?

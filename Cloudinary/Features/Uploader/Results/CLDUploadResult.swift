@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDUploadResult: CLDBaseResult {
+@objcMembers open class CLDUploadResult: CLDBaseResult {
     
     
     // MARK: - Getters
@@ -191,7 +191,7 @@ import Foundation
 
 // MARK: - Video Result
 
-@objc open class CLDVideo: CLDBaseResult {
+@objcMembers open class CLDVideo: CLDBaseResult {
     
     open var format: String? {
         return getParam(.pixFormat) as? String
@@ -229,7 +229,7 @@ import Foundation
     }
 }
 
-@objc open class CLDAudio: CLDBaseResult {
+@objcMembers open class CLDAudio: CLDBaseResult {
     
     open var codec: String? {
         return getParam(.codec) as? String

@@ -28,7 +28,7 @@ import Foundation
  several `CLDUploader` functions, in case the actual concrete request cannot yet be created. This is also allows for multiple
  concrete requests to be represented as one request. This class is used for preprocessing requests as well as uploda large requests.
  */
-@objc internal class CLDUploadRequestWrapper: CLDUploadRequest {
+internal class CLDUploadRequestWrapper: CLDUploadRequest {
     private var state = RequestState.started
     fileprivate var requestsCount: Int!
     fileprivate var totalLength: Int64!

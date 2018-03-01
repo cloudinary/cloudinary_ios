@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDBaseResult: NSObject {
+@objcMembers open class CLDBaseResult: NSObject {
     
     open fileprivate(set) var resultJson: [String : AnyObject]
     

@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDMultiResult: CLDBaseResult {
+@objcMembers open class CLDMultiResult: CLDBaseResult {
     
     
     // MARK: - Getters

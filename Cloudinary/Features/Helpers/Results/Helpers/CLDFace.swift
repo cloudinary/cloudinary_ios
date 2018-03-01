@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDFace: CLDBaseResult {
+@objcMembers open class CLDFace: CLDBaseResult {
     
     open var boundingBox: CLDBoundingBox? {
         guard let bb = getParam(.boundingBox) as? [String : AnyObject] else {

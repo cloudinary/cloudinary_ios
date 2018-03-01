@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc open class CLDDeleteResult: CLDBaseResult {
+@objcMembers open class CLDDeleteResult: CLDBaseResult {
        
     // MARK: - Getters
     

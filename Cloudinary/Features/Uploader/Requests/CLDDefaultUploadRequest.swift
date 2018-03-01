@@ -30,7 +30,7 @@ import Foundation
  and a response closure to be called once the transfer has finished,
  as well as performing actions on the request, such as cancelling, suspending or resuming it.
  */
-@objc internal class CLDDefaultUploadRequest: CLDUploadRequest {
+internal class CLDDefaultUploadRequest: CLDUploadRequest {
 
 
     internal var networkRequest: CLDNetworkDataRequest

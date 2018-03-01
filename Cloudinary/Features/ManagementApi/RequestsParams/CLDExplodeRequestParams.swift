@@ -27,7 +27,7 @@ import Foundation
 /**
  This class represents the different parameters that can be passed when performing an `explode` request.
  */
-@objc open class CLDExplodeRequestParams: CLDRequestParams {
+@objcMembers open class CLDExplodeRequestParams: CLDRequestParams {
 
     
     // MARK: Init

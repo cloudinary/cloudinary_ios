@@ -29,7 +29,7 @@ import Foundation
 /**
 The CLDSignature class represents a signature used to sign a URL request.
 */
-@objc open class CLDSignature: NSObject {
+@objcMembers open class CLDSignature: NSObject {
         
     open let signature: String
     open let timestamp: NSNumber
@@ -62,7 +62,7 @@ The CLDSignature class represents a signature used to sign a URL request.
 /**
 The CLDCoordinate class represents a rectangle area on an asset.
 */
-@objc open class CLDCoordinate: NSObject {
+@objcMembers open class CLDCoordinate: NSObject {
     
     let rect: CGRect
     
@@ -115,7 +115,7 @@ The CLDCoordinate class represents a rectangle area on an asset.
 The CLDResponsiveBreakpoints class describe the settings available for configuring responsive breakpoints.
 Responsive breakpoints is used to request Cloudinary to automatically find the best breakpoints.
 */
-@objc open class CLDResponsiveBreakpoints: NSObject {
+@objcMembers open class CLDResponsiveBreakpoints: NSObject {
     
     internal var params: [String: AnyObject] = [:]
     

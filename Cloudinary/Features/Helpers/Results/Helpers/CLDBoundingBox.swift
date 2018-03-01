@@ -23,7 +23,7 @@
 //
 import Foundation
 
-@objc open class CLDBoundingBox: CLDBaseResult {
+@objcMembers open class CLDBoundingBox: CLDBaseResult {
     
     open var topLeft: CGPoint? {
         return CLDBoundingBox.parsePoint(resultJson, key: String(describing: CLDBoundingBoxJsonKey.topLeft))

@@ -30,7 +30,7 @@ import Foundation
  and a response closure to be called once the transfer has finished,
  as well as performing actions on the request, such as cancelling, suspending or resuming it.
  */
-open class CLDUploadRequest : NSObject {
+@objcMembers open class CLDUploadRequest : NSObject {
     internal override init() {
     }
     

@@ -27,7 +27,7 @@ import Foundation
 public typealias CLDCompletionHandler = (_ responseImage: UIImage?, _ error: NSError?) -> ()
 public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ error: NSError?) -> ()
 
-@objc open class CLDCloudinary: NSObject {
+@objcMembers open class CLDCloudinary: NSObject {
     
     /**
      Holds the configuration parameters to be used by the `CLDCloudinary` instance.

@@ -28,7 +28,7 @@ import Foundation
  This class represents the different parameters that can be passed when performing an upload request.
  For more information see the [documentation](http://cloudinary.com/documentation/image_upload_api_reference#upload).
 */
-@objc open class CLDUploadRequestParams: CLDRequestParams {
+@objcMembers open class CLDUploadRequestParams: CLDRequestParams {
 
     /**
      A boolean variable representing whether or not the request should be signed.
