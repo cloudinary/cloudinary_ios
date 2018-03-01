@@ -659,7 +659,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(error, "error should not be nil")
         
         if let errMessage = error?.userInfo["message"] as? String {
-            XCTAssertNotNil(errMessage.range(of: "Categorization is invalid"))
+            XCTAssertNotNil(errMessage.range(of: "Categorization item illegal is not valid"))
         }
         else {
             XCTFail("Error should hold a message in its user info.")
