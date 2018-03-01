@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E4004601FFE1F62007FC972 /* PreprocessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E40045F1FFE1F62007FC972 /* PreprocessTests.swift */; };
+		1E4907BE204704AF00094A3E /* UrlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4907BD204704AF00094A3E /* UrlTests.m */; };
 		1E5F904B1FD0162900796B45 /* CLDPreprocessChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F904A1FD0162900796B45 /* CLDPreprocessChain.swift */; };
 		1E5F90591FD58DEB00796B45 /* CLDPreprocessHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F90581FD58DEB00796B45 /* CLDPreprocessHelpers.swift */; };
 		1E5F90791FD6A64F00796B45 /* CLDImagePreprocessChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F90781FD6A64F00796B45 /* CLDImagePreprocessChain.swift */; };
@@ -285,6 +286,7 @@
 
 /* Begin PBXFileReference section */
 		1E40045F1FFE1F62007FC972 /* PreprocessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreprocessTests.swift; sourceTree = "<group>"; };
+		1E4907BD204704AF00094A3E /* UrlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UrlTests.m; sourceTree = "<group>"; };
 		1E5F904A1FD0162900796B45 /* CLDPreprocessChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDPreprocessChain.swift; sourceTree = "<group>"; };
 		1E5F90581FD58DEB00796B45 /* CLDPreprocessHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDPreprocessHelpers.swift; sourceTree = "<group>"; };
 		1E5F90781FD6A64F00796B45 /* CLDImagePreprocessChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDImagePreprocessChain.swift; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 		362CB78D1CA7D3E900C26E74 /* GenerateUrlTests */ = {
 			isa = PBXGroup;
 			children = (
+				1E4907BD204704AF00094A3E /* UrlTests.m */,
 				362CB7A21CA7D7DD00C26E74 /* UrlTests.swift */,
 			);
 			name = GenerateUrlTests;
@@ -1029,7 +1032,7 @@
 				TargetAttributes = {
 					3696FBF01C8C6A3D00DE9568 = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 0920;
 					};
 					369FB3451C79D360003E81B6 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -1253,6 +1256,7 @@
 				36D00E0C1D9C8A2400BF4DD5 /* UIImageViewTests.swift in Sources */,
 				1E4004601FFE1F62007FC972 /* PreprocessTests.swift in Sources */,
 				36747B731CB1459800087D10 /* DownloaderTests.swift in Sources */,
+				1E4907BE204704AF00094A3E /* UrlTests.m in Sources */,
 				36D00E081D9C735100BF4DD5 /* UIButtonTests.swift in Sources */,
 				362CB79C1CA7D72600C26E74 /* UploaderTests.swift in Sources */,
 				1E631D1E1FCFF49700D8050F /* CryptoUtilsTests.swift in Sources */,
@@ -1380,6 +1384,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = CloudinaryTests/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1391,6 +1397,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cloudinary.CloudinaryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -1400,6 +1407,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = CloudinaryTests/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
