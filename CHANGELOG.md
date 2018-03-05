@@ -1,4 +1,10 @@
 
+2.2.2 / 2018-03-05
+==================
+
+  * Add baseline Objective-C test.
+  * Use `@objcMembers` where applies, for improved Objective-C compatibility.
+
 2.2.1 / 2018-02-14
 ==================
 
