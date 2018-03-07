@@ -84,7 +84,11 @@ import Foundation
     }
     
     open var moderation: String? {
-        return getParam(.PublicId) as? String
+        return getParam(.Moderation) as? String
+    }
+    
+    open var accessControl: String? {
+        return getParam(.AccessControl) as? String
     }
     
     open var rawConvert: String? {
@@ -187,11 +191,8 @@ import Foundation
         return getParam(.Headers) as? String
     }
     
-    
-    
-    
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
-        return getParam(CLDUploadRequestParams.UploadRequestParams(rawValue: param.rawValue)!)
+        return params[param.rawValue] as AnyObject
     }
     
     // MARK: Set Simple Params
@@ -370,6 +371,29 @@ import Foundation
     @discardableResult
     open func setSimilaritySearch(_ similaritySearch: String) -> Self {
         setParam(UploadRequestParams.SimilaritySearch.rawValue, value: similaritySearch)
+        return self
+    }
+    
+    /**
+     - parameter accessControl:     A list of access control rules for the upload request
+     
+     - returns:                     The same instance CLDUploadRequestParams
+     */
+    @discardableResult
+    open func setAccessControl(_ accessControl: [CLDAccessControlRule]) -> Self {
+        setParam(UploadRequestParams.AccessControl.rawValue, value:  asJsonArray(arr: accessControl))
+        return self
+    }
+    
+    /**
+     - parameter accessControl:     A json string representing a list of access control rules for upload
+     
+     - returns:                     The same instance CLDUploadRequestParams
+     */
+    @objc(setAccessControlWithString:)
+    @discardableResult
+    open func setAccessControl(_ accessControl: String) -> Self {
+        setParam(UploadRequestParams.AccessControl.rawValue, value: accessControl)
         return self
     }
     
@@ -897,6 +921,7 @@ import Foundation
         case SimilaritySearch =                     "similarity_search"
         case AutoTagging =                          "auto_tagging"
         case UploadPreset =                         "upload_preset"
+        case AccessControl =                        "access_control"
         
         // Boolean params
         case Backup =                               "backup"

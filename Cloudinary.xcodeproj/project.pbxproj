@@ -25,6 +25,7 @@
 		1E631D1C1FCFF3A700D8050F /* RotateOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631D011FCFF3A700D8050F /* RotateOperations.swift */; };
 		1E631D1E1FCFF49700D8050F /* CryptoUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631D1D1FCFF49700D8050F /* CryptoUtilsTests.swift */; };
 		1E715109201F289F00CBF632 /* CLDResponsiveViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E715108201F289F00CBF632 /* CLDResponsiveViewHelper.swift */; };
+		1E73606B204C39D800E56C07 /* CLDJsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E73606A204C39D800E56C07 /* CLDJsonUtils.swift */; };
 		1EAE06372017949F00042C90 /* CLDUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAE06362017949F00042C90 /* CLDUIImageView.swift */; };
 		1EBA5037200DFA070012305F /* CLDResponsiveParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA5036200DFA070012305F /* CLDResponsiveParams.swift */; };
 		1EBB2EE0202366E000276461 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1EBB2EDF202366E000276461 /* .travis.yml */; };
@@ -303,6 +304,7 @@
 		1E631D011FCFF3A700D8050F /* RotateOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateOperations.swift; sourceTree = "<group>"; };
 		1E631D1D1FCFF49700D8050F /* CryptoUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoUtilsTests.swift; sourceTree = "<group>"; };
 		1E715108201F289F00CBF632 /* CLDResponsiveViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDResponsiveViewHelper.swift; sourceTree = "<group>"; };
+		1E73606A204C39D800E56C07 /* CLDJsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDJsonUtils.swift; sourceTree = "<group>"; };
 		1EAE06362017949F00042C90 /* CLDUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDUIImageView.swift; sourceTree = "<group>"; };
 		1EBA5036200DFA070012305F /* CLDResponsiveParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDResponsiveParams.swift; sourceTree = "<group>"; };
 		1EBB2EDF202366E000276461 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -707,6 +709,7 @@
 				3653B1961D43B29B0093765C /* CLDImageCache.swift */,
 				3653B1981D43B3CB0093765C /* CLDError.swift */,
 				2DBE58BD4674612A096E8300 /* CLDCompatibility.swift */,
+				1E73606A204C39D800E56C07 /* CLDJsonUtils.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1319,6 +1322,7 @@
 				36B246B61C95D18500122DB7 /* CLDGenericNetworkRequest.swift in Sources */,
 				36AC05151D4F8B14002FC9DF /* CLDRenameResult.swift in Sources */,
 				36AC05321D4FA983002FC9DF /* CLDExplicitResult.swift in Sources */,
+				1E73606B204C39D800E56C07 /* CLDJsonUtils.swift in Sources */,
 				36B497101C9811BA0083C935 /* CLDConfiguration.swift in Sources */,
 				36AC050B1D4F4EFB002FC9DF /* CLDBaseResult.swift in Sources */,
 				36AC05341D4FAD55002FC9DF /* CLDExplicitRequest.swift in Sources */,

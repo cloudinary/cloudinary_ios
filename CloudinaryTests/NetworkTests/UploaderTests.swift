@@ -204,6 +204,82 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
     
+    func testUploadAccessControlParams() {
+        
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        
+        let aclToken = CLDAccessControlRule.token()
+        let start = formatter.date(from: "2019-02-22 16:20:57 +0200")!
+        let end = formatter.date(from: "2019-03-22 00:00:00 +0200")!
+        let acl = CLDAccessControlRule.anonymous(start: start, end: end)
+        
+        let aclString = "{\"access_type\":\"anonymous\",\"start\":\"2019-02-22 16:20:57 +0200\",\"end\":\"2019-03-22 00:00 +0200\"}"
+        
+        var params = CLDUploadRequestParams().setAccessControl([aclToken])
+        XCTAssertEqual(params.accessControl, "[{\"access_type\":\"token\"}]")
+        
+        params = CLDUploadRequestParams().setAccessControl([acl])
+        XCTAssertEqual(params.accessControl!, "[{\"start\":\"2019-02-22T14:20:57Z\",\"end\":\"2019-03-21T22:00:00Z\",\"access_type\":\"anonymous\"}]")
+        
+        params = CLDUploadRequestParams().setAccessControl(aclString)
+        XCTAssertEqual(params.accessControl!, aclString)
+    }
+    
+    func testUploadWithAccessControl() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        let start = formatter.date(from: "2019-02-22 16:20:57 +0200")!
+        let end = formatter.date(from: "2019-03-22 00:00:00 +0200")!
+
+        let anonStartEnd = CLDAccessControlRule.anonymous(start: start, end: end)
+        let anonStart = CLDAccessControlRule.anonymous(start: start)
+        let anonEnd = CLDAccessControlRule.anonymous(end: end)
+        let token = CLDAccessControlRule.token()
+
+        uploadAndCompare(accessControl: [anonStartEnd])
+        uploadAndCompare(accessControl: [anonStart])
+        uploadAndCompare(accessControl: [anonEnd])
+        uploadAndCompare(accessControl: [token])
+        uploadAndCompare(accessControl: [anonStart, token])
+        uploadAndCompare(accessControl: [anonStartEnd, token])
+        uploadAndCompare(accessControl: [token, anonEnd])
+    }
+
+    fileprivate func uploadAndCompare(accessControl: [CLDAccessControlRule]) {
+        let file = TestResourceType.borderCollie.url
+
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let expectation = self.expectation(description: "Upload should succeed")
+
+        let params = CLDUploadRequestParams().setAccessControl(accessControl)
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: 30.0, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+
+        let returnedAcl = (result?.accessControl)!
+
+        for index in 0..<returnedAcl.count {
+            XCTAssertTrue(returnedAcl[index] == accessControl[index], "Returned access control should be equal to the requested access control")
+        }
+    }
+
     func testUploadVideoFile() {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
