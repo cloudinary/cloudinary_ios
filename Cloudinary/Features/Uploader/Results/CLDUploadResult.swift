@@ -72,6 +72,17 @@ import Foundation
         return getParam(.moderation)
     }
 
+    open var accessControl: ([CLDAccessControlRule])? {
+        if let rules = getParam(.accessControl) as? [[String: String]] {
+            let result:[CLDAccessControlRule] = rules.flatMap{fromJson(object: $0)}
+            if !result.isEmpty {
+                return result
+            }
+        }
+
+        return nil
+    }
+
     open var context: [String:[String:String]]? {
         var result: [String:[String:String]]? = nil
         if let c = getParam(.context) as? [String:AnyObject] {
