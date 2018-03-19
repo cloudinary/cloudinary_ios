@@ -1378,7 +1378,7 @@ import Foundation
     
     @discardableResult
     open func setKeyframeInterval(interval: Float) -> CLDTransformation {
-        return setKeyframeInterval(interval.cldFloatFormat())
+        return setKeyframeInterval(interval.description)
     }
     
     @discardableResult

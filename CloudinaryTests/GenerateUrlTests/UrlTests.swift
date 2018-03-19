@@ -298,6 +298,14 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBackground("red")).generate("test"), "\(prefix)/image/upload/b_red/test")
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBackground("#112233")).generate("test"), "\(prefix)/image/upload/b_rgb:112233/test")
     }
+
+    func testKeyframeInterval() {
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 10)).generate("test"), "\(prefix)/image/upload/ki_10.0/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 0.05)).generate("test"), "\(prefix)/image/upload/ki_0.05/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 3.45)).generate("test"), "\(prefix)/image/upload/ki_3.45/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 300)).generate("test"), "\(prefix)/image/upload/ki_300.0/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval("10")).generate("test"), "\(prefix)/image/upload/ki_10/test")
+    }
     
     func testDefaultImage() {
         
