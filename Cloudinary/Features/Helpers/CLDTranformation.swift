@@ -1376,6 +1376,17 @@ import Foundation
         return setY(Float(point.y))
     }
     
+    @discardableResult
+    open func setKeyframeInterval(interval: Float) -> CLDTransformation {
+        return setKeyframeInterval(interval.description)
+    }
+    
+    @discardableResult
+    open func setKeyframeInterval(_ interval: String) -> CLDTransformation {
+        return setParam(TransformationParam.KEYFRAME_INTERVAL, value: interval)
+    }
+
+    
     // MARK: - Actions
     
     /**
@@ -1470,6 +1481,7 @@ import Foundation
         case END_OFFSET =                   "eo"
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
+        case KEYFRAME_INTERVAL =            "ki"
     }
     
     // MARK: Crop
