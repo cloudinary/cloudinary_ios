@@ -92,7 +92,7 @@ public typealias CLDCompletionHandler = (_ responseImage: UIImage?, _ error: NSE
             return CLDImageCache.defaultImageCache.maxMemoryTotalCost
         }
         set {
-            CLDImageCache.defaultImageCache.maxMemoryTotalCost = cacheMaxMemoryTotalCost
+            CLDImageCache.defaultImageCache.maxMemoryTotalCost = newValue
         }
     }
     

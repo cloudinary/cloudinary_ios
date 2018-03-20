@@ -118,8 +118,8 @@ class DownloaderTests: NetworkBaseTest {
         
         //Test without cache
         
-        cloudinary!.cacheMaxMemoryTotalCost = 0
-        cloudinary!.cacheMaxDiskCapacity = 0
+        cloudinary!.cacheMaxMemoryTotalCost = 20
+        cloudinary!.cacheMaxDiskCapacity = 20
         
         expectation = self.expectation(description: "Upload should succeed")
         
@@ -147,7 +147,7 @@ class DownloaderTests: NetworkBaseTest {
         expectation = self.expectation(description: "Download should succeed")
         
         cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
-            response = responseImage
+            responseCached = responseImage
             error = errorRes
             
             expectation.fulfill()
