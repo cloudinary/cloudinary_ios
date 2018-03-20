@@ -67,4 +67,99 @@ class DownloaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
     
+    func testDownloadImageWithCache() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        var publicId: String?
+        uploadFile().response({ (result, error) in
+            XCTAssertNil(error)
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        guard let pubId = publicId else {
+            XCTFail("Public ID should not be nil at this point")
+            return
+        }
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        var response: UIImage?
+        var error: NSError?
+        
+        var url = cloudinary!.createUrl().generate(pubId)
+        cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+            response = responseImage
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        var responseCached: UIImage?
+        
+        cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+            responseCached = responseImage
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertEqual(response, responseCached, "Images should be same because responseCached get from cache")
+        
+        //Test without cache
+        
+        cloudinary!.cacheMaxMemoryTotalCost = 20
+        cloudinary!.cacheMaxDiskCapacity = 20
+        
+        expectation = self.expectation(description: "Upload should succeed")
+        
+        uploadFile().response({ (result, error) in
+            XCTAssertNil(error)
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        url = cloudinary!.createUrl().generate(pubId)
+        
+        cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+            response = responseImage
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+            responseCached = responseImage
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotEqual(response, responseCached, "Images should be not same because size of cache very small")
+        
+        cloudinary!.cacheMaxDiskCapacity = 150 * 1024 * 1024
+        
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
 }

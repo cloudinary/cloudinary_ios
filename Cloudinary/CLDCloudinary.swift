@@ -84,6 +84,19 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
     }
     
+    /**
+     Sets Cloudinary SDK's image cache maximum memory total cost.
+     default is 30 MB.
+     */
+    open var cacheMaxMemoryTotalCost: Int {
+        get {
+            return CLDImageCache.defaultImageCache.maxMemoryTotalCost
+        }
+        set {
+            CLDImageCache.defaultImageCache.maxMemoryTotalCost = newValue
+        }
+    }
+    
     // MARK: - Init
     
     /**

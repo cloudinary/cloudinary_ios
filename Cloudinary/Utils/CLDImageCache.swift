@@ -47,6 +47,7 @@ internal class CLDImageCache {
     internal var maxMemoryTotalCost: Int = Defines.defaultMemoryTotalCostLimit {
         didSet{
             memoryCache.totalCostLimit = maxMemoryTotalCost
+            self.clearMemoryCache()
         }
     }
     
