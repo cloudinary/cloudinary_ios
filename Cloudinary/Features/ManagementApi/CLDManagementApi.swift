@@ -325,4 +325,44 @@ import Foundation
         deleteByTokenRequest.response(completionHandler)
         return deleteByTokenRequest
     }
+    
+    @discardableResult
+    open func publishResourcesByPrefix(prefix: String, params: CLDPublishResourcesRequestParams? = nil, completionHandler: ((_ result: CLDPublishResourcesResult?, _ error: Error?) -> ())? = nil) -> CLDPublishResourcesRequest {
+        let publishResourcesParams = CLDPublishResourcesRequestParams(prefix: prefix)
+        publishResourcesParams.params.cldMerge(params?.params)
+        return self.publishResources(by: "prefix", value: prefix, params: publishResourcesParams, completionHandler: completionHandler)
+    }
+    
+    @discardableResult
+    open func publishResourcesByIds(ids: [String], params: CLDPublishResourcesRequestParams? = nil, completionHandler: ((_ result: CLDPublishResourcesResult?, _ error: Error?) -> ())? = nil) -> CLDPublishResourcesRequest {
+        var resultIds = ids
+
+        let publishResourcesParams = CLDPublishResourcesRequestParams(publicIds: ids)
+        publishResourcesParams.params.cldMerge(params?.params)
+        if let params = params,
+            let publicIds = params.publicIds,
+            publicIds.count > 0 {
+            resultIds.append(contentsOf: publicIds)
+            publishResourcesParams.setPublicIds(resultIds)
+        }
+        
+        return self.publishResources(by: "ids", value: "", params: publishResourcesParams, completionHandler: completionHandler)
+    }
+    
+    @discardableResult
+    open func publishResourcesByTag(tag: String, params: CLDPublishResourcesRequestParams? = nil, completionHandler: ((_ result: CLDPublishResourcesResult?, _ error: Error?) -> ())? = nil) -> CLDPublishResourcesRequest {
+        let publishResourcesParams = CLDPublishResourcesRequestParams(tag: tag)
+        publishResourcesParams.params.cldMerge(params?.params)
+        return self.publishResources(by: "tag", value: tag, params: publishResourcesParams, completionHandler: completionHandler)
+    }
+    
+    @discardableResult
+    private func publishResources(by key: String, value: String, params: CLDPublishResourcesRequestParams? = nil, completionHandler: ((_ result: CLDPublishResourcesResult?, _ error: Error?) -> ())? = nil) -> CLDPublishResourcesRequest {
+        let publishResourcesParams = CLDPublishResourcesRequestParams()
+        publishResourcesParams.params.cldMerge(params?.params)
+        let request = networkCoordinator.callAction(.PublishResources, params: publishResourcesParams, signed: true)
+        let publishResourcesRequest = CLDPublishResourcesRequest(networkRequest: request)
+        publishResourcesRequest.response(completionHandler)
+        return publishResourcesRequest
+    }
 }

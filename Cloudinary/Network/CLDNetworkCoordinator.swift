@@ -50,8 +50,8 @@ internal class CLDNetworkCoordinator {
 
     // MARK: - Actions
     
-    internal func callAction(_ action: CLDAPIAction, params: CLDRequestParams) -> CLDNetworkDataRequest {
-        let url = getUrl(action, resourceType: params.resourceType)
+    internal func callAction(_ action: CLDAPIAction, params: CLDRequestParams, signed: Bool = false) -> CLDNetworkDataRequest {
+        let url = getUrl(action, resourceType: params.resourceType, signed: signed)
         let headers = getHeaders()
         let requestParams = getSignedRequestParams(params)
         
@@ -98,12 +98,27 @@ internal class CLDNetworkCoordinator {
         return params
     }
     
-    fileprivate func getUrl(_ action: CLDAPIAction, resourceType: String?) -> String {
+    fileprivate func getUrl(_ action: CLDAPIAction, resourceType: String?, signed: Bool = false) -> String {
         var urlComponents: [String] = []
-        let prefix = config.uploadPrefix ?? CLDNetworkCoordinatorConsts.BASE_CLOUDINARY_URL
+        var prefix = config.uploadPrefix ?? CLDNetworkCoordinatorConsts.BASE_CLOUDINARY_URL
+        if signed {
+            if let url = URL(string: prefix) {
+                prefix = url.scheme ?? "https"
+                prefix += "://"
+                prefix += (config.apiKey ?? "") + ":" + (config.apiSecret ?? "") + "@"
+                prefix += url.host ?? ""
+                if let port = url.port {
+                    prefix += ":\(port)"
+                }
+            }
+        }
+
         urlComponents.append(prefix)
         urlComponents.append("v1_1")
         urlComponents.append(config.cloudName)
+        if action == CLDAPIAction.PublishResources {
+            urlComponents.append("resources")
+        }
         if action != CLDAPIAction.DeleteByToken {
             let rescourceType = resourceType ?? String(describing: CLDUrlResourceType.image)
             urlComponents.append(rescourceType)
@@ -144,6 +159,7 @@ internal class CLDNetworkCoordinator {
         case Multi =                        "multi"
         case GenerateText =                 "text"
         case DeleteByToken =                "delete_by_token"
+        case PublishResources =             "publish_resources"
         
         var description: String {
             switch self {
@@ -158,6 +174,7 @@ internal class CLDNetworkCoordinator {
             case .Multi:                    return "multi"
             case .GenerateText:             return "text"
             case .DeleteByToken:            return "delete_by_token"
+            case .PublishResources:         return "publish_resources"
             }
         }
     }
