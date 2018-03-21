@@ -36,6 +36,7 @@ private struct Defines {
     static let defaultMemoryTotalCostLimit = 30 * 1024 * 1024  // 30 MB
     static let defaultMaxDiskCapacity = 150 * 1024 * 1024  // 150 MB
     static let thresholdPercentSize = UInt64(0.8)
+    static let defaultBytesPerPixel = 4
 }
 
 
@@ -130,7 +131,7 @@ internal class CLDImageCache {
         }
 
         // Without the underlying cgImage we can only estimate, assuming 4 bytes per pixel (RGBA):
-        return Int(image.size.height * image.scale * image.size.width * image.scale * 4)
+        return Int(image.size.height * image.scale * image.size.width * image.scale * Defines.defaultBytesPerPixel)
     }
 
     fileprivate func cacheImage(_ image: UIImage, data: Data?, key: String, includingDisk: Bool, completion: (() -> ())?) {
@@ -312,6 +313,6 @@ internal class CLDImageCache {
             printLog(.warning, text: "Failed while attempting to retrive a cached file attributes for filr at path: \(path)")
         }
         return fileAttr
-    }    
-    
+    }
+
 }
