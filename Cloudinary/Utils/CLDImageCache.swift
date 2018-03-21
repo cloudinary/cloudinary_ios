@@ -123,14 +123,23 @@ internal class CLDImageCache {
     internal func cacheImage(_ image: UIImage, data: Data?, key: String, completion: (() -> ())?) {
         cacheImage(image, data: data, key: key, includingDisk: true, completion: completion)
     }
-    
+
+    func costFor(image: UIImage) -> Int {
+        if let imageRef = image.cgImage {
+            return imageRef.bytesPerRow * imageRef.height
+        }
+
+        // Without the underlying cgImage we can only estimate, assuming 4 bytes per pixel (RGBA):
+        return Int(image.size.height * image.scale * image.size.width * image.scale * 4)
+    }
+
     fileprivate func cacheImage(_ image: UIImage, data: Data?, key: String, includingDisk: Bool, completion: (() -> ())?) {
-        
+
         if cachePolicy == .memory || cachePolicy == .disk {
-            let cost = Int(image.size.height * image.scale * image.size.width * image.scale)
+            let cost = costFor(image: image)
             memoryCache.setObject(image, forKey: key as NSString, cost: cost)
         }
-        
+
         if cachePolicy == .disk && includingDisk {
             let path = getFilePathFromKey(key)
             readWriteQueue.async {
@@ -144,7 +153,7 @@ internal class CLDImageCache {
                             printLog(.warning, text: "Failed while attempting to create the image cache directory.")
                         }
                     }
-                    
+
                     FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
                     self.usedCacheSize += UInt64(data.count)
                     self.clearDiskToMatchCapacityIfNeeded()
