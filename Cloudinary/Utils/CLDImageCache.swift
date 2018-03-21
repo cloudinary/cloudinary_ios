@@ -131,7 +131,7 @@ internal class CLDImageCache {
         }
 
         // Without the underlying cgImage we can only estimate, assuming 4 bytes per pixel (RGBA):
-        return Int(image.size.height * image.scale * image.size.width * image.scale * Defines.defaultBytesPerPixel)
+        return Int(image.size.height * image.scale * image.size.width * image.scale) * Defines.defaultBytesPerPixel
     }
 
     fileprivate func cacheImage(_ image: UIImage, data: Data?, key: String, includingDisk: Bool, completion: (() -> ())?) {
