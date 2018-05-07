@@ -604,6 +604,19 @@ import Foundation
     open func setRadius(_ radius: String) -> CLDTransformation {
         return setParam(TransformationParam.RADIUS, value: radius)
     }
+
+    /**
+    Set the image quality for the transformation, see CLDQuality for options.
+
+     - parameter quality:   A CLDQuality instance containing the quality settings.
+
+     - returns:             The same instance of CLDTransformation.
+     */
+    @objc(setQualityFromQuality:)
+    @discardableResult
+    open func setQuality(_ quality: CLDQuality) -> CLDTransformation {
+        return setQuality(quality.description)
+    }
     
     /**
      Control the JPEG, WebP, GIF, JPEG XR and JPEG 2000 compression quality. 1 is the lowest quality and 100 is the highest. Reducing quality generates JPG images much smaller in file size. The default values are:
@@ -618,6 +631,7 @@ import Foundation
      */
     @objc(setQualityFromInt:)
     @discardableResult
+    @available(*, deprecated, message: "Use setQuality(CLDQuality)")
     open func setQuality(_ quality: Int) -> CLDTransformation {
         return setQuality(String(quality))
     }
@@ -1482,6 +1496,84 @@ import Foundation
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
         case KEYFRAME_INTERVAL =            "ki"
+    }
+
+
+    // MARK: CLDBaseParam
+    @objc public class CLDBaseParam: NSObject {
+        fileprivate let param: String
+        
+        fileprivate init(_ components: [String]) {
+            self.param = components.joined(separator: ":")
+        }
+        
+        override public var description: String {
+            get {
+                return param
+            }
+        }
+    }
+    
+    // MARK: CLDQuality
+
+    /**
+     Image quality configuration object
+     */
+    @objc public class CLDQuality: CLDBaseParam {
+   
+        override fileprivate init(_ components: String...){
+            super.init(components)
+        }
+        
+        /**
+         Build an instance of CLDQuality configured for fixed quality.
+
+         - parameter level: Quality level to set. Valid range is 1 through 100.
+         */
+        public static func fixed(_ level: Int) -> CLDQuality {
+            return CLDQuality(level.description)
+        }
+
+        /**
+         Build an instance of CLDQuality configured for automatic quality. See CLDAutoQuality enum for details.
+
+         - parameter level: Auto quality level.
+         */
+        public static func auto(_ level: CLDQualityAuto? = nil) -> CLDQuality {
+            if let level = level {
+                return CLDQuality("auto", level.description)
+            } else {
+                return CLDQuality("auto")
+            }
+        }
+
+        /**
+         Build an instance of CLDQuality configured to use jpegmini addon for automatic quality.
+         */
+        public static func jpegMini() -> CLDQuality {
+            return CLDQuality("jpegmini")
+        }
+    }
+
+    /* Automatic optimal quality settings: the smallest file size without affecting their perceptual quality.
+     * best: Automatically calculate the optimal quality for images using a less aggressive algorithm
+     * good: Automatically calculate the optimal quality for an image: the smallest file size without affecting its perceptual quality
+     * eco: Automatically calculate the optimal quality for images using a more aggressive algorithm
+     * low: Automatically calculate the optimal quality for images using the most aggressive algorithm
+     */
+    @objc public enum CLDQualityAuto: Int, CustomStringConvertible {
+        case best, good, eco, low
+
+        public var description: String {
+            get {
+                switch self {
+                case .best:         return "best"
+                case .good:         return "good"
+                case .eco:          return "eco"
+                case .low:          return "low"
+                }
+            }
+        }
     }
     
     // MARK: Crop
