@@ -139,6 +139,20 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(url, "\(prefix)/image/upload/g_center,p_a,q_0.4,r_3,x_1,y_2/test")
     }
     
+    func testQuality() {
+        let urlAuto = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.auto()).setPrefix("a")).generate("test")
+        XCTAssertEqual(urlAuto, "\(prefix)/image/upload/g_center,p_a,q_auto,r_3,x_1,y_2/test")
+        
+        let urlEco = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.auto(.eco)).setPrefix("a")).generate("test")
+        XCTAssertEqual(urlEco, "\(prefix)/image/upload/g_center,p_a,q_auto:eco,r_3,x_1,y_2/test")
+
+        let urlFixed = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.fixed(50)).setPrefix("a")).generate("test")
+        XCTAssertEqual(urlFixed, "\(prefix)/image/upload/g_center,p_a,q_50,r_3,x_1,y_2/test")
+        
+        let urlJpegMini = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.jpegMini()).setPrefix("a")).generate("test")
+        XCTAssertEqual(urlJpegMini, "\(prefix)/image/upload/g_center,p_a,q_jpegmini,r_3,x_1,y_2/test")
+    }
+    
     func testTransformationSimple() {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setNamed(["blip"])).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/t_blip/test")
