@@ -1555,11 +1555,12 @@ import Foundation
         }
     }
 
-    /* Automatic optimal quality settings: the smallest file size without affecting their perceptual quality.
-     * best: Automatically calculate the optimal quality for images using a less aggressive algorithm
-     * good: Automatically calculate the optimal quality for an image: the smallest file size without affecting its perceptual quality
-     * eco: Automatically calculate the optimal quality for images using a more aggressive algorithm
-     * low: Automatically calculate the optimal quality for images using the most aggressive algorithm
+    /**
+       Automatic optimal quality settings: the smallest file size without affecting their perceptual quality.
+         * best: Automatically calculate the optimal quality for images using a less aggressive algorithm
+         * good: Automatically calculate the optimal quality for an image
+         * eco: Automatically calculate the optimal quality for images using a more aggressive algorithm
+         * low: Automatically calculate the optimal quality for images using the most aggressive algorithm
      */
     @objc public enum CLDQualityAuto: Int, CustomStringConvertible {
         case best, good, eco, low
