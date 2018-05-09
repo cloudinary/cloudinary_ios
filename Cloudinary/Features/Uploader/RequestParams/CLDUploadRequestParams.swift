@@ -829,8 +829,8 @@ import Foundation
     /**
      Set an array of transformations to create for the uploaded resource during the upload process, instead of lazily creating each of them when first accessed by your site's visitors.
      
-     - parameter eager:             The array of transformations.
-     
+     - parameter eager:             The array of transformations (CLDTransformation|CLDEagerTransformation)
+
      - returns:                     The same instance of CLDUploadRequestParams.
      
      */
