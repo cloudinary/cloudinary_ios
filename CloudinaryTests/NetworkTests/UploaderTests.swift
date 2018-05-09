@@ -579,6 +579,35 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    func testResponsiveBreakpoints() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        let params = CLDUploadRequestParams()
+        let breakpoints = CLDResponsiveBreakpoints(createDerived: true).setBytesStep(1000).setFormat("webp").setTransformations(CLDTransformation().setAngle(10))
+        params.setResponsiveBreakpoints([breakpoints])
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result?.responsiveBreakpoints?[0].breakpoints?[0].url, "responsive breakpoints url cannot be nil")
+        XCTAssertTrue(result!.responsiveBreakpoints![0].breakpoints![0].url!.hasSuffix("webp"), "responsive breakpoints url has to end with the right format (webp)")
+        XCTAssertNotNil(result?.responsiveBreakpoints?[0].transformation)
+        XCTAssertTrue(result!.responsiveBreakpoints![0].transformation!.contains("a_10"))
+    }
+    
     func testContext() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         var expectation = self.expectation(description: "Upload should succeed")
@@ -635,7 +664,6 @@ class UploaderTests: NetworkBaseTest {
         } else {
             XCTFail("Result should include a 'context' key")
         }
-
     }
 
     func testManualModeration() {
@@ -830,5 +858,4 @@ class UploaderTests: NetworkBaseTest {
     }
         
 }
-
 

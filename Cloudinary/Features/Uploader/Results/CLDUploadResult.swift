@@ -109,6 +109,17 @@ import Foundation
         return result;
     }
 
+    open var responsiveBreakpoints: [ResponsiveBreakpointsResult]? {
+        var result = [ResponsiveBreakpointsResult]()
+        if let jsonNodes = getParam(UploadResultKey.responsiveBreakpoints) as? [[String: AnyObject]] {
+            for json in jsonNodes {
+                result.append(ResponsiveBreakpointsResult(json: json))
+            }
+        }
+
+        return result
+    }
+
     // MARK: Image Params
     
     open var width: Int? {
@@ -193,22 +204,20 @@ import Foundation
     }
     
     enum UploadResultKey: CustomStringConvertible {
-        case signature, done
-        case deleteToken // Image
+        case signature, done, deleteToken, responsiveBreakpoints
         case video, audio, frameRate, bitRate, duration // Video
         
         var description: String {
             switch self {
-            case .signature:        return "signature"
-            case .done:             return "done"
-
-            case .deleteToken:      return "delete_token"
-                
-            case .video:            return "video"
-            case .audio:            return "audio"
-            case .frameRate:        return "frame_rate"
-            case .bitRate:          return "bit_rate"
-            case .duration:         return "duration"
+            case .signature:                return "signature"
+            case .done:                     return "done"
+            case .deleteToken:              return "delete_token"
+            case .responsiveBreakpoints:    return "responsive_breakpoints"
+            case .video:                    return "video"
+            case .audio:                    return "audio"
+            case .frameRate:                return "frame_rate"
+            case .bitRate:                  return "bit_rate"
+            case .duration:                 return "duration"
             }
         }
     }
@@ -307,6 +316,84 @@ import Foundation
             case .frequency:        return "frequency"
             case .channels:         return "channels"
             case .channelLayout:    return "channel_layout"
+            }
+        }
+    }
+}
+
+@objc open class ResponsiveBreakpointsResult : CLDBaseResult {
+
+    // MARK: - Getters
+
+    open var breakpoints: [ResponsiveBreakpoint]? {
+        var result = [ResponsiveBreakpoint]()
+        if let jsonNodes = getParams(ResponsiveBreakpointResultKey.breakpoints) as? [[String: AnyObject]] {
+            for json in jsonNodes {
+                result.append(ResponsiveBreakpoint(json: json))
+            }
+        }
+
+        return result
+    }
+
+    open var transformation: String? {
+        return getParams(ResponsiveBreakpointResultKey.transformation) as? String
+    }
+
+    // MARK: - Private Helpers
+
+    fileprivate func getParams(_ param: ResponsiveBreakpointResultKey) -> AnyObject? {
+        return resultJson[String(describing: param)]
+    }
+
+    fileprivate enum ResponsiveBreakpointResultKey : CustomStringConvertible {
+        case breakpoints, transformation
+
+        var description: String {
+            switch self {
+            case .breakpoints:      return "breakpoints"
+            case .transformation:   return "transformation"
+            }
+        }
+    }
+}
+
+@objc open class ResponsiveBreakpoint : CLDBaseResult {
+
+    open var width : Int? {
+        return getParam(ResponsiveBreakpointKey.width) as? Int
+    }
+
+    open var height : Int? {
+        return getParam(ResponsiveBreakpointKey.height) as? Int
+    }
+
+    open var bytes : Int? {
+        return getParam(ResponsiveBreakpointKey.bytes) as? Int
+    }
+
+    open var url : String? {
+        return getParam(ResponsiveBreakpointKey.url) as? String
+    }
+
+    open var secureUrl : String? {
+        return getParam(ResponsiveBreakpointKey.secureUrl) as? String
+    }
+
+    fileprivate func getParam(_ param: ResponsiveBreakpointKey) -> AnyObject? {
+        return resultJson[String(describing: param)]
+    }
+
+    fileprivate enum ResponsiveBreakpointKey : CustomStringConvertible {
+        case bytes, width, secureUrl, url, height
+
+        var description: String {
+            switch self {
+            case .bytes:        return "bytes"
+            case .width:        return "width"
+            case .secureUrl:    return "secure_url"
+            case .url:          return "url"
+            case .height:       return "height"
             }
         }
     }
