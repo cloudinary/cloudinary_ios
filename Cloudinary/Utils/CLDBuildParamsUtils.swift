@@ -31,8 +31,10 @@ internal func buildCoordinatesString(_ coordinates: [CLDCoordinate]) -> String {
     return coordinates.map{$0.description}.joined(separator: "|")
 }
 
-internal func buildEagerString(_ eager: [CLDTransformation]) -> String {    
-    return eager.map{$0.asString() ?? ""}.filter{!$0.isEmpty}.joined(separator: "|")
+internal func buildEagerString(_ eager: [CLDTransformation]) -> String {
+    return eager.map {$0.asString() ?? ""}
+            .filter {!$0.isEmpty}
+            .joined(separator: "|")
 }
 
 internal func buildContextString(_ context: [String : String]) -> String {

@@ -28,7 +28,22 @@ import Foundation
     
     
     // MARK: - Getters
-    
+
+    open var type: String? {
+        return getParam(.urlType) as? String
+    }
+
+    open var eager: [CLDEagerResult]? {
+        guard let eagerArr = getParam(.eager) as? [[String : AnyObject]] else {
+            return nil
+        }
+        var eager: [CLDEagerResult] = []
+        for singleEager in eagerArr {
+            eager.append(CLDEagerResult(json: singleEager))
+        }
+        return eager
+    }
+
     open var publicId: String? {
         return getParam(.publicId) as? String
     }
@@ -170,7 +185,7 @@ import Foundation
     open var done: Bool? {
         return getParam(.done) as? Bool
     }
-    
+
     // MARK: - Private Helpers
     
     fileprivate func getParam(_ param: UploadResultKey) -> AnyObject? {
@@ -186,7 +201,7 @@ import Foundation
             switch self {
             case .signature:        return "signature"
             case .done:             return "done"
-                
+
             case .deleteToken:      return "delete_token"
                 
             case .video:            return "video"
@@ -237,6 +252,20 @@ import Foundation
             case .bitRate:          return "bit_rate"
             }
         }
+    }
+}
+
+
+@objcMembers open class CLDEagerResult: CLDBaseResult {
+
+    // MARK: - Getters
+
+    open var url: String? {
+        return getParam(.url) as? String
+    }
+
+    open var secureUrl: String? {
+        return getParam(.secureUrl) as? String
     }
 }
 

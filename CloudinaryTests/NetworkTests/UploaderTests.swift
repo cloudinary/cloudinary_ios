@@ -482,8 +482,10 @@ class UploaderTests: NetworkBaseTest {
         var error: NSError?
         
         let params = CLDUploadRequestParams()
-        let trans = CLDTransformation().setCrop(.crop).setWidth(2.0)
-        params.setEager([trans])
+        let trans = CLDEagerTransformation().setCrop(.crop).setWidth(2.0).setFormat("png")
+        let trans2 = CLDEagerTransformation().setCrop(.crop).setWidth(2.0).setFormat("gif")
+        params.setEager([trans, trans2])
+        
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
@@ -495,8 +497,8 @@ class UploaderTests: NetworkBaseTest {
         
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
-        
-        XCTAssertNotNil(result?.resultJson["eager"])
+        XCTAssertTrue((result?.eager?[0].url?.hasSuffix("png")) ?? false)
+        XCTAssertTrue((result?.eager?[1].url?.hasSuffix("gif")) ?? false)
     }
     
     func testHeaders() {
