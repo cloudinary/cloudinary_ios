@@ -126,6 +126,7 @@
 		36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */; };
 		36D00E211D9D833000BF4DD5 /* CLDBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */; };
 		860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */; };
+		EA5283E4060003509EF73472 /* CLDEagerTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52894B510D7324165C17BD /* CLDEagerTransformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -411,6 +412,7 @@
 		36D00E1E1D9D82E800BF4DD5 /* CLDFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDFace.swift; sourceTree = "<group>"; };
 		36D00E201D9D833000BF4DD5 /* CLDBoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDBoundingBox.swift; sourceTree = "<group>"; };
 		860464FF1DC79EA5007172D7 /* CLDNetworkUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDNetworkUploadRequest.swift; sourceTree = "<group>"; };
+		EA52894B510D7324165C17BD /* CLDEagerTransformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDEagerTransformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -675,6 +677,7 @@
 				36B246A81C9571E900122DB7 /* RequestParams */,
 				36AC05011D4F463A002FC9DF /* Requests */,
 				36AC05091D4F4ECF002FC9DF /* Results */,
+				EA52894B510D7324165C17BD /* CLDEagerTransformation.swift */,
 			);
 			name = Helpers;
 			path = ..;
@@ -1370,6 +1373,7 @@
 				1E5F904B1FD0162900796B45 /* CLDPreprocessChain.swift in Sources */,
 				1EAE06372017949F00042C90 /* CLDUIImageView.swift in Sources */,
 				2DBE5D482C1A5EE752CF5F83 /* CLDCompatibility.swift in Sources */,
+				EA5283E4060003509EF73472 /* CLDEagerTransformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

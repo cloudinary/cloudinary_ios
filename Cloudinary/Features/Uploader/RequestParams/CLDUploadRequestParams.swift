@@ -840,12 +840,6 @@ import Foundation
         return setEager(buildEagerString(eager))
     }
 
-    @objc(setEagerFromTransformationArray: setEagerFromFormat:)
-    @discardableResult
-    open func setEager(_ eager: [CLDTransformation], _ format: String) -> Self {
-        return setEager(buildEagerString(eager, format))
-    }
-
     /**
      Set an array of transformations to create for the uploaded resource during the upload process, instead of lazily creating each of them when first accessed by your site's visitors.
      
