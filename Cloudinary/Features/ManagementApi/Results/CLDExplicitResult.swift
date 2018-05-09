@@ -24,52 +24,5 @@
 
 import Foundation
 
-@objcMembers open class CLDExplicitResult: CLDUploadResult {
-        
-    
-    // MARK: - Getters    
-    
-    open var type: String? {
-        return getParam(.urlType) as? String
-    }
-    
-    open var eager: [CLDEagerResult]? {
-        guard let eagerArr = getParam(.eager) as? [[String : AnyObject]] else {
-            return nil
-        }
-        var eager: [CLDEagerResult] = []
-        for singleEeager in eagerArr {
-            eager.append(CLDEagerResult(json: singleEeager))
-        }
-        return eager
-    }
-    
-    // MARK: - Private Helpers
-    
-    fileprivate func getParam(_ param: ExplicitResultKey) -> AnyObject? {
-        return resultJson[String(describing: param)]
-    }
-    
-    fileprivate enum ExplicitResultKey: CustomStringConvertible {
-        case eager
-        
-        var description: String {
-            switch self {
-            case .eager:            return "eager"
-            }
-        }
-    }
-}
-
-@objcMembers open class CLDEagerResult: CLDBaseResult {
-    
-    // MARK: - Getters
-    
-    open var url: String? {
-        return getParam(.url) as? String
-    }
-    
-    open var secureUrl: String? {
-        return getParam(.secureUrl) as? String
-    }        
+@objc open class CLDExplicitResult: CLDUploadResult {
 }
