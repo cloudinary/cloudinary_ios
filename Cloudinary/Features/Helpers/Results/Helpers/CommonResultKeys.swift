@@ -51,7 +51,7 @@ internal enum CommonResultKeys: CustomStringConvertible {
         case .context:          return "context"
         case .phash:            return "phash"
         case .info:             return "info"
-        case .eager:             return "eager"
+        case .eager:            return "eager"
         case .accessControl:    return "access_control"
         }
     }
