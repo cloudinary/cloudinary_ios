@@ -204,9 +204,6 @@ The CLDResponsiveBreakpoints class describe the settings available for configuri
 Responsive breakpoints is used to request Cloudinary to automatically find the best breakpoints.
 */
 @objcMembers open class CLDResponsiveBreakpoints: NSObject {
-    private var transformation: CLDTransformation?
-    private var breakpointFormat: String?
-
     internal var params: [String: AnyObject] = [:]
     
     // MARK - Init
