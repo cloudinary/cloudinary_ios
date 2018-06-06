@@ -126,7 +126,7 @@ You can download Alamofire v4.6.0 from [here](https://github.com/Alamofire/Alamo
 
 To use the API, you will need a CLDCloudinary instance, which is initialized with an instance of CLDConfiguration.
 
-The CLDConfiguration must have its `cloudName` and `apiKey` properties set. Other properties are optional, but secure API requests must be signed using the `apiSecret` param (or alternatively by using [Safe Mobile Requests](#safe-mobile-requests)). 
+The CLDConfiguration must have its `cloudName` and `apiKey` properties set. Other properties are optional. 
 
 See [API, URLs and access identifiers](https://cloudinary.com/documentation/api_and_access_identifiers) for more details.
 
@@ -150,36 +150,6 @@ Now you can create a CLDCloudinary instance to work with
 let cloudinary = CLDCloudinary(configuration: config)
 ```
 
-### Safe Mobile Requests
-
-You should avoid keeping the sensitive `apiSecret` on the mobile device. Instead, it is recommended to generate the upload authentication signature on the server side.
-
-Cloudinary's iOS SDK allows providing a server-generated signature and any additional parameters that were generated on the server side (instead of signing using the `apiSecret` locally).
-
-You can use any Cloudinary libraries (Ruby on Rails, PHP, Python & Django, Java, Perl, .Net, etc.)
- on your server to generate the upload signature. The following JSON in an example response of an upload
-  authorization request to your server:  
-
-```Objective-C
-{
-  "signature": "sgjfdoigfjdgfdogidf9g87df98gfdb8f7d6gfdg7gfd8",
-  "public_id": "abdbasdasda76asd7sa789",
-  "timestamp": 1346925631,
-  "api_key": "123456789012345",
-}
-```
-
-After generating the signature on your server, create a `CLDSignature` instance and pass it to the desired secure request, in this case, to upload a file:
-```swift
-let config = CLDConfiguration(cloudName: "CLOUD_NAME", apiKey: "API_KEY", apiSecret: nil)
-let cloudinary = CLDCloudinary(configuration: config)
-let signature = CLDSignature(signature: signature, timestamp: timestamp)
-let params = CLDUploadRequestParams()
-params.setSignature(signature)
-cloudinary.createUploader().upload(file: fileURL, params: params, completionHandler: { (response, error) in
-            // Handle respone
-        })
-```
 
 ### URL generation
 
@@ -270,6 +240,14 @@ let request = cloudinary.createUploader().upload(file: fileUrl, params: params, 
 ```
 
 Every upload request returns a CLDUploadRequest instance, allowing options such as cancelling, suspending or resuming it.
+
+### Safe Mobile Requests
+
+You should avoid keeping the sensitive `apiSecret` on the mobile device. Instead, if you must perform a signed request, generate the authentication signature on the server side.
+
+You can use any server-side Cloudinary SDK (Ruby on Rails, PHP, Django(Python), Java, .NET, etc.) on your server to [generate the signature](https://cloudinary.com/documentation/upload_images#generating_authentication_signatures). 
+
+After generating the signature on your server, create a `CLDSignature` instance and pass it to the desired secure request.
 
 ### Download
 
