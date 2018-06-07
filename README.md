@@ -35,11 +35,11 @@ For iOS, Cloudinary provides an SDK for simplifying the integration even further
 To install CocoaPods:
 
 ```bash
-$ sudo gem install cocoapods
+sudo gem install cocoapods
 ```
 If you don't have a `Podfile` in your project yet, add it by running the command:
 ```bash
-$ pod init
+pod init
 ```
 
 Add the Cloudinary SDK to your `Podfile`:
@@ -57,7 +57,7 @@ end
 Then, run the command:
 
 ```bash
-$ pod install
+pod install
 ```
 
 ### Working with the Cloudinary iOS SDK Manually
@@ -69,13 +69,13 @@ Open Terminal and navigate to your project's top level directory.
 If your project is not initialized as a git repository, run the command:
 
 ```bash
-$ git init
+git init
 ```
 
 To add cloudinary as a git submodule, run the command:
 
 ```bash
-$ git submodule add https://github.com/cloudinary/cloudinary_ios.git
+git submodule add https://github.com/cloudinary/cloudinary_ios.git
 ```
 
 #### Embedded Framework
@@ -96,19 +96,10 @@ After cloning the repository, you will need to add Alamofire v4.6.0, there are s
 
 ##### Submodule
 
-1. Open Terminal, navigate to Cloudinary's cloned repository folder, then add Alamofire as a git submodule by running the command:
+1. Open Terminal, navigate to Cloudinary's cloned repository folder, then run the following command:
 
 ```bash
-$ git submodule add https://github.com/Alamofire/Alamofire.git
-```
-
-2. Checkout the desired Alamofire version:
-```bash
-$ cd Alamofire/
-```
-
-```bash
-$ git checkout 4.6.0
+git submodule update --init Alamofire
 ```
 
 ###### Add library
