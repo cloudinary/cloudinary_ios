@@ -4,6 +4,6 @@ xcode_project: Cloudinary.xcodeproj
 xcode_scheme: travis_public_scheme
 xcode_sdk: iphonesimulator11.2
 before_install:
-  - git update --init submodule Alamofire
+  - git submodule update --init submodule Alamofire
 
 script: xcodebuild clean test -project Cloudinary.xcodeproj -scheme travis_public_scheme -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.2' -CLOUDINARY_URL=$CLOUDINARY_URL | xcpretty && exit ${PIPESTATUS[0]}
