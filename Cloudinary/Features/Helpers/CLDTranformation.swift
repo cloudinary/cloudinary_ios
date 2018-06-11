@@ -1507,6 +1507,10 @@ import Foundation
             self.param = components.joined(separator: ":")
         }
         
+        fileprivate convenience init(_ components: String...) {
+            self.init(components)
+        }
+        
         override public var description: String {
             get {
                 return param
@@ -1521,17 +1525,13 @@ import Foundation
      */
     @objc public class CLDQuality: CLDBaseParam {
 
-        override fileprivate init(_ components: [String]){
-            super.init(components)
-        }
-
         /**
          Build an instance of CLDQuality configured for fixed quality.
 
          - parameter level: Quality level to set. Valid range is 1 through 100.
          */
         public static func fixed(_ level: Int) -> CLDQuality {
-            return CLDQuality([level.description])
+            return CLDQuality(level.description)
         }
 
         /**
@@ -1541,9 +1541,9 @@ import Foundation
          */
         public static func auto(_ level: CLDQualityAuto? = nil) -> CLDQuality {
             if let level = level {
-                return CLDQuality(["auto", level.description])
+                return CLDQuality("auto", level.description)
             } else {
-                return CLDQuality(["auto"])
+                return CLDQuality("auto")
             }
         }
 
@@ -1551,7 +1551,7 @@ import Foundation
          Build an instance of CLDQuality configured to use jpegmini addon for automatic quality.
          */
         public static func jpegMini() -> CLDQuality {
-            return CLDQuality(["jpegmini"])
+            return CLDQuality("jpegmini")
         }
     }
 
