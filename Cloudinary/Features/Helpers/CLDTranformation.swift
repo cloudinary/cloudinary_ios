@@ -1507,6 +1507,10 @@ import Foundation
             self.param = components.joined(separator: ":")
         }
         
+        fileprivate convenience init(_ components: String...) {
+            self.init(components)
+        }
+        
         override public var description: String {
             get {
                 return param
@@ -1520,11 +1524,7 @@ import Foundation
      Image quality configuration object
      */
     @objc public class CLDQuality: CLDBaseParam {
-   
-        override fileprivate init(_ components: String...){
-            super.init(components)
-        }
-        
+
         /**
          Build an instance of CLDQuality configured for fixed quality.
 
