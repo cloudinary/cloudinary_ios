@@ -497,7 +497,7 @@ import Foundation
     */
     @discardableResult
     open func setAsync(_ async: Bool) -> Self {
-        super.setParam(UploadRequestParams.Async.rawValue, value: async)
+        setBoolParam(UploadRequestParams.Async, value: async)
         return self
     }
 
@@ -611,7 +611,8 @@ import Foundation
     }
     
     /**
-    A setter for any one of the simple boolean parameters.
+    A setter for any one of the simple boolean parameters. This is used to normalize boolean values in requests
+    to be consistent across different platforms.
     
     - parameter value:              The parameter value.
     - parameter param:              The boolean parameter to set.
