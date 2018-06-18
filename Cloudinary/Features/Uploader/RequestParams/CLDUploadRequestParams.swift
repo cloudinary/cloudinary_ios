@@ -53,6 +53,14 @@ import Foundation
         self.params = params
     }
     
+    internal override func copyDataFrom(_ other: CLDRequestParams?){
+        super.copyDataFrom(other)
+       
+        if let uploadRequest = other as? CLDUploadRequestParams {
+            self.signed = uploadRequest.signed
+        }
+    }
+    
     // MARK: - Get Values
     
     open var publicId: String? {

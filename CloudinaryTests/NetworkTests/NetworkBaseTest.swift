@@ -29,18 +29,24 @@ import Cloudinary
 class NetworkBaseTest: XCTestCase {
     let timeout: TimeInterval = 30.0
     var cloudinary: CLDCloudinary?
+    var cloudinaryNoSecret: CLDCloudinary!
     
     // MARK: - Lifcycle
     
     override func setUp() {
         super.setUp()
         let config: CLDConfiguration
+
         if let url = Bundle(for: type(of: self)).infoDictionary?["cldCloudinaryUrl"] as? String, url.count > 0 {
             config = CLDConfiguration(cloudinaryUrl: url)!
         } else {
             config = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
         }
+
+        let configNoSecret = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: nil, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix)
+
         cloudinary = CLDCloudinary(configuration: config, sessionConfiguration: URLSessionConfiguration.default)
+        cloudinaryNoSecret = CLDCloudinary(configuration: configNoSecret, sessionConfiguration: URLSessionConfiguration.default)
     }
     
     override func tearDown() {
