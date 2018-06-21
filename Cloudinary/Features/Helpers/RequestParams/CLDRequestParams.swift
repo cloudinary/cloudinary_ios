@@ -100,7 +100,7 @@ import Foundation
         return params[key]
     }
     
-    internal func copyDataFrom(_ other: CLDRequestParams?){
+    internal func merge(_ other: CLDRequestParams?){
         if let other = other {
             self.signature = other.signature
             self.resourceType = other.resourceType

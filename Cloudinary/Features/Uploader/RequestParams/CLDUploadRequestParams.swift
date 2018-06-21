@@ -54,7 +54,7 @@ import Foundation
     }
     
     internal override func copyDataFrom(_ other: CLDRequestParams?){
-        super.copyDataFrom(other)
+        super.merge(other)
        
         if let uploadRequest = other as? CLDUploadRequestParams {
             self.signed = uploadRequest.signed
