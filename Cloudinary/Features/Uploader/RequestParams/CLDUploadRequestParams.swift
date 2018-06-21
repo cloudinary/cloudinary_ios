@@ -53,7 +53,7 @@ import Foundation
         self.params = params
     }
     
-    internal override func copyDataFrom(_ other: CLDRequestParams?){
+    internal override func merge(_ other: CLDRequestParams?){
         super.merge(other)
        
         if let uploadRequest = other as? CLDUploadRequestParams {
