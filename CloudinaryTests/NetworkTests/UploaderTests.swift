@@ -493,6 +493,31 @@ class UploaderTests: NetworkBaseTest {
         let status = result?.resultJson["status"] as? String
         XCTAssertEqual(status, "pending")
     }
+    
+    func testUploadLargeWithSignature(){
+        let expectation = self.expectation(description: "Signed upload large should succeed")
+        let timestamp = Int(Date().timeIntervalSince1970)
+        let signature = cloudinarySignParamsUsingSecret(["timestamp" : String(describing: timestamp)], cloudinaryApiSecret: (cloudinary?.config.apiSecret)!)
+        
+        let params = CLDUploadRequestParams().setResourceType(CLDUrlResourceType.video).setSignature(CLDSignature(signature: signature, timestamp: NSNumber(value: timestamp)))
+        let resource: TestResourceType = .dog
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        cloudinaryNoSecret.createUploader().signedUploadLarge(url: file, params: params as! CLDUploadRequestParams, chunkSize: 6 * 1024 * 1024)
+            .response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
 
     func testEager() {
 
