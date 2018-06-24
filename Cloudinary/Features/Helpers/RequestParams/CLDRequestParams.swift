@@ -99,4 +99,12 @@ import Foundation
     open func getParam(_ key: String) -> Any? {
         return params[key]
     }
+    
+    internal func merge(_ other: CLDRequestParams?){
+        if let other = other {
+            self.signature = other.signature
+            self.resourceType = other.resourceType
+            self.params.cldMerge(other.params)
+        }
+    }
 }

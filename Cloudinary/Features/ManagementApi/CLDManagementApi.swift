@@ -59,7 +59,7 @@ import Foundation
     @discardableResult
     open func rename(_ publicId: String, to: String, overwrite: Bool? = nil, invalidate: Bool? = nil, params: CLDRenameRequestParams? = nil, completionHandler: ((_ result: CLDRenameResult?, _ error: Error?) -> ())? = nil) -> CLDRenameRequest {
         let renameParams = CLDRenameRequestParams(fromPublicId: publicId, toPublicId: to, overwrite: overwrite, invalidate: invalidate)
-        renameParams.params.cldMerge(params?.params)
+        renameParams.merge(params)
         let request = networkCoordinator.callAction(.Rename, params:renameParams)
         let renameRequest = CLDRenameRequest(networkRequest: request)
         renameRequest.response(completionHandler)
@@ -80,7 +80,7 @@ import Foundation
     @discardableResult
     open func destroy(_ publicId: String, params: CLDDestroyRequestParams? = nil, completionHandler: ((_ result: CLDDeleteResult?, _ error: Error?) -> ())? = nil) -> CLDDeleteRequest {
         let destroyParams = CLDDestroyRequestParams(publicId: publicId)
-        destroyParams.params.cldMerge(params?.params)
+        destroyParams.merge(params)
         let request = networkCoordinator.callAction(.Destroy, params: destroyParams)
         let destroyRequest = CLDDeleteRequest(networkRequest: request)
         destroyRequest.response(completionHandler)
@@ -105,7 +105,8 @@ import Foundation
     @discardableResult
     open func addTag(_ tag: String, publicIds: [String], params: CLDTagsRequestParams? = nil, completionHandler: ((_ result: CLDTagResult?, _ error: Error?) -> ())? = nil) -> CLDTagRequest {
         let addTagParams = CLDTagsRequestParams(tag: tag, publicIds: publicIds)
-        addTagParams.params.cldMerge(params?.params)
+        addTagParams.merge(params)
+        
         let request = networkCoordinator.callAction(.Tags, params: addTagParams.setCommand(.add))
         let tagRequest = CLDTagRequest(networkRequest: request)
         tagRequest.response(completionHandler)
@@ -130,7 +131,7 @@ import Foundation
     @discardableResult
     open func removeTag(_ tag: String, publicIds: [String], params: CLDTagsRequestParams? = nil, completionHandler: ((_ result: CLDTagResult?, _ error: Error?) -> ())? = nil) -> CLDTagRequest {
         let removeTagParams = CLDTagsRequestParams(tag: tag, publicIds: publicIds)
-        removeTagParams.params.cldMerge(params?.params)
+        removeTagParams.merge(params)
         let request = networkCoordinator.callAction(.Tags, params: removeTagParams.setCommand(.remove))
         let tagRequest = CLDTagRequest(networkRequest: request)
         tagRequest.response(completionHandler)
@@ -155,7 +156,7 @@ import Foundation
     @discardableResult
     open func replaceTag(_ tag: String, publicIds: [String], params: CLDTagsRequestParams? = nil, completionHandler: ((_ result: CLDTagResult?, _ error: Error?) -> ())? = nil) -> CLDTagRequest {
         let replaceTagParams = CLDTagsRequestParams(tag: tag, publicIds: publicIds)
-        replaceTagParams.params.cldMerge(params?.params)
+        replaceTagParams.merge(params)
         let request = networkCoordinator.callAction(.Tags, params: replaceTagParams.setCommand(.replace))
         let tagRequest = CLDTagRequest(networkRequest: request)
         tagRequest.response(completionHandler)
@@ -181,7 +182,7 @@ import Foundation
     @objc(explicitPublicId:stringType:params:completionHandler:)
     open func explicit(_ publicId: String, type: String, params: CLDExplicitRequestParams? = nil, completionHandler: ((_ result: CLDExplicitResult?, _ error: Error?) -> ())? = nil) -> CLDExplicitRequest {
         let explicitParams = CLDExplicitRequestParams(publicId: publicId, type: type)
-        explicitParams.params.cldMerge(params?.params)
+        explicitParams.merge(params)
         let request = networkCoordinator.callAction(.Explicit, params: explicitParams)
         let explicitRequest = CLDExplicitRequest(networkRequest: request)
         explicitRequest.response(completionHandler)
@@ -227,7 +228,7 @@ import Foundation
     @discardableResult
     open func explode(_ publicId: String, transformation: CLDTransformation, params: CLDExplodeRequestParams? = nil, completionHandler: ((_ result: CLDExplodeResult?, _ error: Error?) -> ())? = nil) -> CLDExplodeRequest {
         let explodeParams = CLDExplodeRequestParams(publicId: publicId, transformation: transformation)
-        explodeParams.params.cldMerge(params?.params)
+        explodeParams.merge(params)
         let request = networkCoordinator.callAction(.Explode, params: explodeParams)
         let explodeRequest = CLDExplodeRequest(networkRequest: request)
         explodeRequest.response(completionHandler)
@@ -249,7 +250,7 @@ import Foundation
     @discardableResult
     open func generateSprite(_ tag: String, params: CLDSpriteRequestParams? = nil, completionHandler: ((_ result: CLDSpriteResult?, _ error: Error?) -> ())? = nil) -> CLDSpriteRequest {
         let generateSpriteParams = CLDSpriteRequestParams(tag: tag)
-        generateSpriteParams.params.cldMerge(params?.params)
+        generateSpriteParams.merge(params)
         let request = networkCoordinator.callAction(.GenerateSprite, params: generateSpriteParams)
         let spriteRequest = CLDSpriteRequest(networkRequest: request)
         spriteRequest.response(completionHandler)
@@ -272,7 +273,7 @@ import Foundation
     @discardableResult
     open func multi(_ tag: String, params: CLDMultiRequestParams? = nil, completionHandler: ((_ result: CLDMultiResult?, _ error: Error?) -> ())? = nil) -> CLDMultiRequest {
         let multiParams = CLDMultiRequestParams(tag: tag)
-        multiParams.params.cldMerge(params?.params)
+        multiParams.merge(params)
         let request = networkCoordinator.callAction(.Multi, params: multiParams)
         let multiRequest = CLDMultiRequest(networkRequest: request)
         multiRequest.response(completionHandler)
@@ -296,7 +297,7 @@ import Foundation
     @discardableResult
     open func text(_ text: String, params: CLDTextRequestParams? = nil, completionHandler: ((_ result: CLDTextResult?, _ error: Error?) -> ())? = nil) -> CLDTextRequest {
         let textParams = CLDTextRequestParams(text: text)
-        textParams.params.cldMerge(params?.params)
+        textParams.merge(params)
         let request = networkCoordinator.callAction(.GenerateText, params: textParams)
         let textRequest = CLDTextRequest(networkRequest: request)
         textRequest.response(completionHandler)
@@ -319,7 +320,7 @@ import Foundation
     @discardableResult
     open func deleteByToken(_ token: String, params: CLDDeleteByTokenRequestParams? = nil, completionHandler: ((_ result: CLDDeleteResult?, _ error: Error?) -> ())? = nil) -> CLDDeleteRequest {
         let deleteByTokenParams = CLDDeleteByTokenRequestParams(token: token)
-        deleteByTokenParams.params.cldMerge(params?.params)
+        deleteByTokenParams.merge(params)
         let request = networkCoordinator.callAction(.DeleteByToken, params: deleteByTokenParams)
         let deleteByTokenRequest = CLDDeleteRequest(networkRequest: request)
         deleteByTokenRequest.response(completionHandler)

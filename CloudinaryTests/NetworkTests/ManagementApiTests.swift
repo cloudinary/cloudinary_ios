@@ -23,7 +23,7 @@
 //
 
 import XCTest
-import Cloudinary
+@testable import Cloudinary
 
 
 class ManagementApiTests: NetworkBaseTest {
@@ -384,6 +384,50 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result, "result should not be nil")
 
+        XCTAssertEqual(result?.result ?? "", "ok")
+    }
+    
+    
+    func testDestroyWithSignature() {
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        var publicId: String?
+        uploadFile().response({ (result, error) in
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        guard let pubId = publicId else {
+            XCTFail("Public ID should not be nil at this point")
+            return
+        }
+        
+        expectation = self.expectation(description: "Destroy should succeed")
+        var result: CLDDeleteResult?
+        var error: Error?
+        let params = CLDDestroyRequestParams()
+        
+        let timestamp = Int(Date().timeIntervalSince1970)
+        var paramsToSign: [String : Any] = [:]
+        paramsToSign["public_id"] = pubId
+        paramsToSign["timestamp"] = String(describing: timestamp)
+        let signatureStr = cloudinarySignParamsUsingSecret(paramsToSign, cloudinaryApiSecret: (cloudinary?.config.apiSecret!)!)
+        let signature = CLDSignature(signature: signatureStr, timestamp: NSNumber(integerLiteral: timestamp))
+        params.setSignature (signature)
+
+        cloudinaryNoSecret!.createManagementApi().destroy(pubId, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+        
         XCTAssertEqual(result?.result ?? "", "ok")
     }
     
