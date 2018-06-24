@@ -26,116 +26,116 @@ import XCTest
 @testable import Cloudinary
 
 class UploaderTests: NetworkBaseTest {
-    
+
     // MARK: - Tests
-    
+
     func testUploadImageData() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
-        let data = TestResourceType.borderCollie.data        
-        
+        let data = TestResourceType.borderCollie.data
+
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setColors(true)
         cloudinary!.createUploader().signedUpload(data: data, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-    
+
     func testUploadImageFile() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let file = TestResourceType.logo.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setColors(true)
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-    
+
     func testUploadImageFileWithPreprocess() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let file = TestResourceType.borderCollie.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.limit(width: 500, height: 500))
         let params = CLDUploadRequestParams()
         params.setColors(true)
         cloudinary!.createUploader().signedUpload(url: file, params: params, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
         XCTAssertEqual(result?.width, 500)
         XCTAssertEqual(result?.height, 500)
     }
-    
-    
-    func testUploadWithPreprocessValidator(){
+
+
+    func testUploadWithPreprocessValidator() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should fail")
         let file = TestResourceType.logo.url
         var result: CLDUploadResult?
         var error: NSError?
-        
-        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.dimensionsValidator(minWidth:500, maxWidth:1500, minHeight:500, maxHeight:1500))
+
+        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.dimensionsValidator(minWidth: 500, maxWidth: 1500, minHeight: 500, maxHeight: 1500))
         let params = CLDUploadRequestParams()
         params.setColors(true)
         cloudinary!.createUploader().signedUpload(url: file, params: params, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNil(result, "result should be nil")
         XCTAssertNotNil(error, "error should not be nil")
     }
-    
+
     func testUploadLargeErrors() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         var expectation = self.expectation(description: "Chunk size under 5MB should fail")
         let file = TestResourceType.dog.url
         var requestError: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setResourceType(CLDUrlResourceType.video)
         // chunk size is too small:
@@ -144,90 +144,90 @@ class UploaderTests: NetworkBaseTest {
             expectation.fulfill()
         })
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         expectation = self.expectation(description: "Uploading non-existing file should fail")
         cloudinary!.createUploader().signedUploadLarge(url: URL(fileURLWithPath: "non/existing/file"), params: params, chunkSize: 10 * 1024 * 1024, progress: nil).response({ (resultRes, errorRes) in
             requestError = errorRes
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(requestError, "Error should not be nil")
     }
-    
+
     func testUploadLarge() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload large should succeed")
         let file = TestResourceType.dog.url
         var requestResult: CLDUploadResult?
         var requestError: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setResourceType(CLDUrlResourceType.video)
-        
+
         cloudinary!.createUploader().signedUploadLarge(url: file, params: params, chunkSize: 5 * 1024 * 1024).response({ (result, error) in
             requestResult = result
             requestError = error
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(requestResult, "result should not be nil")
         XCTAssertNil(requestError, "error should be nil")
     }
-    
+
     func testUploadVideoData() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let data = TestResourceType.dog.data
-        
+
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams().setColors(true)
         params.setResourceType(.video)
         cloudinary!.createUploader().signedUpload(data: data, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: 60.0, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-    
+
     func testUploadAccessControlParams() {
-        
+
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        
+
         let aclToken = CLDAccessControlRule.token()
         let start = formatter.date(from: "2019-02-22 16:20:57 +0200")!
         let end = formatter.date(from: "2019-03-22 00:00:00 +0200")!
         let acl = CLDAccessControlRule.anonymous(start: start, end: end)
-        
+
         let aclString = "{\"access_type\":\"anonymous\",\"start\":\"2019-02-22 16:20:57 +0200\",\"end\":\"2019-03-22 00:00 +0200\"}"
-        
+
         var params = CLDUploadRequestParams().setAccessControl([aclToken])
         XCTAssertEqual(params.accessControl, "[{\"access_type\":\"token\"}]")
-        
+
         params = CLDUploadRequestParams().setAccessControl([acl])
         XCTAssertEqual(params.accessControl!, "[{\"start\":\"2019-02-22T14:20:57Z\",\"end\":\"2019-03-21T22:00:00Z\",\"access_type\":\"anonymous\"}]")
-        
+
         params = CLDUploadRequestParams().setAccessControl(aclString)
         XCTAssertEqual(params.accessControl!, aclString)
     }
-    
+
     func testUploadWithAccessControl() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
 
@@ -281,300 +281,323 @@ class UploaderTests: NetworkBaseTest {
     }
 
     func testUploadVideoFile() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let file = TestResourceType.dog.url
-        
+
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams().setColors(true)
         params.setResourceType(.video)
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: 60.0, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-    
+
     func testUploadImageDataUsingSignature() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let data = TestResourceType.borderCollie.data
-        
+
         var result: CLDUploadResult?
         var error: NSError?
-        
-        
-        let timestamp = Int(Date().timeIntervalSince1970)        
-        let signature = cloudinarySignParamsUsingSecret(["timestamp" : String(describing: timestamp)], cloudinaryApiSecret: cloudinary!.config.apiSecret!)
-        
+
+
+        let timestamp = Int(Date().timeIntervalSince1970)
+        let signature = cloudinarySignParamsUsingSecret(["timestamp": String(describing: timestamp)], cloudinaryApiSecret: cloudinary!.config.apiSecret!)
+
         let params = CLDUploadRequestParams()
-            params.setSignature(CLDSignature(signature: signature, timestamp: NSNumber(value: timestamp)))
+        params.setSignature(CLDSignature(signature: signature, timestamp: NSNumber(value: timestamp)))
         cloudinary!.createUploader().signedUpload(data: data, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-    
+
     func testUnsignedUploadImageFile() {
-        
+
         let prefix = cloudinary!.config.apiSecret != nil ? "\(cloudinary!.config.apiKey!):\(cloudinary!.config.apiSecret!)" : cloudinary!.config.apiKey!
         let uploadPresetUrl = "https://\(prefix)@api.cloudinary.com/v1_1/\(cloudinary!.config.cloudName!)/upload_presets"
         let presetName = "ios_unsigned_upload"
-        
-        var options = [String:AnyObject]()
+
+        var options = [String: AnyObject]()
         options["api_key"] = cloudinary?.config.apiKey as AnyObject
         options["cloud_name"] = cloudinary?.config.cloudName as AnyObject
-        
+
         let config = CLDConfiguration(options: options)
         let cloudinaryNoSecret = CLDCloudinary(configuration: config!, sessionConfiguration: URLSessionConfiguration.default)
-        
+
         XCTAssertNil(cloudinaryNoSecret.config.apiSecret, "api secret should not be set to test unsigned upload")
-        
+
         createUploadPresetIfNeeded(uploadPresetUrl, presetName: presetName)
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let file = TestResourceType.borderCollie.url
-        
+
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         cloudinaryNoSecret.createUploader().upload(url: file, uploadPreset: presetName, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
 
         if let
-            pubId = result?.publicId,
-            let version = result?.version,
-            let sig = result?.signature
-        {
-            let toSign = ["public_id" : pubId, "version" : version]
+           pubId = result?.publicId,
+           let version = result?.version,
+           let sig = result?.signature {
+            let toSign = ["public_id": pubId, "version": version]
             let expectedSignature = cloudinarySignParamsUsingSecret(toSign, cloudinaryApiSecret: (cloudinary!.config.apiSecret)!)
             XCTAssertEqual(sig, expectedSignature)
-        }
-        else {
+        } else {
             XCTFail("Need to receive public_id, version and signature in the response")
         }
     }
-    
-    
+
+
     func testUploadRemoteUrl() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
-        
+
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         cloudinary!.createUploader().signedUpload(url: URL(string: "http://cloudinary.com/images/old_logo.png")!, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
-        
+
     }
-    
-    
+
+
     func testUseFilename() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let filename = resource.fileName
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setUseFilename(true)
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
-        
+
         var matches = 0
         if let publicId = result?.publicId {
             let regex = try! NSRegularExpression(pattern: "\(filename)_[a-z0-9]{6}", options: NSRegularExpression.Options(rawValue: 0))
             matches = regex.numberOfMatches(in: publicId, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, publicId.count))
         }
-        
+
         XCTAssertEqual(1, matches)
     }
-    
+
     func testUniqueFilename() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let filename = resource.fileName
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setUseFilename(true).setUniqueFilename(false)
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
-        
+
         XCTAssertEqual(result?.publicId ?? "", filename)
     }
-    
-    func testEager() {
-        
+
+    func testUploadAsync() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
+        let params = CLDUploadRequestParams().setAsync(true)
+
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        let status = result?.resultJson["status"] as? String
+        XCTAssertEqual(status, "pending")
+    }
+
+    func testEager() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
         let params = CLDUploadRequestParams()
         let trans = CLDEagerTransformation().setCrop(.crop).setWidth(2.0).setFormat("png")
         let trans2 = CLDEagerTransformation().setCrop(.crop).setWidth(2.0).setFormat("gif")
         params.setEager([trans, trans2])
-        
+
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
         XCTAssertTrue((result?.eager?[0].url?.hasSuffix("png")) ?? false)
         XCTAssertTrue((result?.eager?[1].url?.hasSuffix("gif")) ?? false)
     }
-    
+
     func testHeaders() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
-        params.setHeaders(["Link" : "1"])
-        params.setContext(["caption" : "My Logo"])
+        params.setHeaders(["Link": "1"])
+        params.setContext(["caption": "My Logo"])
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-                
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-    
+
     func testFaceCoordinates() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         let coordinate = CLDCoordinate(rect: CGRect(x: 10, y: 10, width: 100, height: 100))
         params.setFaceCoordinates([coordinate])
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-    
+
     func testCustomCoordinates() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         let coordinate = CLDCoordinate(rect: CGRect(x: 10, y: 10, width: 100, height: 100))
         params.setCustomCoordinates([coordinate])
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
@@ -639,145 +662,140 @@ class UploaderTests: NetworkBaseTest {
     }
 
     func testManualModeration() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setModeration(.manual)
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
-        
+
         if let moderationArr = result?.moderation as? NSArray {
             if let mod = moderationArr.firstObject as? NSDictionary,
-                let status = mod["status"] as? String,
-                let kind = mod["kind"] as? String {
+               let status = mod["status"] as? String,
+               let kind = mod["kind"] as? String {
                 XCTAssertEqual(status, "pending")
                 XCTAssertEqual(kind, "manual")
-            }
-            else {
+            } else {
                 XCTFail("Moderation dictionary should hold its status and kind.")
             }
-        }
-        else {
+        } else {
             XCTFail("Manual moderation response should be a dictionary holding a moderation dictionary.")
         }
-        
+
     }
-    
+
     func testRawConversion() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .docx
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setRawConvert("illegal")
         params.setResourceType(.raw)
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNil(result, "result should be nil")
         XCTAssertNotNil(error, "error should not be nil")
-        
+
         if let errMessage = error?.userInfo["message"] as? String {
             XCTAssertNotNil(errMessage.range(of: "Raw convert is invalid"))
-        }
-        else {
+        } else {
             XCTFail("Error should hold a message in its user info.")
         }
     }
-    
+
     func testCategorization() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setCategorization("illegal")
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNil(result, "result should be nil")
         XCTAssertNotNil(error, "error should not be nil")
-        
+
         if let errMessage = error?.userInfo["message"] as? String {
             XCTAssertNotNil(errMessage.range(of: "Categorization item illegal is not valid"))
-        }
-        else {
+        } else {
             XCTFail("Error should hold a message in its user info.")
         }
     }
-    
+
     func testDetection() {
-        
+
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
+
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
-        
+
         let params = CLDUploadRequestParams()
         params.setDetection("illegal")
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-            
+
             expectation.fulfill()
         })
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
-        
+
         XCTAssertNil(result, "result should be nil")
         XCTAssertNotNil(error, "error should not be nil")
-        
+
         if let errMessage = error?.userInfo["message"] as? String {
             XCTAssertNotNil(errMessage.range(of: "illegal is not a valid"))
-        }
-        else {
+        } else {
             XCTFail("Error should hold a message in its user info.")
         }
     }
-    
+
     //MARK: - Helpers
-    
+
     func createUploadPresetIfNeeded(_ uploadPresetUrl: String, presetName: String) {
         let semaphore = DispatchSemaphore(value: 0)
         if let url = URL(string: "\(uploadPresetUrl)/\(presetName)") {
@@ -795,40 +813,35 @@ class UploaderTests: NetworkBaseTest {
                                 request.httpBody = httpData
                                 session.dataTask(with: request, completionHandler: { (returnData, response, error) -> () in
                                     if let returnData = returnData,
-                                        let strData = String(data: returnData, encoding: String.Encoding.utf8) {
+                                       let strData = String(data: returnData, encoding: String.Encoding.utf8) {
                                         print(strData)
                                     }
                                     semaphore.signal()
                                 }).resume()
-                            }
-                            else {
+                            } else {
                                 XCTFail("preset request failed")
                                 semaphore.signal()
                             }
-                        }
-                        else {
+                        } else {
                             semaphore.signal()
                         }
-                    }
-                    else {
+                    } else {
                         XCTFail("preset request failed")
                         semaphore.signal()
                     }
-                }
-                else {
+                } else {
                     XCTFail("preset request failed")
                     semaphore.signal()
                 }
             }).resume()
-        }
-        else {
+        } else {
             XCTFail("preset request failed")
             semaphore.signal()
         }
-        
+
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
-        
+
 }
 
 

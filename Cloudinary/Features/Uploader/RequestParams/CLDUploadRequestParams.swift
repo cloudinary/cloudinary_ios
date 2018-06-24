@@ -134,7 +134,11 @@ import Foundation
     open var discardOriginalFilename: Bool? {
         return getParam(.DiscardOriginalFilename) as? Bool
     }
-    
+
+    open var async: Bool? {
+        return getParam(.Async) as? Bool
+    }
+
     open var eagerAsync: Bool? {
         return getParam(.EagerAsync) as? Bool
     }
@@ -491,7 +495,20 @@ import Foundation
         setBoolParam(.DiscardOriginalFilename, value: discardOriginalFilename)
         return self
     }
-    
+
+    /**
+    Set a boolean parameter indicating whether to perform the image generation asynchronously. default is false.
+
+    - parameter async:      The boolean parameter.
+
+    - returns:              The same instance of CLDUploadRequestParams.
+    */
+    @discardableResult
+    open func setAsync(_ async: Bool) -> Self {
+        setBoolParam(UploadRequestParams.Async, value: async)
+        return self
+    }
+
     /**
      Set A boolean parameter that determines whether to generate the eager transformations asynchronously in the background. default is false.
      
@@ -602,7 +619,8 @@ import Foundation
     }
     
     /**
-    A setter for any one of the simple boolean parameters.
+    A setter for any one of the simple boolean parameters. This is used to normalize boolean values in requests
+    to be consistent across different platforms.
     
     - parameter value:              The parameter value.
     - parameter param:              The boolean parameter to set.
@@ -940,6 +958,7 @@ import Foundation
         case UseFilename =                          "use_filename"
         case UniqueFilename =                       "unique_filename"
         case DiscardOriginalFilename =              "discard_original_filename"
+        case Async =                                "async"
         case EagerAsync =                           "eager_async"
         case Invalidate =                           "invalidate"
         case Overwrite =                            "overwrite"
