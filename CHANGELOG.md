@@ -1,4 +1,25 @@
 
+2.4.0 / 2018-06-26
+==================
+
+New functionality
+-----------------
+  * Add support for `async` upload parameter
+  * Add support for eager transformation format
+  * Add support for automatic quality in transformations. (#150)
+  * Add cache max-memory config (#98)
+  * Add Keyframe interval transformation parameter (#90)
+
+Other changes
+-------------
+  * Refactor CLDBaseParam for compatibility with iOS 11.4
+  * Remove wrong project config (library search paths)
+  * Bump Alamofire version to 4.7.2
+  * Fix Alamofire submodule definition
+  * Fix signature parameter handling in Management Api. (#161)
+  * Fix `faceCenter` and `facesCenter` values in `CLDGravity` (#159)
+  * Fix calculation of UIImage memory cache cost
+
 2.3.0 / 2018-03-16
 ==================
 
