@@ -288,7 +288,7 @@
 
 /* Begin PBXFileReference section */
 		1E40045F1FFE1F62007FC972 /* PreprocessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreprocessTests.swift; sourceTree = "<group>"; };
-		1E4907BD204704AF00094A3E /* UrlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UrlTests.m; sourceTree = "<group>"; };
+		1E4907BD204704AF00094A3E /* UrlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = UrlTests.m; path = GenerateUrlTests/UrlTests.m; sourceTree = "<group>"; };
 		1E5F904A1FD0162900796B45 /* CLDPreprocessChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDPreprocessChain.swift; sourceTree = "<group>"; };
 		1E5F90581FD58DEB00796B45 /* CLDPreprocessHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDPreprocessHelpers.swift; sourceTree = "<group>"; };
 		1E5F90781FD6A64F00796B45 /* CLDImagePreprocessChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDImagePreprocessChain.swift; sourceTree = "<group>"; };
