@@ -293,6 +293,10 @@ Contact us at [https://cloudinary.com/contact](https://cloudinary.com/contact).
 
 Stay tuned for updates, tips and tutorials: [Blog](https://cloudinary.com/blog), [Twitter](https://twitter.com/cloudinary), [Facebook](https://www.facebook.com/Cloudinary).
 
+## Join the Community ##########################################################
+
+Impact the product, hear updates, test drive new features and more! Join [here](https://www.facebook.com/groups/CloudinaryCommunity).
+
 ## License
 
 Cloudinary is released under the MIT license. See LICENSE for details.
