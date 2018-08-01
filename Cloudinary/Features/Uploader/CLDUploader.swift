@@ -223,6 +223,7 @@ The URL can either be of a local file (i.e. from the bundle) or can point to a r
    - parameter progress:          The closure that is called periodically during the data transfer.
    - parameter completionHandler: The closure to be called once the request is prepared, holding either the request object or an error
    */
+    @discardableResult
     open func uploadLarge(url: URL, uploadPreset: String, params: CLDUploadRequestParams = CLDUploadRequestParams(), chunkSize: Int = defaultChunkSize, progress: ((Progress) -> Void)? = nil,
                           completionHandler: CLDUploadCompletionHandler? = nil) -> CLDUploadRequest{
         params.setSigned(false)
@@ -240,6 +241,7 @@ The URL can either be of a local file (i.e. from the bundle) or can point to a r
    - parameter progress:          The closure that is called periodically during the data transfer.
    - parameter completionHandler: The closure to be called once the request is prepared, holding either the request object or an error
    */
+    @discardableResult
     open func uploadLarge<T>(url: URL, uploadPreset: String, params: CLDUploadRequestParams = CLDUploadRequestParams(), preprocessChain: CLDPreprocessChain<T>, chunkSize: Int = defaultChunkSize, progress: ((Progress) -> Void)? = nil,
                           completionHandler: CLDUploadCompletionHandler? = nil) -> CLDUploadRequest{
         params.setSigned(false)
@@ -255,6 +257,7 @@ The URL can either be of a local file (i.e. from the bundle) or can point to a r
      - parameter progress:          The closure that is called periodically during the data transfer.
      - parameter completionHandler: The closure to be called once the request is prepared, holding either the request object or an error
      */
+    @discardableResult
     open func signedUploadLarge(url: URL, params: CLDUploadRequestParams = CLDUploadRequestParams(), chunkSize: Int = defaultChunkSize, progress: ((Progress) -> Void)? = nil,
                                 completionHandler: CLDUploadCompletionHandler? = nil) -> CLDUploadRequest{
         params.setSigned(true)
@@ -270,6 +273,7 @@ The URL can either be of a local file (i.e. from the bundle) or can point to a r
     - parameter progress:          The closure that is called periodically during the data transfer.
     - parameter completionHandler: The closure to be called once the request is prepared, holding either the request object or an error
     */
+    @discardableResult
     open func signedUploadLarge<T>(url: URL, params: CLDUploadRequestParams = CLDUploadRequestParams(), preprocessChain: CLDPreprocessChain<T>, chunkSize: Int = defaultChunkSize, progress: ((Progress) -> Void)? = nil,
                                 completionHandler: CLDUploadCompletionHandler? = nil) -> CLDUploadRequest{
         params.setSigned(true)
