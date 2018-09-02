@@ -49,12 +49,12 @@ internal extension Float {
 }
 
 internal extension String {
-    internal func base64() -> String {
+    internal func cldBase64Encode() -> String {
         return (self.data(using: String.Encoding.utf8)?.base64EncodedString())!
     }
 
-    internal func urlSafeBase64() -> String {
-        return base64().replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_")
+    internal func cldBase64UrlEncode() -> String {
+        return cldBase64Encode().replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_")
     }
     internal func cldSmartEncodeUrl() -> String? {
         let customAllowedSet =  NSCharacterSet(charactersIn:"!*'\"();@&=+$,?%#[] ").inverted

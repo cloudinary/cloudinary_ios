@@ -16,13 +16,13 @@ class StringUtilsTests: XCTestCase {
         super.tearDown()
     }
 
-    func testBase64 (){
+    func testBase64Encode (){
         let str = "ad?.,x09~!@!"
-        XCTAssertEqual("YWQ/Lix4MDl+IUAh", str.base64())
+        XCTAssertEqual("YWQ/Lix4MDl+IUAh", str.cldBase64Encode())
     }
     
-    func testUrlSafeBase64(){
+    func testBase64UrlEncode(){
         let str = "ad?.,x09~!@!"
-        XCTAssertEqual("YWQ_Lix4MDl-IUAh", str.urlSafeBase64())
+        XCTAssertEqual("YWQ_Lix4MDl-IUAh", str.cldBase64UrlEncode())
     }
 }
