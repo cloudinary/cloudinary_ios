@@ -22,6 +22,7 @@ class StringUtilsTests: XCTestCase {
     }
     
     func testUrlSafeBase64(){
-         XCTAssertEqual("YWQ_Lix4MDl-IUAh", str.urlSafeBase64())
+        let str = "ad?.,x09~!@!"
+        XCTAssertEqual("YWQ_Lix4MDl-IUAh", str.urlSafeBase64())
     }
 }
