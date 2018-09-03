@@ -23,7 +23,7 @@
 //
 
 import XCTest
-import Cloudinary
+@testable import Cloudinary
 
 class UrlTests: XCTestCase {
     let prefix = "https://res.cloudinary.com/test123"
@@ -537,5 +537,10 @@ class UrlTests: XCTestCase {
         XCTAssertNil(cloudinary?.createUrl().setTransformation(CLDTransformation().setUnderlayWithLayer(CLDLayer().setResourceType(.video))).generate("test"))
     }
 
+    func testCustomAction(){
+        XCTAssertEqual(CLDTransformation().setCustomAction(.wasm("blur_wasm")).asString() ,"fn_wasm:blur_wasm")
+        XCTAssertEqual(CLDTransformation().setCustomAction(.remote("https://df34ra4a.execute-api.us-west-2.amazonaws.com/default/cloudinaryAction")).asString()
+                ,"fn_remote:aHR0cHM6Ly9kZjM0cmE0YS5leGVjdXRlLWFwaS51cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9kZWZhdWx0L2Nsb3VkaW5hcnlBY3Rpb24=")
+    }
 }
 

@@ -155,6 +155,10 @@ import Foundation
     open var aspectRatio: String? {
         return getParam(.ASPECT_RATIO)
     }
+
+    open var customAction: String? {
+        return getParam(.CUSTOM_ACTION)
+    }
     
     open var audioCodec: String? {
         return getParam(.AUDIO_CODEC)
@@ -972,7 +976,19 @@ import Foundation
     open func setAspectRatio(_ aspectRatio: String) -> Self {
         return setParam(TransformationParam.ASPECT_RATIO, value: aspectRatio)
     }
-    
+
+    /**
+     Set a custom action, such as a call to a lambda function or a web-assembly function.
+
+     - parameter action:    The custom action to perform, see CLDCustomAction.
+
+     - returns:             The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setCustomAction(_ action: CLDCustomAction) -> Self {
+        return setParam(TransformationParam.CUSTOM_ACTION, value: action.description)
+    }
+
     /**
      Use the audio_codec parameter to set the audio codec or remove the audio channel completely as follows:
      
@@ -1486,6 +1502,7 @@ import Foundation
         case DPR =                          "dpr"
         case ZOOM =                         "z"
         case ASPECT_RATIO =                 "ar"
+        case CUSTOM_ACTION =                "fn"
         case AUDIO_CODEC =                  "ac"
         case AUDIO_FREQUENCY =              "af"
         case BIT_RATE =                     "br"
@@ -1576,7 +1593,33 @@ import Foundation
             }
         }
     }
-    
+
+    // MARK: CLDCustomAction
+
+    /**
+     Custom action configuration object
+     */
+    @objc public class CLDCustomAction: CLDBaseParam {
+
+        /**
+         Build an instance of CLDCustomAction configured for web-assembly custom action.
+
+         - parameter publicId: Public id of the web assembly file.
+         */
+        public static func wasm(_ publicId: String) -> CLDCustomAction {
+            return CLDCustomAction("wasm", publicId)
+        }
+
+        /**
+         Build an instance of CLDCustomAction configured for remote lambda custom action.
+
+         - parameter url: public url of the aws lambda function
+         */
+        public static func remote(_ url: String) -> CLDCustomAction {
+            return CLDCustomAction("remote", url.urlSafeBase64())
+        }
+
+    }
     // MARK: Crop
     
     @objc public enum CLDCrop: Int, CustomStringConvertible {
