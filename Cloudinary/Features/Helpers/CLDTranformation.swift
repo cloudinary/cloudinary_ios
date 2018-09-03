@@ -1616,7 +1616,7 @@ import Foundation
          - parameter url: public url of the aws lambda function
          */
         public static func remote(_ url: String) -> CLDCustomAction {
-            return CLDCustomAction("remote", url.urlSafeBase64())
+            return CLDCustomAction("remote", url.cldBase64UrlEncode())
         }
 
     }
