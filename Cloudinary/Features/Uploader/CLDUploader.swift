@@ -360,7 +360,7 @@ The URL can either be of a local file (i.e. from the bundle) or can point to a r
                     let length = CLDFileUtils.getFileSize(url: newUrl)
                     newRequest.setRequestsData(count: 1, totalLength: length)
                     // perform upload with the newly created file url, and empty preprocessing (it's done already)
-                    newRequest.addRequest(self.performUpload(data: newUrl, params: params, extraHeaders: extraHeaders, preprocessChain: CLDPreprocessChain<Any>(), progress: progress, completionHandler: completionHandler))
+                    newRequest.addRequest(self.performUpload(data: newUrl, params: params, extraHeaders: extraHeaders, preprocessChain: CLDPreprocessChain<Any>()))
                 } catch let error as NSError {
                     newRequest.setRequestError(error)
                 } catch {
