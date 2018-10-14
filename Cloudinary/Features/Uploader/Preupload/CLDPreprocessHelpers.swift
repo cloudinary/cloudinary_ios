@@ -103,9 +103,9 @@ public class CLDPreprocessHelpers {
 
         switch format {
         case EncodingFormat.JPEG:
-            return UIImageJPEGRepresentation(image, quality)
+            return image.jpegData(compressionQuality: quality)
         case EncodingFormat.PNG:
-            return UIImagePNGRepresentation(image)
+            return image.pngData()
         }
     }
 

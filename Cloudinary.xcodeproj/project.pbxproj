@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E29F9DA21733092002686E0 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B5F8E91FAB6B9200032B8A /* Alamofire.framework */; };
 		1E4004601FFE1F62007FC972 /* PreprocessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E40045F1FFE1F62007FC972 /* PreprocessTests.swift */; };
 		1E4907BE204704AF00094A3E /* UrlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4907BD204704AF00094A3E /* UrlTests.m */; };
 		1E5F904B1FD0162900796B45 /* CLDPreprocessChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F904A1FD0162900796B45 /* CLDPreprocessChain.swift */; };
@@ -64,7 +65,6 @@
 		36784DBA1CCCCE1100F3B777 /* CLDRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36784DB91CCCCE1100F3B777 /* CLDRequestParams.swift */; };
 		36784DBC1CCCCE1C00F3B777 /* CLDRequestParamsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36784DBB1CCCCE1C00F3B777 /* CLDRequestParamsHelpers.swift */; };
 		367FA4D11DD34E20001C8A61 /* CLDAsyncNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367FA4D01DD34E20001C8A61 /* CLDAsyncNetworkUploadRequest.swift */; };
-		36806F721CC7F4FF009BD86F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36806F6B1CC7F4DB009BD86F /* Alamofire.framework */; };
 		3696FBF61C8C6A3D00DE9568 /* Cloudinary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 369FB3461C79D360003E81B6 /* Cloudinary.framework */; };
 		3696FC061C8E014500DE9568 /* CLDStringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FC051C8E014500DE9568 /* CLDStringUtils.swift */; };
 		3696FC561C9162FF00DE9568 /* CLDCryptoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FC551C9162FF00DE9568 /* CLDCryptoUtils.swift */; };
@@ -428,13 +428,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36806F721CC7F4FF009BD86F /* Alamofire.framework in Frameworks */,
+				1E29F9DA21733092002686E0 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E29F9D921733092002686E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1E5F90391FD015A200796B45 /* Preupload */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,6 +742,7 @@
 				369FB3471C79D360003E81B6 /* Products */,
 				1ED714C71FBDB57B00C5367C /* Alamofire.xcodeproj */,
 				29B5F8DD1FAB6B9200032B8A /* Alamofire.xcodeproj */,
+				1E29F9D921733092002686E0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1552,7 +1560,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1582,7 +1590,7 @@
 				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
