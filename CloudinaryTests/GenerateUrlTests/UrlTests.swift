@@ -540,7 +540,7 @@ class UrlTests: XCTestCase {
     func testCustomFunction(){
         XCTAssertEqual(CLDTransformation().setCustomFunction(.wasm("blur_wasm")).asString() ,"fn_wasm:blur_wasm")
         XCTAssertEqual(CLDTransformation().setCustomFunction(.remote("https://df34ra4a.execute-api.us-west-2.amazonaws.com/default/cloudinaryFunction")).asString()
-                ,"fn_remote:aHR0cHM6Ly9kZjM0scmE0YS5leGVjdXRlLWFwaS51cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9kZWZhdWx0L2Nsb3VkaW5hcnlGdW5jdGlvbg==")
+                ,"fn_remote:aHR0cHM6Ly9kZjM0cmE0YS5leGVjdXRlLWFwaS51cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9kZWZhdWx0L2Nsb3VkaW5hcnlGdW5jdGlvbg==")
     }
 }
 
