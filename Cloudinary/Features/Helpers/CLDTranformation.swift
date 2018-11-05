@@ -155,6 +155,10 @@ import Foundation
     open var aspectRatio: String? {
         return getParam(.ASPECT_RATIO)
     }
+
+    open var customFunction: String? {
+        return getParam(.CUSTOM_FUNCTION)
+    }
     
     open var audioCodec: String? {
         return getParam(.AUDIO_CODEC)
@@ -972,7 +976,19 @@ import Foundation
     open func setAspectRatio(_ aspectRatio: String) -> Self {
         return setParam(TransformationParam.ASPECT_RATIO, value: aspectRatio)
     }
-    
+
+    /**
+     Set a custom function, such as a call to a lambda function or a web-assembly function.
+
+     - parameter customFunction:    The custom function to perform, see CLDCustomFunction.
+
+     - returns:                     The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setCustomFunction(_ customFunction: CLDCustomFunction) -> Self {
+        return setParam(TransformationParam.CUSTOM_FUNCTION, value: customFunction.description)
+    }
+
     /**
      Use the audio_codec parameter to set the audio codec or remove the audio channel completely as follows:
      
@@ -1486,6 +1502,7 @@ import Foundation
         case DPR =                          "dpr"
         case ZOOM =                         "z"
         case ASPECT_RATIO =                 "ar"
+        case CUSTOM_FUNCTION =              "fn"
         case AUDIO_CODEC =                  "ac"
         case AUDIO_FREQUENCY =              "af"
         case BIT_RATE =                     "br"
@@ -1576,7 +1593,33 @@ import Foundation
             }
         }
     }
-    
+
+    // MARK: CLDCustomFunction
+
+    /**
+     Custom function configuration object
+     */
+    @objc public class CLDCustomFunction: CLDBaseParam {
+
+        /**
+         Build an instance of CLDCustomFunction configured for web-assembly custom function.
+
+         - parameter publicId: Public id of the web assembly file.
+         */
+        public static func wasm(_ publicId: String) -> CLDCustomFunction {
+            return CLDCustomFunction("wasm", publicId)
+        }
+
+        /**
+         Build an instance of CLDCustomFunction configured for remote lambda custom function.
+
+         - parameter url: public url of the aws lambda function
+         */
+        public static func remote(_ url: String) -> CLDCustomFunction {
+            return CLDCustomFunction("remote", url.cldBase64UrlEncode())
+        }
+
+    }
     // MARK: Crop
     
     @objc public enum CLDCrop: Int, CustomStringConvertible {
