@@ -978,15 +978,15 @@ import Foundation
     }
 
     /**
-     Set a custom action, such as a call to a lambda function or a web-assembly function.
+     Set a custom function, such as a call to a lambda function or a web-assembly function.
 
-     - parameter action:    The custom action to perform, see CLDCustomFunction.
+     - parameter customFunction:    The custom function to perform, see CLDCustomFunction.
 
-     - returns:             The same instance of CLDTransformation.
+     - returns:                     The same instance of CLDTransformation.
      */
     @discardableResult
-    open func setCustomFunction(_ action: CLDCustomFunction) -> Self {
-        return setParam(TransformationParam.CUSTOM_FUNCTION, value: action.description)
+    open func setCustomFunction(_ customFunction: CLDCustomFunction) -> Self {
+        return setParam(TransformationParam.CUSTOM_FUNCTION, value: customFunction.description)
     }
 
     /**
@@ -1597,12 +1597,12 @@ import Foundation
     // MARK: CLDCustomFunction
 
     /**
-     Custom action configuration object
+     Custom function configuration object
      */
     @objc public class CLDCustomFunction: CLDBaseParam {
 
         /**
-         Build an instance of CLDCustomFunction configured for web-assembly custom action.
+         Build an instance of CLDCustomFunction configured for web-assembly custom function.
 
          - parameter publicId: Public id of the web assembly file.
          */
@@ -1611,7 +1611,7 @@ import Foundation
         }
 
         /**
-         Build an instance of CLDCustomFunction configured for remote lambda custom action.
+         Build an instance of CLDCustomFunction configured for remote lambda custom function.
 
          - parameter url: public url of the aws lambda function
          */
