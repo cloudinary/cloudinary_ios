@@ -1,4 +1,14 @@
 
+2.5.0 / 2018-11-05
+==================
+
+  * Migrate to Swift 4.2
+  * Add support for custom transformation functions
+  * Fix duplicate upload callbacks when using preprocessing
+  * Bump Alamofire to version to 4.7.3
+  * Add String extensions for base64 encoding
+  * Add `@discardableResult` annotations for uploadLarge methods
+
 2.4.0 / 2018-06-26
 ==================
 
