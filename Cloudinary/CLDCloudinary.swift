@@ -28,22 +28,22 @@ public typealias CLDCompletionHandler = (_ responseImage: UIImage?, _ error: NSE
 public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ error: NSError?) -> ()
 
 @objcMembers open class CLDCloudinary: NSObject {
-    
+
     /**
      Holds the configuration parameters to be used by the `CLDCloudinary` instance.
      */
     open fileprivate(set) var config: CLDConfiguration
-    
+
     /**
      The network coordinator coordinates between the SDK's API level classes to its network adapter layer.
      */
     fileprivate var networkCoordinator: CLDNetworkCoordinator
-    
-    
+
+
     // MARK: - SDK Configurations
-    
+
     // MARK: Log Level
-    
+
     /**
      Sets Cloudinary SDK's log level, default level is set to **None**.
      */
@@ -55,9 +55,9 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             CLDLogManager.minimumLogLevel = newValue
         }
     }
-    
+
     // MARK: Image Cache
-    
+
     /**
      Sets Cloudinary SDK's caching policy for images that are downloaded via the SDK's CLDDownloader.
      The options are: **None**, **Memory** and **Disk**. default is Disk
@@ -70,7 +70,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             CLDImageCache.defaultImageCache.cachePolicy = newValue
         }
     }
-    
+
     /**
      Sets Cloudinary SDK's image cache maximum disk capacity.
      default is 150 MB.     
@@ -83,7 +83,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             CLDImageCache.defaultImageCache.maxDiskCapacity = newValue
         }
     }
-    
+
     /**
      Sets Cloudinary SDK's image cache maximum memory total cost.
      default is 30 MB.
@@ -96,9 +96,19 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             CLDImageCache.defaultImageCache.maxMemoryTotalCost = newValue
         }
     }
-    
+
+    /**
+    Removes an image from the downloaded images cache, both disk and memory.
+
+    - parameter key:    The full url of the image to remove.
+
+    */
+    open func removeFromCache(key: String) {
+        CLDImageCache.defaultImageCache.removeCacheImageForKey(key)
+    }
+
     // MARK: - Init
-    
+
     /**
     Initializes the `CLDCloudinary` instance with the specified configuration and network adapter.
      
@@ -111,8 +121,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         config = configuration
         if let customNetworkAdapter = networkAdapter {
             networkCoordinator = CLDNetworkCoordinator(configuration: config, networkAdapter: customNetworkAdapter)
-        }
-        else {
+        } else {
             if let sessionConfiguration = sessionConfiguration {
                 networkCoordinator = CLDNetworkCoordinator(configuration: config, sessionConfiguration: sessionConfiguration)
             } else {
@@ -121,9 +130,9 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
         super.init()
     }
-    
+
     // MARK: Factory Methods
-    
+
     /**
     A factory method to create a new `CLDUrl` instance
     
@@ -132,7 +141,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     open func createUrl() -> CLDUrl {
         return CLDUrl(configuration: config)
     }
-    
+
     /**
      A factory method to create a new `CLDUploader` instance
      
@@ -141,7 +150,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     open func createUploader() -> CLDUploader {
         return CLDUploader(networkCoordinator: networkCoordinator)
     }
-    
+
     /**
      A factory method to create a new `CLDDownloader` instance
      
@@ -150,7 +159,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     open func createDownloader() -> CLDDownloader {
         return CLDDownloader(networkCoordinator: networkCoordinator)
     }
-    
+
     /**
      A factory method to create a new `CLDAdminApi` instance
      
@@ -161,7 +170,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     }
 
     // MARK: - Network Adapter
-    
+
     /**
     The maximum number of queued downloads that can execute at the same time.
     
@@ -173,9 +182,9 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     open func setMaxConcurrentDownloads(_ maxConcurrentDownloads: Int) {
         networkCoordinator.setMaxConcurrentDownloads(maxConcurrentDownloads)
     }
-    
+
     // MARK: Background Session
-    
+
     /**
         Set a completion handler provided by the UIApplicationDelegate `application:handleEventsForBackgroundURLSession:completionHandler:` method.
         The handler will be called automatically once the session finishes its events for background URL session.
@@ -186,7 +195,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     open func setBackgroundCompletionHandler(_ newValue: (() -> ())?) {
         networkCoordinator.setBackgroundCompletionHandler(newValue)
     }
-    
+
     // MARK: - Advanced
     /**
     Sets the "USER-AGENT" HTTP header on all network requests to be **"PlatformName/ver CloudinaryiOS/ver"**
@@ -195,5 +204,5 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     open func setUserPlatform(_ platformName: String, version: String) {
         config.setUserPlatform(platformName, version: version)
     }
-    
+
 }
