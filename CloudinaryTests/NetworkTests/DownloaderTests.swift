@@ -115,7 +115,23 @@ class DownloaderTests: NetworkBaseTest {
         waitForExpectations(timeout: timeout, handler: nil)
         
         XCTAssertEqual(response, responseCached, "Images should be same because responseCached get from cache")
+
+        expectation = self.expectation(description: "Download should succeed")
         
+        // remove from cache and re-download - image should be different:
+        cloudinary!.removeFromCache(key: url!)
+        cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+            responseCached = responseImage
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotEqual(response, responseCached, "Images should be differet because image was removed from cache")
+
+
         //Test without cache
         
         cloudinary!.cacheMaxMemoryTotalCost = 20
