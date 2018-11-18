@@ -64,20 +64,20 @@ The CLDSignature class represents a signature used to sign a URL request.
  */
 @objcMembers open class CLDAccessControlRule: NSObject, Codable {
     // MARK: Properties
-    
+
     internal var start: Date?
     internal var end: Date?
     internal var accessType: CLDAccessType
-    
+
     // MARK: Init
 
     /**
      Initializes the CLDAccessControlRule
-     
+
      - parameter accessType:    The access type for this rule
      - parameter start:         The start time for the rule
      - parameter end:           The end time for the rule
-     
+
      - returns:                 A new CLDaccessControlRule instance.
      */
     internal init(accessType: CLDAccessType, start: Date? = nil, end: Date? = nil) {
@@ -85,7 +85,7 @@ The CLDSignature class represents a signature used to sign a URL request.
         self.start = start
         self.end = end
     }
-    
+
     // MARK: Static builders
 
     /**
@@ -125,9 +125,9 @@ The CLDSignature class represents a signature used to sign a URL request.
     public static func anonymous(start: Date, end: Date)-> CLDAccessControlRule {
         return CLDAccessControlRule(accessType: CLDAccessType.anonymous, start: start, end: end)
     }
-    
+
     // MARK: Encodable
-    
+
     enum CodingKeys: String, CodingKey {
         case start
         case end
@@ -204,7 +204,6 @@ The CLDResponsiveBreakpoints class describe the settings available for configuri
 Responsive breakpoints is used to request Cloudinary to automatically find the best breakpoints.
 */
 @objcMembers open class CLDResponsiveBreakpoints: NSObject {
-    
     internal var params: [String: AnyObject] = [:]
     
     // MARK - Init
@@ -221,9 +220,9 @@ Responsive breakpoints is used to request Cloudinary to automatically find the b
         super.init()
         setParam(ResponsiveBreakpointsParams.CreateDerived.rawValue, value: createDerived as AnyObject?)
     }
-    
+
     // MARK - Set Param
-    
+
     /**
     Set the base transformation to first apply to the image before finding the best breakpoints.
     
@@ -232,10 +231,7 @@ Responsive breakpoints is used to request Cloudinary to automatically find the b
     - returns:                      The same CLDResponsiveBreakpoints instance.
     */
     open func setTransformations(_ transformation: CLDTransformation) -> Self {
-        if let trans = transformation.asString() {
-            setParam(ResponsiveBreakpointsParams.Transformation.rawValue, value: trans as AnyObject?)
-        }
-        return self
+        return setParam(ResponsiveBreakpointsParams.Transformation.rawValue, value: transformation.asString() as AnyObject)
     }
     
     /**
@@ -283,13 +279,39 @@ Responsive breakpoints is used to request Cloudinary to automatically find the b
     open func setMaxImages(_ maxImages: Int) -> Self {
         return setParam(ResponsiveBreakpointsParams.MaxImages.rawValue, value: maxImages as AnyObject?)
     }
-    
+
+    /**
+     Set the format of the resulting images.
+
+     - parameter format:          The format to set.
+
+     - returns:                   The same CLDResponsiveBreakpoints instance.
+     */
+    open func setFormat(_ format: String) -> Self {
+        return setParam(ResponsiveBreakpointsParams.Format.rawValue, value: format as AnyObject)
+    }
+
     @discardableResult
     open func setParam(_ key: String, value: AnyObject?) -> Self {
         params[key] = value
         return self
     }
-    
+
+    open override var description: String {
+        get {
+            var components: [String] = []
+            for param in params {
+                if param.value is Int || param.value is Bool {
+                    components.append("\"\(param.key)\":\(param.value)")
+                } else {
+                    components.append("\"\(param.key)\":\"\(param.value)\"")
+                }
+            }
+
+            return "{\(components.joined(separator: ","))}"
+        }
+    }
+
     
     fileprivate enum ResponsiveBreakpointsParams: String, CustomStringConvertible {
         case CreateDerived =                "create_derived"
@@ -298,7 +320,8 @@ Responsive breakpoints is used to request Cloudinary to automatically find the b
         case MinWidth =                     "min_width"
         case BytesStep =                    "bytes_step"
         case MaxImages =                    "max_images"
-        
+        case Format =                       "format"
+
         var description: String {
             get {
                 switch self {
@@ -308,6 +331,7 @@ Responsive breakpoints is used to request Cloudinary to automatically find the b
                 case .MinWidth:              return "min_width"
                 case .BytesStep:             return "bytes_step"
                 case .MaxImages:             return "max_images"
+                case .Format:                return "format"
                 }
             }
         }
