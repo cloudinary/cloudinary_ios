@@ -121,6 +121,9 @@ internal class CLDNetworkCoordinator {
         else {
             userAgent = "CloudinaryiOS/\(getVersion())"
         }
+
+        userAgent += " (\(UIDevice.current.model); \(UIDevice.current.systemName) \(UIDevice.current.systemVersion))"
+
         headers["User-Agent"] = userAgent
         headers["X-Requested-With"] = "XMLHttpRequest"
 
