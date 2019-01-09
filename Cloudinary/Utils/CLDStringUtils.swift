@@ -97,6 +97,10 @@ internal extension String {
         }
         return false
     }
+    
+    internal func cldIsRemoteUrl() -> Bool {
+        return self.range(of: "^ftp:|^https?:|^s3:|^gs:|^data:[^;]*;base64,([a-zA-Z0-9/+\n=]+)$", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) != nil
+    }
 }
 
 internal extension String.Index{
