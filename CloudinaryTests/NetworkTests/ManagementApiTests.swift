@@ -135,6 +135,38 @@ class ManagementApiTests: NetworkBaseTest {
         }
     }
     
+    func testExplicitAsync(){
+        let expectation = self.expectation(description: "Explicit should succeed")
+        
+        var result: CLDExplicitResult?
+        var error: Error?
+
+        let trans = CLDTransformation().setCrop(.scale).setWidth(2.0)
+        let resource = TestResourceType.borderCollie
+        uploadFile(resource).response({ (uploadResult, uploadError) in
+            if let pubId = uploadResult?.publicId {
+                let params = CLDExplicitRequestParams()
+                    .setEager([trans])
+                    .setAsync(true)
+                
+                self.cloudinary!.createManagementApi().explicit(pubId, type: .upload, params: params, completionHandler: { (resultRes, errorRes) in
+                    result = resultRes
+                    expectation.fulfill()
+                })
+            }
+            else {
+                error = uploadError
+                expectation.fulfill()
+            }
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "response should not be nil")
+        XCTAssertEqual(result?.resultJson["status"] as? String, "pending")
+    }
+    
     func testTags() {
         
         var expectation = self.expectation(description: "Adding a tag should succeed")
