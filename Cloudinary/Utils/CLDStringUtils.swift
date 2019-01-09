@@ -46,6 +46,17 @@ internal extension Float {
     func cldFormat(f: String) -> String {
         return String(format: "%\(f)f", self)
     }
+
+    /**
+        Returns an string using int format if the float is an integer value or the
+        full float if it isn't:
+        23.5 => "23.5"
+        23.5123 => "23.5123"
+        23 => "23"
+    */
+    func cldCleanFormat() -> String {
+        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self);
+    }
 }
 
 internal extension String {

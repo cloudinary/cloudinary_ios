@@ -1360,6 +1360,44 @@ import Foundation
     }
     
     /**
+     Set the frames-per-second of the video.
+     
+     - parameter fps: A CLDFps configured with the required parameters (see CLDFps for details).
+     
+     - returns:                     The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setFps(_ fps: CLDFps) -> Self {
+        return setParam(TransformationParam.FPS, value: fps.description)
+    }
+    
+    /**
+     Set the frames-per-second of the video.
+     
+     - parameter fps: Frames per second as string.
+     
+     - returns:     The same instance of CLDTransformation.
+     */
+    @discardableResult
+    @objc(setFpsWithString:)
+    open func setFps(_ fps: String) -> Self {
+        return setFps(CLDFps.fromString(fps))
+    }
+    
+    /**
+     Set the frames-per-second of the video.
+     
+     - parameter fps: Frames per seconds as float.
+     
+     - returns:     The same instance of CLDTransformation.
+     */
+    @discardableResult
+    @objc(setFpsWithFloat:)
+    open func setFps(_ fps: Float) -> Self {
+        return setFps(CLDFps.fromFloat(fps))
+    }
+    
+    /**
      Set an overlay using the helper class CLDLayer.
      
      - parameter layer:     The layer to add as an overlay.
@@ -1513,6 +1551,7 @@ import Foundation
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
         case KEYFRAME_INTERVAL =            "ki"
+        case FPS =                          "fps"
     }
 
 
@@ -1620,6 +1659,52 @@ import Foundation
         }
 
     }
+    
+    // MARK: FPS
+    /**
+     FPS parameters configuration object. For simple cases you can pass a float/string
+     directly to CLDTransformation.setFps(). This class is used for more complex values (e.g. ranges).
+    */
+    @objc public class CLDFps: CLDBaseParam{
+        /**
+         Build an instance of CLDFps based on a string.
+         
+         - parameter fps: The fps value as string
+         */
+        public static func fromString(_ fps: String) -> CLDFps {
+            return CLDFps(fps);
+        }
+        
+        /**
+         Build an instance of CLDFps based on a float.
+         
+         - parameter fps: The fps value as float
+         */
+        public static func fromFloat(_ fps: Float) -> CLDFps {
+            return CLDFps(fps.cldCleanFormat());
+        }
+        
+        /**
+         Build an instance of CLDFps based on a range of string values. Note: At least one parameter must not be nil.
+         
+         - parameter start: The fps start value as string
+         - parameter start: The fps end value as string
+         */
+        public static func range(start: String? = nil, end: String? = nil) -> CLDFps {
+            return CLDFps("\(start ?? "")-\(end ?? "")");
+        }
+        
+        /**
+         Build an instance of CLDFps based on a range of float values. Note: At least one parameter must not be nil.
+         
+         - parameter start: The fps start value as float
+         - parameter start: The fps end value as float
+         */
+        public static func range(start: Float? = nil, end: Float? = nil) -> CLDFps {
+            return CLDFps("\(start?.cldCleanFormat() ?? "")-\(end?.cldCleanFormat() ?? "")");
+        }
+    }
+    
     // MARK: Crop
     
     @objc public enum CLDCrop: Int, CustomStringConvertible {
