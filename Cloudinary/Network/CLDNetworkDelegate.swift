@@ -68,7 +68,7 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
             if let data = data as? Data {
                 multipartFormData.append(data, withName: "file", fileName: "file", mimeType: "application/octet-stream")
             } else if let url = data as? URL {
-                if url.absoluteString.range(of: "^ftp:|^https?:|^s3:|^data:[^;]*;base64,([a-zA-Z0-9/+\n=]+)$", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) != nil {
+                if url.absoluteString.range(of: "^ftp:|^https?:|^s3:|^gs:|^data:[^;]*;base64,([a-zA-Z0-9/+\n=]+)$", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) != nil {
                     if let urlAsData = url.absoluteString.data(using: String.Encoding.utf8) {
                         multipartFormData.append(urlAsData, withName: "file")
                     }
