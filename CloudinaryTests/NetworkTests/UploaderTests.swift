@@ -405,6 +405,30 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
 
     }
+    
+    func testUploadLargeRemoteUrl() {
+        
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload should succeed")
+        
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        let params = CLDUploadRequestParams()
+        cloudinary!.createUploader().signedUploadLarge(url: URL(string: "http://cloudinary.com/images/old_logo.png")!, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+        
+    }
 
 
     func testUseFilename() {

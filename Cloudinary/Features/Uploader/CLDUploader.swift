@@ -283,6 +283,11 @@ The URL can either be of a local file (i.e. from the bundle) or can point to a r
     fileprivate func performUploadLarge<T>(url: URL, params: CLDUploadRequestParams, preprocessChain: CLDPreprocessChain<T>, chunkSize: Int, progress: ((Progress) -> Void)? = nil,
                                         completionHandler: CLDUploadCompletionHandler? = nil) -> CLDUploadRequest {
 
+        if (url.absoluteString.cldIsRemoteUrl()){
+            // send the request to the regular upload function (that handles remote urls)
+            return performUpload(data: url, params: params, preprocessChain: preprocessChain)
+        }
+        
         let uploadRequest = CLDUploadRequestWrapper()
         
         if let handler = completionHandler {
