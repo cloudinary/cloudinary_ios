@@ -1,4 +1,20 @@
 
+2.6.0 / 2019-01-29
+==================
+
+New functionality
+-----------------
+  * Add support for google storage (`gs://`) urls in uploader. (#184)
+  * Add support for `fps` parameter in Transformations. (#182)
+  * Add format field to responsive breakpoints in upload params (#152)
+  * Add `removeFromCache` to `CLDCloudinary`
+
+Other changes
+-------------
+  * Bump Alamofire version to 4.8.1
+  * Add device and os data to user agent. (#180)
+  * Remove duplicate Alamofire reference
+  
 2.5.0 / 2018-11-05
 ==================
 
