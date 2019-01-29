@@ -94,7 +94,7 @@ The Cloudinary iOS SDK depends on [Alamofire](https://github.com/Alamofire/Alamo
 
 Here's the steps to get the framework project to build, in case you want to work on the project itself.
 
-After cloning the repository, you will need to add Alamofire v4.7.3, there are several ways to do so:
+After cloning the repository, you will need to add Alamofire v4.8.1, there are several ways to do so:
 
 ##### Submodule
 
@@ -111,7 +111,7 @@ git submodule update --init Alamofire
 
 ##### Download source
 
-You can download Alamofire v4.7.3 from [here](https://github.com/Alamofire/Alamofire/archive/4.7.3.zip). Then follow the instruction in [Add library](#add-library).
+You can download Alamofire v4.8.1 from [here](https://github.com/Alamofire/Alamofire/archive/4.8.1.zip). Then follow the instruction in [Add library](#add-library).
 
 ## Usage
 
