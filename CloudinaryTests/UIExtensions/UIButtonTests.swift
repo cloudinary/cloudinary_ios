@@ -150,12 +150,12 @@ class UIButtonTests: UIBaseTest {
             fatalError("init(coder:) has not been implemented")
         }
         
-        fileprivate override func setImage(_ image: UIImage?, for state: UIControlState) {
+        fileprivate override func setImage(_ image: UIImage?, for state: UIControl.State) {
             super.setImage(image, for: state)
             imageSetListener?(image)
         }
         
-        fileprivate override func setBackgroundImage(_ image: UIImage?, for state: UIControlState) {
+        fileprivate override func setBackgroundImage(_ image: UIImage?, for state: UIControl.State) {
             super.setBackgroundImage(image, for: state)
             imageSetListener?(image)
         }
