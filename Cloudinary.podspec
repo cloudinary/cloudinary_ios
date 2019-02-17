@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.author       = { "Cloudinary" => "info@cloudinary.com" }
   s.platform     = :ios
   s.ios.deployment_target = '8.0'
+  s.swift_version = '4.2'
 
   s.source       = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => s.version.to_s }
 
