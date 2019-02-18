@@ -1454,6 +1454,10 @@ import Foundation
         return setParam(TransformationParam.KEYFRAME_INTERVAL, value: interval)
     }
 
+    @discardableResult
+    open func setStreamingProfile(_ streamingProfile: String) -> Self {
+        return setParam(TransformationParam.STREAMING_PROFILE, value: streamingProfile)
+    }
     
     // MARK: - Actions
     
@@ -1552,6 +1556,7 @@ import Foundation
         case RAW_TRANSFORMATION =           "raw_transformation"
         case KEYFRAME_INTERVAL =            "ki"
         case FPS =                          "fps"
+        case STREAMING_PROFILE =             "sp"
     }
 
 

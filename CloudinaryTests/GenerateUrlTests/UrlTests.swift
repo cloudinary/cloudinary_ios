@@ -557,6 +557,10 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(CLDTransformation().setFps(.range (end: "29.97")).asString() ,"fps_-29.97")
     }
     
+    func testEagerWithStreamingProfile(){
+        XCTAssertEqual(CLDEagerTransformation().setFormat("m3u8").setStreamingProfile("full_hd").asString(), "sp_full_hd/m3u8")
+    }
+    
     func testInitialHeightWidth() {
         XCTAssertEqual(CLDTransformation().setWidth("iw").setHeight("ih").setCrop(.crop).asString() ,"c_crop,h_ih,w_iw")
     }
