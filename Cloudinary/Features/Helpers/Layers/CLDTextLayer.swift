@@ -410,19 +410,39 @@ import Foundation
         return properties
     }
     
+    /// Text layer font antialiasing methods
     public enum CLDFontAntialiasing: String {
+        /// Use a bi-level alpha mask.
         case NONE = "none"
+        
+        /// Perform single-color antialiasing. For example, using shades of gray for black text on a white background.
         case GRAY = "gray"
+        
+        /// Perform antialiasing by taking advantage of the order of subpixel elements on devices such as LCD panels.
         case SUBPIXEL = "subpixel"
+        
+        /// Some antialiasing is performed, but speed is prioritized over quality.
         case FAST = "fast"
+        
+        /// Antialiasing that balances quality and performance.
         case GOOD = "good"
+        
+        /// Renders at the highest quality, sacrificing speed if necessary.
         case BEST = "best"
     }
     
+    /// Text layer font hinting methods
     public enum CLDFontHinting: String {
+        /// Do not hint outlines.
         case NONE = "none"
+        
+        /// Hint outlines slightly to improve contrast while retaining good fidelity to the original shapes.
         case SLIGHT = "slight"
+        
+        /// Hint outlines with medium strength, providing a compromise between fidelity to the original shapes and contrast.
         case MEDIUM = "medium"
+        
+        /// Hint outlines to the maximize contrast.
         case FULL = "full"
     }
 }
