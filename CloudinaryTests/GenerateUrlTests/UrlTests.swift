@@ -529,6 +529,12 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setPublicId(publicId: "sample_sub_en.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:sample_sub_en.srt/test")
 
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily: "Arial").setFontSize(40).setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40:sample_sub_he.srt/test")
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily:"Arial").setFontSize(40).setFontAntialiasing(CLDTextLayer.CLDFontAntialiasing.FAST)
+            .setFontHinting(CLDTextLayer.CLDFontHinting.MEDIUM).setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40_antialias_fast_hinting_medium:sample_sub_he.srt/test")
+
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily:"Arial").setFontSize(40).setFontAntialiasing("fast")
+            .setFontHinting("medium").setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40_antialias_fast_hinting_medium:sample_sub_he.srt/test")
     }
 
     func testOverlayErrors() {

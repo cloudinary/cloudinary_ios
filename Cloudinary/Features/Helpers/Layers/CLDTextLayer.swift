@@ -36,6 +36,8 @@ import Foundation
     internal var stroke: String?
     internal var letterSpacing: String?
     internal var lineSpacing: String?
+    internal var fontAntialiasing: String?
+    internal var fontHinting: String?
     
     // MARK: - Init
     
@@ -266,6 +268,56 @@ import Foundation
         return self
     }
     
+    /**
+     Set the antialiasing of the text layer rendering
+     
+     - parameter antialiasing:          The antialiasing method
+     
+     - returns:                         The same instance of CLDTextLayer.
+     */
+    @objc(setFontAntialiasingString:)
+    open func setFontAntialiasing(_ antialiasing: String) -> CLDTextLayer {
+        self.fontAntialiasing = antialiasing
+        return self
+    }
+    
+    /**
+     Set the antialiasing of the text layer rendering
+     
+     - parameter antialiasing:          The antialiasing method
+     
+     - returns:                         The same instance of CLDTextLayer.
+     */
+    open func setFontAntialiasing(_ antialiasing: CLDFontAntialiasing) -> CLDTextLayer {
+        self.fontAntialiasing = antialiasing.rawValue
+        return self
+    }
+    
+    /**
+     Set the text rendering hinting
+     
+     - parameter hinting:          The hinting method
+     
+     - returns:                    The same instance of CLDTextLayer.
+     */
+    @objc (setFontHintingString:)
+    open func setFontHinting(_ hinting: String) -> CLDTextLayer{
+        self.fontHinting = hinting
+        return self
+    }
+    
+    /**
+     Set the text rendering hinting
+     
+     - parameter hinting:          The hinting method
+     
+     - returns:                    The same instance of CLDTextLayer.
+     */
+    open func setFontHinting(_ hinting: CLDFontHinting) -> CLDTextLayer{
+        self.fontHinting = hinting.rawValue
+        return self
+    }
+    
     // MARK: - Actions
     
     internal override func getStringComponents() -> [String]? {
@@ -319,6 +371,12 @@ import Foundation
         if let fontStyle = fontStyle , fontStyle != "normal" {
             properties.append(fontStyle)
         }
+        if let antialiasing = fontAntialiasing, !antialiasing.isEmpty {
+            properties.append("antialias_\(antialiasing)")
+        }
+        if let hinting = fontHinting, !hinting.isEmpty {
+            properties.append("hinting_\(hinting)")
+        }
         if let textDecoration = textDecoration , textDecoration != "none" {
             properties.append(textDecoration)
         }
@@ -350,5 +408,21 @@ import Foundation
         }
         
         return properties
+    }
+    
+    public enum CLDFontAntialiasing: String {
+        case NONE = "none"
+        case GRAY = "gray"
+        case SUBPIXEL = "subpixel"
+        case FAST = "fast"
+        case GOOD = "good"
+        case BEST = "best"
+    }
+    
+    public enum CLDFontHinting: String {
+        case NONE = "none"
+        case SLIGHT = "slight"
+        case MEDIUM = "medium"
+        case FULL = "full"
     }
 }
