@@ -203,9 +203,14 @@ import Foundation
         return getParam(.Headers) as? String
     }
     
+    open var qualityAnalysis: Bool? {
+        return getParam(.QualityAnalysis) as? Bool
+    }
+    
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
         return params[param.rawValue] as AnyObject
     }
+    
     
     // MARK: Set Simple Params
     
@@ -619,6 +624,20 @@ import Foundation
     }
     
     /**
+     Set a boolean parameter indicating whether to return quality analysis of the image.
+     Default: false.
+     
+     - parameter qualityAnalysis:     The boolean parameter.
+     
+     - returns:                       The same instance of CLDExplicitRequestParams.
+     */
+    @discardableResult
+    open func setQualityAnalysis(_ qualityAnalysis: Bool) -> Self {
+        setBoolParam(.QualityAnalysis, value: qualityAnalysis)
+        return self
+    }
+    
+    /**
     A setter for any one of the simple boolean parameters. This is used to normalize boolean values in requests
     to be consistent across different platforms.
     
@@ -967,7 +986,7 @@ import Foundation
         case Overwrite =                            "overwrite"
         case Phash =                                "phash"
         case ReturnDeleteToken =                    "return_delete_token"
-        
+        case QualityAnalysis =                      "quality_analysis"
         
         case Transformation =                       "transformation"
         case Tags =                                 "tags"
