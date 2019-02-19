@@ -89,7 +89,7 @@ import Foundation
 
     open var accessControl: ([CLDAccessControlRule])? {
         if let rules = getParam(.accessControl) as? [[String: String]] {
-            let result:[CLDAccessControlRule] = rules.flatMap{fromJson(object: $0)}
+            let result:[CLDAccessControlRule] = rules.compactMap{fromJson(object: $0)}
             if !result.isEmpty {
                 return result
             }
@@ -195,6 +195,10 @@ import Foundation
     
     open var done: Bool? {
         return getParam(.done) as? Bool
+    }
+    
+    open var qualityAnalysis: [String : AnyObject]? {
+        return getParam(.qualityAnalysis) as? [String : AnyObject]
     }
 
     // MARK: - Private Helpers
