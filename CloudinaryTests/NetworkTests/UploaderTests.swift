@@ -870,6 +870,28 @@ class UploaderTests: NetworkBaseTest {
             XCTFail("Error should hold a message in its user info.")
         }
     }
+    
+    func testCldIsRemoteUrl(){
+        let remoteUrls = [
+            "ftp://ftp.cloudinary.com/images/old_logo.png",
+            "http://cloudinary.com/images/old_logo.png",
+            "https://cloudinary.com/images/old_logo.png",
+            "s3://s3-us-west-2.amazonaws.com/cloudinary/images/old_logo.png",
+            "gs://cloudinary/images/old_logo.png",
+            "data:image/gif;charset=utf-8;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+            "data:image/gif;param1=value1;param2=value2;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        ]
+        
+        remoteUrls.forEach({XCTAssertTrue($0.cldIsRemoteUrl())})
+        
+        let notRemoteUrls = [
+            "not a remote url",
+            "http/almost",
+            ""
+        ]
+        
+        notRemoteUrls.forEach({XCTAssertFalse($0.cldIsRemoteUrl())})
+    }
 
     //MARK: - Helpers
 
