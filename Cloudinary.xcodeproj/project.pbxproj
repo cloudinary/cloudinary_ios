@@ -30,6 +30,7 @@
 		1EBA5037200DFA070012305F /* CLDResponsiveParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA5036200DFA070012305F /* CLDResponsiveParams.swift */; };
 		1EBB2EE0202366E000276461 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1EBB2EDF202366E000276461 /* .travis.yml */; };
 		1EF7B2E921AAB20F004B6720 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED714DB1FBDB57B00C5367C /* Alamofire.framework */; };
+		1EF9138B221C44AC00A50866 /* CLDFetchLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF9138A221C44AC00A50866 /* CLDFetchLayer.swift */; };
 		2936A50D1E1D92A5009B7FAF /* Cloudinary.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2936A50C1E1D92A5009B7FAF /* Cloudinary.podspec */; };
 		2936A58E1E1EFF95009B7FAF /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 2936A58C1E1EFF95009B7FAF /* LICENCE */; };
 		2936A58F1E1EFF95009B7FAF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2936A58D1E1EFF95009B7FAF /* README.md */; };
@@ -268,6 +269,7 @@
 		1EBA5036200DFA070012305F /* CLDResponsiveParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDResponsiveParams.swift; sourceTree = "<group>"; };
 		1EBB2EDF202366E000276461 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		1ED714C71FBDB57B00C5367C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		1EF9138A221C44AC00A50866 /* CLDFetchLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDFetchLayer.swift; sourceTree = "<group>"; };
 		2936A50C1E1D92A5009B7FAF /* Cloudinary.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cloudinary.podspec; sourceTree = "<group>"; };
 		2936A58C1E1EFF95009B7FAF /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		2936A58D1E1EFF95009B7FAF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -859,6 +861,7 @@
 				36B7FAD11D3E8093008754EF /* CLDLayer.swift */,
 				36B7FAD31D3E80A9008754EF /* CLDTextLayer.swift */,
 				36B7FAD51D3E80BF008754EF /* CLDSubtitlesLayer.swift */,
+				1EF9138A221C44AC00A50866 /* CLDFetchLayer.swift */,
 			);
 			name = Layers;
 			path = Features/Helpers/Layers;
@@ -1178,6 +1181,7 @@
 			files = (
 				36D00E1D1D9D827F00BF4DD5 /* CLDRekognitionFace.swift in Sources */,
 				36C20DC11C936E10006EB15A /* CLDNetworkCoordinator.swift in Sources */,
+				1EF9138B221C44AC00A50866 /* CLDFetchLayer.swift in Sources */,
 				36AC051B1D4F8C20002FC9DF /* CLDSpriteResult.swift in Sources */,
 				860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */,
 				36AC05191D4F8B75002FC9DF /* CLDRenameRequest.swift in Sources */,

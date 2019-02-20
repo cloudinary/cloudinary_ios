@@ -535,6 +535,9 @@ class UrlTests: XCTestCase {
 
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily:"Arial").setFontSize(40).setFontAntialiasing("fast")
             .setFontHinting("medium").setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40_antialias_fast_hinting_medium:sample_sub_he.srt/test")
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDFetchLayer(url: "https://res.cloudinary.com/demo/image/upload/sample"))).generate("test"),
+                       "\(prefix)/image/upload/l_fetch:aHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZGVtby9pbWFnZS91cGxvYWQvc2FtcGxl/test")
     }
 
     func testOverlayErrors() {
