@@ -100,7 +100,7 @@ import Foundation
     /**
     Set the media source of the URL.
     
-    - parameter type:       the media source to set.
+    - parameter publicId:    the media source to set.
     
     - returns:               the same instance of CLDUrl.
     */
@@ -173,7 +173,7 @@ import Foundation
     /**
      Set the version of the asset the URL points to.
      
-     - parameter format:            the format to set.
+     - parameter version:            the version to set.
      
      - returns:                      the same instance of CLDUrl.
      */

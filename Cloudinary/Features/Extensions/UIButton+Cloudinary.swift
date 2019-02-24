@@ -33,8 +33,6 @@ public extension UIButton {
      - parameter url:               The image URL to download.
      - parameter state:             The UIButton's UIControlState state that uses the specified image.
      - parameter placeholder:       A placeholder image to be set as the image untill the asynchronus download request finishes.
-     - parameter networkAdapter:    A network adapter that implements `CLDNetworkAdapter`.
-     CLDNetworkDelegate() by default.
      
      */
     @objc public func cldSetImage(_ url: String, forState state: UIControl.State, cloudinary: CLDCloudinary, placeholder: UIImage? = nil) {
@@ -85,8 +83,6 @@ public extension UIButton {
      - parameter url:               The image URL to download.
      - parameter state:             The UIButton's UIControlState state that uses the specified image.
      - parameter placeholder:       A placeholder image to be set as the background image untill the asynchronus download request finishes.
-     - parameter networkAdapter:    A network adapter that implements `CLDNetworkAdapter`.
-                                    CLDNetworkDelegate() by default.
      
     */
     @objc public func cld_setBackgroundImage(_ url: String, forState state: UIControl.State, cloudinary: CLDCloudinary, placeholder: UIImage? = nil) {
