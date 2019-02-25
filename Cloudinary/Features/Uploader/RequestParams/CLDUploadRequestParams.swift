@@ -900,7 +900,7 @@ import Foundation
     }
     
     /**
-     Set quality for the resource
+     Override quality settings for the resource
      
      - parameter quality:           The quality configuration instance, see CLDQuality.
      
@@ -915,8 +915,8 @@ import Foundation
     }
     
     /**
-     Set quality for the resource
-     
+     Override quality settings for the resource
+
      - parameter quality:           The quality as a string.
      
      - returns:                     The same instance of CLDUploadRequestParams.
