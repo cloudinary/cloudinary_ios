@@ -79,7 +79,7 @@ import Foundation
     /**
      Set a progress closure that is called periodically during the data transfer.
      
-     - parameter progressBlock:          The closure that is called periodically during the data transfer.
+     - parameter progress:               The closure that is called periodically during the data transfer.
      
      - returns:                          The same instance of CLDUploadRequest.
      */

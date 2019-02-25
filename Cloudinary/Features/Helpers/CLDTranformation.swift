@@ -383,7 +383,7 @@ import Foundation
      The value includes the name of the effect and an additional parameter that controls the behavior of the specific effect.
      
      - parameter effect:        The effect to apply.
-     - parameter effectParam:   The effect value to apply.
+     - parameter param:   The effect value to apply.
      
      - returns:             The same instance of CLDTransformation.
      */
@@ -398,7 +398,7 @@ import Foundation
      The value includes the name of the effect and an additional parameter that controls the behavior of the specific effect.
      
      - parameter effect:        The effect to apply.
-     - parameter effectParam:   The effect value to apply.
+     - parameter param:   The effect value to apply.
      
      - returns:             The same instance of CLDTransformation.
      */
@@ -453,8 +453,8 @@ import Foundation
      - returns:             The same instance of CLDTransformation.
      */
     @discardableResult
-    open func setAngle(_ angles: String) -> Self {
-        return setParam(TransformationParam.ANGLE, value: angles)
+    open func setAngle(_ angle: String) -> Self {
+        return setParam(TransformationParam.ANGLE, value: angle)
     }
     
     /**
@@ -941,7 +941,7 @@ import Foundation
      This parameter is used together with a specified crop mode that determines how the image is adjusted to the new dimensions.
      
      - parameter nominator:     The nominator ot use.
-     - parameter dominator:     The dominator ot use.
+     - parameter denominator:   The dominator ot use.
      
      - returns:                 The same instance of CLDTransformation.
      */

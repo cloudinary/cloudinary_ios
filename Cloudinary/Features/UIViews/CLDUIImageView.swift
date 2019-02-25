@@ -39,7 +39,7 @@ import UIKit
      - parameter cloudinary:        An instance of CLDCloudinary.
      - parameter signUrl:           A boolean parameter indicating whether or not to generate a signature out of the API secret and add it to the generated URL. Default is false.
      - parameter resourceType       The resource type of the image to download (can be useful to display video frames for thumbnails).
-     - parameter responsive         An instance of CLDResponsiveParams to configure fetching a pre-scaled image to fit in the UIImageView.
+     - parameter responsiveParams   An instance of CLDResponsiveParams to configure fetching a pre-scaled image to fit in the UIImageView.
      - parameter transformation:    An instance of CLDTransformation.
      - parameter placeholder:       A placeholder image to be set as the background image until the asynchronus download request finishes.
      

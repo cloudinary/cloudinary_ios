@@ -111,7 +111,7 @@ import Foundation
     /**
      Set the layer type.
      
-     - parameter type:  The layer type.
+     - parameter rawType:  The layer type.
      
      - returns:         The same instance of CLDLayer.
      */
