@@ -900,6 +900,36 @@ import Foundation
     }
     
     /**
+     Override quality settings for the resource
+     
+     - parameter quality:           The quality configuration instance, see CLDQuality.
+     
+     - returns:                     The same instance of CLDUploadRequestParams.
+     
+     */
+    @objc(setQualityOverrideFromQuality:)
+    @discardableResult
+    open func setQualityOverride(_ quality: CLDTransformation.CLDQuality) -> Self {
+        setParam(UploadRequestParams.QualityOverride.rawValue, value: quality.description)
+        return self
+    }
+    
+    /**
+     Override quality settings for the resource
+
+     - parameter quality:           The quality as a string.
+     
+     - returns:                     The same instance of CLDUploadRequestParams.
+     
+     */
+    @objc(setQualityOverrideFromString:)
+    @discardableResult
+    open func setQualityOverride(_ quality: String) -> Self {
+        setParam(UploadRequestParams.QualityOverride.rawValue, value: quality)
+        return self
+    }
+    
+    /**
      Set an array of headers lines for returning as response HTTP headers when delivering the uploaded resource to your users.
      Supported headers: `Link, X-Robots-Tag`. 
      For example: `X-Robots-Tag: noindex`.
@@ -970,6 +1000,7 @@ import Foundation
         case AutoTagging =                          "auto_tagging"
         case UploadPreset =                         "upload_preset"
         case AccessControl =                        "access_control"
+        case QualityOverride =                      "quality_override"
         
         // Boolean params
         case Backup =                               "backup"

@@ -918,9 +918,66 @@ class UploaderTests: NetworkBaseTest {
         
         notRemoteUrls.forEach({XCTAssertFalse($0.cldIsRemoteUrl())})
     }
+    
+    func testQualityOverride(){
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        let result = uploadResource()
+        
+        validateQualityOverride(publicId: result.publicId!, quality: "80", shouldSucceed: true)
+        validateQualityOverride(publicId: result.publicId!, quality: "80:420", shouldSucceed: true)
+        validateQualityOverride(publicId: result.publicId!, quality: "80:421", shouldSucceed: false)
+        validateQualityOverride(publicId: result.publicId!, quality: "auto:best", shouldSucceed: true)
+        validateQualityOverride(publicId: result.publicId!, quality: "auto:advanced", shouldSucceed: false)
+        validateQualityOverride(publicId: result.publicId!, quality: "none", shouldSucceed: true)
+    }
 
     //MARK: - Helpers
 
+    func uploadResource() -> CLDUploadResult {
+        let expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        
+        cloudinary!.createUploader().signedUpload(url: file, params: CLDUploadRequestParams())
+            .response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            if let error = error {
+                print(error)
+            }
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        XCTAssertNotNil(result, "result should not be nil")
+        
+        return result!
+    }
+    
+    func validateQualityOverride(publicId: String, quality: String, shouldSucceed: Bool){
+
+        let qualityOverrideExpectation = self.expectation(description: "Explicit call with quality override should succeed")
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        let params = CLDExplicitRequestParams().setQualityOverride(quality)
+        cloudinary!.createManagementApi().explicit(publicId, type: "upload", params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            if let error = error {
+                print(error)
+            }
+            qualityOverrideExpectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        let notNil = shouldSucceed ? result : error
+        XCTAssertNotNil(notNil, "quality \(quality) should \(shouldSucceed ? "succeed" : "fail")")
+    }
+    
     func createUploadPresetIfNeeded(_ uploadPresetUrl: String, presetName: String) {
         let semaphore = DispatchSemaphore(value: 0)
         if let url = URL(string: "\(uploadPresetUrl)/\(presetName)") {
