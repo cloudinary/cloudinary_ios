@@ -921,14 +921,28 @@ class UploaderTests: NetworkBaseTest {
     
     func testQualityOverride(){
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        let result = uploadResource()
+        
+        validateQualityOverride(publicId: result.publicId!, quality: "80", shouldSucceed: true)
+        validateQualityOverride(publicId: result.publicId!, quality: "80:420", shouldSucceed: true)
+        validateQualityOverride(publicId: result.publicId!, quality: "80:421", shouldSucceed: false)
+        validateQualityOverride(publicId: result.publicId!, quality: "auto:best", shouldSucceed: true)
+        validateQualityOverride(publicId: result.publicId!, quality: "auto:advanced", shouldSucceed: false)
+        validateQualityOverride(publicId: result.publicId!, quality: "none", shouldSucceed: true)
+    }
+
+    //MARK: - Helpers
+
+    func uploadResource() -> CLDUploadResult {
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
         var error: NSError?
         
-
-        cloudinary!.createUploader().signedUpload(url: file, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
+        
+        cloudinary!.createUploader().signedUpload(url: file, params: CLDUploadRequestParams())
+            .response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
             if let error = error {
@@ -940,19 +954,10 @@ class UploaderTests: NetworkBaseTest {
         waitForExpectations(timeout: timeout, handler: nil)
         XCTAssertNotNil(result, "result should not be nil")
         
-
-        validateQualityOverrideResponse(publicId: result!.publicId!, quality: "80:420", shouldSucceed: true)
-        validateQualityOverrideResponse(publicId: result!.publicId!, quality: "80:421", shouldSucceed: false)
-        
-        validateQualityOverrideResponse(publicId: result!.publicId!, quality: "auto:best", shouldSucceed: true)
-        validateQualityOverrideResponse(publicId: result!.publicId!, quality: "auto:advanced", shouldSucceed: false)
-        
-        validateQualityOverrideResponse(publicId: result!.publicId!, quality: "none", shouldSucceed: true)
+        return result!
     }
-
-    //MARK: - Helpers
-
-    func validateQualityOverrideResponse(publicId: String, quality: String, shouldSucceed: Bool){
+    
+    func validateQualityOverride(publicId: String, quality: String, shouldSucceed: Bool){
 
         let qualityOverrideExpectation = self.expectation(description: "Explicit call with quality override should succeed")
         var result: CLDUploadResult?
