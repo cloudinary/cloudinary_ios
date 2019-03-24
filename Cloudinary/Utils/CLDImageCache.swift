@@ -54,7 +54,6 @@ internal class CLDImageCache {
     
     fileprivate let diskCacheDir: String
     
-    
     // Disk Size Control
     internal var maxDiskCapacity: UInt64 = UInt64(Defines.defaultMaxDiskCapacity) {
         didSet {
@@ -73,7 +72,10 @@ internal class CLDImageCache {
         
         let cacheName = "\(Defines.cacheBaseName).\(name)"
         memoryCache.name = cacheName
-        
+
+        // We have to set this manually here since `maxMemoryTotalCost.didSet()` is never triggered during init
+        memoryCache.totalCostLimit = maxMemoryTotalCost
+
         let diskPath = diskCachePath ?? NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
         diskCacheDir = diskPath.cldStringByAppendingPathComponent(str: cacheName)
         
