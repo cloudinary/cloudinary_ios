@@ -7,7 +7,7 @@ import Foundation
 
 #if swift(>=4.0)
 internal extension NSTextCheckingResult {
-    internal func rangeAt(_ idx:Int) -> NSRange {
+    func rangeAt(_ idx:Int) -> NSRange {
         return range(at: idx)
     }
 }

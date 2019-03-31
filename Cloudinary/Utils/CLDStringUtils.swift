@@ -60,19 +60,19 @@ internal extension Float {
 }
 
 internal extension String {
-    internal func cldBase64Encode() -> String {
+    func cldBase64Encode() -> String {
         return (self.data(using: String.Encoding.utf8)?.base64EncodedString())!
     }
 
-    internal func cldBase64UrlEncode() -> String {
+    func cldBase64UrlEncode() -> String {
         return cldBase64Encode().replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_")
     }
-    internal func cldSmartEncodeUrl() -> String? {
+    func cldSmartEncodeUrl() -> String? {
         let customAllowedSet =  NSCharacterSet(charactersIn:"!*'\"();@&=+$,?%#[] ").inverted
         return addingPercentEncoding(withAllowedCharacters: customAllowedSet)
     }
     
-    internal subscript (i: Int) -> Character {
+    subscript (i: Int) -> Character {
         return self[startIndex.cldAdvance(i, for: self)]
     }
 
@@ -84,11 +84,11 @@ internal extension String {
         }
     }  
     
-    internal func cldStringByAppendingPathComponent(str: String) -> String {
+    func cldStringByAppendingPathComponent(str: String) -> String {
         return self + ("/\(str)")
     }
     
-    internal func cldAsBool() -> Bool {
+    func cldAsBool() -> Bool {
         if self == "true" {
             return true
         }
@@ -98,7 +98,7 @@ internal extension String {
         return false
     }
     
-    internal func cldIsRemoteUrl() -> Bool {
+    func cldIsRemoteUrl() -> Bool {
         return self.range(of: "^ftp:|^https?:|^s3:|^gs:|^data:([\\w-]+\\/[\\w-]+)?(;[\\w-]+=[\\w-]+)*;base64,([a-zA-Z0-9\\/+\\n=]+)$", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) != nil
     }
 }

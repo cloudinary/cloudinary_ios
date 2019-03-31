@@ -31,8 +31,8 @@ The CLDSignature class represents a signature used to sign a URL request.
 */
 @objcMembers open class CLDSignature: NSObject {
         
-    open let signature: String
-    open let timestamp: NSNumber
+    public let signature: String
+    public let timestamp: NSNumber
     
     public init(signature: String, timestamp: NSNumber) {
         self.signature = signature

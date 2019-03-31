@@ -99,7 +99,7 @@ import Foundation
      - returns:                             A new `CLDConfiguration` instance if the environment parameter URL exists and is valid, otherwise returns nil.
      
      */
-    open static func initWithEnvParams() -> CLDConfiguration? {
+    public static func initWithEnvParams() -> CLDConfiguration? {
         let dict = ProcessInfo.processInfo.environment
         if let url = dict[Defines.ENV_VAR_CLOUDINARY_URL] {
             return CLDConfiguration(cloudinaryUrl: url)

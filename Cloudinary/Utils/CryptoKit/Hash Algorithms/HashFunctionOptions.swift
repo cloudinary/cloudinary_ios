@@ -10,8 +10,8 @@ import Foundation
 
 internal extension HashFunction {
     /// MD5 hash function.
-    internal static var md5: HashFunction { return MD5.hashFunction }
+    static var md5: HashFunction { return MD5.hashFunction }
     
     /// SHA-1 hash function.
-    internal static var sha1: HashFunction { return SHA1.hashFunction }
+    static var sha1: HashFunction { return SHA1.hashFunction }
 }

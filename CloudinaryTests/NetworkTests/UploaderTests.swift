@@ -514,6 +514,8 @@ class UploaderTests: NetworkBaseTest {
         waitForExpectations(timeout: timeout, handler: nil)
 
         XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+
         let status = result?.resultJson["status"] as? String
         XCTAssertEqual(status, "pending")
     }

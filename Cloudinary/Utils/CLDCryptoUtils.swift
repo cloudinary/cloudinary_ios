@@ -52,7 +52,7 @@ public func cloudinarySignParamsUsingSecret(_ paramsToSign: [String : Any],cloud
 
 internal extension String {
     
-    internal func sha1_base8(_ secret: String?) -> String {
+    func sha1_base8(_ secret: String?) -> String {
         let data = self.data(using: String.Encoding.utf8)!
         let result:Data
         if let secret = secret {
@@ -67,7 +67,7 @@ internal extension String {
         return hexBytes.joined()
     }
     
-    internal func sha1_base64() -> String {
+    func sha1_base64() -> String {
         let data = self.data(using: String.Encoding.utf8)!.digest(using: .sha1)
         let base64 = data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         let encoded = base64.replacingOccurrences(of: "/", with: "_")
@@ -77,11 +77,11 @@ internal extension String {
         return encoded
     }
     
-    internal func toCRC32() -> UInt32 {
+    func toCRC32() -> UInt32 {
         return crc32(self)
     }
     
-    internal func cld_md5() -> String {
+    func cld_md5() -> String {
         let data = self.data(using: String.Encoding.utf8)!.digest(using: .md5)
         var digestHex = ""
         for index in 0..<Int(data.count) {

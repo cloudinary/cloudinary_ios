@@ -35,7 +35,7 @@ public extension UIImageView {
      - parameter placeholder:       A placeholder image to be set as the background image untill the asynchronus download request finishes.
      
      */
-    @objc public func cldSetImage(_ url: String, cloudinary: CLDCloudinary, placeholder: UIImage? = nil) {
+    @objc func cldSetImage(_ url: String, cloudinary: CLDCloudinary, placeholder: UIImage? = nil) {
         fetchImageForUIElement(url, placeholder: placeholder, cloudinary: cloudinary) { [weak self] (image: UIImage) in
             self?.image = image
         }
@@ -53,7 +53,7 @@ public extension UIImageView {
      - parameter placeholder:       A placeholder image to be set as the background image until the asynchronus download request finishes.
      
      */
-    @objc public func cldSetImage(publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, resourceType:CLDUrlResourceType = CLDUrlResourceType.image, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
+    @objc func cldSetImage(publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, resourceType:CLDUrlResourceType = CLDUrlResourceType.image, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
         
         let urlGen = cloudinary.createUrl()
         

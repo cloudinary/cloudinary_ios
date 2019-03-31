@@ -37,7 +37,7 @@ extension HashFunction: Equatable {
 
 internal extension HashAlgorithm {
     /// Creates a hash function instance using `self` as its hash algorithm.
-    internal static var hashFunction: HashFunction {
+    static var hashFunction: HashFunction {
         return HashFunction(self)
     }
 }

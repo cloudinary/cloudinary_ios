@@ -35,15 +35,15 @@ internal protocol MerkleDamgardConstructor: HashAlgorithm {
 }
 
 internal extension MerkleDamgardConstructor {
-    internal static var endianess: Endianess {
+    static var endianess: Endianess {
         return .littleEndian
     }
 
-    internal static var lengthPaddingSize: UInt {
+    static var lengthPaddingSize: UInt {
         return self.blockSize / 8
     }
 
-    internal static func applyPadding(to message: Data) -> Data {
+    static func applyPadding(to message: Data) -> Data {
         let length = Int(self.blockSize)
         
         // Create mutable copy of message
@@ -95,13 +95,13 @@ internal extension MerkleDamgardConstructor {
         return messageCopy
     }
 
-    internal static func finalize(vector: [BaseUnit]) -> Data {
+    static func finalize(vector: [BaseUnit]) -> Data {
         return vector.reduce(Data()) { (current, value) -> Data in
             current + Data(from: self.endianess == .littleEndian ? value : value.bigEndian)
         }
     }
 
-    internal static func digest(_ message: Data) -> Data {
+    static func digest(_ message: Data) -> Data {
         let paddedMessage = self.applyPadding(to: message)
         
         return self.finalize(vector: self.compress(paddedMessage))
