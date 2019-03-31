@@ -15,7 +15,7 @@ internal extension Data {
         // Allocate a value pointer (and make sure it's always deallocated at end of scope
         let valuePointer = UnsafeMutablePointer<T>.allocate(capacity: 1)
         defer {
-            valuePointer.deallocate(capacity: 1)
+            valuePointer.deallocate()
         }
         
         valuePointer.pointee = value

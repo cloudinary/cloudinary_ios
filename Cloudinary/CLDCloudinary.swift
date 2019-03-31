@@ -47,7 +47,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     /**
      Sets Cloudinary SDK's log level, default level is set to **None**.
      */
-    open static var logLevel: CLDLogLevel {
+    public static var logLevel: CLDLogLevel {
         get {
             return CLDLogManager.minimumLogLevel
         }
