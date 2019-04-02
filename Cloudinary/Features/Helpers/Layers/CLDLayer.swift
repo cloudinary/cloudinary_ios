@@ -41,6 +41,7 @@ import Foundation
     
     -returns: The new CLDLayer instance.
     */
+    @discardableResult
     public override init() {
         super.init()
     }
@@ -54,6 +55,7 @@ import Foundation
     
     - returns:                 The same instance of CLDLayer.
     */
+    @discardableResult
     open func setPublicId(publicId: String) -> CLDLayer {
         self.publicId = publicId
         return self
@@ -66,6 +68,7 @@ import Foundation
      
      - returns:                 The same instance of CLDLayer.
      */
+    @discardableResult
     open func setFormat(format: String) -> CLDLayer {
         self.format = format
         return self
@@ -79,6 +82,7 @@ import Foundation
      - returns:                     The same instance of CLDLayer.
      */
     @objc(setResourceTypeFromLayerResourceType:)
+    @discardableResult
     open func setResourceType(_ resourceType: LayerResourceType) -> CLDLayer {
         return setResourceType(String(describing: resourceType))
     }
@@ -91,6 +95,7 @@ import Foundation
      - returns:                     The same instance of CLDLayer.
      */
     @objc(setResourceTypeFromString:)
+    @discardableResult
     open func setResourceType(_ resourceType: String) -> CLDLayer {
         self.resourceType = resourceType
         return self
@@ -104,6 +109,7 @@ import Foundation
      - returns:         The same instance of CLDLayer.
      */
     @objc(setTypeFromType:)
+    @discardableResult
     open func setType(_ type: CLDType) -> CLDLayer {
         return setType(String(describing: type))
     }
@@ -116,6 +122,7 @@ import Foundation
      - returns:         The same instance of CLDLayer.
      */
     @objc(setTypeFromString:)
+    @discardableResult
     open func setType(_ rawType: String) -> CLDLayer {
         type = rawType
         return self
