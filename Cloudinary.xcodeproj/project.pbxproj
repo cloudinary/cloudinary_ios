@@ -13,17 +13,6 @@
 		1E5F90591FD58DEB00796B45 /* CLDPreprocessHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F90581FD58DEB00796B45 /* CLDPreprocessHelpers.swift */; };
 		1E5F90791FD6A64F00796B45 /* CLDImagePreprocessChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F90781FD6A64F00796B45 /* CLDImagePreprocessChain.swift */; };
 		1E6277F82250EF3A0006F76B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E6277EA2250DDDA0006F76B /* Alamofire.framework */; };
-		1E631D121FCFF3A700D8050F /* Data+HashFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF41FCFF3A700D8050F /* Data+HashFunction.swift */; };
-		1E631D131FCFF3A700D8050F /* Data+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF51FCFF3A700D8050F /* Data+Int.swift */; };
-		1E631D141FCFF3A700D8050F /* HashAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF71FCFF3A700D8050F /* HashAlgorithm.swift */; };
-		1E631D151FCFF3A700D8050F /* HashFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF81FCFF3A700D8050F /* HashFunction.swift */; };
-		1E631D161FCFF3A700D8050F /* HashFunctionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CF91FCFF3A700D8050F /* HashFunctionOptions.swift */; };
-		1E631D171FCFF3A700D8050F /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CFB1FCFF3A700D8050F /* MD5.swift */; };
-		1E631D181FCFF3A700D8050F /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CFC1FCFF3A700D8050F /* SHA1.swift */; };
-		1E631D191FCFF3A700D8050F /* MerkleDamgardConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CFD1FCFF3A700D8050F /* MerkleDamgardConstructor.swift */; };
-		1E631D1A1FCFF3A700D8050F /* EndianRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631CFF1FCFF3A700D8050F /* EndianRepresentable.swift */; };
-		1E631D1B1FCFF3A700D8050F /* ExpressibleByInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631D001FCFF3A700D8050F /* ExpressibleByInt.swift */; };
-		1E631D1C1FCFF3A700D8050F /* RotateOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631D011FCFF3A700D8050F /* RotateOperations.swift */; };
 		1E631D1E1FCFF49700D8050F /* CryptoUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E631D1D1FCFF49700D8050F /* CryptoUtilsTests.swift */; };
 		1E715109201F289F00CBF632 /* CLDResponsiveViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E715108201F289F00CBF632 /* CLDResponsiveViewHelper.swift */; };
 		1E73606B204C39D800E56C07 /* CLDJsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E73606A204C39D800E56C07 /* CLDJsonUtils.swift */; };
@@ -245,17 +234,6 @@
 		1E5F90581FD58DEB00796B45 /* CLDPreprocessHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDPreprocessHelpers.swift; sourceTree = "<group>"; };
 		1E5F90781FD6A64F00796B45 /* CLDImagePreprocessChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDImagePreprocessChain.swift; sourceTree = "<group>"; };
 		1E6277DE2250DDDA0006F76B /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		1E631CF41FCFF3A700D8050F /* Data+HashFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+HashFunction.swift"; sourceTree = "<group>"; };
-		1E631CF51FCFF3A700D8050F /* Data+Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Int.swift"; sourceTree = "<group>"; };
-		1E631CF71FCFF3A700D8050F /* HashAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashAlgorithm.swift; sourceTree = "<group>"; };
-		1E631CF81FCFF3A700D8050F /* HashFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashFunction.swift; sourceTree = "<group>"; };
-		1E631CF91FCFF3A700D8050F /* HashFunctionOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashFunctionOptions.swift; sourceTree = "<group>"; };
-		1E631CFB1FCFF3A700D8050F /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
-		1E631CFC1FCFF3A700D8050F /* SHA1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
-		1E631CFD1FCFF3A700D8050F /* MerkleDamgardConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerkleDamgardConstructor.swift; sourceTree = "<group>"; };
-		1E631CFF1FCFF3A700D8050F /* EndianRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndianRepresentable.swift; sourceTree = "<group>"; };
-		1E631D001FCFF3A700D8050F /* ExpressibleByInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressibleByInt.swift; sourceTree = "<group>"; };
-		1E631D011FCFF3A700D8050F /* RotateOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateOperations.swift; sourceTree = "<group>"; };
 		1E631D1D1FCFF49700D8050F /* CryptoUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoUtilsTests.swift; sourceTree = "<group>"; };
 		1E715108201F289F00CBF632 /* CLDResponsiveViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDResponsiveViewHelper.swift; sourceTree = "<group>"; };
 		1E73606A204C39D800E56C07 /* CLDJsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDJsonUtils.swift; sourceTree = "<group>"; };
@@ -263,7 +241,7 @@
 		1EBA5036200DFA070012305F /* CLDResponsiveParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDResponsiveParams.swift; sourceTree = "<group>"; };
 		1EBB2EDF202366E000276461 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		1EF9138A221C44AC00A50866 /* CLDFetchLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDFetchLayer.swift; sourceTree = "<group>"; };
-		2936A50C1E1D92A5009B7FAF /* Cloudinary.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cloudinary.podspec; sourceTree = "<group>"; };
+		2936A50C1E1D92A5009B7FAF /* Cloudinary.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cloudinary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2936A58C1E1EFF95009B7FAF /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		2936A58D1E1EFF95009B7FAF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2944B6671E2FB36F003AB794 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -416,57 +394,6 @@
 				1E6277F62250DDDA0006F76B /* Alamofire.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		1E631CF21FCFF3A700D8050F /* CryptoKit */ = {
-			isa = PBXGroup;
-			children = (
-				1E631CF31FCFF3A700D8050F /* Data Extensions */,
-				1E631CF61FCFF3A700D8050F /* Hash Algorithms */,
-				1E631CFE1FCFF3A700D8050F /* Math Protocols */,
-			);
-			name = CryptoKit;
-			path = Utils/CryptoKit;
-			sourceTree = "<group>";
-		};
-		1E631CF31FCFF3A700D8050F /* Data Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				1E631CF41FCFF3A700D8050F /* Data+HashFunction.swift */,
-				1E631CF51FCFF3A700D8050F /* Data+Int.swift */,
-			);
-			path = "Data Extensions";
-			sourceTree = "<group>";
-		};
-		1E631CF61FCFF3A700D8050F /* Hash Algorithms */ = {
-			isa = PBXGroup;
-			children = (
-				1E631CF71FCFF3A700D8050F /* HashAlgorithm.swift */,
-				1E631CF81FCFF3A700D8050F /* HashFunction.swift */,
-				1E631CF91FCFF3A700D8050F /* HashFunctionOptions.swift */,
-				1E631CFA1FCFF3A700D8050F /* Implementations */,
-				1E631CFD1FCFF3A700D8050F /* MerkleDamgardConstructor.swift */,
-			);
-			path = "Hash Algorithms";
-			sourceTree = "<group>";
-		};
-		1E631CFA1FCFF3A700D8050F /* Implementations */ = {
-			isa = PBXGroup;
-			children = (
-				1E631CFB1FCFF3A700D8050F /* MD5.swift */,
-				1E631CFC1FCFF3A700D8050F /* SHA1.swift */,
-			);
-			path = Implementations;
-			sourceTree = "<group>";
-		};
-		1E631CFE1FCFF3A700D8050F /* Math Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				1E631CFF1FCFF3A700D8050F /* EndianRepresentable.swift */,
-				1E631D001FCFF3A700D8050F /* ExpressibleByInt.swift */,
-				1E631D011FCFF3A700D8050F /* RotateOperations.swift */,
-			);
-			path = "Math Protocols";
 			sourceTree = "<group>";
 		};
 		1E68C7DE200B5BFE00ADCC73 /* UIViews */ = {
@@ -646,7 +573,6 @@
 		3696FC041C8E012300DE9568 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				1E631CF21FCFF3A700D8050F /* CryptoKit */,
 				2DBE577559387EC8E13E99A4 /* CLDFileUtils.swift */,
 				3696FC051C8E014500DE9568 /* CLDStringUtils.swift */,
 				3696FC551C9162FF00DE9568 /* CLDCryptoUtils.swift */,
@@ -1178,10 +1104,8 @@
 				36AC051B1D4F8C20002FC9DF /* CLDSpriteResult.swift in Sources */,
 				860465001DC79EA5007172D7 /* CLDNetworkUploadRequest.swift in Sources */,
 				36AC05191D4F8B75002FC9DF /* CLDRenameRequest.swift in Sources */,
-				1E631D1B1FCFF3A700D8050F /* ExpressibleByInt.swift in Sources */,
 				36AC05131D4F8988002FC9DF /* CLDMultiResult.swift in Sources */,
 				2936A58F1E1EFF95009B7FAF /* README.md in Sources */,
-				1E631D191FCFF3A700D8050F /* MerkleDamgardConstructor.swift in Sources */,
 				367FA4D11DD34E20001C8A61 /* CLDAsyncNetworkUploadRequest.swift in Sources */,
 				36B7FAE91D41231E008754EF /* CLDExplodeRequestParams.swift in Sources */,
 				36AC05271D4F9EC0002FC9DF /* CLDTextResult.swift in Sources */,
@@ -1189,7 +1113,6 @@
 				369FB3811C7A0FCF003E81B6 /* CLDCloudinary.swift in Sources */,
 				36B497181C9811E80083C935 /* CLDTranformation.swift in Sources */,
 				36AC053D1D4FB58B002FC9DF /* CLDDeleteResult.swift in Sources */,
-				1E631D171FCFF3A700D8050F /* MD5.swift in Sources */,
 				36B7FAF21D413288008754EF /* CLDDictionaryUtils.swift in Sources */,
 				369F77611D994EEA00F1CC90 /* CLDUploadResult.swift in Sources */,
 				36BB95B11DD2051300665FC4 /* CLDErrorRequest.swift in Sources */,
@@ -1202,7 +1125,6 @@
 				3696FC561C9162FF00DE9568 /* CLDCryptoUtils.swift in Sources */,
 				36AC051D1D4F9196002FC9DF /* CLDSpriteRequest.swift in Sources */,
 				3653B1971D43B29B0093765C /* CLDImageCache.swift in Sources */,
-				1E631D131FCFF3A700D8050F /* Data+Int.swift in Sources */,
 				36747B6D1CB130C200087D10 /* CLDDownloader.swift in Sources */,
 				362CB77D1CA41E6B00C26E74 /* CLDDefinitions.swift in Sources */,
 				3630877B1CBA6C4B00782A57 /* UIView+Cloudinary.swift in Sources */,
@@ -1215,7 +1137,6 @@
 				36AC05371D4FB575002FC9DF /* CLDDeleteRequest.swift in Sources */,
 				36D00E1F1D9D82E800BF4DD5 /* CLDFace.swift in Sources */,
 				36B7FAE81D41231E008754EF /* CLDExplicitRequestParams.swift in Sources */,
-				1E631D1C1FCFF3A700D8050F /* RotateOperations.swift in Sources */,
 				36B7FAE61D41231E008754EF /* CLDDeleteByTokenRequestParams.swift in Sources */,
 				36B246B61C95D18500122DB7 /* CLDGenericNetworkRequest.swift in Sources */,
 				36AC05151D4F8B14002FC9DF /* CLDRenameResult.swift in Sources */,
@@ -1227,7 +1148,6 @@
 				36B7FAEE1D41231E008754EF /* CLDTextRequestParams.swift in Sources */,
 				36AC05211D4F9C0D002FC9DF /* CLDTagResult.swift in Sources */,
 				3630877E1CC38E0200782A57 /* CLDFetchImageRequestImpl.swift in Sources */,
-				1E631D1A1FCFF3A700D8050F /* EndianRepresentable.swift in Sources */,
 				36B7FAEA1D41231E008754EF /* CLDMultiRequestParams.swift in Sources */,
 				36B246AC1C958EBF00122DB7 /* CLDNetworkAdapter.swift in Sources */,
 				36B7FAEB1D41231E008754EF /* CLDRenameRequestParams.swift in Sources */,
@@ -1238,14 +1158,10 @@
 				366CDD101CA1979F0014361F /* CLDLogManager.swift in Sources */,
 				36B7FAD21D3E8093008754EF /* CLDLayer.swift in Sources */,
 				363BE8D51CC3E94200124C46 /* CLDUploader.swift in Sources */,
-				1E631D151FCFF3A700D8050F /* HashFunction.swift in Sources */,
 				362CB7771CA41D0F00C26E74 /* CLDBuildParamsUtils.swift in Sources */,
 				36747B6F1CB131E300087D10 /* CLDBaseNetworkObject.swift in Sources */,
-				1E631D121FCFF3A700D8050F /* Data+HashFunction.swift in Sources */,
 				36B7FAEC1D41231E008754EF /* CLDSpriteRequestParams.swift in Sources */,
-				1E631D141FCFF3A700D8050F /* HashAlgorithm.swift in Sources */,
 				1EBA5037200DFA070012305F /* CLDResponsiveParams.swift in Sources */,
-				1E631D161FCFF3A700D8050F /* HashFunctionOptions.swift in Sources */,
 				36D00E171D9D6E8A00BF4DD5 /* CommonResultKeys.swift in Sources */,
 				36AC05111D4F8950002FC9DF /* CLDMultiRequest.swift in Sources */,
 				36D00E1B1D9D825900BF4DD5 /* CLDDetection.swift in Sources */,
@@ -1255,7 +1171,6 @@
 				36AC050D1D4F59CD002FC9DF /* CLDExplodeResult.swift in Sources */,
 				36AC050F1D4F5B5D002FC9DF /* CLDExplodeRequest.swift in Sources */,
 				36784DBA1CCCCE1100F3B777 /* CLDRequestParams.swift in Sources */,
-				1E631D181FCFF3A700D8050F /* SHA1.swift in Sources */,
 				36AC05071D4F4653002FC9DF /* CLDRequest.swift in Sources */,
 				1E5F90591FD58DEB00796B45 /* CLDPreprocessHelpers.swift in Sources */,
 				3696FC061C8E014500DE9568 /* CLDStringUtils.swift in Sources */,

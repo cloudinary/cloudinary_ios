@@ -22,6 +22,7 @@
 //  SOFTWARE.
 
 import Foundation
+import CommonCrypto
 
 public func cloudinarySignParamsUsingSecret(_ paramsToSign: [String : Any],cloudinaryApiSecret: String) -> String {
     var paramsArr: [String] = []
@@ -38,54 +39,72 @@ public func cloudinarySignParamsUsingSecret(_ paramsToSign: [String : Any],cloud
             else if let valueStr = cldParamValueAsString(value: value) {
                 paramValue = valueStr
             }
-            
+
             if let paramValue = paramValue {
                 let encodedParam = [key, paramValue]
                 paramsArr.append(encodedParam.joined(separator: "="))
             }
         }
     }
-    
+
     let toSign = paramsArr.joined(separator: "&")
     return toSign.sha1_base8(cloudinaryApiSecret)
 }
 
 internal extension String {
-    
+
     func sha1_base8(_ secret: String?) -> String {
         let data = self.data(using: String.Encoding.utf8)!
-        let result:Data
+        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+        let ctx = UnsafeMutablePointer<CC_SHA1_CTX>.allocate(capacity: 1)
+        CC_SHA1_Init(ctx)
+
+        _ = data.withUnsafeBytes { buffer in
+            CC_SHA1_Update(ctx, buffer.baseAddress!, CC_LONG(data.count))
+        }
+
         if let secret = secret {
             let secretData = secret.data(using: String.Encoding.utf8)!
-            result = (data + secretData).digest(using: .sha1)
-            
-        } else {
-            result = data.digest(using: .sha1)
+            _ = secretData.withUnsafeBytes { buffer in
+                CC_SHA1_Update(ctx, buffer.baseAddress!, CC_LONG(secretData.count))
+            }
         }
-        
-        let hexBytes = result.map { String(format: "%02hhx", $0) }
+
+        CC_SHA1_Final(&digest, ctx)
+        let hexBytes = digest.map { String(format: "%02hhx", $0) }
         return hexBytes.joined()
     }
-    
+
     func sha1_base64() -> String {
-        let data = self.data(using: String.Encoding.utf8)!.digest(using: .sha1)
+        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+        let cStr = NSString(string: self).utf8String
+        CC_SHA1(cStr, CC_LONG(strlen(cStr!)), &digest)
+
+        let data = Data(bytes: digest, count: MemoryLayout<UInt8>.size * digest.count)
         let base64 = data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         let encoded = base64.replacingOccurrences(of: "/", with: "_")
-            .replacingOccurrences(of: "+", with: "-")
-            .replacingOccurrences(of: "=", with: "")
-        
+                .replacingOccurrences(of: "+", with: "-")
+                .replacingOccurrences(of: "=", with: "")
+
+
         return encoded
     }
-    
+
     func toCRC32() -> UInt32 {
         return crc32(self)
     }
     
     func cld_md5() -> String {
-        let data = self.data(using: String.Encoding.utf8)!.digest(using: .md5)
+        var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+        if let data = self.data(using: String.Encoding.utf8) {
+            _ = data.withUnsafeBytes { buffer in
+                CC_MD5(buffer.baseAddress!, CC_LONG(buffer.count), &digest)
+            }
+        }
+        
         var digestHex = ""
-        for index in 0..<Int(data.count) {
-            digestHex += String(format: "%02x", data[index])
+        for index in 0..<Int(CC_MD5_DIGEST_LENGTH) {
+            digestHex += String(format: "%02x", digest[index])
         }
         
         return digestHex
@@ -93,7 +112,7 @@ internal extension String {
 }
 
 private func crc32(_ string: String) -> UInt32 {
-    
+
     let crcTable:[UInt32] = [0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f, 0xe963a535, 0x9e6495a3,
         0x0edb8832, 0x79dcb8a4, 0xe0d5e91e, 0x97d2d988, 0x09b64c2b, 0x7eb17cbd, 0xe7b82d07, 0x90bf1d91,
         0x1db71064, 0x6ab020f2, 0xf3b97148, 0x84be41de, 0x1adad47d, 0x6ddde4eb, 0xf4d4b551, 0x83d385c7,
@@ -129,18 +148,18 @@ private func crc32(_ string: String) -> UInt32 {
     
     
     guard let data = string.data(using: String.Encoding.utf8)
-        else {
+            else {
         return 0
     }
-    
+
     var crc:UInt32 = 0xffffffff
     var buffer = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
-    
+
     for _ in 1...data.count {
         crc = (crc >> 8) ^ crcTable[Int((crc ^ UInt32(buffer.pointee)) & 0xff)]
         buffer += 1
     }
-    
+
     return crc ^ 0xffffffff
 }
 
