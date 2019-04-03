@@ -84,6 +84,12 @@ import Foundation
      */
     fileprivate var transformation: CLDTransformation?
     
+    /**
+     A boolean parameter indicating whether or not to forcefully exclude the asset version from the url.
+     This is relevant for cases where the version is automatically added by default, such as assets in folders.
+     */
+    fileprivate var excludeVersion: Bool = false
+    
     // MARK: - Init
     
     fileprivate override init() {
@@ -219,6 +225,18 @@ import Foundation
     }
     
     /**
+     Set whether or not to use forcefully exclude the version from the url.
+     
+     - parameter excludeVersion:        A boolean parameter indicating whether or not to exclude the version.
+     
+     - returns:                         the same instance of CLDUrl.
+     */
+    open func setExcludeVersion(_ excludeVersion: Bool) -> CLDUrl {
+        self.excludeVersion = excludeVersion
+        return self
+    }
+    
+    /**
      Set the transformation to be apllied on the remote asset.
      
      - parameter transformation:    The transformation to be apllied on the remote asset.
@@ -291,7 +309,8 @@ import Foundation
                 return nil
         }
         
-        if  version.isEmpty &&
+        if  !excludeVersion &&
+            version.isEmpty &&
             sourceName.contains("/") &&
             sourceName.range(of: "^v[0-9]+/.*", options: NSString.CompareOptions.regularExpression, range: nil, locale: nil) == nil &&
             sourceName.range(of: "^https?:/.*", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) == nil

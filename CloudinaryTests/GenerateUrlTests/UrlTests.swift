@@ -416,6 +416,10 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(cloudinary?.createUrl().generate("folder/test"), "\(prefix)/image/upload/v1/folder/test")
         XCTAssertEqual(cloudinary?.createUrl().setVersion("123").generate("folder/test"), "\(prefix)/image/upload/v123/folder/test")
     }
+    
+    func testFoldersWithExcludeVersion(){
+        XCTAssertEqual(cloudinary?.createUrl().setExcludeVersion(true).generate("folder/test"), "\(prefix)/image/upload/folder/test")
+    }
 
     func testFoldersWithVersion() {
 
