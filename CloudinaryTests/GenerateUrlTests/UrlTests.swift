@@ -427,7 +427,7 @@ class UrlTests: XCTestCase {
         XCTAssertEqual("\(prefix)/image/upload/v1234/folder/test", result)
         
         // should add version if no value specified for forceVersion:
-        result = cloudinary?.createUrl()..generate("folder/test")
+        result = cloudinary?.createUrl().generate("folder/test")
         XCTAssertEqual("\(prefix)/image/upload/v1/folder/test", result)
         
         // should add version if forceVersion is true
@@ -435,7 +435,7 @@ class UrlTests: XCTestCase {
         XCTAssertEqual("\(prefix)/image/upload/v1/folder/test", result)
         
         // should not use v1 if explicit version is passed
-        result = cloudinary.createUrl().setForceVersion(true).setVersion("1234").generate("folder/test");
+        result = cloudinary?.createUrl().setForceVersion(true).setVersion("1234").generate("folder/test");
         XCTAssertEqual("\(prefix)/image/upload/v1234/folder/test", result)
     }
 
