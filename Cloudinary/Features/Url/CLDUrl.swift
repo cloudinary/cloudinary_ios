@@ -85,10 +85,10 @@ import Foundation
     fileprivate var transformation: CLDTransformation?
     
     /**
-     A boolean parameter indicating whether or not to forcefully exclude the asset version from the url.
-     This is relevant for cases where the version is automatically added by default, such as assets in folders.
-     */
-    fileprivate var excludeVersion: Bool = false
+     A boolean parameter indicating whether or not to add a 'v1' to the url in cases where it's needed.
+     When no version is explicitly specified and the public id contains folders, a default v1 version
+     is added to the url. This boolean can disable that behaviour.     */
+    fileprivate var forceVersion: Bool = true
     
     // MARK: - Init
     
@@ -225,14 +225,16 @@ import Foundation
     }
     
     /**
-     Set whether or not to use forcefully exclude the version from the url.
+     Set whether or not to add a 'v1' to the url in cases where it's needed.
+     When no version is explicitly specified and the public id contains folders, a default v1 version
+     is added to the url. Set this boolean as false to prevent that behaviour.
      
-     - parameter excludeVersion:        A boolean parameter indicating whether or not to exclude the version.
+     - parameter forceVersion:        A boolean parameter indicating whether or not to add the version.
      
      - returns:                         the same instance of CLDUrl.
      */
-    open func setExcludeVersion(_ excludeVersion: Bool) -> CLDUrl {
-        self.excludeVersion = excludeVersion
+    open func setForceVersion(_ forceVersion: Bool) -> CLDUrl {
+        self.forceVersion = forceVersion
         return self
     }
     
@@ -309,7 +311,7 @@ import Foundation
                 return nil
         }
         
-        if  !excludeVersion &&
+        if  forceVersion &&
             version.isEmpty &&
             sourceName.contains("/") &&
             sourceName.range(of: "^v[0-9]+/.*", options: NSString.CompareOptions.regularExpression, range: nil, locale: nil) == nil &&
