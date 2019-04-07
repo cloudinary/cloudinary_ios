@@ -1,4 +1,24 @@
 
+2.7.0 / 2019-04-07
+==================
+
+New functionality
+-----------------
+  * Support swift 5, fix related warnings.
+  * Bump Alamofire version to 4.8.2
+  * Add support for fetch layer in transformations. (#197)
+  * Add support for `quality_analysis` parameter in upload. (#195)
+  * Add support for font antialiasing and hinting in text overlays. (#193)
+  * Add support for `streaming_profile` param in `CLDTransformation`. (#194)
+  * Support excluding the default version from the generated cloudinary-url. (#206)
+  * Add quality_override parameter to upload/explicit. (#199)
+  
+Other changes
+-------------
+  * Replace crypto kit files with `CommonCrypto` import.
+  * Fix memory cache limit not getting initially set in `CLDImageCache` (#201)
+  * Fix bas64 string validation in uploader. (#196)
+
 2.6.1 / 2019-01-30
 ==================
 
