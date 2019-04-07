@@ -70,12 +70,12 @@ import Foundation
     fileprivate var suffix: String?
     
     /**
-     A boolean parameter indicating whether or not to use a root path instead of a full path (image/upload only).
+     Indicates whether to use a root path instead of a full path (image/upload only).
      */
     fileprivate var useRootPath: Bool = false
     
     /**
-     A boolean parameter indicating whether or not to use a shorten URL (image/upload only).
+     Indicates whether to use a shorten URL (image/upload only).
      */
     fileprivate var shortenUrl: Bool = false
     
@@ -202,9 +202,9 @@ import Foundation
     }
     
     /**
-     Set whether or not to use a root path instead of a full path. (image/upload only).
+     Set whether to use a root path instead of a full path. (image/upload only).
      
-     - parameter useRootPath:       A boolean parameter indicating whether or not to use a root path instead of a full path.
+     - parameter useRootPath:       Indicates whether to use a root path instead of a full path.
      
      - returns:                      the same instance of CLDUrl.
      */
@@ -214,9 +214,9 @@ import Foundation
     }
     
     /**
-     Set whether or not to use a shorten URL. (image/upload only).
+     Set whether to use a shorten URL. (image/upload only).
      
-     - parameter shortenUrl:       A boolean parameter indicating whether or not to use a shorten URL.
+     - parameter shortenUrl:       Indicates whether to use a shorten URL.
      
      - returns:                      the same instance of CLDUrl.
      */
@@ -231,7 +231,7 @@ import Foundation
      When no version is explicitly specified and the public id contains folders, a default v1 version
      is added to the url. Set this boolean as false to prevent that behaviour.
      
-     - parameter forceVersion:        A boolean parameter indicating whether or not to add the version.
+     - parameter forceVersion:        Indicates whether to add the version.
      
      - returns:                         the same instance of CLDUrl.
      */
@@ -258,7 +258,7 @@ import Foundation
     /**
      Generate a string URL representation of the CLDUrl.
 
-     - parameter signUrl:       A boolean parameter indicating whether or not to generate a signature out of the API secret and add it to the generated URL. Default is false.
+     - parameter signUrl:       Indicates whether to generate a signature out of the API secret and add it to the generated URL. Default is false.
 
      - returns:                  The generated string URL representation.
      */
@@ -274,7 +274,7 @@ import Foundation
      Generate a string URL representation of the CLDUrl.
      
      - parameter publicId:      The remote asset's name (e.g. the public id of an uploaded image).
-     - parameter signUrl:       A boolean parameter indicating whether or not to generate a signature out of the API secret and add it to the generated URL. Default is false.
+     - parameter signUrl:       Indicates whether to generate a signature out of the API secret and add it to the generated URL. Default is false.
      
      - returns:                  The generated string URL representation.
      */
