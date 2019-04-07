@@ -85,7 +85,8 @@ import Foundation
     fileprivate var transformation: CLDTransformation?
     
     /**
-     A boolean parameter indicating whether or not to add a 'v1' to the url in cases where it's needed.
+     Indicates whether to add '/v1/' to the URL when the public ID includes folders and a 'version' value was
+     not defined.
      When no version is explicitly specified and the public id contains folders, a default v1 version
      is added to the url. This boolean can disable that behaviour.     */
     fileprivate var forceVersion: Bool = true
@@ -225,7 +226,8 @@ import Foundation
     }
     
     /**
-     Set whether or not to add a 'v1' to the url in cases where it's needed.
+     Indicates whether to add '/v1/' to the URL when the public ID includes folders and a 'version' value was
+     not defined.
      When no version is explicitly specified and the public id contains folders, a default v1 version
      is added to the url. Set this boolean as false to prevent that behaviour.
      
