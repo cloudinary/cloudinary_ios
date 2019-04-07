@@ -416,6 +416,28 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(cloudinary?.createUrl().generate("folder/test"), "\(prefix)/image/upload/v1/folder/test")
         XCTAssertEqual(cloudinary?.createUrl().setVersion("123").generate("folder/test"), "\(prefix)/image/upload/v123/folder/test")
     }
+    
+    func testFoldersWithForceVersion(){
+        // should not add version if the user turned off forceVersion
+        var result = cloudinary?.createUrl().setForceVersion(false).generate("folder/test")
+        XCTAssertEqual("\(prefix)/image/upload/folder/test", result)
+        
+        // should still show explicit version if passed by the user
+        result = cloudinary?.createUrl().setForceVersion(false).setVersion("1234").generate("folder/test")
+        XCTAssertEqual("\(prefix)/image/upload/v1234/folder/test", result)
+        
+        // should add version if no value specified for forceVersion:
+        result = cloudinary?.createUrl().generate("folder/test")
+        XCTAssertEqual("\(prefix)/image/upload/v1/folder/test", result)
+        
+        // should add version if forceVersion is true
+        result = cloudinary?.createUrl().setForceVersion(true).generate("folder/test");
+        XCTAssertEqual("\(prefix)/image/upload/v1/folder/test", result)
+        
+        // should not use v1 if explicit version is passed
+        result = cloudinary?.createUrl().setForceVersion(true).setVersion("1234").generate("folder/test");
+        XCTAssertEqual("\(prefix)/image/upload/v1234/folder/test", result)
+    }
 
     func testFoldersWithVersion() {
 

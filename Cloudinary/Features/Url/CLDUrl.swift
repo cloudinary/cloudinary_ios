@@ -84,6 +84,13 @@ import Foundation
      */
     fileprivate var transformation: CLDTransformation?
     
+    /**
+     Indicates whether to add '/v1/' to the URL when the public ID includes folders and a 'version' value was
+     not defined.
+     When no version is explicitly specified and the public id contains folders, a default v1 version
+     is added to the url. This boolean can disable that behaviour.     */
+    fileprivate var forceVersion: Bool = true
+    
     // MARK: - Init
     
     fileprivate override init() {
@@ -219,6 +226,21 @@ import Foundation
     }
     
     /**
+     Indicates whether to add '/v1/' to the URL when the public ID includes folders and a 'version' value was
+     not defined.
+     When no version is explicitly specified and the public id contains folders, a default v1 version
+     is added to the url. Set this boolean as false to prevent that behaviour.
+     
+     - parameter forceVersion:        A boolean parameter indicating whether or not to add the version.
+     
+     - returns:                         the same instance of CLDUrl.
+     */
+    open func setForceVersion(_ forceVersion: Bool) -> CLDUrl {
+        self.forceVersion = forceVersion
+        return self
+    }
+    
+    /**
      Set the transformation to be apllied on the remote asset.
      
      - parameter transformation:    The transformation to be apllied on the remote asset.
@@ -291,7 +313,8 @@ import Foundation
                 return nil
         }
         
-        if  version.isEmpty &&
+        if  forceVersion &&
+            version.isEmpty &&
             sourceName.contains("/") &&
             sourceName.range(of: "^v[0-9]+/.*", options: NSString.CompareOptions.regularExpression, range: nil, locale: nil) == nil &&
             sourceName.range(of: "^https?:/.*", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) == nil
