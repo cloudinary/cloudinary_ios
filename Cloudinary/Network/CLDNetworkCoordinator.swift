@@ -171,6 +171,10 @@ internal class CLDNetworkCoordinator {
         networkAdapter.setBackgroundCompletionHandler(newValue)
     }
     
+    internal func setBackgroundTaskCompletionHandler(_ handler: @escaping (CLDUploadResult?, Error?) -> ()){
+        networkAdapter.setBackgroundTaskCompletionHandler(handler)
+    }
+    
     internal func setMaxConcurrentDownloads(_ maxConcurrentDownloads: Int) {
         networkAdapter.setMaxConcurrentDownloads(maxConcurrentDownloads)
     }

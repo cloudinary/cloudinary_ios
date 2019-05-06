@@ -195,6 +195,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     open func setBackgroundCompletionHandler(_ newValue: (() -> ())?) {
         networkCoordinator.setBackgroundCompletionHandler(newValue)
     }
+    
+    open func setBackgroundTaskCompletionHandler(_ handler: @escaping (CLDUploadResult?, Error?) -> ()){
+        networkCoordinator.setBackgroundTaskCompletionHandler(handler)
+    }
 
     // MARK: - Advanced
     /**

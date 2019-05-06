@@ -124,9 +124,22 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
     }
 
     // MARK: - Setters
-
     internal func setBackgroundCompletionHandler(_ newValue: (() -> ())?) {
         manager.backgroundCompletionHandler = newValue
+    }
+    
+    func setBackgroundTaskCompletionHandler(_ handler: @escaping (CLDUploadResult?, Error?) -> ()){
+        manager.delegate.dataTaskDidReceiveData = {urlSession, urlSessionDataTask, data in
+            let response = urlSessionDataTask.response as! HTTPURLResponse
+            let result = Request.serializeResponseJSON(options: .allowFragments, response: response, data: data, error: nil)
+            let value = result.value as! [String : AnyObject]
+            if let error = value["error"] as? [String : AnyObject] {
+                let err = CLDError.error(code: response.statusCode, userInfo: error)
+                handler(nil, err)
+            } else {
+                handler(CLDUploadResult(json: value), nil)
+            }
+        }
     }
 
     internal func setMaxConcurrentDownloads(_ maxConcurrentDownloads: Int) {

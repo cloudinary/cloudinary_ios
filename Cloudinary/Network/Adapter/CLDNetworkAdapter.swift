@@ -85,7 +85,15 @@ to use a custom network adapter you must implement the `CLDNetworkAdapter` proto
     default is `nil`.
     */
     func setBackgroundCompletionHandler(_ newValue: (() -> ())?)
-    
+
+    /**
+    Set a completion handler for upload tasks. This is useful if the response data is needed for
+    tasks that finished running in the background. Note: Using the completion handler per request is
+    still needed even if using the background completion handler.
+
+    default is `nil`.
+   */
+    func setBackgroundTaskCompletionHandler(_ handler: @escaping (CLDUploadResult?, Error?) -> ())
     /**
      The maximum number of queued downloads that can execute at the same time.
      
