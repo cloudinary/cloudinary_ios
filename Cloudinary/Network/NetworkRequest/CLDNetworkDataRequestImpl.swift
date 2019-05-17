@@ -41,24 +41,22 @@ internal class CLDNetworkDataRequestImpl<T: DataRequest>: CLDGenericNetworkReque
     func response(_ completionHandler: ((_ response: Any?, _ error: NSError?) -> ())?) -> CLDNetworkRequest {
         
         request.responseJSON { response in
-            if let value = response.result.value as? [String : AnyObject] {
-                if let error = value["error"] as? [String : AnyObject] {
-                    let code = response.response?.statusCode ?? CLDError.CloudinaryErrorCode.generalErrorCode.rawValue
-                    let err = CLDError.error(code: code, userInfo: error)
-                    completionHandler?(nil, err)
+            switch response.result {
+            case let .success(value):
+                if let value = value as? [String : AnyObject] {
+                    if let error = value["error"] as? [String : AnyObject] {
+                        let code = response.response?.statusCode ?? CLDError.CloudinaryErrorCode.generalErrorCode.rawValue
+                        let err = CLDError.error(code: code, userInfo: error)
+                        completionHandler?(nil, err)
+                    }
+                    else {
+                        completionHandler?(value as AnyObject?, nil)
+                    }
                 }
-                else {
-                    completionHandler?(value as AnyObject?, nil)
-                }
-            }
-            else if let err = response.result.error {
+            case let .failure(err):
                 let error = err as NSError
                 completionHandler?(nil, error)
             }
-            else {
-                completionHandler?(nil, CLDError.generalError())
-            }
-            
         }
         
         return self

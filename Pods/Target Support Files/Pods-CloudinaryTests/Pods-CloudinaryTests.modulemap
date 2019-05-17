@@ -1,0 +1,6 @@
+framework module Pods_CloudinaryTests {
+  umbrella header "Pods-CloudinaryTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

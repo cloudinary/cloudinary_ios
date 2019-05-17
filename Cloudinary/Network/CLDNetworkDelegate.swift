@@ -30,23 +30,22 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
 
     init(configuration: URLSessionConfiguration? = nil) {
         if let configuration = configuration {
-            manager = SessionManager(configuration: configuration)
+            manager = Session(configuration: configuration, startRequestsImmediately: false)
         } else {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.identifier)
-                configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+                //configuration.httpAdditionalHeaders = Session.defaultHTTPHeaders
                 return configuration
             }()
-            manager = SessionManager(configuration: configuration)
+            manager = Session(configuration: configuration, startRequestsImmediately: false)
         }
-        manager.startRequestsImmediately = false
     }
 
     private struct SessionProperties {
         static let identifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
     }
 
-    fileprivate let manager: Alamofire.SessionManager
+    fileprivate let manager: Alamofire.Session
 
     fileprivate let downloadQueue: OperationQueue = OperationQueue()
 
@@ -55,15 +54,14 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
     // MARK: Features
 
     internal func cloudinaryRequest(_ url: String, headers: [String: String], parameters: [String: Any]) -> CLDNetworkDataRequest {
-        let req: DataRequest = manager.request(url, method: .post, parameters: parameters, headers: headers)
+        let req: DataRequest = manager.request(url, method: .post, parameters: parameters, headers: HTTPHeaders(headers), interceptor: nil)
         req.resume()
         return CLDNetworkDataRequestImpl(request: req)
     }
 
     internal func uploadToCloudinary(_ url: String, headers: [String: String], parameters: [String: Any], data: Any) -> CLDNetworkDataRequest {
-
         let asyncUploadRequest = CLDAsyncNetworkUploadRequest()
-        manager.upload(multipartFormData: { (multipartFormData) in
+        let upload = manager.upload(multipartFormData: { (multipartFormData) in
 
             if let data = data as? Data {
                 multipartFormData.append(data, withName: "file", fileName: "file", mimeType: "application/octet-stream")
@@ -101,7 +99,20 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
                 }
             }
 
-        }, usingThreshold: UInt64(), to: url, method: .post, headers: headers) { (encodingResult) in
+        }, usingThreshold: UInt64(), to: url, method: .post, headers:  HTTPHeaders(headers)).response(completionHandler: { response in
+            switch response.result {
+            case .success:
+                break
+            case let .failure(encodingError):
+                asyncUploadRequest.networkDataRequest = CLDRequestError(error: encodingError)
+            }
+        })
+        
+        upload.resume()
+        let uploadRequest = CLDNetworkUploadRequest(request: upload)
+        asyncUploadRequest.networkDataRequest = uploadRequest
+
+        /*{ (encodingResult) in
             switch encodingResult {
             case .success(let upload, _, _):
                 upload.resume()
@@ -110,7 +121,7 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
             case .failure(let encodingError):
                 asyncUploadRequest.networkDataRequest = CLDRequestError(error: encodingError)
             }
-        }
+        }*/
 
         return asyncUploadRequest
     }
@@ -126,7 +137,7 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
     // MARK: - Setters
 
     internal func setBackgroundCompletionHandler(_ newValue: (() -> ())?) {
-        manager.backgroundCompletionHandler = newValue
+        //manager.backgroundCompletionHandler = newValue
     }
 
     internal func setMaxConcurrentDownloads(_ maxConcurrentDownloads: Int) {
@@ -136,7 +147,8 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
     // MARK: - Getters
 
     internal func getBackgroundCompletionHandler() -> (() -> ())? {
-        return manager.backgroundCompletionHandler
+        //return manager.backgroundCompletionHandler
+        return nil
     }
 
 }

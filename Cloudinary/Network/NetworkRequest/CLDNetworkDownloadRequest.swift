@@ -55,15 +55,11 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<DataRequest>
     @discardableResult
     internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDFetchImageRequest {
         request.responseData { response in
-            if let imageData = response.result.value {
+            switch response.result {
+            case let .success(imageData):
                 completionHandler?(imageData, nil)
-            }
-            else if let err = response.result.error {
-                let error = err as NSError
-                completionHandler?(nil, error)
-            }
-            else {
-                completionHandler?(nil, CLDError.generalError())
+            case let .failure(error):
+                completionHandler?(nil, error as NSError)
             }
         }
         return self
