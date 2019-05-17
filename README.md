@@ -25,7 +25,7 @@ For iOS, Cloudinary provides an SDK for simplifying the integration even further
 
 ## Requirements
 
-- iOS 8.0+
+- iOS 10.0+
 - Compatible with Swift, tested up to version 4.1.
 - Compatible with Objective-C, see [usage example](CloudinaryTests/GenerateUrlTests/UrlTests.m).
 
@@ -48,11 +48,11 @@ Add the Cloudinary SDK to your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '10.0'
 use_frameworks!
 
 target 'MyApp' do
-  pod 'Cloudinary', '~> 2.0'
+  pod 'Cloudinary', '~> 3.0'
 end
 ```
 
