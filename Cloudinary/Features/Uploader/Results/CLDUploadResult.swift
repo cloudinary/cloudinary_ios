@@ -200,6 +200,13 @@ import Foundation
     open var qualityAnalysis: [String : AnyObject]? {
         return getParam(.qualityAnalysis) as? [String : AnyObject]
     }
+    
+    open var coordinates: CLDCoordinates? {
+        guard let coordinates = getParam(CommonResultKeys.coordinates) as? [String : AnyObject] else {
+            return nil
+        }
+        return CLDCoordinates(json: coordinates)
+    }
 
     // MARK: - Private Helpers
     
