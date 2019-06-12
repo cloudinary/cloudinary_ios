@@ -25,7 +25,7 @@
 import Foundation
 
 internal enum CommonResultKeys: CustomStringConvertible {
-    case publicId, format, version, resourceType, urlType, createdAt, length, width, height, x, y, url, secureUrl, exif, metadata, faces, colors, tags, moderation, context, phash, info, accessControl, eager, qualityAnalysis
+    case publicId, format, version, resourceType, urlType, createdAt, length, width, height, x, y, url, secureUrl, exif, metadata, faces, colors, tags, moderation, context, phash, info, accessControl, eager, qualityAnalysis, coordinates
     
     var description: String {
         switch self {
@@ -54,6 +54,7 @@ internal enum CommonResultKeys: CustomStringConvertible {
         case .eager:            return "eager"
         case .accessControl:    return "access_control"
         case .qualityAnalysis:  return "quality_analysis"
+        case .coordinates:      return "coordinates"
         }
     }
 }

@@ -612,7 +612,7 @@ class UploaderTests: NetworkBaseTest {
         var error: NSError?
 
         let params = CLDUploadRequestParams()
-        let coordinate = CLDCoordinate(rect: CGRect(x: 10, y: 10, width: 100, height: 100))
+        let coordinate = CLDCoordinate(rect: CGRect(x: 10, y: 10, width: 100, height: 15000))
         params.setFaceCoordinates([coordinate])
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
@@ -625,6 +625,11 @@ class UploaderTests: NetworkBaseTest {
 
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
+        let resultCoords = (result!.coordinates!.faces as! NSArray)[0] as! NSArray
+        XCTAssertEqual(resultCoords[0] as! Float, 10)
+        XCTAssertEqual(resultCoords[1] as! Float, 10)
+        XCTAssertEqual(resultCoords[2] as! Float, 100)
+        XCTAssertEqual(resultCoords[3] as! Float, Float(result!.height!))
     }
 
     func testCustomCoordinates() {

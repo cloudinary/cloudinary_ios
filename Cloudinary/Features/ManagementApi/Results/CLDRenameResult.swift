@@ -126,7 +126,7 @@ import Foundation
     }
     
     open var coordinates: CLDCoordinates? {
-        guard let coordinates = getParam(.coordinates) as? [String : AnyObject] else {
+        guard let coordinates = getParam(RenameResultKey.coordinates) as? [String : AnyObject] else {
             return nil
         }
         return CLDCoordinates(json: coordinates)
