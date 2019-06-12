@@ -357,6 +357,10 @@ class UrlTests: XCTestCase {
 
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia, param: "10")).generate("test"), "\(prefix)/image/upload/e_sepia:10/test")
     }
+    
+    func testArtisticEffect(){
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.incognito)).generate("test"), "\(prefix)/image/upload/e_art:incognito/test")
+    }
 
     func testDensity() {
 
