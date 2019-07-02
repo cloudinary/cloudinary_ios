@@ -161,11 +161,14 @@ class UploaderTests: NetworkBaseTest {
 
         let expectation = self.expectation(description: "Upload large should succeed")
         let file = TestResourceType.dog.url
+        let filename = TestResourceType.dog.fileName
         var requestResult: CLDUploadResult?
         var requestError: NSError?
 
         let params = CLDUploadRequestParams()
         params.setResourceType(CLDUrlResourceType.video)
+        params.setUseFilename(true)
+        
 
         cloudinary!.createUploader().signedUploadLarge(url: file, params: params, chunkSize: 5 * 1024 * 1024).response({ (result, error) in
             requestResult = result
@@ -177,6 +180,7 @@ class UploaderTests: NetworkBaseTest {
 
         XCTAssertNotNil(requestResult, "result should not be nil")
         XCTAssertNil(requestError, "error should be nil")
+        XCTAssertTrue(isUsedFilename(filename: filename, publicId: requestResult?.publicId))
     }
 
     func testUploadVideoData() {
@@ -455,14 +459,17 @@ class UploaderTests: NetworkBaseTest {
 
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
-
+        XCTAssertTrue(isUsedFilename(filename: filename, publicId: result?.publicId))
+    }
+    
+    func isUsedFilename(filename: String, publicId: String?)-> Bool {
         var matches = 0
-        if let publicId = result?.publicId {
+        if let publicId = publicId {
             let regex = try! NSRegularExpression(pattern: "\(filename)_[a-z0-9]{6}", options: NSRegularExpression.Options(rawValue: 0))
             matches = regex.numberOfMatches(in: publicId, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, publicId.count))
         }
-
-        XCTAssertEqual(1, matches)
+        
+        return matches == 1
     }
 
     func testUniqueFilename() {

@@ -65,9 +65,10 @@ public class CLDPreprocessHelpers {
     public static func customImageEncoder(format: EncodingFormat, quality: CGFloat) -> CLDResourceEncoder<UIImage> {
         return { image in
             if let data = encodeAs(image: image, format: format, quality: quality) {
-                let url = CLDFileUtils.getTempFileUrl(fileName: NSUUID().uuidString)
+                let (_, url) = CLDFileUtils.getTempFileUrl(fileName: NSUUID().uuidString, baseFolder:"imageEncoder")
                 try? data.write(to: url)
                 return url
+                
             }
 
             return nil
