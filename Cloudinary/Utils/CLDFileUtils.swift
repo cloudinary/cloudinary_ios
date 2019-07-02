@@ -30,17 +30,18 @@ internal class CLDFileUtils {
         return attr?[FileAttributeKey.size] as? Int64
     }
 
-    internal static func removeFile(file: CLDPartDescriptor) {
-        try? FileManager.default.removeItem(at: file.url)
+    internal static func removeFile(file: URL) {
+        try? FileManager.default.removeItem(at: file)
     }
+    
 
     internal static func removeFiles(files: [CLDPartDescriptor]) {
         for file in files {
-            removeFile (file: file)
+            removeFile (file: file.url)
         }
     }
 
-    internal static func splitFile(url: URL, name:String, chunkSize: Int) -> [CLDPartDescriptor]?{
+    internal static func splitFile(url: URL, chunkSize: Int) -> (URL?, [CLDPartDescriptor])?{
         let maxBufferSize = 16 * 1024
         var names = [URL]()
         var outputStream:OutputStream?
@@ -67,8 +68,11 @@ internal class CLDFileUtils {
         
         var currentChunkBytes = 0
         var chunkIndex = 0
-        var targetUrl: URL!
+        var baseUrlResult = URL(fileURLWithPath: "")
+        var targetUrl = URL(fileURLWithPath:"")
+
         var totalRead:Int64 = 0
+        let randomBaseFolder = NSUUID().uuidString
         
         while inputStream.hasBytesAvailable {
             let read = inputStream.read(&buffer, maxLength: calcReadSize(currentChunkBytes, chunkSize, bufferSize))
@@ -78,8 +82,9 @@ internal class CLDFileUtils {
             }
             
             if (outputStream == nil){
-                targetUrl = getTempFileUrl(fileName: name + "_part\(chunkIndex)")
-                outputStream = OutputStream(url: targetUrl!, append: false)
+                (baseUrlResult, targetUrl) = getTempFileUrl(fileName: url.lastPathComponent, baseFolder: randomBaseFolder)
+                
+                outputStream = OutputStream(url: targetUrl, append: false)
                 
                 guard (outputStream != nil) else {
                     return nil
@@ -108,7 +113,7 @@ internal class CLDFileUtils {
         }
         
         success = true
-        return parts
+        return (baseUrlResult, parts)
     }
     
     fileprivate static func calcReadSize(_ currentChunkBytes: Int, _ chunkSize: Int, _ bufferSize: Int) -> Int {
@@ -117,8 +122,14 @@ internal class CLDFileUtils {
         return maxLength
     }
 
-    internal static func getTempFileUrl(fileName: String) -> URL{
-        return NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)!
+    internal static func getTempFileUrl(fileName: String, baseFolder: String) -> (URL, URL) {
+        let randomId = NSUUID().uuidString
+        let baseUrl = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(baseFolder)
+        let tempDirURL = baseUrl.appendingPathComponent(randomId)
+        
+        try! FileManager.default.createDirectory(at: tempDirURL, withIntermediateDirectories: true, attributes: nil)
+    
+        return (baseUrl, tempDirURL.appendingPathComponent(fileName))
     }
 }
 

@@ -328,11 +328,11 @@ The URL can either be of a local file (i.e. from the bundle) or can point to a r
             }
             
             let randomId = NSUUID().uuidString
-            if let parts = CLDFileUtils.splitFile(url: newUrl, name: randomId, chunkSize: chunkSize) {
+            if let (baseUrl, parts) = CLDFileUtils.splitFile(url: newUrl, chunkSize: chunkSize) {
                 uploadRequest.setRequestsData(count: parts.count, totalLength: totalLength)
                 uploadRequest.cleanupHandler { success in
                     DispatchQueue.global().async {
-                        CLDFileUtils.removeFiles(files: parts)
+                        CLDFileUtils.removeFile(file: baseUrl!)
                     }
                 }
                 
