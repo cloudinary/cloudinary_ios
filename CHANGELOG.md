@@ -1,4 +1,12 @@
 
+2.8.0 / 2019-11-11
+==================
+
+  * Add shared scheme (#220)
+  * Add support for artistic filters. (#214)
+  * Fix chunk upload to keep original file name. (#217)
+  * Fix face coordinates test. (#215)
+
 2.7.0 / 2019-04-07
 ==================
 
