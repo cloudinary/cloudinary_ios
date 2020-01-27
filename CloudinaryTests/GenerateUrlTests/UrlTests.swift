@@ -64,7 +64,30 @@ class UrlTests: XCTestCase {
         let url = cloudinary?.createUrl().generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/test")
     }
+    
+   func testCloudinaryUrlValidScheme() {
+       let isValid = CLDConfiguration.validateUrl(url: "cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3@test")
+       XCTAssertTrue(isValid);
+    }
+    
+    func testCloudinaryUrlInvalidScheme() {
+       let isValid = CLDConfiguration.validateUrl(url: "https://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3@test")
+       XCTAssertFalse(isValid);
+    }
+     
+    func testCloudinaryUrlEmptyScheme() {
+        let isValid = CLDConfiguration.validateUrl(url: "")
+        XCTAssertFalse(isValid);
+    }
 
+    func testInitConfiguration(){
+        let config = CLDConfiguration(cloudinaryUrl: "https://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3@test")
+        XCTAssertEqual(config, nil)
+        
+        let config2 = CLDConfiguration(cloudinaryUrl: "cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3@test")
+        XCTAssertNotNil(config2)
+    }
+    
     func testSecure() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true)
         cloudinary = CLDCloudinary(configuration: config)
