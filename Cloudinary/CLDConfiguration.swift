@@ -101,14 +101,14 @@ import Foundation
      */
     public static func initWithEnvParams() -> CLDConfiguration? {
         let dict = ProcessInfo.processInfo.environment
-        if let url = dict[Defines.ENV_VAR_CLOUDINARY_URL], validateUrl(url: url) == true {
+        if let url = dict[Defines.ENV_VAR_CLOUDINARY_URL], validateUrl(url: url) {
             return CLDConfiguration(cloudinaryUrl: url)
         }
         
         return nil
     }
     
-    public static func validateUrl(url: String) -> Bool{
+   internal static func validateUrl(url: String) -> Bool{
         return url.starts(with: "cloudinary://")
     }
     
@@ -234,7 +234,7 @@ import Foundation
         
         guard let
             uri = URL(string: cloudinaryUrl),
-            CLDConfiguration.validateUrl(url: cloudinaryUrl) == true,
+            CLDConfiguration.validateUrl(url: cloudinaryUrl),
             let cloudName = uri.host
             else {
                 return nil
