@@ -1,0 +1,23 @@
+PODS:
+  - Alamofire (4.8.2)
+  - Cloudinary (2.8.0):
+    - Alamofire (~> 4.8.2)
+
+DEPENDENCIES:
+  - Cloudinary (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+
+EXTERNAL SOURCES:
+  Cloudinary:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Cloudinary: 09d9b3e59c60372812f8d858c720671c83615938
+
+PODFILE CHECKSUM: 318d991af252fe292a1f54db9402ee74246202ec
+
+COCOAPODS: 1.8.4
