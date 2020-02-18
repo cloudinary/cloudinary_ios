@@ -19,15 +19,30 @@
     "ios": "8.0"
   },
   "swift_versions": "5.0",
-  "source_files": "Cloudinary/Classes/**/*",
   "frameworks": [
     "UIKit",
     "Foundation"
   ],
-  "dependencies": {
-    "Alamofire": [
-      "~> 4.8.2"
-    ]
-  },
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core",
+      "dependencies": {
+        "Alamofire": [
+          "~> 4.8.2"
+        ]
+      },
+      "source_files": "Cloudinary/Core/**/*"
+    },
+    {
+      "name": "ios",
+      "dependencies": {
+        "Cloudinary/Core": [
+
+        ]
+      },
+      "source_files": "Cloudinary/ios/**/*"
+    }
+  ],
   "swift_version": "5.0"
 }

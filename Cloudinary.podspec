@@ -28,8 +28,21 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '8.0'
     s.swift_version         = '5.0'
     
-    s.source_files  = 'Cloudinary/Classes/**/*'
-    
     s.frameworks    = 'UIKit', 'Foundation'
-    s.dependency 'Alamofire', '~> 4.8.2'
+    
+    s.default_subspec = 'Core'
+    
+    s.subspec 'Core' do |spec|
+        
+        spec.dependency 'Alamofire', '~> 4.8.2'
+        spec.source_files = 'Cloudinary/Core/**/*'
+    
+    end
+    
+    s.subspec 'ios' do |spec|
+        
+        spec.dependency 'Cloudinary/Core'
+        spec.source_files = 'Cloudinary/ios/**/*'
+    
+    end
 end
