@@ -23,25 +23,25 @@
     "UIKit",
     "Foundation"
   ],
-  "default_subspecs": "Core",
+  "default_subspecs": "ios",
   "subspecs": [
     {
       "name": "Core",
+      "source_files": "Cloudinary/Core/**/*",
       "dependencies": {
         "Alamofire": [
           "~> 4.8.2"
         ]
-      },
-      "source_files": "Cloudinary/Core/**/*"
+      }
     },
     {
       "name": "ios",
+      "source_files": "Cloudinary/ios/**/*",
       "dependencies": {
         "Cloudinary/Core": [
 
         ]
-      },
-      "source_files": "Cloudinary/ios/**/*"
+      }
     }
   ],
   "swift_version": "5.0"

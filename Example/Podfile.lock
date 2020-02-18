@@ -1,12 +1,14 @@
 PODS:
   - Alamofire (4.8.2)
+  - Cloudinary (2.8.0):
+    - Cloudinary/ios (= 2.8.0)
   - Cloudinary/Core (2.8.0):
     - Alamofire (~> 4.8.2)
   - Cloudinary/ios (2.8.0):
     - Cloudinary/Core
 
 DEPENDENCIES:
-  - Cloudinary/ios (from `../`)
+  - Cloudinary (from `../`)
 
 SPEC REPOS:
   trunk:
@@ -18,8 +20,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Cloudinary: 715a6ccd308c1163c07fd6ffe672be01313581a3
+  Cloudinary: fd4bcd0c4f21680d4bfe61dcc4006a6a0de697a5
 
-PODFILE CHECKSUM: 3e0280eea44446a0b2192c39ece20bf985bb814f
+PODFILE CHECKSUM: 318d991af252fe292a1f54db9402ee74246202ec
 
 COCOAPODS: 1.8.4

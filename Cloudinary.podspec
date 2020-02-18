@@ -30,19 +30,19 @@ Pod::Spec.new do |s|
     
     s.frameworks    = 'UIKit', 'Foundation'
     
-    s.default_subspec = 'Core'
+    s.default_subspec = 'ios'
     
     s.subspec 'Core' do |spec|
         
-        spec.dependency 'Alamofire', '~> 4.8.2'
         spec.source_files = 'Cloudinary/Core/**/*'
+        spec.dependency 'Alamofire', '~> 4.8.2'
     
     end
     
     s.subspec 'ios' do |spec|
         
-        spec.dependency 'Cloudinary/Core'
         spec.source_files = 'Cloudinary/ios/**/*'
+        spec.dependency 'Cloudinary/Core'
     
     end
 end

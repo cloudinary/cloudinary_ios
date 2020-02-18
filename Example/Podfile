@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'Cloudinary_Example' do
-  pod 'Cloudinary/ios', :path => '../'
+  pod 'Cloudinary', :path => '../'
 
   target 'Cloudinary_Tests' do
     inherit! :search_paths
