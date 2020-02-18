@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270C1BF723FBBA3C00A503C3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 270C1BF623FBBA3C00A503C3 /* LICENSE */; };
 		274C6D2D23FBAF5E0090BC40 /* CryptoUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D1323FBAF5E0090BC40 /* CryptoUtilsTests.swift */; };
 		274C6D2E23FBAF5E0090BC40 /* PreprocessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D1423FBAF5E0090BC40 /* PreprocessTests.swift */; };
 		274C6D2F23FBAF5E0090BC40 /* FileUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D1523FBAF5E0090BC40 /* FileUtilsTests.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		1F1E7230BC2F4BD7024D008F /* Pods-Cloudinary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Tests.release.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Tests/Pods-Cloudinary_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		270C1BF623FBBA3C00A503C3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		274C6D1323FBAF5E0090BC40 /* CryptoUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoUtilsTests.swift; sourceTree = "<group>"; };
 		274C6D1423FBAF5E0090BC40 /* PreprocessTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreprocessTests.swift; sourceTree = "<group>"; };
 		274C6D1523FBAF5E0090BC40 /* FileUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtilsTests.swift; sourceTree = "<group>"; };
@@ -66,7 +68,6 @@
 		274C6D2923FBAF5E0090BC40 /* pdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf.pdf; sourceTree = "<group>"; };
 		274C6D2B23FBAF5E0090BC40 /* dog.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = dog.mov; sourceTree = "<group>"; };
 		274C6D2C23FBAF5E0090BC40 /* dog.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dog.mp4; sourceTree = "<group>"; };
-		2A0D96F015FD5AB66C829AC3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		5013B87CB1E3335DB0AC3828 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Cloudinary_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudinary_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -255,7 +256,7 @@
 			children = (
 				AA2F53C389142220209152BA /* Cloudinary.podspec */,
 				F2530AD793711AEF6C37A33F /* README.md */,
-				2A0D96F015FD5AB66C829AC3 /* LICENSE */,
+				270C1BF623FBBA3C00A503C3 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
@@ -358,6 +359,7 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				270C1BF723FBBA3C00A503C3 /* LICENSE in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
