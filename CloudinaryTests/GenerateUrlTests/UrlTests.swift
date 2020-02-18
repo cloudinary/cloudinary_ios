@@ -165,6 +165,10 @@ class UrlTests: XCTestCase {
     func testVariousOptions() {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/g_center,p_a,q_0.4,r_3,x_1,y_2/test")
+        let urlRadius = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius([10,20,"30","$v"]).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
+        XCTAssertEqual(urlRadius, "\(prefix)/image/upload/g_center,p_a,q_0.4,r_10:20:30:$v,x_1,y_2/test")
+        let urlRadius2 = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius([20,0,"3"]).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
+        XCTAssertEqual(urlRadius2, "\(prefix)/image/upload/g_center,p_a,q_0.4,r_20:0:3,x_1,y_2/test")
     }
 
     func testQuality() {
@@ -200,7 +204,7 @@ class UrlTests: XCTestCase {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setWidth(200).setCrop(.fill).chain().setRadius(10).chain().setCrop(.crop).setWidth(100)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,w_200,x_100,y_100/r_10/c_crop,w_100/test")
     }
-
+    
     func testNoEmptyTransformation() {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain()).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,x_100,y_100/test")
