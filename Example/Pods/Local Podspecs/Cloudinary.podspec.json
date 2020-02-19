@@ -27,7 +27,7 @@
   "subspecs": [
     {
       "name": "Core",
-      "source_files": "Cloudinary/Core/**/*",
+      "source_files": "Cloudinary/Classes/Core/**/*",
       "dependencies": {
         "Alamofire": [
           "~> 4.8.2"
@@ -36,7 +36,7 @@
     },
     {
       "name": "ios",
-      "source_files": "Cloudinary/ios/**/*",
+      "source_files": "Cloudinary/Classes/ios/**/*",
       "dependencies": {
         "Cloudinary/Core": [
 

@@ -108,7 +108,7 @@
 		84C9301BA8A278A2D4441EA3 /* Pods_Cloudinary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85DFA80480D136A0EFEF85DE /* Pods-Cloudinary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Example.debug.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8B2098716BDB05A0132E264D /* Pods-Cloudinary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Tests/Pods-Cloudinary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		AA2F53C389142220209152BA /* Cloudinary.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Cloudinary.podspec; path = ../Cloudinary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AA2F53C389142220209152BA /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Cloudinary.podspec; path = ../Cloudinary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F2530AD793711AEF6C37A33F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
