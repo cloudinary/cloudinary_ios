@@ -23,7 +23,7 @@
 //
 
 import Foundation
-import UIKit
+import CoreGraphics
 
 @objcMembers open class CLDFace: CLDBaseResult {
     

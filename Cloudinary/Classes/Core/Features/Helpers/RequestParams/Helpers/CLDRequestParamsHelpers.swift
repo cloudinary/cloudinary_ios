@@ -23,7 +23,7 @@
 //
 
 import Foundation
-import UIKit
+import CoreGraphics
 
 // MARK: - CLDSignature
 
