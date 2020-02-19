@@ -1,10 +1,10 @@
 PODS:
   - Alamofire (4.8.2)
-  - Cloudinary (2.8.0):
-    - Cloudinary/ios (= 2.8.0)
-  - Cloudinary/Core (2.8.0):
+  - Cloudinary (2.8.1):
+    - Cloudinary/ios (= 2.8.1)
+  - Cloudinary/Core (2.8.1):
     - Alamofire (~> 4.8.2)
-  - Cloudinary/ios (2.8.0):
+  - Cloudinary/ios (2.8.1):
     - Cloudinary/Core
 
 DEPENDENCIES:
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Cloudinary: b406186052570322ed1d2bd69bab84a8cfa1e16c
+  Cloudinary: 5a618e84d9c06c967c048aec2e49b0722b02fae8
 
 PODFILE CHECKSUM: 318d991af252fe292a1f54db9402ee74246202ec
 

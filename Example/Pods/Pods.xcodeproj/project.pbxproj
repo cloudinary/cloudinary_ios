@@ -166,7 +166,7 @@
 		0B0A748C10DF180FE4F0AEFCE079B11E /* CLDExplicitResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDExplicitResult.swift; sourceTree = "<group>"; };
 		0C1084F91F82565507232334C67702EE /* Pods-Cloudinary_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Cloudinary_Tests-dummy.m"; sourceTree = "<group>"; };
 		0D01BA8472F25D39F718F71557EDC8DD /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
-		0E2DAC60D2069E0F8C265E47655C7A06 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		0E2DAC60D2069E0F8C265E47655C7A06 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		12468D5FC94BE79F117028A755EAC34E /* Cloudinary-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Cloudinary-dummy.m"; sourceTree = "<group>"; };
 		135E2B7991EBDD0285DCC8CC68DD94D5 /* CLDRequestParamsHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDRequestParamsHelpers.swift; sourceTree = "<group>"; };
 		17241CD868EF123D2F0C17F51421F683 /* CLDError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDError.swift; sourceTree = "<group>"; };
@@ -189,11 +189,11 @@
 		341BDAD0026CDA8E7BCE35AC122E1C8C /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
 		3A6A074B962C17F160B598C5202C319C /* CLDNetworkDownloadRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDNetworkDownloadRequest.swift; sourceTree = "<group>"; };
 		3AA23E26310A27310DFAD33574B2F5FB /* CLDDictionaryUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDDictionaryUtils.swift; sourceTree = "<group>"; };
-		3BC2875BC37FD723D12F589EE03EA025 /* Cloudinary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cloudinary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BC2875BC37FD723D12F589EE03EA025 /* Cloudinary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Cloudinary.framework; path = Cloudinary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6158549D3B8ED9969428870CB80CFB /* CLDTagResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDTagResult.swift; sourceTree = "<group>"; };
 		3D7E25E371731FAE44F46A9F392CB5D5 /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
 		3EB08585ADC8DFCC18AB54B7651462AC /* CLDResponsiveParams.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CLDResponsiveParams.swift; path = Cloudinary/Classes/Core/CLDResponsiveParams.swift; sourceTree = "<group>"; };
-		421B2A4E5AB3666BF84754AA8BE201D1 /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = Cloudinary.podspec; sourceTree = "<group>"; tabWidth = 2; };
+		421B2A4E5AB3666BF84754AA8BE201D1 /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = Cloudinary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		425B91478B2880CFD28B3F1D4F2005CE /* CLDCompatibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CLDCompatibility.swift; path = Cloudinary/Classes/Core/CLDCompatibility.swift; sourceTree = "<group>"; };
 		473F24D1F4E7F0EF0675DA4563EF131C /* Cloudinary.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Cloudinary.modulemap; sourceTree = "<group>"; };
 		48342C75382382BEBF3028B9C81551B4 /* CLDExplicitRequestParams.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDExplicitRequestParams.swift; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 		53B43D6D8EE48BFE9B16762F405D473C /* Pods-Cloudinary_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Cloudinary_Tests-umbrella.h"; sourceTree = "<group>"; };
 		547A68AE3DEDCC151B1CA5C30983878A /* Cloudinary.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Cloudinary.h; path = Cloudinary/Classes/Core/Cloudinary.h; sourceTree = "<group>"; };
 		57C65ABDC55CC20E7BA5ED6ED4111DB1 /* Cloudinary-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Cloudinary-Info.plist"; sourceTree = "<group>"; };
-		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D99F5F7FCF2E1876A61A298A276BA25 /* UIButton+Cloudinary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIButton+Cloudinary.swift"; sourceTree = "<group>"; };
 		5F75BE2D6CA19B0AD1F1EE477975320F /* UIView+Cloudinary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+Cloudinary.swift"; sourceTree = "<group>"; };
 		60FECB3B868F4677EC8CB893CD604918 /* Pods-Cloudinary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Cloudinary_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 		6BAA1D660599F856B6919A2CB8EB0073 /* Pods-Cloudinary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Cloudinary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		6C04125498C38A0D94ED8E4C5A2E1138 /* CLDNetworkDataRequestImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDNetworkDataRequestImpl.swift; sourceTree = "<group>"; };
 		6C811B8EC00655C9D568061C95BD2E40 /* Pods-Cloudinary_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Cloudinary_Example-dummy.m"; sourceTree = "<group>"; };
-		70BD7F327072E602CBD1F8DB46649A56 /* Pods_Cloudinary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70BD7F327072E602CBD1F8DB46649A56 /* Pods_Cloudinary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Cloudinary_Example.framework; path = "Pods-Cloudinary_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7245A9F999ED7091B6A45C9387002B1F /* CLDExplodeRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDExplodeRequest.swift; sourceTree = "<group>"; };
 		72CC05376D7A38A7E8F17565468E5E60 /* CLDConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CLDConfiguration.swift; path = Cloudinary/Classes/Core/CLDConfiguration.swift; sourceTree = "<group>"; };
 		74D0FE5731933C103A8D44A796687F11 /* CLDJsonUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CLDJsonUtils.swift; path = Cloudinary/Classes/Core/CLDJsonUtils.swift; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 		7A18ECF9072CE94EE7CDCEBF4664436F /* Pods-Cloudinary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Cloudinary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B03859BDC36782899379E222720A297 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
 		7C8681A2BB202ACE90DD669DD1369757 /* CLDDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDDownloader.swift; sourceTree = "<group>"; };
-		80705CBEC5F7DDD13C93FA30738B18E2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		80705CBEC5F7DDD13C93FA30738B18E2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		8419D11E876A444CD23D770B4D8104D2 /* CLDTextRequestParams.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDTextRequestParams.swift; sourceTree = "<group>"; };
 		846C0252E59AC5580CB08B8EBD77D34C /* CLDSpriteRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDSpriteRequest.swift; sourceTree = "<group>"; };
 		84B0E87179155177B23A828DB9D7E5F4 /* CLDPreprocessChain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDPreprocessChain.swift; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 		9666A3024EB88F61C6B4666E9F358B27 /* CLDBaseNetworkObject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDBaseNetworkObject.swift; sourceTree = "<group>"; };
 		985417470B9341C92A5160D4B2FF2B08 /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
 		9D59E1AD3CC394A93392FF3DC8CF2961 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9EAEBB85C7656FFE34DC2899ADE20929 /* CLDExplodeResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDExplodeResult.swift; sourceTree = "<group>"; };
 		A01368465006F8B52D9E2C33990C6717 /* CLDBaseResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDBaseResult.swift; sourceTree = "<group>"; };
 		A067ECC9DFF4D69FCD6ACF7F791839FD /* Pods-Cloudinary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Cloudinary_Example.modulemap"; sourceTree = "<group>"; };
@@ -270,7 +270,7 @@
 		CCC6858C85690F7AFEA7F6542EE9A69A /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
 		CFE54DE05A0876A2F0825EC991A582CC /* CLDTagRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDTagRequest.swift; sourceTree = "<group>"; };
 		D0FF301302A2A77E95697F2B5692FA5E /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D1B10E941918AABA53B77DCAF66E2AB7 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1B10E941918AABA53B77DCAF66E2AB7 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Cloudinary_Tests.framework; path = "Pods-Cloudinary_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D6A59996AF70898DE8A15453C73AD1 /* Pods-Cloudinary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Cloudinary_Example-frameworks.sh"; sourceTree = "<group>"; };
 		D54AEF5647A987180EDAD7E1CEF7387B /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
 		D5F941E1035B7D08DD0F03F49EC692B1 /* CLDCloudinary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CLDCloudinary.swift; path = Cloudinary/Classes/Core/CLDCloudinary.swift; sourceTree = "<group>"; };
@@ -392,6 +392,7 @@
 				DCC3B209ACE39602BA4E421C7D99C463 /* CLDSubtitlesLayer.swift */,
 				85B60184106B3D1D3D5B2978BF05672F /* CLDTextLayer.swift */,
 			);
+			name = Layers;
 			path = Layers;
 			sourceTree = "<group>";
 		};
@@ -405,6 +406,7 @@
 				49079ABBE8C2D7B2ABCBC59FB7406814 /* CLDRekognitionFace.swift */,
 				EAE8AFC20AAC1335529964BA2C9392BD /* CommonResultKeys.swift */,
 			);
+			name = Helpers;
 			path = Helpers;
 			sourceTree = "<group>";
 		};
@@ -420,6 +422,7 @@
 				CFE54DE05A0876A2F0825EC991A582CC /* CLDTagRequest.swift */,
 				A9E3A3AA9EF0BAC05B9C971A145F2AD0 /* CLDTextRequest.swift */,
 			);
+			name = Requests;
 			path = Requests;
 			sourceTree = "<group>";
 		};
@@ -428,6 +431,7 @@
 			children = (
 				B5A15496F1FA442DED013F6B5CC2A0F9 /* CLDNetworkAdapter.swift */,
 			);
+			name = Adapter;
 			path = Adapter;
 			sourceTree = "<group>";
 		};
@@ -499,6 +503,7 @@
 				84B0E87179155177B23A828DB9D7E5F4 /* CLDPreprocessChain.swift */,
 				76ED5909FE0D7508EA079C95E5EE847C /* CLDPreprocessHelpers.swift */,
 			);
+			name = Preupload;
 			path = Preupload;
 			sourceTree = "<group>";
 		};
@@ -508,6 +513,7 @@
 				EDC767AF7220C9DE2C67881BA2AE4D35 /* CLDRequestParams.swift */,
 				AD0A7AB67A9CB4C03305AFFC788F67FA /* Helpers */,
 			);
+			name = RequestParams;
 			path = RequestParams;
 			sourceTree = "<group>";
 		};
@@ -523,6 +529,7 @@
 				3D6158549D3B8ED9969428870CB80CFB /* CLDTagResult.swift */,
 				1D276753A619EDB6F8A09FDF10B0F46A /* CLDTextResult.swift */,
 			);
+			name = Results;
 			path = Results;
 			sourceTree = "<group>";
 		};
@@ -539,6 +546,7 @@
 				012CF405051B2B1864209DAD115DC77E /* CLDTagsRequestParams.swift */,
 				8419D11E876A444CD23D770B4D8104D2 /* CLDTextRequestParams.swift */,
 			);
+			name = RequestsParams;
 			path = RequestsParams;
 			sourceTree = "<group>";
 		};
@@ -548,6 +556,7 @@
 				A01368465006F8B52D9E2C33990C6717 /* CLDBaseResult.swift */,
 				19F5B741DDC17F27B0324422FE895DE1 /* Helpers */,
 			);
+			name = Results;
 			path = Results;
 			sourceTree = "<group>";
 		};
@@ -575,6 +584,7 @@
 			children = (
 				7C8681A2BB202ACE90DD669DD1369757 /* CLDDownloader.swift */,
 			);
+			name = Downloader;
 			path = Downloader;
 			sourceTree = "<group>";
 		};
@@ -596,6 +606,7 @@
 			children = (
 				A97F3055C69BF6512317F0994ABBB276 /* CLDRequest.swift */,
 			);
+			name = Requests;
 			path = Requests;
 			sourceTree = "<group>";
 		};
@@ -628,6 +639,7 @@
 				AAC833F82690F579E7C4C280ECDECBEA /* Requests */,
 				BC328F39E6322AA1D23739A3A4F13C9D /* Results */,
 			);
+			name = Uploader;
 			path = Uploader;
 			sourceTree = "<group>";
 		};
@@ -663,6 +675,7 @@
 				24A739FF78C8A36EBF3A6D938370C150 /* CLDUploadRequest.swift */,
 				1F5367E708A4564A503CBAB15EFE2934 /* CLDUploadRequestWrapper.swift */,
 			);
+			name = Requests;
 			path = Requests;
 			sourceTree = "<group>";
 		};
@@ -688,6 +701,7 @@
 				33115EC2A5164913C68F8BD170389EEE /* Validation.swift */,
 				5C26875CAEBEFEDA19F66418CD7AE5DB /* Support Files */,
 			);
+			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -711,6 +725,7 @@
 				8297076158B779380DC1F4CCF2310064 /* RequestsParams */,
 				6FC9B6634B2DC24B9345C1EF5FF4C2F2 /* Results */,
 			);
+			name = ManagementApi;
 			path = ManagementApi;
 			sourceTree = "<group>";
 		};
@@ -719,6 +734,7 @@
 			children = (
 				135E2B7991EBDD0285DCC8CC68DD94D5 /* CLDRequestParamsHelpers.swift */,
 			);
+			name = Helpers;
 			path = Helpers;
 			sourceTree = "<group>";
 		};
@@ -733,6 +749,7 @@
 				3A6A074B962C17F160B598C5202C319C /* CLDNetworkDownloadRequest.swift */,
 				B43600449277B338CDD9FF45BB21508A /* CLDNetworkUploadRequest.swift */,
 			);
+			name = NetworkRequest;
 			path = NetworkRequest;
 			sourceTree = "<group>";
 		};
@@ -741,6 +758,7 @@
 			children = (
 				8C27211735F77C28F01F2E1E96050B88 /* CLDUploadRequestParams.swift */,
 			);
+			name = RequestParams;
 			path = RequestParams;
 			sourceTree = "<group>";
 		};
@@ -749,6 +767,7 @@
 			children = (
 				9642AC5FBDB025BB3B65B99444D9C4CE /* CLDUploadResult.swift */,
 			);
+			name = Results;
 			path = Results;
 			sourceTree = "<group>";
 		};
@@ -784,6 +803,7 @@
 				8B2C114CA701D0815B50E4897BDC99E1 /* Requests */,
 				82FCBD15ED392FAC1FD46418CAAC8F4B /* Results */,
 			);
+			name = Helpers;
 			path = Helpers;
 			sourceTree = "<group>";
 		};
@@ -792,6 +812,7 @@
 			children = (
 				DC68FEE9D3291673366703C15D22385C /* CLDUrl.swift */,
 			);
+			name = Url;
 			path = Url;
 			sourceTree = "<group>";
 		};
@@ -1407,7 +1428,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
