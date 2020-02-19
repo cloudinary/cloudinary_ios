@@ -23,6 +23,7 @@
 //
 
 import Foundation
+import UIKit
 
 internal extension UIView {    
     func fetchImageForUIElement(_ url: String, placeholder: UIImage?, cloudinary: CLDCloudinary, fetchedImageHandler: @escaping ((_ fetchedImage: UIImage) -> ())) {

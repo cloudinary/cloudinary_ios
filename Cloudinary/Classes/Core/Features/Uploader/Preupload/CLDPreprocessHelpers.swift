@@ -25,6 +25,7 @@
 
 
 import Foundation
+import UIKit
 
 /**
  This class contains ready-to-use encoders and processing steps to be used with CLDPreprocessChain

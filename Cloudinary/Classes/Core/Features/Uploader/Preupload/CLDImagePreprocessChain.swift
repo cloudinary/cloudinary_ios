@@ -24,6 +24,7 @@
 //
 
 import Foundation
+import UIKit
 
 /**
  The CLDImagePreprocessChain is used to run preprocessing on images before uploading.
