@@ -22,6 +22,7 @@
 //  SOFTWARE.
 //
 import Foundation
+import UIKit
 
 @objcMembers open class CLDBoundingBox: CLDBaseResult {
     

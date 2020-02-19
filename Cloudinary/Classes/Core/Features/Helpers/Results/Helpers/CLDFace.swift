@@ -23,6 +23,7 @@
 //
 
 import Foundation
+import UIKit
 
 @objcMembers open class CLDFace: CLDBaseResult {
     

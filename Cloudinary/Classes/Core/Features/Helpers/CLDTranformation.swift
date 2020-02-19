@@ -23,7 +23,7 @@
 //
 
 import Foundation
-
+import UIKit
 /**
  The CLDTransformation class represents a full transformation performed by Cloudinay on-the-fly on a certain asset.
  */
