@@ -24,9 +24,9 @@ Pod::Spec.new do |s|
     s.author           = { "Cloudinary" => "info@cloudinary.com" }
     s.source           = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => s.version.to_s }
     
-    s.swift_version    = '5.0'
+    s.swift_version         = '5.0'
     s.ios.deployment_target = '8.0'
-    s.frameworks       = 'UIKit', 'Foundation'
+    s.frameworks            = 'UIKit', 'Foundation'
     
     s.default_subspec  = 'ios'
     
