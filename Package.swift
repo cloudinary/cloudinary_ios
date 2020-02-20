@@ -23,8 +23,5 @@ let package = Package(
             name: "Cloudinary",
             dependencies: [],
             path: "Cloudinary/Classes"),
-        .testTarget(
-            name: "CloudinaryTests",
-            dependencies: ["Cloudinary"]),
     ]
 )

@@ -15,18 +15,24 @@
     "git": "https://github.com/cloudinary/cloudinary_ios.git",
     "tag": "2.8.1"
   },
-  "platforms": {
-    "ios": "8.0"
-  },
   "swift_versions": "5.0",
   "frameworks": [
     "UIKit",
     "Foundation"
   ],
   "default_subspecs": "ios",
+  "platforms": {
+    "osx": null,
+    "ios": null,
+    "tvos": null,
+    "watchos": null
+  },
   "subspecs": [
     {
       "name": "Core",
+      "platforms": {
+        "ios": "8.0"
+      },
       "source_files": "Cloudinary/Classes/Core/**/*",
       "dependencies": {
         "Alamofire": [
@@ -36,6 +42,9 @@
     },
     {
       "name": "ios",
+      "platforms": {
+        "ios": "8.0"
+      },
       "source_files": "Cloudinary/Classes/ios/**/*",
       "dependencies": {
         "Cloudinary/Core": [
