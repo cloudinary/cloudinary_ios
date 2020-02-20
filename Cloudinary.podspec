@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
     s.source           = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => s.version.to_s }
     
     s.swift_version    = '5.0'
-    
+    s.ios.deployment_target = '8.0'
     s.frameworks       = 'UIKit', 'Foundation'
     
     s.default_subspec  = 'ios'
@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
     s.subspec 'Core' do |spec|
         
         spec.platform              = :ios
-        spec.ios.deployment_target = '8.0'
         spec.source_files          = 'Cloudinary/Classes/Core/**/*'
         spec.dependency 'Alamofire', '~> 4.8.2'
     
@@ -42,7 +41,6 @@ Pod::Spec.new do |s|
     s.subspec 'ios' do |spec|
         
         spec.platform              = :ios
-        spec.ios.deployment_target = '8.0'
         spec.source_files          = 'Cloudinary/Classes/ios/**/*'
         spec.dependency 'Cloudinary/Core'
     
