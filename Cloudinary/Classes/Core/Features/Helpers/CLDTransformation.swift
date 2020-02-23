@@ -23,7 +23,6 @@
 //
 
 import Foundation
-import UIKit
 /**
  The CLDTransformation class represents a full transformation performed by Cloudinay on-the-fly on a certain asset.
  */
@@ -900,17 +899,6 @@ import UIKit
     @discardableResult
     open func setDpr(_ dpr: Float) -> Self {
         return setDpr(dpr.cldFloatFormat())
-    }
-    
-    /**
-     Deliver the image in the correct device pixel ratio, according to the used device.
-     
-     - returns:             The same instance of CLDTransformation.
-     */
-    @discardableResult
-    open func setDprAuto() -> Self {
-        let scale = Float(UIScreen.main.scale)
-        return setDpr(scale)
     }
     
     /**
