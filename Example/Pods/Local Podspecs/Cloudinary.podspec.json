@@ -16,34 +16,31 @@
     "tag": "2.8.1"
   },
   "swift_versions": "5.0",
+  "platforms": {
+    "ios": "8.0"
+  },
   "frameworks": [
     "UIKit",
     "Foundation"
   ],
   "default_subspecs": "ios",
-  "platforms": {
-    "osx": null,
-    "ios": null,
-    "tvos": null,
-    "watchos": null
-  },
   "subspecs": [
     {
       "name": "Core",
       "platforms": {
-        "ios": "8.0"
+        "ios": null
       },
       "source_files": "Cloudinary/Classes/Core/**/*",
       "dependencies": {
         "Alamofire": [
-          "~> 4.8.2"
+          "~> 4.9.1"
         ]
       }
     },
     {
       "name": "ios",
       "platforms": {
-        "ios": "8.0"
+        "ios": null
       },
       "source_files": "Cloudinary/Classes/ios/**/*",
       "dependencies": {
