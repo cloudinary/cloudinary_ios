@@ -87,12 +87,7 @@ class UrlTests: XCTestCase {
         let config2 = CLDConfiguration(cloudinaryUrl: "cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3@test")
         XCTAssertNotNil(config2)
     }
-    
-    func testInitWithEnvParams(){
-        let config = CLDConfiguration.initWithEnvParams()
-        XCTAssertNotNil(config)
-    }
-    
+
     func testSecure() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true)
         cloudinary = CLDCloudinary(configuration: config)
