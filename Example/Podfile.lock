@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (4.8.2)
+  - Alamofire (4.9.1)
   - Cloudinary (2.8.1):
     - Cloudinary/ios (= 2.8.1)
   - Cloudinary/Core (2.8.1):
-    - Alamofire (~> 4.8.2)
+    - Alamofire (~> 4.9.1)
   - Cloudinary/ios (2.8.1):
     - Cloudinary/Core
 
@@ -19,8 +19,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Cloudinary: 011c191bd9ba3c4071b2e712febb1f2856b35ad1
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Cloudinary: 5956bd4bde132323ab193a02775a6db4c395584b
 
 PODFILE CHECKSUM: 318d991af252fe292a1f54db9402ee74246202ec
 
