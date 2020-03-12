@@ -30,19 +30,11 @@ Pod::Spec.new do |s|
     
     s.default_subspec  = 'ios'
     
-    s.subspec 'Core' do |spec|
-        
-        spec.platform              = :ios
-        spec.source_files          = 'Cloudinary/Classes/Core/**/*'
-        spec.dependency 'Alamofire', '~> 4.9.1'
-    
-    end
-    
     s.subspec 'ios' do |spec|
         
         spec.platform              = :ios
-        spec.source_files          = 'Cloudinary/Classes/ios/**/*'
-        spec.dependency 'Cloudinary/Core'
+        spec.source_files          = 'Cloudinary/Classes/**/*'
+        spec.dependency 'Alamofire', '~> 4.9.1'
     
     end
 end
