@@ -285,6 +285,13 @@ Additional resources are available at:
 * [Image transformations documentation](https://cloudinary.com/documentation/image_transformations)
 * [Upload API documentation](https://cloudinary.com/documentation/upload_images)
 
+## How to open the example project
+
+To open the example project, follow these steps:
+1. Open to "Example" folder
+2. Open the "Cloudinary.xcworkspace"
+
+
 ## Support
 
 You can [open an issue through GitHub](https://github.com/cloudinary/cloudinary_ios/issues).

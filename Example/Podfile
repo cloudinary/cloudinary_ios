@@ -1,0 +1,12 @@
+use_frameworks!
+
+target 'Cloudinary_Example' do
+  pod 'Cloudinary', :path => '../'
+
+  target 'Cloudinary_Tests' do
+    inherit! :search_paths
+    
+    # For view base tests add FBSnapshotTestCase
+    #pod 'FBSnapshotTestCase' , '~> 2.1.4'
+  end
+end
