@@ -1,9 +1,8 @@
 language: objective-c
-osx_image: xcode10.2
-xcode_project: Cloudinary.xcodeproj
+osx_image: xcode11.3
+xcode_project: Example/Cloudinary.xcworkspace
+podfile: Example/Podfile
 xcode_scheme: travis_public_scheme
 xcode_sdk: iphonesimulator11.2
-before_install:
-  - git submodule update --init Alamofire
 
-script: xcodebuild clean test -project Cloudinary.xcodeproj -scheme travis_public_scheme -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.2' -CLOUDINARY_URL=$CLOUDINARY_URL | xcpretty && exit ${PIPESTATUS[0]}
+script: xcodebuild clean test -project Example/Cloudinary.xcworkspace -scheme travis_public_scheme -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.2' -CLOUDINARY_URL=$CLOUDINARY_URL | xcpretty && exit ${PIPESTATUS[0]}
