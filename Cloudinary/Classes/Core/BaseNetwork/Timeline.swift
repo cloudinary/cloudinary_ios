@@ -24,7 +24,7 @@
 
 import Foundation
 
-/// Responsible for computing the timing metrics for the complete lifecycle of a `Request`.
+/// Responsible for computing the timing metrics for the complete lifecycle of a `CLDNRequest`.
 public struct Timeline {
     /// The time the request was initialized.
     public let requestStartTime: CFAbsoluteTime

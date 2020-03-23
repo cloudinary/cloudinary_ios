@@ -24,7 +24,7 @@
 
 import Foundation
 
-/// Responsible for creating and managing `Request` objects, as well as their underlying `NSURLSession`.
+/// Responsible for creating and managing `CLDNRequest` objects, as well as their underlying `NSURLSession`.
 open class SessionManager {
 
     // MARK: - Helper Types
@@ -32,12 +32,12 @@ open class SessionManager {
     /// Defines whether the `CLDNMultipartFormData` encoding was successful and contains result of the encoding as
     /// associated values.
     ///
-    /// - Success: Represents a successful `CLDNMultipartFormData` encoding and contains the new `UploadRequest` along with
+    /// - Success: Represents a successful `CLDNMultipartFormData` encoding and contains the new `CLDNUploadRequest` along with
     ///            streaming information.
     /// - Failure: Used to represent a failure in the `CLDNMultipartFormData` encoding and also contains the encoding
     ///            error.
-    public enum MultipartFormDataEncodingResult {
-        case success(request: UploadRequest, streamingFromDisk: Bool, streamFileURL: URL?)
+    internal enum MultipartFormDataEncodingResult {
+        case success(request: CLDNUploadRequest, streamingFromDisk: Bool, streamFileURL: URL?)
         case failure(Error)
     }
 
@@ -53,7 +53,7 @@ open class SessionManager {
     }()
 
     /// Creates default values for the "Accept-Encoding", "Accept-Language" and "User-Agent" headers.
-    public static let defaultHTTPHeaders: HTTPHeaders = {
+    internal static let defaultHTTPHeaders: CLDNHTTPHeaders = {
         // Accept-Encoding HTTP Header; see https://tools.ietf.org/html/rfc7230#section-4.2.3
         let acceptEncoding: String = "gzip;q=1.0, compress;q=0.5"
 
@@ -130,10 +130,10 @@ open class SessionManager {
     open var startRequestsImmediately: Bool = true
 
     /// The request adapter called each time a new request is created.
-    open var adapter: RequestAdapter?
+    internal var adapter: CLDNRequestAdapter?
 
     /// The request retrier called each time a request encounters an error to determine whether to retry the request.
-    open var retrier: RequestRetrier? {
+    internal var retrier: CLDNRequestRetrier? {
         get { return delegate.retrier }
         set { delegate.retrier = newValue }
     }
@@ -212,7 +212,7 @@ open class SessionManager {
 
     // MARK: - Data Request
 
-    /// Creates a `DataRequest` to retrieve the contents of the specified `url`, `method`, `parameters`, `encoding`
+    /// Creates a `CLDNDataRequest` to retrieve the contents of the specified `url`, `method`, `parameters`, `encoding`
     /// and `headers`.
     ///
     /// - parameter url:        The URL.
@@ -221,15 +221,15 @@ open class SessionManager {
     /// - parameter encoding:   The parameter encoding. `CLDURLEncoding.default` by default.
     /// - parameter headers:    The HTTP headers. `nil` by default.
     ///
-    /// - returns: The created `DataRequest`.
+    /// - returns: The created `CLDNDataRequest`.
     @discardableResult
     internal func request(
         _ url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .get,
         parameters: CLDNParameters? = nil,
         encoding: CLDParameterEncoding = CLDURLEncoding.default,
-        headers: HTTPHeaders? = nil)
-        -> DataRequest
+        headers: CLDNHTTPHeaders? = nil)
+        -> CLDNDataRequest
     {
         var originalRequest: URLRequest?
 
@@ -242,23 +242,23 @@ open class SessionManager {
         }
     }
 
-    /// Creates a `DataRequest` to retrieve the contents of a URL based on the specified `urlRequest`.
+    /// Creates a `CLDNDataRequest` to retrieve the contents of a URL based on the specified `urlRequest`.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
     /// - parameter urlRequest: The URL request.
     ///
-    /// - returns: The created `DataRequest`.
+    /// - returns: The created `CLDNDataRequest`.
     @discardableResult
-    open func request(_ urlRequest: CLDNURLRequestConvertible) -> DataRequest {
+    internal func request(_ urlRequest: CLDNURLRequestConvertible) -> CLDNDataRequest {
         var originalRequest: URLRequest?
 
         do {
             originalRequest = try urlRequest.asURLRequest()
-            let originalTask = DataRequest.Requestable(urlRequest: originalRequest!)
+            let originalTask = CLDNDataRequest.Requestable(urlRequest: originalRequest!)
 
             let task = try originalTask.task(session: session, adapter: adapter, queue: queue)
-            let request = DataRequest(session: session, requestTask: .data(originalTask, task))
+            let request = CLDNDataRequest(session: session, requestTask: .data(originalTask, task))
 
             delegate[task] = request
 
@@ -272,16 +272,16 @@ open class SessionManager {
 
     // MARK: Private - Request Implementation
 
-    private func request(_ urlRequest: URLRequest?, failedWith error: Error) -> DataRequest {
-        var requestTask: Request.RequestTask = .data(nil, nil)
+    private func request(_ urlRequest: URLRequest?, failedWith error: Error) -> CLDNDataRequest {
+        var requestTask: CLDNRequest.RequestTask = .data(nil, nil)
 
         if let urlRequest = urlRequest {
-            let originalTask = DataRequest.Requestable(urlRequest: urlRequest)
+            let originalTask = CLDNDataRequest.Requestable(urlRequest: urlRequest)
             requestTask = .data(originalTask, nil)
         }
 
         let underlyingError = error.underlyingAdaptError ?? error
-        let request = DataRequest(session: session, requestTask: requestTask, error: underlyingError)
+        let request = CLDNDataRequest(session: session, requestTask: requestTask, error: underlyingError)
 
         if let retrier = retrier, error is AdaptError {
             allowRetrier(retrier, toRetry: request, with: underlyingError)
@@ -296,7 +296,7 @@ open class SessionManager {
 
     // MARK: URL Request
 
-    /// Creates a `DownloadRequest` to retrieve the contents the specified `url`, `method`, `parameters`, `encoding`,
+    /// Creates a `CLDNDownloadRequest` to retrieve the contents the specified `url`, `method`, `parameters`, `encoding`,
     /// `headers` and save them to the `destination`.
     ///
     /// If `destination` is not specified, the contents will remain in the temporary location determined by the
@@ -311,16 +311,16 @@ open class SessionManager {
     /// - parameter headers:     The HTTP headers. `nil` by default.
     /// - parameter destination: The closure used to determine the destination of the downloaded file. `nil` by default.
     ///
-    /// - returns: The created `DownloadRequest`.
+    /// - returns: The created `CLDNDownloadRequest`.
     @discardableResult
     internal func download(
         _ url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .get,
         parameters: CLDNParameters? = nil,
         encoding: CLDParameterEncoding = CLDURLEncoding.default,
-        headers: HTTPHeaders? = nil,
-        to destination: DownloadRequest.DownloadFileDestination? = nil)
-        -> DownloadRequest
+        headers: CLDNHTTPHeaders? = nil,
+        to destination: CLDNDownloadRequest.DownloadFileDestination? = nil)
+        -> CLDNDownloadRequest
     {
         do {
             let urlRequest = try URLRequest(url: url, method: method, headers: headers)
@@ -331,7 +331,7 @@ open class SessionManager {
         }
     }
 
-    /// Creates a `DownloadRequest` to retrieve the contents of a URL based on the specified `urlRequest` and save
+    /// Creates a `CLDNDownloadRequest` to retrieve the contents of a URL based on the specified `urlRequest` and save
     /// them to the `destination`.
     ///
     /// If `destination` is not specified, the contents will remain in the temporary location determined by the
@@ -342,12 +342,12 @@ open class SessionManager {
     /// - parameter urlRequest:  The URL request
     /// - parameter destination: The closure used to determine the destination of the downloaded file. `nil` by default.
     ///
-    /// - returns: The created `DownloadRequest`.
+    /// - returns: The created `CLDNDownloadRequest`.
     @discardableResult
-    open func download(
+    internal func download(
         _ urlRequest: CLDNURLRequestConvertible,
-        to destination: DownloadRequest.DownloadFileDestination? = nil)
-        -> DownloadRequest
+        to destination: CLDNDownloadRequest.DownloadFileDestination? = nil)
+        -> CLDNDownloadRequest
     {
         do {
             let urlRequest = try urlRequest.asURLRequest()
@@ -359,7 +359,7 @@ open class SessionManager {
 
     // MARK: Resume Data
 
-    /// Creates a `DownloadRequest` from the `resumeData` produced from a previous request cancellation to retrieve
+    /// Creates a `CLDNDownloadRequest` from the `resumeData` produced from a previous request cancellation to retrieve
     /// the contents of the original request and save them to the `destination`.
     ///
     /// If `destination` is not specified, the contents will remain in the temporary location determined by the
@@ -379,12 +379,12 @@ open class SessionManager {
     ///                          additional information.
     /// - parameter destination: The closure used to determine the destination of the downloaded file. `nil` by default.
     ///
-    /// - returns: The created `DownloadRequest`.
+    /// - returns: The created `CLDNDownloadRequest`.
     @discardableResult
-    open func download(
+    internal func download(
         resumingWith resumeData: Data,
-        to destination: DownloadRequest.DownloadFileDestination? = nil)
-        -> DownloadRequest
+        to destination: CLDNDownloadRequest.DownloadFileDestination? = nil)
+        -> CLDNDownloadRequest
     {
         return download(.resumeData(resumeData), to: destination)
     }
@@ -392,13 +392,13 @@ open class SessionManager {
     // MARK: Private - Download Implementation
 
     private func download(
-        _ downloadable: DownloadRequest.Downloadable,
-        to destination: DownloadRequest.DownloadFileDestination?)
-        -> DownloadRequest
+        _ downloadable: CLDNDownloadRequest.Downloadable,
+        to destination: CLDNDownloadRequest.DownloadFileDestination?)
+        -> CLDNDownloadRequest
     {
         do {
             let task = try downloadable.task(session: session, adapter: adapter, queue: queue)
-            let download = DownloadRequest(session: session, requestTask: .download(downloadable, task))
+            let download = CLDNDownloadRequest(session: session, requestTask: .download(downloadable, task))
 
             download.downloadDelegate.destination = destination
 
@@ -413,12 +413,12 @@ open class SessionManager {
     }
 
     private func download(
-        _ downloadable: DownloadRequest.Downloadable?,
-        to destination: DownloadRequest.DownloadFileDestination?,
+        _ downloadable: CLDNDownloadRequest.Downloadable?,
+        to destination: CLDNDownloadRequest.DownloadFileDestination?,
         failedWith error: Error)
-        -> DownloadRequest
+        -> CLDNDownloadRequest
     {
-        var downloadTask: Request.RequestTask = .download(nil, nil)
+        var downloadTask: CLDNRequest.RequestTask = .download(nil, nil)
 
         if let downloadable = downloadable {
             downloadTask = .download(downloadable, nil)
@@ -426,7 +426,7 @@ open class SessionManager {
 
         let underlyingError = error.underlyingAdaptError ?? error
 
-        let download = DownloadRequest(session: session, requestTask: downloadTask, error: underlyingError)
+        let download = CLDNDownloadRequest(session: session, requestTask: downloadTask, error: underlyingError)
         download.downloadDelegate.destination = destination
 
         if let retrier = retrier, error is AdaptError {
@@ -442,7 +442,7 @@ open class SessionManager {
 
     // MARK: File
 
-    /// Creates an `UploadRequest` from the specified `url`, `method` and `headers` for uploading the `file`.
+    /// Creates an `CLDNUploadRequest` from the specified `url`, `method` and `headers` for uploading the `file`.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
@@ -451,14 +451,14 @@ open class SessionManager {
     /// - parameter method:  The HTTP method. `.post` by default.
     /// - parameter headers: The HTTP headers. `nil` by default.
     ///
-    /// - returns: The created `UploadRequest`.
+    /// - returns: The created `CLDNUploadRequest`.
     @discardableResult
     internal func upload(
         _ fileURL: URL,
         to url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .post,
-        headers: HTTPHeaders? = nil)
-        -> UploadRequest
+        headers: CLDNHTTPHeaders? = nil)
+        -> CLDNUploadRequest
     {
         do {
             let urlRequest = try URLRequest(url: url, method: method, headers: headers)
@@ -468,16 +468,16 @@ open class SessionManager {
         }
     }
 
-    /// Creates a `UploadRequest` from the specified `urlRequest` for uploading the `file`.
+    /// Creates a `CLDNUploadRequest` from the specified `urlRequest` for uploading the `file`.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
     /// - parameter file:       The file to upload.
     /// - parameter urlRequest: The URL request.
     ///
-    /// - returns: The created `UploadRequest`.
+    /// - returns: The created `CLDNUploadRequest`.
     @discardableResult
-    open func upload(_ fileURL: URL, with urlRequest: CLDNURLRequestConvertible) -> UploadRequest {
+    internal func upload(_ fileURL: URL, with urlRequest: CLDNURLRequestConvertible) -> CLDNUploadRequest {
         do {
             let urlRequest = try urlRequest.asURLRequest()
             return upload(.file(fileURL, urlRequest))
@@ -488,7 +488,7 @@ open class SessionManager {
 
     // MARK: Data
 
-    /// Creates an `UploadRequest` from the specified `url`, `method` and `headers` for uploading the `data`.
+    /// Creates an `CLDNUploadRequest` from the specified `url`, `method` and `headers` for uploading the `data`.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
@@ -497,14 +497,14 @@ open class SessionManager {
     /// - parameter method:  The HTTP method. `.post` by default.
     /// - parameter headers: The HTTP headers. `nil` by default.
     ///
-    /// - returns: The created `UploadRequest`.
+    /// - returns: The created `CLDNUploadRequest`.
     @discardableResult
     internal func upload(
         _ data: Data,
         to url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .post,
-        headers: HTTPHeaders? = nil)
-        -> UploadRequest
+        headers: CLDNHTTPHeaders? = nil)
+        -> CLDNUploadRequest
     {
         do {
             let urlRequest = try URLRequest(url: url, method: method, headers: headers)
@@ -514,16 +514,16 @@ open class SessionManager {
         }
     }
 
-    /// Creates an `UploadRequest` from the specified `urlRequest` for uploading the `data`.
+    /// Creates an `CLDNUploadRequest` from the specified `urlRequest` for uploading the `data`.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
     /// - parameter data:       The data to upload.
     /// - parameter urlRequest: The URL request.
     ///
-    /// - returns: The created `UploadRequest`.
+    /// - returns: The created `CLDNUploadRequest`.
     @discardableResult
-    open func upload(_ data: Data, with urlRequest: CLDNURLRequestConvertible) -> UploadRequest {
+    internal func upload(_ data: Data, with urlRequest: CLDNURLRequestConvertible) -> CLDNUploadRequest {
         do {
             let urlRequest = try urlRequest.asURLRequest()
             return upload(.data(data, urlRequest))
@@ -534,7 +534,7 @@ open class SessionManager {
 
     // MARK: InputStream
 
-    /// Creates an `UploadRequest` from the specified `url`, `method` and `headers` for uploading the `stream`.
+    /// Creates an `CLDNUploadRequest` from the specified `url`, `method` and `headers` for uploading the `stream`.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
@@ -543,14 +543,14 @@ open class SessionManager {
     /// - parameter method:  The HTTP method. `.post` by default.
     /// - parameter headers: The HTTP headers. `nil` by default.
     ///
-    /// - returns: The created `UploadRequest`.
+    /// - returns: The created `CLDNUploadRequest`.
     @discardableResult
     internal func upload(
         _ stream: InputStream,
         to url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .post,
-        headers: HTTPHeaders? = nil)
-        -> UploadRequest
+        headers: CLDNHTTPHeaders? = nil)
+        -> CLDNUploadRequest
     {
         do {
             let urlRequest = try URLRequest(url: url, method: method, headers: headers)
@@ -560,16 +560,16 @@ open class SessionManager {
         }
     }
 
-    /// Creates an `UploadRequest` from the specified `urlRequest` for uploading the `stream`.
+    /// Creates an `CLDNUploadRequest` from the specified `urlRequest` for uploading the `stream`.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
     /// - parameter stream:     The stream to upload.
     /// - parameter urlRequest: The URL request.
     ///
-    /// - returns: The created `UploadRequest`.
+    /// - returns: The created `CLDNUploadRequest`.
     @discardableResult
-    open func upload(_ stream: InputStream, with urlRequest: CLDNURLRequestConvertible) -> UploadRequest {
+    internal func upload(_ stream: InputStream, with urlRequest: CLDNURLRequestConvertible) -> CLDNUploadRequest {
         do {
             let urlRequest = try urlRequest.asURLRequest()
             return upload(.stream(stream, urlRequest))
@@ -581,7 +581,7 @@ open class SessionManager {
     // MARK: CLDNMultipartFormData
 
     /// Encodes `multipartFormData` using `encodingMemoryThreshold` and calls `encodingCompletion` with new
-    /// `UploadRequest` using the `url`, `method` and `headers`.
+    /// `CLDNUploadRequest` using the `url`, `method` and `headers`.
     ///
     /// It is important to understand the memory implications of uploading `CLDNMultipartFormData`. If the cummulative
     /// payload is small, encoding the data in-memory and directly uploading to a server is the by far the most
@@ -610,7 +610,7 @@ open class SessionManager {
         usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
         to url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .post,
-        headers: HTTPHeaders? = nil,
+        headers: CLDNHTTPHeaders? = nil,
         queue: DispatchQueue? = nil,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
     {
@@ -630,7 +630,7 @@ open class SessionManager {
     }
 
     /// Encodes `multipartFormData` using `encodingMemoryThreshold` and calls `encodingCompletion` with new
-    /// `UploadRequest` using the `urlRequest`.
+    /// `CLDNUploadRequest` using the `urlRequest`.
     ///
     /// It is important to understand the memory implications of uploading `CLDNMultipartFormData`. If the cummulative
     /// payload is small, encoding the data in-memory and directly uploading to a server is the by far the most
@@ -743,10 +743,10 @@ open class SessionManager {
 
     // MARK: Private - Upload Implementation
 
-    private func upload(_ uploadable: UploadRequest.Uploadable) -> UploadRequest {
+    private func upload(_ uploadable: CLDNUploadRequest.Uploadable) -> CLDNUploadRequest {
         do {
             let task = try uploadable.task(session: session, adapter: adapter, queue: queue)
-            let upload = UploadRequest(session: session, requestTask: .upload(uploadable, task))
+            let upload = CLDNUploadRequest(session: session, requestTask: .upload(uploadable, task))
 
             if case let .stream(inputStream, _) = uploadable {
                 upload.delegate.taskNeedNewBodyStream = { _, _ in inputStream }
@@ -762,15 +762,15 @@ open class SessionManager {
         }
     }
 
-    private func upload(_ uploadable: UploadRequest.Uploadable?, failedWith error: Error) -> UploadRequest {
-        var uploadTask: Request.RequestTask = .upload(nil, nil)
+    private func upload(_ uploadable: CLDNUploadRequest.Uploadable?, failedWith error: Error) -> CLDNUploadRequest {
+        var uploadTask: CLDNRequest.RequestTask = .upload(nil, nil)
 
         if let uploadable = uploadable {
             uploadTask = .upload(uploadable, nil)
         }
 
         let underlyingError = error.underlyingAdaptError ?? error
-        let upload = UploadRequest(session: session, requestTask: uploadTask, error: underlyingError)
+        let upload = CLDNUploadRequest(session: session, requestTask: uploadTask, error: underlyingError)
 
         if let retrier = retrier, error is AdaptError {
             allowRetrier(retrier, toRetry: upload, with: underlyingError)
@@ -781,71 +781,9 @@ open class SessionManager {
         return upload
     }
 
-#if !os(watchOS)
-
-    // MARK: - Stream Request
-
-    // MARK: Hostname and Port
-
-    /// Creates a `StreamRequest` for bidirectional streaming using the `hostname` and `port`.
-    ///
-    /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
-    ///
-    /// - parameter hostName: The hostname of the server to connect to.
-    /// - parameter port:     The port of the server to connect to.
-    ///
-    /// - returns: The created `StreamRequest`.
-    @discardableResult
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    open func stream(withHostName hostName: String, port: Int) -> StreamRequest {
-        return stream(.stream(hostName: hostName, port: port))
-    }
-
-    // MARK: NetService
-
-    /// Creates a `StreamRequest` for bidirectional streaming using the `netService`.
-    ///
-    /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
-    ///
-    /// - parameter netService: The net service used to identify the endpoint.
-    ///
-    /// - returns: The created `StreamRequest`.
-    @discardableResult
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    open func stream(with netService: NetService) -> StreamRequest {
-        return stream(.netService(netService))
-    }
-
-    // MARK: Private - Stream Implementation
-
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    private func stream(_ streamable: StreamRequest.Streamable) -> StreamRequest {
-        do {
-            let task = try streamable.task(session: session, adapter: adapter, queue: queue)
-            let request = StreamRequest(session: session, requestTask: .stream(streamable, task))
-
-            delegate[task] = request
-
-            if startRequestsImmediately { request.resume() }
-
-            return request
-        } catch {
-            return stream(failedWith: error)
-        }
-    }
-
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    private func stream(failedWith error: Error) -> StreamRequest {
-        let stream = StreamRequest(session: session, requestTask: .stream(nil, nil), error: error)
-        if startRequestsImmediately { stream.resume() }
-        return stream
-    }
-
-#endif
-
     // MARK: - Internal - Retry Request
 
-    func retry(_ request: Request) -> Bool {
+    func retry(_ request: CLDNRequest) -> Bool {
         guard let originalTask = request.originalTask else { return false }
 
         do {
@@ -870,7 +808,7 @@ open class SessionManager {
         }
     }
 
-    private func allowRetrier(_ retrier: RequestRetrier, toRetry request: Request, with error: Error) {
+    private func allowRetrier(_ retrier: CLDNRequestRetrier, toRetry request: CLDNRequest, with error: Error) {
         DispatchQueue.utility.async { [weak self] in
             guard let strongSelf = self else { return }
 

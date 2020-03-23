@@ -24,7 +24,7 @@
 
 import Foundation
 
-extension Request {
+extension CLDNRequest {
 
     // MARK: Helper Types
 
@@ -154,7 +154,7 @@ extension Request {
 
 // MARK: -
 
-extension DataRequest {
+extension CLDNDataRequest {
     /// A closure used to validate a request that takes a URL request, a URL response and data, and returns whether the
     /// request was valid.
     public typealias Validation = (URLRequest?, HTTPURLResponse, Data?) -> ValidationResult
@@ -228,7 +228,7 @@ extension DataRequest {
 
 // MARK: -
 
-extension DownloadRequest {
+extension CLDNDownloadRequest {
     /// A closure used to validate a request that takes a URL request, a URL response, a temporary URL and a
     /// destination URL, and returns whether the request was valid.
     public typealias Validation = (

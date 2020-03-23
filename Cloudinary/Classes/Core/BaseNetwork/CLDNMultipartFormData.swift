@@ -76,13 +76,13 @@ internal class CLDNMultipartFormData {
     }
 
     class BodyPart {
-        let headers: HTTPHeaders
+        let headers: CLDNHTTPHeaders
         let bodyStream: InputStream
         let bodyContentLength: UInt64
         var hasInitialBoundary = false
         var hasFinalBoundary = false
 
-        init(headers: HTTPHeaders, bodyStream: InputStream, bodyContentLength: UInt64) {
+        init(headers: CLDNHTTPHeaders, bodyStream: InputStream, bodyContentLength: UInt64) {
             self.headers = headers
             self.bodyStream = bodyStream
             self.bodyContentLength = bodyContentLength
@@ -329,7 +329,7 @@ internal class CLDNMultipartFormData {
     /// - parameter stream:  The input stream to encode in the multipart form data.
     /// - parameter length:  The content length of the stream.
     /// - parameter headers: The HTTP headers for the body part.
-    internal func append(_ stream: InputStream, withLength length: UInt64, headers: HTTPHeaders) {
+    internal func append(_ stream: InputStream, withLength length: UInt64, headers: CLDNHTTPHeaders) {
         let bodyPart = BodyPart(headers: headers, bodyStream: stream, bodyContentLength: length)
         bodyParts.append(bodyPart)
     }

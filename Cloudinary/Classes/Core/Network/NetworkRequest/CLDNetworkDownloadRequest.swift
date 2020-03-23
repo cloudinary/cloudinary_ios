@@ -24,7 +24,7 @@
 
 import Foundation
 
-internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<DataRequest>, CLDFetchImageRequest {
+internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequest>, CLDFetchImageRequest {
 
     //MARK: - Handlers
     

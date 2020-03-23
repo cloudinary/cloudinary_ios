@@ -86,7 +86,7 @@ public struct DownloadResponseSerializer<Value>: DownloadResponseSerializerProto
 
 // MARK: - Timeline
 
-extension Request {
+extension CLDNRequest {
     var timeline: Timeline {
         let requestStartTime = self.startTime ?? CFAbsoluteTimeGetCurrent()
         let requestCompletedTime = self.endTime ?? CFAbsoluteTimeGetCurrent()
@@ -103,7 +103,7 @@ extension Request {
 
 // MARK: - Default
 
-extension DataRequest {
+extension CLDNDataRequest {
     /// Adds a handler to be called once the request has finished.
     ///
     /// - parameter queue:             The queue on which the completion handler is dispatched.
@@ -171,7 +171,7 @@ extension DataRequest {
     }
 }
 
-extension DownloadRequest {
+extension CLDNDownloadRequest {
     /// Adds a handler to be called once the request has finished.
     ///
     /// - parameter queue:             The queue on which the completion handler is dispatched.
@@ -249,7 +249,7 @@ extension DownloadRequest {
 
 // MARK: - Data
 
-extension Request {
+extension CLDNRequest {
     /// Returns a result data type that contains the response data as-is.
     ///
     /// - parameter response: The response from the server.
@@ -270,13 +270,13 @@ extension Request {
     }
 }
 
-extension DataRequest {
+extension CLDNDataRequest {
     /// Creates a response serializer that returns the associated data as-is.
     ///
     /// - returns: A data response serializer.
     public static func dataResponseSerializer() -> DataResponseSerializer<Data> {
         return DataResponseSerializer { _, response, data, error in
-            return Request.serializeResponseData(response: response, data: data, error: error)
+            return CLDNRequest.serializeResponseData(response: response, data: data, error: error)
         }
     }
 
@@ -293,13 +293,13 @@ extension DataRequest {
     {
         return response(
             queue: queue,
-            responseSerializer: DataRequest.dataResponseSerializer(),
+            responseSerializer: CLDNDataRequest.dataResponseSerializer(),
             completionHandler: completionHandler
         )
     }
 }
 
-extension DownloadRequest {
+extension CLDNDownloadRequest {
     /// Creates a response serializer that returns the associated data as-is.
     ///
     /// - returns: A data response serializer.
@@ -313,7 +313,7 @@ extension DownloadRequest {
 
             do {
                 let data = try Data(contentsOf: fileURL)
-                return Request.serializeResponseData(response: response, data: data, error: error)
+                return CLDNRequest.serializeResponseData(response: response, data: data, error: error)
             } catch {
                 return .failure(CLDNError.responseSerializationFailed(reason: .inputFileReadFailed(at: fileURL)))
             }
@@ -333,7 +333,7 @@ extension DownloadRequest {
     {
         return response(
             queue: queue,
-            responseSerializer: DownloadRequest.dataResponseSerializer(),
+            responseSerializer: CLDNDownloadRequest.dataResponseSerializer(),
             completionHandler: completionHandler
         )
     }
@@ -341,7 +341,7 @@ extension DownloadRequest {
 
 // MARK: - String
 
-extension Request {
+extension CLDNRequest {
     /// Returns a result string type initialized from the response data with the specified string encoding.
     ///
     /// - parameter encoding: The string encoding. If `nil`, the string encoding will be determined from the server
@@ -384,7 +384,7 @@ extension Request {
     }
 }
 
-extension DataRequest {
+extension CLDNDataRequest {
     /// Creates a response serializer that returns a result string type initialized from the response data with
     /// the specified string encoding.
     ///
@@ -394,7 +394,7 @@ extension DataRequest {
     /// - returns: A string response serializer.
     public static func stringResponseSerializer(encoding: String.Encoding? = nil) -> DataResponseSerializer<String> {
         return DataResponseSerializer { _, response, data, error in
-            return Request.serializeResponseString(encoding: encoding, response: response, data: data, error: error)
+            return CLDNRequest.serializeResponseString(encoding: encoding, response: response, data: data, error: error)
         }
     }
 
@@ -415,13 +415,13 @@ extension DataRequest {
     {
         return response(
             queue: queue,
-            responseSerializer: DataRequest.stringResponseSerializer(encoding: encoding),
+            responseSerializer: CLDNDataRequest.stringResponseSerializer(encoding: encoding),
             completionHandler: completionHandler
         )
     }
 }
 
-extension DownloadRequest {
+extension CLDNDownloadRequest {
     /// Creates a response serializer that returns a result string type initialized from the response data with
     /// the specified string encoding.
     ///
@@ -439,7 +439,7 @@ extension DownloadRequest {
 
             do {
                 let data = try Data(contentsOf: fileURL)
-                return Request.serializeResponseString(encoding: encoding, response: response, data: data, error: error)
+                return CLDNRequest.serializeResponseString(encoding: encoding, response: response, data: data, error: error)
             } catch {
                 return .failure(CLDNError.responseSerializationFailed(reason: .inputFileReadFailed(at: fileURL)))
             }
@@ -463,7 +463,7 @@ extension DownloadRequest {
     {
         return response(
             queue: queue,
-            responseSerializer: DownloadRequest.stringResponseSerializer(encoding: encoding),
+            responseSerializer: CLDNDownloadRequest.stringResponseSerializer(encoding: encoding),
             completionHandler: completionHandler
         )
     }
@@ -471,7 +471,7 @@ extension DownloadRequest {
 
 // MARK: - JSON
 
-extension Request {
+extension CLDNRequest {
     /// Returns a JSON object contained in a result type constructed from the response data using `JSONSerialization`
     /// with the specified reading options.
     ///
@@ -505,7 +505,7 @@ extension Request {
     }
 }
 
-extension DataRequest {
+extension CLDNDataRequest {
     /// Creates a response serializer that returns a JSON object result type constructed from the response data using
     /// `JSONSerialization` with the specified reading options.
     ///
@@ -517,7 +517,7 @@ extension DataRequest {
         -> DataResponseSerializer<Any>
     {
         return DataResponseSerializer { _, response, data, error in
-            return Request.serializeResponseJSON(options: options, response: response, data: data, error: error)
+            return CLDNRequest.serializeResponseJSON(options: options, response: response, data: data, error: error)
         }
     }
 
@@ -536,13 +536,13 @@ extension DataRequest {
     {
         return response(
             queue: queue,
-            responseSerializer: DataRequest.jsonResponseSerializer(options: options),
+            responseSerializer: CLDNDataRequest.jsonResponseSerializer(options: options),
             completionHandler: completionHandler
         )
     }
 }
 
-extension DownloadRequest {
+extension CLDNDownloadRequest {
     /// Creates a response serializer that returns a JSON object result type constructed from the response data using
     /// `JSONSerialization` with the specified reading options.
     ///
@@ -562,7 +562,7 @@ extension DownloadRequest {
 
             do {
                 let data = try Data(contentsOf: fileURL)
-                return Request.serializeResponseJSON(options: options, response: response, data: data, error: error)
+                return CLDNRequest.serializeResponseJSON(options: options, response: response, data: data, error: error)
             } catch {
                 return .failure(CLDNError.responseSerializationFailed(reason: .inputFileReadFailed(at: fileURL)))
             }
@@ -584,7 +584,7 @@ extension DownloadRequest {
     {
         return response(
             queue: queue,
-            responseSerializer: DownloadRequest.jsonResponseSerializer(options: options),
+            responseSerializer: CLDNDownloadRequest.jsonResponseSerializer(options: options),
             completionHandler: completionHandler
         )
     }
@@ -592,7 +592,7 @@ extension DownloadRequest {
 
 // MARK: - Property List
 
-extension Request {
+extension CLDNRequest {
     /// Returns a plist object contained in a result type constructed from the response data using
     /// `PropertyListSerialization` with the specified reading options.
     ///
@@ -626,7 +626,7 @@ extension Request {
     }
 }
 
-extension DataRequest {
+extension CLDNDataRequest {
     /// Creates a response serializer that returns an object constructed from the response data using
     /// `PropertyListSerialization` with the specified reading options.
     ///
@@ -638,7 +638,7 @@ extension DataRequest {
         -> DataResponseSerializer<Any>
     {
         return DataResponseSerializer { _, response, data, error in
-            return Request.serializeResponsePropertyList(options: options, response: response, data: data, error: error)
+            return CLDNRequest.serializeResponsePropertyList(options: options, response: response, data: data, error: error)
         }
     }
 
@@ -657,13 +657,13 @@ extension DataRequest {
     {
         return response(
             queue: queue,
-            responseSerializer: DataRequest.propertyListResponseSerializer(options: options),
+            responseSerializer: CLDNDataRequest.propertyListResponseSerializer(options: options),
             completionHandler: completionHandler
         )
     }
 }
 
-extension DownloadRequest {
+extension CLDNDownloadRequest {
     /// Creates a response serializer that returns an object constructed from the response data using
     /// `PropertyListSerialization` with the specified reading options.
     ///
@@ -683,7 +683,7 @@ extension DownloadRequest {
 
             do {
                 let data = try Data(contentsOf: fileURL)
-                return Request.serializeResponsePropertyList(options: options, response: response, data: data, error: error)
+                return CLDNRequest.serializeResponsePropertyList(options: options, response: response, data: data, error: error)
             } catch {
                 return .failure(CLDNError.responseSerializationFailed(reason: .inputFileReadFailed(at: fileURL)))
             }
@@ -705,7 +705,7 @@ extension DownloadRequest {
     {
         return response(
             queue: queue,
-            responseSerializer: DownloadRequest.propertyListResponseSerializer(options: options),
+            responseSerializer: CLDNDownloadRequest.propertyListResponseSerializer(options: options),
             completionHandler: completionHandler
         )
     }

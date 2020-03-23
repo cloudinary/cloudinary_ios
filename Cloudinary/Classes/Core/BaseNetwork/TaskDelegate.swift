@@ -199,7 +199,7 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
     }
 
     var progress: Progress
-    var progressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
+    var progressHandler: (closure: CLDNRequest.ProgressHandler, queue: DispatchQueue)?
 
     var dataStream: ((_ data: Data) -> Void)?
 
@@ -308,12 +308,12 @@ class DownloadTaskDelegate: TaskDelegate, URLSessionDownloadDelegate {
     var downloadTask: URLSessionDownloadTask { return task as! URLSessionDownloadTask }
 
     var progress: Progress
-    var progressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
+    var progressHandler: (closure: CLDNRequest.ProgressHandler, queue: DispatchQueue)?
 
     var resumeData: Data?
     override var data: Data? { return resumeData }
 
-    var destination: DownloadRequest.DownloadFileDestination?
+    var destination: CLDNDownloadRequest.DownloadFileDestination?
 
     var temporaryURL: URL?
     var destinationURL: URL?
@@ -425,7 +425,7 @@ class UploadTaskDelegate: DataTaskDelegate {
     var uploadTask: URLSessionUploadTask { return task as! URLSessionUploadTask }
 
     var uploadProgress: Progress
-    var uploadProgressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
+    var uploadProgressHandler: (closure: CLDNRequest.ProgressHandler, queue: DispatchQueue)?
 
     // MARK: Lifecycle
 

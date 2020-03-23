@@ -101,7 +101,7 @@ public struct DataResponse<Value> {
     /// - parameter response: The server's response to the URL request.
     /// - parameter data:     The data returned by the server.
     /// - parameter result:   The result of response serialization.
-    /// - parameter timeline: The timeline of the complete lifecycle of the `Request`. Defaults to `Timeline()`.
+    /// - parameter timeline: The timeline of the complete lifecycle of the `CLDNRequest`. Defaults to `Timeline()`.
     ///
     /// - returns: The new `DataResponse` instance.
     public init(
@@ -353,7 +353,7 @@ public struct DownloadResponse<Value> {
     /// - parameter destinationURL: The final destination URL of the data returned from the server if it was moved.
     /// - parameter resumeData:     The resume data generated if the request was cancelled.
     /// - parameter result:         The result of response serialization.
-    /// - parameter timeline:       The timeline of the complete lifecycle of the `Request`. Defaults to `Timeline()`.
+    /// - parameter timeline:       The timeline of the complete lifecycle of the `CLDNRequest`. Defaults to `Timeline()`.
     ///
     /// - returns: The new `DownloadResponse` instance.
     public init(

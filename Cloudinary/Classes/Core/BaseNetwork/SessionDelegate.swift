@@ -160,14 +160,14 @@ open class SessionDelegate: NSObject {
 
     // MARK: Properties
 
-    var retrier: RequestRetrier?
+    var retrier: CLDNRequestRetrier?
     weak var sessionManager: SessionManager?
 
-    var requests: [Int: Request] = [:]
+    var requests: [Int: CLDNRequest] = [:]
     private let lock = NSLock()
 
     /// Access the task delegate for the specified task in a thread-safe manner.
-    open subscript(task: URLSessionTask) -> Request? {
+    internal subscript(task: URLSessionTask) -> CLDNRequest? {
         get {
             lock.lock() ; defer { lock.unlock() }
             return requests[task.taskIdentifier]

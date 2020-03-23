@@ -1,7 +1,6 @@
 //
-//  Request.swift
+//  CLDNRequest.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +24,7 @@
 import Foundation
 
 /// A type that can inspect and optionally adapt a `URLRequest` in some manner if necessary.
-public protocol RequestAdapter {
+internal protocol CLDNRequestAdapter {
     /// Inspects and adapts the specified `URLRequest` in some manner if necessary and returns the result.
     ///
     /// - parameter urlRequest: The URL request to adapt.
@@ -38,13 +37,13 @@ public protocol RequestAdapter {
 
 // MARK: -
 
-/// A closure executed when the `RequestRetrier` determines whether a `Request` should be retried or not.
-public typealias RequestRetryCompletion = (_ shouldRetry: Bool, _ timeDelay: TimeInterval) -> Void
+/// A closure executed when the `CLDNRequestRetrier` determines whether a `CLDNRequest` should be retried or not.
+internal typealias CLDNRequestRetryCompletion = (_ shouldRetry: Bool, _ timeDelay: TimeInterval) -> Void
 
 /// A type that determines whether a request should be retried after being executed by the specified session manager
 /// and encountering an error.
-public protocol RequestRetrier {
-    /// Determines whether the `Request` should be retried by calling the `completion` closure.
+internal protocol CLDNRequestRetrier {
+    /// Determines whether the `CLDNRequest` should be retried by calling the `completion` closure.
     ///
     /// This operation is fully asynchronous. Any amount of time can be taken to determine whether the request needs
     /// to be retried. The one requirement is that the completion closure is called to ensure the request is properly
@@ -54,40 +53,40 @@ public protocol RequestRetrier {
     /// - parameter request:    The request that failed due to the encountered error.
     /// - parameter error:      The error encountered when executing the request.
     /// - parameter completion: The completion closure to be executed when retry decision has been determined.
-    func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion)
+    func should(_ manager: SessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion)
 }
 
 // MARK: -
 
-protocol TaskConvertible {
-    func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask
+protocol CLDNTaskConvertible {
+    func task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask
 }
 
 /// A dictionary of headers to apply to a `URLRequest`.
-public typealias HTTPHeaders = [String: String]
+internal typealias CLDNHTTPHeaders = [String: String]
 
 // MARK: -
 
 /// Responsible for sending a request and receiving the response and associated data from the server, as well as
 /// managing its underlying `URLSessionTask`.
-open class Request {
+internal class CLDNRequest {
 
     // MARK: Helper Types
 
     /// A closure executed when monitoring upload or download progress of a request.
-    public typealias ProgressHandler = (Progress) -> Void
+    internal typealias ProgressHandler = (Progress) -> Void
 
     enum RequestTask {
-        case data(TaskConvertible?, URLSessionTask?)
-        case download(TaskConvertible?, URLSessionTask?)
-        case upload(TaskConvertible?, URLSessionTask?)
-        case stream(TaskConvertible?, URLSessionTask?)
+        case data(CLDNTaskConvertible?, URLSessionTask?)
+        case download(CLDNTaskConvertible?, URLSessionTask?)
+        case upload(CLDNTaskConvertible?, URLSessionTask?)
+        case stream(CLDNTaskConvertible?, URLSessionTask?)
     }
 
     // MARK: Properties
 
     /// The delegate for the underlying task.
-    open internal(set) var delegate: TaskDelegate {
+    internal var delegate: TaskDelegate {
         get {
             taskDelegateLock.lock() ; defer { taskDelegateLock.unlock() }
             return taskDelegate
@@ -99,21 +98,21 @@ open class Request {
     }
 
     /// The underlying task.
-    open var task: URLSessionTask? { return delegate.task }
+    internal var task: URLSessionTask? { return delegate.task }
 
     /// The session belonging to the underlying task.
-    public let session: URLSession
+    internal let session: URLSession
 
     /// The request sent or to be sent to the server.
-    open var request: URLRequest? { return task?.originalRequest }
+    internal var request: URLRequest? { return task?.originalRequest }
 
     /// The response received from the server, if any.
-    open var response: HTTPURLResponse? { return task?.response as? HTTPURLResponse }
+    internal var response: HTTPURLResponse? { return task?.response as? HTTPURLResponse }
 
     /// The number of times the request has been retried.
-    open internal(set) var retryCount: UInt = 0
+    internal var retryCount: UInt = 0
 
-    let originalTask: TaskConvertible?
+    let originalTask: CLDNTaskConvertible?
 
     var startTime: CFAbsoluteTime?
     var endTime: CFAbsoluteTime?
@@ -157,7 +156,7 @@ open class Request {
     ///
     /// - returns: The request.
     @discardableResult
-    open func authenticate(
+    internal func authenticate(
         user: String,
         password: String,
         persistence: URLCredential.Persistence = .forSession)
@@ -173,7 +172,7 @@ open class Request {
     ///
     /// - returns: The request.
     @discardableResult
-    open func authenticate(usingCredential credential: URLCredential) -> Self {
+    internal func authenticate(usingCredential credential: URLCredential) -> Self {
         delegate.credential = credential
         return self
     }
@@ -184,7 +183,7 @@ open class Request {
     /// - parameter password: The password.
     ///
     /// - returns: A tuple with Authorization header and credential value if encoding succeeds, `nil` otherwise.
-    open class func authorizationHeader(user: String, password: String) -> (key: String, value: String)? {
+    internal class func authorizationHeader(user: String, password: String) -> (key: String, value: String)? {
         guard let data = "\(user):\(password)".data(using: .utf8) else { return nil }
 
         let credential = data.base64EncodedString(options: [])
@@ -195,7 +194,7 @@ open class Request {
     // MARK: State
 
     /// Resumes the request.
-    open func resume() {
+    internal func resume() {
         guard let task = task else { delegate.queue.isSuspended = false ; return }
 
         if startTime == nil { startTime = CFAbsoluteTimeGetCurrent() }
@@ -210,14 +209,14 @@ open class Request {
     }
 
     /// Suspends the request.
-    open func suspend() {
+    internal func suspend() {
         guard let task = task else { return }
 
         task.suspend()
     }
 
     /// Cancels the request.
-    open func cancel() {
+    internal func cancel() {
         guard let task = task else { return }
 
         task.cancel()
@@ -226,10 +225,10 @@ open class Request {
 
 // MARK: - CustomStringConvertible
 
-extension Request: CustomStringConvertible {
+extension CLDNRequest: CustomStringConvertible {
     /// The textual representation used when written to an output stream, which includes the HTTP method and URL, as
     /// well as the response status code if a response has been received.
-    open var description: String {
+    internal var description: String {
         var components: [String] = []
 
         if let HTTPMethod = request?.httpMethod {
@@ -250,9 +249,9 @@ extension Request: CustomStringConvertible {
 
 // MARK: - CustomDebugStringConvertible
 
-extension Request: CustomDebugStringConvertible {
+extension CLDNRequest: CustomDebugStringConvertible {
     /// The textual representation used when written to an output stream, in the form of a cURL command.
-    open var debugDescription: String {
+    internal var debugDescription: String {
         return cURLRepresentation()
     }
 
@@ -335,15 +334,15 @@ extension Request: CustomDebugStringConvertible {
 
 // MARK: -
 
-/// Specific type of `Request` that manages an underlying `URLSessionDataTask`.
-open class DataRequest: Request {
+/// Specific type of `CLDNRequest` that manages an underlying `URLSessionDataTask`.
+internal class CLDNDataRequest: CLDNRequest {
 
     // MARK: Helper Types
 
-    struct Requestable: TaskConvertible {
+    struct Requestable: CLDNTaskConvertible {
         let urlRequest: URLRequest
 
-        func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
+        func task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
             do {
                 let urlRequest = try self.urlRequest.adapt(using: adapter)
                 return queue.sync { session.dataTask(with: urlRequest) }
@@ -356,7 +355,7 @@ open class DataRequest: Request {
     // MARK: Properties
 
     /// The request sent or to be sent to the server.
-    open override var request: URLRequest? {
+    internal override var request: URLRequest? {
         if let request = super.request { return request }
         if let requestable = originalTask as? Requestable { return requestable.urlRequest }
 
@@ -364,7 +363,7 @@ open class DataRequest: Request {
     }
 
     /// The progress of fetching the response data from the server for the request.
-    open var progress: Progress { return dataDelegate.progress }
+    internal var progress: Progress { return dataDelegate.progress }
 
     var dataDelegate: DataTaskDelegate { return delegate as! DataTaskDelegate }
 
@@ -380,21 +379,21 @@ open class DataRequest: Request {
     ///
     /// - returns: The request.
     @discardableResult
-    open func stream(closure: ((Data) -> Void)? = nil) -> Self {
+    internal func stream(closure: ((Data) -> Void)? = nil) -> Self {
         dataDelegate.dataStream = closure
         return self
     }
 
     // MARK: Progress
 
-    /// Sets a closure to be called periodically during the lifecycle of the `Request` as data is read from the server.
+    /// Sets a closure to be called periodically during the lifecycle of the `CLDNRequest` as data is read from the server.
     ///
     /// - parameter queue:   The dispatch queue to execute the closure on.
     /// - parameter closure: The code to be executed periodically as data is read from the server.
     ///
     /// - returns: The request.
     @discardableResult
-    open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
+    internal func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
         dataDelegate.progressHandler = (closure, queue)
         return self
     }
@@ -402,29 +401,29 @@ open class DataRequest: Request {
 
 // MARK: -
 
-/// Specific type of `Request` that manages an underlying `URLSessionDownloadTask`.
-open class DownloadRequest: Request {
+/// Specific type of `CLDNRequest` that manages an underlying `URLSessionDownloadTask`.
+internal class CLDNDownloadRequest: CLDNRequest {
 
     // MARK: Helper Types
 
     /// A collection of options to be executed prior to moving a downloaded file from the temporary URL to the
     /// destination URL.
-    public struct DownloadOptions: OptionSet {
+    internal struct DownloadOptions: OptionSet {
         /// Returns the raw bitmask value of the option and satisfies the `RawRepresentable` protocol.
-        public let rawValue: UInt
+        internal let rawValue: UInt
 
         /// A `DownloadOptions` flag that creates intermediate directories for the destination URL if specified.
-        public static let createIntermediateDirectories = DownloadOptions(rawValue: 1 << 0)
+        internal static let createIntermediateDirectories = DownloadOptions(rawValue: 1 << 0)
 
         /// A `DownloadOptions` flag that removes a previous file from the destination URL if specified.
-        public static let removePreviousFile = DownloadOptions(rawValue: 1 << 1)
+        internal static let removePreviousFile = DownloadOptions(rawValue: 1 << 1)
 
         /// Creates a `DownloadFileDestinationOptions` instance with the specified raw value.
         ///
         /// - parameter rawValue: The raw bitmask value for the option.
         ///
         /// - returns: A new log level instance.
-        public init(rawValue: UInt) {
+        internal init(rawValue: UInt) {
             self.rawValue = rawValue
         }
     }
@@ -433,16 +432,16 @@ open class DownloadRequest: Request {
     /// temporary file written to during the download process. The closure takes two arguments: the temporary file URL
     /// and the URL response, and returns a two arguments: the file URL where the temporary file should be moved and
     /// the options defining how the file should be moved.
-    public typealias DownloadFileDestination = (
+    internal typealias DownloadFileDestination = (
         _ temporaryURL: URL,
         _ response: HTTPURLResponse)
         -> (destinationURL: URL, options: DownloadOptions)
 
-    enum Downloadable: TaskConvertible {
+    enum Downloadable: CLDNTaskConvertible {
         case request(URLRequest)
         case resumeData(Data)
 
-        func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
+        func task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
             do {
                 let task: URLSessionTask
 
@@ -464,7 +463,7 @@ open class DownloadRequest: Request {
     // MARK: Properties
 
     /// The request sent or to be sent to the server.
-    open override var request: URLRequest? {
+    internal override var request: URLRequest? {
         if let request = super.request { return request }
 
         if let downloadable = originalTask as? Downloadable, case let .request(urlRequest) = downloadable {
@@ -475,24 +474,24 @@ open class DownloadRequest: Request {
     }
 
     /// The resume data of the underlying download task if available after a failure.
-    open var resumeData: Data? { return downloadDelegate.resumeData }
+    internal var resumeData: Data? { return downloadDelegate.resumeData }
 
     /// The progress of downloading the response data from the server for the request.
-    open var progress: Progress { return downloadDelegate.progress }
+    internal var progress: Progress { return downloadDelegate.progress }
 
     var downloadDelegate: DownloadTaskDelegate { return delegate as! DownloadTaskDelegate }
 
     // MARK: State
 
     /// Cancels the request.
-    override open func cancel() {
+    override internal func cancel() {
         cancel(createResumeData: true)
     }
 
     /// Cancels the request.
     ///
     /// - parameter createResumeData: Determines whether resume data is created via the underlying download task or not.
-    open func cancel(createResumeData: Bool) {
+    internal func cancel(createResumeData: Bool) {
         if createResumeData {
             downloadDelegate.downloadTask.cancel { self.downloadDelegate.resumeData = $0 }
         } else {
@@ -502,14 +501,14 @@ open class DownloadRequest: Request {
 
     // MARK: Progress
 
-    /// Sets a closure to be called periodically during the lifecycle of the `Request` as data is read from the server.
+    /// Sets a closure to be called periodically during the lifecycle of the `CLDNRequest` as data is read from the server.
     ///
     /// - parameter queue:   The dispatch queue to execute the closure on.
     /// - parameter closure: The code to be executed periodically as data is read from the server.
     ///
     /// - returns: The request.
     @discardableResult
-    open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
+    internal func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
         downloadDelegate.progressHandler = (closure, queue)
         return self
     }
@@ -523,7 +522,7 @@ open class DownloadRequest: Request {
     /// - parameter domain:    The search path domain mask. `.UserDomainMask` by default.
     ///
     /// - returns: A download file destination closure.
-    open class func suggestedDownloadDestination(
+    internal class func suggestedDownloadDestination(
         for directory: FileManager.SearchPathDirectory = .documentDirectory,
         in domain: FileManager.SearchPathDomainMask = .userDomainMask)
         -> DownloadFileDestination
@@ -542,17 +541,17 @@ open class DownloadRequest: Request {
 
 // MARK: -
 
-/// Specific type of `Request` that manages an underlying `URLSessionUploadTask`.
-open class UploadRequest: DataRequest {
+/// Specific type of `CLDNRequest` that manages an underlying `URLSessionUploadTask`.
+internal class CLDNUploadRequest: CLDNDataRequest {
 
     // MARK: Helper Types
 
-    enum Uploadable: TaskConvertible {
+    enum Uploadable: CLDNTaskConvertible {
         case data(Data, URLRequest)
         case file(URL, URLRequest)
         case stream(InputStream, URLRequest)
 
-        func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
+        func task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
             do {
                 let task: URLSessionTask
 
@@ -578,7 +577,7 @@ open class UploadRequest: DataRequest {
     // MARK: Properties
 
     /// The request sent or to be sent to the server.
-    open override var request: URLRequest? {
+    internal override var request: URLRequest? {
         if let request = super.request { return request }
 
         guard let uploadable = originalTask as? Uploadable else { return nil }
@@ -590,13 +589,13 @@ open class UploadRequest: DataRequest {
     }
 
     /// The progress of uploading the payload to the server for the upload request.
-    open var uploadProgress: Progress { return uploadDelegate.uploadProgress }
+    internal var uploadProgress: Progress { return uploadDelegate.uploadProgress }
 
     var uploadDelegate: UploadTaskDelegate { return delegate as! UploadTaskDelegate }
 
     // MARK: Upload Progress
 
-    /// Sets a closure to be called periodically during the lifecycle of the `UploadRequest` as data is sent to
+    /// Sets a closure to be called periodically during the lifecycle of the `CLDNUploadRequest` as data is sent to
     /// the server.
     ///
     /// After the data is sent to the server, the `progress(queue:closure:)` APIs can be used to monitor the progress
@@ -607,36 +606,8 @@ open class UploadRequest: DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    open func uploadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
+    internal func uploadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
         uploadDelegate.uploadProgressHandler = (closure, queue)
         return self
     }
 }
-
-// MARK: -
-
-#if !os(watchOS)
-
-/// Specific type of `Request` that manages an underlying `URLSessionStreamTask`.
-@available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-open class StreamRequest: Request {
-    enum Streamable: TaskConvertible {
-        case stream(hostName: String, port: Int)
-        case netService(NetService)
-
-        func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
-            let task: URLSessionTask
-
-            switch self {
-            case let .stream(hostName, port):
-                task = queue.sync { session.streamTask(withHostName: hostName, port: port) }
-            case let .netService(netService):
-                task = queue.sync { session.streamTask(with: netService) }
-            }
-
-            return task
-        }
-    }
-}
-
-#endif
