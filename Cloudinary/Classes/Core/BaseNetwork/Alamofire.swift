@@ -36,13 +36,13 @@ public protocol URLConvertible {
 }
 
 extension String: URLConvertible {
-    /// Returns a URL if `self` represents a valid URL string that conforms to RFC 2396 or throws an `AFError`.
+    /// Returns a URL if `self` represents a valid URL string that conforms to RFC 2396 or throws an `CLDNError`.
     ///
-    /// - throws: An `AFError.invalidURL` if `self` is not a valid URL string.
+    /// - throws: An `CLDNError.invalidURL` if `self` is not a valid URL string.
     ///
-    /// - returns: A URL or throws an `AFError`.
+    /// - returns: A URL or throws an `CLDNError`.
     public func asURL() throws -> URL {
-        guard let url = URL(string: self) else { throw AFError.invalidURL(url: self) }
+        guard let url = URL(string: self) else { throw CLDNError.invalidURL(url: self) }
         return url
     }
 }
@@ -55,11 +55,11 @@ extension URL: URLConvertible {
 extension URLComponents: URLConvertible {
     /// Returns a URL if `url` is not nil, otherwise throws an `Error`.
     ///
-    /// - throws: An `AFError.invalidURL` if `url` is `nil`.
+    /// - throws: An `CLDNError.invalidURL` if `url` is `nil`.
     ///
-    /// - returns: A URL or throws an `AFError`.
+    /// - returns: A URL or throws an `CLDNError`.
     public func asURL() throws -> URL {
-        guard let url = url else { throw AFError.invalidURL(url: self) }
+        guard let url = url else { throw CLDNError.invalidURL(url: self) }
         return url
     }
 }

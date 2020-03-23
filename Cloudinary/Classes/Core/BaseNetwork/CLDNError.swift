@@ -1,5 +1,5 @@
 //
-//  AFError.swift
+//  CLDNError.swift
 //
 //  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -24,7 +24,7 @@
 
 import Foundation
 
-/// `AFError` is the error type returned by Alamofire. It encompasses a few different types of errors, each with
+/// `CLDNError` is the error type returned by Alamofire. It encompasses a few different types of errors, each with
 /// their own associated reasons.
 ///
 /// - invalidURL:                  Returned when a `URLConvertible` type fails to create a valid `URL`.
@@ -32,7 +32,7 @@ import Foundation
 /// - multipartEncodingFailed:     Returned when some step in the multipart encoding process fails.
 /// - responseValidationFailed:    Returned when a `validate()` call fails.
 /// - responseSerializationFailed: Returned when a response serializer encounters an error in the serialization process.
-public enum AFError: Error {
+public enum CLDNError: Error {
     /// The underlying reason the parameter encoding error occurred.
     ///
     /// - missingURL:                 The URL request did not have a URL to encode.
@@ -144,35 +144,35 @@ extension Error {
 
 // MARK: - Error Booleans
 
-extension AFError {
-    /// Returns whether the AFError is an invalid URL error.
+extension CLDNError {
+    /// Returns whether the CLDNError is an invalid URL error.
     public var isInvalidURLError: Bool {
         if case .invalidURL = self { return true }
         return false
     }
 
-    /// Returns whether the AFError is a parameter encoding error. When `true`, the `underlyingError` property will
+    /// Returns whether the CLDNError is a parameter encoding error. When `true`, the `underlyingError` property will
     /// contain the associated value.
     public var isParameterEncodingError: Bool {
         if case .parameterEncodingFailed = self { return true }
         return false
     }
 
-    /// Returns whether the AFError is a multipart encoding error. When `true`, the `url` and `underlyingError` properties
+    /// Returns whether the CLDNError is a multipart encoding error. When `true`, the `url` and `underlyingError` properties
     /// will contain the associated values.
     public var isMultipartEncodingError: Bool {
         if case .multipartEncodingFailed = self { return true }
         return false
     }
 
-    /// Returns whether the `AFError` is a response validation error. When `true`, the `acceptableContentTypes`,
+    /// Returns whether the `CLDNError` is a response validation error. When `true`, the `acceptableContentTypes`,
     /// `responseContentType`, and `responseCode` properties will contain the associated values.
     public var isResponseValidationError: Bool {
         if case .responseValidationFailed = self { return true }
         return false
     }
 
-    /// Returns whether the `AFError` is a response serialization error. When `true`, the `failedStringEncoding` and
+    /// Returns whether the `CLDNError` is a response serialization error. When `true`, the `failedStringEncoding` and
     /// `underlyingError` properties will contain the associated values.
     public var isResponseSerializationError: Bool {
         if case .responseSerializationFailed = self { return true }
@@ -182,7 +182,7 @@ extension AFError {
 
 // MARK: - Convenience Properties
 
-extension AFError {
+extension CLDNError {
     /// The `URLConvertible` associated with the error.
     public var urlConvertible: URLConvertible? {
         switch self {
@@ -259,7 +259,7 @@ extension AFError {
     }
 }
 
-extension AFError.ParameterEncodingFailureReason {
+extension CLDNError.ParameterEncodingFailureReason {
     var underlyingError: Error? {
         switch self {
         case .jsonEncodingFailed(let error), .propertyListEncodingFailed(let error):
@@ -270,7 +270,7 @@ extension AFError.ParameterEncodingFailureReason {
     }
 }
 
-extension AFError.MultipartEncodingFailureReason {
+extension CLDNError.MultipartEncodingFailureReason {
     var url: URL? {
         switch self {
         case .bodyPartURLInvalid(let url), .bodyPartFilenameInvalid(let url), .bodyPartFileNotReachable(let url),
@@ -295,7 +295,7 @@ extension AFError.MultipartEncodingFailureReason {
     }
 }
 
-extension AFError.ResponseValidationFailureReason {
+extension CLDNError.ResponseValidationFailureReason {
     var acceptableContentTypes: [String]? {
         switch self {
         case .missingContentType(let types), .unacceptableContentType(let types, _):
@@ -324,7 +324,7 @@ extension AFError.ResponseValidationFailureReason {
     }
 }
 
-extension AFError.ResponseSerializationFailureReason {
+extension CLDNError.ResponseSerializationFailureReason {
     var failedStringEncoding: String.Encoding? {
         switch self {
         case .stringSerializationFailed(let encoding):
@@ -346,7 +346,7 @@ extension AFError.ResponseSerializationFailureReason {
 
 // MARK: - Error Descriptions
 
-extension AFError: LocalizedError {
+extension CLDNError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .invalidURL(let url):
@@ -363,7 +363,7 @@ extension AFError: LocalizedError {
     }
 }
 
-extension AFError.ParameterEncodingFailureReason {
+extension CLDNError.ParameterEncodingFailureReason {
     var localizedDescription: String {
         switch self {
         case .missingURL:
@@ -376,7 +376,7 @@ extension AFError.ParameterEncodingFailureReason {
     }
 }
 
-extension AFError.MultipartEncodingFailureReason {
+extension CLDNError.MultipartEncodingFailureReason {
     var localizedDescription: String {
         switch self {
         case .bodyPartURLInvalid(let url):
@@ -415,7 +415,7 @@ extension AFError.MultipartEncodingFailureReason {
     }
 }
 
-extension AFError.ResponseSerializationFailureReason {
+extension CLDNError.ResponseSerializationFailureReason {
     var localizedDescription: String {
         switch self {
         case .inputDataNil:
@@ -436,7 +436,7 @@ extension AFError.ResponseSerializationFailureReason {
     }
 }
 
-extension AFError.ResponseValidationFailureReason {
+extension CLDNError.ResponseValidationFailureReason {
     var localizedDescription: String {
         switch self {
         case .dataFileNil:

@@ -28,7 +28,7 @@ extension Request {
 
     // MARK: Helper Types
 
-    fileprivate typealias ErrorReason = AFError.ResponseValidationFailureReason
+    fileprivate typealias ErrorReason = CLDNError.ResponseValidationFailureReason
 
     /// Used to represent whether validation was successful or encountered an error resulting in a failure.
     ///
@@ -100,7 +100,7 @@ extension Request {
             return .success
         } else {
             let reason: ErrorReason = .unacceptableStatusCode(code: response.statusCode)
-            return .failure(AFError.responseValidationFailed(reason: reason))
+            return .failure(CLDNError.responseValidationFailed(reason: reason))
         }
     }
 
@@ -125,9 +125,9 @@ extension Request {
                 }
             }
 
-            let error: AFError = {
+            let error: CLDNError = {
                 let reason: ErrorReason = .missingContentType(acceptableContentTypes: Array(acceptableContentTypes))
-                return AFError.responseValidationFailed(reason: reason)
+                return CLDNError.responseValidationFailed(reason: reason)
             }()
 
             return .failure(error)
@@ -139,13 +139,13 @@ extension Request {
             }
         }
 
-        let error: AFError = {
+        let error: CLDNError = {
             let reason: ErrorReason = .unacceptableContentType(
                 acceptableContentTypes: Array(acceptableContentTypes),
                 responseContentType: responseContentType
             )
 
-            return AFError.responseValidationFailed(reason: reason)
+            return CLDNError.responseValidationFailed(reason: reason)
         }()
 
         return .failure(error)
@@ -293,14 +293,14 @@ extension DownloadRequest {
             let fileURL = self.downloadDelegate.fileURL
 
             guard let validFileURL = fileURL else {
-                return .failure(AFError.responseValidationFailed(reason: .dataFileNil))
+                return .failure(CLDNError.responseValidationFailed(reason: .dataFileNil))
             }
 
             do {
                 let data = try Data(contentsOf: validFileURL)
                 return self.validate(contentType: acceptableContentTypes, response: response, data: data)
             } catch {
-                return .failure(AFError.responseValidationFailed(reason: .dataFileReadFailed(at: validFileURL)))
+                return .failure(CLDNError.responseValidationFailed(reason: .dataFileReadFailed(at: validFileURL)))
             }
         }
     }

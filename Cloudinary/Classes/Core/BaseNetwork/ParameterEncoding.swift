@@ -51,7 +51,7 @@ public protocol ParameterEncoding {
     /// - parameter urlRequest: The request to have parameters applied.
     /// - parameter parameters: The parameters to apply.
     ///
-    /// - throws: An `AFError.parameterEncodingFailed` error if encoding fails.
+    /// - throws: An `CLDNError.parameterEncodingFailed` error if encoding fails.
     ///
     /// - returns: The encoded request.
     func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest
@@ -178,7 +178,7 @@ public struct URLEncoding: ParameterEncoding {
 
         if let method = HTTPMethod(rawValue: urlRequest.httpMethod ?? "GET"), encodesParametersInURL(with: method) {
             guard let url = urlRequest.url else {
-                throw AFError.parameterEncodingFailed(reason: .missingURL)
+                throw CLDNError.parameterEncodingFailed(reason: .missingURL)
             }
 
             if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
@@ -366,7 +366,7 @@ public struct JSONEncoding: ParameterEncoding {
 
             urlRequest.httpBody = data
         } catch {
-            throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
+            throw CLDNError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
         }
 
         return urlRequest
@@ -394,7 +394,7 @@ public struct JSONEncoding: ParameterEncoding {
 
             urlRequest.httpBody = data
         } catch {
-            throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
+            throw CLDNError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
         }
 
         return urlRequest
@@ -469,7 +469,7 @@ public struct PropertyListEncoding: ParameterEncoding {
 
             urlRequest.httpBody = data
         } catch {
-            throw AFError.parameterEncodingFailed(reason: .propertyListEncodingFailed(error: error))
+            throw CLDNError.parameterEncodingFailed(reason: .propertyListEncodingFailed(error: error))
         }
 
         return urlRequest
