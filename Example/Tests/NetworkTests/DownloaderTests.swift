@@ -26,7 +26,15 @@ import XCTest
 import Cloudinary
 
 class DownloaderTests: NetworkBaseTest {
+    var cloudinarySecured:CLDCloudinary? = nil
+    
+     override func setUp() {
+        super.setUp()
         
+        let defConfig = cloudinary!.config
+        let config = CLDConfiguration(cloudName: defConfig.cloudName, apiKey: defConfig.apiKey, apiSecret: defConfig.apiSecret, secure: true)
+        cloudinarySecured = CLDCloudinary(configuration: config)
+    }
     // MARK: - Tests
     
     func testDownloadImage() {
@@ -53,7 +61,7 @@ class DownloaderTests: NetworkBaseTest {
         var response: UIImage?
         var error: NSError?
         
-        let url = cloudinary!.createUrl().generate(pubId)
+        let url = cloudinarySecured!.createUrl().generate(pubId)
         cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             response = responseImage
             error = errorRes
@@ -91,7 +99,7 @@ class DownloaderTests: NetworkBaseTest {
         var response: UIImage?
         var error: NSError?
         
-        var url = cloudinary!.createUrl().generate(pubId)
+        var url = cloudinarySecured!.createUrl().generate(pubId)
         cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             response = responseImage
             error = errorRes
@@ -149,7 +157,7 @@ class DownloaderTests: NetworkBaseTest {
         
         expectation = self.expectation(description: "Download should succeed")
         
-        url = cloudinary!.createUrl().generate(pubId)
+        url = cloudinarySecured!.createUrl().generate(pubId)
         
         cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             response = responseImage
