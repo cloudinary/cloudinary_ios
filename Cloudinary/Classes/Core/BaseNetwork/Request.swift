@@ -214,12 +214,6 @@ open class Request {
         guard let task = task else { return }
 
         task.suspend()
-
-        NotificationCenter.default.post(
-            name: Notification.Name.Task.DidSuspend,
-            object: self,
-            userInfo: [Notification.Key.Task: task]
-        )
     }
 
     /// Cancels the request.
@@ -227,12 +221,6 @@ open class Request {
         guard let task = task else { return }
 
         task.cancel()
-
-        NotificationCenter.default.post(
-            name: Notification.Name.Task.DidCancel,
-            object: self,
-            userInfo: [Notification.Key.Task: task]
-        )
     }
 }
 
@@ -510,12 +498,6 @@ open class DownloadRequest: Request {
         } else {
             downloadDelegate.downloadTask.cancel()
         }
-
-        NotificationCenter.default.post(
-            name: Notification.Name.Task.DidCancel,
-            object: self,
-            userInfo: [Notification.Key.Task: task as Any]
-        )
     }
 
     // MARK: Progress

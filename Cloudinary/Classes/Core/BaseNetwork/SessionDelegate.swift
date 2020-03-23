@@ -442,18 +442,6 @@ extension SessionDelegate: URLSessionTaskDelegate {
 
             strongSelf[task]?.delegate.urlSession(session, task: task, didCompleteWithError: error)
 
-            var userInfo: [String: Any] = [Notification.Key.Task: task]
-
-            if let data = (strongSelf[task]?.delegate as? DataTaskDelegate)?.data {
-                userInfo[Notification.Key.ResponseData] = data
-            }
-
-            NotificationCenter.default.post(
-                name: Notification.Name.Task.DidComplete,
-                object: strongSelf,
-                userInfo: userInfo
-            )
-
             strongSelf[task] = nil
         }
 
