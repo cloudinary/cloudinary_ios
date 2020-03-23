@@ -1,7 +1,6 @@
 //
-//  ResponseSerialization.swift
+//  CLDNResponseSerialization.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +24,7 @@
 import Foundation
 
 /// The type in which all data response serializers must conform to in order to serialize a response.
-public protocol DataResponseSerializerProtocol {
+internal protocol CLDNDataResponseSerializerProtocol {
     /// The type of serialized object to be created by this `DataResponseSerializerType`.
     associatedtype SerializedObject
 
@@ -36,19 +35,19 @@ public protocol DataResponseSerializerProtocol {
 // MARK: -
 
 /// A generic `DataResponseSerializerType` used to serialize a request, response, and data into a serialized object.
-public struct DataResponseSerializer<Value>: DataResponseSerializerProtocol {
-    /// The type of serialized object to be created by this `DataResponseSerializer`.
-    public typealias SerializedObject = Value
+internal struct CLDNDataResponseSerializer<Value>: CLDNDataResponseSerializerProtocol {
+    /// The type of serialized object to be created by this `CLDNDataResponseSerializer`.
+    internal typealias SerializedObject = Value
 
     /// A closure used by response handlers that takes a request, response, data and error and returns a result.
-    public var serializeResponse: (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<Value>
+    internal var serializeResponse: (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<Value>
 
     /// Initializes the `ResponseSerializer` instance with the given serialize response closure.
     ///
     /// - parameter serializeResponse: The closure used to serialize the response.
     ///
     /// - returns: The new generic response serializer instance.
-    public init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<Value>) {
+    internal init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<Value>) {
         self.serializeResponse = serializeResponse
     }
 }
@@ -56,7 +55,7 @@ public struct DataResponseSerializer<Value>: DataResponseSerializerProtocol {
 // MARK: -
 
 /// The type in which all download response serializers must conform to in order to serialize a response.
-public protocol DownloadResponseSerializerProtocol {
+internal protocol CLDNDownloadResponseSerializerProtocol {
     /// The type of serialized object to be created by this `DownloadResponseSerializerType`.
     associatedtype SerializedObject
 
@@ -67,19 +66,19 @@ public protocol DownloadResponseSerializerProtocol {
 // MARK: -
 
 /// A generic `DownloadResponseSerializerType` used to serialize a request, response, and data into a serialized object.
-public struct DownloadResponseSerializer<Value>: DownloadResponseSerializerProtocol {
-    /// The type of serialized object to be created by this `DownloadResponseSerializer`.
-    public typealias SerializedObject = Value
+internal struct CLDNDownloadResponseSerializer<Value>: CLDNDownloadResponseSerializerProtocol {
+    /// The type of serialized object to be created by this `CLDNDownloadResponseSerializer`.
+    internal typealias SerializedObject = Value
 
     /// A closure used by response handlers that takes a request, response, url and error and returns a result.
-    public var serializeResponse: (URLRequest?, HTTPURLResponse?, URL?, Error?) -> Result<Value>
+    internal var serializeResponse: (URLRequest?, HTTPURLResponse?, URL?, Error?) -> Result<Value>
 
     /// Initializes the `ResponseSerializer` instance with the given serialize response closure.
     ///
     /// - parameter serializeResponse: The closure used to serialize the response.
     ///
     /// - returns: The new generic response serializer instance.
-    public init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, URL?, Error?) -> Result<Value>) {
+    internal init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, URL?, Error?) -> Result<Value>) {
         self.serializeResponse = serializeResponse
     }
 }
@@ -111,7 +110,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func response(queue: DispatchQueue? = nil, completionHandler: @escaping (CLDNDefaultDataResponse) -> Void) -> Self {
+    internal func response(queue: DispatchQueue? = nil, completionHandler: @escaping (CLDNDefaultDataResponse) -> Void) -> Self {
         delegate.queue.addOperation {
             (queue ?? DispatchQueue.main).async {
                 var dataResponse = CLDNDefaultDataResponse(
@@ -140,7 +139,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func response<T: DataResponseSerializerProtocol>(
+    internal func response<T: CLDNDataResponseSerializerProtocol>(
         queue: DispatchQueue? = nil,
         responseSerializer: T,
         completionHandler: @escaping (CLDNDataResponse<T.SerializedObject>) -> Void)
@@ -179,7 +178,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func response(
+    internal func response(
         queue: DispatchQueue? = nil,
         completionHandler: @escaping (CLDNDefaultDownloadResponse) -> Void)
         -> Self
@@ -214,7 +213,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func response<T: DownloadResponseSerializerProtocol>(
+    internal func response<T: CLDNDownloadResponseSerializerProtocol>(
         queue: DispatchQueue? = nil,
         responseSerializer: T,
         completionHandler: @escaping (CLDNDownloadResponse<T.SerializedObject>) -> Void)
@@ -257,7 +256,7 @@ extension CLDNRequest {
     /// - parameter error:    The error already encountered if it exists.
     ///
     /// - returns: The result data type.
-    public static func serializeResponseData(response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<Data> {
+    internal static func serializeResponseData(response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<Data> {
         guard error == nil else { return .failure(error!) }
 
         if let response = response, emptyDataStatusCodes.contains(response.statusCode) { return .success(Data()) }
@@ -274,8 +273,8 @@ extension CLDNDataRequest {
     /// Creates a response serializer that returns the associated data as-is.
     ///
     /// - returns: A data response serializer.
-    public static func dataResponseSerializer() -> DataResponseSerializer<Data> {
-        return DataResponseSerializer { _, response, data, error in
+    internal static func dataResponseSerializer() -> CLDNDataResponseSerializer<Data> {
+        return CLDNDataResponseSerializer { _, response, data, error in
             return CLDNRequest.serializeResponseData(response: response, data: data, error: error)
         }
     }
@@ -286,7 +285,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseData(
+    internal func responseData(
         queue: DispatchQueue? = nil,
         completionHandler: @escaping (CLDNDataResponse<Data>) -> Void)
         -> Self
@@ -303,8 +302,8 @@ extension CLDNDownloadRequest {
     /// Creates a response serializer that returns the associated data as-is.
     ///
     /// - returns: A data response serializer.
-    public static func dataResponseSerializer() -> DownloadResponseSerializer<Data> {
-        return DownloadResponseSerializer { _, response, fileURL, error in
+    internal static func dataResponseSerializer() -> CLDNDownloadResponseSerializer<Data> {
+        return CLDNDownloadResponseSerializer { _, response, fileURL, error in
             guard error == nil else { return .failure(error!) }
 
             guard let fileURL = fileURL else {
@@ -326,7 +325,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseData(
+    internal func responseData(
         queue: DispatchQueue? = nil,
         completionHandler: @escaping (CLDNDownloadResponse<Data>) -> Void)
         -> Self
@@ -351,7 +350,7 @@ extension CLDNRequest {
     /// - parameter error:    The error already encountered if it exists.
     ///
     /// - returns: The result data type.
-    public static func serializeResponseString(
+    internal static func serializeResponseString(
         encoding: String.Encoding?,
         response: HTTPURLResponse?,
         data: Data?,
@@ -392,8 +391,8 @@ extension CLDNDataRequest {
     ///                       response, falling back to the default HTTP default character set, ISO-8859-1.
     ///
     /// - returns: A string response serializer.
-    public static func stringResponseSerializer(encoding: String.Encoding? = nil) -> DataResponseSerializer<String> {
-        return DataResponseSerializer { _, response, data, error in
+    internal static func stringResponseSerializer(encoding: String.Encoding? = nil) -> CLDNDataResponseSerializer<String> {
+        return CLDNDataResponseSerializer { _, response, data, error in
             return CLDNRequest.serializeResponseString(encoding: encoding, response: response, data: data, error: error)
         }
     }
@@ -407,7 +406,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseString(
+    internal func responseString(
         queue: DispatchQueue? = nil,
         encoding: String.Encoding? = nil,
         completionHandler: @escaping (CLDNDataResponse<String>) -> Void)
@@ -429,8 +428,8 @@ extension CLDNDownloadRequest {
     ///                       response, falling back to the default HTTP default character set, ISO-8859-1.
     ///
     /// - returns: A string response serializer.
-    public static func stringResponseSerializer(encoding: String.Encoding? = nil) -> DownloadResponseSerializer<String> {
-        return DownloadResponseSerializer { _, response, fileURL, error in
+    internal static func stringResponseSerializer(encoding: String.Encoding? = nil) -> CLDNDownloadResponseSerializer<String> {
+        return CLDNDownloadResponseSerializer { _, response, fileURL, error in
             guard error == nil else { return .failure(error!) }
 
             guard let fileURL = fileURL else {
@@ -455,7 +454,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseString(
+    internal func responseString(
         queue: DispatchQueue? = nil,
         encoding: String.Encoding? = nil,
         completionHandler: @escaping (CLDNDownloadResponse<String>) -> Void)
@@ -481,7 +480,7 @@ extension CLDNRequest {
     /// - parameter error:    The error already encountered if it exists.
     ///
     /// - returns: The result data type.
-    public static func serializeResponseJSON(
+    internal static func serializeResponseJSON(
         options: JSONSerialization.ReadingOptions,
         response: HTTPURLResponse?,
         data: Data?,
@@ -512,11 +511,11 @@ extension CLDNDataRequest {
     /// - parameter options: The JSON serialization reading options. Defaults to `.allowFragments`.
     ///
     /// - returns: A JSON object response serializer.
-    public static func jsonResponseSerializer(
+    internal static func jsonResponseSerializer(
         options: JSONSerialization.ReadingOptions = .allowFragments)
-        -> DataResponseSerializer<Any>
+        -> CLDNDataResponseSerializer<Any>
     {
-        return DataResponseSerializer { _, response, data, error in
+        return CLDNDataResponseSerializer { _, response, data, error in
             return CLDNRequest.serializeResponseJSON(options: options, response: response, data: data, error: error)
         }
     }
@@ -528,7 +527,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseJSON(
+    internal func responseJSON(
         queue: DispatchQueue? = nil,
         options: JSONSerialization.ReadingOptions = .allowFragments,
         completionHandler: @escaping (CLDNDataResponse<Any>) -> Void)
@@ -549,11 +548,11 @@ extension CLDNDownloadRequest {
     /// - parameter options: The JSON serialization reading options. Defaults to `.allowFragments`.
     ///
     /// - returns: A JSON object response serializer.
-    public static func jsonResponseSerializer(
+    internal static func jsonResponseSerializer(
         options: JSONSerialization.ReadingOptions = .allowFragments)
-        -> DownloadResponseSerializer<Any>
+        -> CLDNDownloadResponseSerializer<Any>
     {
-        return DownloadResponseSerializer { _, response, fileURL, error in
+        return CLDNDownloadResponseSerializer { _, response, fileURL, error in
             guard error == nil else { return .failure(error!) }
 
             guard let fileURL = fileURL else {
@@ -576,7 +575,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseJSON(
+    internal func responseJSON(
         queue: DispatchQueue? = nil,
         options: JSONSerialization.ReadingOptions = .allowFragments,
         completionHandler: @escaping (CLDNDownloadResponse<Any>) -> Void)
@@ -602,7 +601,7 @@ extension CLDNRequest {
     /// - parameter error:    The error already encountered if it exists.
     ///
     /// - returns: The result data type.
-    public static func serializeResponsePropertyList(
+    internal static func serializeResponsePropertyList(
         options: PropertyListSerialization.ReadOptions,
         response: HTTPURLResponse?,
         data: Data?,
@@ -633,11 +632,11 @@ extension CLDNDataRequest {
     /// - parameter options: The property list reading options. Defaults to `[]`.
     ///
     /// - returns: A property list object response serializer.
-    public static func propertyListResponseSerializer(
+    internal static func propertyListResponseSerializer(
         options: PropertyListSerialization.ReadOptions = [])
-        -> DataResponseSerializer<Any>
+        -> CLDNDataResponseSerializer<Any>
     {
-        return DataResponseSerializer { _, response, data, error in
+        return CLDNDataResponseSerializer { _, response, data, error in
             return CLDNRequest.serializeResponsePropertyList(options: options, response: response, data: data, error: error)
         }
     }
@@ -649,7 +648,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responsePropertyList(
+    internal func responsePropertyList(
         queue: DispatchQueue? = nil,
         options: PropertyListSerialization.ReadOptions = [],
         completionHandler: @escaping (CLDNDataResponse<Any>) -> Void)
@@ -670,11 +669,11 @@ extension CLDNDownloadRequest {
     /// - parameter options: The property list reading options. Defaults to `[]`.
     ///
     /// - returns: A property list object response serializer.
-    public static func propertyListResponseSerializer(
+    internal static func propertyListResponseSerializer(
         options: PropertyListSerialization.ReadOptions = [])
-        -> DownloadResponseSerializer<Any>
+        -> CLDNDownloadResponseSerializer<Any>
     {
-        return DownloadResponseSerializer { _, response, fileURL, error in
+        return CLDNDownloadResponseSerializer { _, response, fileURL, error in
             guard error == nil else { return .failure(error!) }
 
             guard let fileURL = fileURL else {
@@ -697,7 +696,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responsePropertyList(
+    internal func responsePropertyList(
         queue: DispatchQueue? = nil,
         options: PropertyListSerialization.ReadOptions = [],
         completionHandler: @escaping (CLDNDownloadResponse<Any>) -> Void)
