@@ -29,12 +29,12 @@ open class SessionManager {
 
     // MARK: - Helper Types
 
-    /// Defines whether the `MultipartFormData` encoding was successful and contains result of the encoding as
+    /// Defines whether the `CLDNMultipartFormData` encoding was successful and contains result of the encoding as
     /// associated values.
     ///
-    /// - Success: Represents a successful `MultipartFormData` encoding and contains the new `UploadRequest` along with
+    /// - Success: Represents a successful `CLDNMultipartFormData` encoding and contains the new `UploadRequest` along with
     ///            streaming information.
-    /// - Failure: Used to represent a failure in the `MultipartFormData` encoding and also contains the encoding
+    /// - Failure: Used to represent a failure in the `CLDNMultipartFormData` encoding and also contains the encoding
     ///            error.
     public enum MultipartFormDataEncodingResult {
         case success(request: UploadRequest, streamingFromDisk: Bool, streamFileURL: URL?)
@@ -578,12 +578,12 @@ open class SessionManager {
         }
     }
 
-    // MARK: MultipartFormData
+    // MARK: CLDNMultipartFormData
 
     /// Encodes `multipartFormData` using `encodingMemoryThreshold` and calls `encodingCompletion` with new
     /// `UploadRequest` using the `url`, `method` and `headers`.
     ///
-    /// It is important to understand the memory implications of uploading `MultipartFormData`. If the cummulative
+    /// It is important to understand the memory implications of uploading `CLDNMultipartFormData`. If the cummulative
     /// payload is small, encoding the data in-memory and directly uploading to a server is the by far the most
     /// efficient approach. However, if the payload is too large, encoding the data in-memory could cause your app to
     /// be terminated. Larger payloads must first be written to disk using input and output streams to keep the memory
@@ -591,22 +591,22 @@ open class SessionManager {
     /// used for larger payloads such as video content.
     ///
     /// The `encodingMemoryThreshold` parameter allows Alamofire to automatically determine whether to encode in-memory
-    /// or stream from disk. If the content length of the `MultipartFormData` is below the `encodingMemoryThreshold`,
+    /// or stream from disk. If the content length of the `CLDNMultipartFormData` is below the `encodingMemoryThreshold`,
     /// encoding takes place in-memory. If the content length exceeds the threshold, the data is streamed to disk
     /// during the encoding process. Then the result is uploaded as data or as a stream depending on which encoding
     /// technique was used.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
-    /// - parameter multipartFormData:       The closure used to append body parts to the `MultipartFormData`.
+    /// - parameter multipartFormData:       The closure used to append body parts to the `CLDNMultipartFormData`.
     /// - parameter encodingMemoryThreshold: The encoding memory threshold in bytes.
     ///                                      `multipartFormDataEncodingMemoryThreshold` by default.
     /// - parameter url:                     The URL.
     /// - parameter method:                  The HTTP method. `.post` by default.
     /// - parameter headers:                 The HTTP headers. `nil` by default.
-    /// - parameter encodingCompletion:      The closure called when the `MultipartFormData` encoding is complete.
+    /// - parameter encodingCompletion:      The closure called when the `CLDNMultipartFormData` encoding is complete.
     internal func upload(
-        multipartFormData: @escaping (MultipartFormData) -> Void,
+        multipartFormData: @escaping (CLDNMultipartFormData) -> Void,
         usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
         to url: CLDNURLConvertible,
         method: HTTPMethod = .post,
@@ -632,7 +632,7 @@ open class SessionManager {
     /// Encodes `multipartFormData` using `encodingMemoryThreshold` and calls `encodingCompletion` with new
     /// `UploadRequest` using the `urlRequest`.
     ///
-    /// It is important to understand the memory implications of uploading `MultipartFormData`. If the cummulative
+    /// It is important to understand the memory implications of uploading `CLDNMultipartFormData`. If the cummulative
     /// payload is small, encoding the data in-memory and directly uploading to a server is the by far the most
     /// efficient approach. However, if the payload is too large, encoding the data in-memory could cause your app to
     /// be terminated. Larger payloads must first be written to disk using input and output streams to keep the memory
@@ -640,27 +640,27 @@ open class SessionManager {
     /// used for larger payloads such as video content.
     ///
     /// The `encodingMemoryThreshold` parameter allows Alamofire to automatically determine whether to encode in-memory
-    /// or stream from disk. If the content length of the `MultipartFormData` is below the `encodingMemoryThreshold`,
+    /// or stream from disk. If the content length of the `CLDNMultipartFormData` is below the `encodingMemoryThreshold`,
     /// encoding takes place in-memory. If the content length exceeds the threshold, the data is streamed to disk
     /// during the encoding process. Then the result is uploaded as data or as a stream depending on which encoding
     /// technique was used.
     ///
     /// If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
     ///
-    /// - parameter multipartFormData:       The closure used to append body parts to the `MultipartFormData`.
+    /// - parameter multipartFormData:       The closure used to append body parts to the `CLDNMultipartFormData`.
     /// - parameter encodingMemoryThreshold: The encoding memory threshold in bytes.
     ///                                      `multipartFormDataEncodingMemoryThreshold` by default.
     /// - parameter urlRequest:              The URL request.
-    /// - parameter encodingCompletion:      The closure called when the `MultipartFormData` encoding is complete.
-    open func upload(
-        multipartFormData: @escaping (MultipartFormData) -> Void,
+    /// - parameter encodingCompletion:      The closure called when the `CLDNMultipartFormData` encoding is complete.
+    internal func upload(
+        multipartFormData: @escaping (CLDNMultipartFormData) -> Void,
         usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
         with urlRequest: CLDNURLRequestConvertible,
         queue: DispatchQueue? = nil,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
     {
         DispatchQueue.global(qos: .utility).async {
-            let formData = MultipartFormData()
+            let formData = CLDNMultipartFormData()
             multipartFormData(formData)
 
             var tempFileURL: URL?
