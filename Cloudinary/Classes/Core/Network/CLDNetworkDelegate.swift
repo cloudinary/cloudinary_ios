@@ -23,7 +23,6 @@
 //
 
 import Foundation
-import Alamofire
 
 
 internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
@@ -46,7 +45,7 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
         static let identifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
     }
 
-    fileprivate let manager: Alamofire.SessionManager
+    fileprivate let manager: SessionManager
 
     fileprivate let downloadQueue: OperationQueue = OperationQueue()
 

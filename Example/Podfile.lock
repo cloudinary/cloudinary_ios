@@ -1,3 +1,18 @@
-PODFILE CHECKSUM: f797a317eaecb92554899b2453e675d053bd9d1b
+PODS:
+  - Cloudinary (2.8.1):
+    - Cloudinary/ios (= 2.8.1)
+  - Cloudinary/ios (2.8.1)
 
-COCOAPODS: 1.7.5
+DEPENDENCIES:
+  - Cloudinary (from `../`)
+
+EXTERNAL SOURCES:
+  Cloudinary:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Cloudinary: 6a91f63a0c3005a278f9d3229ecc5c526438c4e8
+
+PODFILE CHECKSUM: 318d991af252fe292a1f54db9402ee74246202ec
+
+COCOAPODS: 1.8.4

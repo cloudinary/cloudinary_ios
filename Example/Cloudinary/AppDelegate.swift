@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import Cloudinary
-import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

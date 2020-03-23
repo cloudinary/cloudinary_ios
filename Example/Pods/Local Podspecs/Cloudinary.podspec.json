@@ -26,28 +26,11 @@
   "default_subspecs": "ios",
   "subspecs": [
     {
-      "name": "Core",
-      "platforms": {
-        "ios": null
-      },
-      "source_files": "Cloudinary/Classes/Core/**/*",
-      "dependencies": {
-        "Alamofire": [
-          "~> 4.9.1"
-        ]
-      }
-    },
-    {
       "name": "ios",
       "platforms": {
         "ios": null
       },
-      "source_files": "Cloudinary/Classes/ios/**/*",
-      "dependencies": {
-        "Cloudinary/Core": [
-
-        ]
-      }
+      "source_files": "Cloudinary/Classes/**/*"
     }
   ],
   "swift_version": "5.0"

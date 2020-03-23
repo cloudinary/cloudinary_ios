@@ -23,7 +23,6 @@
 //
 
 import Foundation
-import Alamofire
 
 internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<DataRequest>, CLDFetchImageRequest {
 

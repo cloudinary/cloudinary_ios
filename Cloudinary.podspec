@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
         
         spec.platform              = :ios
         spec.source_files          = 'Cloudinary/Classes/**/*'
-        spec.dependency 'Alamofire', '~> 4.9.1'
+#        spec.dependency 'Alamofire', '~> 4.9.1'
     
     end
 end

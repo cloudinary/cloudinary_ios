@@ -23,7 +23,6 @@
 //
 
 import Foundation
-import Alamofire
 
 internal class CLDNetworkDataRequestImpl<T: DataRequest>: CLDGenericNetworkRequest<T>, CLDNetworkDataRequest {
     
