@@ -1,5 +1,5 @@
 //
-//  CLDParameterEncoding.swift
+//  CLDNParameterEncoding.swift
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -44,7 +44,7 @@ internal enum CLDNHTTPMethod: String {
 internal typealias CLDNParameters = [String: Any]
 
 /// A type used to define how a set of parameters are applied to a `URLRequest`.
-internal protocol CLDParameterEncoding {
+internal protocol CLDNParameterEncoding {
     /// Creates a URL request by encoding parameters and applying them onto an existing request.
     ///
     /// - parameter urlRequest: The request to have parameters applied.
@@ -72,7 +72,7 @@ internal protocol CLDParameterEncoding {
 ///
 /// `BoolEncoding` can be used to configure how boolean values are encoded. The default behavior is to encode
 /// `true` as 1 and `false` as 0.
-internal struct CLDURLEncoding: CLDParameterEncoding {
+internal struct CLDNURLEncoding: CLDNParameterEncoding {
 
     // MARK: Helper Types
 
@@ -125,16 +125,16 @@ internal struct CLDURLEncoding: CLDParameterEncoding {
     // MARK: Properties
 
     /// Returns a default `URLEncoding` instance.
-    internal static var `default`: CLDURLEncoding { return CLDURLEncoding() }
+    internal static var `default`: CLDNURLEncoding { return CLDNURLEncoding() }
 
     /// Returns a `URLEncoding` instance with a `.methodDependent` destination.
-    internal static var methodDependent: CLDURLEncoding { return CLDURLEncoding() }
+    internal static var methodDependent: CLDNURLEncoding { return CLDNURLEncoding() }
 
     /// Returns a `URLEncoding` instance with a `.queryString` destination.
-    internal static var queryString: CLDURLEncoding { return CLDURLEncoding(destination: .queryString) }
+    internal static var queryString: CLDNURLEncoding { return CLDNURLEncoding(destination: .queryString) }
 
     /// Returns a `URLEncoding` instance with an `.httpBody` destination.
-    internal static var httpBody: CLDURLEncoding { return CLDURLEncoding(destination: .httpBody) }
+    internal static var httpBody: CLDNURLEncoding { return CLDNURLEncoding(destination: .httpBody) }
 
     /// The destination defining where the encoded query string is to be applied to the URL request.
     internal let destination: Destination
@@ -147,13 +147,13 @@ internal struct CLDURLEncoding: CLDParameterEncoding {
 
     // MARK: Initialization
 
-    /// Creates a `CLDURLEncoding` instance using the specified destination.
+    /// Creates a `CLDNURLEncoding` instance using the specified destination.
     ///
     /// - parameter destination: The destination defining where the encoded query string is to be applied.
     /// - parameter arrayEncoding: The encoding to use for `Array` parameters.
     /// - parameter boolEncoding: The encoding to use for `Bool` parameters.
     ///
-    /// - returns: The new `CLDURLEncoding` instance.
+    /// - returns: The new `CLDNURLEncoding` instance.
     internal init(destination: Destination = .methodDependent, arrayEncoding: ArrayEncoding = .brackets, boolEncoding: BoolEncoding = .numeric) {
         self.destination = destination
         self.arrayEncoding = arrayEncoding
@@ -317,26 +317,26 @@ internal struct CLDURLEncoding: CLDParameterEncoding {
 
 /// Uses `JSONSerialization` to create a JSON representation of the parameters object, which is set as the body of the
 /// request. The `Content-Type` HTTP header field of an encoded request is set to `application/json`.
-internal struct CLDJSONEncoding: CLDParameterEncoding {
+internal struct CLDNJSONEncoding: CLDNParameterEncoding {
 
     // MARK: Properties
 
     /// Returns a `JSONEncoding` instance with default writing options.
-    internal static var `default`: CLDJSONEncoding { return CLDJSONEncoding() }
+    internal static var `default`: CLDNJSONEncoding { return CLDNJSONEncoding() }
 
     /// Returns a `JSONEncoding` instance with `.prettyPrinted` writing options.
-    internal static var prettyPrinted: CLDJSONEncoding { return CLDJSONEncoding(options: .prettyPrinted) }
+    internal static var prettyPrinted: CLDNJSONEncoding { return CLDNJSONEncoding(options: .prettyPrinted) }
 
     /// The options for writing the parameters as JSON data.
     internal let options: JSONSerialization.WritingOptions
 
     // MARK: Initialization
 
-    /// Creates a `CLDJSONEncoding` instance using the specified options.
+    /// Creates a `CLDNJSONEncoding` instance using the specified options.
     ///
     /// - parameter options: The options for writing the parameters as JSON data.
     ///
-    /// - returns: The new `CLDJSONEncoding` instance.
+    /// - returns: The new `CLDNJSONEncoding` instance.
     internal init(options: JSONSerialization.WritingOptions = []) {
         self.options = options
     }

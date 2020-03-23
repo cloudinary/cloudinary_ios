@@ -218,7 +218,7 @@ open class SessionManager {
     /// - parameter url:        The URL.
     /// - parameter method:     The HTTP method. `.get` by default.
     /// - parameter parameters: The parameters. `nil` by default.
-    /// - parameter encoding:   The parameter encoding. `CLDURLEncoding.default` by default.
+    /// - parameter encoding:   The parameter encoding. `CLDNURLEncoding.default` by default.
     /// - parameter headers:    The HTTP headers. `nil` by default.
     ///
     /// - returns: The created `CLDNDataRequest`.
@@ -227,7 +227,7 @@ open class SessionManager {
         _ url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .get,
         parameters: CLDNParameters? = nil,
-        encoding: CLDParameterEncoding = CLDURLEncoding.default,
+        encoding: CLDNParameterEncoding = CLDNURLEncoding.default,
         headers: CLDNHTTPHeaders? = nil)
         -> CLDNDataRequest
     {
@@ -307,7 +307,7 @@ open class SessionManager {
     /// - parameter url:         The URL.
     /// - parameter method:      The HTTP method. `.get` by default.
     /// - parameter parameters:  The parameters. `nil` by default.
-    /// - parameter encoding:    The parameter encoding. `CLDURLEncoding.default` by default.
+    /// - parameter encoding:    The parameter encoding. `CLDNURLEncoding.default` by default.
     /// - parameter headers:     The HTTP headers. `nil` by default.
     /// - parameter destination: The closure used to determine the destination of the downloaded file. `nil` by default.
     ///
@@ -317,7 +317,7 @@ open class SessionManager {
         _ url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .get,
         parameters: CLDNParameters? = nil,
-        encoding: CLDParameterEncoding = CLDURLEncoding.default,
+        encoding: CLDNParameterEncoding = CLDNURLEncoding.default,
         headers: CLDNHTTPHeaders? = nil,
         to destination: CLDNDownloadRequest.DownloadFileDestination? = nil)
         -> CLDNDownloadRequest
