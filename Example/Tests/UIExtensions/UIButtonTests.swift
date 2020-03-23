@@ -41,7 +41,7 @@ class UIButtonTests: UIBaseTest {
             expectation.fulfill()
         }
         
-        btn.cldSetImage(url, forState: .normal, cloudinary: cloudinary!)
+        btn.cldSetImage(url, forState: .normal, cloudinary: cloudinarySecured)
         waitForExpectations(timeout: timeout, handler: nil)
         
         XCTAssertTrue(imageDownloadedAndSet)
@@ -75,7 +75,7 @@ class UIButtonTests: UIBaseTest {
             expectation.fulfill()
         }
         
-        btn.cldSetImage(publicId: pubId, cloudinary: cloudinary!, forState: .normal)
+        btn.cldSetImage(publicId: pubId, cloudinary: cloudinarySecured, forState: .normal)
         waitForExpectations(timeout: timeout, handler: nil)
         
         XCTAssertTrue(imageDownloadedAndSet)
@@ -94,7 +94,7 @@ class UIButtonTests: UIBaseTest {
             expectation.fulfill()
         }
                 
-        btn.cld_setBackgroundImage(url, forState: .normal, cloudinary: cloudinary!)
+        btn.cld_setBackgroundImage(url, forState: .normal, cloudinary: cloudinarySecured)
         waitForExpectations(timeout: timeout, handler: nil)
         
         XCTAssertTrue(imageDownloadedAndSet)
@@ -128,7 +128,7 @@ class UIButtonTests: UIBaseTest {
             expectation.fulfill()
         }
         
-        btn.cld_setBackgroundImage(publicId: pubId, cloudinary: cloudinary!, forState: .normal)
+        btn.cld_setBackgroundImage(publicId: pubId, cloudinary: cloudinarySecured, forState: .normal)
         waitForExpectations(timeout: timeout, handler: nil)
         
         XCTAssertTrue(imageDownloadedAndSet)

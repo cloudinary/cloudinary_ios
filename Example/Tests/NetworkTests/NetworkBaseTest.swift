@@ -30,6 +30,7 @@ class NetworkBaseTest: XCTestCase {
     let timeout: TimeInterval = 30.0
     var cloudinary: CLDCloudinary?
     var cloudinaryNoSecret: CLDCloudinary!
+    var cloudinarySecured:CLDCloudinary!
     
     // MARK: - Lifcycle
     
@@ -45,8 +46,11 @@ class NetworkBaseTest: XCTestCase {
 
         let configNoSecret = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: nil, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix)
 
+        let configSecured = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: config.apiSecret, privateCdn: config.privateCdn, secure: true, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix)
+        
         cloudinary = CLDCloudinary(configuration: config, sessionConfiguration: URLSessionConfiguration.default)
         cloudinaryNoSecret = CLDCloudinary(configuration: configNoSecret, sessionConfiguration: URLSessionConfiguration.default)
+        cloudinarySecured = CLDCloudinary(configuration: configSecured)
     }
     
     override func tearDown() {
