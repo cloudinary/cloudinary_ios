@@ -95,7 +95,7 @@ extension URLRequest {
     /// - parameter headers: The HTTP headers. `nil` by default.
     ///
     /// - returns: The new `URLRequest` instance.
-    internal init(url: CLDNURLConvertible, method: HTTPMethod, headers: HTTPHeaders? = nil) throws {
+    internal init(url: CLDNURLConvertible, method: CLDNHTTPMethod, headers: HTTPHeaders? = nil) throws {
         let url = try url.asURL()
 
         self.init(url: url)

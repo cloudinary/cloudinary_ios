@@ -1,7 +1,6 @@
 //
-//  ParameterEncoding.swift
+//  CLDParameterEncoding.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +26,7 @@ import Foundation
 /// HTTP method definitions.
 ///
 /// See https://tools.ietf.org/html/rfc7231#section-4.3
-public enum HTTPMethod: String {
+internal enum CLDNHTTPMethod: String {
     case options = "OPTIONS"
     case get     = "GET"
     case head    = "HEAD"
@@ -42,10 +41,10 @@ public enum HTTPMethod: String {
 // MARK: -
 
 /// A dictionary of parameters to apply to a `URLRequest`.
-public typealias Parameters = [String: Any]
+internal typealias CLDNParameters = [String: Any]
 
 /// A type used to define how a set of parameters are applied to a `URLRequest`.
-public protocol ParameterEncoding {
+internal protocol CLDParameterEncoding {
     /// Creates a URL request by encoding parameters and applying them onto an existing request.
     ///
     /// - parameter urlRequest: The request to have parameters applied.
@@ -54,7 +53,7 @@ public protocol ParameterEncoding {
     /// - throws: An `CLDNError.parameterEncodingFailed` error if encoding fails.
     ///
     /// - returns: The encoded request.
-    func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: Parameters?) throws -> URLRequest
+    func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest
 }
 
 // MARK: -
@@ -73,7 +72,7 @@ public protocol ParameterEncoding {
 ///
 /// `BoolEncoding` can be used to configure how boolean values are encoded. The default behavior is to encode
 /// `true` as 1 and `false` as 0.
-public struct URLEncoding: ParameterEncoding {
+internal struct CLDURLEncoding: CLDParameterEncoding {
 
     // MARK: Helper Types
 
@@ -84,7 +83,7 @@ public struct URLEncoding: ParameterEncoding {
     ///                    requests and sets as the HTTP body for requests with any other HTTP method.
     /// - queryString:     Sets or appends encoded query string result to existing query string.
     /// - httpBody:        Sets encoded query string result as the HTTP body of the URL request.
-    public enum Destination {
+    internal enum Destination {
         case methodDependent, queryString, httpBody
     }
 
@@ -93,7 +92,7 @@ public struct URLEncoding: ParameterEncoding {
     /// - brackets:        An empty set of square brackets is appended to the key for every value.
     ///                    This is the default behavior.
     /// - noBrackets:      No brackets are appended. The key is encoded as is.
-    public enum ArrayEncoding {
+    internal enum ArrayEncoding {
         case brackets, noBrackets
 
         func encode(key: String) -> String {
@@ -110,7 +109,7 @@ public struct URLEncoding: ParameterEncoding {
     ///
     /// - numeric:         Encode `true` as `1` and `false` as `0`. This is the default behavior.
     /// - literal:         Encode `true` and `false` as string literals.
-    public enum BoolEncoding {
+    internal enum BoolEncoding {
         case numeric, literal
 
         func encode(value: Bool) -> String {
@@ -126,36 +125,36 @@ public struct URLEncoding: ParameterEncoding {
     // MARK: Properties
 
     /// Returns a default `URLEncoding` instance.
-    public static var `default`: URLEncoding { return URLEncoding() }
+    internal static var `default`: CLDURLEncoding { return CLDURLEncoding() }
 
     /// Returns a `URLEncoding` instance with a `.methodDependent` destination.
-    public static var methodDependent: URLEncoding { return URLEncoding() }
+    internal static var methodDependent: CLDURLEncoding { return CLDURLEncoding() }
 
     /// Returns a `URLEncoding` instance with a `.queryString` destination.
-    public static var queryString: URLEncoding { return URLEncoding(destination: .queryString) }
+    internal static var queryString: CLDURLEncoding { return CLDURLEncoding(destination: .queryString) }
 
     /// Returns a `URLEncoding` instance with an `.httpBody` destination.
-    public static var httpBody: URLEncoding { return URLEncoding(destination: .httpBody) }
+    internal static var httpBody: CLDURLEncoding { return CLDURLEncoding(destination: .httpBody) }
 
     /// The destination defining where the encoded query string is to be applied to the URL request.
-    public let destination: Destination
+    internal let destination: Destination
 
     /// The encoding to use for `Array` parameters.
-    public let arrayEncoding: ArrayEncoding
+    internal let arrayEncoding: ArrayEncoding
 
     /// The encoding to use for `Bool` parameters.
-    public let boolEncoding: BoolEncoding
+    internal let boolEncoding: BoolEncoding
 
     // MARK: Initialization
 
-    /// Creates a `URLEncoding` instance using the specified destination.
+    /// Creates a `CLDURLEncoding` instance using the specified destination.
     ///
     /// - parameter destination: The destination defining where the encoded query string is to be applied.
     /// - parameter arrayEncoding: The encoding to use for `Array` parameters.
     /// - parameter boolEncoding: The encoding to use for `Bool` parameters.
     ///
-    /// - returns: The new `URLEncoding` instance.
-    public init(destination: Destination = .methodDependent, arrayEncoding: ArrayEncoding = .brackets, boolEncoding: BoolEncoding = .numeric) {
+    /// - returns: The new `CLDURLEncoding` instance.
+    internal init(destination: Destination = .methodDependent, arrayEncoding: ArrayEncoding = .brackets, boolEncoding: BoolEncoding = .numeric) {
         self.destination = destination
         self.arrayEncoding = arrayEncoding
         self.boolEncoding = boolEncoding
@@ -171,12 +170,12 @@ public struct URLEncoding: ParameterEncoding {
     /// - throws: An `Error` if the encoding process encounters an error.
     ///
     /// - returns: The encoded request.
-    public func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+    internal func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest {
         var urlRequest = try urlRequest.asURLRequest()
 
         guard let parameters = parameters else { return urlRequest }
 
-        if let method = HTTPMethod(rawValue: urlRequest.httpMethod ?? "GET"), encodesParametersInURL(with: method) {
+        if let method = CLDNHTTPMethod(rawValue: urlRequest.httpMethod ?? "GET"), encodesParametersInURL(with: method) {
             guard let url = urlRequest.url else {
                 throw CLDNError.parameterEncodingFailed(reason: .missingURL)
             }
@@ -203,7 +202,7 @@ public struct URLEncoding: ParameterEncoding {
     /// - parameter value: The value of the query component.
     ///
     /// - returns: The percent-escaped, URL encoded query string components.
-    public func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
+    internal func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
         var components: [(String, String)] = []
 
         if let dictionary = value as? [String: Any] {
@@ -243,7 +242,7 @@ public struct URLEncoding: ParameterEncoding {
     /// - parameter string: The string to be percent-escaped.
     ///
     /// - returns: The percent-escaped string.
-    public func escape(_ string: String) -> String {
+    internal func escape(_ string: String) -> String {
         let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
         let subDelimitersToEncode = "!$&'()*+,;="
 
@@ -295,7 +294,7 @@ public struct URLEncoding: ParameterEncoding {
         return components.map { "\($0)=\($1)" }.joined(separator: "&")
     }
 
-    private func encodesParametersInURL(with method: HTTPMethod) -> Bool {
+    private func encodesParametersInURL(with method: CLDNHTTPMethod) -> Bool {
         switch destination {
         case .queryString:
             return true
@@ -318,27 +317,27 @@ public struct URLEncoding: ParameterEncoding {
 
 /// Uses `JSONSerialization` to create a JSON representation of the parameters object, which is set as the body of the
 /// request. The `Content-Type` HTTP header field of an encoded request is set to `application/json`.
-public struct JSONEncoding: ParameterEncoding {
+internal struct CLDJSONEncoding: CLDParameterEncoding {
 
     // MARK: Properties
 
     /// Returns a `JSONEncoding` instance with default writing options.
-    public static var `default`: JSONEncoding { return JSONEncoding() }
+    internal static var `default`: CLDJSONEncoding { return CLDJSONEncoding() }
 
     /// Returns a `JSONEncoding` instance with `.prettyPrinted` writing options.
-    public static var prettyPrinted: JSONEncoding { return JSONEncoding(options: .prettyPrinted) }
+    internal static var prettyPrinted: CLDJSONEncoding { return CLDJSONEncoding(options: .prettyPrinted) }
 
     /// The options for writing the parameters as JSON data.
-    public let options: JSONSerialization.WritingOptions
+    internal let options: JSONSerialization.WritingOptions
 
     // MARK: Initialization
 
-    /// Creates a `JSONEncoding` instance using the specified options.
+    /// Creates a `CLDJSONEncoding` instance using the specified options.
     ///
     /// - parameter options: The options for writing the parameters as JSON data.
     ///
-    /// - returns: The new `JSONEncoding` instance.
-    public init(options: JSONSerialization.WritingOptions = []) {
+    /// - returns: The new `CLDJSONEncoding` instance.
+    internal init(options: JSONSerialization.WritingOptions = []) {
         self.options = options
     }
 
@@ -352,7 +351,7 @@ public struct JSONEncoding: ParameterEncoding {
     /// - throws: An `Error` if the encoding process encounters an error.
     ///
     /// - returns: The encoded request.
-    public func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+    internal func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest {
         var urlRequest = try urlRequest.asURLRequest()
 
         guard let parameters = parameters else { return urlRequest }
@@ -380,7 +379,7 @@ public struct JSONEncoding: ParameterEncoding {
     /// - throws: An `Error` if the encoding process encounters an error.
     ///
     /// - returns: The encoded request.
-    public func encode(_ urlRequest: CLDNURLRequestConvertible, withJSONObject jsonObject: Any? = nil) throws -> URLRequest {
+    internal func encode(_ urlRequest: CLDNURLRequestConvertible, withJSONObject jsonObject: Any? = nil) throws -> URLRequest {
         var urlRequest = try urlRequest.asURLRequest()
 
         guard let jsonObject = jsonObject else { return urlRequest }
@@ -395,81 +394,6 @@ public struct JSONEncoding: ParameterEncoding {
             urlRequest.httpBody = data
         } catch {
             throw CLDNError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
-        }
-
-        return urlRequest
-    }
-}
-
-// MARK: -
-
-/// Uses `PropertyListSerialization` to create a plist representation of the parameters object, according to the
-/// associated format and write options values, which is set as the body of the request. The `Content-Type` HTTP header
-/// field of an encoded request is set to `application/x-plist`.
-public struct PropertyListEncoding: ParameterEncoding {
-
-    // MARK: Properties
-
-    /// Returns a default `PropertyListEncoding` instance.
-    public static var `default`: PropertyListEncoding { return PropertyListEncoding() }
-
-    /// Returns a `PropertyListEncoding` instance with xml formatting and default writing options.
-    public static var xml: PropertyListEncoding { return PropertyListEncoding(format: .xml) }
-
-    /// Returns a `PropertyListEncoding` instance with binary formatting and default writing options.
-    public static var binary: PropertyListEncoding { return PropertyListEncoding(format: .binary) }
-
-    /// The property list serialization format.
-    public let format: PropertyListSerialization.PropertyListFormat
-
-    /// The options for writing the parameters as plist data.
-    public let options: PropertyListSerialization.WriteOptions
-
-    // MARK: Initialization
-
-    /// Creates a `PropertyListEncoding` instance using the specified format and options.
-    ///
-    /// - parameter format:  The property list serialization format.
-    /// - parameter options: The options for writing the parameters as plist data.
-    ///
-    /// - returns: The new `PropertyListEncoding` instance.
-    public init(
-        format: PropertyListSerialization.PropertyListFormat = .xml,
-        options: PropertyListSerialization.WriteOptions = 0)
-    {
-        self.format = format
-        self.options = options
-    }
-
-    // MARK: Encoding
-
-    /// Creates a URL request by encoding parameters and applying them onto an existing request.
-    ///
-    /// - parameter urlRequest: The request to have parameters applied.
-    /// - parameter parameters: The parameters to apply.
-    ///
-    /// - throws: An `Error` if the encoding process encounters an error.
-    ///
-    /// - returns: The encoded request.
-    public func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
-        var urlRequest = try urlRequest.asURLRequest()
-
-        guard let parameters = parameters else { return urlRequest }
-
-        do {
-            let data = try PropertyListSerialization.data(
-                fromPropertyList: parameters,
-                format: format,
-                options: options
-            )
-
-            if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-                urlRequest.setValue("application/x-plist", forHTTPHeaderField: "Content-Type")
-            }
-
-            urlRequest.httpBody = data
-        } catch {
-            throw CLDNError.parameterEncodingFailed(reason: .propertyListEncodingFailed(error: error))
         }
 
         return urlRequest

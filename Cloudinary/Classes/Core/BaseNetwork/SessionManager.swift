@@ -218,16 +218,16 @@ open class SessionManager {
     /// - parameter url:        The URL.
     /// - parameter method:     The HTTP method. `.get` by default.
     /// - parameter parameters: The parameters. `nil` by default.
-    /// - parameter encoding:   The parameter encoding. `URLEncoding.default` by default.
+    /// - parameter encoding:   The parameter encoding. `CLDURLEncoding.default` by default.
     /// - parameter headers:    The HTTP headers. `nil` by default.
     ///
     /// - returns: The created `DataRequest`.
     @discardableResult
     internal func request(
         _ url: CLDNURLConvertible,
-        method: HTTPMethod = .get,
-        parameters: Parameters? = nil,
-        encoding: ParameterEncoding = URLEncoding.default,
+        method: CLDNHTTPMethod = .get,
+        parameters: CLDNParameters? = nil,
+        encoding: CLDParameterEncoding = CLDURLEncoding.default,
         headers: HTTPHeaders? = nil)
         -> DataRequest
     {
@@ -307,7 +307,7 @@ open class SessionManager {
     /// - parameter url:         The URL.
     /// - parameter method:      The HTTP method. `.get` by default.
     /// - parameter parameters:  The parameters. `nil` by default.
-    /// - parameter encoding:    The parameter encoding. `URLEncoding.default` by default.
+    /// - parameter encoding:    The parameter encoding. `CLDURLEncoding.default` by default.
     /// - parameter headers:     The HTTP headers. `nil` by default.
     /// - parameter destination: The closure used to determine the destination of the downloaded file. `nil` by default.
     ///
@@ -315,9 +315,9 @@ open class SessionManager {
     @discardableResult
     internal func download(
         _ url: CLDNURLConvertible,
-        method: HTTPMethod = .get,
-        parameters: Parameters? = nil,
-        encoding: ParameterEncoding = URLEncoding.default,
+        method: CLDNHTTPMethod = .get,
+        parameters: CLDNParameters? = nil,
+        encoding: CLDParameterEncoding = CLDURLEncoding.default,
         headers: HTTPHeaders? = nil,
         to destination: DownloadRequest.DownloadFileDestination? = nil)
         -> DownloadRequest
@@ -456,7 +456,7 @@ open class SessionManager {
     internal func upload(
         _ fileURL: URL,
         to url: CLDNURLConvertible,
-        method: HTTPMethod = .post,
+        method: CLDNHTTPMethod = .post,
         headers: HTTPHeaders? = nil)
         -> UploadRequest
     {
@@ -502,7 +502,7 @@ open class SessionManager {
     internal func upload(
         _ data: Data,
         to url: CLDNURLConvertible,
-        method: HTTPMethod = .post,
+        method: CLDNHTTPMethod = .post,
         headers: HTTPHeaders? = nil)
         -> UploadRequest
     {
@@ -548,7 +548,7 @@ open class SessionManager {
     internal func upload(
         _ stream: InputStream,
         to url: CLDNURLConvertible,
-        method: HTTPMethod = .post,
+        method: CLDNHTTPMethod = .post,
         headers: HTTPHeaders? = nil)
         -> UploadRequest
     {
@@ -609,7 +609,7 @@ open class SessionManager {
         multipartFormData: @escaping (CLDNMultipartFormData) -> Void,
         usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
         to url: CLDNURLConvertible,
-        method: HTTPMethod = .post,
+        method: CLDNHTTPMethod = .post,
         headers: HTTPHeaders? = nil,
         queue: DispatchQueue? = nil,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
