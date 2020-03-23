@@ -1,7 +1,6 @@
 //
-//  Response.swift
+//  CLDNResponse.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,25 +24,25 @@
 import Foundation
 
 /// Used to store all data associated with an non-serialized response of a data or upload request.
-public struct DefaultDataResponse {
+internal struct CLDNDefaultDataResponse {
     /// The URL request sent to the server.
-    public let request: URLRequest?
+    internal let request: URLRequest?
 
     /// The server's response to the URL request.
-    public let response: HTTPURLResponse?
+    internal let response: HTTPURLResponse?
 
     /// The data returned by the server.
-    public let data: Data?
+    internal let data: Data?
 
     /// The error encountered while executing or validating the request.
-    public let error: Error?
+    internal let error: Error?
 
     /// The timeline of the complete lifecycle of the request.
-    public let timeline: Timeline
+    internal let timeline: Timeline
 
     var _metrics: AnyObject?
 
-    /// Creates a `DefaultDataResponse` instance from the specified parameters.
+    /// Creates a `CLDNDefaultDataResponse` instance from the specified parameters.
     ///
     /// - Parameters:
     ///   - request:  The URL request sent to the server.
@@ -52,7 +51,7 @@ public struct DefaultDataResponse {
     ///   - error:    The error encountered while executing or validating the request.
     ///   - timeline: The timeline of the complete lifecycle of the request. `Timeline()` by default.
     ///   - metrics:  The task metrics containing the request / response statistics. `nil` by default.
-    public init(
+    internal init(
         request: URLRequest?,
         response: HTTPURLResponse?,
         data: Data?,
@@ -71,31 +70,31 @@ public struct DefaultDataResponse {
 // MARK: -
 
 /// Used to store all data associated with a serialized response of a data or upload request.
-public struct DataResponse<Value> {
+internal struct CLDNDataResponse<Value> {
     /// The URL request sent to the server.
-    public let request: URLRequest?
+    internal let request: URLRequest?
 
     /// The server's response to the URL request.
-    public let response: HTTPURLResponse?
+    internal let response: HTTPURLResponse?
 
     /// The data returned by the server.
-    public let data: Data?
+    internal let data: Data?
 
     /// The result of response serialization.
-    public let result: Result<Value>
+    internal let result: Result<Value>
 
     /// The timeline of the complete lifecycle of the request.
-    public let timeline: Timeline
+    internal let timeline: Timeline
 
     /// Returns the associated value of the result if it is a success, `nil` otherwise.
-    public var value: Value? { return result.value }
+    internal var value: Value? { return result.value }
 
     /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
-    public var error: Error? { return result.error }
+    internal var error: Error? { return result.error }
 
     var _metrics: AnyObject?
 
-    /// Creates a `DataResponse` instance with the specified parameters derived from response serialization.
+    /// Creates a `CLDNDataResponse` instance with the specified parameters derived from response serialization.
     ///
     /// - parameter request:  The URL request sent to the server.
     /// - parameter response: The server's response to the URL request.
@@ -103,8 +102,8 @@ public struct DataResponse<Value> {
     /// - parameter result:   The result of response serialization.
     /// - parameter timeline: The timeline of the complete lifecycle of the `CLDNRequest`. Defaults to `Timeline()`.
     ///
-    /// - returns: The new `DataResponse` instance.
-    public init(
+    /// - returns: The new `CLDNDataResponse` instance.
+    internal init(
         request: URLRequest?,
         response: HTTPURLResponse?,
         data: Data?,
@@ -121,16 +120,16 @@ public struct DataResponse<Value> {
 
 // MARK: -
 
-extension DataResponse: CustomStringConvertible, CustomDebugStringConvertible {
+extension CLDNDataResponse: CustomStringConvertible, CustomDebugStringConvertible {
     /// The textual representation used when written to an output stream, which includes whether the result was a
     /// success or failure.
-    public var description: String {
+    internal var description: String {
         return result.debugDescription
     }
 
     /// The debug textual representation used when written to an output stream, which includes the URL request, the URL
     /// response, the server data, the response serialization result and the timeline.
-    public var debugDescription: String {
+    internal var debugDescription: String {
         let requestDescription = request.map { "\($0.httpMethod ?? "GET") \($0)"} ?? "nil"
         let requestBody = request?.httpBody.map { String(decoding: $0, as: UTF8.self) } ?? "None"
         let responseDescription = response.map { "\($0)" } ?? "nil"
@@ -149,21 +148,21 @@ extension DataResponse: CustomStringConvertible, CustomDebugStringConvertible {
 
 // MARK: -
 
-extension DataResponse {
-    /// Evaluates the specified closure when the result of this `DataResponse` is a success, passing the unwrapped
+extension CLDNDataResponse {
+    /// Evaluates the specified closure when the result of this `CLDNDataResponse` is a success, passing the unwrapped
     /// result value as a parameter.
     ///
     /// Use the `map` method with a closure that does not throw. For example:
     ///
-    ///     let possibleData: DataResponse<Data> = ...
+    ///     let possibleData: CLDNDataResponse<Data> = ...
     ///     let possibleInt = possibleData.map { $0.count }
     ///
     /// - parameter transform: A closure that takes the success value of the instance's result.
     ///
-    /// - returns: A `DataResponse` whose result wraps the value returned by the given closure. If this instance's
+    /// - returns: A `CLDNDataResponse` whose result wraps the value returned by the given closure. If this instance's
     ///            result is a failure, returns a response wrapping the same failure.
-    public func map<T>(_ transform: (Value) -> T) -> DataResponse<T> {
-        var response = DataResponse<T>(
+    internal func map<T>(_ transform: (Value) -> T) -> CLDNDataResponse<T> {
+        var response = CLDNDataResponse<T>(
             request: request,
             response: self.response,
             data: data,
@@ -176,22 +175,22 @@ extension DataResponse {
         return response
     }
 
-    /// Evaluates the given closure when the result of this `DataResponse` is a success, passing the unwrapped result
+    /// Evaluates the given closure when the result of this `CLDNDataResponse` is a success, passing the unwrapped result
     /// value as a parameter.
     ///
     /// Use the `flatMap` method with a closure that may throw an error. For example:
     ///
-    ///     let possibleData: DataResponse<Data> = ...
+    ///     let possibleData: CLDNDataResponse<Data> = ...
     ///     let possibleObject = possibleData.flatMap {
     ///         try JSONSerialization.jsonObject(with: $0)
     ///     }
     ///
     /// - parameter transform: A closure that takes the success value of the instance's result.
     ///
-    /// - returns: A success or failure `DataResponse` depending on the result of the given closure. If this instance's
+    /// - returns: A success or failure `CLDNDataResponse` depending on the result of the given closure. If this instance's
     ///            result is a failure, returns the same failure.
-    public func flatMap<T>(_ transform: (Value) throws -> T) -> DataResponse<T> {
-        var response = DataResponse<T>(
+    internal func flatMap<T>(_ transform: (Value) throws -> T) -> CLDNDataResponse<T> {
+        var response = CLDNDataResponse<T>(
             request: request,
             response: self.response,
             data: data,
@@ -204,17 +203,17 @@ extension DataResponse {
         return response
     }
 
-    /// Evaluates the specified closure when the `DataResponse` is a failure, passing the unwrapped error as a parameter.
+    /// Evaluates the specified closure when the `CLDNDataResponse` is a failure, passing the unwrapped error as a parameter.
     ///
     /// Use the `mapError` function with a closure that does not throw. For example:
     ///
-    ///     let possibleData: DataResponse<Data> = ...
+    ///     let possibleData: CLDNDataResponse<Data> = ...
     ///     let withMyError = possibleData.mapError { MyError.error($0) }
     ///
     /// - Parameter transform: A closure that takes the error of the instance.
-    /// - Returns: A `DataResponse` instance containing the result of the transform.
-    public func mapError<E: Error>(_ transform: (Error) -> E) -> DataResponse {
-        var response = DataResponse(
+    /// - Returns: A `CLDNDataResponse` instance containing the result of the transform.
+    internal func mapError<E: Error>(_ transform: (Error) -> E) -> CLDNDataResponse {
+        var response = CLDNDataResponse(
             request: request,
             response: self.response,
             data: data,
@@ -227,20 +226,20 @@ extension DataResponse {
         return response
     }
 
-    /// Evaluates the specified closure when the `DataResponse` is a failure, passing the unwrapped error as a parameter.
+    /// Evaluates the specified closure when the `CLDNDataResponse` is a failure, passing the unwrapped error as a parameter.
     ///
     /// Use the `flatMapError` function with a closure that may throw an error. For example:
     ///
-    ///     let possibleData: DataResponse<Data> = ...
+    ///     let possibleData: CLDNDataResponse<Data> = ...
     ///     let possibleObject = possibleData.flatMapError {
     ///         try someFailableFunction(taking: $0)
     ///     }
     ///
     /// - Parameter transform: A throwing closure that takes the error of the instance.
     ///
-    /// - Returns: A `DataResponse` instance containing the result of the transform.
-    public func flatMapError<E: Error>(_ transform: (Error) throws -> E) -> DataResponse {
-        var response = DataResponse(
+    /// - Returns: A `CLDNDataResponse` instance containing the result of the transform.
+    internal func flatMapError<E: Error>(_ transform: (Error) throws -> E) -> CLDNDataResponse {
+        var response = CLDNDataResponse(
             request: request,
             response: self.response,
             data: data,
@@ -257,31 +256,31 @@ extension DataResponse {
 // MARK: -
 
 /// Used to store all data associated with an non-serialized response of a download request.
-public struct DefaultDownloadResponse {
+internal struct CLDNDefaultDownloadResponse {
     /// The URL request sent to the server.
-    public let request: URLRequest?
+    internal let request: URLRequest?
 
     /// The server's response to the URL request.
-    public let response: HTTPURLResponse?
+    internal let response: HTTPURLResponse?
 
     /// The temporary destination URL of the data returned from the server.
-    public let temporaryURL: URL?
+    internal let temporaryURL: URL?
 
     /// The final destination URL of the data returned from the server if it was moved.
-    public let destinationURL: URL?
+    internal let destinationURL: URL?
 
     /// The resume data generated if the request was cancelled.
-    public let resumeData: Data?
+    internal let resumeData: Data?
 
     /// The error encountered while executing or validating the request.
-    public let error: Error?
+    internal let error: Error?
 
     /// The timeline of the complete lifecycle of the request.
-    public let timeline: Timeline
+    internal let timeline: Timeline
 
     var _metrics: AnyObject?
 
-    /// Creates a `DefaultDownloadResponse` instance from the specified parameters.
+    /// Creates a `CLDNDefaultDownloadResponse` instance from the specified parameters.
     ///
     /// - Parameters:
     ///   - request:        The URL request sent to the server.
@@ -292,7 +291,7 @@ public struct DefaultDownloadResponse {
     ///   - error:          The error encountered while executing or validating the request.
     ///   - timeline:       The timeline of the complete lifecycle of the request. `Timeline()` by default.
     ///   - metrics:        The task metrics containing the request / response statistics. `nil` by default.
-    public init(
+    internal init(
         request: URLRequest?,
         response: HTTPURLResponse?,
         temporaryURL: URL?,
@@ -315,37 +314,37 @@ public struct DefaultDownloadResponse {
 // MARK: -
 
 /// Used to store all data associated with a serialized response of a download request.
-public struct DownloadResponse<Value> {
+internal struct CLDNDownloadResponse<Value> {
     /// The URL request sent to the server.
-    public let request: URLRequest?
+    internal let request: URLRequest?
 
     /// The server's response to the URL request.
-    public let response: HTTPURLResponse?
+    internal let response: HTTPURLResponse?
 
     /// The temporary destination URL of the data returned from the server.
-    public let temporaryURL: URL?
+    internal let temporaryURL: URL?
 
     /// The final destination URL of the data returned from the server if it was moved.
-    public let destinationURL: URL?
+    internal let destinationURL: URL?
 
     /// The resume data generated if the request was cancelled.
-    public let resumeData: Data?
+    internal let resumeData: Data?
 
     /// The result of response serialization.
-    public let result: Result<Value>
+    internal let result: Result<Value>
 
     /// The timeline of the complete lifecycle of the request.
-    public let timeline: Timeline
+    internal let timeline: Timeline
 
     /// Returns the associated value of the result if it is a success, `nil` otherwise.
-    public var value: Value? { return result.value }
+    internal var value: Value? { return result.value }
 
     /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
-    public var error: Error? { return result.error }
+    internal var error: Error? { return result.error }
 
     var _metrics: AnyObject?
 
-    /// Creates a `DownloadResponse` instance with the specified parameters derived from response serialization.
+    /// Creates a `CLDNDownloadResponse` instance with the specified parameters derived from response serialization.
     ///
     /// - parameter request:        The URL request sent to the server.
     /// - parameter response:       The server's response to the URL request.
@@ -355,8 +354,8 @@ public struct DownloadResponse<Value> {
     /// - parameter result:         The result of response serialization.
     /// - parameter timeline:       The timeline of the complete lifecycle of the `CLDNRequest`. Defaults to `Timeline()`.
     ///
-    /// - returns: The new `DownloadResponse` instance.
-    public init(
+    /// - returns: The new `CLDNDownloadResponse` instance.
+    internal init(
         request: URLRequest?,
         response: HTTPURLResponse?,
         temporaryURL: URL?,
@@ -377,17 +376,17 @@ public struct DownloadResponse<Value> {
 
 // MARK: -
 
-extension DownloadResponse: CustomStringConvertible, CustomDebugStringConvertible {
+extension CLDNDownloadResponse: CustomStringConvertible, CustomDebugStringConvertible {
     /// The textual representation used when written to an output stream, which includes whether the result was a
     /// success or failure.
-    public var description: String {
+    internal var description: String {
         return result.debugDescription
     }
 
     /// The debug textual representation used when written to an output stream, which includes the URL request, the URL
     /// response, the temporary and destination URLs, the resume data, the response serialization result and the
     /// timeline.
-    public var debugDescription: String {
+    internal var debugDescription: String {
         let requestDescription = request.map { "\($0.httpMethod ?? "GET") \($0)"} ?? "nil"
         let requestBody = request?.httpBody.map { String(decoding: $0, as: UTF8.self) } ?? "None"
         let responseDescription = response.map { "\($0)" } ?? "nil"
@@ -407,21 +406,21 @@ extension DownloadResponse: CustomStringConvertible, CustomDebugStringConvertibl
 
 // MARK: -
 
-extension DownloadResponse {
-    /// Evaluates the given closure when the result of this `DownloadResponse` is a success, passing the unwrapped
+extension CLDNDownloadResponse {
+    /// Evaluates the given closure when the result of this `CLDNDownloadResponse` is a success, passing the unwrapped
     /// result value as a parameter.
     ///
     /// Use the `map` method with a closure that does not throw. For example:
     ///
-    ///     let possibleData: DownloadResponse<Data> = ...
+    ///     let possibleData: CLDNDownloadResponse<Data> = ...
     ///     let possibleInt = possibleData.map { $0.count }
     ///
     /// - parameter transform: A closure that takes the success value of the instance's result.
     ///
-    /// - returns: A `DownloadResponse` whose result wraps the value returned by the given closure. If this instance's
+    /// - returns: A `CLDNDownloadResponse` whose result wraps the value returned by the given closure. If this instance's
     ///            result is a failure, returns a response wrapping the same failure.
-    public func map<T>(_ transform: (Value) -> T) -> DownloadResponse<T> {
-        var response = DownloadResponse<T>(
+    internal func map<T>(_ transform: (Value) -> T) -> CLDNDownloadResponse<T> {
+        var response = CLDNDownloadResponse<T>(
             request: request,
             response: self.response,
             temporaryURL: temporaryURL,
@@ -436,22 +435,22 @@ extension DownloadResponse {
         return response
     }
 
-    /// Evaluates the given closure when the result of this `DownloadResponse` is a success, passing the unwrapped
+    /// Evaluates the given closure when the result of this `CLDNDownloadResponse` is a success, passing the unwrapped
     /// result value as a parameter.
     ///
     /// Use the `flatMap` method with a closure that may throw an error. For example:
     ///
-    ///     let possibleData: DownloadResponse<Data> = ...
+    ///     let possibleData: CLDNDownloadResponse<Data> = ...
     ///     let possibleObject = possibleData.flatMap {
     ///         try JSONSerialization.jsonObject(with: $0)
     ///     }
     ///
     /// - parameter transform: A closure that takes the success value of the instance's result.
     ///
-    /// - returns: A success or failure `DownloadResponse` depending on the result of the given closure. If this
+    /// - returns: A success or failure `CLDNDownloadResponse` depending on the result of the given closure. If this
     /// instance's result is a failure, returns the same failure.
-    public func flatMap<T>(_ transform: (Value) throws -> T) -> DownloadResponse<T> {
-        var response = DownloadResponse<T>(
+    internal func flatMap<T>(_ transform: (Value) throws -> T) -> CLDNDownloadResponse<T> {
+        var response = CLDNDownloadResponse<T>(
             request: request,
             response: self.response,
             temporaryURL: temporaryURL,
@@ -466,17 +465,17 @@ extension DownloadResponse {
         return response
     }
 
-    /// Evaluates the specified closure when the `DownloadResponse` is a failure, passing the unwrapped error as a parameter.
+    /// Evaluates the specified closure when the `CLDNDownloadResponse` is a failure, passing the unwrapped error as a parameter.
     ///
     /// Use the `mapError` function with a closure that does not throw. For example:
     ///
-    ///     let possibleData: DownloadResponse<Data> = ...
+    ///     let possibleData: CLDNDownloadResponse<Data> = ...
     ///     let withMyError = possibleData.mapError { MyError.error($0) }
     ///
     /// - Parameter transform: A closure that takes the error of the instance.
-    /// - Returns: A `DownloadResponse` instance containing the result of the transform.
-    public func mapError<E: Error>(_ transform: (Error) -> E) -> DownloadResponse {
-        var response = DownloadResponse(
+    /// - Returns: A `CLDNDownloadResponse` instance containing the result of the transform.
+    internal func mapError<E: Error>(_ transform: (Error) -> E) -> CLDNDownloadResponse {
+        var response = CLDNDownloadResponse(
             request: request,
             response: self.response,
             temporaryURL: temporaryURL,
@@ -491,20 +490,20 @@ extension DownloadResponse {
         return response
     }
 
-    /// Evaluates the specified closure when the `DownloadResponse` is a failure, passing the unwrapped error as a parameter.
+    /// Evaluates the specified closure when the `CLDNDownloadResponse` is a failure, passing the unwrapped error as a parameter.
     ///
     /// Use the `flatMapError` function with a closure that may throw an error. For example:
     ///
-    ///     let possibleData: DownloadResponse<Data> = ...
+    ///     let possibleData: CLDNDownloadResponse<Data> = ...
     ///     let possibleObject = possibleData.flatMapError {
     ///         try someFailableFunction(taking: $0)
     ///     }
     ///
     /// - Parameter transform: A throwing closure that takes the error of the instance.
     ///
-    /// - Returns: A `DownloadResponse` instance containing the result of the transform.
-    public func flatMapError<E: Error>(_ transform: (Error) throws -> E) -> DownloadResponse {
-        var response = DownloadResponse(
+    /// - Returns: A `CLDNDownloadResponse` instance containing the result of the transform.
+    internal func flatMapError<E: Error>(_ transform: (Error) throws -> E) -> CLDNDownloadResponse {
+        var response = CLDNDownloadResponse(
             request: request,
             response: self.response,
             temporaryURL: temporaryURL,
@@ -522,13 +521,13 @@ extension DownloadResponse {
 
 // MARK: -
 
-protocol Response {
+protocol CLDNResponse {
     /// The task metrics containing the request / response statistics.
     var _metrics: AnyObject? { get set }
     mutating func add(_ metrics: AnyObject?)
 }
 
-extension Response {
+extension CLDNResponse {
     mutating func add(_ metrics: AnyObject?) {
         #if !os(watchOS)
             guard #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) else { return }
@@ -542,33 +541,33 @@ extension Response {
 // MARK: -
 
 @available(iOS 10.0, macOS 10.12, tvOS 10.0, *)
-extension DefaultDataResponse: Response {
+extension CLDNDefaultDataResponse: CLDNResponse {
 #if !os(watchOS)
     /// The task metrics containing the request / response statistics.
-    public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
+    internal var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
 #endif
 }
 
 @available(iOS 10.0, macOS 10.12, tvOS 10.0, *)
-extension DataResponse: Response {
+extension CLDNDataResponse: CLDNResponse {
 #if !os(watchOS)
     /// The task metrics containing the request / response statistics.
-    public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
+    internal var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
 #endif
 }
 
 @available(iOS 10.0, macOS 10.12, tvOS 10.0, *)
-extension DefaultDownloadResponse: Response {
+extension CLDNDefaultDownloadResponse: CLDNResponse {
 #if !os(watchOS)
     /// The task metrics containing the request / response statistics.
-    public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
+    internal var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
 #endif
 }
 
 @available(iOS 10.0, macOS 10.12, tvOS 10.0, *)
-extension DownloadResponse: Response {
+extension CLDNDownloadResponse: CLDNResponse {
 #if !os(watchOS)
     /// The task metrics containing the request / response statistics.
-    public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
+    internal var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
 #endif
 }

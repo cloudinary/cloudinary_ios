@@ -111,10 +111,10 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func response(queue: DispatchQueue? = nil, completionHandler: @escaping (DefaultDataResponse) -> Void) -> Self {
+    public func response(queue: DispatchQueue? = nil, completionHandler: @escaping (CLDNDefaultDataResponse) -> Void) -> Self {
         delegate.queue.addOperation {
             (queue ?? DispatchQueue.main).async {
-                var dataResponse = DefaultDataResponse(
+                var dataResponse = CLDNDefaultDataResponse(
                     request: self.request,
                     response: self.response,
                     data: self.delegate.data,
@@ -143,7 +143,7 @@ extension CLDNDataRequest {
     public func response<T: DataResponseSerializerProtocol>(
         queue: DispatchQueue? = nil,
         responseSerializer: T,
-        completionHandler: @escaping (DataResponse<T.SerializedObject>) -> Void)
+        completionHandler: @escaping (CLDNDataResponse<T.SerializedObject>) -> Void)
         -> Self
     {
         delegate.queue.addOperation {
@@ -154,7 +154,7 @@ extension CLDNDataRequest {
                 self.delegate.error
             )
 
-            var dataResponse = DataResponse<T.SerializedObject>(
+            var dataResponse = CLDNDataResponse<T.SerializedObject>(
                 request: self.request,
                 response: self.response,
                 data: self.delegate.data,
@@ -181,12 +181,12 @@ extension CLDNDownloadRequest {
     @discardableResult
     public func response(
         queue: DispatchQueue? = nil,
-        completionHandler: @escaping (DefaultDownloadResponse) -> Void)
+        completionHandler: @escaping (CLDNDefaultDownloadResponse) -> Void)
         -> Self
     {
         delegate.queue.addOperation {
             (queue ?? DispatchQueue.main).async {
-                var downloadResponse = DefaultDownloadResponse(
+                var downloadResponse = CLDNDefaultDownloadResponse(
                     request: self.request,
                     response: self.response,
                     temporaryURL: self.downloadDelegate.temporaryURL,
@@ -217,7 +217,7 @@ extension CLDNDownloadRequest {
     public func response<T: DownloadResponseSerializerProtocol>(
         queue: DispatchQueue? = nil,
         responseSerializer: T,
-        completionHandler: @escaping (DownloadResponse<T.SerializedObject>) -> Void)
+        completionHandler: @escaping (CLDNDownloadResponse<T.SerializedObject>) -> Void)
         -> Self
     {
         delegate.queue.addOperation {
@@ -228,7 +228,7 @@ extension CLDNDownloadRequest {
                 self.downloadDelegate.error
             )
 
-            var downloadResponse = DownloadResponse<T.SerializedObject>(
+            var downloadResponse = CLDNDownloadResponse<T.SerializedObject>(
                 request: self.request,
                 response: self.response,
                 temporaryURL: self.downloadDelegate.temporaryURL,
@@ -288,7 +288,7 @@ extension CLDNDataRequest {
     @discardableResult
     public func responseData(
         queue: DispatchQueue? = nil,
-        completionHandler: @escaping (DataResponse<Data>) -> Void)
+        completionHandler: @escaping (CLDNDataResponse<Data>) -> Void)
         -> Self
     {
         return response(
@@ -328,7 +328,7 @@ extension CLDNDownloadRequest {
     @discardableResult
     public func responseData(
         queue: DispatchQueue? = nil,
-        completionHandler: @escaping (DownloadResponse<Data>) -> Void)
+        completionHandler: @escaping (CLDNDownloadResponse<Data>) -> Void)
         -> Self
     {
         return response(
@@ -410,7 +410,7 @@ extension CLDNDataRequest {
     public func responseString(
         queue: DispatchQueue? = nil,
         encoding: String.Encoding? = nil,
-        completionHandler: @escaping (DataResponse<String>) -> Void)
+        completionHandler: @escaping (CLDNDataResponse<String>) -> Void)
         -> Self
     {
         return response(
@@ -458,7 +458,7 @@ extension CLDNDownloadRequest {
     public func responseString(
         queue: DispatchQueue? = nil,
         encoding: String.Encoding? = nil,
-        completionHandler: @escaping (DownloadResponse<String>) -> Void)
+        completionHandler: @escaping (CLDNDownloadResponse<String>) -> Void)
         -> Self
     {
         return response(
@@ -531,7 +531,7 @@ extension CLDNDataRequest {
     public func responseJSON(
         queue: DispatchQueue? = nil,
         options: JSONSerialization.ReadingOptions = .allowFragments,
-        completionHandler: @escaping (DataResponse<Any>) -> Void)
+        completionHandler: @escaping (CLDNDataResponse<Any>) -> Void)
         -> Self
     {
         return response(
@@ -579,7 +579,7 @@ extension CLDNDownloadRequest {
     public func responseJSON(
         queue: DispatchQueue? = nil,
         options: JSONSerialization.ReadingOptions = .allowFragments,
-        completionHandler: @escaping (DownloadResponse<Any>) -> Void)
+        completionHandler: @escaping (CLDNDownloadResponse<Any>) -> Void)
         -> Self
     {
         return response(
@@ -652,7 +652,7 @@ extension CLDNDataRequest {
     public func responsePropertyList(
         queue: DispatchQueue? = nil,
         options: PropertyListSerialization.ReadOptions = [],
-        completionHandler: @escaping (DataResponse<Any>) -> Void)
+        completionHandler: @escaping (CLDNDataResponse<Any>) -> Void)
         -> Self
     {
         return response(
@@ -700,7 +700,7 @@ extension CLDNDownloadRequest {
     public func responsePropertyList(
         queue: DispatchQueue? = nil,
         options: PropertyListSerialization.ReadOptions = [],
-        completionHandler: @escaping (DownloadResponse<Any>) -> Void)
+        completionHandler: @escaping (CLDNDownloadResponse<Any>) -> Void)
         -> Self
     {
         return response(
