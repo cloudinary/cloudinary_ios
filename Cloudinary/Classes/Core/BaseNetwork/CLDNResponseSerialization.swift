@@ -29,7 +29,7 @@ internal protocol CLDNDataResponseSerializerProtocol {
     associatedtype SerializedObject
 
     /// A closure used by response handlers that takes a request, response, data and error and returns a result.
-    var serializeResponse: (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<SerializedObject> { get }
+    var serializeResponse: (URLRequest?, HTTPURLResponse?, Data?, Error?) -> CLDNResult<SerializedObject> { get }
 }
 
 // MARK: -
@@ -40,14 +40,14 @@ internal struct CLDNDataResponseSerializer<Value>: CLDNDataResponseSerializerPro
     internal typealias SerializedObject = Value
 
     /// A closure used by response handlers that takes a request, response, data and error and returns a result.
-    internal var serializeResponse: (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<Value>
+    internal var serializeResponse: (URLRequest?, HTTPURLResponse?, Data?, Error?) -> CLDNResult<Value>
 
     /// Initializes the `ResponseSerializer` instance with the given serialize response closure.
     ///
     /// - parameter serializeResponse: The closure used to serialize the response.
     ///
     /// - returns: The new generic response serializer instance.
-    internal init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<Value>) {
+    internal init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, Data?, Error?) -> CLDNResult<Value>) {
         self.serializeResponse = serializeResponse
     }
 }
@@ -60,7 +60,7 @@ internal protocol CLDNDownloadResponseSerializerProtocol {
     associatedtype SerializedObject
 
     /// A closure used by response handlers that takes a request, response, url and error and returns a result.
-    var serializeResponse: (URLRequest?, HTTPURLResponse?, URL?, Error?) -> Result<SerializedObject> { get }
+    var serializeResponse: (URLRequest?, HTTPURLResponse?, URL?, Error?) -> CLDNResult<SerializedObject> { get }
 }
 
 // MARK: -
@@ -71,14 +71,14 @@ internal struct CLDNDownloadResponseSerializer<Value>: CLDNDownloadResponseSeria
     internal typealias SerializedObject = Value
 
     /// A closure used by response handlers that takes a request, response, url and error and returns a result.
-    internal var serializeResponse: (URLRequest?, HTTPURLResponse?, URL?, Error?) -> Result<Value>
+    internal var serializeResponse: (URLRequest?, HTTPURLResponse?, URL?, Error?) -> CLDNResult<Value>
 
     /// Initializes the `ResponseSerializer` instance with the given serialize response closure.
     ///
     /// - parameter serializeResponse: The closure used to serialize the response.
     ///
     /// - returns: The new generic response serializer instance.
-    internal init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, URL?, Error?) -> Result<Value>) {
+    internal init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, URL?, Error?) -> CLDNResult<Value>) {
         self.serializeResponse = serializeResponse
     }
 }
@@ -256,7 +256,7 @@ extension CLDNRequest {
     /// - parameter error:    The error already encountered if it exists.
     ///
     /// - returns: The result data type.
-    internal static func serializeResponseData(response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<Data> {
+    internal static func serializeResponseData(response: HTTPURLResponse?, data: Data?, error: Error?) -> CLDNResult<Data> {
         guard error == nil else { return .failure(error!) }
 
         if let response = response, emptyDataStatusCodes.contains(response.statusCode) { return .success(Data()) }
@@ -355,7 +355,7 @@ extension CLDNRequest {
         response: HTTPURLResponse?,
         data: Data?,
         error: Error?)
-        -> Result<String>
+        -> CLDNResult<String>
     {
         guard error == nil else { return .failure(error!) }
 
@@ -485,7 +485,7 @@ extension CLDNRequest {
         response: HTTPURLResponse?,
         data: Data?,
         error: Error?)
-        -> Result<Any>
+        -> CLDNResult<Any>
     {
         guard error == nil else { return .failure(error!) }
 
@@ -606,7 +606,7 @@ extension CLDNRequest {
         response: HTTPURLResponse?,
         data: Data?,
         error: Error?)
-        -> Result<Any>
+        -> CLDNResult<Any>
     {
         guard error == nil else { return .failure(error!) }
 

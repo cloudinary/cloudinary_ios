@@ -81,7 +81,7 @@ internal struct CLDNDataResponse<Value> {
     internal let data: Data?
 
     /// The result of response serialization.
-    internal let result: Result<Value>
+    internal let result: CLDNResult<Value>
 
     /// The timeline of the complete lifecycle of the request.
     internal let timeline: Timeline
@@ -107,7 +107,7 @@ internal struct CLDNDataResponse<Value> {
         request: URLRequest?,
         response: HTTPURLResponse?,
         data: Data?,
-        result: Result<Value>,
+        result: CLDNResult<Value>,
         timeline: Timeline = Timeline())
     {
         self.request = request
@@ -331,7 +331,7 @@ internal struct CLDNDownloadResponse<Value> {
     internal let resumeData: Data?
 
     /// The result of response serialization.
-    internal let result: Result<Value>
+    internal let result: CLDNResult<Value>
 
     /// The timeline of the complete lifecycle of the request.
     internal let timeline: Timeline
@@ -361,7 +361,7 @@ internal struct CLDNDownloadResponse<Value> {
         temporaryURL: URL?,
         destinationURL: URL?,
         resumeData: Data?,
-        result: Result<Value>,
+        result: CLDNResult<Value>,
         timeline: Timeline = Timeline())
     {
         self.request = request
