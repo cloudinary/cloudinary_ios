@@ -28,7 +28,7 @@ import UIKit
 
 class UIBaseTest: NetworkBaseTest {
     
-    let url = "http://res-1.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png"
+    let url = "https://res-1.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png"
     
     // MARK: - Setup
     

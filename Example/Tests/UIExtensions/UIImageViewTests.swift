@@ -41,7 +41,7 @@ class UIImageViewTests: UIBaseTest {
             expectation.fulfill()
         }
         
-        imageView.cldSetImage(url, cloudinary: cloudinary!)
+        imageView.cldSetImage(url, cloudinary: cloudinarySecured)
         waitForExpectations(timeout: timeout, handler: nil)
         
         XCTAssertTrue(imageDownloadedAndSet)
@@ -115,7 +115,7 @@ class UIImageViewTests: UIBaseTest {
             expectation.fulfill()
         }
         
-        imageView.cldSetImage(publicId: pubId, cloudinary: cloudinary!)
+        imageView.cldSetImage(publicId: pubId, cloudinary: cloudinarySecured)
         waitForExpectations(timeout: timeout, handler: nil)
         
         XCTAssertTrue(imageDownloadedAndSet)
@@ -161,7 +161,7 @@ class UIImageViewTests: UIBaseTest {
         imageView.layoutMargins.left = 0
         imageView.layoutMargins.right = 0
         imageView.layoutSubviews()
-        imageView.cldSetImage(publicId: publicId, cloudinary: cloudinary!, responsiveParams: params)
+        imageView.cldSetImage(publicId: publicId, cloudinary: cloudinarySecured, responsiveParams: params)
 
         waitForExpectations(timeout: timeout, handler: nil)
         XCTAssertTrue(imageDownloadedAndSet)
