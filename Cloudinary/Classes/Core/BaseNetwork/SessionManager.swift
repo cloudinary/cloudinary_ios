@@ -223,8 +223,8 @@ open class SessionManager {
     ///
     /// - returns: The created `DataRequest`.
     @discardableResult
-    open func request(
-        _ url: URLConvertible,
+    internal func request(
+        _ url: CLDNURLConvertible,
         method: HTTPMethod = .get,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
@@ -250,7 +250,7 @@ open class SessionManager {
     ///
     /// - returns: The created `DataRequest`.
     @discardableResult
-    open func request(_ urlRequest: URLRequestConvertible) -> DataRequest {
+    open func request(_ urlRequest: CLDNURLRequestConvertible) -> DataRequest {
         var originalRequest: URLRequest?
 
         do {
@@ -313,8 +313,8 @@ open class SessionManager {
     ///
     /// - returns: The created `DownloadRequest`.
     @discardableResult
-    open func download(
-        _ url: URLConvertible,
+    internal func download(
+        _ url: CLDNURLConvertible,
         method: HTTPMethod = .get,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
@@ -345,7 +345,7 @@ open class SessionManager {
     /// - returns: The created `DownloadRequest`.
     @discardableResult
     open func download(
-        _ urlRequest: URLRequestConvertible,
+        _ urlRequest: CLDNURLRequestConvertible,
         to destination: DownloadRequest.DownloadFileDestination? = nil)
         -> DownloadRequest
     {
@@ -453,9 +453,9 @@ open class SessionManager {
     ///
     /// - returns: The created `UploadRequest`.
     @discardableResult
-    open func upload(
+    internal func upload(
         _ fileURL: URL,
-        to url: URLConvertible,
+        to url: CLDNURLConvertible,
         method: HTTPMethod = .post,
         headers: HTTPHeaders? = nil)
         -> UploadRequest
@@ -477,7 +477,7 @@ open class SessionManager {
     ///
     /// - returns: The created `UploadRequest`.
     @discardableResult
-    open func upload(_ fileURL: URL, with urlRequest: URLRequestConvertible) -> UploadRequest {
+    open func upload(_ fileURL: URL, with urlRequest: CLDNURLRequestConvertible) -> UploadRequest {
         do {
             let urlRequest = try urlRequest.asURLRequest()
             return upload(.file(fileURL, urlRequest))
@@ -499,9 +499,9 @@ open class SessionManager {
     ///
     /// - returns: The created `UploadRequest`.
     @discardableResult
-    open func upload(
+    internal func upload(
         _ data: Data,
-        to url: URLConvertible,
+        to url: CLDNURLConvertible,
         method: HTTPMethod = .post,
         headers: HTTPHeaders? = nil)
         -> UploadRequest
@@ -523,7 +523,7 @@ open class SessionManager {
     ///
     /// - returns: The created `UploadRequest`.
     @discardableResult
-    open func upload(_ data: Data, with urlRequest: URLRequestConvertible) -> UploadRequest {
+    open func upload(_ data: Data, with urlRequest: CLDNURLRequestConvertible) -> UploadRequest {
         do {
             let urlRequest = try urlRequest.asURLRequest()
             return upload(.data(data, urlRequest))
@@ -545,9 +545,9 @@ open class SessionManager {
     ///
     /// - returns: The created `UploadRequest`.
     @discardableResult
-    open func upload(
+    internal func upload(
         _ stream: InputStream,
-        to url: URLConvertible,
+        to url: CLDNURLConvertible,
         method: HTTPMethod = .post,
         headers: HTTPHeaders? = nil)
         -> UploadRequest
@@ -569,7 +569,7 @@ open class SessionManager {
     ///
     /// - returns: The created `UploadRequest`.
     @discardableResult
-    open func upload(_ stream: InputStream, with urlRequest: URLRequestConvertible) -> UploadRequest {
+    open func upload(_ stream: InputStream, with urlRequest: CLDNURLRequestConvertible) -> UploadRequest {
         do {
             let urlRequest = try urlRequest.asURLRequest()
             return upload(.stream(stream, urlRequest))
@@ -605,10 +605,10 @@ open class SessionManager {
     /// - parameter method:                  The HTTP method. `.post` by default.
     /// - parameter headers:                 The HTTP headers. `nil` by default.
     /// - parameter encodingCompletion:      The closure called when the `MultipartFormData` encoding is complete.
-    open func upload(
+    internal func upload(
         multipartFormData: @escaping (MultipartFormData) -> Void,
         usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
-        to url: URLConvertible,
+        to url: CLDNURLConvertible,
         method: HTTPMethod = .post,
         headers: HTTPHeaders? = nil,
         queue: DispatchQueue? = nil,
@@ -655,7 +655,7 @@ open class SessionManager {
     open func upload(
         multipartFormData: @escaping (MultipartFormData) -> Void,
         usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
-        with urlRequest: URLRequestConvertible,
+        with urlRequest: CLDNURLRequestConvertible,
         queue: DispatchQueue? = nil,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
     {

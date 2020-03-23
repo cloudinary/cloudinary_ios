@@ -32,7 +32,7 @@ import Foundation
 /// - multipartEncodingFailed:     Returned when some step in the multipart encoding process fails.
 /// - responseValidationFailed:    Returned when a `validate()` call fails.
 /// - responseSerializationFailed: Returned when a response serializer encounters an error in the serialization process.
-public enum CLDNError: Error {
+internal enum CLDNError: Error {
     /// The underlying reason the parameter encoding error occurred.
     ///
     /// - missingURL:                 The URL request did not have a URL to encode.
@@ -125,7 +125,7 @@ public enum CLDNError: Error {
         case propertyListSerializationFailed(error: Error)
     }
 
-    case invalidURL(url: URLConvertible)
+    case invalidURL(url: CLDNURLConvertible)
     case parameterEncodingFailed(reason: ParameterEncodingFailureReason)
     case multipartEncodingFailed(reason: MultipartEncodingFailureReason)
     case responseValidationFailed(reason: ResponseValidationFailureReason)
@@ -184,7 +184,7 @@ extension CLDNError {
 
 extension CLDNError {
     /// The `URLConvertible` associated with the error.
-    public var urlConvertible: URLConvertible? {
+    var urlConvertible: CLDNURLConvertible? {
         switch self {
         case .invalidURL(let url):
             return url

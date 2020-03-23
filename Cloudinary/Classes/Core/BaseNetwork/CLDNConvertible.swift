@@ -1,5 +1,5 @@
 //
-//  Alamofire.swift
+//  CLDNConvertible.swift
 //
 //  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -24,9 +24,9 @@
 
 import Foundation
 
-/// Types adopting the `URLConvertible` protocol can be used to construct URLs, which are then used to construct
+/// Types adopting the `CLDNURLConvertible` protocol can be used to construct URLs, which are then used to construct
 /// URL requests.
-public protocol URLConvertible {
+internal protocol CLDNURLConvertible {
     /// Returns a URL that conforms to RFC 2396 or throws an `Error`.
     ///
     /// - throws: An `Error` if the type cannot be converted to a `URL`.
@@ -35,7 +35,7 @@ public protocol URLConvertible {
     func asURL() throws -> URL
 }
 
-extension String: URLConvertible {
+extension String: CLDNURLConvertible {
     /// Returns a URL if `self` represents a valid URL string that conforms to RFC 2396 or throws an `CLDNError`.
     ///
     /// - throws: An `CLDNError.invalidURL` if `self` is not a valid URL string.
@@ -47,12 +47,12 @@ extension String: URLConvertible {
     }
 }
 
-extension URL: URLConvertible {
+extension URL: CLDNURLConvertible {
     /// Returns self.
     public func asURL() throws -> URL { return self }
 }
 
-extension URLComponents: URLConvertible {
+extension URLComponents: CLDNURLConvertible {
     /// Returns a URL if `url` is not nil, otherwise throws an `Error`.
     ///
     /// - throws: An `CLDNError.invalidURL` if `url` is `nil`.
@@ -66,8 +66,8 @@ extension URLComponents: URLConvertible {
 
 // MARK: -
 
-/// Types adopting the `URLRequestConvertible` protocol can be used to construct URL requests.
-public protocol URLRequestConvertible {
+/// Types adopting the `CLDNURLRequestConvertible` protocol can be used to construct URL requests.
+public protocol CLDNURLRequestConvertible {
     /// Returns a URL request or throws if an `Error` was encountered.
     ///
     /// - throws: An `Error` if the underlying `URLRequest` is `nil`.
@@ -76,12 +76,12 @@ public protocol URLRequestConvertible {
     func asURLRequest() throws -> URLRequest
 }
 
-extension URLRequestConvertible {
+extension CLDNURLRequestConvertible {
     /// The URL request.
     public var urlRequest: URLRequest? { return try? asURLRequest() }
 }
 
-extension URLRequest: URLRequestConvertible {
+extension URLRequest: CLDNURLRequestConvertible {
     /// Returns a URL request or throws if an `Error` was encountered.
     public func asURLRequest() throws -> URLRequest { return self }
 }
@@ -96,7 +96,7 @@ extension URLRequest {
     /// - parameter headers: The HTTP headers. `nil` by default.
     ///
     /// - returns: The new `URLRequest` instance.
-    public init(url: URLConvertible, method: HTTPMethod, headers: HTTPHeaders? = nil) throws {
+    internal init(url: CLDNURLConvertible, method: HTTPMethod, headers: HTTPHeaders? = nil) throws {
         let url = try url.asURL()
 
         self.init(url: url)

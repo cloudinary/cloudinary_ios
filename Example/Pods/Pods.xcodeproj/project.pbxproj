@@ -84,7 +84,7 @@
 		AA433E86CAB187FD695C8EEA6A6E03A0 /* CLDImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EA8CA681D3D6D78CBFFB4AEAD3E663 /* CLDImageCache.swift */; };
 		AD1A8F64C4D85B7B5241AC6DF3EA5D22 /* CLDTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4595EE0D3C00CAF10B19B6610D1B25 /* CLDTextLayer.swift */; };
 		AD28FB768B2F0E5F9E21479586966029 /* UIImageView+Cloudinary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C559E14D32226D34F3B3F40BDDDE24EF /* UIImageView+Cloudinary.swift */; };
-		ADCF50AFEA72FF897AE6DCFB17C2AE23 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998A3C09EF88420030D899C8D12B2E94 /* Alamofire.swift */; };
+		ADCF50AFEA72FF897AE6DCFB17C2AE23 /* CLDNConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998A3C09EF88420030D899C8D12B2E94 /* CLDNConvertible.swift */; };
 		AEB04008C391DC813560890B950110B0 /* CLDCryptoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAF3D556F2444DD2D5CFBE1CE5AE075 /* CLDCryptoUtils.swift */; };
 		B0D5E40F09979C522DAF3EE899903133 /* CLDLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179D52CB10B95DC179AFDB2D787C93EC /* CLDLogManager.swift */; };
 		B5784D79A784EF2D81DC8E4A0F2BC4C4 /* CLDDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0F6662BAA1F744D937C11E9500239A /* CLDDetection.swift */; };
@@ -230,7 +230,7 @@
 		94AE06867934A945EB2E11F40C9A52EA /* CLDUploadRequestWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDUploadRequestWrapper.swift; sourceTree = "<group>"; };
 		9725A056F0B5BD614BC85396610341D6 /* CLDEagerTransformation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDEagerTransformation.swift; sourceTree = "<group>"; };
 		99509BC3AA0A162AA863CB37D29CF1B1 /* CLDMultiRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDMultiRequest.swift; sourceTree = "<group>"; };
-		998A3C09EF88420030D899C8D12B2E94 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
+		998A3C09EF88420030D899C8D12B2E94 /* CLDNConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDNConvertible.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A067ECC9DFF4D69FCD6ACF7F791839FD /* Pods-Cloudinary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Cloudinary_Example.modulemap"; sourceTree = "<group>"; };
 		A43CFFC909C298D26D0A91F2E81054A5 /* CLDInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDInfo.swift; sourceTree = "<group>"; };
@@ -507,7 +507,7 @@
 			isa = PBXGroup;
 			children = (
 				756B8D7FB1D779A388809659D52DDAB2 /* CLDNError.swift */,
-				998A3C09EF88420030D899C8D12B2E94 /* Alamofire.swift */,
+				998A3C09EF88420030D899C8D12B2E94 /* CLDNConvertible.swift */,
 				44F0346F9E0897ADF149E983352C98B9 /* DispatchQueue+Alamofire.swift */,
 				2F30806FC46FB98FECD0A80A2668F191 /* MultipartFormData.swift */,
 				91989A2F7B223E3AF60B0C67DC149082 /* NetworkReachabilityManager.swift */,
@@ -946,7 +946,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52410F0ADDCA29957BA2DAFA4261F52A /* CLDNError.swift in Sources */,
-				ADCF50AFEA72FF897AE6DCFB17C2AE23 /* Alamofire.swift in Sources */,
+				ADCF50AFEA72FF897AE6DCFB17C2AE23 /* CLDNConvertible.swift in Sources */,
 				83AE823C5BEC207F1F9B2E3CDD96CA56 /* CLDAsyncNetworkUploadRequest.swift in Sources */,
 				6AB05E5F2BEF60667B3FE6EC586B42DC /* CLDBaseNetworkObject.swift in Sources */,
 				2581373B55B278872B390B09FF49998A /* CLDBaseResult.swift in Sources */,
