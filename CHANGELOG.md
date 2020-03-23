@@ -1,4 +1,13 @@
 
+2.9.0-beta.1 / 2020-03-23
+=========================
+
+  * Add Swift Package Manager support.
+  * Add Carthage support.
+  * Rearrange workspace (#226)
+  * Add support for `assist_colorblind` effect. (#227)
+  * Validate URL scheme (#224)
+
 2.8.0 / 2019-11-11
 ==================
 
