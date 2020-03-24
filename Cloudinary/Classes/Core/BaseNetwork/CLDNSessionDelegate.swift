@@ -159,7 +159,7 @@ internal class CLDNSessionDelegate: NSObject {
     // MARK: Properties
 
     var retrier: CLDNRequestRetrier?
-    weak var sessionManager: SessionManager?
+    weak var sessionManager: CLDNSessionManager?
 
     var requests: [Int: CLDNRequest] = [:]
     private let lock = NSLock()

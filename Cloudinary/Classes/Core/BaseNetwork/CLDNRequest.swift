@@ -53,7 +53,7 @@ internal protocol CLDNRequestRetrier {
     /// - parameter request:    The request that failed due to the encountered error.
     /// - parameter error:      The error encountered when executing the request.
     /// - parameter completion: The completion closure to be executed when retry decision has been determined.
-    func should(_ manager: SessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion)
+    func should(_ manager: CLDNSessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion)
 }
 
 // MARK: -

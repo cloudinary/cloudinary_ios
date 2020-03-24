@@ -29,14 +29,14 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
 
     init(configuration: URLSessionConfiguration? = nil) {
         if let configuration = configuration {
-            manager = SessionManager(configuration: configuration)
+            manager = CLDNSessionManager(configuration: configuration)
         } else {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.identifier)
-                configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+                configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
                 return configuration
             }()
-            manager = SessionManager(configuration: configuration)
+            manager = CLDNSessionManager(configuration: configuration)
         }
         manager.startRequestsImmediately = false
     }
@@ -45,7 +45,7 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
         static let identifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
     }
 
-    fileprivate let manager: SessionManager
+    fileprivate let manager: CLDNSessionManager
 
     fileprivate let downloadQueue: OperationQueue = OperationQueue()
 

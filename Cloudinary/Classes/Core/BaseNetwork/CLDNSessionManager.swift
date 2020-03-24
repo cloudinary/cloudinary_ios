@@ -1,7 +1,5 @@
 //
-//  SessionManager.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
+//  CLDNSessionManager.swift
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +23,7 @@
 import Foundation
 
 /// Responsible for creating and managing `CLDNRequest` objects, as well as their underlying `NSURLSession`.
-open class SessionManager {
+internal class CLDNSessionManager {
 
     // MARK: - Helper Types
 
@@ -45,11 +43,11 @@ open class SessionManager {
 
     /// A default instance of `SessionManager`, used by top-level Alamofire request methods, and suitable for use
     /// directly for any ad hoc requests.
-    public static let `default`: SessionManager = {
+    internal static let `default`: CLDNSessionManager = {
         let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+        configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
 
-        return SessionManager(configuration: configuration)
+        return CLDNSessionManager(configuration: configuration)
     }()
 
     /// Creates default values for the "Accept-Encoding", "Accept-Language" and "User-Agent" headers.
@@ -97,7 +95,7 @@ open class SessionManager {
 
                 let alamofireVersion: String = {
                     guard
-                        let afInfo = Bundle(for: SessionManager.self).infoDictionary,
+                        let afInfo = Bundle(for: CLDNSessionManager.self).infoDictionary,
                         let build = afInfo["CFBundleShortVersionString"]
                     else { return "Unknown" }
 
@@ -118,16 +116,16 @@ open class SessionManager {
     }()
 
     /// Default memory threshold used when encoding `MultipartFormData` in bytes.
-    public static let multipartFormDataEncodingMemoryThreshold: UInt64 = 10_000_000
+    internal static let multipartFormDataEncodingMemoryThreshold: UInt64 = 10_000_000
 
     /// The underlying session.
-    public let session: URLSession
+    internal let session: URLSession
 
     /// The session delegate handling all the task and session delegate callbacks.
     internal let delegate: CLDNSessionDelegate
 
     /// Whether to start requests immediately after being constructed. `true` by default.
-    open var startRequestsImmediately: Bool = true
+    internal var startRequestsImmediately: Bool = true
 
     /// The request adapter called each time a new request is created.
     internal var adapter: CLDNRequestAdapter?
@@ -147,7 +145,7 @@ open class SessionManager {
     /// SessionDelegate `sessionDidFinishEventsForBackgroundURLSession` and manually call the handler when finished.
     ///
     /// `nil` by default.
-    open var backgroundCompletionHandler: (() -> Void)?
+    internal var backgroundCompletionHandler: (() -> Void)?
 
     let queue = DispatchQueue(label: "org.alamofire.session-manager." + UUID().uuidString)
 
@@ -162,7 +160,7 @@ open class SessionManager {
     /// - parameter serverTrustPolicyManager: The server trust policy manager to use for evaluating all server trust
     ///                                       challenges. `nil` by default.
     ///
-    /// - returns: The new `SessionManager` instance.
+    /// - returns: The new `CLDNSessionManager` instance.
     internal init(
         configuration: URLSessionConfiguration = URLSessionConfiguration.default,
         delegate: CLDNSessionDelegate = CLDNSessionDelegate())
@@ -180,7 +178,7 @@ open class SessionManager {
     /// - parameter serverTrustPolicyManager: The server trust policy manager to use for evaluating all server trust
     ///                                       challenges. `nil` by default.
     ///
-    /// - returns: The new `SessionManager` instance if the URL session's delegate matches; `nil` otherwise.
+    /// - returns: The new `CLDNSessionManager` instance if the URL session's delegate matches; `nil` otherwise.
     internal init?(
         session: URLSession,
         delegate: CLDNSessionDelegate)
@@ -604,7 +602,7 @@ open class SessionManager {
     /// - parameter encodingCompletion:      The closure called when the `CLDNMultipartFormData` encoding is complete.
     internal func upload(
         multipartFormData: @escaping (CLDNMultipartFormData) -> Void,
-        usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
+        usingThreshold encodingMemoryThreshold: UInt64 = CLDNSessionManager.multipartFormDataEncodingMemoryThreshold,
         to url: CLDNURLConvertible,
         method: CLDNHTTPMethod = .post,
         headers: CLDNHTTPHeaders? = nil,
@@ -651,7 +649,7 @@ open class SessionManager {
     /// - parameter encodingCompletion:      The closure called when the `CLDNMultipartFormData` encoding is complete.
     internal func upload(
         multipartFormData: @escaping (CLDNMultipartFormData) -> Void,
-        usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
+        usingThreshold encodingMemoryThreshold: UInt64 = CLDNSessionManager.multipartFormDataEncodingMemoryThreshold,
         with urlRequest: CLDNURLRequestConvertible,
         queue: DispatchQueue? = nil,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
