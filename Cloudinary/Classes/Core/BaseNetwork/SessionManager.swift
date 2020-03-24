@@ -124,7 +124,7 @@ open class SessionManager {
     public let session: URLSession
 
     /// The session delegate handling all the task and session delegate callbacks.
-    public let delegate: SessionDelegate
+    internal let delegate: CLDNSessionDelegate
 
     /// Whether to start requests immediately after being constructed. `true` by default.
     open var startRequestsImmediately: Bool = true
@@ -157,15 +157,15 @@ open class SessionManager {
     ///
     /// - parameter configuration:            The configuration used to construct the managed session.
     ///                                       `URLSessionConfiguration.default` by default.
-    /// - parameter delegate:                 The delegate used when initializing the session. `SessionDelegate()` by
+    /// - parameter delegate:                 The delegate used when initializing the session. `CLDNSessionDelegate()` by
     ///                                       default.
     /// - parameter serverTrustPolicyManager: The server trust policy manager to use for evaluating all server trust
     ///                                       challenges. `nil` by default.
     ///
     /// - returns: The new `SessionManager` instance.
-    public init(
+    internal init(
         configuration: URLSessionConfiguration = URLSessionConfiguration.default,
-        delegate: SessionDelegate = SessionDelegate())
+        delegate: CLDNSessionDelegate = CLDNSessionDelegate())
     {
         self.delegate = delegate
         self.session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
@@ -181,9 +181,9 @@ open class SessionManager {
     ///                                       challenges. `nil` by default.
     ///
     /// - returns: The new `SessionManager` instance if the URL session's delegate matches; `nil` otherwise.
-    public init?(
+    internal init?(
         session: URLSession,
-        delegate: SessionDelegate)
+        delegate: CLDNSessionDelegate)
     {
         guard delegate === session.delegate else { return nil }
 
