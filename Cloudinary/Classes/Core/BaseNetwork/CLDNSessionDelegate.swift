@@ -181,7 +181,7 @@ internal class CLDNSessionDelegate: NSObject {
     /// Initializes the `CLDNSessionDelegate` instance.
     ///
     /// - returns: The new `CLDNSessionDelegate` instance.
-    public override init() {
+    internal override init() {
         super.init()
     }
 
