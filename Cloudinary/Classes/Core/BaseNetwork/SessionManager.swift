@@ -165,13 +165,12 @@ open class SessionManager {
     /// - returns: The new `SessionManager` instance.
     public init(
         configuration: URLSessionConfiguration = URLSessionConfiguration.default,
-        delegate: SessionDelegate = SessionDelegate(),
-        serverTrustPolicyManager: ServerTrustPolicyManager? = nil)
+        delegate: SessionDelegate = SessionDelegate())
     {
         self.delegate = delegate
         self.session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
 
-        commonInit(serverTrustPolicyManager: serverTrustPolicyManager)
+        commonInit()
     }
 
     /// Creates an instance with the specified `session`, `delegate` and `serverTrustPolicyManager`.
@@ -184,19 +183,17 @@ open class SessionManager {
     /// - returns: The new `SessionManager` instance if the URL session's delegate matches; `nil` otherwise.
     public init?(
         session: URLSession,
-        delegate: SessionDelegate,
-        serverTrustPolicyManager: ServerTrustPolicyManager? = nil)
+        delegate: SessionDelegate)
     {
         guard delegate === session.delegate else { return nil }
 
         self.delegate = delegate
         self.session = session
 
-        commonInit(serverTrustPolicyManager: serverTrustPolicyManager)
+        commonInit()
     }
 
-    private func commonInit(serverTrustPolicyManager: ServerTrustPolicyManager?) {
-        session.serverTrustPolicyManager = serverTrustPolicyManager
+    private func commonInit() {
 
         delegate.sessionManager = self
 
