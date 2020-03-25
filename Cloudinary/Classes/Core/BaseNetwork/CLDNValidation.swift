@@ -1,7 +1,5 @@
 //
-//  Validation.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
+//  CLDNValidation.swift
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +32,7 @@ extension CLDNRequest {
     ///
     /// - success: The validation was successful.
     /// - failure: The validation failed encountering the provided error.
-    public enum ValidationResult {
+    internal enum ValidationResult {
         case success
         case failure(Error)
     }
@@ -157,7 +155,7 @@ extension CLDNRequest {
 extension CLDNDataRequest {
     /// A closure used to validate a request that takes a URL request, a URL response and data, and returns whether the
     /// request was valid.
-    public typealias Validation = (URLRequest?, HTTPURLResponse, Data?) -> ValidationResult
+    internal typealias Validation = (URLRequest?, HTTPURLResponse, Data?) -> ValidationResult
 
     /// Validates the request, using the specified closure.
     ///
@@ -167,7 +165,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate(_ validation: @escaping Validation) -> Self {
+    internal func validate(_ validation: @escaping Validation) -> Self {
         let validationExecution: () -> Void = { [unowned self] in
             if
                 let response = self.response,
@@ -191,7 +189,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
+    internal func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
         return validate { [unowned self] _, response, _ in
             return self.validate(statusCode: acceptableStatusCodes, response: response)
         }
@@ -205,7 +203,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
+    internal func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
         return validate { [unowned self] _, response, data in
             return self.validate(contentType: acceptableContentTypes, response: response, data: data)
         }
@@ -218,7 +216,7 @@ extension CLDNDataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate() -> Self {
+    internal func validate() -> Self {
         let contentTypes = { [unowned self] in
             self.acceptableContentTypes
         }
@@ -231,7 +229,7 @@ extension CLDNDataRequest {
 extension CLDNDownloadRequest {
     /// A closure used to validate a request that takes a URL request, a URL response, a temporary URL and a
     /// destination URL, and returns whether the request was valid.
-    public typealias Validation = (
+    internal typealias Validation = (
         _ request: URLRequest?,
         _ response: HTTPURLResponse,
         _ temporaryURL: URL?,
@@ -246,7 +244,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate(_ validation: @escaping Validation) -> Self {
+    internal func validate(_ validation: @escaping Validation) -> Self {
         let validationExecution: () -> Void = { [unowned self] in
             let request = self.request
             let temporaryURL = self.downloadDelegate.temporaryURL
@@ -274,7 +272,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
+    internal func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
         return validate { [unowned self] _, response, _, _ in
             return self.validate(statusCode: acceptableStatusCodes, response: response)
         }
@@ -288,7 +286,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
+    internal func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
         return validate { [unowned self] _, response, _, _ in
             let fileURL = self.downloadDelegate.fileURL
 
@@ -312,7 +310,7 @@ extension CLDNDownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate() -> Self {
+    internal func validate() -> Self {
         let contentTypes = { [unowned self] in
             self.acceptableContentTypes
         }
