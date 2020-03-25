@@ -38,7 +38,7 @@ internal struct CLDNDefaultDataResponse {
     internal let error: Error?
 
     /// The timeline of the complete lifecycle of the request.
-    internal let timeline: Timeline
+    internal let timeline: CLDNTimeline
 
     var _metrics: AnyObject?
 
@@ -49,14 +49,14 @@ internal struct CLDNDefaultDataResponse {
     ///   - response: The server's response to the URL request.
     ///   - data:     The data returned by the server.
     ///   - error:    The error encountered while executing or validating the request.
-    ///   - timeline: The timeline of the complete lifecycle of the request. `Timeline()` by default.
+    ///   - timeline: The timeline of the complete lifecycle of the request. `CLDNTimeline()` by default.
     ///   - metrics:  The task metrics containing the request / response statistics. `nil` by default.
     internal init(
         request: URLRequest?,
         response: HTTPURLResponse?,
         data: Data?,
         error: Error?,
-        timeline: Timeline = Timeline(),
+        timeline: CLDNTimeline = CLDNTimeline(),
         metrics: AnyObject? = nil)
     {
         self.request = request
@@ -84,7 +84,7 @@ internal struct CLDNDataResponse<Value> {
     internal let result: CLDNResult<Value>
 
     /// The timeline of the complete lifecycle of the request.
-    internal let timeline: Timeline
+    internal let timeline: CLDNTimeline
 
     /// Returns the associated value of the result if it is a success, `nil` otherwise.
     internal var value: Value? { return result.value }
@@ -100,7 +100,7 @@ internal struct CLDNDataResponse<Value> {
     /// - parameter response: The server's response to the URL request.
     /// - parameter data:     The data returned by the server.
     /// - parameter result:   The result of response serialization.
-    /// - parameter timeline: The timeline of the complete lifecycle of the `CLDNRequest`. Defaults to `Timeline()`.
+    /// - parameter timeline: The timeline of the complete lifecycle of the `CLDNRequest`. Defaults to `CLDNTimeline()`.
     ///
     /// - returns: The new `CLDNDataResponse` instance.
     internal init(
@@ -108,7 +108,7 @@ internal struct CLDNDataResponse<Value> {
         response: HTTPURLResponse?,
         data: Data?,
         result: CLDNResult<Value>,
-        timeline: Timeline = Timeline())
+        timeline: CLDNTimeline = CLDNTimeline())
     {
         self.request = request
         self.response = response
@@ -276,7 +276,7 @@ internal struct CLDNDefaultDownloadResponse {
     internal let error: Error?
 
     /// The timeline of the complete lifecycle of the request.
-    internal let timeline: Timeline
+    internal let timeline: CLDNTimeline
 
     var _metrics: AnyObject?
 
@@ -289,7 +289,7 @@ internal struct CLDNDefaultDownloadResponse {
     ///   - destinationURL: The final destination URL of the data returned from the server if it was moved.
     ///   - resumeData:     The resume data generated if the request was cancelled.
     ///   - error:          The error encountered while executing or validating the request.
-    ///   - timeline:       The timeline of the complete lifecycle of the request. `Timeline()` by default.
+    ///   - timeline:       The timeline of the complete lifecycle of the request. `CLDNTimeline()` by default.
     ///   - metrics:        The task metrics containing the request / response statistics. `nil` by default.
     internal init(
         request: URLRequest?,
@@ -298,7 +298,7 @@ internal struct CLDNDefaultDownloadResponse {
         destinationURL: URL?,
         resumeData: Data?,
         error: Error?,
-        timeline: Timeline = Timeline(),
+        timeline: CLDNTimeline = CLDNTimeline(),
         metrics: AnyObject? = nil)
     {
         self.request = request
@@ -334,7 +334,7 @@ internal struct CLDNDownloadResponse<Value> {
     internal let result: CLDNResult<Value>
 
     /// The timeline of the complete lifecycle of the request.
-    internal let timeline: Timeline
+    internal let timeline: CLDNTimeline
 
     /// Returns the associated value of the result if it is a success, `nil` otherwise.
     internal var value: Value? { return result.value }
@@ -352,7 +352,7 @@ internal struct CLDNDownloadResponse<Value> {
     /// - parameter destinationURL: The final destination URL of the data returned from the server if it was moved.
     /// - parameter resumeData:     The resume data generated if the request was cancelled.
     /// - parameter result:         The result of response serialization.
-    /// - parameter timeline:       The timeline of the complete lifecycle of the `CLDNRequest`. Defaults to `Timeline()`.
+    /// - parameter timeline:       The timeline of the complete lifecycle of the `CLDNRequest`. Defaults to `CLDNTimeline()`.
     ///
     /// - returns: The new `CLDNDownloadResponse` instance.
     internal init(
@@ -362,7 +362,7 @@ internal struct CLDNDownloadResponse<Value> {
         destinationURL: URL?,
         resumeData: Data?,
         result: CLDNResult<Value>,
-        timeline: Timeline = Timeline())
+        timeline: CLDNTimeline = CLDNTimeline())
     {
         self.request = request
         self.response = response

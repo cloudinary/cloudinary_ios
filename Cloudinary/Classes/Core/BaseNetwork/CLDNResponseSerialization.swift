@@ -86,12 +86,12 @@ internal struct CLDNDownloadResponseSerializer<Value>: CLDNDownloadResponseSeria
 // MARK: - Timeline
 
 extension CLDNRequest {
-    var timeline: Timeline {
+    var timeline: CLDNTimeline {
         let requestStartTime = self.startTime ?? CFAbsoluteTimeGetCurrent()
         let requestCompletedTime = self.endTime ?? CFAbsoluteTimeGetCurrent()
         let initialResponseTime = self.delegate.initialResponseTime ?? requestCompletedTime
 
-        return Timeline(
+        return CLDNTimeline(
             requestStartTime: requestStartTime,
             initialResponseTime: initialResponseTime,
             requestCompletedTime: requestCompletedTime,
