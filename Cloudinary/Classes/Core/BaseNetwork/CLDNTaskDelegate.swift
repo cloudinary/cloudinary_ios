@@ -1,5 +1,5 @@
 //
-//  TaskDelegate.swift
+//  CLDNTaskDelegate.swift
 //
 //  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -26,18 +26,18 @@ import Foundation
 
 /// The task delegate is responsible for handling all delegate callbacks for the underlying task as well as
 /// executing all operations attached to the serial operation queue upon task completion.
-open class TaskDelegate: NSObject {
+internal class CLDNTaskDelegate: NSObject {
 
     // MARK: Properties
 
     /// The serial operation queue used to execute all operations after the task completes.
-    public let queue: OperationQueue
+    internal let queue: OperationQueue
 
     /// The data returned by the server.
-    public var data: Data? { return nil }
+    internal var data: Data? { return nil }
 
     /// The error generated throughout the lifecyle of the task.
-    public var error: Error?
+    internal var error: Error?
 
     var task: URLSessionTask? {
         set {
@@ -156,7 +156,7 @@ open class TaskDelegate: NSObject {
                 if self.error == nil { self.error = error }
 
                 if
-                    let downloadDelegate = self as? DownloadTaskDelegate,
+                    let downloadDelegate = self as? CLDNDownloadTaskDelegate,
                     let resumeData = (error as NSError).userInfo[NSURLSessionDownloadTaskResumeData] as? Data
                 {
                     downloadDelegate.resumeData = resumeData
@@ -170,7 +170,7 @@ open class TaskDelegate: NSObject {
 
 // MARK: -
 
-class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
+class CLDNDataTaskDelegate: CLDNTaskDelegate, URLSessionDataDelegate {
 
     // MARK: Properties
 
@@ -287,7 +287,7 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
 
 // MARK: -
 
-class DownloadTaskDelegate: TaskDelegate, URLSessionDownloadDelegate {
+class CLDNDownloadTaskDelegate: CLDNTaskDelegate, URLSessionDownloadDelegate {
 
     // MARK: Properties
 
@@ -404,7 +404,7 @@ class DownloadTaskDelegate: TaskDelegate, URLSessionDownloadDelegate {
 
 // MARK: -
 
-class UploadTaskDelegate: DataTaskDelegate {
+class CLDNUploadTaskDelegate: CLDNDataTaskDelegate {
 
     // MARK: Properties
 

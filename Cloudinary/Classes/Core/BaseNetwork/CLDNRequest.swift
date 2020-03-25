@@ -86,7 +86,7 @@ internal class CLDNRequest {
     // MARK: Properties
 
     /// The delegate for the underlying task.
-    internal var delegate: TaskDelegate {
+    internal var delegate: CLDNTaskDelegate {
         get {
             taskDelegateLock.lock() ; defer { taskDelegateLock.unlock() }
             return taskDelegate
@@ -119,7 +119,7 @@ internal class CLDNRequest {
 
     var validations: [() -> Void] = []
 
-    private var taskDelegate: TaskDelegate
+    private var taskDelegate: CLDNTaskDelegate
     private var taskDelegateLock = NSLock()
 
     // MARK: Lifecycle
@@ -129,16 +129,16 @@ internal class CLDNRequest {
 
         switch requestTask {
         case .data(let originalTask, let task):
-            taskDelegate = DataTaskDelegate(task: task)
+            taskDelegate = CLDNDataTaskDelegate(task: task)
             self.originalTask = originalTask
         case .download(let originalTask, let task):
-            taskDelegate = DownloadTaskDelegate(task: task)
+            taskDelegate = CLDNDownloadTaskDelegate(task: task)
             self.originalTask = originalTask
         case .upload(let originalTask, let task):
-            taskDelegate = UploadTaskDelegate(task: task)
+            taskDelegate = CLDNUploadTaskDelegate(task: task)
             self.originalTask = originalTask
         case .stream(let originalTask, let task):
-            taskDelegate = TaskDelegate(task: task)
+            taskDelegate = CLDNTaskDelegate(task: task)
             self.originalTask = originalTask
         }
 
@@ -365,7 +365,7 @@ internal class CLDNDataRequest: CLDNRequest {
     /// The progress of fetching the response data from the server for the request.
     internal var progress: Progress { return dataDelegate.progress }
 
-    var dataDelegate: DataTaskDelegate { return delegate as! DataTaskDelegate }
+    var dataDelegate: CLDNDataTaskDelegate { return delegate as! CLDNDataTaskDelegate }
 
     // MARK: Stream
 
@@ -479,7 +479,7 @@ internal class CLDNDownloadRequest: CLDNRequest {
     /// The progress of downloading the response data from the server for the request.
     internal var progress: Progress { return downloadDelegate.progress }
 
-    var downloadDelegate: DownloadTaskDelegate { return delegate as! DownloadTaskDelegate }
+    var downloadDelegate: CLDNDownloadTaskDelegate { return delegate as! CLDNDownloadTaskDelegate }
 
     // MARK: State
 
@@ -591,7 +591,7 @@ internal class CLDNUploadRequest: CLDNDataRequest {
     /// The progress of uploading the payload to the server for the upload request.
     internal var uploadProgress: Progress { return uploadDelegate.uploadProgress }
 
-    var uploadDelegate: UploadTaskDelegate { return delegate as! UploadTaskDelegate }
+    var uploadDelegate: CLDNUploadTaskDelegate { return delegate as! CLDNUploadTaskDelegate }
 
     // MARK: Upload Progress
 

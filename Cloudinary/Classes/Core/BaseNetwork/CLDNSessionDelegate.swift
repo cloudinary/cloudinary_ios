@@ -386,7 +386,7 @@ extension CLDNSessionDelegate: URLSessionTaskDelegate {
     {
         if let taskDidSendBodyData = taskDidSendBodyData {
             taskDidSendBodyData(session, task, bytesSent, totalBytesSent, totalBytesExpectedToSend)
-        } else if let delegate = self[task]?.delegate as? UploadTaskDelegate {
+        } else if let delegate = self[task]?.delegate as? CLDNUploadTaskDelegate {
             delegate.URLSession(
                 session,
                 task: task,
@@ -513,7 +513,7 @@ extension CLDNSessionDelegate: URLSessionDataDelegate {
         if let dataTaskDidBecomeDownloadTask = dataTaskDidBecomeDownloadTask {
             dataTaskDidBecomeDownloadTask(session, dataTask, downloadTask)
         } else {
-            self[downloadTask]?.delegate = DownloadTaskDelegate(task: downloadTask)
+            self[downloadTask]?.delegate = CLDNDownloadTaskDelegate(task: downloadTask)
         }
     }
 
@@ -525,7 +525,7 @@ extension CLDNSessionDelegate: URLSessionDataDelegate {
     internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         if let dataTaskDidReceiveData = dataTaskDidReceiveData {
             dataTaskDidReceiveData(session, dataTask, data)
-        } else if let delegate = self[dataTask]?.delegate as? DataTaskDelegate {
+        } else if let delegate = self[dataTask]?.delegate as? CLDNDataTaskDelegate {
             delegate.urlSession(session, dataTask: dataTask, didReceive: data)
         }
     }
@@ -554,7 +554,7 @@ extension CLDNSessionDelegate: URLSessionDataDelegate {
 
         if let dataTaskWillCacheResponse = dataTaskWillCacheResponse {
             completionHandler(dataTaskWillCacheResponse(session, dataTask, proposedResponse))
-        } else if let delegate = self[dataTask]?.delegate as? DataTaskDelegate {
+        } else if let delegate = self[dataTask]?.delegate as? CLDNDataTaskDelegate {
             delegate.urlSession(
                 session,
                 dataTask: dataTask,
@@ -584,7 +584,7 @@ extension CLDNSessionDelegate: URLSessionDownloadDelegate {
     {
         if let downloadTaskDidFinishDownloadingToURL = downloadTaskDidFinishDownloadingToURL {
             downloadTaskDidFinishDownloadingToURL(session, downloadTask, location)
-        } else if let delegate = self[downloadTask]?.delegate as? DownloadTaskDelegate {
+        } else if let delegate = self[downloadTask]?.delegate as? CLDNDownloadTaskDelegate {
             delegate.urlSession(session, downloadTask: downloadTask, didFinishDownloadingTo: location)
         }
     }
@@ -608,7 +608,7 @@ extension CLDNSessionDelegate: URLSessionDownloadDelegate {
     {
         if let downloadTaskDidWriteData = downloadTaskDidWriteData {
             downloadTaskDidWriteData(session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
-        } else if let delegate = self[downloadTask]?.delegate as? DownloadTaskDelegate {
+        } else if let delegate = self[downloadTask]?.delegate as? CLDNDownloadTaskDelegate {
             delegate.urlSession(
                 session,
                 downloadTask: downloadTask,
@@ -637,7 +637,7 @@ extension CLDNSessionDelegate: URLSessionDownloadDelegate {
     {
         if let downloadTaskDidResumeAtOffset = downloadTaskDidResumeAtOffset {
             downloadTaskDidResumeAtOffset(session, downloadTask, fileOffset, expectedTotalBytes)
-        } else if let delegate = self[downloadTask]?.delegate as? DownloadTaskDelegate {
+        } else if let delegate = self[downloadTask]?.delegate as? CLDNDownloadTaskDelegate {
             delegate.urlSession(
                 session,
                 downloadTask: downloadTask,
