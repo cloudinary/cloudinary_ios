@@ -41,7 +41,7 @@ internal class CLDNSessionManager {
 
     // MARK: - Properties
 
-    /// A default instance of `SessionManager`, used by top-level Alamofire request methods, and suitable for use
+    /// A default instance of `SessionManager`, used by top-level Cloudinary request methods, and suitable for use
     /// directly for any ad hoc requests.
     internal static let `default`: CLDNSessionManager = {
         let configuration = URLSessionConfiguration.default
@@ -62,7 +62,7 @@ internal class CLDNSessionManager {
         }.joined(separator: ", ")
 
         // User-Agent Header; see https://tools.ietf.org/html/rfc7231#section-5.5.3
-        // Example: `iOS Example/1.0 (org.alamofire.iOS-Example; build:1; iOS 10.0.0) Alamofire/4.0.0`
+        // Example: `iOS Example/1.0 (org.cloudinary.iOS-Example; build:1; iOS 10.0.0) cloudinary/4.0.0`
         let userAgent: String = {
             if let info = Bundle.main.infoDictionary {
                 let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
@@ -93,19 +93,19 @@ internal class CLDNSessionManager {
                     return "\(osName) \(versionString)"
                 }()
 
-                let alamofireVersion: String = {
+                let cloudinaryVersion: String = {
                     guard
                         let afInfo = Bundle(for: CLDNSessionManager.self).infoDictionary,
                         let build = afInfo["CFBundleShortVersionString"]
                     else { return "Unknown" }
 
-                    return "Alamofire/\(build)"
+                    return "Cloudinary/\(build)"
                 }()
 
-                return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(alamofireVersion)"
+                return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(cloudinaryVersion)"
             }
 
-            return "Alamofire"
+            return "Cloudinary"
         }()
 
         return [
@@ -147,7 +147,7 @@ internal class CLDNSessionManager {
     /// `nil` by default.
     internal var backgroundCompletionHandler: (() -> Void)?
 
-    let queue = DispatchQueue(label: "org.alamofire.session-manager." + UUID().uuidString)
+    let queue = DispatchQueue(label: "org.cloudinary.session-manager." + UUID().uuidString)
 
     // MARK: - Lifecycle
 
@@ -585,7 +585,7 @@ internal class CLDNSessionManager {
     /// footprint low, then the data can be uploaded as a stream from the resulting file. Streaming from disk MUST be
     /// used for larger payloads such as video content.
     ///
-    /// The `encodingMemoryThreshold` parameter allows Alamofire to automatically determine whether to encode in-memory
+    /// The `encodingMemoryThreshold` parameter allows Cloudinary to automatically determine whether to encode in-memory
     /// or stream from disk. If the content length of the `CLDNMultipartFormData` is below the `encodingMemoryThreshold`,
     /// encoding takes place in-memory. If the content length exceeds the threshold, the data is streamed to disk
     /// during the encoding process. Then the result is uploaded as data or as a stream depending on which encoding
@@ -634,7 +634,7 @@ internal class CLDNSessionManager {
     /// footprint low, then the data can be uploaded as a stream from the resulting file. Streaming from disk MUST be
     /// used for larger payloads such as video content.
     ///
-    /// The `encodingMemoryThreshold` parameter allows Alamofire to automatically determine whether to encode in-memory
+    /// The `encodingMemoryThreshold` parameter allows Cloudinary to automatically determine whether to encode in-memory
     /// or stream from disk. If the content length of the `CLDNMultipartFormData` is below the `encodingMemoryThreshold`,
     /// encoding takes place in-memory. If the content length exceeds the threshold, the data is streamed to disk
     /// during the encoding process. Then the result is uploaded as data or as a stream depending on which encoding
@@ -679,7 +679,7 @@ internal class CLDNSessionManager {
                 } else {
                     let fileManager = FileManager.default
                     let tempDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
-                    let directoryURL = tempDirectoryURL.appendingPathComponent("org.alamofire.manager/multipart.form.data")
+                    let directoryURL = tempDirectoryURL.appendingPathComponent("org.cloudinary.manager/multipart.form.data")
                     let fileName = UUID().uuidString
                     let fileURL = directoryURL.appendingPathComponent(fileName)
 
