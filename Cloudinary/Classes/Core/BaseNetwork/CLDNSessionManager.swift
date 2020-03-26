@@ -804,7 +804,7 @@ internal class CLDNSessionManager {
     }
 
     private func allowRetrier(_ retrier: CLDNRequestRetrier, toRetry request: CLDNRequest, with error: Error) {
-        DispatchQueue.utility.async { [weak self] in
+        DispatchQueue.CLDNUtility.async { [weak self] in
             guard let strongSelf = self else { return }
 
             retrier.should(strongSelf, retry: request, with: error) { shouldRetry, timeDelay in
@@ -815,7 +815,7 @@ internal class CLDNSessionManager {
                     return
                 }
 
-                DispatchQueue.utility.after(timeDelay) {
+                DispatchQueue.CLDNUtility.CLDN_after(timeDelay) {
                     guard let strongSelf = self else { return }
 
                     let retrySucceeded = strongSelf.retry(request)

@@ -450,7 +450,7 @@ extension CLDNSessionDelegate: URLSessionTaskDelegate {
             retrier.should(sessionManager, retry: request, with: error) { [weak self] shouldRetry, timeDelay in
                 guard shouldRetry else { completeTask(session, task, error) ; return }
 
-                DispatchQueue.utility.after(timeDelay) { [weak self] in
+                DispatchQueue.CLDNUtility.CLDN_after(timeDelay) { [weak self] in
                     guard let strongSelf = self else { return }
 
                     let retrySucceeded = strongSelf.sessionManager?.retry(request) ?? false
