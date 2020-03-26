@@ -163,13 +163,13 @@ class URLProtocolTestCase: BaseTestCase {
         XCTAssertNil(response?.error)
 
         if let headers = response?.response?.allHeaderFields as? [String: String] {
-            XCTAssertEqual(headers["Request-Header"], "foobar")
+            XCTAssertEqual(headers["request-header"], "foobar")
 
             // Configuration headers are only passed in on iOS 9.0+
             if #available(iOS 9.0, *) {
-                XCTAssertEqual(headers["Session-Configuration-Header"], "foo")
+                XCTAssertEqual(headers["session-configuration-header"], "foo")
             } else {
-                XCTAssertNil(headers["Session-Configuration-Header"])
+                XCTAssertNil(headers["session-configuration-header"])
             }
         } else {
             XCTFail("headers should not be nil")

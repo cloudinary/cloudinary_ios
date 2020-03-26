@@ -240,13 +240,16 @@ class SessionManagerTestCase: BaseTestCase {
                 let build = afInfo["CFBundleShortVersionString"]
             else { return "Unknown" }
 
-            return "Alamofire/\(build)"
+            return "Cloudinary/\(build)"
         }()
+        let info = Bundle.main.infoDictionary
+        let executable = info?[kCFBundleExecutableKey as String] as? String ?? "Unknown"
+        let appVersion = info?["CFBundleShortVersionString"] as? String ?? "Unknown"
 
 
         XCTAssertTrue(userAgent?.contains(alamofireVersion) == true)
         XCTAssertTrue(userAgent?.contains(osNameVersion) == true)
-        XCTAssertTrue(userAgent?.contains("Unknown/Unknown") == true)
+        XCTAssertTrue(userAgent?.contains("\(executable)/\(appVersion)") == true)
         // let expectedUserAgent = "Unknown/Unknown (Unknown; build:Unknown; \(osNameVersion)) \(alamofireVersion)"
         // XCTAssertEqual(userAgent, expectedUserAgent)
     }
