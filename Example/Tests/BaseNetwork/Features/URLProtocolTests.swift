@@ -62,7 +62,7 @@ class ProxyURLProtocol: URLProtocol {
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {
         if let headers = request.allHTTPHeaderFields {
             do {
-                return try CLDNURLEncoding.default.encode(request, with: headers)
+                return try CLDNURLEncoding.default.CLDN_Encode(request, with: headers)
             } catch {
                 return request
             }

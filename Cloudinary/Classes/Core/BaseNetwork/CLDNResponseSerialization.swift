@@ -90,7 +90,7 @@ extension CLDNDataRequest {
                     timeline: self.timeline
                 )
 
-                dataResponse.add(self.delegate.metrics)
+                dataResponse.CLDN_Add(self.delegate.metrics)
 
                 completionHandler(dataResponse)
             }
@@ -130,7 +130,7 @@ extension CLDNDataRequest {
                 timeline: self.timeline
             )
 
-            dataResponse.add(self.delegate.metrics)
+            dataResponse.CLDN_Add(self.delegate.metrics)
 
             (queue ?? DispatchQueue.main).async { completionHandler(dataResponse) }
         }

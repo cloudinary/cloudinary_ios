@@ -31,7 +31,7 @@ internal protocol CLDNURLConvertible {
     /// - throws: An `Error` if the type cannot be converted to a `URL`.
     ///
     /// - returns: A URL or throws an `Error`.
-    func asURL() throws -> URL
+    func CLDN_AsURL() throws -> URL
 }
 
 extension String: CLDNURLConvertible {
@@ -40,7 +40,7 @@ extension String: CLDNURLConvertible {
     /// - throws: An `CLDNError.invalidURL` if `self` is not a valid URL string.
     ///
     /// - returns: A URL or throws an `CLDNError`.
-    public func asURL() throws -> URL {
+    internal func CLDN_AsURL() throws -> URL {
         guard let url = URL(string: self) else { throw CLDNError.invalidURL(url: self) }
         return url
     }
@@ -48,7 +48,7 @@ extension String: CLDNURLConvertible {
 
 extension URL: CLDNURLConvertible {
     /// Returns self.
-    public func asURL() throws -> URL { return self }
+    internal func CLDN_AsURL() throws -> URL { return self }
 }
 
 extension URLComponents: CLDNURLConvertible {
@@ -57,7 +57,7 @@ extension URLComponents: CLDNURLConvertible {
     /// - throws: An `CLDNError.invalidURL` if `url` is `nil`.
     ///
     /// - returns: A URL or throws an `CLDNError`.
-    public func asURL() throws -> URL {
+    internal func CLDN_AsURL() throws -> URL {
         guard let url = url else { throw CLDNError.invalidURL(url: self) }
         return url
     }
@@ -66,23 +66,23 @@ extension URLComponents: CLDNURLConvertible {
 // MARK: -
 
 /// Types adopting the `CLDNURLRequestConvertible` protocol can be used to construct URL requests.
-public protocol CLDNURLRequestConvertible {
+internal protocol CLDNURLRequestConvertible {
     /// Returns a URL request or throws if an `Error` was encountered.
     ///
     /// - throws: An `Error` if the underlying `URLRequest` is `nil`.
     ///
     /// - returns: A URL request.
-    func asURLRequest() throws -> URLRequest
+    func CLDN_AsURLRequest() throws -> URLRequest
 }
 
 extension CLDNURLRequestConvertible {
     /// The URL request.
-    public var urlRequest: URLRequest? { return try? asURLRequest() }
+    internal var urlRequest: URLRequest? { return try? CLDN_AsURLRequest() }
 }
 
 extension URLRequest: CLDNURLRequestConvertible {
     /// Returns a URL request or throws if an `Error` was encountered.
-    public func asURLRequest() throws -> URLRequest { return self }
+    internal func CLDN_AsURLRequest() throws -> URLRequest { return self }
 }
 
 // MARK: -
@@ -96,7 +96,7 @@ extension URLRequest {
     ///
     /// - returns: The new `URLRequest` instance.
     internal init(url: CLDNURLConvertible, method: CLDNHTTPMethod, headers: CLDNHTTPHeaders? = nil) throws {
-        let url = try url.asURL()
+        let url = try url.CLDN_AsURL()
 
         self.init(url: url)
 
@@ -111,6 +111,6 @@ extension URLRequest {
 
     func adapt(using adapter: CLDNRequestAdapter?) throws -> URLRequest {
         guard let adapter = adapter else { return self }
-        return try adapter.adapt(self)
+        return try adapter.CLDN_Adapt(self)
     }
 }

@@ -447,7 +447,7 @@ extension CLDNSessionDelegate: URLSessionTaskDelegate {
         /// If an error occurred and the retrier is set, asynchronously ask the retrier if the request
         /// should be retried. Otherwise, complete the task by notifying the task delegate.
         if let retrier = retrier, let error = error {
-            retrier.should(sessionManager, retry: request, with: error) { [weak self] shouldRetry, timeDelay in
+            retrier.CLDN_Should(sessionManager, retry: request, with: error) { [weak self] shouldRetry, timeDelay in
                 guard shouldRetry else { completeTask(session, task, error) ; return }
 
                 DispatchQueue.CLDNUtility.CLDN_after(timeDelay) { [weak self] in

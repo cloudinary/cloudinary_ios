@@ -172,7 +172,7 @@ class CacheTestCase: BaseTestCase {
         urlRequest.httpMethod = CLDNHTTPMethod.get.rawValue
 
         do {
-            return try CLDNURLEncoding.default.encode(urlRequest, with: parameters)
+            return try CLDNURLEncoding.default.CLDN_Encode(urlRequest, with: parameters)
         } catch {
             return urlRequest
         }

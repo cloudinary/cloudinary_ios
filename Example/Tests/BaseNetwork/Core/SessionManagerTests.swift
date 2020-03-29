@@ -39,7 +39,7 @@ class SessionManagerTestCase: BaseTestCase {
             self.throwsError = throwsError
         }
 
-        func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+        func CLDN_Adapt(_ urlRequest: URLRequest) throws -> URLRequest {
             guard !throwsError else { throw CLDNError.invalidURL(url: "") }
 
             var urlRequest = urlRequest
@@ -57,7 +57,7 @@ class SessionManagerTestCase: BaseTestCase {
         var shouldApplyAuthorizationHeader = false
         var throwsErrorOnSecondAdapt = false
 
-        func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+        func CLDN_Adapt(_ urlRequest: URLRequest) throws -> URLRequest {
             if throwsErrorOnSecondAdapt && adaptedCount == 1 {
                 throwsErrorOnSecondAdapt = false
                 throw CLDNError.invalidURL(url: "")
@@ -76,7 +76,7 @@ class SessionManagerTestCase: BaseTestCase {
             return urlRequest
         }
 
-        func should(_ manager: CLDNSessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion) {
+        func CLDN_Should(_ manager: CLDNSessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion) {
             retryCount += 1
             retryErrors.append(error)
 
@@ -93,7 +93,7 @@ class SessionManagerTestCase: BaseTestCase {
         var retryCount = 0
         var retryErrors: [Error] = []
 
-        func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+        func CLDN_Adapt(_ urlRequest: URLRequest) throws -> URLRequest {
             adaptedCount += 1
 
             if adaptedCount == 1 { throw CLDNError.invalidURL(url: "") }
@@ -101,7 +101,7 @@ class SessionManagerTestCase: BaseTestCase {
             return urlRequest
         }
 
-        func should(_ manager: CLDNSessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion) {
+        func CLDN_Should(_ manager: CLDNSessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion) {
             retryCount += 1
             retryErrors.append(error)
 

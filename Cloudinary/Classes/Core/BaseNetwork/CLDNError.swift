@@ -38,7 +38,7 @@ internal enum CLDNError: Error {
     ///                               encoding process.
     /// - propertyListEncodingFailed: Property list serialization failed with an underlying system error during
     ///                               encoding process.
-    public enum ParameterEncodingFailureReason {
+    internal enum ParameterEncodingFailureReason {
         case missingURL
         case jsonEncodingFailed(error: Error)
         case propertyListEncodingFailed(error: Error)
@@ -69,7 +69,7 @@ internal enum CLDNError: Error {
     ///                                         underlying error.
     /// - inputStreamReadFailed:                The attempt to read an encoded body part `InputStream` failed with
     ///                                         underlying system error.
-    public enum MultipartEncodingFailureReason {
+    internal enum MultipartEncodingFailureReason {
         case bodyPartURLInvalid(url: URL)
         case bodyPartFilenameInvalid(in: URL)
         case bodyPartFileNotReachable(at: URL)
@@ -96,7 +96,7 @@ internal enum CLDNError: Error {
     /// - unacceptableContentType: The response `Content-Type` did not match any type in the provided
     ///                            `acceptableContentTypes`.
     /// - unacceptableStatusCode:  The response status code was not acceptable.
-    public enum ResponseValidationFailureReason {
+    internal enum ResponseValidationFailureReason {
         case dataFileNil
         case dataFileReadFailed(at: URL)
         case missingContentType(acceptableContentTypes: [String])
@@ -113,7 +113,7 @@ internal enum CLDNError: Error {
     /// - stringSerializationFailed:       String serialization failed using the provided `String.Encoding`.
     /// - jsonSerializationFailed:         JSON serialization failed with an underlying system error.
     /// - propertyListSerializationFailed: Property list serialization failed with an underlying system error.
-    public enum ResponseSerializationFailureReason {
+    internal enum ResponseSerializationFailureReason {
         case inputDataNil
         case inputDataNilOrZeroLength
         case inputFileNil
@@ -144,35 +144,35 @@ extension Error {
 
 extension CLDNError {
     /// Returns whether the CLDNError is an invalid URL error.
-    public var isInvalidURLError: Bool {
+    internal var isInvalidURLError: Bool {
         if case .invalidURL = self { return true }
         return false
     }
 
     /// Returns whether the CLDNError is a parameter encoding error. When `true`, the `underlyingError` property will
     /// contain the associated value.
-    public var isParameterEncodingError: Bool {
+    internal var isParameterEncodingError: Bool {
         if case .parameterEncodingFailed = self { return true }
         return false
     }
 
     /// Returns whether the CLDNError is a multipart encoding error. When `true`, the `url` and `underlyingError` properties
     /// will contain the associated values.
-    public var isMultipartEncodingError: Bool {
+    internal var isMultipartEncodingError: Bool {
         if case .multipartEncodingFailed = self { return true }
         return false
     }
 
     /// Returns whether the `CLDNError` is a response validation error. When `true`, the `acceptableContentTypes`,
     /// `responseContentType`, and `responseCode` properties will contain the associated values.
-    public var isResponseValidationError: Bool {
+    internal var isResponseValidationError: Bool {
         if case .responseValidationFailed = self { return true }
         return false
     }
 
     /// Returns whether the `CLDNError` is a response serialization error. When `true`, the `failedStringEncoding` and
     /// `underlyingError` properties will contain the associated values.
-    public var isResponseSerializationError: Bool {
+    internal var isResponseSerializationError: Bool {
         if case .responseSerializationFailed = self { return true }
         return false
     }
@@ -192,7 +192,7 @@ extension CLDNError {
     }
 
     /// The `URL` associated with the error.
-    public var url: URL? {
+    internal var url: URL? {
         switch self {
         case .multipartEncodingFailed(let reason):
             return reason.url
@@ -203,7 +203,7 @@ extension CLDNError {
 
     /// The `Error` returned by a system framework associated with a `.parameterEncodingFailed`,
     /// `.multipartEncodingFailed` or `.responseSerializationFailed` error.
-    public var underlyingError: Error? {
+    internal var underlyingError: Error? {
         switch self {
         case .parameterEncodingFailed(let reason):
             return reason.underlyingError
@@ -217,7 +217,7 @@ extension CLDNError {
     }
 
     /// The acceptable `Content-Type`s of a `.responseValidationFailed` error.
-    public var acceptableContentTypes: [String]? {
+    internal var acceptableContentTypes: [String]? {
         switch self {
         case .responseValidationFailed(let reason):
             return reason.acceptableContentTypes
@@ -227,7 +227,7 @@ extension CLDNError {
     }
 
     /// The response `Content-Type` of a `.responseValidationFailed` error.
-    public var responseContentType: String? {
+    internal var responseContentType: String? {
         switch self {
         case .responseValidationFailed(let reason):
             return reason.responseContentType
@@ -237,7 +237,7 @@ extension CLDNError {
     }
 
     /// The response code of a `.responseValidationFailed` error.
-    public var responseCode: Int? {
+    internal var responseCode: Int? {
         switch self {
         case .responseValidationFailed(let reason):
             return reason.responseCode
@@ -247,7 +247,7 @@ extension CLDNError {
     }
 
     /// The `String.Encoding` associated with a failed `.stringResponse()` call.
-    public var failedStringEncoding: String.Encoding? {
+    internal var failedStringEncoding: String.Encoding? {
         switch self {
         case .responseSerializationFailed(let reason):
             return reason.failedStringEncoding
@@ -345,7 +345,7 @@ extension CLDNError.ResponseSerializationFailureReason {
 // MARK: - Error Descriptions
 
 extension CLDNError: LocalizedError {
-    public var errorDescription: String? {
+    internal var errorDescription: String? {
         switch self {
         case .invalidURL(let url):
             return "URL is not valid: \(url)"

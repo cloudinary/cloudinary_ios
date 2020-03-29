@@ -82,7 +82,7 @@ class RequestSubclassRequestPropertyTestCase: BaseTestCase {
     }
 
     private class AuthenticationAdapter: CLDNRequestAdapter {
-        func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+        func CLDN_Adapt(_ urlRequest: URLRequest) throws -> URLRequest {
             throw AuthenticationError.expiredAccessToken
         }
     }

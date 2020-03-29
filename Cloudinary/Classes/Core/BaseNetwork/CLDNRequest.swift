@@ -32,7 +32,7 @@ internal protocol CLDNRequestAdapter {
     /// - throws: An `Error` if the adaptation encounters an error.
     ///
     /// - returns: The adapted `URLRequest`.
-    func adapt(_ urlRequest: URLRequest) throws -> URLRequest
+    func CLDN_Adapt(_ urlRequest: URLRequest) throws -> URLRequest
 }
 
 // MARK: -
@@ -53,13 +53,13 @@ internal protocol CLDNRequestRetrier {
     /// - parameter request:    The request that failed due to the encountered error.
     /// - parameter error:      The error encountered when executing the request.
     /// - parameter completion: The completion closure to be executed when retry decision has been determined.
-    func should(_ manager: CLDNSessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion)
+    func CLDN_Should(_ manager: CLDNSessionManager, retry request: CLDNRequest, with error: Error, completion: @escaping CLDNRequestRetryCompletion)
 }
 
 // MARK: -
 
 protocol CLDNTaskConvertible {
-    func task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask
+    func CLDN_Task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask
 }
 
 /// A dictionary of headers to apply to a `URLRequest`.
@@ -334,7 +334,7 @@ internal class CLDNDataRequest: CLDNRequest {
     struct Requestable: CLDNTaskConvertible {
         let urlRequest: URLRequest
 
-        func task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
+        func CLDN_Task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
             do {
                 let urlRequest = try self.urlRequest.adapt(using: adapter)
                 return queue.sync { session.dataTask(with: urlRequest) }
@@ -403,7 +403,7 @@ internal class CLDNUploadRequest: CLDNDataRequest {
         case file(URL, URLRequest)
         case stream(InputStream, URLRequest)
 
-        func task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
+        func CLDN_Task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
             do {
                 let task: URLSessionTask
 
