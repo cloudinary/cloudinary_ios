@@ -338,10 +338,10 @@ class ContentTypeValidationTestCase: BaseTestCase {
         class MockManager: CLDNSessionManager {
             override func request(_ urlRequest: CLDNURLRequestConvertible) -> CLDNDataRequest {
                 do {
-                    let originalRequest = try urlRequest.asURLRequest()
+                    let originalRequest = try urlRequest.CLDN_AsURLRequest()
                     let originalTask = CLDNDataRequest.Requestable(urlRequest: originalRequest)
 
-                    let task = try originalTask.task(session: session, adapter: adapter, queue: queue)
+                    let task = try originalTask.CLDN_Task(session: session, adapter: adapter, queue: queue)
                     let request = MockDataRequest(session: session, requestTask: .data(originalTask, task))
 
                     delegate[task] = request
@@ -362,10 +362,10 @@ class ContentTypeValidationTestCase: BaseTestCase {
                 -> CLDNDownloadRequest
             {
                 do {
-                    let originalRequest = try urlRequest.asURLRequest()
+                    let originalRequest = try urlRequest.CLDN_AsURLRequest()
                     let originalTask = CLDNDownloadRequest.Downloadable.request(originalRequest)
 
-                    let task = try originalTask.task(session: session, adapter: adapter, queue: queue)
+                    let task = try originalTask.CLDN_Task(session: session, adapter: adapter, queue: queue)
                     let request = MockDownloadRequest(session: session, requestTask: .download(originalTask, task))
 
                     request.downloadDelegate.destination = destination

@@ -53,7 +53,7 @@ internal protocol CLDNParameterEncoding {
     /// - throws: An `CLDNError.parameterEncodingFailed` error if encoding fails.
     ///
     /// - returns: The encoded request.
-    func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest
+    func CLDN_Encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest
 }
 
 // MARK: -
@@ -170,8 +170,8 @@ internal struct CLDNURLEncoding: CLDNParameterEncoding {
     /// - throws: An `Error` if the encoding process encounters an error.
     ///
     /// - returns: The encoded request.
-    internal func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest {
-        var urlRequest = try urlRequest.asURLRequest()
+    internal func CLDN_Encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest {
+        var urlRequest = try urlRequest.CLDN_AsURLRequest()
 
         guard let parameters = parameters else { return urlRequest }
 
@@ -351,8 +351,8 @@ internal struct CLDNJSONEncoding: CLDNParameterEncoding {
     /// - throws: An `Error` if the encoding process encounters an error.
     ///
     /// - returns: The encoded request.
-    internal func encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest {
-        var urlRequest = try urlRequest.asURLRequest()
+    internal func CLDN_Encode(_ urlRequest: CLDNURLRequestConvertible, with parameters: CLDNParameters?) throws -> URLRequest {
+        var urlRequest = try urlRequest.CLDN_AsURLRequest()
 
         guard let parameters = parameters else { return urlRequest }
 
@@ -380,7 +380,7 @@ internal struct CLDNJSONEncoding: CLDNParameterEncoding {
     ///
     /// - returns: The encoded request.
     internal func encode(_ urlRequest: CLDNURLRequestConvertible, withJSONObject jsonObject: Any? = nil) throws -> URLRequest {
-        var urlRequest = try urlRequest.asURLRequest()
+        var urlRequest = try urlRequest.CLDN_AsURLRequest()
 
         guard let jsonObject = jsonObject else { return urlRequest }
 

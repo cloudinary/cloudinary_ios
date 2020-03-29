@@ -230,7 +230,7 @@ internal class CLDNSessionManager {
 
         do {
             originalRequest = try URLRequest(url: url, method: method, headers: headers)
-            let encodedURLRequest = try encoding.encode(originalRequest!, with: parameters)
+            let encodedURLRequest = try encoding.CLDN_Encode(originalRequest!, with: parameters)
             return request(encodedURLRequest)
         } catch {
             return request(originalRequest, failedWith: error)
@@ -249,10 +249,10 @@ internal class CLDNSessionManager {
         var originalRequest: URLRequest?
 
         do {
-            originalRequest = try urlRequest.asURLRequest()
+            originalRequest = try urlRequest.CLDN_AsURLRequest()
             let originalTask = CLDNDataRequest.Requestable(urlRequest: originalRequest!)
 
-            let task = try originalTask.task(session: session, adapter: adapter, queue: queue)
+            let task = try originalTask.CLDN_Task(session: session, adapter: adapter, queue: queue)
             let request = CLDNDataRequest(session: session, requestTask: .data(originalTask, task))
 
             delegate[task] = request
@@ -319,7 +319,7 @@ internal class CLDNSessionManager {
     {
         do {
             let urlRequest = try URLRequest(url: url, method: method, headers: headers)
-            let encodedURLRequest = try encoding.encode(urlRequest, with: parameters)
+            let encodedURLRequest = try encoding.CLDN_Encode(urlRequest, with: parameters)
             return download(encodedURLRequest, to: destination)
         } catch {
             return download(nil, to: destination, failedWith: error)
@@ -345,7 +345,7 @@ internal class CLDNSessionManager {
         -> CLDNDownloadRequest
     {
         do {
-            let urlRequest = try urlRequest.asURLRequest()
+            let urlRequest = try urlRequest.CLDN_AsURLRequest()
             return download(.request(urlRequest), to: destination)
         } catch {
             return download(nil, to: destination, failedWith: error)
@@ -392,7 +392,7 @@ internal class CLDNSessionManager {
         -> CLDNDownloadRequest
     {
         do {
-            let task = try downloadable.task(session: session, adapter: adapter, queue: queue)
+            let task = try downloadable.CLDN_Task(session: session, adapter: adapter, queue: queue)
             let download = CLDNDownloadRequest(session: session, requestTask: .download(downloadable, task))
 
             download.downloadDelegate.destination = destination
@@ -474,7 +474,7 @@ internal class CLDNSessionManager {
     @discardableResult
     internal func upload(_ fileURL: URL, with urlRequest: CLDNURLRequestConvertible) -> CLDNUploadRequest {
         do {
-            let urlRequest = try urlRequest.asURLRequest()
+            let urlRequest = try urlRequest.CLDN_AsURLRequest()
             return upload(.file(fileURL, urlRequest))
         } catch {
             return upload(nil, failedWith: error)
@@ -520,7 +520,7 @@ internal class CLDNSessionManager {
     @discardableResult
     internal func upload(_ data: Data, with urlRequest: CLDNURLRequestConvertible) -> CLDNUploadRequest {
         do {
-            let urlRequest = try urlRequest.asURLRequest()
+            let urlRequest = try urlRequest.CLDN_AsURLRequest()
             return upload(.data(data, urlRequest))
         } catch {
             return upload(nil, failedWith: error)
@@ -566,7 +566,7 @@ internal class CLDNSessionManager {
     @discardableResult
     internal func upload(_ stream: InputStream, with urlRequest: CLDNURLRequestConvertible) -> CLDNUploadRequest {
         do {
-            let urlRequest = try urlRequest.asURLRequest()
+            let urlRequest = try urlRequest.CLDN_AsURLRequest()
             return upload(.stream(stream, urlRequest))
         } catch {
             return upload(nil, failedWith: error)
@@ -661,7 +661,7 @@ internal class CLDNSessionManager {
             var tempFileURL: URL?
 
             do {
-                var urlRequestWithContentType = try urlRequest.asURLRequest()
+                var urlRequestWithContentType = try urlRequest.CLDN_AsURLRequest()
                 urlRequestWithContentType.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
 
                 let isBackgroundSession = self.session.configuration.identifier != nil
@@ -740,7 +740,7 @@ internal class CLDNSessionManager {
 
     private func upload(_ uploadable: CLDNUploadRequest.Uploadable) -> CLDNUploadRequest {
         do {
-            let task = try uploadable.task(session: session, adapter: adapter, queue: queue)
+            let task = try uploadable.CLDN_Task(session: session, adapter: adapter, queue: queue)
             let upload = CLDNUploadRequest(session: session, requestTask: .upload(uploadable, task))
 
             if case let .stream(inputStream, _) = uploadable {
@@ -782,7 +782,7 @@ internal class CLDNSessionManager {
         guard let originalTask = request.originalTask else { return false }
 
         do {
-            let task = try originalTask.task(session: session, adapter: adapter, queue: queue)
+            let task = try originalTask.CLDN_Task(session: session, adapter: adapter, queue: queue)
 
             if let originalTask = request.task {
                 delegate[originalTask] = nil // removes the old request to avoid endless growth
@@ -807,7 +807,7 @@ internal class CLDNSessionManager {
         DispatchQueue.CLDNUtility.async { [weak self] in
             guard let strongSelf = self else { return }
 
-            retrier.should(strongSelf, retry: request, with: error) { shouldRetry, timeDelay in
+            retrier.CLDN_Should(strongSelf, retry: request, with: error) { shouldRetry, timeDelay in
                 guard let strongSelf = self else { return }
 
                 guard shouldRetry else {

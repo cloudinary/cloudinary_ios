@@ -524,11 +524,11 @@ extension CLDNDownloadResponse {
 protocol CLDNResponse {
     /// The task metrics containing the request / response statistics.
     var _metrics: AnyObject? { get set }
-    mutating func add(_ metrics: AnyObject?)
+    mutating func CLDN_Add(_ metrics: AnyObject?)
 }
 
 extension CLDNResponse {
-    mutating func add(_ metrics: AnyObject?) {
+    mutating func CLDN_Add(_ metrics: AnyObject?) {
         #if !os(watchOS)
             guard #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) else { return }
             guard let metrics = metrics as? URLSessionTaskMetrics else { return }
