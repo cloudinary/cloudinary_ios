@@ -39,14 +39,14 @@ internal class CLDNetworkCoordinator {
     
     // MARK: - Init
     
-    init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter = CLDNetworkDelegate.sharedNetworkDelegate) {
+    init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter = CLDDefaultNetworkAdapter.sharedNetworkDelegate) {
         config = configuration
         self.networkAdapter = networkAdapter
     }
 
     init(configuration: CLDConfiguration, sessionConfiguration: URLSessionConfiguration) {
         config = configuration
-        self.networkAdapter = CLDNetworkDelegate(configuration: sessionConfiguration)
+        self.networkAdapter = CLDDefaultNetworkAdapter(configuration: sessionConfiguration)
     }
 
     // MARK: - Actions

@@ -1,5 +1,5 @@
 //
-//  CLDNetworkDelegate.swift
+//  CLDDefaultNetworkAdapter.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -25,7 +25,7 @@
 import Foundation
 
 
-internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
+internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
 
     init(configuration: URLSessionConfiguration? = nil) {
         if let configuration = configuration {
@@ -49,7 +49,7 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
 
     fileprivate let downloadQueue: OperationQueue = OperationQueue()
 
-    internal static let sharedNetworkDelegate = CLDNetworkDelegate()
+    internal static let sharedNetworkDelegate = CLDDefaultNetworkAdapter()
 
     // MARK: Features
 
