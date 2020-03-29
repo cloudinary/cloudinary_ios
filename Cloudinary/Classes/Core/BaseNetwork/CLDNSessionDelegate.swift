@@ -500,23 +500,6 @@ extension CLDNSessionDelegate: URLSessionDataDelegate {
         completionHandler(disposition)
     }
 
-    /// Tells the delegate that the data task was changed to a download task.
-    ///
-    /// - parameter session:      The session containing the task that was replaced by a download task.
-    /// - parameter dataTask:     The data task that was replaced by a download task.
-    /// - parameter downloadTask: The new download task that replaced the data task.
-    internal func urlSession(
-        _ session: URLSession,
-        dataTask: URLSessionDataTask,
-        didBecome downloadTask: URLSessionDownloadTask)
-    {
-        if let dataTaskDidBecomeDownloadTask = dataTaskDidBecomeDownloadTask {
-            dataTaskDidBecomeDownloadTask(session, dataTask, downloadTask)
-        } else {
-            self[downloadTask]?.delegate = CLDNDownloadTaskDelegate(task: downloadTask)
-        }
-    }
-
     /// Tells the delegate that the data task has received some of the expected data.
     ///
     /// - parameter session:  The session containing the data task that provided data.
@@ -584,8 +567,6 @@ extension CLDNSessionDelegate: URLSessionDownloadDelegate {
     {
         if let downloadTaskDidFinishDownloadingToURL = downloadTaskDidFinishDownloadingToURL {
             downloadTaskDidFinishDownloadingToURL(session, downloadTask, location)
-        } else if let delegate = self[downloadTask]?.delegate as? CLDNDownloadTaskDelegate {
-            delegate.urlSession(session, downloadTask: downloadTask, didFinishDownloadingTo: location)
         }
     }
 
@@ -608,14 +589,6 @@ extension CLDNSessionDelegate: URLSessionDownloadDelegate {
     {
         if let downloadTaskDidWriteData = downloadTaskDidWriteData {
             downloadTaskDidWriteData(session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
-        } else if let delegate = self[downloadTask]?.delegate as? CLDNDownloadTaskDelegate {
-            delegate.urlSession(
-                session,
-                downloadTask: downloadTask,
-                didWriteData: bytesWritten,
-                totalBytesWritten: totalBytesWritten,
-                totalBytesExpectedToWrite: totalBytesExpectedToWrite
-            )
         }
     }
 
@@ -637,13 +610,6 @@ extension CLDNSessionDelegate: URLSessionDownloadDelegate {
     {
         if let downloadTaskDidResumeAtOffset = downloadTaskDidResumeAtOffset {
             downloadTaskDidResumeAtOffset(session, downloadTask, fileOffset, expectedTotalBytes)
-        } else if let delegate = self[downloadTask]?.delegate as? CLDNDownloadTaskDelegate {
-            delegate.urlSession(
-                session,
-                downloadTask: downloadTask,
-                didResumeAtOffset: fileOffset,
-                expectedTotalBytes: expectedTotalBytes
-            )
         }
     }
 }

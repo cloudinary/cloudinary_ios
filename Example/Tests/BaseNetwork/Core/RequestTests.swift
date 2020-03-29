@@ -112,20 +112,6 @@ class RequestSubclassRequestPropertyTestCase: BaseTestCase {
         XCTAssertNil(request.response)
     }
 
-    func testDownloadRequestHasURLRequest() {
-        // Given
-        let urlString = "https://httpbin.org/"
-
-        // When
-        let request = sessionManager.download(urlString)
-
-        // Then
-        XCTAssertNotNil(request.request)
-        XCTAssertEqual(request.request?.httpMethod, "GET")
-        XCTAssertEqual(request.request?.url?.absoluteString, urlString)
-        XCTAssertNil(request.response)
-    }
-
     func testUploadDataRequestHasURLRequest() {
         // Given
         let urlString = "https://httpbin.org/"

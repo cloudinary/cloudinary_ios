@@ -78,9 +78,7 @@ internal class CLDNRequest {
 
     enum RequestTask {
         case data(CLDNTaskConvertible?, URLSessionTask?)
-        case download(CLDNTaskConvertible?, URLSessionTask?)
         case upload(CLDNTaskConvertible?, URLSessionTask?)
-        case stream(CLDNTaskConvertible?, URLSessionTask?)
     }
 
     // MARK: Properties
@@ -131,14 +129,8 @@ internal class CLDNRequest {
         case .data(let originalTask, let task):
             taskDelegate = CLDNDataTaskDelegate(task: task)
             self.originalTask = originalTask
-        case .download(let originalTask, let task):
-            taskDelegate = CLDNDownloadTaskDelegate(task: task)
-            self.originalTask = originalTask
         case .upload(let originalTask, let task):
             taskDelegate = CLDNUploadTaskDelegate(task: task)
-            self.originalTask = originalTask
-        case .stream(let originalTask, let task):
-            taskDelegate = CLDNTaskDelegate(task: task)
             self.originalTask = originalTask
         }
 
@@ -396,146 +388,6 @@ internal class CLDNDataRequest: CLDNRequest {
     internal func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
         dataDelegate.progressHandler = (closure, queue)
         return self
-    }
-}
-
-// MARK: -
-
-/// Specific type of `CLDNRequest` that manages an underlying `URLSessionDownloadTask`.
-internal class CLDNDownloadRequest: CLDNRequest {
-
-    // MARK: Helper Types
-
-    /// A collection of options to be executed prior to moving a downloaded file from the temporary URL to the
-    /// destination URL.
-    internal struct DownloadOptions: OptionSet {
-        /// Returns the raw bitmask value of the option and satisfies the `RawRepresentable` protocol.
-        internal let rawValue: UInt
-
-        /// A `DownloadOptions` flag that creates intermediate directories for the destination URL if specified.
-        internal static let createIntermediateDirectories = DownloadOptions(rawValue: 1 << 0)
-
-        /// A `DownloadOptions` flag that removes a previous file from the destination URL if specified.
-        internal static let removePreviousFile = DownloadOptions(rawValue: 1 << 1)
-
-        /// Creates a `DownloadFileDestinationOptions` instance with the specified raw value.
-        ///
-        /// - parameter rawValue: The raw bitmask value for the option.
-        ///
-        /// - returns: A new log level instance.
-        internal init(rawValue: UInt) {
-            self.rawValue = rawValue
-        }
-    }
-
-    /// A closure executed once a download request has successfully completed in order to determine where to move the
-    /// temporary file written to during the download process. The closure takes two arguments: the temporary file URL
-    /// and the URL response, and returns a two arguments: the file URL where the temporary file should be moved and
-    /// the options defining how the file should be moved.
-    internal typealias DownloadFileDestination = (
-        _ temporaryURL: URL,
-        _ response: HTTPURLResponse)
-        -> (destinationURL: URL, options: DownloadOptions)
-
-    enum Downloadable: CLDNTaskConvertible {
-        case request(URLRequest)
-        case resumeData(Data)
-
-        func task(session: URLSession, adapter: CLDNRequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
-            do {
-                let task: URLSessionTask
-
-                switch self {
-                case let .request(urlRequest):
-                    let urlRequest = try urlRequest.adapt(using: adapter)
-                    task = queue.sync { session.downloadTask(with: urlRequest) }
-                case let .resumeData(resumeData):
-                    task = queue.sync { session.downloadTask(withResumeData: resumeData) }
-                }
-
-                return task
-            } catch {
-                throw AdaptError(error: error)
-            }
-        }
-    }
-
-    // MARK: Properties
-
-    /// The request sent or to be sent to the server.
-    internal override var request: URLRequest? {
-        if let request = super.request { return request }
-
-        if let downloadable = originalTask as? Downloadable, case let .request(urlRequest) = downloadable {
-            return urlRequest
-        }
-
-        return nil
-    }
-
-    /// The resume data of the underlying download task if available after a failure.
-    internal var resumeData: Data? { return downloadDelegate.resumeData }
-
-    /// The progress of downloading the response data from the server for the request.
-    internal var progress: Progress { return downloadDelegate.progress }
-
-    var downloadDelegate: CLDNDownloadTaskDelegate { return delegate as! CLDNDownloadTaskDelegate }
-
-    // MARK: State
-
-    /// Cancels the request.
-    override internal func cancel() {
-        cancel(createResumeData: true)
-    }
-
-    /// Cancels the request.
-    ///
-    /// - parameter createResumeData: Determines whether resume data is created via the underlying download task or not.
-    internal func cancel(createResumeData: Bool) {
-        if createResumeData {
-            downloadDelegate.downloadTask.cancel { self.downloadDelegate.resumeData = $0 }
-        } else {
-            downloadDelegate.downloadTask.cancel()
-        }
-    }
-
-    // MARK: Progress
-
-    /// Sets a closure to be called periodically during the lifecycle of the `CLDNRequest` as data is read from the server.
-    ///
-    /// - parameter queue:   The dispatch queue to execute the closure on.
-    /// - parameter closure: The code to be executed periodically as data is read from the server.
-    ///
-    /// - returns: The request.
-    @discardableResult
-    internal func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
-        downloadDelegate.progressHandler = (closure, queue)
-        return self
-    }
-
-    // MARK: Destination
-
-    /// Creates a download file destination closure which uses the default file manager to move the temporary file to a
-    /// file URL in the first available directory with the specified search path directory and search path domain mask.
-    ///
-    /// - parameter directory: The search path directory. `.DocumentDirectory` by default.
-    /// - parameter domain:    The search path domain mask. `.UserDomainMask` by default.
-    ///
-    /// - returns: A download file destination closure.
-    internal class func suggestedDownloadDestination(
-        for directory: FileManager.SearchPathDirectory = .documentDirectory,
-        in domain: FileManager.SearchPathDomainMask = .userDomainMask)
-        -> DownloadFileDestination
-    {
-        return { temporaryURL, response in
-            let directoryURLs = FileManager.default.urls(for: directory, in: domain)
-
-            if !directoryURLs.isEmpty {
-                return (directoryURLs[0].appendingPathComponent(response.suggestedFilename!), [])
-            }
-
-            return (temporaryURL, [])
-        }
     }
 }
 

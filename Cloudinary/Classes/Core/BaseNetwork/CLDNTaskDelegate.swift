@@ -153,12 +153,6 @@ internal class CLDNTaskDelegate: NSObject {
             if let error = error {
                 if self.error == nil { self.error = error }
 
-                if
-                    let downloadDelegate = self as? CLDNDownloadTaskDelegate,
-                    let resumeData = (error as NSError).userInfo[NSURLSessionDownloadTaskResumeData] as? Data
-                {
-                    downloadDelegate.resumeData = resumeData
-                }
             }
 
             queue.isSuspended = false
@@ -280,123 +274,6 @@ class CLDNDataTaskDelegate: CLDNTaskDelegate, URLSessionDataDelegate {
         }
 
         completionHandler(cachedResponse)
-    }
-}
-
-// MARK: -
-
-class CLDNDownloadTaskDelegate: CLDNTaskDelegate, URLSessionDownloadDelegate {
-
-    // MARK: Properties
-
-    var downloadTask: URLSessionDownloadTask { return task as! URLSessionDownloadTask }
-
-    var progress: Progress
-    var progressHandler: (closure: CLDNRequest.ProgressHandler, queue: DispatchQueue)?
-
-    var resumeData: Data?
-    override var data: Data? { return resumeData }
-
-    var destination: CLDNDownloadRequest.DownloadFileDestination?
-
-    var temporaryURL: URL?
-    var destinationURL: URL?
-
-    var fileURL: URL? { return destination != nil ? destinationURL : temporaryURL }
-
-    // MARK: Lifecycle
-
-    override init(task: URLSessionTask?) {
-        progress = Progress(totalUnitCount: 0)
-        super.init(task: task)
-    }
-
-    override func reset() {
-        super.reset()
-
-        progress = Progress(totalUnitCount: 0)
-        resumeData = nil
-    }
-
-    // MARK: URLSessionDownloadDelegate
-
-    var downloadTaskDidFinishDownloadingToURL: ((URLSession, URLSessionDownloadTask, URL) -> URL)?
-    var downloadTaskDidWriteData: ((URLSession, URLSessionDownloadTask, Int64, Int64, Int64) -> Void)?
-    var downloadTaskDidResumeAtOffset: ((URLSession, URLSessionDownloadTask, Int64, Int64) -> Void)?
-
-    func urlSession(
-        _ session: URLSession,
-        downloadTask: URLSessionDownloadTask,
-        didFinishDownloadingTo location: URL)
-    {
-        temporaryURL = location
-
-        guard
-            let destination = destination,
-            let response = downloadTask.response as? HTTPURLResponse
-        else { return }
-
-        let result = destination(location, response)
-        let destinationURL = result.destinationURL
-        let options = result.options
-
-        self.destinationURL = destinationURL
-
-        do {
-            if options.contains(.removePreviousFile), FileManager.default.fileExists(atPath: destinationURL.path) {
-                try FileManager.default.removeItem(at: destinationURL)
-            }
-
-            if options.contains(.createIntermediateDirectories) {
-                let directory = destinationURL.deletingLastPathComponent()
-                try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-            }
-
-            try FileManager.default.moveItem(at: location, to: destinationURL)
-        } catch {
-            self.error = error
-        }
-    }
-
-    func urlSession(
-        _ session: URLSession,
-        downloadTask: URLSessionDownloadTask,
-        didWriteData bytesWritten: Int64,
-        totalBytesWritten: Int64,
-        totalBytesExpectedToWrite: Int64)
-    {
-        if initialResponseTime == nil { initialResponseTime = CFAbsoluteTimeGetCurrent() }
-
-        if let downloadTaskDidWriteData = downloadTaskDidWriteData {
-            downloadTaskDidWriteData(
-                session,
-                downloadTask,
-                bytesWritten,
-                totalBytesWritten,
-                totalBytesExpectedToWrite
-            )
-        } else {
-            progress.totalUnitCount = totalBytesExpectedToWrite
-            progress.completedUnitCount = totalBytesWritten
-
-            if let progressHandler = progressHandler {
-                progressHandler.queue.async { progressHandler.closure(self.progress) }
-            }
-        }
-    }
-
-    func urlSession(
-        _ session: URLSession,
-        downloadTask: URLSessionDownloadTask,
-        didResumeAtOffset fileOffset: Int64,
-        expectedTotalBytes: Int64)
-    {
-        if let downloadTaskDidResumeAtOffset = downloadTaskDidResumeAtOffset {
-            downloadTaskDidResumeAtOffset(session, downloadTask, fileOffset, expectedTotalBytes)
-        } else {
-            progress.totalUnitCount = expectedTotalBytes
-            progress.completedUnitCount = fileOffset
-        }
     }
 }
 

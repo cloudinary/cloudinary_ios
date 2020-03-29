@@ -353,37 +353,6 @@ class SessionManagerTestCase: BaseTestCase {
         }
     }
 
-    func testThatDownloadRequestWithInvalidURLStringThrowsResponseHandlerError() {
-        // Given
-        let sessionManager = CLDNSessionManager()
-        let expectation = self.expectation(description: "Download should fail with error")
-
-        var response: CLDNDefaultDownloadResponse?
-
-        // When
-        sessionManager.download("https://httpbin.org/get/äëïöü").response { resp in
-            response = resp
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertNil(response?.request)
-        XCTAssertNil(response?.response)
-        XCTAssertNil(response?.temporaryURL)
-        XCTAssertNil(response?.destinationURL)
-        XCTAssertNil(response?.resumeData)
-        XCTAssertNotNil(response?.error)
-
-        if let error = response?.error as? CLDNError {
-            XCTAssertTrue(error.isInvalidURLError)
-            XCTAssertEqual(error.urlConvertible as? String, "https://httpbin.org/get/äëïöü")
-        } else {
-            XCTFail("error should not be nil")
-        }
-    }
-
     func testThatUploadDataRequestWithInvalidURLStringThrowsResponseHandlerError() {
         // Given
         let sessionManager = CLDNSessionManager()
@@ -486,22 +455,6 @@ class SessionManagerTestCase: BaseTestCase {
 
         // When
         let request = sessionManager.request("https://httpbin.org/get")
-
-        // Then
-        XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
-    }
-
-    func testThatSessionManagerCallsRequestAdapterWhenCreatingDownloadRequest() {
-        // Given
-        let adapter = HTTPMethodAdapter(method: .post)
-
-        let sessionManager = CLDNSessionManager()
-        sessionManager.adapter = adapter
-        sessionManager.startRequestsImmediately = false
-
-        // When
-        let destination = CLDNDownloadRequest.suggestedDownloadDestination()
-        let request = sessionManager.download("https://httpbin.org/get", to: destination)
 
         // Then
         XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
@@ -621,44 +574,6 @@ class SessionManagerTestCase: BaseTestCase {
 
         // When
         sessionManager.request("https://httpbin.org/basic-auth/user/password")
-            .validate()
-            .responseJSON { jsonResponse in
-                response = jsonResponse
-                expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCount, 1)
-        XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty)
-
-        handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError) }
-    }
-
-    func testThatSessionManagerCallsRequestRetrierWhenDownloadInitiallyEncountersAdaptError() {
-        // Given
-        let handler = RequestHandler()
-        handler.adaptedCount = 1
-        handler.throwsErrorOnSecondAdapt = true
-        handler.shouldApplyAuthorizationHeader = true
-
-        let sessionManager = CLDNSessionManager()
-        sessionManager.adapter = handler
-        sessionManager.retrier = handler
-
-        let expectation = self.expectation(description: "request should eventually fail")
-        var response: CLDNDownloadResponse<Any>?
-
-        let destination: CLDNDownloadRequest.DownloadFileDestination = { _, _ in
-            let fileURL = self.testDirectoryURL.appendingPathComponent("test-output.json")
-            return (fileURL, [.removePreviousFile])
-        }
-
-        // When
-        sessionManager.download("https://httpbin.org/basic-auth/user/password", to: destination)
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
