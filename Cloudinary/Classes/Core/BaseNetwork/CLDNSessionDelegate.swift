@@ -103,59 +103,6 @@ internal class CLDNSessionDelegate: NSObject {
 
     // MARK: URLSessionStreamDelegate Overrides
 
-#if !os(watchOS)
-
-    /// Overrides default behavior for URLSessionStreamDelegate method `urlSession(_:readClosedFor:)`.
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    internal var streamTaskReadClosed: ((URLSession, URLSessionStreamTask) -> Void)? {
-        get {
-            return _streamTaskReadClosed as? (URLSession, URLSessionStreamTask) -> Void
-        }
-        set {
-            _streamTaskReadClosed = newValue
-        }
-    }
-
-    /// Overrides default behavior for URLSessionStreamDelegate method `urlSession(_:writeClosedFor:)`.
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    internal var streamTaskWriteClosed: ((URLSession, URLSessionStreamTask) -> Void)? {
-        get {
-            return _streamTaskWriteClosed as? (URLSession, URLSessionStreamTask) -> Void
-        }
-        set {
-            _streamTaskWriteClosed = newValue
-        }
-    }
-
-    /// Overrides default behavior for URLSessionStreamDelegate method `urlSession(_:betterRouteDiscoveredFor:)`.
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    internal var streamTaskBetterRouteDiscovered: ((URLSession, URLSessionStreamTask) -> Void)? {
-        get {
-            return _streamTaskBetterRouteDiscovered as? (URLSession, URLSessionStreamTask) -> Void
-        }
-        set {
-            _streamTaskBetterRouteDiscovered = newValue
-        }
-    }
-
-    /// Overrides default behavior for URLSessionStreamDelegate method `urlSession(_:streamTask:didBecome:outputStream:)`.
-    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-    internal var streamTaskDidBecomeInputAndOutputStreams: ((URLSession, URLSessionStreamTask, InputStream, OutputStream) -> Void)? {
-        get {
-            return _streamTaskDidBecomeInputStream as? (URLSession, URLSessionStreamTask, InputStream, OutputStream) -> Void
-        }
-        set {
-            _streamTaskDidBecomeInputStream = newValue
-        }
-    }
-
-    var _streamTaskReadClosed: Any?
-    var _streamTaskWriteClosed: Any?
-    var _streamTaskBetterRouteDiscovered: Any?
-    var _streamTaskDidBecomeInputStream: Any?
-
-#endif
-
     // MARK: Properties
 
     var retrier: CLDNRequestRetrier?
@@ -197,23 +144,6 @@ internal class CLDNSessionDelegate: NSObject {
         #if !os(macOS)
             if selector == #selector(URLSessionDelegate.urlSessionDidFinishEvents(forBackgroundURLSession:)) {
                 return sessionDidFinishEventsForBackgroundURLSession != nil
-            }
-        #endif
-
-        #if !os(watchOS)
-            if #available(iOS 9.0, macOS 10.11, tvOS 9.0, *) {
-                switch selector {
-                case #selector(URLSessionStreamDelegate.urlSession(_:readClosedFor:)):
-                    return streamTaskReadClosed != nil
-                case #selector(URLSessionStreamDelegate.urlSession(_:writeClosedFor:)):
-                    return streamTaskWriteClosed != nil
-                case #selector(URLSessionStreamDelegate.urlSession(_:betterRouteDiscoveredFor:)):
-                    return streamTaskBetterRouteDiscovered != nil
-                case #selector(URLSessionStreamDelegate.urlSession(_:streamTask:didBecome:outputStream:)):
-                    return streamTaskDidBecomeInputAndOutputStreams != nil
-                default:
-                    break
-                }
             }
         #endif
 
@@ -614,50 +544,3 @@ extension CLDNSessionDelegate: URLSessionDownloadDelegate {
     }
 }
 
-// MARK: - URLSessionStreamDelegate
-
-#if !os(watchOS)
-
-@available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-extension CLDNSessionDelegate: URLSessionStreamDelegate {
-    /// Tells the delegate that the read side of the connection has been closed.
-    ///
-    /// - parameter session:    The session.
-    /// - parameter streamTask: The stream task.
-    internal func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask) {
-        streamTaskReadClosed?(session, streamTask)
-    }
-
-    /// Tells the delegate that the write side of the connection has been closed.
-    ///
-    /// - parameter session:    The session.
-    /// - parameter streamTask: The stream task.
-    internal func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask) {
-        streamTaskWriteClosed?(session, streamTask)
-    }
-
-    /// Tells the delegate that the system has determined that a better route to the host is available.
-    ///
-    /// - parameter session:    The session.
-    /// - parameter streamTask: The stream task.
-    internal func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask) {
-        streamTaskBetterRouteDiscovered?(session, streamTask)
-    }
-
-    /// Tells the delegate that the stream task has been completed and provides the uninternaled stream objects.
-    ///
-    /// - parameter session:      The session.
-    /// - parameter streamTask:   The stream task.
-    /// - parameter inputStream:  The new input stream.
-    /// - parameter outputStream: The new output stream.
-    internal func urlSession(
-        _ session: URLSession,
-        streamTask: URLSessionStreamTask,
-        didBecome inputStream: InputStream,
-        outputStream: OutputStream)
-    {
-        streamTaskDidBecomeInputAndOutputStreams?(session, streamTask, inputStream, outputStream)
-    }
-}
-
-#endif
