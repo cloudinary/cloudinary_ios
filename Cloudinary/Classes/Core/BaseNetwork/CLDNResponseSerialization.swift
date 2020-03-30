@@ -52,37 +52,6 @@ internal struct CLDNDataResponseSerializer<Value>: CLDNDataResponseSerializerPro
     }
 }
 
-// MARK: -
-
-/// The type in which all download response serializers must conform to in order to serialize a response.
-internal protocol CLDNDownloadResponseSerializerProtocol {
-    /// The type of serialized object to be created by this `DownloadResponseSerializerType`.
-    associatedtype SerializedObject
-
-    /// A closure used by response handlers that takes a request, response, url and error and returns a result.
-    var serializeResponse: (URLRequest?, HTTPURLResponse?, URL?, Error?) -> CLDNResult<SerializedObject> { get }
-}
-
-// MARK: -
-
-/// A generic `DownloadResponseSerializerType` used to serialize a request, response, and data into a serialized object.
-internal struct CLDNDownloadResponseSerializer<Value>: CLDNDownloadResponseSerializerProtocol {
-    /// The type of serialized object to be created by this `CLDNDownloadResponseSerializer`.
-    internal typealias SerializedObject = Value
-
-    /// A closure used by response handlers that takes a request, response, url and error and returns a result.
-    internal var serializeResponse: (URLRequest?, HTTPURLResponse?, URL?, Error?) -> CLDNResult<Value>
-
-    /// Initializes the `ResponseSerializer` instance with the given serialize response closure.
-    ///
-    /// - parameter serializeResponse: The closure used to serialize the response.
-    ///
-    /// - returns: The new generic response serializer instance.
-    internal init(serializeResponse: @escaping (URLRequest?, HTTPURLResponse?, URL?, Error?) -> CLDNResult<Value>) {
-        self.serializeResponse = serializeResponse
-    }
-}
-
 // MARK: - Timeline
 
 extension CLDNRequest {
@@ -170,82 +139,6 @@ extension CLDNDataRequest {
     }
 }
 
-extension CLDNDownloadRequest {
-    /// Adds a handler to be called once the request has finished.
-    ///
-    /// - parameter queue:             The queue on which the completion handler is dispatched.
-    /// - parameter completionHandler: The code to be executed once the request has finished.
-    ///
-    /// - returns: The request.
-    @discardableResult
-    internal func response(
-        queue: DispatchQueue? = nil,
-        completionHandler: @escaping (CLDNDefaultDownloadResponse) -> Void)
-        -> Self
-    {
-        delegate.queue.addOperation {
-            (queue ?? DispatchQueue.main).async {
-                var downloadResponse = CLDNDefaultDownloadResponse(
-                    request: self.request,
-                    response: self.response,
-                    temporaryURL: self.downloadDelegate.temporaryURL,
-                    destinationURL: self.downloadDelegate.destinationURL,
-                    resumeData: self.downloadDelegate.resumeData,
-                    error: self.downloadDelegate.error,
-                    timeline: self.timeline
-                )
-
-                downloadResponse.CLDN_Add(self.delegate.metrics)
-
-                completionHandler(downloadResponse)
-            }
-        }
-
-        return self
-    }
-
-    /// Adds a handler to be called once the request has finished.
-    ///
-    /// - parameter queue:              The queue on which the completion handler is dispatched.
-    /// - parameter responseSerializer: The response serializer responsible for serializing the request, response,
-    ///                                 and data contained in the destination url.
-    /// - parameter completionHandler:  The code to be executed once the request has finished.
-    ///
-    /// - returns: The request.
-    @discardableResult
-    internal func response<T: CLDNDownloadResponseSerializerProtocol>(
-        queue: DispatchQueue? = nil,
-        responseSerializer: T,
-        completionHandler: @escaping (CLDNDownloadResponse<T.SerializedObject>) -> Void)
-        -> Self
-    {
-        delegate.queue.addOperation {
-            let result = responseSerializer.serializeResponse(
-                self.request,
-                self.response,
-                self.downloadDelegate.fileURL,
-                self.downloadDelegate.error
-            )
-
-            var downloadResponse = CLDNDownloadResponse<T.SerializedObject>(
-                request: self.request,
-                response: self.response,
-                temporaryURL: self.downloadDelegate.temporaryURL,
-                destinationURL: self.downloadDelegate.destinationURL,
-                resumeData: self.downloadDelegate.resumeData,
-                result: result,
-                timeline: self.timeline
-            )
-
-            downloadResponse.CLDN_Add(self.delegate.metrics)
-
-            (queue ?? DispatchQueue.main).async { completionHandler(downloadResponse) }
-        }
-
-        return self
-    }
-}
-
 // MARK: - Data
 
 extension CLDNRequest {
@@ -293,46 +186,6 @@ extension CLDNDataRequest {
         return response(
             queue: queue,
             responseSerializer: CLDNDataRequest.dataResponseSerializer(),
-            completionHandler: completionHandler
-        )
-    }
-}
-
-extension CLDNDownloadRequest {
-    /// Creates a response serializer that returns the associated data as-is.
-    ///
-    /// - returns: A data response serializer.
-    internal static func dataResponseSerializer() -> CLDNDownloadResponseSerializer<Data> {
-        return CLDNDownloadResponseSerializer { _, response, fileURL, error in
-            guard error == nil else { return .failure(error!) }
-
-            guard let fileURL = fileURL else {
-                return .failure(CLDNError.responseSerializationFailed(reason: .inputFileNil))
-            }
-
-            do {
-                let data = try Data(contentsOf: fileURL)
-                return CLDNRequest.serializeResponseData(response: response, data: data, error: error)
-            } catch {
-                return .failure(CLDNError.responseSerializationFailed(reason: .inputFileReadFailed(at: fileURL)))
-            }
-        }
-    }
-
-    /// Adds a handler to be called once the request has finished.
-    ///
-    /// - parameter completionHandler: The code to be executed once the request has finished.
-    ///
-    /// - returns: The request.
-    @discardableResult
-    internal func responseData(
-        queue: DispatchQueue? = nil,
-        completionHandler: @escaping (CLDNDownloadResponse<Data>) -> Void)
-        -> Self
-    {
-        return response(
-            queue: queue,
-            responseSerializer: CLDNDownloadRequest.dataResponseSerializer(),
             completionHandler: completionHandler
         )
     }
@@ -420,54 +273,6 @@ extension CLDNDataRequest {
     }
 }
 
-extension CLDNDownloadRequest {
-    /// Creates a response serializer that returns a result string type initialized from the response data with
-    /// the specified string encoding.
-    ///
-    /// - parameter encoding: The string encoding. If `nil`, the string encoding will be determined from the server
-    ///                       response, falling back to the default HTTP default character set, ISO-8859-1.
-    ///
-    /// - returns: A string response serializer.
-    internal static func stringResponseSerializer(encoding: String.Encoding? = nil) -> CLDNDownloadResponseSerializer<String> {
-        return CLDNDownloadResponseSerializer { _, response, fileURL, error in
-            guard error == nil else { return .failure(error!) }
-
-            guard let fileURL = fileURL else {
-                return .failure(CLDNError.responseSerializationFailed(reason: .inputFileNil))
-            }
-
-            do {
-                let data = try Data(contentsOf: fileURL)
-                return CLDNRequest.serializeResponseString(encoding: encoding, response: response, data: data, error: error)
-            } catch {
-                return .failure(CLDNError.responseSerializationFailed(reason: .inputFileReadFailed(at: fileURL)))
-            }
-        }
-    }
-
-    /// Adds a handler to be called once the request has finished.
-    ///
-    /// - parameter encoding:          The string encoding. If `nil`, the string encoding will be determined from the
-    ///                                server response, falling back to the default HTTP default character set,
-    ///                                ISO-8859-1.
-    /// - parameter completionHandler: A closure to be executed once the request has finished.
-    ///
-    /// - returns: The request.
-    @discardableResult
-    internal func responseString(
-        queue: DispatchQueue? = nil,
-        encoding: String.Encoding? = nil,
-        completionHandler: @escaping (CLDNDownloadResponse<String>) -> Void)
-        -> Self
-    {
-        return response(
-            queue: queue,
-            responseSerializer: CLDNDownloadRequest.stringResponseSerializer(encoding: encoding),
-            completionHandler: completionHandler
-        )
-    }
-}
-
 // MARK: - JSON
 
 extension CLDNRequest {
@@ -541,54 +346,6 @@ extension CLDNDataRequest {
     }
 }
 
-extension CLDNDownloadRequest {
-    /// Creates a response serializer that returns a JSON object result type constructed from the response data using
-    /// `JSONSerialization` with the specified reading options.
-    ///
-    /// - parameter options: The JSON serialization reading options. Defaults to `.allowFragments`.
-    ///
-    /// - returns: A JSON object response serializer.
-    internal static func jsonResponseSerializer(
-        options: JSONSerialization.ReadingOptions = .allowFragments)
-        -> CLDNDownloadResponseSerializer<Any>
-    {
-        return CLDNDownloadResponseSerializer { _, response, fileURL, error in
-            guard error == nil else { return .failure(error!) }
-
-            guard let fileURL = fileURL else {
-                return .failure(CLDNError.responseSerializationFailed(reason: .inputFileNil))
-            }
-
-            do {
-                let data = try Data(contentsOf: fileURL)
-                return CLDNRequest.serializeResponseJSON(options: options, response: response, data: data, error: error)
-            } catch {
-                return .failure(CLDNError.responseSerializationFailed(reason: .inputFileReadFailed(at: fileURL)))
-            }
-        }
-    }
-
-    /// Adds a handler to be called once the request has finished.
-    ///
-    /// - parameter options:           The JSON serialization reading options. Defaults to `.allowFragments`.
-    /// - parameter completionHandler: A closure to be executed once the request has finished.
-    ///
-    /// - returns: The request.
-    @discardableResult
-    internal func responseJSON(
-        queue: DispatchQueue? = nil,
-        options: JSONSerialization.ReadingOptions = .allowFragments,
-        completionHandler: @escaping (CLDNDownloadResponse<Any>) -> Void)
-        -> Self
-    {
-        return response(
-            queue: queue,
-            responseSerializer: CLDNDownloadRequest.jsonResponseSerializer(options: options),
-            completionHandler: completionHandler
-        )
-    }
-}
-
 // MARK: - Property List
 
 extension CLDNRequest {
@@ -657,54 +414,6 @@ extension CLDNDataRequest {
         return response(
             queue: queue,
             responseSerializer: CLDNDataRequest.propertyListResponseSerializer(options: options),
-            completionHandler: completionHandler
-        )
-    }
-}
-
-extension CLDNDownloadRequest {
-    /// Creates a response serializer that returns an object constructed from the response data using
-    /// `PropertyListSerialization` with the specified reading options.
-    ///
-    /// - parameter options: The property list reading options. Defaults to `[]`.
-    ///
-    /// - returns: A property list object response serializer.
-    internal static func propertyListResponseSerializer(
-        options: PropertyListSerialization.ReadOptions = [])
-        -> CLDNDownloadResponseSerializer<Any>
-    {
-        return CLDNDownloadResponseSerializer { _, response, fileURL, error in
-            guard error == nil else { return .failure(error!) }
-
-            guard let fileURL = fileURL else {
-                return .failure(CLDNError.responseSerializationFailed(reason: .inputFileNil))
-            }
-
-            do {
-                let data = try Data(contentsOf: fileURL)
-                return CLDNRequest.serializeResponsePropertyList(options: options, response: response, data: data, error: error)
-            } catch {
-                return .failure(CLDNError.responseSerializationFailed(reason: .inputFileReadFailed(at: fileURL)))
-            }
-        }
-    }
-
-    /// Adds a handler to be called once the request has finished.
-    ///
-    /// - parameter options:           The property list reading options. Defaults to `[]`.
-    /// - parameter completionHandler: A closure to be executed once the request has finished.
-    ///
-    /// - returns: The request.
-    @discardableResult
-    internal func responsePropertyList(
-        queue: DispatchQueue? = nil,
-        options: PropertyListSerialization.ReadOptions = [],
-        completionHandler: @escaping (CLDNDownloadResponse<Any>) -> Void)
-        -> Self
-    {
-        return response(
-            queue: queue,
-            responseSerializer: CLDNDownloadRequest.propertyListResponseSerializer(options: options),
             completionHandler: completionHandler
         )
     }
