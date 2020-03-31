@@ -631,10 +631,9 @@ import Foundation
       */
     
     @objc(setRadiusFromArray:)
-     @discardableResult
-     open func setRadius(_ radius: [Any]) -> Self {
-       return setRadius(radius.map{String(describing: $0) }.joined(separator:":"))
-      
+    @discardableResult
+    open func setRadius(_ radius: [Any]) -> Self {
+        return setRadius(radius.map{String(describing: $0)}.joined(separator:":"))
      }
 
     /**
