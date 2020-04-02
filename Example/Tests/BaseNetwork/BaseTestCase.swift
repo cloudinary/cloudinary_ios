@@ -1,7 +1,6 @@
 //
 //  BaseTestCase.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +28,7 @@ import XCTest
 class BaseTestCase: XCTestCase {
     let timeout: TimeInterval = 5.0
 
-    static var testDirectoryURL: URL { return FileManager.temporaryDirectoryURL.appendingPathComponent("org.alamofire.tests") }
+    static var testDirectoryURL: URL { return FileManager.temporaryDirectoryURL.appendingPathComponent("org.cloudinary.tests") }
     var testDirectoryURL: URL { return BaseTestCase.testDirectoryURL }
 
     override func setUp() {

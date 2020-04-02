@@ -1,7 +1,6 @@
 //
 //  UploadTests.swift
 //
-//  Copyright (c) 2014 CLDNSessionManager.default Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -537,7 +536,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
     func testThatUploadingMultipartFormDataOnBackgroundSessionWritesDataToFileToAvoidCrash() {
         // Given
         let manager: SessionManager = {
-            let identifier = "org.alamofire.uploadtests.\(UUID().uuidString)"
+            let identifier = "org.cloudinary.uploadtests.\(UUID().uuidString)"
             let configuration = URLSessionConfiguration.background(withIdentifier: identifier)
 
             return SessionManager(configuration: configuration, serverTrustPolicyManager: nil)

@@ -1,7 +1,6 @@
 //
 //  SessionManagerTests.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -234,7 +233,7 @@ class SessionManagerTestCase: BaseTestCase {
             return "\(osName) \(versionString)"
         }()
 
-        let alamofireVersion: String = {
+        let cloudinaryVersion: String = {
             guard
                 let afInfo = Bundle(for: CLDNSessionManager.self).infoDictionary,
                 let build = afInfo["CFBundleShortVersionString"]
@@ -247,11 +246,9 @@ class SessionManagerTestCase: BaseTestCase {
         let appVersion = info?["CFBundleShortVersionString"] as? String ?? "Unknown"
 
 
-        XCTAssertTrue(userAgent?.contains(alamofireVersion) == true)
+        XCTAssertTrue(userAgent?.contains(cloudinaryVersion) == true)
         XCTAssertTrue(userAgent?.contains(osNameVersion) == true)
         XCTAssertTrue(userAgent?.contains("\(executable)/\(appVersion)") == true)
-        // let expectedUserAgent = "Unknown/Unknown (Unknown; build:Unknown; \(osNameVersion)) \(alamofireVersion)"
-        // XCTAssertEqual(userAgent, expectedUserAgent)
     }
 
     // MARK: Tests - Start Requests Immediately
@@ -726,7 +723,7 @@ class SessionManagerConfigurationHeadersTestCase: BaseTestCase {
                 case .ephemeral:
                     configuration = .ephemeral
                 case .background:
-                    let identifier = "org.alamofire.test.manager-configuration-tests"
+                    let identifier = "org.cloudinary.test.manager-configuration-tests"
                     configuration = .background(withIdentifier: identifier)
                 }
 

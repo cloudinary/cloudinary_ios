@@ -1,7 +1,6 @@
 //
 //  CacheTests.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +31,7 @@ import XCTest
 /// These tests work as follows:
 ///
 /// - Set up an `URLCache`
-/// - Set up an `Alamofire.CLDNSessionManager`
+/// - Set up an `Cloudinary.CLDNSessionManager`
 /// - Execute requests for all `Cache-Control` header values to prime the `NSURLCache` with cached responses
 /// - Start up a new test
 /// - Execute another round of the same requests with a given `URLRequestCachePolicy`
@@ -130,7 +129,7 @@ class CacheTestCase: BaseTestCase {
     */
     func primeCachedResponses() {
         let dispatchGroup = DispatchGroup()
-        let serialQueue = DispatchQueue(label: "org.alamofire.cache-tests")
+        let serialQueue = DispatchQueue(label: "org.cloudinary.cache-tests")
 
         for cacheControl in CacheControl.allValues {
             dispatchGroup.enter()
