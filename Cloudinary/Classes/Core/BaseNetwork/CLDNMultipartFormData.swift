@@ -1,7 +1,6 @@
 //
 //  CLDNMultipartFormData.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -56,7 +55,7 @@ internal class CLDNMultipartFormData {
         }
 
         static func randomBoundary() -> String {
-            return String(format: "alamofire.boundary.%08x%08x", arc4random(), arc4random())
+            return String(format: "Cloudinary.boundary.%08x%08x", arc4random(), arc4random())
         }
 
         static func boundaryData(forBoundaryType boundaryType: BoundaryType, boundary: String) -> Data {

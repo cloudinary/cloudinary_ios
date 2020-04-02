@@ -22,7 +22,7 @@
 
 import Foundation
 
-/// `CLDNError` is the error type returned by Alamofire. It encompasses a few different types of errors, each with
+/// `CLDNError` is the error type returned by Cloudinary. It encompasses a few different types of errors, each with
 /// their own associated reasons.
 ///
 /// - invalidURL:                  Returned when a `URLConvertible` type fails to create a valid `URL`.
