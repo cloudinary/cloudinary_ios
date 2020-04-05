@@ -23,9 +23,8 @@
 //
 
 import Foundation
-import Alamofire
 
-internal class CLDNetworkDataRequestImpl<T: DataRequest>: CLDGenericNetworkRequest<T>, CLDNetworkDataRequest {
+internal class CLDNetworkDataRequestImpl<T: CLDNDataRequest>: CLDGenericNetworkRequest<T>, CLDNetworkDataRequest {
     
     @discardableResult
     public func progress(_ progress: ((Progress) -> Void)?) -> CLDNetworkDataRequest {

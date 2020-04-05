@@ -1,5 +1,5 @@
 //
-//  CLDNetworkDelegate.swift
+//  CLDDefaultNetworkAdapter.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -23,21 +23,20 @@
 //
 
 import Foundation
-import Alamofire
 
 
-internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
+internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
 
     init(configuration: URLSessionConfiguration? = nil) {
         if let configuration = configuration {
-            manager = SessionManager(configuration: configuration)
+            manager = CLDNSessionManager(configuration: configuration)
         } else {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.identifier)
-                configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+                configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
                 return configuration
             }()
-            manager = SessionManager(configuration: configuration)
+            manager = CLDNSessionManager(configuration: configuration)
         }
         manager.startRequestsImmediately = false
     }
@@ -46,16 +45,16 @@ internal class CLDNetworkDelegate: NSObject, CLDNetworkAdapter {
         static let identifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
     }
 
-    fileprivate let manager: Alamofire.SessionManager
+    fileprivate let manager: CLDNSessionManager
 
     fileprivate let downloadQueue: OperationQueue = OperationQueue()
 
-    internal static let sharedNetworkDelegate = CLDNetworkDelegate()
+    internal static let sharedNetworkDelegate = CLDDefaultNetworkAdapter()
 
     // MARK: Features
 
     internal func cloudinaryRequest(_ url: String, headers: [String: String], parameters: [String: Any]) -> CLDNetworkDataRequest {
-        let req: DataRequest = manager.request(url, method: .post, parameters: parameters, headers: headers)
+        let req: CLDNDataRequest = manager.request(url, method: .post, parameters: parameters, headers: headers)
         req.resume()
         return CLDNetworkDataRequestImpl(request: req)
     }

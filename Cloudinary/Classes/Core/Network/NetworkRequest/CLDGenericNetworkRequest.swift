@@ -23,9 +23,8 @@
 //
 
 import Foundation
-import Alamofire
 
-internal class CLDGenericNetworkRequest<T: Request>: NSObject, CLDNetworkRequest {
+internal class CLDGenericNetworkRequest<T: CLDNRequest>: NSObject, CLDNetworkRequest {
     
     internal let request: T
     

@@ -23,9 +23,8 @@
 //
 
 import Foundation
-import Alamofire
 
-internal class CLDNetworkUploadRequest: CLDNetworkDataRequestImpl<UploadRequest> {
+internal class CLDNetworkUploadRequest: CLDNetworkDataRequestImpl<CLDNUploadRequest> {
     
     override func progress(_ progress: ((Progress) -> Void)?) -> CLDNetworkDataRequest {
         

@@ -43,7 +43,6 @@ internal class CLDFileUtils {
 
     internal static func splitFile(url: URL, chunkSize: Int) -> (URL?, [CLDPartDescriptor])?{
         let maxBufferSize = 16 * 1024
-        var names = [URL]()
         var outputStream:OutputStream?
         var success = false
         var parts = [CLDPartDescriptor]()
