@@ -86,33 +86,6 @@ git submodule add https://github.com/cloudinary/cloudinary_ios.git
 2. Select `Cloudinary.xcodeproj` and make sure the deployment target matches that of your application target.
 3. Select your application project. Under 'TARGETS' select your application, open the 'General' tab, click on the `+` button under the 'Embedded Binaries' and Select 'Cloudinary.framework'.
 
-#### Dependencies
-
-The Cloudinary iOS SDK depends on [Alamofire](https://github.com/Alamofire/Alamofire). If you add Cloudinary manually you will need to [add Alamofire manually to your project](https://github.com/Alamofire/Alamofire/#manually). Make sure to checkout the correct version after adding the submodule ([as explained here](#submodule)).
-
-### Build Framework
-
-Here's the steps to get the framework project to build, in case you want to work on the project itself.
-
-After cloning the repository, you will need to add Alamofire v4.8.1, there are several ways to do so:
-
-##### Submodule
-
-1. Open Terminal, navigate to Cloudinary's cloned repository folder, then run the following command:
-
-```bash
-git submodule update --init Alamofire
-```
-
-###### Add library
-
-1. Open the new Alamofire folder and drag `Alamofire.xcodeproj` into the Project Navigator of Cloudinary's Xcode project.
-2. Select the Cloudinary project, and under 'TARGETS' select Cloudinary. Then open the 'General' tab, click on the `+` button under the 'Linked Frameworks and Libraries' and Select 'Alamofire.framework'.
-
-##### Download source
-
-You can download Alamofire v4.8.1 from [here](https://github.com/Alamofire/Alamofire/archive/4.8.1.zip). Then follow the instruction in [Add library](#add-library).
-
 ## Usage
 
 ### Configuration
