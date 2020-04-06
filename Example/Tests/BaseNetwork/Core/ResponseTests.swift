@@ -47,10 +47,8 @@ class ResponseTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertNil(response?.error)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -75,10 +73,8 @@ class ResponseTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertNotNil(response?.error)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 }
@@ -108,10 +104,8 @@ class ResponseDataTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isSuccess, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -136,10 +130,8 @@ class ResponseDataTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isFailure, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 }
@@ -169,10 +161,8 @@ class ResponseStringTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isSuccess, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -197,10 +187,8 @@ class ResponseStringTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isFailure, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 }
@@ -230,10 +218,8 @@ class ResponseJSONTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isSuccess, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -258,10 +244,8 @@ class ResponseJSONTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isFailure, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -287,10 +271,8 @@ class ResponseJSONTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isSuccess, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
 
         if
@@ -325,10 +307,8 @@ class ResponseJSONTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isSuccess, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
 
         if
@@ -371,10 +351,8 @@ class ResponseMapTestCase: BaseTestCase {
         XCTAssertEqual(response?.result.isSuccess, true)
         XCTAssertEqual(response?.result.value, "bar")
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -399,10 +377,8 @@ class ResponseMapTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isFailure, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 }
@@ -436,10 +412,8 @@ class ResponseFlatMapTestCase: BaseTestCase {
         XCTAssertEqual(response?.result.isSuccess, true)
         XCTAssertEqual(response?.result.value, "bar")
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -475,10 +449,8 @@ class ResponseFlatMapTestCase: BaseTestCase {
             XCTFail("flatMap should catch the transformation error")
         }
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -503,10 +475,8 @@ class ResponseFlatMapTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isFailure, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 }
@@ -551,10 +521,8 @@ class ResponseMapErrorTestCase: BaseTestCase {
         XCTAssertEqual(response?.result.isFailure, true)
         guard let error = response?.error as? TestError, case .error = error else { XCTFail(); return }
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -579,10 +547,8 @@ class ResponseMapErrorTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isSuccess, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 }
@@ -611,10 +577,8 @@ class ResponseFlatMapErrorTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isSuccess, true)
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -645,10 +609,8 @@ class ResponseFlatMapErrorTestCase: BaseTestCase {
             XCTFail("flatMapError should catch the transformation error")
         }
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 
@@ -674,10 +636,8 @@ class ResponseFlatMapErrorTestCase: BaseTestCase {
         XCTAssertEqual(response?.result.isFailure, true)
         guard let error = response?.error as? TestError, case .error = error else { XCTFail(); return }
 
-        var metrics: AnyObject? = nil
         if #available(iOS 10.0, macOS 10.12, tvOS 10.0, *) {
-            metrics = response?.metrics
-            XCTAssertNotNil(metrics)
+            XCTAssertNotNil(response?._metrics)
         }
     }
 }
