@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-## Bug report for Cloudinary Swift SDK
+## Bug report for Cloudinary iOS SDK
 Before proceeding, please update to latest version and test if the issue persists
 
 ## Describe the bug in a sentence or two.
