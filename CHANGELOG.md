@@ -1,4 +1,14 @@
 
+2.9.0 / 2020-04-16
+==================
+* Remove Alamofire dependency (#229)
+* Add Swift Package Manager support.
+* Add Carthage support.
+* Rearrange workspace (#226)
+* Add support for `assist_colorblind` effect. (#227)
+* Validate URL scheme (#224)
+
+
 2.9.0-beta.2 / 2020-04-05
 =========================
 
