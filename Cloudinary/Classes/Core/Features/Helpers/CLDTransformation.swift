@@ -623,7 +623,21 @@ import CoreGraphics
         return setParam(TransformationParam.RADIUS, value: radius)
     }
 
-    /**
+   /**
+    Support an array value for radius
+     
+     - parameter radius:    - The radius to apply- an array of values
+     
+     - returns:             The same instance of CLDTransformation.
+     */
+
+   @objc(setRadiusFromArray:)
+   @discardableResult
+   open func setRadius(_ radius: [Any]) -> Self {
+       return setRadius(radius.map{String(describing: $0)}.joined(separator:":"))
+   }
+   
+   /**
     Set the image quality for the transformation, see CLDQuality for options.
 
      - parameter quality:   A CLDQuality instance containing the quality settings.
