@@ -26,7 +26,7 @@ For iOS, Cloudinary provides an SDK for simplifying the integration even further
 ## Requirements
 
 - iOS 8.0+
-- Compatible with Swift, tested up to version 4.1.
+- Compatible with Swift, tested up to version 5.0.
 - Compatible with Objective-C, see [usage example](CloudinaryTests/GenerateUrlTests/UrlTests.m).
 
 ## Integration
