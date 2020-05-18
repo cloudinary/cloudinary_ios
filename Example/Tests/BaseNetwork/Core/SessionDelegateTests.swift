@@ -28,7 +28,7 @@ import XCTest
 class SessionDelegateTestCase: BaseTestCase {
     var manager: CLDNSessionManager!
 
-    // MARK: - Setup and Teardown
+    // MARK: - setup and teardown
 
     override func setUp() {
         super.setUp()

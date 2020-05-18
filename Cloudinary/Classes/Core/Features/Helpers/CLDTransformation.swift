@@ -29,13 +29,36 @@ import CoreGraphics
  */
 @objcMembers open class CLDTransformation: NSObject {
     
-    fileprivate var currentTransformationParams: [String : String] = [:]
-    fileprivate var transformations: [[String : String]] = []
+    fileprivate typealias Transformation = [String : String]
+    
+    static fileprivate let transformationContentSeparator: String = ","
+    static fileprivate let elementsSeparator             : String = "_"
+    
+    fileprivate var currentTransformationParams: Transformation
+    fileprivate var transformations : [Transformation]
+    fileprivate var currentCondition: CLDConditionExpression?
     
     // MARK: - Init
     
     public override init() {
+        self.currentTransformationParams =  Transformation()
+        self.transformations             = [Transformation]()
+        self.currentCondition            = nil
         super.init()
+    }
+    
+    public init(input: [CLDTransformation]) {
+        
+        self.currentTransformationParams =  Transformation()
+        self.transformations             = [Transformation]()
+        self.currentCondition            = nil
+        
+        super.init()
+        
+        input.forEach {
+            $0.chain()
+            transformations.append(contentsOf: $0.transformations)
+        }
     }
     
     // MARK: - Get Values
@@ -140,6 +163,14 @@ import CoreGraphics
         return getParam(.RAW_TRANSFORMATION)
     }
     
+    open var variables: String? {
+        return getParam(.VARIABLES)
+    }
+    
+    open var ifParam: String? {
+        return getParam(.IF_PARAM)
+    }
+    
     open var flags: String? {
         return getParam(.FLAGS)
     }
@@ -155,7 +186,7 @@ import CoreGraphics
     open var aspectRatio: String? {
         return getParam(.ASPECT_RATIO)
     }
-
+    
     open var customFunction: String? {
         return getParam(.CUSTOM_FUNCTION)
     }
@@ -201,6 +232,18 @@ import CoreGraphics
         return getParam(.VIDEO_CODEC)
     }
     
+    open var fps: String? {
+        return getParam(.FPS)
+    }
+    
+    open var keyframeInterval: String? {
+        return getParam(.KEYFRAME_INTERVAL)
+    }
+    
+    open var streamingProfile: String? {
+        return getParam(.STREAMING_PROFILE)
+    }
+    
     fileprivate func getParam(_ param: TransformationParam) -> String? {
         return getParam(param.rawValue)
     }
@@ -209,8 +252,104 @@ import CoreGraphics
         return currentTransformationParams[param]
     }
     
-    // MARK: - Set Values
+    // MARK: - Set Values - Variable
     
+    /**
+     Set a variable.
+     
+     - parameter name:       The variable's name.
+     - parameter value:      The variable's value.
+     
+     - returns:              The same instance of CLDTransformation.
+     */
+    @discardableResult
+    public func setVariable(_ name: String, int value: Int) -> Self {
+        
+        let variable = CLDVariable(name: name, value: String(value))
+        return setVariable(variable)
+    }
+    /**
+     Set a variable.
+     
+     - parameter name:       The variable's name.
+     - parameter value:      The variable's value.
+     
+     - returns:              The same instance of CLDTransformation.
+     */
+    @discardableResult
+    public func setVariable(_ name: String, float value: Float) -> Self {
+        
+        let variable = CLDVariable(name: name, value: value.cldFloatFormat())
+        return setVariable(variable)
+    }
+    /**
+     Set a variable.
+     
+     - parameter name:       The variable's name.
+     - parameter value:      The variable's value.
+     
+     - returns:              The same instance of CLDTransformation.
+     */
+    @discardableResult
+    public func setVariable(_ name: String, string value: String) -> Self {
+        
+        let variable = CLDVariable(name: name, value: value)
+        return setVariable(variable)
+    }
+    /**
+     Set a variable.
+     
+     - parameter name:       The variable's name.
+     - parameter values:      The variable's value.
+     
+     - returns:              The same instance of CLDTransformation.
+     */
+    // @objc(setVariableWithNameAndVariablesArray:)
+    @discardableResult
+    public func setVariable(_ name: String, values: [String]) -> Self {
+        
+        let variable = CLDVariable(name: name, values: values)
+        return setVariable(variable)
+    }
+    
+    /**
+     Set a variable.
+     
+     - parameter variable:   The variable to set.
+     
+     - returns:              The same instance of CLDTransformation.
+     */
+    @discardableResult
+    public func setVariable(_ variable: CLDVariable) -> Self {
+        
+        guard variable.isValid else { return self }
+        
+        return setParam(variable.name, value: variable.value)
+    }
+    
+    /**
+     Set an array of variables.
+     
+     - parameter variables:  The variables to set.
+     
+     - returns:              The same instance of CLDTransformation.
+     */
+    @objc(setVariablesWithVariablesArray:)
+    @discardableResult
+    public func setVariables(_ variables: [CLDVariable]) -> Self {
+        
+        let joined = variables.filter {
+            $0.isValid
+        }.map {
+            $0.asString()
+        }.joined(separator: CLDTransformation.transformationContentSeparator)
+        
+        setParam(TransformationParam.VARIABLES.rawValue, value: joined)
+        
+        return self
+    }
+    
+    // MARK: - Set Values - Width
     /**
      Set the image width.
      
@@ -246,9 +385,18 @@ import CoreGraphics
      */
     @discardableResult
     open func setWidth(_ width: String) -> Self {
-        return setParam(TransformationParam.WIDTH, value: width)
+        
+        let expression = CLDExpression(value: width)
+        
+        guard !expression.currentValue.isEmpty else {
+            
+            return setParam(TransformationParam.WIDTH, value: width)
+        }
+        
+        return setWidth(expression)
     }
     
+    // MARK: - Set Values - Height
     /**
      Set the image height.
      
@@ -284,8 +432,18 @@ import CoreGraphics
      */
     @discardableResult
     open func setHeight(_ height: String) -> Self {
-        return setParam(TransformationParam.HEIGHT, value: height)
+        
+        let expression = CLDExpression(value: height)
+        
+        guard !expression.currentValue.isEmpty else {
+            
+            return setParam(TransformationParam.HEIGHT, value: height)
+        }
+        
+        return setHeight(expression)
     }
+    
+    // MARK: - Set Values - Named
     
     /**
      A named transformation is a set of image transformations that has been given a custom name for easy reference.
@@ -314,6 +472,8 @@ import CoreGraphics
         return setParam(TransformationParam.NAMED, value: names)
     }
     
+    // MARK: - Set Values - Crop
+    
     /**
      Set the image crop.
      
@@ -339,6 +499,8 @@ import CoreGraphics
         return setParam(TransformationParam.CROP, value: crop)
     }
     
+    // MARK: - Set Values - Background
+    
     /**
      Defines the background color to use instead of transparent background areas when converting to JPG format or using the pad crop mode.
      The background color can be set as an RGB hex triplet (e.g. '#3e2222'), a 3 character RGB hex (e.g. '#777') or a named color (e.g. 'green').
@@ -352,6 +514,8 @@ import CoreGraphics
         return setParam(TransformationParam.BACKGROUND, value: background.replacingOccurrences(of: "#", with: "rgb:"))
     }
     
+    // MARK: - Set Values - Color
+    
     /**
      Customize the color to use together with: text captions, the shadow effect and the colorize effect.
      The color can be set as an RGB hex triplet (e.g. '#3e2222'), a 3 character RGB hex (e.g. '#777') or a named color (e.g. 'green').
@@ -364,6 +528,8 @@ import CoreGraphics
     open func setColor(_ color: String) -> Self {
         return setParam(TransformationParam.COLOR, value: color.replacingOccurrences(of: "#", with: "rgb:"))
     }
+    
+    // MARK: - Set Values - Effect
     
     /**
      Apply a filter or an effect on an image.
@@ -433,6 +599,8 @@ import CoreGraphics
         return setParam(TransformationParam.EFFECT, value: effect)
     }
     
+    // MARK: - Set Values - Angle
+    
     /**
      Rotate or flip an image by the given degrees or automatically according to its orientation or available meta-data.
      
@@ -471,6 +639,8 @@ import CoreGraphics
         return setParam(TransformationParam.ANGLE, value: angle)
     }
     
+    // MARK: - Set Values - Opacity
+    
     /**
      Adjust the opacity of the image and make it semi-transparent. 100 means opaque, while 0 is completely transparent.
      
@@ -495,6 +665,8 @@ import CoreGraphics
     open func setOpacity(_ opacity: String) -> Self {
         return setParam(TransformationParam.OPACITY, value: opacity)
     }
+    
+    // MARK: - Set Values - Border
     
     /**
      Add a solid border around the image.
@@ -521,6 +693,8 @@ import CoreGraphics
     open func setBorder(_ border: String) -> Self {
         return setParam(TransformationParam.BORDER, value: border.replacingOccurrences(of: "#", with: "rgb:"))
     }
+    
+    // MARK: - Set Values - X
     
     /**
      Horizontal position for custom-coordinates based cropping, overlay placement and certain region related effects.
@@ -557,8 +731,17 @@ import CoreGraphics
      */
     @discardableResult
     open func setX(_ x: String) -> Self {
-        return setParam(TransformationParam.X, value: x)
+        
+        let expression = CLDExpression(value: x)
+        
+        if !expression.currentValue.isEmpty {
+            return setX(expression)
+        } else {
+            return setParam(TransformationParam.X, value: x)
+        }
     }
+    
+    // MARK: - Set Values - Y
     
     /**
      Vertical position for custom-coordinates based cropping and overlay placement.
@@ -595,8 +778,17 @@ import CoreGraphics
      */
     @discardableResult
     open func setY(_ y: String) -> Self {
-        return setParam(TransformationParam.Y, value: y)
+        
+        let expression = CLDExpression(value: y)
+        
+        if !expression.currentValue.isEmpty {
+            return setY(expression)
+        } else {
+            return setParam(TransformationParam.Y, value: y)
+        }
     }
+    
+    // MARK: - Set Values - Radius
     
     /**
      Round the corners of an image or make it completely circular or oval (ellipse).
@@ -620,14 +812,23 @@ import CoreGraphics
      */
     @discardableResult
     open func setRadius(_ radius: String) -> Self {
-        return setParam(TransformationParam.RADIUS, value: radius)
+        
+        let expression = CLDExpression(value: radius)
+        
+        if !expression.currentValue.isEmpty {
+            return setRadius(expression)
+        } else {
+            return setParam(TransformationParam.RADIUS, value: radius)
+        }
     }
-
+    
+    // MARK: - Set Values - Quality
+    
     /**
-    Set the image quality for the transformation, see CLDQuality for options.
-
+     Set the image quality for the transformation, see CLDQuality for options.
+     
      - parameter quality:   A CLDQuality instance containing the quality settings.
-
+     
      - returns:             The same instance of CLDTransformation.
      */
     @objc(setQualityFromQuality:)
@@ -670,6 +871,8 @@ import CoreGraphics
         return setParam(TransformationParam.QUALITY, value: quality)
     }
     
+    // MARK: - Set Values - DefaultImage
+    
     /**
      Specify the public ID of a placeholder image to use if the requested image or social network picture does not exist.
      
@@ -681,6 +884,8 @@ import CoreGraphics
     open func setDefaultImage(_ defaultImage: String) -> Self {
         return setParam(TransformationParam.DEFAULT_IMAGE, value: defaultImage)
     }
+    
+    // MARK: - Set Values - Gravity
     
     /**
      Decides which part of the image to keep while 'crop', 'pad' and 'fill' crop modes are used.
@@ -706,7 +911,7 @@ import CoreGraphics
     open func setGravity(_ gravity: String) -> Self {
         return setParam(TransformationParam.GRAVITY, value: gravity)
     }
-    
+    // MARK: - Set Values - ColorSpace
     /**
      Set the transformation color space.
      
@@ -718,7 +923,7 @@ import CoreGraphics
     open func setColorSpace(_ colorSpace: String) -> Self {
         return setParam(TransformationParam.COLOR_SPACE, value: colorSpace)
     }
-    
+    // MARK: - Set Values - Prefix
     /**
      Set the transformation prefix.
      
@@ -730,7 +935,7 @@ import CoreGraphics
     open func setPrefix(_ prefix: String) -> Self {
         return setParam(TransformationParam.PREFIX, value: prefix)
     }
-    
+    // MARK: - Set Values - Overlay
     /**
      Add an overlay over the base image. You can control the dimension and position of the overlay using the width, height, x, y and gravity parameters.
      The overlay can take one of the following forms:
@@ -746,7 +951,7 @@ import CoreGraphics
     open func setOverlay(_ overlay: String) -> Self {
         return setParam(TransformationParam.OVERLAY, value: overlay)
     }
-    
+    // MARK: - Set Values - Underlay
     /**
      Add an underlay image below a base partially-transparent image.
      You can control the dimensions and position of the underlay using the width, height, x, y and gravity parameters.
@@ -763,6 +968,7 @@ import CoreGraphics
     open func setUnderlay(_ underlay: String) -> Self {
         return setParam(TransformationParam.UNDERLAY, value: underlay)
     }
+    // MARK: - Set Values - FetchFormat
     
     /**
      Force format conversion to the given image format for remote 'fetch' URLs and auto uploaded images that already have a different format as part of their URLs.
@@ -775,6 +981,8 @@ import CoreGraphics
     open func setFetchFormat(_ fetchFormat: String) -> Self {
         return setParam(TransformationParam.FETCH_FORMAT, value: fetchFormat)
     }
+    
+    // MARK: - Set Values - Density
     
     /**
      Control the density to use while converting a PDF document to images. (range: 50-300, default is 150)
@@ -800,7 +1008,7 @@ import CoreGraphics
     open func setDensity(_ density: String) -> Self {
         return setParam(TransformationParam.DENSITY, value: density)
     }
-    
+    // MARK: - Set Values - Page
     /**
      Given a multi-page file (PDF, animated GIF, TIFF), generate an image of a single page using the given index.
      
@@ -825,6 +1033,8 @@ import CoreGraphics
     open func setPage(_ page: String) -> Self {
         return setParam(TransformationParam.PAGE, value: page)
     }
+    
+    // MARK: - Set Values - Delay
     
     /**
      Controls the time delay between the frames of an animated image, in milliseconds.
@@ -851,6 +1061,8 @@ import CoreGraphics
         return setParam(TransformationParam.DELAY, value: delay)
     }
     
+    // MARK: - Set Values - RawTransformation
+    
     /**
      Add a raw transformation, it will be appended to the other transformation parameter.
      the transformation must conform to [Cloudinary's transformation documentation](http://cloudinary.com/documentation/image_transformation_reference)
@@ -863,6 +1075,8 @@ import CoreGraphics
     open func setRawTransformation(_ rawTransformation: String) -> Self {
         return setParam(TransformationParam.RAW_TRANSFORMATION, value: rawTransformation)
     }
+    
+    // MARK: - Set Values - Flags
     
     /**
      Set one or more flags that alter the default transformation behavior.
@@ -888,7 +1102,7 @@ import CoreGraphics
     open func setFlags(_ flags: String) -> Self {
         return setParam(TransformationParam.FLAGS, value: flags)
     }
-    
+    // MARK: - Set Values - DPR
     /**
      Deliver the image in the specified device pixel ratio.
      
@@ -913,7 +1127,7 @@ import CoreGraphics
     open func setDpr(_ dpr: String) -> Self {
         return setParam(TransformationParam.DPR, value: dpr)
     }
-    
+    // MARK: - Set Values - Zoom
     /**
      Control how much of the original image surrounding the face to keep when using either the 'crop' or 'thumb' cropping modes with face detection. default is 1.0.
      
@@ -938,6 +1152,8 @@ import CoreGraphics
     open func setZoom(_ zoom: String) -> Self {
         return setParam(TransformationParam.ZOOM, value: zoom)
     }
+    
+    // MARK: - Set Values - AspectRatio
     
     /**
      Resize or crop the image to a new aspect ratio using a nominator and dominator (e.g. 16 and 9 for 16:9).
@@ -979,19 +1195,23 @@ import CoreGraphics
     open func setAspectRatio(_ aspectRatio: String) -> Self {
         return setParam(TransformationParam.ASPECT_RATIO, value: aspectRatio)
     }
-
+    
+    // MARK: - Set Values - CustomFunction
+    
     /**
      Set a custom function, such as a call to a lambda function or a web-assembly function.
-
+     
      - parameter customFunction:    The custom function to perform, see CLDCustomFunction.
-
+     
      - returns:                     The same instance of CLDTransformation.
      */
     @discardableResult
     open func setCustomFunction(_ customFunction: CLDCustomFunction) -> Self {
         return setParam(TransformationParam.CUSTOM_FUNCTION, value: customFunction.description)
     }
-
+    
+    // MARK: - Set Values - AudioCodec
+    
     /**
      Use the audio_codec parameter to set the audio codec or remove the audio channel completely as follows:
      
@@ -1008,7 +1228,7 @@ import CoreGraphics
     open func setAudioCodec(_ audioCodec: String) -> Self {
         return setParam(TransformationParam.AUDIO_CODEC, value: audioCodec)
     }
-    
+    // MARK: - Set Values - AudioFrequency
     /**
      Use the audio_frequency parameter to control the audio sampling frequency.
      This parameter represents an integer value in Hz.
@@ -1038,6 +1258,7 @@ import CoreGraphics
         return setParam(TransformationParam.AUDIO_FREQUENCY, value: audioFrequency)
     }
     
+    // MARK: - Set Values - BitRate
     /**
      Use the bit_rate parameter for advanced control of the video bit rate.
      This parameter controls the number of bits used to represent the video data.
@@ -1085,6 +1306,8 @@ import CoreGraphics
         return setParam(TransformationParam.BIT_RATE, value: bitRate)
     }
     
+    // MARK: - Set Values - VideoSampling
+    
     /**
      The total number of frames to sample from the original video. The frames are spread out over the length of the video, e.g. 20 takes one frame every 5%.
      
@@ -1123,7 +1346,7 @@ import CoreGraphics
     open func setVideoSampling(_ videoSampling: String) -> Self {
         return setParam(TransformationParam.VIDEO_SAMPLING, value: videoSampling)
     }
-    
+    // MARK: - Set Values - Duration
     /**
      Offset in seconds or percent of a video, normally used together with the start_offset and end_offset parameters. Used to specify:
      * The duration the video displays.
@@ -1165,7 +1388,7 @@ import CoreGraphics
     open func setDuration(_ duration: String) -> Self {
         return setParam(TransformationParam.DURATION, value: duration)
     }
-    
+    // MARK: - Set Values - StartOffset
     /**
      Set an offset in seconds to cut a video at the start.
      
@@ -1202,7 +1425,7 @@ import CoreGraphics
     open func setStartOffset(_ duration: String) -> Self {
         return setParam(TransformationParam.START_OFFSET, value: duration)
     }
-    
+    // MARK: - Set Values - EndOffset
     /**
      Set an offset in seconds to cut a video at the end.
      
@@ -1238,7 +1461,7 @@ import CoreGraphics
     open func setEndOffset(_ duration: String) -> Self {
         return setParam(TransformationParam.END_OFFSET, value: duration)
     }
-    
+    // MARK: - Set Values - VideoCodecAndProfileAndLevel
     /**
      Used to determine the video codec, video profile and level to use.
      You can set this parameter to auto instead.
@@ -1253,7 +1476,7 @@ import CoreGraphics
     open func setVideoCodecAndProfileAndLevel(_ videoCodec: String, videoProfile: String, level: String? = nil) -> Self {
         return level == nil ? setVideoCodec("\(videoCodec):\(videoProfile)") : setVideoCodec("\(videoCodec):\(videoProfile):\(level!)")
     }
-    
+    // MARK: - Set Values - VideoCodec
     /**
      Used to determine the video codec to use.
      You can set this parameter to auto instead.
@@ -1288,6 +1511,7 @@ import CoreGraphics
      
      - returns:                     The same instance of CLDTransformation.
      */
+    @discardableResult
     func setOffset(seconds: [Float]) -> Self {
         guard let
             start = seconds.first,
@@ -1304,6 +1528,7 @@ import CoreGraphics
      
      - returns:                     The same instance of CLDTransformation.
      */
+    @discardableResult
     func setOffset(percents: [Int]) -> Self {
         guard let
             start = percents.first,
@@ -1321,6 +1546,7 @@ import CoreGraphics
      
      - returns:                     The same instance of CLDTransformation.
      */
+    @discardableResult
     func setOffset(_ durations: [String]) -> Self {
         guard let
             start = durations.first,
@@ -1342,9 +1568,7 @@ import CoreGraphics
      */
     @discardableResult
     open func setStartOffsetAndEndOffset(startSeconds: Float, endSeconds: Float) -> Self {
-        setStartOffset(seconds: startSeconds)
-        setEndOffset(seconds: endSeconds)
-        return self
+        return setStartOffset(seconds: startSeconds).setEndOffset(seconds: endSeconds)
     }
     
     /**
@@ -1357,9 +1581,7 @@ import CoreGraphics
      */
     @discardableResult
     open func setStartOffsetAndEndOffset(startPercent: Int, endPercent: Int) -> Self {
-        setStartOffset(percent: startPercent)
-        setEndOffset(percent: endPercent)
-        return self
+        return setStartOffset(percent: startPercent).setEndOffset(percent: endPercent)
     }
     
     /**
@@ -1443,8 +1665,7 @@ import CoreGraphics
      */
     @discardableResult
     open func setTopLeftPoint(_ point: CGPoint) -> Self {
-        setX(Float(point.x))
-        return setY(Float(point.y))
+        return setX(Float(point.x)).setY(Float(point.y))
     }
     
     @discardableResult
@@ -1456,7 +1677,7 @@ import CoreGraphics
     open func setKeyframeInterval(_ interval: String) -> Self {
         return setParam(TransformationParam.KEYFRAME_INTERVAL, value: interval)
     }
-
+    
     @discardableResult
     open func setStreamingProfile(_ streamingProfile: String) -> Self {
         return setParam(TransformationParam.STREAMING_PROFILE, value: streamingProfile)
@@ -1477,6 +1698,9 @@ import CoreGraphics
      */
     @discardableResult
     open func chain() -> Self {
+        
+        guard !currentTransformationParams.isEmpty else { return self }
+        
         transformations.append(currentTransformationParams)
         currentTransformationParams = [:]
         return self
@@ -1498,22 +1722,38 @@ import CoreGraphics
     
     // MARK: - Private
     
-    func getStringRepresentationFromParams(_ params: [String : String]) -> String? {
+    internal func getStringRepresentationFromParams(_ params: [String : String]) -> String? {
         
-        let emptyParams = params.filter{$0.0.isEmpty || $0.1.isEmpty}
-        if emptyParams.count > 0 {
+        let emptyParams = params.filter { $0.0.isEmpty || $0.1.isEmpty }
+        if !emptyParams.isEmpty {
             printLog(.error, text: "An empty string key or value are not allowed.")
             return nil
         }
         
-        var components: [String] = params.sorted{$0.0 < $1.0}
-                                        .filter{$0.0 != TransformationParam.RAW_TRANSFORMATION.rawValue && !$0.1.isEmpty}
-                                        .map{"\($0)_\($1)"}
-
-        if let rawTrans = params[TransformationParam.RAW_TRANSFORMATION.rawValue] , !rawTrans.isEmpty {
-            components.append(rawTrans)
+        let components: [String] = params.sorted { $0.0 < $1.0 }
+            .filter { $0.0 != TransformationParam.RAW_TRANSFORMATION.rawValue &&
+                $0.0 != TransformationParam.VARIABLES.rawValue &&
+                $0.0 != TransformationParam.IF_PARAM.rawValue &&
+                !$0.1.isEmpty }
+            .map { "\($0)_\($1)" }
+        
+        var finalComponents: [String] = [String]()
+        
+        if let ifConditions = params[TransformationParam.IF_PARAM.rawValue], !ifConditions.isEmpty {
+            finalComponents.append(TransformationParam.IF_PARAM.rawValue + CLDTransformation.elementsSeparator + ifConditions)
         }
-        return components.joined(separator: ",")
+        
+        if let complexVariables = params[TransformationParam.VARIABLES.rawValue], !complexVariables.isEmpty {
+            finalComponents.append(complexVariables)
+        }
+        
+        finalComponents.append(contentsOf: components)
+        
+        if let rawTrans = params[TransformationParam.RAW_TRANSFORMATION.rawValue], !rawTrans.isEmpty {
+            finalComponents.append(rawTrans)
+        }
+        
+        return finalComponents.joined(separator: CLDTransformation.transformationContentSeparator)
     }
     
     // MARK: - Params
@@ -1557,12 +1797,14 @@ import CoreGraphics
         case END_OFFSET =                   "eo"
         case VIDEO_CODEC =                  "vc"
         case RAW_TRANSFORMATION =           "raw_transformation"
+        case VARIABLES =                    "variables"
+        case IF_PARAM =                     "if"
         case KEYFRAME_INTERVAL =            "ki"
         case FPS =                          "fps"
-        case STREAMING_PROFILE =             "sp"
+        case STREAMING_PROFILE =            "sp"
     }
-
-
+    
+    
     // MARK: CLDBaseParam
     @objc public class CLDBaseParam: NSObject {
         fileprivate let param: String
@@ -1583,24 +1825,24 @@ import CoreGraphics
     }
     
     // MARK: CLDQuality
-
+    
     /**
      Image quality configuration object
      */
     @objc public class CLDQuality: CLDBaseParam {
-
+        
         /**
          Build an instance of CLDQuality configured for fixed quality.
-
+         
          - parameter level: Quality level to set. Valid range is 1 through 100.
          */
         public static func fixed(_ level: Int) -> CLDQuality {
             return CLDQuality(level.description)
         }
-
+        
         /**
          Build an instance of CLDQuality configured for automatic quality. See CLDAutoQuality enum for details.
-
+         
          - parameter level: Auto quality level.
          */
         public static func auto(_ level: CLDQualityAuto? = nil) -> CLDQuality {
@@ -1610,7 +1852,7 @@ import CoreGraphics
                 return CLDQuality("auto")
             }
         }
-
+        
         /**
          Build an instance of CLDQuality configured to use jpegmini addon for automatic quality.
          */
@@ -1618,17 +1860,17 @@ import CoreGraphics
             return CLDQuality("jpegmini")
         }
     }
-
+    
     /**
-       Automatic optimal quality settings: the smallest file size without affecting their perceptual quality.
-         * best: Automatically calculate the optimal quality for images using a less aggressive algorithm
-         * good: Automatically calculate the optimal quality for an image
-         * eco: Automatically calculate the optimal quality for images using a more aggressive algorithm
-         * low: Automatically calculate the optimal quality for images using the most aggressive algorithm
+     Automatic optimal quality settings: the smallest file size without affecting their perceptual quality.
+     * best: Automatically calculate the optimal quality for images using a less aggressive algorithm
+     * good: Automatically calculate the optimal quality for an image
+     * eco: Automatically calculate the optimal quality for images using a more aggressive algorithm
+     * low: Automatically calculate the optimal quality for images using the most aggressive algorithm
      */
     @objc public enum CLDQualityAuto: Int, CustomStringConvertible {
         case best, good, eco, low
-
+        
         public var description: String {
             get {
                 switch self {
@@ -1640,40 +1882,40 @@ import CoreGraphics
             }
         }
     }
-
+    
     // MARK: CLDCustomFunction
-
+    
     /**
      Custom function configuration object
      */
     @objc public class CLDCustomFunction: CLDBaseParam {
-
+        
         /**
          Build an instance of CLDCustomFunction configured for web-assembly custom function.
-
+         
          - parameter publicId: Public id of the web assembly file.
          */
         public static func wasm(_ publicId: String) -> CLDCustomFunction {
             return CLDCustomFunction("wasm", publicId)
         }
-
+        
         /**
          Build an instance of CLDCustomFunction configured for remote lambda custom function.
-
+         
          - parameter url: public url of the aws lambda function
          */
         public static func remote(_ url: String) -> CLDCustomFunction {
             return CLDCustomFunction("remote", url.cldBase64UrlEncode())
         }
-
+        
     }
     
     // MARK: FPS
     /**
      FPS parameters configuration object. For simple cases you can pass a float/string
      directly to CLDTransformation.setFps(). This class is used for more complex values (e.g. ranges).
-    */
-    @objc public class CLDFps: CLDBaseParam{
+     */
+    @objc public class CLDFps: CLDBaseParam {
         /**
          Build an instance of CLDFps based on a string.
          
@@ -1866,4 +2108,129 @@ import CoreGraphics
         }
     }
     
+}
+
+// MARK: - Expressions
+extension CLDTransformation
+{
+    @objc(setWidthWithExpression:)
+    @discardableResult
+    public func setWidth(_ input: CLDExpression) -> Self {
+        
+        return setParam(TransformationParam.WIDTH, value: input.asString())
+    }
+    
+    @objc(setHeightWithExpression:)
+    @discardableResult
+    public func setHeight(_ input: CLDExpression) -> Self {
+        
+        return setParam(TransformationParam.HEIGHT, value: input.asString())
+    }
+    
+    @objc(setXFromExpression:)
+    @discardableResult
+    public func setX(_ input: CLDExpression) -> Self {
+        
+        return setParam(TransformationParam.X, value: input.asString())
+    }
+    
+    @objc(setYFromExpression:)
+    @discardableResult
+    public func setY(_ input: CLDExpression) -> Self {
+        
+        return setParam(TransformationParam.Y, value: input.asString())
+    }
+    
+    @objc(setRadiusFromExpression:)
+    @discardableResult
+    public func setRadius(_ input: CLDExpression) -> Self {
+        
+        return setParam(TransformationParam.RADIUS, value: input.asString())
+    }
+}
+// MARK: - Condition Expression
+extension CLDTransformation
+{
+    // MARK: - ifCondition with content
+    @objc(ifConditionFromString:)
+    @discardableResult
+    public func ifCondition(_ condition: String) -> Self {
+        
+        let conditionObject = CLDConditionExpression(value: condition)
+        
+        guard !conditionObject.currentValue.isEmpty else {
+            
+            return setParam(TransformationParam.IF_PARAM, value: condition)
+        }
+        
+        return ifCondition(conditionObject)
+    }
+    
+    @discardableResult
+    public func ifCondition(_ condition: CLDConditionExpression) -> Self {
+        return setParam(TransformationParam.IF_PARAM, value: condition.asString())
+    }
+    
+    @discardableResult
+    public func ifCondition(_ condition: CLDConditionExpression, then transformation: CLDExpression) -> Self {
+        return ifCondition(condition).setParam(transformation.currentKey, value: transformation.currentValue)
+    }
+    
+    // MARK: - ifCondition state
+    @objc(ifCondition)
+    @discardableResult
+    public func ifCondition() -> CLDConditionExpression {
+        
+        let condition = CLDConditionExpression()
+        condition.relatedTransformation = self
+        currentCondition =  condition
+        return  condition
+    }
+    
+    // MARK: - ifElse
+    @objc(ifElse)
+    @discardableResult
+    public func ifElse() -> Self {
+        
+        chain()
+        return setParam(TransformationParam.IF_PARAM, value: "else")
+    }
+    
+    // MARK: - endIf
+    @objc(endIf)
+    @discardableResult
+    public func endIf() -> Self {
+        
+        chain()
+        
+        guard !transformations.isEmpty else { return self }
+        
+        let transformSize = transformations.count
+        let loopSize = transformSize - 1
+        
+        for index in (0...loopSize).reversed() {
+            
+            var segment = transformations[index]; // [..., {if: "w_gt_1000",c: "fill", w: 500}, ...]
+            
+            if  let value = segment[TransformationParam.IF_PARAM.rawValue] { // if: "w_gt_1000"
+                
+                if value == "end" {
+                    break
+                }
+                
+                if segment.keys.count > 1 {
+                    segment.removeValue(forKey: TransformationParam.IF_PARAM.rawValue) // {c: fill, w: 500}
+                    transformations[index] = segment  // [..., {c: fill, w: 500}, ...]
+                    transformations.insert([TransformationParam.IF_PARAM.rawValue:value], at: index) // [..., "if_w_gt_1000", {c: fill, w: 500}, ...]
+                }
+                
+                // otherwise keep looking for if_condition
+                if value != "else" {
+                    break
+                }
+            }
+        }
+        setParam(TransformationParam.IF_PARAM.rawValue, value: "end")
+        return chain()
+    }
 }

@@ -195,6 +195,49 @@ class UrlTests: XCTestCase {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setWidth(200).setCrop(.fill).chain().setRadius(10).chain().setCrop(.crop).setWidth(100)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,w_200,x_100,y_100/r_10/c_crop,w_100/test")
     }
+    
+    func test_CLDTransformation_setCrop_validUrl() {
+        var url : String?
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.fill)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_fill/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.crop)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_crop/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.scale)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_scale/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.fit)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_fit/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.limit)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_limit/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.mFit)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_mfit/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.lFill)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_lfill/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.pad)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_pad/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.lPad)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_lpad/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.mPad)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_mpad/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.thumb)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_thumb/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.imaggaCrop)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_imagga_crop/test")
+        
+        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.imaggaScale)).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/c_imagga_scale/test")
+    }
 
     func testNoEmptyTransformation() {
         let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain()).generate("test")
@@ -373,7 +416,52 @@ class UrlTests: XCTestCase {
 
     func testEffect() {
 
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia)).generate("test"), "\(prefix)/image/upload/e_sepia/test")        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.hue)).generate("test"), "\(prefix)/image/upload/e_hue/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.red)).generate("test"), "\(prefix)/image/upload/e_red/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.green)).generate("test"), "\(prefix)/image/upload/e_green/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blue)).generate("test"), "\(prefix)/image/upload/e_blue/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.negate)).generate("test"), "\(prefix)/image/upload/e_negate/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.brightness)).generate("test"), "\(prefix)/image/upload/e_brightness/test")
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia)).generate("test"), "\(prefix)/image/upload/e_sepia/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.grayscale)).generate("test"), "\(prefix)/image/upload/e_grayscale/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blackwhite)).generate("test"), "\(prefix)/image/upload/e_blackwhite/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.saturation)).generate("test"), "\(prefix)/image/upload/e_saturation/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.colorize)).generate("test"), "\(prefix)/image/upload/e_colorize/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.contrast)).generate("test"), "\(prefix)/image/upload/e_contrast/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.autoContrast)).generate("test"), "\(prefix)/image/upload/e_auto_contrast/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.vibrance)).generate("test"), "\(prefix)/image/upload/e_vibrance/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.autoColor)).generate("test"), "\(prefix)/image/upload/e_auto_color/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.improve)).generate("test"), "\(prefix)/image/upload/e_improve/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.autoBrightness)).generate("test"), "\(prefix)/image/upload/e_auto_brightness/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.fillLight)).generate("test"), "\(prefix)/image/upload/e_fill_light/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.viesusCorrect)).generate("test"), "\(prefix)/image/upload/e_viesus_correct/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.gamma)).generate("test"), "\(prefix)/image/upload/e_gamma/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.screen)).generate("test"), "\(prefix)/image/upload/e_screen/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.multiply)).generate("test"), "\(prefix)/image/upload/e_multiply/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.overlay)).generate("test"), "\(prefix)/image/upload/e_overlay/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.makeTransparent)).generate("test"), "\(prefix)/image/upload/e_make_transparent/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.trim)).generate("test"), "\(prefix)/image/upload/e_trim/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.shadow)).generate("test"), "\(prefix)/image/upload/e_shadow/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.distort)).generate("test"), "\(prefix)/image/upload/e_distort/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.shear)).generate("test"), "\(prefix)/image/upload/e_shear/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.displace)).generate("test"), "\(prefix)/image/upload/e_displace/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.oilPaint)).generate("test"), "\(prefix)/image/upload/e_oil_paint/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.redeye)).generate("test"), "\(prefix)/image/upload/e_redeye/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.advRedeye)).generate("test"), "\(prefix)/image/upload/e_adv_redeye/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.vignette)).generate("test"), "\(prefix)/image/upload/e_vignette/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.gradientFade)).generate("test"), "\(prefix)/image/upload/e_gradient_fade/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelate)).generate("test"), "\(prefix)/image/upload/e_pixelate/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelateRegion)).generate("test"), "\(prefix)/image/upload/e_pixelate_region/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelateFaces)).generate("test"), "\(prefix)/image/upload/e_pixelate_faces/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blur)).generate("test"), "\(prefix)/image/upload/e_blur/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blurRegion)).generate("test"), "\(prefix)/image/upload/e_blur_region/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blurFaces)).generate("test"), "\(prefix)/image/upload/e_blur_faces/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sharpen)).generate("test"), "\(prefix)/image/upload/e_sharpen/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.unsharpMask)).generate("test"), "\(prefix)/image/upload/e_unsharp_mask/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.orderedDither)).generate("test"), "\(prefix)/image/upload/e_ordered_dither/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.art)).generate("test"), "\(prefix)/image/upload/e_art/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.assistColorblind)).generate("test"), "\(prefix)/image/upload/e_assist_colorblind/test")
     }
 
     func testEffectWithParam() {
@@ -382,7 +470,34 @@ class UrlTests: XCTestCase {
     }
     
     func testArtisticEffect(){
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.alDente)).generate("test"), "\(prefix)/image/upload/e_art:al_dente/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.athena)).generate("test"), "\(prefix)/image/upload/e_art:athena/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.audrey)).generate("test"), "\(prefix)/image/upload/e_art:audrey/test")
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.aurora)).generate("test"), "\(prefix)/image/upload/e_art:aurora/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.daguerre)).generate("test"), "\(prefix)/image/upload/e_art:daguerre/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.eucalyptus)).generate("test"), "\(prefix)/image/upload/e_art:eucalyptus/test")
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.fes)).generate("test"), "\(prefix)/image/upload/e_art:fes/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.frost)).generate("test"), "\(prefix)/image/upload/e_art:frost/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.hairspray)).generate("test"), "\(prefix)/image/upload/e_art:hairspray/test")
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.hokusai)).generate("test"), "\(prefix)/image/upload/e_art:hokusai/test")
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.incognito)).generate("test"), "\(prefix)/image/upload/e_art:incognito/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.linen)).generate("test"), "\(prefix)/image/upload/e_art:linen/test")
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.peacock)).generate("test"), "\(prefix)/image/upload/e_art:peacock/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.primavera)).generate("test"), "\(prefix)/image/upload/e_art:primavera/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.quartz)).generate("test"), "\(prefix)/image/upload/e_art:quartz/test")
+
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.redRock)).generate("test"), "\(prefix)/image/upload/e_art:red_rock/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.refresh)).generate("test"), "\(prefix)/image/upload/e_art:refresh/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sizzle)).generate("test"), "\(prefix)/image/upload/e_art:sizzle/test")
+        
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sonnet)).generate("test"), "\(prefix)/image/upload/e_art:sonnet/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.ukulele)).generate("test"), "\(prefix)/image/upload/e_art:ukulele/test")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.zorro)).generate("test"), "\(prefix)/image/upload/e_art:zorro/test")
     }
 
     func testDensity() {
@@ -530,6 +645,7 @@ class UrlTests: XCTestCase {
 
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoCodec("auto")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_auto/video_id")
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: "3.1")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1/video_id")
+        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: nil)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic/video_id")
     }
 
     func testAudioCodec() {

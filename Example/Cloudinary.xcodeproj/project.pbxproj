@@ -32,7 +32,6 @@
 		272C5186242B6C360093AB1B /* MultipartFormDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C5145242B6C350093AB1B /* MultipartFormDataTests.swift */; };
 		272C5187242B6C360093AB1B /* URLProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C5146242B6C350093AB1B /* URLProtocolTests.swift */; };
 		272C5189242B6C360093AB1B /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C5148242B6C350093AB1B /* ResponseTests.swift */; };
-		272C518B242B6C360093AB1B /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C514A242B6C350093AB1B /* ValidationTests.swift */; };
 		272C518C242B6C360093AB1B /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C514B242B6C350093AB1B /* BaseTestCase.swift */; };
 		272C518D242B6C360093AB1B /* unicorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 272C514E242B6C350093AB1B /* unicorn.png */; };
 		272C518E242B6C360093AB1B /* rainbow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 272C514F242B6C350093AB1B /* rainbow.jpg */; };
@@ -73,9 +72,20 @@
 		27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC1FAF2431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift */; };
 		3A30F0D7FBBB27E4F44C739B /* Pods_Cloudinary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C9301BA8A278A2D4441EA3 /* Pods_Cloudinary_Example.framework */; };
 		52DEBF3CFA0B3484E9F28E6A /* Pods_Cloudinary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5013B87CB1E3335DB0AC3828 /* Pods_Cloudinary_Tests.framework */; };
+		5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */; };
+		5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C514A242B6C350093AB1B /* ValidationTests.swift */; };
+		5D7C2DCF245E93F7007E95F7 /* CLDExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C2DCE245E93F7007E95F7 /* CLDExpressionTests.swift */; };
+		5DE4EC202469919A00F6C8D6 /* CLDTransformationDotNetBaselineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4EC1E2469919700F6C8D6 /* CLDTransformationDotNetBaselineTests.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
+		D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7119CE2246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift */; };
+		D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */; };
+		D71B790024680773004AA28E /* CLDTransformationExpressionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */; };
+		D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */; };
+		D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */; };
+		D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */; };
+		D79AE39C24585533004F2439 /* CLDVariableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D79AE39B24585533004F2439 /* CLDVariableTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +165,9 @@
 		27BC1FAD2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLDNDataResponse+CloudinaryTests.swift"; sourceTree = "<group>"; };
 		27BC1FAF2431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLDNResult+CloudinaryTests.swift"; sourceTree = "<group>"; };
 		5013B87CB1E3335DB0AC3828 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDConditionExpressionTests.swift; sourceTree = "<group>"; };
+		5D7C2DCE245E93F7007E95F7 /* CLDExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDExpressionTests.swift; sourceTree = "<group>"; };
+		5DE4EC1E2469919700F6C8D6 /* CLDTransformationDotNetBaselineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDTransformationDotNetBaselineTests.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Cloudinary_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudinary_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +180,13 @@
 		85DFA80480D136A0EFEF85DE /* Pods-Cloudinary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Example.debug.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8B2098716BDB05A0132E264D /* Pods-Cloudinary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Tests/Pods-Cloudinary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA2F53C389142220209152BA /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Cloudinary.podspec; path = ../Cloudinary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D7119CE2246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDConditionExpressionHelpersTests.swift; sourceTree = "<group>"; };
+		D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationVariablesTests.swift; sourceTree = "<group>"; };
+		D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationExpressionsTests.swift; sourceTree = "<group>"; };
+		D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationConditionsTests.swift; sourceTree = "<group>"; };
+		D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationTests.swift; sourceTree = "<group>"; };
+		D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVariableTests.swift; sourceTree = "<group>"; };
+		D79AE39B24585533004F2439 /* CLDVariableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDVariableTests.m; sourceTree = "<group>"; };
 		F2530AD793711AEF6C37A33F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -339,6 +359,10 @@
 				272C5144242B6C350093AB1B /* ResponseSerializationTests.swift */,
 				272C5146242B6C350093AB1B /* URLProtocolTests.swift */,
 				272C514A242B6C350093AB1B /* ValidationTests.swift */,
+				D79AE39A245854A6004F2439 /* CLDTransformationTests */,
+				D79AE39924585499004F2439 /* CLDVariableTests */,
+				2752795D245ED68F00908341 /* CLDExpressionTests */,
+				5D4D8C2A246098A200AE9C96 /* CLDConditionExpressionTests */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -408,6 +432,23 @@
 				274C6D2C23FBAF5E0090BC40 /* dog.mp4 */,
 			);
 			path = Videos;
+			sourceTree = "<group>";
+		};
+		2752795D245ED68F00908341 /* CLDExpressionTests */ = {
+			isa = PBXGroup;
+			children = (
+				5D7C2DCE245E93F7007E95F7 /* CLDExpressionTests.swift */,
+			);
+			path = CLDExpressionTests;
+			sourceTree = "<group>";
+		};
+		5D4D8C2A246098A200AE9C96 /* CLDConditionExpressionTests */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */,
+				D7119CE2246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift */,
+			);
+			path = CLDConditionExpressionTests;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -498,6 +539,27 @@
 				5013B87CB1E3335DB0AC3828 /* Pods_Cloudinary_Tests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D79AE39924585499004F2439 /* CLDVariableTests */ = {
+			isa = PBXGroup;
+			children = (
+				D79AE39B24585533004F2439 /* CLDVariableTests.m */,
+				D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */,
+			);
+			path = CLDVariableTests;
+			sourceTree = "<group>";
+		};
+		D79AE39A245854A6004F2439 /* CLDTransformationTests */ = {
+			isa = PBXGroup;
+			children = (
+				5DE4EC1E2469919700F6C8D6 /* CLDTransformationDotNetBaselineTests.swift */,
+				D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */,
+				D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */,
+				D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */,
+				D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */,
+			);
+			path = CLDTransformationTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -714,15 +776,21 @@
 				272C5189242B6C360093AB1B /* ResponseTests.swift in Sources */,
 				274C6D3923FBAF5E0090BC40 /* StringUtilsTest.swift in Sources */,
 				274C6D2D23FBAF5E0090BC40 /* CryptoUtilsTests.swift in Sources */,
+				D79AE39C24585533004F2439 /* CLDVariableTests.m in Sources */,
+				D71B790024680773004AA28E /* CLDTransformationExpressionsTests.swift in Sources */,
 				272C5186242B6C360093AB1B /* MultipartFormDataTests.swift in Sources */,
 				272C5180242B6C360093AB1B /* FileManager+CloudinaryTests.swift in Sources */,
 				272C5187242B6C360093AB1B /* URLProtocolTests.swift in Sources */,
 				272C517F242B6C360093AB1B /* SessionManagerTests.swift in Sources */,
 				274C6D3823FBAF5E0090BC40 /* DownloaderTests.swift in Sources */,
+				5D7C2DCF245E93F7007E95F7 /* CLDExpressionTests.swift in Sources */,
 				272C51B0242B6C360093AB1B /* UploadTests.swift in Sources */,
 				274C6D3723FBAF5E0090BC40 /* ManagementApiTests.swift in Sources */,
+				D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
+				D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */,
 				272C5181242B6C360093AB1B /* AuthenticationTests.swift in Sources */,
+				D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */,
 				27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */,
 				274C6D3323FBAF5E0090BC40 /* UIButtonTests.swift in Sources */,
 				274C6D3223FBAF5E0090BC40 /* UIBaseTest.swift in Sources */,
@@ -731,16 +799,20 @@
 				274C6D3423FBAF5E0090BC40 /* UIImageViewTests.swift in Sources */,
 				272C51B5242B6C360093AB1B /* ParameterEncodingTests.swift in Sources */,
 				274C6D2F23FBAF5E0090BC40 /* FileUtilsTests.swift in Sources */,
+				5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */,
+				D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */,
+				5DE4EC202469919A00F6C8D6 /* CLDTransformationDotNetBaselineTests.swift in Sources */,
 				27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */,
 				272C5182242B6C360093AB1B /* RequestTests.swift in Sources */,
 				272C51B3242B6C360093AB1B /* CLDNError+CloudinaryTests.swift in Sources */,
 				272C5185242B6C360093AB1B /* ResponseSerializationTests.swift in Sources */,
 				272C5183242B6C360093AB1B /* SessionDelegateTests.swift in Sources */,
+				D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */,
 				274C6D3623FBAF5E0090BC40 /* UploaderTests.swift in Sources */,
 				272C51B1242B6C360093AB1B /* CacheTests.swift in Sources */,
 				274C6D3023FBAF5E0090BC40 /* UrlTests.m in Sources */,
 				272C518C242B6C360093AB1B /* BaseTestCase.swift in Sources */,
-				272C518B242B6C360093AB1B /* ValidationTests.swift in Sources */,
+				5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */,
 				272C51B4242B6C360093AB1B /* ResultTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

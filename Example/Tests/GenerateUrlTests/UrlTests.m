@@ -1,5 +1,5 @@
 //
-//  UrlTests.m
+//  ObjCUrlTests.m
 //
 //  Copyright (c) 2018 Cloudinary (http://cloudinary.com)
 //
