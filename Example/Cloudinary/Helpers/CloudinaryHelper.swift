@@ -6,6 +6,7 @@
 //  Copyright © 2017 Cloudinary. All rights reserved.
 //
 
+import UIKit
 import Foundation
 import Cloudinary
 

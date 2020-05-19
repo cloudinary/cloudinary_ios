@@ -78,7 +78,7 @@ class CacheTestCase: BaseTestCase {
     var requests: [String: URLRequest] = [:]
     var timestamps: [String: String] = [:]
 
-    // MARK: - Setup and Teardown
+    // MARK: - setup and teardown
 
     override func setUp() {
         super.setUp()

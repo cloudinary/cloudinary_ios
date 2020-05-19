@@ -21,7 +21,7 @@ class FileUtilsTests: XCTestCase {
     
     func testSplitFile() {
         
-        let url = Bundle.init(for: FileUtilsTests.self).url(forResource: "borderCollie", withExtension: "jpg")!
+        let url = Bundle(for: FileUtilsTests.self).url(forResource: "borderCollie", withExtension: "jpg")!
         let (_, files) = CLDFileUtils.splitFile(url: url, chunkSize: 1024 * 20)!
         let totalSize = CLDFileUtils.getFileSize(url: url)
         
