@@ -365,10 +365,6 @@
 				272C5144242B6C350093AB1B /* ResponseSerializationTests.swift */,
 				272C5146242B6C350093AB1B /* URLProtocolTests.swift */,
 				272C514A242B6C350093AB1B /* ValidationTests.swift */,
-				D79AE39A245854A6004F2439 /* CLDTransformationTests */,
-				D79AE39924585499004F2439 /* CLDVariableTests */,
-				2752795D245ED68F00908341 /* CLDExpressionTests */,
-				5D4D8C2A246098A200AE9C96 /* CLDConditionExpressionTests */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -459,6 +455,17 @@
 			path = CLDConditionExpressionTests;
 			sourceTree = "<group>";
 		};
+		5DBC4D49247BFE570014B37E /* TransformationTests */ = {
+			isa = PBXGroup;
+			children = (
+				D79AE39A245854A6004F2439 /* CLDTransformationTests */,
+				D79AE39924585499004F2439 /* CLDVariableTests */,
+				2752795D245ED68F00908341 /* CLDExpressionTests */,
+				5D4D8C2A246098A200AE9C96 /* CLDConditionExpressionTests */,
+			);
+			path = TransformationTests;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -513,6 +520,7 @@
 				274C6D1523FBAF5E0090BC40 /* FileUtilsTests.swift */,
 				274C6D1623FBAF5E0090BC40 /* GenerateUrlTests */,
 				274C6D1D23FBAF5E0090BC40 /* NetworkTests */,
+				5DBC4D49247BFE570014B37E /* TransformationTests */,
 				274C6D1423FBAF5E0090BC40 /* PreprocessTests.swift */,
 				274C6D2323FBAF5E0090BC40 /* Resources */,
 				274C6D2223FBAF5E0090BC40 /* StringUtilsTest.swift */,
