@@ -390,14 +390,7 @@ import CoreGraphics
     @discardableResult
     open func setWidth(_ width: String) -> Self {
         
-        let expression = CLDExpression(value: width)
-        
-        guard !expression.currentValue.isEmpty else {
-            
-            return setParam(TransformationParam.WIDTH, value: width)
-        }
-        
-        return setWidth(expression)
+        return setParam(TransformationParam.WIDTH, expression: CLDExpression(value: width), fallback: width)
     }
     
     // MARK: - Set Values - Height
@@ -437,14 +430,7 @@ import CoreGraphics
     @discardableResult
     open func setHeight(_ height: String) -> Self {
         
-        let expression = CLDExpression(value: height)
-        
-        guard !expression.currentValue.isEmpty else {
-            
-            return setParam(TransformationParam.HEIGHT, value: height)
-        }
-        
-        return setHeight(expression)
+        return setParam(TransformationParam.HEIGHT, expression: CLDExpression(value: height), fallback: height)
     }
     
     // MARK: - Set Values - Named
@@ -736,13 +722,7 @@ import CoreGraphics
     @discardableResult
     open func setX(_ x: String) -> Self {
         
-        let expression = CLDExpression(value: x)
-        
-        if !expression.currentValue.isEmpty {
-            return setX(expression)
-        } else {
-            return setParam(TransformationParam.X, value: x)
-        }
+        return setParam(TransformationParam.X, expression: CLDExpression(value: x), fallback: x)
     }
     
     // MARK: - Set Values - Y
@@ -782,14 +762,7 @@ import CoreGraphics
      */
     @discardableResult
     open func setY(_ y: String) -> Self {
-        
-        let expression = CLDExpression(value: y)
-        
-        if !expression.currentValue.isEmpty {
-            return setY(expression)
-        } else {
-            return setParam(TransformationParam.Y, value: y)
-        }
+        return setParam(TransformationParam.Y, expression: CLDExpression(value: y), fallback: y)
     }
     
     // MARK: - Set Values - Radius
@@ -817,13 +790,7 @@ import CoreGraphics
     @discardableResult
     open func setRadius(_ radius: String) -> Self {
         
-        let expression = CLDExpression(value: radius)
-        
-        if !expression.currentValue.isEmpty {
-            return setRadius(expression)
-        } else {
-            return setParam(TransformationParam.RADIUS, value: radius)
-        }
+        return setParam(TransformationParam.RADIUS, expression: CLDExpression(value: radius), fallback: radius)
     }
   
    /**
@@ -1511,6 +1478,15 @@ import CoreGraphics
     
     fileprivate func setParam(_ key: TransformationParam, value: String) -> Self {
         return setParam(key.rawValue, value: value)
+    }
+    
+    fileprivate func setParam(_ key: TransformationParam, expression: CLDExpression, fallback: String) -> Self {
+        
+        if expression.currentValue.isEmpty {
+            return setParam(key, value: fallback)
+        } else {
+            return setParam(key, value: expression.asString())
+        }
     }
     
     @discardableResult
