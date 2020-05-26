@@ -1,5 +1,5 @@
 //
-//  CLDTransformationDotNetBaselineTests.swift
+//  CLDTransformationBaselineTests.swift
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,7 +26,7 @@ import Foundation
 import XCTest
 
 // MARK: - CLDTransformationDotNetBaselineTests
-class CLDTransformationDotNetBaselineTests: BaseTestCase {
+class CLDTransformationBaselineTests: BaseTestCase {
     
     var sut : CLDTransformation!
     

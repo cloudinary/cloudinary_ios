@@ -2,7 +2,7 @@
 //  CLDNDataResponse+CloudinaryTests.swift
 //  Cloudinary_Tests
 //
-//  Created by Ido Meirov on 30/03/2020.
+//  Created on 30/03/2020.
 //  Copyright (c) 2020 Cloudinary. All rights reserved.
 //
 
