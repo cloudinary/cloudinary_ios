@@ -2,7 +2,7 @@
 //  CLDTransformation+Ios.swift
 //  Cloudinary
 //
-//  Created by Ido Meirov on 23/02/2020.
+//  Created on 23/02/2020.
 //
 
 import Foundation
