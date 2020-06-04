@@ -368,8 +368,15 @@ import Foundation
             if let apiSecret = config.apiSecret {
                 toSign.append(apiSecret)
             }
-            let encoded = toSign.sha1_base64()
-            signature = "s--\(encoded[0...7])--"
+            
+            if config.longUrlSignature {
+                let encoded = toSign.sha256_base64()
+                signature = "s--\(encoded[0...31])--"
+            }
+            else {
+                let encoded = toSign.sha1_base64()
+                signature = "s--\(encoded[0...7])--"
+            }
         }
         
         let url = [prefix, resourceTypeAndType, signature, transformationStr, version , sourceName].joined(separator: "/")

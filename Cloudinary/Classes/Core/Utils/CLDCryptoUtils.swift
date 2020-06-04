@@ -89,6 +89,20 @@ internal extension String {
 
         return encoded
     }
+    
+    func sha256_base64() -> String {
+        var digest = [UInt8](repeating: 0, count:Int(CC_SHA256_DIGEST_LENGTH))
+        let cStr = NSString(string: self).utf8String
+        CC_SHA256(cStr, CC_LONG(strlen(cStr!)), &digest)
+
+        let data = Data(bytes: digest, count: MemoryLayout<UInt8>.size * digest.count)
+        let base64 = data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        let encoded = base64.replacingOccurrences(of: "/", with: "_")
+                .replacingOccurrences(of: "+", with: "-")
+                .replacingOccurrences(of: "=", with: "")
+        
+        return encoded
+    }
 
     func toCRC32() -> UInt32 {
         return crc32(self)
@@ -163,4 +177,9 @@ private func crc32(_ string: String) -> UInt32 {
     return crc ^ 0xffffffff
 }
 
+@objcMembers public class CryptoObjcHelper: NSObject {
+    public class func sha256_base64(string: String) -> String {
+        return string.sha256_base64()
+    }
+}
 
