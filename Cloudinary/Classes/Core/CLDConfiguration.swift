@@ -88,6 +88,11 @@ import Foundation
      */
     open fileprivate(set) var uploadPrefix: String?
     
+    /**
+     A custom timeout in milliseconds to be used instead of Cloudinary's default timeout. nil by default.
+     */
+    open fileprivate(set) var timeout: NSNumber?
+    
     internal var userPlatform : CLDUserPlatform?
     
     // MARK: - Init
@@ -195,7 +200,14 @@ import Foundation
                         secureDistribution = value
                     }
                     break
-                    
+                case .Timeout:
+                    if let value = options[ConfigParam.Timeout.rawValue] as? NSNumber {
+                        timeout = value
+                    }
+                    else if let value = options[ConfigParam.Timeout.rawValue] as? String {
+                        timeout = value.cldAsNSNumber()
+                    }
+                    break
                 default:
                     break
                 }
@@ -217,11 +229,12 @@ import Foundation
      - parameter secureDistribution:        Set your secure distribution domain to be set when using a secure distribution (advanced plan only). nil by default.
      - parameter cname:                     Set your custom domain. nil by default.
      - parameter uploadPrefix:              Set a custom upload prefix to be used instead of Cloudinary's default API prefix. nil by default.
+     - parameter timeout:                   A custom timeout in milliseconds to be used instead of Cloudinary's default timeout. nil by default.
      
      - returns:                             A new `CLDConfiguration` instance.
      
      */
-    public init(cloudName: String, apiKey: String? = nil, apiSecret: String? = nil, privateCdn: Bool = false, secure: Bool = false, cdnSubdomain: Bool = false, secureCdnSubdomain: Bool = false, longUrlSignature: Bool = false, secureDistribution: String? = nil, cname: String? = nil, uploadPrefix: String? = nil) {
+    public init(cloudName: String, apiKey: String? = nil, apiSecret: String? = nil, privateCdn: Bool = false, secure: Bool = false, cdnSubdomain: Bool = false, secureCdnSubdomain: Bool = false, longUrlSignature: Bool = false, secureDistribution: String? = nil, cname: String? = nil, uploadPrefix: String? = nil, timeout: NSNumber? = nil) {
         self.cloudName = cloudName
         self.apiKey = apiKey
         self.apiSecret = apiSecret
@@ -233,6 +246,7 @@ import Foundation
         self.secureDistribution = secureDistribution
         self.cname = cname
         self.uploadPrefix = uploadPrefix
+        self.timeout = timeout
         super.init()
     }
     
@@ -285,6 +299,7 @@ import Foundation
                         case .LongUrlSignature: longUrlSignature = keyValue[1].cldAsBool()
                         case .CName: cname = keyValue[1]
                         case .UploadPrefix: uploadPrefix = keyValue[1]
+                        case .Timeout: timeout = keyValue[1].cldAsNSNumber()
                             
                         default:
                             break
@@ -310,6 +325,7 @@ import Foundation
         case CloudName =            "cloud_name"
         case PrivateCdn =           "private_cdn"
         case SecureDistribution =   "secure_distribution"
+        case Timeout =              "timeout"
         
         internal var description: String {
             get {
@@ -325,10 +341,10 @@ import Foundation
                 case .CloudName:            return "cloud_name"
                 case .PrivateCdn:           return "private_cdn"
                 case .SecureDistribution:   return "secure_distribution"
+                case .Timeout:              return "timeout"
                 }
             }
         }
-        
     }
     
     // MARK: User Platform

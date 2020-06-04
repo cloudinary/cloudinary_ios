@@ -88,7 +88,11 @@ internal class CLDNetworkCoordinator {
         else if let apiSecret = config.apiSecret {
             let timestamp = Int(Date().timeIntervalSince1970)
             params[CLDSignature.SignatureParam.Timestamp.rawValue] = cldParamValueAsString(value: timestamp)
-            let signature = cloudinarySignParamsUsingSecret(params, cloudinaryApiSecret: apiSecret)
+            
+            var paramsWithoutTimeout = params
+            paramsWithoutTimeout.removeValue(forKey: CLDConfiguration.ConfigParam.Timeout.description)
+            
+            let signature = cloudinarySignParamsUsingSecret(paramsWithoutTimeout, cloudinaryApiSecret: apiSecret)
             params[CLDSignature.SignatureParam.Signature.rawValue] = signature
         }
         else {

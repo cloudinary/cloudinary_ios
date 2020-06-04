@@ -61,7 +61,7 @@ CLDCloudinary *cloudinary;
 - (void)test_longUrlSign_emptyApiSecret_shouldCreateExpectedSigning {
     
     // Given
-    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:@"" privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil];
+    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:@"" privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
     cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
     NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:true];
      
@@ -78,7 +78,7 @@ CLDCloudinary *cloudinary;
 - (void)test_longUrlSign_normalApiSecret_shouldCreateExpectedSigning {
     
     // Given
-    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:@"apiSecret" privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil];
+    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:@"apiSecret" privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
     cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
     NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:true];
      
@@ -96,7 +96,7 @@ CLDCloudinary *cloudinary;
     
     // Given
     NSString* longString = @"abcdefghijklmnopqrstuvwxyz1abcdefghijklmnopqrstuvwxyz2abcdefghijklmnopqrstuvwxyz3abcdefghijklmnopqrstuvwxyz4abcdefghijklmnopqrstuvwxyz5abcdefghijklmnopqrstuvwxyz6";
-    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:longString privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil];
+    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:longString privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
     cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
     NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:true];
      
@@ -114,7 +114,7 @@ CLDCloudinary *cloudinary;
     
     // Given
     NSString* specialString = @"🔭!@#$%^&*()_+±§?><`~";
-    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:specialString privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil];
+    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:specialString privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
     cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
     NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:true];
      
@@ -131,7 +131,7 @@ CLDCloudinary *cloudinary;
 - (void)test_longUrlSign_unset_shouldCreateExpectedSigning {
     
     // Given
-    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:@"apiSecret" privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:false secureDistribution:nil cname:nil uploadPrefix:nil];
+    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:@"apiSecret" privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:false secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
     cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
     NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:true];
      
@@ -148,7 +148,7 @@ CLDCloudinary *cloudinary;
 - (void)test_longUrlSign_signUrlFalse_shouldCreateExpectedSigning {
     
     // Given
-    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:@"apiSecret" privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil];
+    CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudName:@"test123" apiKey:@"apiKey" apiSecret:@"apiSecret" privateCdn:true secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:true secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
     cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
     NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:false];
      

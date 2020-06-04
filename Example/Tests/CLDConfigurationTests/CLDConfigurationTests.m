@@ -50,7 +50,7 @@ CLDConfiguration *configurationSut;
     BOOL input = true;
     
     // When
-    configurationSut = [[CLDConfiguration alloc] initWithCloudName:@"" apiKey:nil apiSecret:nil privateCdn:false secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:input secureDistribution:nil cname:nil uploadPrefix:nil];
+    configurationSut = [[CLDConfiguration alloc] initWithCloudName:@"" apiKey:nil apiSecret:nil privateCdn:false secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:input secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
     
     // Then
     XCTAssertTrue(configurationSut.longUrlSignature, "Init with longUrlSignature = true, should be stored in property");
@@ -58,7 +58,7 @@ CLDConfiguration *configurationSut;
 - (void)test_initLongUrlSignature_default_shouldStoreFalseValue {
 
     // When
-    configurationSut = [[CLDConfiguration alloc] initWithCloudName:@"" apiKey:nil apiSecret:nil privateCdn:false secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:false secureDistribution:nil cname:nil uploadPrefix:nil];
+    configurationSut = [[CLDConfiguration alloc] initWithCloudName:@"" apiKey:nil apiSecret:nil privateCdn:false secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:false secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
     
     // Then
     XCTAssertFalse(configurationSut.longUrlSignature, "Init without longUrlSignature should store the default false value");
@@ -105,4 +105,73 @@ CLDConfiguration *configurationSut;
     XCTAssertTrue(configurationSut.longUrlSignature, "Init with cloudinaryUrl with valid longUrlSignature = true, should be stored in property");
 }
 
+// MARK: - timeout
+- (void)test_initTimeout_setNSNumber_shouldStoreValue {
+        
+    // Given
+    NSNumber* input = [[NSNumber alloc] initWithInt:10000];
+    
+    NSNumber* expectedResult = [[NSNumber alloc] initWithInt:10000];
+    
+    // When
+    configurationSut = [[CLDConfiguration alloc] initWithCloudName:@"" apiKey:nil apiSecret:nil privateCdn:false secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:false secureDistribution:nil cname:nil uploadPrefix:nil timeout:input];
+    
+    // Then
+    XCTAssertEqualObjects(configurationSut.timeout, expectedResult, "Init with timeout = number, should be stored in property");
+}
+- (void)test_initTimeout_nil_shouldStoreFalseValue {
+
+    // When
+    configurationSut = [[CLDConfiguration alloc] initWithCloudName:@"" apiKey:nil apiSecret:nil privateCdn:false secure:false cdnSubdomain:false secureCdnSubdomain:false longUrlSignature:false secureDistribution:nil cname:nil uploadPrefix:nil timeout:nil];
+    
+    // Then
+    XCTAssertNil(configurationSut.timeout, "Init with timeout = nil, should not be stored in property");
+}
+- (void)test_initTimeout_optionsString_shouldStoreValue {
+        
+    // Given
+    NSString* keyCloudName   = @"cloud_name";
+    NSString* inputCloudName = @"foo";
+    NSString* keyTimeout     = @"timeout";
+    NSString* inputTimeout   = @"10000";
+    
+    NSNumber* expectedResult = [[NSNumber alloc] initWithInt:10000];
+
+    // When
+    configurationSut = [[CLDConfiguration alloc] initWithOptions:@{keyCloudName: inputCloudName, keyTimeout: inputTimeout}];
+    
+    // Then
+    XCTAssertEqualObjects(configurationSut.timeout, expectedResult, "Init with timeout = number, should be stored in property");
+}
+- (void)test_initTimeout_optionsNSNumber_shouldStoreValue {
+        
+    // Given
+    NSString* keyCloudName   = @"cloud_name";
+    NSString* inputCloudName = @"foo";
+    NSString* keyTimeout     = @"timeout";
+    NSNumber* inputTimeout   = [[NSNumber alloc] initWithInt:10000];
+    
+    NSNumber* expectedResult = [[NSNumber alloc] initWithInt:10000];
+    
+    // When
+    configurationSut = [[CLDConfiguration alloc] initWithOptions:@{keyCloudName: inputCloudName, keyTimeout: inputTimeout}];
+    
+    // Then
+    XCTAssertEqualObjects(configurationSut.timeout, expectedResult, "Init with timeout = number, should be stored in property");
+}
+- (void)test_initTimeout_cloudinaryUrl_shouldStoreValue {
+        
+    // Given
+    NSString* longUrlSignatureQuery = @"?timeout=10000";
+    NSString* testedUrl             = @"cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3";
+    NSString* fullUrl               = [NSString stringWithFormat:@"%@%@",testedUrl,longUrlSignatureQuery];
+    
+    NSNumber* expectedResult = [[NSNumber alloc] initWithInt:10000];
+
+    // When
+    configurationSut = [[CLDConfiguration alloc] initWithCloudinaryUrl:fullUrl];
+    
+    // Then
+    XCTAssertEqualObjects(configurationSut.timeout, expectedResult, "Init with cloudinaryUrl with valid timeout, should be stored in property");
+}
 @end

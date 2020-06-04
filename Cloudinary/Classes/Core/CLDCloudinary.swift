@@ -167,7 +167,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      - returns: A new `CLDAdminApi` instance.
      */
     open func createManagementApi() -> CLDManagementApi {
-        return CLDManagementApi(networkCoordinator: networkCoordinator)
+        return CLDManagementApi(networkCoordinator: networkCoordinator, configuration: config)
     }
 
     // MARK: - Network Adapter
