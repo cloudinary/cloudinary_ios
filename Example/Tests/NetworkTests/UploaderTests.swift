@@ -59,7 +59,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
 
         let expectation = self.expectation(description: "Upload should succeed")
-        let file = TestResourceType.logo.url
+        let file = TestResourceType.borderCollie.url
         var result: CLDUploadResult?
         var error: NSError?
 
