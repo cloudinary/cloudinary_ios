@@ -48,7 +48,7 @@ import Foundation
      
      - returns:             A new instance of CLDUploadRequestParams.
      */
-    public init(params: [String : AnyObject]) {
+    public init(params: [String : Any]) {
         super.init()
         self.params = params
     }
