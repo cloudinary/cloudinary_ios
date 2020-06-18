@@ -207,7 +207,18 @@ import Foundation
      - returns:                             A new `CLDConfiguration` instance.
      
      */
-    public init(cloudName: String, apiKey: String? = nil, apiSecret: String? = nil, privateCdn: Bool = false, secure: Bool = false, cdnSubdomain: Bool = false, secureCdnSubdomain: Bool = false, secureDistribution: String? = nil, cname: String? = nil, uploadPrefix: String? = nil) {
+    public init(
+        cloudName: String,
+        apiKey: String? = nil,
+        apiSecret: String? = nil,
+        privateCdn: Bool = false,
+        secure: Bool = false,
+        cdnSubdomain: Bool = false,
+        secureCdnSubdomain: Bool = false,
+        secureDistribution: String? = nil,
+        cname: String? = nil,
+        uploadPrefix: String? = nil
+    ) {
         self.cloudName = cloudName
         self.apiKey = apiKey
         self.apiSecret = apiSecret
@@ -310,7 +321,6 @@ import Foundation
                 }
             }
         }
-        
     }
     
     // MARK: User Platform

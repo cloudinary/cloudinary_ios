@@ -28,8 +28,7 @@ import XCTest
 
 class ManagementApiTests: NetworkBaseTest {
     
-    // MARK: - Tests
-    
+    // MARK: - rename
     func testRename() {
         
         let expectation = self.expectation(description: "Rename should succeed")
@@ -58,7 +57,6 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result, "response should not be nil")
     }
-    
     func testRenameWithParams() {
         
         let expectation = self.expectation(description: "Rename should succeed")
@@ -88,6 +86,7 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertNotNil(result, "response should not be nil")
     }
     
+    // MARK: - explicit
     func testExplicit() {
         
         let expectation = self.expectation(description: "Explicit should succeed")
@@ -134,7 +133,6 @@ class ManagementApiTests: NetworkBaseTest {
             XCTFail("url should not be nil")
         }
     }
-    
     func testExplicitAsync(){
         let expectation = self.expectation(description: "Explicit should succeed")
         
@@ -167,6 +165,7 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertEqual(result?.resultJson["status"] as? String, "pending")
     }
     
+    // MARK: - tags
     func testTags() {
         
         var expectation = self.expectation(description: "Adding a tag should succeed")
@@ -237,6 +236,7 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
     }
     
+    // MARK: - text
     func testGenerateText() {
         
         let expectation = self.expectation(description: "Generate text should succeed")
@@ -257,6 +257,7 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertNotNil(result, "result should not be nil")
     }
     
+    // MARK: - sprite
     func testGenerateSprite() {
         
         let uploadParams = CLDUploadRequestParams()
@@ -302,6 +303,7 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertEqual(imageInfo.width, width)
     }
     
+    // MARK: - multi
     func testMulti() {
         
         let uploadParams = CLDUploadRequestParams()
@@ -344,6 +346,7 @@ class ManagementApiTests: NetworkBaseTest {
         }
     }
     
+    // MARK: - delete by token
     func testDeleteByToken() {
         
         var expectation = self.expectation(description: "Upload should succeed")
@@ -384,6 +387,7 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertEqual(result?.result ?? "", "ok")
     }
 
+    // MARK: - destroy
     func testDestroy() {
         
         var expectation = self.expectation(description: "Upload should succeed")
@@ -418,8 +422,6 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertEqual(result?.result ?? "", "ok")
     }
-    
-    
     func testDestroyWithSignature() {
         var expectation = self.expectation(description: "Upload should succeed")
         
@@ -463,6 +465,7 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertEqual(result?.result ?? "", "ok")
     }
     
+    // MARK: - explode
     func testExplode() {
         
         var expectation = self.expectation(description: "Upload should succeed")
