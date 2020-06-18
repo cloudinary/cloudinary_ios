@@ -52,8 +52,11 @@ internal class CLDNetworkCoordinator {
     // MARK: - Actions
     
     internal func callAction(_ action: CLDAPIAction, params: CLDRequestParams) -> CLDNetworkDataRequest {
+        
         let url = getUrl(action, resourceType: params.resourceType)
         let headers = getHeaders()
+        
+        params.setTimeout(from: config)
         let requestParams = getSignedRequestParams(params)
         
         return networkAdapter.cloudinaryRequest(url, headers: headers, parameters: requestParams)
@@ -88,7 +91,8 @@ internal class CLDNetworkCoordinator {
         else if let apiSecret = config.apiSecret {
             let timestamp = Int(Date().timeIntervalSince1970)
             params[CLDSignature.SignatureParam.Timestamp.rawValue] = cldParamValueAsString(value: timestamp)
-            let signature = cloudinarySignParamsUsingSecret(params, cloudinaryApiSecret: apiSecret)
+            
+            let signature = cloudinarySignParamsUsingSecret(getSignParams(from: params), cloudinaryApiSecret: apiSecret)
             params[CLDSignature.SignatureParam.Signature.rawValue] = signature
         }
         else {
@@ -97,6 +101,12 @@ internal class CLDNetworkCoordinator {
         
         params[CLDNetworkCoordinatorConsts.API_KEY] = apiKey
         return params
+    }
+    
+    fileprivate func getSignParams(from params: [String : Any]) -> [String : Any] {
+        var signatureParams = params
+        signatureParams.removeValue(forKey: CLDConfiguration.ConfigParam.Timeout.description)
+        return signatureParams
     }
     
     fileprivate func getUrl(_ action: CLDAPIAction, resourceType: String?) -> String {
