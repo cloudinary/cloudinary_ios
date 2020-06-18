@@ -89,7 +89,7 @@ import Foundation
     
     /**
      Add a tag to one or more assets in your cloud.
-     Tags are used to categorize and organize your images, and can also be used to apply group actions to images, 
+     Tags are used to categorize and organize your images, and can also be used to apply group actions to images,
      for example to delete images, create sprites, ZIP files, JSON lists, or animated GIFs.
      Each image can be assigned one or more tags, which is a short name that you can dynamically use (no need to predefine tags).
      
@@ -165,8 +165,8 @@ import Foundation
     
     /**
      The explicit method is used to apply actions to already uploaded images, i.e., to update images that have already been uploaded.
-     The most common usage of this method is to generate transformations for images that have already been uploaded, 
-     either so that they do not need to be generated on the fly when first accessed by users, 
+     The most common usage of this method is to generate transformations for images that have already been uploaded,
+     either so that they do not need to be generated on the fly when first accessed by users,
      or because Strict Transformations are enabled for your account and you cannot create transformed images on the fly (for more information, see [Access control to images](http://cloudinary.com/documentation/upload_images#control_access_to_images)).
      
      - parameter publicId:              The identifier of the uploaded asset.
@@ -211,8 +211,8 @@ import Foundation
     
     /**
      The explode method creates derived images for all the individual pages in a PDF file.
-     Each derived image created is stored with the same Public ID as the PDF file, 
-     and can be accessed using the page parameter for delivering an image of a specific PDF page. 
+     Each derived image created is stored with the same Public ID as the PDF file,
+     and can be accessed using the page parameter for delivering an image of a specific PDF page.
      This method is useful for pregenerating all the pages of the PDF as individual images so that they do not need to be generated on the fly when first accessed by your users.
      
      - parameter publicId:              The identifier of the uploaded asset.
@@ -258,7 +258,7 @@ import Foundation
     }
     
     /**
-    Create a single animated GIF file from all images that have been assigned a specified tag, 
+    Create a single animated GIF file from all images that have been assigned a specified tag,
      where each image is included as a single frame of the resulting animating GIF (sorted alphabetically by their Public ID).
      For a detailed explanation on generating animated GIFs, see the [documentation on creating animated GIFs.](http://cloudinary.com/documentation/image_transformations#creating_animated_gifs)
      
@@ -282,8 +282,8 @@ import Foundation
     
     /**
      Dynamically generate an image from a given textual string.
-     You can then use this textual image as any other image, 
-     for example, as an overlay for other images. Various font, 
+     You can then use this textual image as any other image,
+     for example, as an overlay for other images. Various font,
      color and style parameters can be specified to customize the look & feel of the text before converting it to an image.
      
      - parameter text:                  The text string to generate an image for.
@@ -305,7 +305,7 @@ import Foundation
     }
     
     /**
-     The Cloudinary library supports using a delete token to delete images on the client-side for a limited time of 10 minutes after being uploaded. 
+     The Cloudinary library supports using a delete token to delete images on the client-side for a limited time of 10 minutes after being uploaded.
      After 10 minutes has passed, the image cannot be deleted from the client side, only via the Destroy method.
      In order to also receive a deletion token in the upload response, add the return_delete_token parameter to the upload method and set it to true.
      

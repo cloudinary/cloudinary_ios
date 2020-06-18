@@ -76,18 +76,48 @@ internal extension String {
     }
 
     func sha1_base64() -> String {
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-        let cStr = NSString(string: self).utf8String
-        CC_SHA1(cStr, CC_LONG(strlen(cStr!)), &digest)
-
+        return sha_base64(type: .sha1)
+    }
+    
+    func sha256_base64() -> String {
+        return sha_base64(type: .sha256)
+    }
+    
+    fileprivate func sha_base64(type: shaBase64Type) -> String {
+        var digest = [UInt8](repeating: 0, count:type.count)
+        type.hash(string: self, digest: &digest)
+        
         let data = Data(bytes: digest, count: MemoryLayout<UInt8>.size * digest.count)
         let base64 = data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         let encoded = base64.replacingOccurrences(of: "/", with: "_")
                 .replacingOccurrences(of: "+", with: "-")
                 .replacingOccurrences(of: "=", with: "")
-
-
+        
         return encoded
+    }
+    
+    fileprivate enum shaBase64Type {
+        case sha1
+        case sha256
+        
+        var count: Int {
+            get {
+                switch self {
+                case .sha1  : return Int(CC_SHA1_DIGEST_LENGTH)
+                case .sha256: return Int(CC_SHA256_DIGEST_LENGTH)
+                }
+            }
+        }
+        
+        func hash(string: String, digest: UnsafeMutablePointer<UInt8>!) {
+        
+            let cStr = NSString(string: string).utf8String
+            
+            switch self {
+            case .sha1  : CC_SHA1(cStr, CC_LONG(strlen(cStr!)), digest)
+            case .sha256: CC_SHA256(cStr, CC_LONG(strlen(cStr!)), digest)
+            }
+        }
     }
 
     func toCRC32() -> UInt32 {
@@ -162,5 +192,3 @@ private func crc32(_ string: String) -> UInt32 {
 
     return crc ^ 0xffffffff
 }
-
-
