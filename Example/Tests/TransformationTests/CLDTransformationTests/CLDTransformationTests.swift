@@ -1136,7 +1136,126 @@ class CLDTransformationTests: BaseTestCase {
         XCTAssertEqual(actualResult, expectedResult, "Calling for inserted param should return its value")
     }
     
-    // MARK: - customFunction
+    // MARK: - custom pre functions
+    func test_customPreFunction_wasm_shouldReturnExpectedValue(){
+       
+        // Given
+        let input = "blur_wasm"
+        
+        let expectedResult = "fn_pre:wasm:blur_wasm"
+        
+        // When
+        let sut = CLDTransformation().setCustomPreFunction(.wasm(input))
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult ,expectedResult, "actualResult should be equal to expectedResult")
+    }
+    func test_customPreFunction_remote_shouldReturnExpectedValue(){
+        
+        // Given
+        let input = "https://df34ra4a.execute-api.us-west-2.amazonaws.com/default/cloudinaryFunction"
+        
+        let expectedResult = "fn_pre:remote:aHR0cHM6Ly9kZjM0cmE0YS5leGVjdXRlLWFwaS51cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9kZWZhdWx0L2Nsb3VkaW5hcnlGdW5jdGlvbg=="
+        
+        // When
+        let sut = CLDTransformation().setCustomPreFunction(.remote(input))
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult ,expectedResult, "actualResult should be equal to expectedResult")
+    }
+    
+    func test_setCustomPreFunction_emptyWasm_shouldReturnValidString() {
+        
+        // Given
+        let input = ""
+        
+        let expectedResult = "wasm:"
+        
+        // When
+        sut.setCustomPreFunction(.wasm(input))
+        
+        let actualResult = sut.customPreFunction!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Calling for inserted param should return its value")
+    }
+    func test_setCustomPreFunction_wasm_shouldReturnValidString() {
+        
+        // Given
+        let input = "func"
+        
+        let expectedResult = "wasm:func"
+        
+        // When
+        sut.setCustomPreFunction(.wasm(input))
+        
+        let actualResult = sut.customPreFunction!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Calling for inserted param should return its value")
+    }
+    func test_setCustomPreFunction_emptyRemote_shouldReturnValidString() {
+        
+        // Given
+        let input = ""
+        
+        let expectedResult = "remote:"
+        
+        // When
+        sut.setCustomPreFunction(.remote(input))
+        
+        let actualResult = sut.customPreFunction!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Calling for inserted param should return its value")
+    }
+    func test_setCustomPreFunction_remote_shouldReturnValidString() {
+        
+        // Given
+        let input = "func"
+        
+        let expectedResult = "remote:ZnVuYw=="
+        
+        // When
+        sut.setCustomPreFunction(.remote(input))
+        
+        let actualResult = sut.customPreFunction!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Calling for inserted param should return its value")
+    }
+    
+    // MARK: - custom functions
+    func test_customFunction_wasm_shouldReturnExpectedValue(){
+       
+        // Given
+        let input = "blur_wasm"
+        
+        let expectedResult = "fn_wasm:blur_wasm"
+        
+        // When
+        let sut = CLDTransformation().setCustomFunction(.wasm(input))
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult ,expectedResult, "actualResult should be equal to expectedResult")
+    }
+    func test_customFunction_remote_shouldReturnExpectedValue(){
+        
+        // Given
+        let input = "https://df34ra4a.execute-api.us-west-2.amazonaws.com/default/cloudinaryFunction"
+        
+        let expectedResult = "fn_remote:aHR0cHM6Ly9kZjM0cmE0YS5leGVjdXRlLWFwaS51cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9kZWZhdWx0L2Nsb3VkaW5hcnlGdW5jdGlvbg=="
+        
+        // When
+        let sut = CLDTransformation().setCustomFunction(.remote(input))
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult ,expectedResult, "actualResult should be equal to expectedResult")
+    }
     func test_setCustomFunction_wasm_shouldReturnValidString() {
         
         // Given

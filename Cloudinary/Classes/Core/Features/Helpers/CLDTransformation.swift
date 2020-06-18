@@ -187,6 +187,10 @@ import CoreGraphics
         return getParam(.ASPECT_RATIO)
     }
     
+    open var customPreFunction: String? {
+        return getParam(.CUSTOM_PRE_FUNCTION)
+    }
+    
     open var customFunction: String? {
         return getParam(.CUSTOM_FUNCTION)
     }
@@ -1180,6 +1184,20 @@ import CoreGraphics
         return setParam(TransformationParam.ASPECT_RATIO, value: aspectRatio)
     }
     
+    // MARK: - Set Values - CustomPreFunction
+    
+    /**
+     Set a custom pre-function, such as a call to a lambda function or a web-assembly function.
+     
+     - parameter customPreFunction: The custom pre-function to perform, see CLDCustomFunction.
+     
+     - returns:                     The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setCustomPreFunction(_ customPreFunction: CLDCustomFunction) -> Self {
+        return setParam(TransformationParam.CUSTOM_PRE_FUNCTION, value: customPreFunction.description)
+    }
+    
     // MARK: - Set Values - CustomFunction
     
     /**
@@ -1728,7 +1746,14 @@ import CoreGraphics
                 $0.0 != TransformationParam.VARIABLES.rawValue &&
                 $0.0 != TransformationParam.IF_PARAM.rawValue &&
                 !$0.1.isEmpty }
-            .map { "\($0)_\($1)" }
+            .map {
+                if $0 == TransformationParam.CUSTOM_PRE_FUNCTION.rawValue {
+                    return "\($0)\($1)"
+                }
+                else {
+                    return "\($0)_\($1)"
+                }
+            }
         
         var finalComponents: [String] = [String]()
         
@@ -1781,6 +1806,7 @@ import CoreGraphics
         case ZOOM =                         "z"
         case ASPECT_RATIO =                 "ar"
         case CUSTOM_FUNCTION =              "fn"
+        case CUSTOM_PRE_FUNCTION =          "fn_pre:"
         case AUDIO_CODEC =                  "ac"
         case AUDIO_FREQUENCY =              "af"
         case BIT_RATE =                     "br"
@@ -1888,7 +1914,7 @@ import CoreGraphics
          
          - parameter publicId: Public id of the web assembly file.
          */
-        public static func wasm(_ publicId: String) -> CLDCustomFunction {
+        @objc public static func wasm(_ publicId: String) -> CLDCustomFunction {
             return CLDCustomFunction("wasm", publicId)
         }
         
@@ -1897,10 +1923,9 @@ import CoreGraphics
          
          - parameter url: public url of the aws lambda function
          */
-        public static func remote(_ url: String) -> CLDCustomFunction {
+        @objc public static func remote(_ url: String) -> CLDCustomFunction {
             return CLDCustomFunction("remote", url.cldBase64UrlEncode())
         }
-        
     }
     
     // MARK: FPS
