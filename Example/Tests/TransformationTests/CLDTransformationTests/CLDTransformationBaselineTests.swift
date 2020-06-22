@@ -25,7 +25,7 @@
 import Foundation
 import XCTest
 
-// MARK: - CLDTransformationDotNetBaselineTests
+// MARK: - CLDTransformationBaselineTests
 class CLDTransformationBaselineTests: BaseTestCase {
     
     var sut : CLDTransformation!
