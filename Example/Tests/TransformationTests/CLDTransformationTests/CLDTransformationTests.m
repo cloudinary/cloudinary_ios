@@ -269,4 +269,67 @@
     // Then
     XCTAssertEqualObjects(actualResult ,expectedResult, "actualResult should be equal to expectedResult");
 }
+
+// MARK: - custom functions combinations
+- (void)test_customFunctionCombinations_setPreFirstAndWasm_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* inputPre = @"preFunc";
+    NSString* input    = @"func";
+    
+    NSString* expectedResult = @"fn_wasm:func";
+    
+    // When
+    self.sut = [[[[CLDTransformation alloc] init] setCustomPreFunction:[CLDCustomFunction wasm:inputPre]] setCustomFunction:[CLDCustomFunction wasm:input]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
+}
+- (void)test_customFunctionCombinations_setPreLastAndRemote_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* inputPre = @"preFunc";
+    NSString* input    = @"func";
+    
+    NSString* expectedResult = @"fn_remote:ZnVuYw==";
+    
+    // When
+    self.sut = [[[[CLDTransformation alloc] init] setCustomFunction:[CLDCustomFunction remote:input]] setCustomPreFunction:[CLDCustomFunction remote:inputPre]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
+}
+- (void)test_customFunctionCombinations_setBothWasmAndMultiParams_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* inputPre = @"preFunc";
+    NSString* input    = @"func";
+    
+    NSString* expectedResult = @"fn_wasm:func,r_50,w_20,x_40";
+    
+    // When
+    self.sut = [[[[[[[CLDTransformation alloc] init] setWidthWithInt:20] setCustomFunction:[CLDCustomFunction wasm:input]] setXFromInt:40] setCustomPreFunction:[CLDCustomFunction wasm:inputPre]] setRadiusFromInt:50];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
+}
+- (void)test_customFunctionCombinations_setBothRemoteAndMultiParams_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* inputPre = @"preFunc";
+    NSString* input    = @"func";
+    
+    NSString* expectedResult = @"fn_remote:ZnVuYw==,r_50,w_20,x_40";
+    
+    // When
+    self.sut = [[[[[[[CLDTransformation alloc] init] setWidthWithInt:20] setCustomFunction:[CLDCustomFunction remote:input]] setXFromInt:40] setCustomPreFunction:[CLDCustomFunction remote:inputPre]] setRadiusFromInt:50];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
+}
+
 @end
