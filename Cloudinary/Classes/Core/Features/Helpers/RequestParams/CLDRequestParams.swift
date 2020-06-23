@@ -107,4 +107,10 @@ import Foundation
             self.params.cldMerge(other.params)
         }
     }
+    
+    internal func setTimeout(from config: CLDConfiguration) {
+        guard let timeout = config.timeout else { return }
+
+        setParam(CLDConfiguration.ConfigParam.Timeout.description, value: timeout)
+    }
 }

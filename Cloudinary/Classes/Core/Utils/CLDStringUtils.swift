@@ -98,6 +98,13 @@ internal extension String {
         return false
     }
     
+    func cldAsNSNumber() -> NSNumber? {
+        if let intValue = Int(self) {
+            return NSNumber(value: intValue)
+        }
+        return nil
+    }
+    
     func cldIsRemoteUrl() -> Bool {
         return self.range(of: "^ftp:|^https?:|^s3:|^gs:|^data:([\\w-]+\\/[\\w-]+)?(;[\\w-]+=[\\w-]+)*;base64,([a-zA-Z0-9\\/+\\n=]+)$", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) != nil
     }

@@ -28,7 +28,10 @@ import Cloudinary
 
 class NetworkBaseTest: XCTestCase {
     let timeout: TimeInterval = 30.0
+    
     var cloudinary: CLDCloudinary?
+    var cloudinaryInsufficientTimeout: CLDCloudinary?
+    var cloudinarySufficientTimeout: CLDCloudinary?
     var cloudinaryNoSecret: CLDCloudinary!
     var cloudinarySecured:CLDCloudinary!
     
@@ -43,19 +46,31 @@ class NetworkBaseTest: XCTestCase {
         } else {
             config = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
         }
-
+        
+        let configInsufficientTimeout = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: config.apiSecret, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix, timeout: 0.01)
+        
+        let configSufficientTimeout = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: config.apiSecret, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix, timeout: 30000)
+        
         let configNoSecret = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: nil, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix)
 
         let configSecured = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: config.apiSecret, privateCdn: config.privateCdn, secure: true, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix)
         
-        cloudinary = CLDCloudinary(configuration: config, sessionConfiguration: URLSessionConfiguration.default)
-        cloudinaryNoSecret = CLDCloudinary(configuration: configNoSecret, sessionConfiguration: URLSessionConfiguration.default)
+        cloudinary = CLDCloudinary(configuration: config, sessionConfiguration: .default)
+        
+        cloudinaryInsufficientTimeout = CLDCloudinary(configuration: configInsufficientTimeout, sessionConfiguration: .default)
+        cloudinarySufficientTimeout = CLDCloudinary(configuration: configSufficientTimeout, sessionConfiguration: .default)
+
+        cloudinaryNoSecret = CLDCloudinary(configuration: configNoSecret, sessionConfiguration: .default)
         cloudinarySecured = CLDCloudinary(configuration: configSecured)
     }
     
     override func tearDown() {
         super.tearDown()
         cloudinary = nil
+        cloudinaryInsufficientTimeout = nil
+        cloudinarySufficientTimeout = nil
+        cloudinaryNoSecret = nil
+        cloudinarySecured = nil
     }
     
     // MARK: - Resources
