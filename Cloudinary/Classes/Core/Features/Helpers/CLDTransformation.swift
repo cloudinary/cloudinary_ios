@@ -1746,9 +1746,9 @@ import CoreGraphics
                 $0.0 != TransformationParam.VARIABLES.rawValue &&
                 $0.0 != TransformationParam.IF_PARAM.rawValue &&
                 !$0.1.isEmpty }
-            .map {
+            .compactMap {
                 if $0 == TransformationParam.CUSTOM_PRE_FUNCTION.rawValue {
-                    return "\($0)\($1)"
+                    return customFunctionExists(in: params) ? nil : "\($0)\($1)"
                 }
                 else {
                     return "\($0)_\($1)"
@@ -1772,6 +1772,13 @@ import CoreGraphics
         }
         
         return finalComponents.joined(separator: CLDTransformation.transformationContentSeparator)
+    }
+    
+    private func customFunctionExists(in params: [String : String]) -> Bool {
+        // by design - we should only use custom pre function when custom function does not exists
+        guard let customFunction = params[TransformationParam.CUSTOM_FUNCTION.rawValue] else { return false }
+        
+        return !customFunction.isEmpty
     }
     
     // MARK: - Params
