@@ -53,6 +53,7 @@
     [super tearDown];
     self.sut = nil;
 }
+
 // MARK: - LongUrlSignature
 - (void)test_initLongUrlSignature_true_shouldStoreValue {
         
