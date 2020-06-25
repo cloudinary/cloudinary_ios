@@ -292,7 +292,7 @@
     NSString* inputPre = @"preFunc";
     NSString* input    = @"func";
     
-    NSString* expectedResult = @"fn_remote:ZnVuYw==";
+    NSString* expectedResult = @"fn_pre:remote:cHJlRnVuYw==";
     
     // When
     self.sut = [[[[CLDTransformation alloc] init] setCustomFunction:[CLDCustomFunction remote:input]] setCustomPreFunction:[CLDCustomFunction remote:inputPre]];
@@ -307,7 +307,7 @@
     NSString* inputPre = @"preFunc";
     NSString* input    = @"func";
     
-    NSString* expectedResult = @"fn_wasm:func,r_50,w_20,x_40";
+    NSString* expectedResult = @"fn_pre:wasm:preFunc,r_50,w_20,x_40";
     
     // When
     self.sut = [[[[[[[CLDTransformation alloc] init] setWidthWithInt:20] setCustomFunction:[CLDCustomFunction wasm:input]] setXFromInt:40] setCustomPreFunction:[CLDCustomFunction wasm:inputPre]] setRadiusFromInt:50];
@@ -322,7 +322,7 @@
     NSString* inputPre = @"preFunc";
     NSString* input    = @"func";
     
-    NSString* expectedResult = @"fn_remote:ZnVuYw==,r_50,w_20,x_40";
+    NSString* expectedResult = @"fn_pre:remote:cHJlRnVuYw==,r_50,w_20,x_40";
     
     // When
     self.sut = [[[[[[[CLDTransformation alloc] init] setWidthWithInt:20] setCustomFunction:[CLDCustomFunction remote:input]] setXFromInt:40] setCustomPreFunction:[CLDCustomFunction remote:inputPre]] setRadiusFromInt:50];

@@ -1309,7 +1309,7 @@ class CLDTransformationTests: BaseTestCase {
         let inputPre = "preFunc"
         let input    = "func"
         
-        let expectedResult = "fn_remote:ZnVuYw=="
+        let expectedResult = "fn_pre:remote:cHJlRnVuYw=="
         
         // When
         let sut = CLDTransformation().setCustomFunction(.remote(input)).setCustomPreFunction(.remote(inputPre))
@@ -1324,7 +1324,7 @@ class CLDTransformationTests: BaseTestCase {
         let inputPre = "preFunc"
         let input    = "func"
         
-        let expectedResult = "dpr_20.0,fn_wasm:func,r_10,w_40,x_30"
+        let expectedResult = "dpr_20.0,fn_pre:wasm:preFunc,r_10,w_40,x_30"
         
         // When
         let sut = CLDTransformation().setWidth(40).setCustomFunction(.wasm(input)).setX(30).setCustomPreFunction(.wasm(inputPre)).setDpr(20.0).setRadius(10)
@@ -1339,7 +1339,7 @@ class CLDTransformationTests: BaseTestCase {
         let inputPre = "preFunc"
         let input    = "func"
         
-        let expectedResult = "dpr_20.0,fn_remote:ZnVuYw==,r_10,w_40,x_30"
+        let expectedResult = "dpr_20.0,fn_pre:remote:cHJlRnVuYw==,r_10,w_40,x_30"
         
         // When
         let sut = CLDTransformation().setWidth(40).setCustomFunction(.remote(input)).setX(30).setCustomPreFunction(.remote(inputPre)).setDpr(20.0).setRadius(10)
