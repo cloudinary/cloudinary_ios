@@ -188,7 +188,8 @@ import CoreGraphics
     }
     
     open var customPreFunction: String? {
-        return getParam(.CUSTOM_PRE_FUNCTION)
+        guard let base = getParam(.CUSTOM_FUNCTION) else { return nil }
+        return base.removePrefix("pre:")
     }
     
     open var customFunction: String? {
@@ -1195,7 +1196,7 @@ import CoreGraphics
      */
     @discardableResult
     open func setCustomPreFunction(_ customPreFunction: CLDCustomFunction) -> Self {
-        return setParam(TransformationParam.CUSTOM_PRE_FUNCTION, value: customPreFunction.description)
+        return setParam(TransformationParam.CUSTOM_FUNCTION, value: "pre:\(customPreFunction.description)")
     }
     
     // MARK: - Set Values - CustomFunction
@@ -1747,12 +1748,7 @@ import CoreGraphics
                 $0.0 != TransformationParam.IF_PARAM.rawValue &&
                 !$0.1.isEmpty }
             .compactMap {
-                if $0 == TransformationParam.CUSTOM_PRE_FUNCTION.rawValue {
-                    return customFunctionExists(in: params) ? nil : "\($0)\($1)"
-                }
-                else {
-                    return "\($0)_\($1)"
-                }
+                return "\($0)_\($1)"
             }
         
         var finalComponents: [String] = [String]()
@@ -1772,13 +1768,6 @@ import CoreGraphics
         }
         
         return finalComponents.joined(separator: CLDTransformation.transformationContentSeparator)
-    }
-    
-    private func customFunctionExists(in params: [String : String]) -> Bool {
-        // by design - we should only use custom pre function when custom function does not exists
-        guard let customFunction = params[TransformationParam.CUSTOM_FUNCTION.rawValue] else { return false }
-        
-        return !customFunction.isEmpty
     }
     
     // MARK: - Params
@@ -1813,7 +1802,6 @@ import CoreGraphics
         case ZOOM =                         "z"
         case ASPECT_RATIO =                 "ar"
         case CUSTOM_FUNCTION =              "fn"
-        case CUSTOM_PRE_FUNCTION =          "fn_pre:"
         case AUDIO_CODEC =                  "ac"
         case AUDIO_FREQUENCY =              "af"
         case BIT_RATE =                     "br"
