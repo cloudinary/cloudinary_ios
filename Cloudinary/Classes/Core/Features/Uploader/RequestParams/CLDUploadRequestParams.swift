@@ -207,6 +207,10 @@ import Foundation
         return getParam(.QualityAnalysis) as? Bool
     }
     
+    open var Ocr: Bool {
+        return getParam(.Ocr) != nil
+    }
+    
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
         return params[param.rawValue] as AnyObject
     }
@@ -966,7 +970,7 @@ import Foundation
      
      - parameter responsiveBreakpoints:         The array of responsive breakpoints setting.
      
-     - returns:                                 The same instance of CLDExplicitRequestParams.
+     - returns:                                 The same instance of CLDUploadRequestParams.
      */
     @discardableResult
     open func setResponsiveBreakpoints(_ responsiveBreakpoints: [CLDResponsiveBreakpoints]) -> Self {
@@ -978,6 +982,23 @@ import Foundation
 
         super.setParam(UploadRequestParams.ResponsiveBreakpoints.rawValue, value: "[\(responsiveBreakpointsJSON.joined(separator: ","))]")
 
+        return self
+    }
+    
+    /**
+     Set a boolean parameter that determines whether to retrieve detected text information in the uploaded image file. default is false.
+     
+     - parameter enable:        The boolean parameter.
+     
+     - returns:                 The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setOcr(_ enable: Bool) -> Self {
+        if enable {
+            setParam(UploadRequestParams.Ocr.rawValue, value: "adv_ocr")
+        } else {
+            params.removeValue(forKey: UploadRequestParams.Ocr.rawValue)
+        }
         return self
     }
     
@@ -1028,5 +1049,6 @@ import Foundation
         case Eager =                                "eager"
         case Headers =                              "headers"
         case ResponsiveBreakpoints =                "responsive_breakpoints"
+        case Ocr =                                  "ocr"
     }
 }

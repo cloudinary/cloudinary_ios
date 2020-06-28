@@ -2068,7 +2068,7 @@ import CoreGraphics
     // MARK: Gravity
     
     @objc public enum CLDGravity: Int, CustomStringConvertible {
-        case center, auto, face, faceCenter, faces, facesCenter, advFace, advFaces, advEyes, north, northWest, northEast, south, southWest, southEast, east, west, xyCenter, custom, customFace, customFaces, customAdvFace, customAdvFaces
+        case center, auto, face, faceCenter, faces, facesCenter, advFace, advFaces, advEyes, north, northWest, northEast, south, southWest, southEast, east, west, xyCenter, custom, customFace, customFaces, customAdvFace, customAdvFaces, autoOcrText, ocrText, ocrTextAdvOcr
         
         public var description: String {
             get {
@@ -2096,6 +2096,9 @@ import CoreGraphics
                 case .customFaces:      return "custom:faces"
                 case .customAdvFace:    return "custom:adv_face"
                 case .customAdvFaces:   return "custom:adv_faces"
+                case .autoOcrText:      return "auto:ocr_text"
+                case .ocrText:          return "ocr_text"
+                case .ocrTextAdvOcr:    return "ocr_text:adv_ocr"
                 }
             }
         }

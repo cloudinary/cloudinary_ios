@@ -1,5 +1,5 @@
 //
-//  CLDInfo.swift
+//  CLDOcrBoundindBlockResult.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -24,35 +24,32 @@
 
 import Foundation
 
-@objcMembers open class CLDInfo: CLDBaseResult {
-    
-    open var detection: CLDDetection? {
-        guard let detection = getParam(.detection) as? [String : AnyObject] else {
-            return nil
+@objcMembers open class CLDOcrBoundindBlockResult: CLDBaseResult {
+
+    open var vertices: [CGPoint]? {
+        guard let vertices = getParam(.vertices) as? [[String : AnyObject]] else { return nil}
+        
+        return vertices.compactMap{
+            if let x = $0["x"] as? NSNumber, let y = $0["y"] as? NSNumber {
+               return CGPoint(x: x.intValue, y: y.intValue)
+            }
+            else {
+                return nil
+            }
         }
-        return CLDDetection(json: detection)
-    }
-    
-    open var ocr: CLDOcrResult? {
-        guard let ocr = getParam(.ocr) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDOcrResult(json: ocr)
     }
     
     // MARK: - Private Helpers
-    
-    fileprivate func getParam(_ param: CLDInfoKey) -> AnyObject? {
+    fileprivate func getParam(_ param: CLDOcrBoundindBlockResultKey) -> AnyObject? {
         return resultJson[String(describing: param)]
     }
     
-    fileprivate enum CLDInfoKey: CustomStringConvertible {
-        case detection, ocr
+    fileprivate enum CLDOcrBoundindBlockResultKey: CustomStringConvertible {
+        case vertices
         
         var description: String {
             switch self {
-            case .detection: return "detection"
-            case .ocr      : return "ocr"
+            case .vertices : return "vertices"
             }
         }
     }

@@ -638,11 +638,14 @@ class UrlTests: XCTestCase {
         testGravityUrl(CLDTransformation.CLDGravity.customFaces, "c_crop,g_custom:faces,w_100")
         testGravityUrl(CLDTransformation.CLDGravity.customAdvFace, "c_crop,g_custom:adv_face,w_100")
         testGravityUrl(CLDTransformation.CLDGravity.customAdvFaces, "c_crop,g_custom:adv_faces,w_100")
+        testGravityUrl(CLDTransformation.CLDGravity.autoOcrText, "c_crop,g_auto:ocr_text,w_100")
+        testGravityUrl(CLDTransformation.CLDGravity.ocrText, "c_crop,g_ocr_text,w_100")
+        testGravityUrl(CLDTransformation.CLDGravity.ocrTextAdvOcr, "c_crop,g_ocr_text:adv_ocr,w_100")
     }
 
     fileprivate func testGravityUrl(_ gravity: CLDTransformation.CLDGravity, _ expected: String) {
         XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(100).setCrop(CLDTransformation.CLDCrop.crop).setGravity(gravity)).generate("public_id"),
-                "\(prefix)/image/upload/\(expected)/public_id")
+                "\(prefix)/image/upload/\(expected)/public_id","Creating url with gravity enum should return expected result")
     }
 
     func testVideoCodec() {

@@ -1,5 +1,5 @@
 //
-//  CLDInfo.swift
+//  CLDOcrDataResult.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -24,35 +24,31 @@
 
 import Foundation
 
-@objcMembers open class CLDInfo: CLDBaseResult {
+@objcMembers open class CLDOcrDataResult: CLDBaseResult {
     
-    open var detection: CLDDetection? {
-        guard let detection = getParam(.detection) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDDetection(json: detection)
+    open var textAnnotations: [CLDOcrTextAnnotationResult]? {
+        guard let textAnnotations = getParam(.textAnnotations) as? [[String : AnyObject]] else { return nil }
+        
+        return textAnnotations.compactMap{ CLDOcrTextAnnotationResult(json: $0) }
     }
-    
-    open var ocr: CLDOcrResult? {
-        guard let ocr = getParam(.ocr) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDOcrResult(json: ocr)
+    open var fullTextAnnotation: CLDOcrFullTextAnnotationResult? {
+        guard let fullTextAnnotation = getParam(.fullTextAnnotation) as? [String : AnyObject] else { return nil }
+        
+        return CLDOcrFullTextAnnotationResult(json: fullTextAnnotation)
     }
     
     // MARK: - Private Helpers
-    
-    fileprivate func getParam(_ param: CLDInfoKey) -> AnyObject? {
+    fileprivate func getParam(_ param: CLDOcrDataResultKey) -> AnyObject? {
         return resultJson[String(describing: param)]
     }
     
-    fileprivate enum CLDInfoKey: CustomStringConvertible {
-        case detection, ocr
+    fileprivate enum CLDOcrDataResultKey: CustomStringConvertible {
+        case textAnnotations, fullTextAnnotation
         
         var description: String {
             switch self {
-            case .detection: return "detection"
-            case .ocr      : return "ocr"
+            case .textAnnotations    : return "textAnnotations"
+            case .fullTextAnnotation : return "fullTextAnnotation"
             }
         }
     }
