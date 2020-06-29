@@ -29,7 +29,7 @@ import Foundation
 
 /**
 A protocol defining the way the SDK works with its network layer, allowing the implementation of a custom network layer.
-By default the Cloudinary SDK uses CLDNetworkDelegate() as its network adapter, 
+By default the Cloudinary SDK uses CLDNetworkDelegate() as its network adapter,
 to use a custom network adapter you must implement the `CLDNetworkAdapter` protocol and send it when creating the CLDCloudinary instance.
 */
 @objc public protocol CLDNetworkAdapter {

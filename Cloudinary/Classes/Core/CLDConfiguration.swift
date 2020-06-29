@@ -69,6 +69,11 @@ import Foundation
     open fileprivate(set) var secureCdnSubdomain: Bool = false
     
     /**
+     A boolean value specifying whether or not to use long encryption. false by default.
+     */
+    open fileprivate(set) var longUrlSignature: Bool = false
+    
+    /**
      Your secure distribution domain to be set when using a secure distribution (advanced plan only). nil by default.
      */
     open fileprivate(set) var secureDistribution: String?
@@ -94,7 +99,7 @@ import Foundation
     /**
      Initializes a CLDConfiguration instance, using the URL specified in the environment parameters under `CLOUDINARY_URL`.
      The URL should be in this form: `cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>`.
-     Extra parameters may be added to the url: `secure` (boolean), `cdn_subdomain` (boolean), `secure_cdn_distribution` (boolean), `cname`, `upload_prefix`
+     Extra parameters may be added to the url: `secure` (boolean), `cdn_subdomain` (boolean), `secure_cdn_distribution` (boolean), `long_url_signature`(boolean), `cname`, `upload_prefix`
      
      - returns:                             A new `CLDConfiguration` instance if the environment parameter URL exists and is valid, otherwise returns nil.
      
@@ -148,11 +153,19 @@ import Foundation
                         secureCdnSubdomain = value.cldAsBool()
                     }
                     break
+                case .LongUrlSignature:
+                    if let value = options[ConfigParam.LongUrlSignature.rawValue] as? Bool {
+                        longUrlSignature = value
+                    }
+                    else if let value = options[ConfigParam.LongUrlSignature.rawValue] as? String {
+                        longUrlSignature = value.cldAsBool()
+                    }
+                    break
                 case .CName:
                     if let value = options[ConfigParam.CName.rawValue] as? String {
                         cname = value
                     }
-                    break                    
+                    break
                 case .UploadPrefix:
                     if let value = options[ConfigParam.UploadPrefix.rawValue] as? String {
                         uploadPrefix = value
@@ -200,6 +213,7 @@ import Foundation
      - parameter secure:                    A boolean value specifying whether or not to use a secure CDN connection. false by default.
      - parameter cdnSubdomain:              A boolean value specifying whether or not to use a CDN subdomain. false by default.
      - parameter secureCdnSubdomain:        A boolean value specifying whether or not to use a secure connection with a CDN subdomain. false by default.
+     - parameter longUrlSignature:          A boolean value specifying whether or not to use long encryption. false by default.
      - parameter secureDistribution:        Set your secure distribution domain to be set when using a secure distribution (advanced plan only). nil by default.
      - parameter cname:                     Set your custom domain. nil by default.
      - parameter uploadPrefix:              Set a custom upload prefix to be used instead of Cloudinary's default API prefix. nil by default.
@@ -215,6 +229,7 @@ import Foundation
         secure: Bool = false,
         cdnSubdomain: Bool = false,
         secureCdnSubdomain: Bool = false,
+        longUrlSignature: Bool = false,
         secureDistribution: String? = nil,
         cname: String? = nil,
         uploadPrefix: String? = nil
@@ -226,6 +241,7 @@ import Foundation
         self.secure = secure
         self.cdnSubdomain = cdnSubdomain
         self.secureCdnSubdomain = secureCdnSubdomain
+        self.longUrlSignature = longUrlSignature
         self.secureDistribution = secureDistribution
         self.cname = cname
         self.uploadPrefix = uploadPrefix
@@ -235,7 +251,7 @@ import Foundation
     /**
      Initializes a CLDConfiguration instance, using a given URL.
      The URL should be in this form: `cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>`.
-     Extra parameters may be added to the url: `secure` (boolean), `cdn_subdomain` (boolean), `secure_cdn_distribution` (boolean), `cname`, `upload_prefix`
+     Extra parameters may be added to the url: `secure` (boolean), `cdn_subdomain` (boolean), `secure_cdn_distribution` (boolean), `long_url_signature`(boolean), `cname`, `upload_prefix`
      
      - returns:                             A new `CLDConfiguration` instance if the URL is valid, otherwise returns nil.
      
@@ -264,7 +280,7 @@ import Foundation
             privateCdn = true
             let index1 = uri.path.index(uri.path.startIndex, offsetBy: 1)
             secureDistribution = String(uri.path[index1...])
-        }        
+        }
         
         if let params = uri.query?.components(separatedBy: "&") {
             for param in params {
@@ -278,6 +294,7 @@ import Foundation
                         case .Secure: secure = keyValue[1].cldAsBool()
                         case .CdnSubdomain: cdnSubdomain = keyValue[1].cldAsBool()
                         case .SecureCdnSubdomain: secureCdnSubdomain = keyValue[1].cldAsBool()
+                        case .LongUrlSignature: longUrlSignature = keyValue[1].cldAsBool()
                         case .CName: cname = keyValue[1]
                         case .UploadPrefix: uploadPrefix = keyValue[1]
                             
@@ -296,6 +313,7 @@ import Foundation
         case Secure =               "secure"
         case CdnSubdomain =         "cdn_subdomain"
         case SecureCdnSubdomain =   "secure_cdn_subdomain"
+        case LongUrlSignature =     "long_url_signature"
         case CName =                "cname"
         case UploadPrefix =         "upload_prefix"
         
@@ -311,6 +329,7 @@ import Foundation
                 case .Secure:               return "secure"
                 case .CdnSubdomain:         return "cdn_subdomain"
                 case .SecureCdnSubdomain:   return "secure_cdn_subdomain"
+                case .LongUrlSignature:     return "long_url_signature"
                 case .CName:                return "cname"
                 case .UploadPrefix:         return "upload_prefix"
                 case .APIKey:               return "api_key"

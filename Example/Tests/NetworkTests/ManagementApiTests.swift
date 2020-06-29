@@ -500,5 +500,4 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertEqual(result?.status ?? "", "processing")
     }
-    
 }
