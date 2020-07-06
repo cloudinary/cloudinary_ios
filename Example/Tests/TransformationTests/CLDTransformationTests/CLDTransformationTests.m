@@ -26,43 +26,41 @@
 #import <Cloudinary/Cloudinary-Swift.h>
 
 @interface ObjcCLDTransformationTests : XCTestCase
-
+@property (nonatomic, strong, nullable) CLDTransformation *sut;
 @end
 
 @implementation ObjcCLDTransformationTests
 
-CLDTransformation *trasformSut;
-
 // MARK: - setup and teardown
 - (void)setUp {
     [super setUp];
+    self.sut = [[CLDTransformation alloc] init];
 }
 
 - (void)tearDown {
     [super tearDown];
-    trasformSut = nil;
+    self.sut = nil;
 }
 
 // MARK: - complexConditionExpression
 - (void)test_complexTransformations_shouldCreateValidString {
         
     // Given
-    NSString* expectedResult = [self getExpectedResultToComplexConditionTest];
+    NSString * expectedResult = [self getExpectedResultToComplexConditionTest];
     
     // When
-    trasformSut = [[CLDTransformation alloc] init];
-    trasformSut = [trasformSut setVariable:@"$foo" intValue: 10];
-    trasformSut = [trasformSut setVariable:@"$foostr" valuesArray: @[@"my", @"str", @"ing"]];
-    trasformSut = [trasformSut chain];
-    trasformSut = [trasformSut ifCondition: [self getIfConditionForComplexConditionTest]];
-    trasformSut = [trasformSut setCrop: @"scale"];
+    self.sut = [self.sut setVariable:@"$foo" intValue: 10];
+    self.sut = [self.sut setVariable:@"$foostr" valuesArray: @[@"my", @"str", @"ing"]];
+    self.sut = [self.sut chain];
+    self.sut = [self.sut ifCondition: [self getIfConditionForComplexConditionTest]];
+    self.sut = [self.sut setCrop: @"scale"];
     
     CLDConditionExpression *conditionForWidth = [[CLDConditionExpression alloc] initWithValue: @"$foo * 200 / faceCount"];
-    trasformSut = [trasformSut setWidthWithExpression: conditionForWidth];
-    trasformSut = [trasformSut setOverlay: @"$foostr"];
-    trasformSut = [trasformSut endIf];
+    self.sut = [self.sut setWidthWithExpression: conditionForWidth];
+    self.sut = [self.sut setOverlay: @"$foostr"];
+    self.sut = [self.sut endIf];
     
-    NSString* actualResult = [trasformSut asString];
+    NSString * actualResult = [self.sut asString];
     
     // Then
     XCTAssertTrue([actualResult isEqualToString: expectedResult], "Calling get asString should return the expect string");
@@ -147,6 +145,191 @@ CLDTransformation *trasformSut;
     [expectedResult appendString:@"_idu_gte_$foo"];
     [expectedResult appendString:@"/c_scale,l_$foostr,w_$foo_mul_200_div_fc/if_end"];
     return [NSString stringWithString: expectedResult];
+}
+
+// MARK: - customPreFunction
+- (void)test_setCustomPreFunction_emptyWasm_shouldReturnValidString {
+    
+    // Given
+    NSString* input = @"";
+    
+    NSString* expectedResult = @"wasm:";
+    
+    // When
+    CLDCustomFunction* customFunc = [CLDCustomFunction wasm:input];
+    [self.sut setCustomPreFunction:customFunc];
+    
+    NSString* actualResult = [self.sut customPreFunction];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult, expectedResult, "Calling for inserted param should return its value");
+}
+- (void)test_setCustomPreFunction_wasm_shouldReturnValidString {
+    
+    // Given
+    NSString* input = @"func";
+    
+    NSString* expectedResult = @"wasm:func";
+    
+    // When
+    [self.sut setCustomPreFunction:[CLDCustomFunction wasm:input]];
+    
+    NSString* actualResult = [self.sut customPreFunction];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult, expectedResult, "Calling for inserted param should return its value");
+}
+- (void)test_setCustomPreFunction_emptyRemote_shouldReturnValidString {
+    
+    // Given
+    NSString* input = @"";
+    
+    NSString* expectedResult = @"remote:";
+    
+    // When
+    [self.sut setCustomPreFunction:[CLDCustomFunction remote:input]];
+    
+    NSString* actualResult = [self.sut customPreFunction];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult, expectedResult, "Calling for inserted param should return its value");
+}
+- (void)test_setCustomPreFunction_remote_shouldReturnValidString {
+    
+    // Given
+    NSString* input = @"func";
+    
+    NSString* expectedResult = @"remote:ZnVuYw==";
+    
+    // When
+    [self.sut setCustomPreFunction:[CLDCustomFunction remote:input]];
+    
+    NSString* actualResult = [self.sut customPreFunction];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult, expectedResult, "Calling for inserted param should return its value");
+}
+
+// MARK: - custom pre functions
+- (void)test_customPreFunction_wasm_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* input = @"blur_wasm";
+    
+    NSString* expectedResult = @"fn_pre:wasm:blur_wasm";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setCustomPreFunction:[CLDCustomFunction wasm:input]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "actualResult should be equal to expectedResult");
+}
+- (void)test_customPreFunction_remote_shouldReturnExpectedValue {
+    
+    // Given
+    NSString* input = @"https://df34ra4a.execute-api.us-west-2.amazonaws.com/default/cloudinaryFunction";
+    
+    NSString* expectedResult = @"fn_pre:remote:aHR0cHM6Ly9kZjM0cmE0YS5leGVjdXRlLWFwaS51cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9kZWZhdWx0L2Nsb3VkaW5hcnlGdW5jdGlvbg==";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setCustomPreFunction:[CLDCustomFunction remote:input]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "actualResult should be equal to expectedResult");
+}
+
+// MARK: - custom functions
+- (void)test_customFunction_wasm_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* input = @"blur_wasm";
+    
+    NSString* expectedResult = @"fn_wasm:blur_wasm";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setCustomFunction:[CLDCustomFunction wasm:input]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "actualResult should be equal to expectedResult");
+}
+- (void)test_customFunction_remote_shouldReturnExpectedValue {
+    
+    // Given
+    NSString* input = @"https://df34ra4a.execute-api.us-west-2.amazonaws.com/default/cloudinaryFunction";
+    
+    NSString* expectedResult = @"fn_remote:aHR0cHM6Ly9kZjM0cmE0YS5leGVjdXRlLWFwaS51cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9kZWZhdWx0L2Nsb3VkaW5hcnlGdW5jdGlvbg==";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setCustomFunction:[CLDCustomFunction remote:input]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "actualResult should be equal to expectedResult");
+}
+
+// MARK: - custom functions combinations
+- (void)test_customFunctionCombinations_setPreFirstAndWasm_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* inputPre = @"preFunc";
+    NSString* input    = @"func";
+    
+    NSString* expectedResult = @"fn_wasm:func";
+    
+    // When
+    self.sut = [[[[CLDTransformation alloc] init] setCustomPreFunction:[CLDCustomFunction wasm:inputPre]] setCustomFunction:[CLDCustomFunction wasm:input]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
+}
+- (void)test_customFunctionCombinations_setPreLastAndRemote_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* inputPre = @"preFunc";
+    NSString* input    = @"func";
+    
+    NSString* expectedResult = @"fn_pre:remote:cHJlRnVuYw==";
+    
+    // When
+    self.sut = [[[[CLDTransformation alloc] init] setCustomFunction:[CLDCustomFunction remote:input]] setCustomPreFunction:[CLDCustomFunction remote:inputPre]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
+}
+- (void)test_customFunctionCombinations_setBothWasmAndMultiParams_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* inputPre = @"preFunc";
+    NSString* input    = @"func";
+    
+    NSString* expectedResult = @"fn_pre:wasm:preFunc,r_50,w_20,x_40";
+    
+    // When
+    self.sut = [[[[[[[CLDTransformation alloc] init] setWidthWithInt:20] setCustomFunction:[CLDCustomFunction wasm:input]] setXFromInt:40] setCustomPreFunction:[CLDCustomFunction wasm:inputPre]] setRadiusFromInt:50];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
+}
+- (void)test_customFunctionCombinations_setBothRemoteAndMultiParams_shouldReturnExpectedValue {
+   
+    // Given
+    NSString* inputPre = @"preFunc";
+    NSString* input    = @"func";
+    
+    NSString* expectedResult = @"fn_pre:remote:cHJlRnVuYw==,r_50,w_20,x_40";
+    
+    // When
+    self.sut = [[[[[[[CLDTransformation alloc] init] setWidthWithInt:20] setCustomFunction:[CLDCustomFunction remote:input]] setXFromInt:40] setCustomPreFunction:[CLDCustomFunction remote:inputPre]] setRadiusFromInt:50];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
 }
 
 @end

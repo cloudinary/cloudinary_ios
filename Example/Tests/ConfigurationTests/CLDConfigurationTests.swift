@@ -33,12 +33,74 @@ class CLDConfigurationTests: BaseTestCase {
     override func setUp() {
         super.setUp()
         sut = CLDConfiguration(cloudName: "")
-
+        
     }
     
     override func tearDown() {
         sut = nil
         super.tearDown()
+    }
+    
+    // MARK: - LongUrlSignature
+    func test_initLongUrlSignature_true_shouldStoreValue() {
+        
+        // Given
+        let input = true
+        
+        // When
+        sut = CLDConfiguration(cloudName: "", longUrlSignature: input)
+        
+        // Then
+        XCTAssertTrue(sut.longUrlSignature, "Init with longUrlSignature = true, should be stored in property")
+    }
+    func test_initLongUrlSignature_default_shouldStoreFalseValue() {
+        
+        // When
+        sut = CLDConfiguration(cloudName: "")
+        
+        // Then
+        XCTAssertFalse(sut.longUrlSignature, "Init without longUrlSignature should store the default false value")
+    }
+    func test_initLongUrlSignature_optionsString_shouldStoreValue() {
+        
+        // Given
+        let keyCloudName          = CLDConfiguration.ConfigParam.CloudName.rawValue
+        let inputCloudName        = "foo" as AnyObject
+        let keyLongUrlSignature   = CLDConfiguration.ConfigParam.LongUrlSignature.rawValue
+        let inputLongUrlSignature = "true" as AnyObject
+        
+        // When
+        sut = CLDConfiguration(options: [keyCloudName: inputCloudName, keyLongUrlSignature: inputLongUrlSignature])
+        
+        // Then
+        XCTAssertTrue(sut.longUrlSignature, "Init with options with longUrlSignature = true, should be stored in property")
+    }
+    func test_initLongUrlSignature_optionsBool_shouldStoreValue() {
+        
+        // Given
+        let keyCloudName          = CLDConfiguration.ConfigParam.CloudName.rawValue
+        let inputCloudName        = "foo" as AnyObject
+        let keyLongUrlSignature   = CLDConfiguration.ConfigParam.LongUrlSignature.rawValue
+        let inputLongUrlSignature = true as AnyObject
+        
+        // When
+        sut = CLDConfiguration(options: [keyCloudName: inputCloudName, keyLongUrlSignature: inputLongUrlSignature])
+        
+        // Then
+        XCTAssertTrue(sut.longUrlSignature, "Init with options with longUrlSignature = true, should be stored in property")
+    }
+    func test_initLongUrlSignature_cloudinaryUrl_shouldStoreValue() {
+        
+        // Given
+        let longUrlSignatureQuery = ("?\(CLDConfiguration.ConfigParam.LongUrlSignature.description)=true")
+        let testedUrl             = "cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3"
+        let fullUrl               = testedUrl + longUrlSignatureQuery
+        
+        // When
+        sut = CLDConfiguration(cloudinaryUrl: fullUrl)
+        
+        // Then
+        XCTAssertTrue(sut.longUrlSignature, "Init with cloudinaryUrl with valid longUrlSignature = true, should be stored in property")
     }
     
     // MARK: - timeout
@@ -56,13 +118,14 @@ class CLDConfigurationTests: BaseTestCase {
         XCTAssertEqual(sut.timeout, expectedResult, "Init with timeout = number, should be stored in property")
     }
     func test_initTimeout_nilIsDefault_shouldStoreFalseValue() {
-        
         // When
         sut = CLDConfiguration(cloudName: "")
         
         // Then
-        XCTAssertNil(sut.timeout, "Init without setting timeout, should result in timeout = nil and not be stored in property")
+        
+        XCTAssertFalse(sut.longUrlSignature, "Init without longUrlSignature should store the default false value")
     }
+    
     func test_initTimeout_optionsString_shouldStoreValue() {
         
         // Given
@@ -106,8 +169,6 @@ class CLDConfigurationTests: BaseTestCase {
         
         // When
         sut = CLDConfiguration(cloudinaryUrl: fullUrl)
-        
-        
         // Then
         XCTAssertEqual(sut.timeout, expectedResult, "Init with cloudinaryUrl with valid timeout, should be stored in property")
     }
