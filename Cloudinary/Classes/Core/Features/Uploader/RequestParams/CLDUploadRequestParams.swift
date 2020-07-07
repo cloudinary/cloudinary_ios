@@ -208,7 +208,7 @@ import Foundation
     }
     
     open var Ocr: Bool {
-        return getParam(.Ocr) != nil
+        return getParam(.Ocr) as? String != nil
     }
     
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
