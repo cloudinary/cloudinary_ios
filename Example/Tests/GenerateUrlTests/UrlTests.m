@@ -101,4 +101,5 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
     // Then
     XCTAssertEqualObjects(actualResult ,expectedResult, @"Creating url with gravity enum should return expected result");
 }
+
 @end
