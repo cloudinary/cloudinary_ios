@@ -1,5 +1,5 @@
 //
-//  MockProvider.swift
+//  OcrMockProvider.swift
 //  Cloudinary_Tests
 //
 //  MockProvider.swift
@@ -27,17 +27,17 @@
 
 @testable import Cloudinary
 
-class MockProvider {
+@objcMembers public class OcrMockProvider: NSObject {
     
-     // MARK: - upload mock result
-     static var uploadMockResult : CLDUploadResult? {
-         guard let resultDictionary = convertToDictionary(string: jsonStringResult) else { return nil }
+    // MARK: - upload mock result
+    static public var uploadMockResult : CLDUploadResult? {
+        guard let resultDictionary = convertToDictionary(string: jsonStringResult) else { return nil }
          
-         return CLDUploadResult(json: resultDictionary)
-     }
+        return CLDUploadResult(json: resultDictionary)
+    }
     
     // MARK: - explicit mock result
-    static var explicitMockResult : CLDExplicitResult? {
+    static public var explicitMockResult : CLDExplicitResult? {
         guard let resultDictionary = convertToDictionary(string: jsonStringResult) else { return nil }
         
         return CLDExplicitResult(json: resultDictionary)

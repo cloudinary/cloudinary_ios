@@ -207,7 +207,7 @@ import Foundation
         return getParam(.QualityAnalysis) as? Bool
     }
     
-    open var Ocr: Bool {
+    open var ocr: Bool {
         return getParam(.Ocr) as? String != nil
     }
     

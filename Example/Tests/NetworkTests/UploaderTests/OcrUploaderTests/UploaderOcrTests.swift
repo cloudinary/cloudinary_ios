@@ -77,9 +77,9 @@ class UploaderOcrTests: NetworkBaseTest {
         var result: CLDUploadResult?
         var error: NSError?
 
-        
         // When
         let params = CLDUploadRequestParams()
+        params.setOcr(true)
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes

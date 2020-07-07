@@ -31,8 +31,6 @@
 
 @implementation ObjcCLDConfigurationTests
 
-
-
 // MARK: - setup and teardown
 - (void)setUp {
     [super setUp];

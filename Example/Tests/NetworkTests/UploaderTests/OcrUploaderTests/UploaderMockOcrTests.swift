@@ -1,5 +1,5 @@
 //
-//  ExplicitMockOcrTests.swift
+//  UploaderMockOcrTests.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -25,23 +25,23 @@
 import XCTest
 @testable import Cloudinary
 
-// explicitMockOcrTests created to reduce server calls to Cloudinary PAID OCR service
-class ExplicitMockOcrTests: NetworkBaseTest {
+// UploaderMockOcrTests created to reduce server calls to Cloudinary PAID OCR service
+class UploaderMockOcrTests: NetworkBaseTest {
 
-    var sut : CLDExplicitResult!
+    var sut : CLDUploadResult!
     
     // MARK: - setup and teardown
     override func setUp() {
         super.setUp()
-        sut = MockProvider.explicitMockResult
+        sut = OcrMockProvider.uploadMockResult
     }
     override func tearDown() {
         super.tearDown()
         sut = nil
     }
     
-    // MARK: - explicit result
-    func test_explicitResult_ocrParsing_ShouldParseAsExpected() {
+    // MARK: - upload result
+    func test_uploadResult_ocrParsing_ShouldParseAsExpected() {
 
         //Given
         let expectedStatus                       = "complete"
