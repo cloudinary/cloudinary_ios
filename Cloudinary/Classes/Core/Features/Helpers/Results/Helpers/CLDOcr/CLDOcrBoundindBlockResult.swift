@@ -23,6 +23,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 @objcMembers open class CLDOcrBoundindBlockResult: CLDBaseResult {
 
