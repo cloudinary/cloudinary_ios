@@ -40,4 +40,67 @@ class CLDConfigurationTests: BaseTestCase {
         sut = nil
         super.tearDown()
     }
+    
+    // MARK: - LongUrlSignature
+    func test_initLongUrlSignature_true_shouldStoreValue() {
+        
+        // Given
+        let input = true
+        
+        // When
+        sut = CLDConfiguration(cloudName: "", longUrlSignature: input)
+        
+        // Then
+        XCTAssertTrue(sut.longUrlSignature, "Init with longUrlSignature = true, should be stored in property")
+    }
+    func test_initLongUrlSignature_default_shouldStoreFalseValue() {
+       
+        // When
+        sut = CLDConfiguration(cloudName: "")
+        
+        // Then
+        XCTAssertFalse(sut.longUrlSignature, "Init without longUrlSignature should store the default false value")
+    }
+    func test_initLongUrlSignature_optionsString_shouldStoreValue() {
+        
+        // Given
+        let keyCloudName          = CLDConfiguration.ConfigParam.CloudName.rawValue
+        let inputCloudName        = "foo" as AnyObject
+        let keyLongUrlSignature   = CLDConfiguration.ConfigParam.LongUrlSignature.rawValue
+        let inputLongUrlSignature = "true" as AnyObject
+        
+        // When
+        sut = CLDConfiguration(options: [keyCloudName: inputCloudName, keyLongUrlSignature: inputLongUrlSignature])
+        
+        // Then
+        XCTAssertTrue(sut.longUrlSignature, "Init with options with longUrlSignature = true, should be stored in property")
+    }
+    func test_initLongUrlSignature_optionsBool_shouldStoreValue() {
+        
+        // Given
+        let keyCloudName          = CLDConfiguration.ConfigParam.CloudName.rawValue
+        let inputCloudName        = "foo" as AnyObject
+        let keyLongUrlSignature   = CLDConfiguration.ConfigParam.LongUrlSignature.rawValue
+        let inputLongUrlSignature = true as AnyObject
+        
+        // When
+        sut = CLDConfiguration(options: [keyCloudName: inputCloudName, keyLongUrlSignature: inputLongUrlSignature])
+        
+        // Then
+        XCTAssertTrue(sut.longUrlSignature, "Init with options with longUrlSignature = true, should be stored in property")
+    }
+    func test_initLongUrlSignature_cloudinaryUrl_shouldStoreValue() {
+        
+        // Given
+        let longUrlSignatureQuery = ("?\(CLDConfiguration.ConfigParam.LongUrlSignature.description)=true")
+        let testedUrl             = "cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3"
+        let fullUrl               = testedUrl + longUrlSignatureQuery
+        
+        // When
+        sut = CLDConfiguration(cloudinaryUrl: fullUrl)
+
+        
+        // Then
+        XCTAssertTrue(sut.longUrlSignature, "Init with cloudinaryUrl with valid longUrlSignature = true, should be stored in property")
+    }
 }

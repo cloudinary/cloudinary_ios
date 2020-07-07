@@ -187,6 +187,11 @@ import CoreGraphics
         return getParam(.ASPECT_RATIO)
     }
     
+    open var customPreFunction: String? {
+        guard let base = getParam(.CUSTOM_FUNCTION) else { return nil }
+        return base.removePrefix("pre:")
+    }
+    
     open var customFunction: String? {
         return getParam(.CUSTOM_FUNCTION)
     }
@@ -1180,6 +1185,20 @@ import CoreGraphics
         return setParam(TransformationParam.ASPECT_RATIO, value: aspectRatio)
     }
     
+    // MARK: - Set Values - CustomPreFunction
+    
+    /**
+     Set a custom pre-function, such as a call to a lambda function or a web-assembly function.
+     
+     - parameter customPreFunction: The custom pre-function to perform, see CLDCustomFunction.
+     
+     - returns:                     The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setCustomPreFunction(_ customPreFunction: CLDCustomFunction) -> Self {
+        return setParam(TransformationParam.CUSTOM_FUNCTION, value: "pre:\(customPreFunction.description)")
+    }
+    
     // MARK: - Set Values - CustomFunction
     
     /**
@@ -1728,7 +1747,9 @@ import CoreGraphics
                 $0.0 != TransformationParam.VARIABLES.rawValue &&
                 $0.0 != TransformationParam.IF_PARAM.rawValue &&
                 !$0.1.isEmpty }
-            .map { "\($0)_\($1)" }
+            .compactMap {
+                return "\($0)_\($1)"
+            }
         
         var finalComponents: [String] = [String]()
         
@@ -1888,7 +1909,7 @@ import CoreGraphics
          
          - parameter publicId: Public id of the web assembly file.
          */
-        public static func wasm(_ publicId: String) -> CLDCustomFunction {
+        @objc public static func wasm(_ publicId: String) -> CLDCustomFunction {
             return CLDCustomFunction("wasm", publicId)
         }
         
@@ -1897,10 +1918,9 @@ import CoreGraphics
          
          - parameter url: public url of the aws lambda function
          */
-        public static func remote(_ url: String) -> CLDCustomFunction {
+        @objc public static func remote(_ url: String) -> CLDCustomFunction {
             return CLDCustomFunction("remote", url.cldBase64UrlEncode())
         }
-        
     }
     
     // MARK: FPS
