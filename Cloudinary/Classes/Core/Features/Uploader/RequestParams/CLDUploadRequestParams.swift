@@ -995,7 +995,25 @@ import Foundation
     @discardableResult
     open func setOcr(_ enable: Bool) -> Self {
         if enable {
-            setParam(UploadRequestParams.Ocr.rawValue, value: "adv_ocr")
+            setOcr("adv_ocr")
+        } else {
+            setOcr(nil)
+        }
+        return self
+    }
+    /**
+     Set a boolean parameter that determines whether to retrieve detected text information in the uploaded image file. default is false.
+     
+     - parameter enable:        The boolean parameter.
+     
+     - returns:                 The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    @objc(setOcrString:)
+    open func setOcr(_ ocrString: String?) -> Self {
+        
+        if let string = ocrString , !string.isEmpty {
+            setParam(UploadRequestParams.Ocr.rawValue, value: string)
         } else {
             params.removeValue(forKey: UploadRequestParams.Ocr.rawValue)
         }
