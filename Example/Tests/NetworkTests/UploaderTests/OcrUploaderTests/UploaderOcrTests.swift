@@ -27,13 +27,20 @@ import XCTest
 
 class UploaderOcrTests: NetworkBaseTest {
 
-    var allowOCRCalls = false // prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true.
+    // prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true.
+    lazy var allowOCRCalls: Bool = {
+        
+        if ProcessInfo.processInfo.arguments.contains("TEST_OCR") {
+            return true
+        } else {
+            return false
+        }
+    }()
     
     // MARK: - upload
-    func test_upload_ocr_uploadShouldSucceed() {
+    func test_upload_ocr_uploadShouldSucceed() throws {
 
-        XCTAssertTrue(allowOCRCalls, "prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true")
-        guard allowOCRCalls else { return }
+        try XCTSkipUnless(allowOCRCalls, "prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true")
         
         // Given
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -63,10 +70,9 @@ class UploaderOcrTests: NetworkBaseTest {
     }
     
     // MARK: - explicit
-    func test_explicit_ocr_callShouldSucceed() {
+    func test_explicit_ocr_callShouldSucceed() throws {
 
-        XCTAssertTrue(allowOCRCalls, "prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true")
-        guard allowOCRCalls else { return }
+        try XCTSkipUnless(allowOCRCalls, "prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true")
         
         // Given
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -95,6 +101,7 @@ class UploaderOcrTests: NetworkBaseTest {
         XCTAssertNil(error, "upload error should be nil")
         XCTAssertNotNil(result, "upload result should not be nil")
     }
+    
     func callForExplicit(publicId: String?) {
 
         guard let publicId = publicId else { return }
