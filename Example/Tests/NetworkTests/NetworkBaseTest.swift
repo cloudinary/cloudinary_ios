@@ -28,6 +28,7 @@ import Cloudinary
 
 class NetworkBaseTest: XCTestCase {
     let timeout: TimeInterval = 30.0
+    let longTimeout: TimeInterval = 60.0
     
     var cloudinary: CLDCloudinary?
     var cloudinaryInsufficientTimeout: CLDCloudinary?
