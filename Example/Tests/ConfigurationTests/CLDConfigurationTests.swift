@@ -33,7 +33,7 @@ class CLDConfigurationTests: BaseTestCase {
     override func setUp() {
         super.setUp()
         sut = CLDConfiguration(cloudName: "")
-
+        
     }
     
     override func tearDown() {
@@ -54,7 +54,7 @@ class CLDConfigurationTests: BaseTestCase {
         XCTAssertTrue(sut.longUrlSignature, "Init with longUrlSignature = true, should be stored in property")
     }
     func test_initLongUrlSignature_default_shouldStoreFalseValue() {
-       
+        
         // When
         sut = CLDConfiguration(cloudName: "")
         
@@ -98,9 +98,78 @@ class CLDConfigurationTests: BaseTestCase {
         
         // When
         sut = CLDConfiguration(cloudinaryUrl: fullUrl)
-
         
         // Then
         XCTAssertTrue(sut.longUrlSignature, "Init with cloudinaryUrl with valid longUrlSignature = true, should be stored in property")
+    }
+    
+    // MARK: - timeout
+    func test_initTimeout_setNSNumber_shouldStoreValue() {
+        
+        // Given
+        let input = NSNumber(integerLiteral: 10000)
+        
+        let expectedResult = NSNumber(integerLiteral: 10000)
+        
+        // When
+        sut = CLDConfiguration(cloudName: "", timeout: input)
+        
+        // Then
+        XCTAssertEqual(sut.timeout, expectedResult, "Init with timeout = number, should be stored in property")
+    }
+    func test_initTimeout_nilIsDefault_shouldStoreFalseValue() {
+        // When
+        sut = CLDConfiguration(cloudName: "")
+        
+        // Then
+        
+        XCTAssertFalse(sut.longUrlSignature, "Init without longUrlSignature should store the default false value")
+    }
+    
+    func test_initTimeout_optionsString_shouldStoreValue() {
+        
+        // Given
+        let keyCloudName   = CLDConfiguration.ConfigParam.CloudName.rawValue
+        let inputCloudName = "foo" as AnyObject
+        let keyTimeout     = CLDConfiguration.ConfigParam.Timeout.rawValue
+        let inputTimeout   = "10000" as AnyObject
+        
+        let expectedResult = NSNumber(integerLiteral: 10000)
+        
+        // When
+        sut = CLDConfiguration(options: [keyCloudName: inputCloudName, keyTimeout: inputTimeout])
+        
+        // Then
+        XCTAssertEqual(sut.timeout, expectedResult, "Init with timeout = number, should be stored in property")
+    }
+    func test_initTimeout_optionsInt_shouldStoreValue() {
+        
+        // Given
+        let keyCloudName   = CLDConfiguration.ConfigParam.CloudName.rawValue
+        let inputCloudName = "foo" as AnyObject
+        let keyTimeout     = CLDConfiguration.ConfigParam.Timeout.rawValue
+        let inputTimeout   = 10000 as AnyObject
+        
+        let expectedResult = NSNumber(integerLiteral: 10000)
+        
+        // When
+        sut = CLDConfiguration(options: [keyCloudName: inputCloudName, keyTimeout: inputTimeout])
+        
+        // Then
+        XCTAssertEqual(sut.timeout, expectedResult, "Init with timeout = number, should be stored in property")
+    }
+    func test_initTimeout_cloudinaryUrl_shouldStoreValue() {
+        
+        // Given
+        let timeoutQuery = ("?\(CLDConfiguration.ConfigParam.Timeout.description)=10000")
+        let testedUrl    = "cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3"
+        let fullUrl      = testedUrl + timeoutQuery
+        
+        let expectedResult = NSNumber(integerLiteral: 10000)
+        
+        // When
+        sut = CLDConfiguration(cloudinaryUrl: fullUrl)
+        // Then
+        XCTAssertEqual(sut.timeout, expectedResult, "Init with cloudinaryUrl with valid timeout, should be stored in property")
     }
 }
