@@ -77,6 +77,7 @@
                                                     secure:NO
                                               cdnSubdomain:NO
                                         secureCdnSubdomain:NO
+                                          longUrlSignature:NO
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
@@ -150,7 +151,8 @@
                                           longUrlSignature:input
                                         secureDistribution:nil
                                                      cname:nil
-                                              uploadPrefix:nil];
+                                              uploadPrefix:nil
+                                                   timeout:nil];
     
     // Then
     XCTAssertTrue(self.sut.longUrlSignature, "Init with longUrlSignature = true, should be stored in property");
@@ -168,7 +170,8 @@
                                           longUrlSignature:NO
                                         secureDistribution:nil
                                                      cname:nil
-                                              uploadPrefix:nil];
+                                              uploadPrefix:nil
+                                                   timeout:nil];
     
     // Then
     XCTAssertFalse(self.sut.longUrlSignature, "Init without longUrlSignature should store the default false value");
