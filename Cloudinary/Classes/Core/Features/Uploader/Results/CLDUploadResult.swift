@@ -201,6 +201,13 @@ import Foundation
         return getParam(.qualityAnalysis) as? [String : AnyObject]
     }
     
+    open var accessibilityAnalysis: CLDAccessibilityAnalysisResult? {
+        guard let accessibilityAnalysis = getParam(.accessibilityAnalysis) as? [String : AnyObject] else {
+            return nil
+        }
+        return CLDAccessibilityAnalysisResult(json: accessibilityAnalysis)
+    }
+    
     open var coordinates: CLDCoordinates? {
         guard let coordinates = getParam(CommonResultKeys.coordinates) as? [String : AnyObject] else {
             return nil

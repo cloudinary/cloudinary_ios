@@ -28,7 +28,7 @@ import XCTest
 class UploaderTests: NetworkBaseTest {
 
     // MARK: - Tests
-
+    // MARK: - image data
     func testUploadImageData() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -54,6 +54,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    // MARK: - image file
     func testUploadImageFile() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -77,7 +78,6 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
-
     func testUploadImageFileWithPreprocess() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -105,7 +105,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertEqual(result?.height, 500)
     }
 
-
+    // MARK: - preprocess validator
     func testUploadWithPreprocessValidator() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
 
@@ -130,6 +130,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(error, "error should not be nil")
     }
 
+    // MARK: - large
     func testUploadLargeErrors() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         var expectation = self.expectation(description: "Chunk size under 5MB should fail")
@@ -155,7 +156,6 @@ class UploaderTests: NetworkBaseTest {
 
         XCTAssertNotNil(requestError, "Error should not be nil")
     }
-
     func testUploadLarge() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
 
@@ -183,6 +183,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertTrue(isUsedFilename(filename: filename, publicId: requestResult?.publicId))
     }
 
+    // MARK: - video data
     func testUploadVideoData() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -208,6 +209,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    // MARK: - access control
     func testUploadAccessControlParams() {
 
         let formatter = DateFormatter()
@@ -231,7 +233,6 @@ class UploaderTests: NetworkBaseTest {
         params = CLDUploadRequestParams().setAccessControl(aclString)
         XCTAssertEqual(params.accessControl!, aclString)
     }
-
     func testUploadWithAccessControl() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
 
@@ -255,7 +256,6 @@ class UploaderTests: NetworkBaseTest {
         uploadAndCompare(accessControl: [anonStartEnd, token])
         uploadAndCompare(accessControl: [token, anonEnd])
     }
-
     fileprivate func uploadAndCompare(accessControl: [CLDAccessControlRule]) {
         let file = TestResourceType.borderCollie.url
 
@@ -284,6 +284,7 @@ class UploaderTests: NetworkBaseTest {
         }
     }
 
+    // MARK: - video file
     func testUploadVideoFile() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -309,6 +310,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    // MARK: - image data with signature
     func testUploadImageDataUsingSignature() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -338,6 +340,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    // MARK: - image file unsigned
     func testUnsignedUploadImageFile() {
 
         let prefix = cloudinary!.config.apiSecret != nil ? "\(cloudinary!.config.apiKey!):\(cloudinary!.config.apiSecret!)" : cloudinary!.config.apiKey!
@@ -385,7 +388,7 @@ class UploaderTests: NetworkBaseTest {
         }
     }
 
-
+    // MARK: - remote url
     func testUploadRemoteUrl() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -409,7 +412,6 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
 
     }
-    
     func testUploadLargeRemoteUrl() {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -434,7 +436,7 @@ class UploaderTests: NetworkBaseTest {
         
     }
 
-
+    // MARK: - filename
     func testUseFilename() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -472,6 +474,7 @@ class UploaderTests: NetworkBaseTest {
         return matches == 1
     }
 
+    // MARK: - unique filename
     func testUniqueFilename() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -500,6 +503,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertEqual(result?.publicId ?? "", filename)
     }
 
+    // MARK: - upload async
     func testUploadAsync() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
 
@@ -527,6 +531,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertEqual(status, "pending")
     }
     
+    // MARK: - upload large
     func testUploadLargeWithSignature(){
         let expectation = self.expectation(description: "Signed upload large should succeed")
         let timestamp = Int(Date().timeIntervalSince1970)
@@ -552,6 +557,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    // MARK: - eager
     func testEager() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -582,6 +588,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertTrue((result?.eager?[1].url?.hasSuffix("gif")) ?? false)
     }
 
+    // MARK: - headers
     func testHeaders() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -608,6 +615,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    // MARK: - face coordinates
     func testFaceCoordinates() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -639,6 +647,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertEqual(resultCoords[3] as! Float, Float(result!.height!))
     }
 
+    // MARK: - custom coordinates
     func testCustomCoordinates() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -665,6 +674,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    // MARK: - responsive breakpoints
     func testResponsiveBreakpoints() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
@@ -694,6 +704,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertTrue(result!.responsiveBreakpoints![0].transformation!.contains("a_10"))
     }
     
+    // MARK: - context
     func testContext() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         var expectation = self.expectation(description: "Upload should succeed")
@@ -752,6 +763,7 @@ class UploaderTests: NetworkBaseTest {
         }
     }
     
+    // MARK: - quality analysis
     func testQualityAnalysis() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
@@ -777,7 +789,8 @@ class UploaderTests: NetworkBaseTest {
         
         XCTAssertNotNil(result?.qualityAnalysis, "quality analysis field in upload result should not be nil")
     }
-
+    
+    // MARK: - manual moderation
     func testManualModeration() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -817,6 +830,7 @@ class UploaderTests: NetworkBaseTest {
 
     }
 
+    // MARK: - raw conversion
     func testRawConversion() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -849,6 +863,7 @@ class UploaderTests: NetworkBaseTest {
         }
     }
 
+    // MARK: - categorization
     func testCategorization() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -880,6 +895,7 @@ class UploaderTests: NetworkBaseTest {
         }
     }
 
+    // MARK: - detection
     func testDetection() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -911,6 +927,7 @@ class UploaderTests: NetworkBaseTest {
         }
     }
     
+    // MARK: - remote url
     func testCldIsRemoteUrl(){
         let remoteUrls = [
             "ftp://ftp.cloudinary.com/images/old_logo.png",
@@ -935,6 +952,7 @@ class UploaderTests: NetworkBaseTest {
         notRemoteUrls.forEach({XCTAssertFalse($0.cldIsRemoteUrl())})
     }
     
+    // MARK: - quality override
     func testQualityOverride(){
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         let result = uploadResource()
@@ -947,8 +965,7 @@ class UploaderTests: NetworkBaseTest {
         validateQualityOverride(publicId: result.publicId!, quality: "none", shouldSucceed: true)
     }
 
-    //MARK: - Helpers
-
+    // MARK: - helpers
     func uploadResource() -> CLDUploadResult {
         let expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .borderCollie
