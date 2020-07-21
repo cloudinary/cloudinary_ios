@@ -26,7 +26,7 @@
 #import <Cloudinary/Cloudinary-Swift.h>
 
 @interface ObjcCLDConfigurationTests : XCTestCase
-@property (nonatomic, strong, nullable) CLDConfiguration *sut;
+@property (nonatomic, strong, nullable) CLDConfiguration* sut;
 @end
 
 @implementation ObjcCLDConfigurationTests
@@ -58,6 +58,7 @@
                                               cdnSubdomain:NO
                                         secureCdnSubdomain:NO
                                           longUrlSignature:NO
+                                        signatureAlgorithm:SignatureAlgorithmSha1
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
@@ -77,6 +78,8 @@
                                                     secure:NO
                                               cdnSubdomain:NO
                                         secureCdnSubdomain:NO
+                                          longUrlSignature:NO
+                                        signatureAlgorithm:SignatureAlgorithmSha1
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
@@ -121,7 +124,7 @@
     
     // Given
     NSString* longUrlSignatureQuery = @"?timeout=10000";
-    NSString* testedUrl             = @"cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3";
+    NSString* testedUrl             = @"cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3@test";
     NSString* fullUrl               = [NSString stringWithFormat:@"%@%@",testedUrl,longUrlSignatureQuery];
     
     NSNumber* expectedResult = [[NSNumber alloc] initWithInt:10000];
@@ -133,7 +136,7 @@
     XCTAssertEqualObjects(self.sut.timeout, expectedResult, "Init with cloudinaryUrl with valid timeout, should be stored in property");
 }
 
-// MARK: - LongUrlSignature
+// MARK: - long url signature
 - (void)test_initLongUrlSignature_true_shouldStoreValue {
         
     // Given
@@ -148,9 +151,11 @@
                                               cdnSubdomain:NO
                                         secureCdnSubdomain:NO
                                           longUrlSignature:input
+                                        signatureAlgorithm:SignatureAlgorithmSha1
                                         secureDistribution:nil
                                                      cname:nil
-                                              uploadPrefix:nil];
+                                              uploadPrefix:nil
+                                                   timeout:nil];
     
     // Then
     XCTAssertTrue(self.sut.longUrlSignature, "Init with longUrlSignature = true, should be stored in property");
@@ -166,9 +171,11 @@
                                               cdnSubdomain:NO
                                         secureCdnSubdomain:NO
                                           longUrlSignature:NO
+                                        signatureAlgorithm:SignatureAlgorithmSha1
                                         secureDistribution:nil
                                                      cname:nil
-                                              uploadPrefix:nil];
+                                              uploadPrefix:nil
+                                                   timeout:nil];
     
     // Then
     XCTAssertFalse(self.sut.longUrlSignature, "Init without longUrlSignature should store the default false value");
@@ -205,7 +212,7 @@
         
     // Given
     NSString* longUrlSignatureQuery = @"?long_url_signature=true";
-    NSString* testedUrl             = @"cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3";
+    NSString* testedUrl             = @"cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3@test";
     NSString* fullUrl               = [NSString stringWithFormat:@"%@%@",testedUrl,longUrlSignatureQuery];
     
     // When
@@ -213,6 +220,106 @@
     
     // Then
     XCTAssertTrue(self.sut.longUrlSignature, "Init with cloudinaryUrl with valid longUrlSignature = true, should be stored in property");
+}
+
+// MARK: - signature algorithm
+- (void)test_initSignatureAlgorithm_setSha256_shouldStoreValue {
+        
+    // Given
+    BOOL input = SignatureAlgorithmSha256;
+    
+    // When
+    self.sut = [[CLDConfiguration alloc] initWithCloudName:@""
+                                                    apiKey:nil
+                                                 apiSecret:nil
+                                                privateCdn:NO
+                                                    secure:NO
+                                              cdnSubdomain:NO
+                                        secureCdnSubdomain:NO
+                                          longUrlSignature:NO
+                                        signatureAlgorithm:input
+                                        secureDistribution:nil
+                                                     cname:nil
+                                              uploadPrefix:nil
+                                                   timeout:nil];
+    
+    // Then
+    XCTAssertEqual(self.sut.signatureAlgorithm, SignatureAlgorithmSha256, "Init with signatureAlgorithm should store that value in property");
+}
+- (void)test_initSignatureAlgorithm_default_shouldStoreDefaultValue {
+
+    // When
+    self.sut = [[CLDConfiguration alloc] initWithCloudName:@""
+                                                    apiKey:nil
+                                                 apiSecret:nil
+                                                privateCdn:NO
+                                                    secure:NO
+                                              cdnSubdomain:NO
+                                        secureCdnSubdomain:NO
+                                          longUrlSignature:NO
+                                        signatureAlgorithm:0
+                                        secureDistribution:nil
+                                                     cname:nil
+                                              uploadPrefix:nil
+                                                   timeout:nil];
+    
+    // Then
+    XCTAssertEqual(self.sut.signatureAlgorithm, SignatureAlgorithmSha1, "Init without signatureAlgorithm should store the default .sha1 value");
+}
+- (void)test_initSignatureAlgorithm_optionsSha256_shouldStoreValue {
+        
+    // Given
+    NSString* keyCloudName            = @"cloud_name";
+    NSString* inputCloudName          = @"foo";
+    NSString* keySignatureAlgorithm   = @"signature_algorithm";
+    NSString* inputSignatureAlgorithm = @"sha256";
+    
+    // When
+    self.sut = [[CLDConfiguration alloc] initWithOptions:@{keyCloudName: inputCloudName, keySignatureAlgorithm: inputSignatureAlgorithm}];
+    
+    // Then
+    XCTAssertEqual(self.sut.signatureAlgorithm, SignatureAlgorithmSha256, "Init with options with signatureAlgorithm should store that value");
+}
+- (void)test_initSignatureAlgorithm_optionsSha1_shouldStoreValue {
+        
+    // Given
+    NSString* keyCloudName            = @"cloud_name";
+    NSString* inputCloudName          = @"foo";
+    NSString* keySignatureAlgorithm   = @"signature_algorithm";
+    NSString* inputSignatureAlgorithm = @"sha1";
+    
+    // When
+    self.sut = [[CLDConfiguration alloc] initWithOptions:@{keyCloudName: inputCloudName, keySignatureAlgorithm: inputSignatureAlgorithm}];
+    
+    // Then
+    XCTAssertEqual(self.sut.signatureAlgorithm, SignatureAlgorithmSha1, "Init with options with signatureAlgorithm should store that value");
+}
+- (void)test_initSignatureAlgorithm_optionsInvalidString_shouldStoreValue {
+        
+    // Given
+    NSString* keyCloudName            = @"cloud_name";
+    NSString* inputCloudName          = @"foo";
+    NSString* keySignatureAlgorithm   = @"signature_algorithm";
+    NSString* inputSignatureAlgorithm = @"notSha";
+    
+    // When
+    self.sut = [[CLDConfiguration alloc] initWithOptions:@{keyCloudName: inputCloudName, keySignatureAlgorithm: inputSignatureAlgorithm}];
+    
+    // Then
+    XCTAssertEqual(self.sut.signatureAlgorithm, SignatureAlgorithmSha1, "Init with options with invalid signatureAlgorithm should store the defualt .sha1 value");
+}
+- (void)test_initSignatureAlgorithm_cloudinaryUrl_shouldStoreValue {
+        
+    // Given
+    NSString* signatureAlgorithmQuery = @"?signature_algorithm=sha256";
+    NSString* testedUrl               = @"cloudinary://123456789012345:ALKJdjklLJAjhkKJ45hBK92baj3@test";
+    NSString* fullUrl                 = [NSString stringWithFormat:@"%@%@",testedUrl,signatureAlgorithmQuery];
+    
+    // When
+    self.sut = [[CLDConfiguration alloc] initWithCloudinaryUrl:fullUrl];
+    
+    // Then
+    XCTAssertEqual(self.sut.signatureAlgorithm, SignatureAlgorithmSha256, "Init with cloudinaryUrl with valid signatureAlgorithm should store that value");
 }
 
 @end

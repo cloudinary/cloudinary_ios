@@ -26,16 +26,16 @@ import Foundation
 
 /**
  The CLDConfiguration class holds the configuration parameters to be used by the `CLDCloudinary` instance.
-*/
+ */
 @objcMembers open class CLDConfiguration: NSObject {
-
+    
     fileprivate struct Defines {
         fileprivate static let ENV_VAR_CLOUDINARY_URL = "CLOUDINARY_URL"
     }
     
     /**
      Your account's cloud name on Cloudinary.
-    */
+     */
     open fileprivate(set) var cloudName: String!
     
     /**
@@ -74,6 +74,11 @@ import Foundation
     open fileprivate(set) var longUrlSignature: Bool = false
     
     /**
+     An enum value specifying the desired hash algorithm. sha1 by default.
+     */
+    open fileprivate(set) var signatureAlgorithm: SignatureAlgorithm = .sha1
+    
+    /**
      Your secure distribution domain to be set when using a secure distribution (advanced plan only). nil by default.
      */
     open fileprivate(set) var secureDistribution: String?
@@ -93,10 +98,9 @@ import Foundation
      */
     open fileprivate(set) var timeout: NSNumber?
     
-    internal var userPlatform : CLDUserPlatform?
+    internal var userPlatform: CLDUserPlatform?
     
     // MARK: - Init
-    
     fileprivate override init() {
         super.init()
     }
@@ -104,7 +108,7 @@ import Foundation
     /**
      Initializes a CLDConfiguration instance, using the URL specified in the environment parameters under `CLOUDINARY_URL`.
      The URL should be in this form: `cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>`.
-     Extra parameters may be added to the url: `secure` (boolean), `cdn_subdomain` (boolean), `secure_cdn_distribution` (boolean), `long_url_signature`(boolean), `cname`, `upload_prefix`
+     Extra parameters may be added to the url: `secure` (boolean), `cdn_subdomain` (boolean), `secure_cdn_distribution` (boolean), `long_url_signature`(boolean), `cname`, `upload_prefix`, `signature_algorithm`
      
      - returns:                             A new `CLDConfiguration` instance if the environment parameter URL exists and is valid, otherwise returns nil.
      
@@ -118,7 +122,7 @@ import Foundation
         return nil
     }
     
-   internal static func validateUrl(url: String) -> Bool{
+    internal static func validateUrl(url: String) -> Bool{
         return url.starts(with: "cloudinary://")
     }
     
@@ -166,6 +170,14 @@ import Foundation
                         longUrlSignature = value.cldAsBool()
                     }
                     break
+                case .SignatureAlgorithm:
+                    if let value = options[ConfigParam.SignatureAlgorithm.rawValue] as? SignatureAlgorithm {
+                        signatureAlgorithm = value
+                    }
+                    else if let value = options[ConfigParam.SignatureAlgorithm.rawValue] as? String {
+                        signatureAlgorithm = SignatureAlgorithm(stringValue: value)
+                    }
+                    break
                 case .CName:
                     if let value = options[ConfigParam.CName.rawValue] as? String {
                         cname = value
@@ -176,7 +188,6 @@ import Foundation
                         uploadPrefix = value
                     }
                     break
-                    
                 case .APISecret:
                     if let value = options[ConfigParam.APISecret.rawValue] as? String {
                         apiSecret = value
@@ -226,6 +237,7 @@ import Foundation
      - parameter cdnSubdomain:              A boolean value specifying whether or not to use a CDN subdomain. false by default.
      - parameter secureCdnSubdomain:        A boolean value specifying whether or not to use a secure connection with a CDN subdomain. false by default.
      - parameter longUrlSignature:          A boolean value specifying whether or not to use long encryption. false by default.
+     - parameter signatureAlgorithm:        An enum value specifying the desired hash algorithm. sha1 by default.
      - parameter secureDistribution:        Set your secure distribution domain to be set when using a secure distribution (advanced plan only). nil by default.
      - parameter cname:                     Set your custom domain. nil by default.
      - parameter uploadPrefix:              Set a custom upload prefix to be used instead of Cloudinary's default API prefix. nil by default.
@@ -243,6 +255,7 @@ import Foundation
         cdnSubdomain: Bool = false,
         secureCdnSubdomain: Bool = false,
         longUrlSignature: Bool = false,
+        signatureAlgorithm: SignatureAlgorithm = .sha1,
         secureDistribution: String? = nil,
         cname: String? = nil,
         uploadPrefix: String? = nil,
@@ -256,6 +269,7 @@ import Foundation
         self.cdnSubdomain = cdnSubdomain
         self.secureCdnSubdomain = secureCdnSubdomain
         self.longUrlSignature = longUrlSignature
+        self.signatureAlgorithm = signatureAlgorithm
         self.secureDistribution = secureDistribution
         self.cname = cname
         self.uploadPrefix = uploadPrefix
@@ -266,7 +280,7 @@ import Foundation
     /**
      Initializes a CLDConfiguration instance, using a given URL.
      The URL should be in this form: `cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>`.
-     Extra parameters may be added to the url: `secure` (boolean), `cdn_subdomain` (boolean), `secure_cdn_distribution` (boolean), `long_url_signature`(boolean), `cname`, `upload_prefix`
+     Extra parameters may be added to the url: `secure` (boolean), `cdn_subdomain` (boolean), `secure_cdn_distribution` (boolean), `long_url_signature`(boolean), `cname`, `upload_prefix`, `signature_algorithm`
      
      - returns:                             A new `CLDConfiguration` instance if the URL is valid, otherwise returns nil.
      
@@ -283,7 +297,7 @@ import Foundation
         }
         
         self.cloudName = cloudName
-
+        
         if let apiKey = uri.user {
             self.apiKey = apiKey
         }
@@ -297,71 +311,87 @@ import Foundation
             secureDistribution = String(uri.path[index1...])
         }
         
-        if let params = uri.query?.components(separatedBy: "&") {
-            for param in params {
-                let keyValue = param.components(separatedBy: "=")
-                if keyValue.count < 2 {
+        if let queryItems = URLComponents(url: uri, resolvingAgainstBaseURL: false)?.queryItems {
+            for item in queryItems
+            {
+                guard let value = item.value else { continue }
+                
+                switch ConfigParam(rawValue: item.name) {
+                case .Secure: secure = value.cldAsBool()
+                case .CdnSubdomain: cdnSubdomain = value.cldAsBool()
+                case .SecureCdnSubdomain: secureCdnSubdomain = value.cldAsBool()
+                case .LongUrlSignature: longUrlSignature = value.cldAsBool()
+                case .SignatureAlgorithm: signatureAlgorithm = SignatureAlgorithm(stringValue: value)
+                case .CName: cname = value
+                case .UploadPrefix: uploadPrefix = value
+                case .Timeout: timeout = value.cldAsNSNumber()
+                default:
                     continue
-                }
-                else {
-                    if let key = ConfigParam(rawValue: keyValue[0]) {
-                        switch (key) {
-                        case .Secure: secure = keyValue[1].cldAsBool()
-                        case .CdnSubdomain: cdnSubdomain = keyValue[1].cldAsBool()
-                        case .SecureCdnSubdomain: secureCdnSubdomain = keyValue[1].cldAsBool()
-                        case .LongUrlSignature: longUrlSignature = keyValue[1].cldAsBool()
-                        case .CName: cname = keyValue[1]
-                        case .UploadPrefix: uploadPrefix = keyValue[1]
-                        case .Timeout: timeout = keyValue[1].cldAsNSNumber()
-                            
-                        default:
-                            break
-                        }
-                    }
                 }
             }
         }
     }
     
     // MARK: Optional Url Params
-    
     internal enum ConfigParam: String, CustomStringConvertible {
-        case Secure =               "secure"
-        case CdnSubdomain =         "cdn_subdomain"
-        case SecureCdnSubdomain =   "secure_cdn_subdomain"
-        case LongUrlSignature =     "long_url_signature"
-        case CName =                "cname"
-        case UploadPrefix =         "upload_prefix"
         
-        case APIKey =               "api_key"
-        case APISecret =            "api_secret"
-        case CloudName =            "cloud_name"
-        case PrivateCdn =           "private_cdn"
-        case SecureDistribution =   "secure_distribution"
-        case Timeout =              "timeout"
+        case Secure             = "secure"
+        case CdnSubdomain       = "cdn_subdomain"
+        case SecureCdnSubdomain = "secure_cdn_subdomain"
+        case LongUrlSignature   = "long_url_signature"
+        case SignatureAlgorithm = "signature_algorithm"
+        case CName              = "cname"
+        case UploadPrefix       = "upload_prefix"
+        case APIKey             = "api_key"
+        case APISecret          = "api_secret"
+        case CloudName          = "cloud_name"
+        case PrivateCdn         = "private_cdn"
+        case SecureDistribution = "secure_distribution"
+        case Timeout            = "timeout"
         
         internal var description: String {
-            get {
-                switch self {
-                case .Secure:               return "secure"
-                case .CdnSubdomain:         return "cdn_subdomain"
-                case .SecureCdnSubdomain:   return "secure_cdn_subdomain"
-                case .LongUrlSignature:     return "long_url_signature"
-                case .CName:                return "cname"
-                case .UploadPrefix:         return "upload_prefix"
-                case .APIKey:               return "api_key"
-                case .APISecret:            return "api_secret"
-                case .CloudName:            return "cloud_name"
-                case .PrivateCdn:           return "private_cdn"
-                case .SecureDistribution:   return "secure_distribution"
-                case .Timeout:              return "timeout"
-                }
+            switch self {
+            case .Secure:               return "secure"
+            case .CdnSubdomain:         return "cdn_subdomain"
+            case .SecureCdnSubdomain:   return "secure_cdn_subdomain"
+            case .LongUrlSignature:     return "long_url_signature"
+            case .SignatureAlgorithm:   return "signature_algorithm"
+            case .CName:                return "cname"
+            case .UploadPrefix:         return "upload_prefix"
+            case .APIKey:               return "api_key"
+            case .APISecret:            return "api_secret"
+            case .CloudName:            return "cloud_name"
+            case .PrivateCdn:           return "private_cdn"
+            case .SecureDistribution:   return "secure_distribution"
+            case .Timeout:              return "timeout"
+            }
+        }
+    }
+    
+    
+    // MARK: signatureAlgorithm
+    @objc public enum SignatureAlgorithm: Int, CustomStringConvertible {
+        
+        case sha1   = 0
+        case sha256 = 1
+        
+        public init(stringValue: String) {
+            switch stringValue {
+            case "sha1":   self = .sha1
+            case "sha256": self = .sha256
+            default:       self = .sha1
+            }
+        }
+        
+        public var description: String {
+            switch self {
+            case .sha1:   return "sha1"
+            case .sha256: return "sha256"
             }
         }
     }
     
     // MARK: User Platform
-    
     internal func setUserPlatform(_ platformName: String, version: String) {
         userPlatform = CLDUserPlatform(platform: platformName, version: version)
     }

@@ -341,7 +341,7 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(cloudinary?.createUrl().setSuffix("hello").setResourceType(.image).setType(.private).generate("test"), "http://test123-res.cloudinary.com/private_images/test/hello")
     }
     
-    // MARK: - SHA256
+    // MARK: - long url signature
     func test_longUrlSign_emptyApiSecret_shouldCreateExpectedSigning() {
         
         // Given
@@ -429,7 +429,7 @@ class UrlTests: XCTestCase {
         XCTAssertTrue(actualResult.count <= 8, "short encrypted component should not be longer than 8 charecters")
         XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for longUrlSignature = false and call for signUrl = true, should encrypt the ApiSecret with SHA1_base64")
     }
-    func test_longUrlSign_signUrlFalse_shouldCreateExpectedSigning() {
+    func test_longUrlSign_signUrlFalse_shouldNotUseSigning() {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true)
@@ -477,6 +477,209 @@ class UrlTests: XCTestCase {
         XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for longUrlSignature = true and signUrl = true, should create a url with SHA256 encrypted apiSecret")
     }
 
+    // MARK: - signature algorithm
+    func test_signatureAlgorithm_emptyApiSecret_shouldCreateExpectedSigning() {
+        
+        // Given
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "", privateCdn: true, signatureAlgorithm: .sha256)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+         
+        let expectedResult = "DUB-5kBq"
+        
+        // When
+        let actualResult = url!.components(separatedBy: "--")[1]
+        
+        // Then
+        XCTAssertNotNil(actualResult, "encrypted component should not be nil")
+        XCTAssertTrue(actualResult.count <= 8, "encrypted component should not be longer than 8 charecters")
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and call for signUrl = true, should ecrypte with SHA256_base64")
+    }
+    func test_signatureAlgorithm_normalApiSecret_shouldCreateExpectedSigning() {
+        
+        // Given
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, signatureAlgorithm: .sha256)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+         
+        let expectedResult = "UHH8qJ2e"
+        
+        // When
+        let actualResult = url!.components(separatedBy: "--")[1]
+        
+        // Then
+        XCTAssertNotNil(actualResult, "encrypted component should not be nil")
+        XCTAssertTrue(actualResult.count <= 8, "encrypted component should not be longer than 8 charecters")
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and call for signUrl = true, should ecrypte with SHA256_base64")
+    }
+    func test_signatureAlgorithm_longApiSecret_shouldCreateExpectedSigning() {
+        
+        // Given
+        let longString = "abcdefghijklmnopqrstuvwxyz1abcdefghijklmnopqrstuvwxyz2abcdefghijklmnopqrstuvwxyz3abcdefghijklmnopqrstuvwxyz4abcdefghijklmnopqrstuvwxyz5abcdefghijklmnopqrstuvwxyz6"
+        let config = CLDConfiguration(cloudName: "test123", apiSecret: longString, privateCdn: true, signatureAlgorithm: .sha256)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+         
+        let expectedResult = "7k8KYHY2"
+        
+        // When
+        let actualResult = url!.components(separatedBy: "--")[1]
+        
+        // Then
+        XCTAssertNotNil(actualResult, "encrypted component should not be nil")
+        XCTAssertTrue(actualResult.count <= 8, "encrypted component should not be longer than 8 charecters")
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and call for signUrl = true, should ecrypte with SHA256_base64")
+    }
+    func test_signatureAlgorithm_specialApiSecret_shouldCreateExpectedSigning() {
+        
+        // Given
+        let longString = "🔭!@#$%^&*()_+±§?><`~"
+        let config = CLDConfiguration(cloudName: "test123", apiSecret: longString, privateCdn: true, signatureAlgorithm: .sha256)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+         
+        let expectedResult = "g12ptQdG"
+        
+        // When
+        let actualResult = url!.components(separatedBy: "--")[1]
+        
+        // Then
+        XCTAssertNotNil(actualResult, "encrypted component should not be nil")
+        XCTAssertTrue(actualResult.count <= 8, "encrypted component should not be longer than 8 charecters")
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and call for signUrl = true, should ecrypte with SHA256_base64")
+    }
+    func test_signatureAlgorithm_unset_shouldCreateExpectedSigning() {
+        
+        // Given
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+         
+        let expectedResult = "FhXe8ZZ3"
+        
+        // When
+        let actualResult = url!.components(separatedBy: "--")[1]
+        
+        // Then
+        XCTAssertNotNil(actualResult, "encrypted component should not be nil")
+        XCTAssertTrue(actualResult.count <= 8, "encrypted component should not be longer than 8 charecters")
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration without signatureAlgorithm and call for signUrl = true, should ecrypte with the default SHA1_base64")
+    }
+    func test_signatureAlgorithm_signUrlFalse_shouldCreateFullUrlWithoutSigning() {
+        
+        // Given
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, signatureAlgorithm: .sha256)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: false)
+         
+        let expectedResult = "http://test123-res.cloudinary.com/image/upload/test.jpg"
+        
+        // When
+        let actualResult = url!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and call for signUrl = false, should not encrypt nor add the ApiSecret to the url")
+    }
+    func test_signatureAlgorithm_unset_shouldCreateExpectedFullUrl() {
+        
+        // Given
+        let url = cloudinary?.createUrl().generate("sample.jpg", signUrl: true)
+         
+        let expectedResult = "https://res.cloudinary.com/test123/image/upload/s--v2fTPYTu--/sample.jpg"
+        
+        // When
+        let actualResult = url!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for default signatureAlgorithm and signUrl = true, should create a url with SHA1 encrypted apiSecret")
+    }
+    func test_signatureAlgorithm_sha256_shouldCreateExpectedFullUrl() {
+        
+        // Given
+        let signatureAlgorithmQuery = ("?\(CLDConfiguration.ConfigParam.SignatureAlgorithm.description)=sha256")
+        let urlCredentials          = "cloudinary://a:b@test123"
+        let fullUrl                 = urlCredentials + signatureAlgorithmQuery
+        
+        let config = CLDConfiguration(cloudinaryUrl: fullUrl)
+        cloudinary = CLDCloudinary(configuration: config!)
+        let url = cloudinary?.createUrl().generate("sample.jpg", signUrl: true)
+         
+        let expectedResult = "https://res.cloudinary.com/test123/image/upload/s--2hbrSMPO--/sample.jpg"
+        
+        // When
+        let actualResult = url!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and signUrl = true, should create a url with SHA256 encrypted apiSecret")
+    }
+    
+    // MARK: - signing combinations
+    func test_signingCombinations_signTrueLongTrueAlgorithmSha1_shouldUse32CharsEcryptedSha256() {
+        
+        // Given
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha1)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+         
+        let expectedResult = "UHH8qJ2eIEoPHdVQP08BMEN9f4YUDavr"
+        
+        // When
+        let actualResult = url!.components(separatedBy: "--")[1]
+        
+        // Then
+        XCTAssertNotNil(actualResult, "encrypted component should not be nil")
+        XCTAssertTrue(actualResult.count <= 32, "encrypted component should not be longer than 32 charecters")
+        XCTAssertEqual(actualResult, expectedResult, "longUrlSignature should override signing algorithm and force sha256 with 32 charecters")
+    }
+    func test_signingCombinations_signTrueLongTrueAlgorithmSha256_shouldUse32CharsEcryptedSha256() {
+        
+        // Given
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha1)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+         
+        let expectedResult = "UHH8qJ2eIEoPHdVQP08BMEN9f4YUDavr"
+        
+        // When
+        let actualResult = url!.components(separatedBy: "--")[1]
+        
+        // Then
+        XCTAssertNotNil(actualResult, "encrypted component should not be nil")
+        XCTAssertTrue(actualResult.count <= 32, "encrypted component should not be longer than 32 charecters")
+        XCTAssertEqual(actualResult, expectedResult, "longUrlSignature should override signing algorithm and force sha256 with 32 charecters")
+    }
+    func test_signingCombinations_signFalseLongTrueAlgorithmSha1_shouldNotUseSigning() {
+        
+        // Given
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha1)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: false)
+         
+        let expectedResult = "http://test123-res.cloudinary.com/image/upload/test.jpg"
+        
+        // When
+        let actualResult = url!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and longUrlSignature = true and call for signUrl = false, should not encrypt nor add the ApiSecret to the url")
+    }
+    func test_signingCombinations_signFalseLongTrueAlgorithmSha256_shouldUseSigning() {
+        
+        // Given
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha256)
+        cloudinary = CLDCloudinary(configuration: config)
+        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: false)
+         
+        let expectedResult = "http://test123-res.cloudinary.com/image/upload/test.jpg"
+        
+        // When
+        let actualResult = url!
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and longUrlSignature = true and call for signUrl = false, should not encrypt nor add the ApiSecret to the url")
+    }
+    
+    // MARK: - root path
     func testUseRootPathShared() {
         XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).generate("test"), "\(prefix)/test")
         XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).setTransformation(CLDTransformation().setAngle(0)).generate("test"), "\(prefix)/a_0/test")

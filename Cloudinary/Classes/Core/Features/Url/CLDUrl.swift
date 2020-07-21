@@ -370,12 +370,19 @@ import Foundation
             }
             
             if config.longUrlSignature {
+                // long url forces sha256 algorithm
                 let encoded = toSign.sha256_base64()
                 signature = "s--\(encoded[0...31])--"
             }
             else {
-                let encoded = toSign.sha1_base64()
-                signature = "s--\(encoded[0...7])--"
+                switch config.signatureAlgorithm {
+                case .sha1:
+                    let encoded = toSign.sha1_base64()
+                    signature = "s--\(encoded[0...7])--"
+                case .sha256:
+                    let encoded = toSign.sha256_base64()
+                    signature = "s--\(encoded[0...7])--"
+                }
             }
         }
         
