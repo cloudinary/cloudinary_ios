@@ -211,6 +211,9 @@ import Foundation
         return getParam(.AccessibilityAnalysis) as? Bool
     }
     
+    open var ocr: Bool {
+        return getParam(.Ocr) as? String != nil
+    }
     
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
         return params[param.rawValue] as AnyObject
@@ -985,7 +988,7 @@ import Foundation
      
      - parameter responsiveBreakpoints:         The array of responsive breakpoints setting.
      
-     - returns:                                 The same instance of CLDExplicitRequestParams.
+     - returns:                                 The same instance of CLDUploadRequestParams.
      */
     @discardableResult
     open func setResponsiveBreakpoints(_ responsiveBreakpoints: [CLDResponsiveBreakpoints]) -> Self {
@@ -997,6 +1000,41 @@ import Foundation
 
         super.setParam(UploadRequestParams.ResponsiveBreakpoints.rawValue, value: "[\(responsiveBreakpointsJSON.joined(separator: ","))]")
 
+        return self
+    }
+    
+    /**
+     Set a boolean parameter that determines whether to retrieve detected text information in the uploaded image file. default is false.
+     
+     - parameter enable:        The boolean parameter.
+     
+     - returns:                 The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setOcr(_ enable: Bool) -> Self {
+        if enable {
+            setOcr("adv_ocr")
+        } else {
+            setOcr(nil)
+        }
+        return self
+    }
+    /**
+     Set a boolean parameter that determines whether to retrieve detected text information in the uploaded image file. default is false.
+     
+     - parameter enable:        The boolean parameter.
+     
+     - returns:                 The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    @objc(setOcrString:)
+    open func setOcr(_ ocrString: String?) -> Self {
+        
+        if let string = ocrString , !string.isEmpty {
+            setParam(UploadRequestParams.Ocr.rawValue, value: string)
+        } else {
+            params.removeValue(forKey: UploadRequestParams.Ocr.rawValue)
+        }
         return self
     }
     
@@ -1048,5 +1086,6 @@ import Foundation
         case Eager =                                "eager"
         case Headers =                              "headers"
         case ResponsiveBreakpoints =                "responsive_breakpoints"
+        case Ocr =                                  "ocr"
     }
 }

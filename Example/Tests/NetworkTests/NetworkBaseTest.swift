@@ -28,6 +28,7 @@ import Cloudinary
 
 class NetworkBaseTest: XCTestCase {
     let timeout: TimeInterval = 30.0
+    let longTimeout: TimeInterval = 60.0
     
     var cloudinary: CLDCloudinary?
     var cloudinaryInsufficientTimeout: CLDCloudinary?
@@ -76,7 +77,7 @@ class NetworkBaseTest: XCTestCase {
     // MARK: - Resources
     
     enum TestResourceType {
-        case logo, borderCollie, docx, dog, pdf
+        case logo, borderCollie, docx, dog, pdf, textImage
         
         var fileName: String {
             return String(describing: self)
@@ -86,7 +87,7 @@ class NetworkBaseTest: XCTestCase {
             switch self {
             case .logo:
                 return "png"
-            case .borderCollie:
+            case .borderCollie, .textImage:
                 return "jpg"
             case .docx:
                 return "docx"

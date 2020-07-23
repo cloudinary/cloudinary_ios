@@ -1,5 +1,5 @@
 //
-//  CLDInfo.swift
+//  CLDOcrDetectedLanguagesResult.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -24,35 +24,31 @@
 
 import Foundation
 
-@objcMembers open class CLDInfo: CLDBaseResult {
+@objcMembers open class CLDOcrDetectedLanguagesResult: CLDBaseResult {
     
-    open var detection: CLDDetection? {
-        guard let detection = getParam(.detection) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDDetection(json: detection)
+    open var languageCode: String? {
+        guard let languageCode = getParam(.languageCode) as? String else { return nil }
+        
+        return languageCode
     }
-    
-    open var ocr: CLDOcrResult? {
-        guard let ocr = getParam(.ocr) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDOcrResult(json: ocr)
+    open var confidence: Int? {
+        guard let confidence = getParam(.confidence) as? Int else { return nil }
+        
+        return confidence
     }
     
     // MARK: - Private Helpers
-    
-    fileprivate func getParam(_ param: CLDInfoKey) -> AnyObject? {
+    fileprivate func getParam(_ param: CLDOcrDetectedLanguagesResultKey) -> AnyObject? {
         return resultJson[String(describing: param)]
     }
     
-    fileprivate enum CLDInfoKey: CustomStringConvertible {
-        case detection, ocr
+    fileprivate enum CLDOcrDetectedLanguagesResultKey: CustomStringConvertible {
+        case languageCode, confidence
         
         var description: String {
             switch self {
-            case .detection: return "detection"
-            case .ocr      : return "ocr"
+            case .languageCode: return "languageCode"
+            case .confidence  : return "confidence"
             }
         }
     }

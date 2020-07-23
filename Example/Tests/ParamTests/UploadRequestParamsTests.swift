@@ -63,4 +63,26 @@ class UploadRequestParamsTests: BaseTestCase {
         // Then
         XCTAssertFalse(sut.accessibilityAnalysis == nil, "Init without longUrlSignature should store the default false value")
     }
+    // MARK: - ocr
+    func test_getOcr_unset_shouldStoreValue() {
+        
+        XCTAssertFalse(sut.ocr, "set proerty should be stored in params")
+    }
+    func test_setOcr_true_shouldStoreValue() {
+
+        // When
+        sut.setOcr(true)
+        
+        // Then
+        XCTAssertTrue(sut.ocr, "set proerty should be stored in params")
+    }
+    func test_setOcr_trueThenfalse_shouldRemoveValue() {
+
+        // When
+        sut.setOcr(true)
+        sut.setOcr(false)
+
+        // Then
+        XCTAssertFalse(sut.ocr, "Init without longUrlSignature should store the default false value")
+    }
 }
