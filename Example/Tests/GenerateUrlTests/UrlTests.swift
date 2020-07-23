@@ -28,17 +28,17 @@ import XCTest
 class UrlTests: XCTestCase {
     let prefix = "https://res.cloudinary.com/test123"
 
-    var cloudinary: CLDCloudinary?
+    var sut: CLDCloudinary?
 
     override func setUp() {
         super.setUp()
         let config = CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
-        cloudinary = CLDCloudinary(configuration: config)
+        sut = CLDCloudinary(configuration: config)
     }
 
     override func tearDown() {
         super.tearDown()
-        cloudinary = nil
+        sut = nil
     }
 
     func testParseCloudinaryUrlNoPrivateCdn() {
@@ -61,7 +61,7 @@ class UrlTests: XCTestCase {
     }
 
     func testCloudName() {
-        let url = cloudinary?.createUrl().generate("test")
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/test")
     }
     
@@ -90,240 +90,240 @@ class UrlTests: XCTestCase {
 
     func testSecure() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/test")
     }
 
     func testSecureDistribution() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true, secureDistribution: "something.else.com")
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://something.else.com/test123/image/upload/test")
     }
 
     func testSecureAkamai() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://test123-res.cloudinary.com/image/upload/test")
     }
 
     func testSecureNonAkamai() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, secureDistribution: "something.cloudfront.net")
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://something.cloudfront.net/image/upload/test")
     }
 
     func testHttpPrivateCdn() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "http://test123-res.cloudinary.com/image/upload/test")
     }
 
     func testCdnSubDomain() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cdnSubdomain: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "http://res-2.cloudinary.com/test123/image/upload/test")
     }
 
     func testSecureCdnSubDomainFalse() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true, cdnSubdomain: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/test")
     }
 
     func testSecureCdnSubDomainTrue() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, cdnSubdomain: true, secureCdnSubdomain: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://test123-res-2.cloudinary.com/image/upload/test")
     }
 
     func testFormat() {
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test")
+        let url = sut?.createUrl().setFormat("jpg").generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/test.jpg")
     }
 
     func testCrop() {
         let trans = CLDTransformation().setWidth(100).setHeight(101)
-        var url = cloudinary?.createUrl().setTransformation(trans).generate("test")
+        var url = sut?.createUrl().setTransformation(trans).generate("test")
 
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(100).setHeight(101).setCrop(.crop)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setWidth(100).setHeight(101).setCrop(.crop)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_crop,h_101,w_100/test")
     }
 
     func testVariousOptions() {
-        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
+        let url = sut?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/g_center,p_a,q_0.4,r_3,x_1,y_2/test")
-        let urlRadius = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius([10,20,"30","$v"]).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
+        let urlRadius = sut?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius([10,20,"30","$v"]).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
         XCTAssertEqual(urlRadius, "\(prefix)/image/upload/g_center,p_a,q_0.4,r_10:20:30:$v,x_1,y_2/test")
-        let urlRadius2 = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius([20,0,"3"]).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
+        let urlRadius2 = sut?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius([20,0,"3"]).setGravity(.center).setQuality("0.4").setPrefix("a")).generate("test")
         XCTAssertEqual(urlRadius2, "\(prefix)/image/upload/g_center,p_a,q_0.4,r_20:0:3,x_1,y_2/test")
     }
 
     func testQuality() {
-        let urlAuto = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.auto()).setPrefix("a")).generate("test")
+        let urlAuto = sut?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.auto()).setPrefix("a")).generate("test")
         XCTAssertEqual(urlAuto, "\(prefix)/image/upload/g_center,p_a,q_auto,r_3,x_1,y_2/test")
 
-        let urlEco = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.auto(.eco)).setPrefix("a")).generate("test")
+        let urlEco = sut?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.auto(.eco)).setPrefix("a")).generate("test")
         XCTAssertEqual(urlEco, "\(prefix)/image/upload/g_center,p_a,q_auto:eco,r_3,x_1,y_2/test")
 
-        let urlFixed = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.fixed(50)).setPrefix("a")).generate("test")
+        let urlFixed = sut?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.fixed(50)).setPrefix("a")).generate("test")
         XCTAssertEqual(urlFixed, "\(prefix)/image/upload/g_center,p_a,q_50,r_3,x_1,y_2/test")
 
-        let urlJpegMini = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.jpegMini()).setPrefix("a")).generate("test")
+        let urlJpegMini = sut?.createUrl().setTransformation(CLDTransformation().setX(1).setY(2).setRadius(3).setGravity(.center).setQuality(.jpegMini()).setPrefix("a")).generate("test")
         XCTAssertEqual(urlJpegMini, "\(prefix)/image/upload/g_center,p_a,q_jpegmini,r_3,x_1,y_2/test")
     }
 
     func testTransformationSimple() {
-        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setNamed(["blip"])).generate("test")
+        let url = sut?.createUrl().setTransformation(CLDTransformation().setNamed(["blip"])).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/t_blip/test")
     }
 
     func testTransformationArray() {
-        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setNamed(["blip", "blop"])).generate("test")
+        let url = sut?.createUrl().setTransformation(CLDTransformation().setNamed(["blip", "blop"])).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/t_blip.blop/test")
     }
 
     func testBaseTransformations() {
-        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain().setCrop(.crop).setWidth(100)).generate("test")
+        let url = sut?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain().setCrop(.crop).setWidth(100)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,x_100,y_100/c_crop,w_100/test")
     }
 
     func testBaseTransformationArray() {
-        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setWidth(200).setCrop(.fill).chain().setRadius(10).chain().setCrop(.crop).setWidth(100)).generate("test")
+        let url = sut?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setWidth(200).setCrop(.fill).chain().setRadius(10).chain().setCrop(.crop).setWidth(100)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,w_200,x_100,y_100/r_10/c_crop,w_100/test")
     }
     
     func test_CLDTransformation_setCrop_validUrl() {
         var url : String?
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.fill)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.fill)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.crop)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.crop)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_crop/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.scale)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.scale)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_scale/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.fit)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.fit)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fit/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.limit)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.limit)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_limit/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.mFit)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.mFit)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_mfit/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.lFill)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.lFill)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_lfill/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.pad)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.pad)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_pad/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.lPad)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.lPad)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_lpad/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.mPad)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.mPad)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_mpad/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.thumb)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.thumb)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_thumb/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.imaggaCrop)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.imaggaCrop)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_imagga_crop/test")
         
-        url = cloudinary?.createUrl().setTransformation(CLDTransformation().setCrop(.imaggaScale)).generate("test")
+        url = sut?.createUrl().setTransformation(CLDTransformation().setCrop(.imaggaScale)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_imagga_scale/test")
     }
 
     func testNoEmptyTransformation() {
-        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain()).generate("test")
+        let url = sut?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain()).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,x_100,y_100/test")
     }
 
     func testType() {
-        let url = cloudinary?.createUrl().setType(.facebook).generate("test")
+        let url = sut?.createUrl().setType(.facebook).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/facebook/test")
     }
 
     func testResourceType() {
-        let url = cloudinary?.createUrl().setResourceType(.raw).generate("test")
+        let url = sut?.createUrl().setResourceType(.raw).generate("test")
         XCTAssertEqual(url, "\(prefix)/raw/upload/test")
     }
 
     func testFetch() {
-        let url = cloudinary?.createUrl().setType(.fetch).generate("http://blah.com/hello?a=b")
+        let url = sut?.createUrl().setType(.fetch).generate("http://blah.com/hello?a=b")
         XCTAssertEqual(url, "\(prefix)/image/fetch/http://blah.com/hello%3Fa%3Db")
     }
 
     func testCname() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cname: "hello.com")
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "http://hello.com/test123/image/upload/test")
     }
 
     func testCnameSubdomain() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cdnSubdomain: true, cname: "hello.com")
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().generate("test")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "http://a2.hello.com/test123/image/upload/test")
     }
 
     func testUrlSuffixShared() {
-        XCTAssertNil(cloudinary?.createUrl().setSuffix("hello").generate("test"))
+        XCTAssertNil(sut?.createUrl().setSuffix("hello").generate("test"))
     }
 
     func testUrlSuffixNonUpload() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertNil(cloudinary?.createUrl().setType(.facebook).setSuffix("hello").generate("test"))
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertNil(sut?.createUrl().setType(.facebook).setSuffix("hello").generate("test"))
     }
 
     func testUrlSuffixDisallowedChars() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertNil(cloudinary?.createUrl().setSuffix("hello/world").generate("test"))
-        XCTAssertNil(cloudinary?.createUrl().setSuffix("hello.world").generate("test"))
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertNil(sut?.createUrl().setSuffix("hello/world").generate("test"))
+        XCTAssertNil(sut?.createUrl().setSuffix("hello.world").generate("test"))
     }
 
     func testUrlSuffixPrivateCdn() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertEqual(cloudinary?.createUrl().setSuffix("hello").generate("test"), "http://test123-res.cloudinary.com/images/test/hello")
-        XCTAssertEqual(cloudinary?.createUrl().setSuffix("hello").setTransformation(CLDTransformation().setAngle(0)).generate("test"), "http://test123-res.cloudinary.com/images/a_0/test/hello")
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertEqual(sut?.createUrl().setSuffix("hello").generate("test"), "http://test123-res.cloudinary.com/images/test/hello")
+        XCTAssertEqual(sut?.createUrl().setSuffix("hello").setTransformation(CLDTransformation().setAngle(0)).generate("test"), "http://test123-res.cloudinary.com/images/a_0/test/hello")
     }
 
     func testUrlSuffixFormat() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertEqual(cloudinary?.createUrl().setSuffix("hello").setFormat("jpg").generate("test"), "http://test123-res.cloudinary.com/images/test/hello.jpg")
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertEqual(sut?.createUrl().setSuffix("hello").setFormat("jpg").generate("test"), "http://test123-res.cloudinary.com/images/test/hello.jpg")
     }
 
     func testUrlSuffixSign() {
-        var url1 = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        var url1 = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
         var sig1 = url1?.components(separatedBy: "--")[1]
 
         var config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        var url2 = cloudinary?.createUrl().setSuffix("hello").setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        var url2 = sut?.createUrl().setSuffix("hello").setFormat("jpg").generate("test", signUrl: true)
         var sig2 = url2?.components(separatedBy: "--")[1]
 
         XCTAssertEqual(sig1, sig2)
 
-        url1 = cloudinary?.createUrl().setFormat("jpg").setTransformation(CLDTransformation().setAngle(0)).generate("test", signUrl: true)
+        url1 = sut?.createUrl().setFormat("jpg").setTransformation(CLDTransformation().setAngle(0)).generate("test", signUrl: true)
         sig1 = url1?.components(separatedBy: "--")[1]
 
         config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        url2 = cloudinary?.createUrl().setSuffix("hello").setFormat("jpg").setTransformation(CLDTransformation().setAngle(0)).generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        url2 = sut?.createUrl().setSuffix("hello").setFormat("jpg").setTransformation(CLDTransformation().setAngle(0)).generate("test", signUrl: true)
         sig2 = url2?.components(separatedBy: "--")[1]
 
         XCTAssertEqual(sig1, sig2)
@@ -331,14 +331,14 @@ class UrlTests: XCTestCase {
 
     func testUrlSuffixRaw() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertEqual(cloudinary?.createUrl().setSuffix("hello").setResourceType(.raw).generate("test"), "http://test123-res.cloudinary.com/files/test/hello")
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertEqual(sut?.createUrl().setSuffix("hello").setResourceType(.raw).generate("test"), "http://test123-res.cloudinary.com/files/test/hello")
     }
 
     func testUrlSuffixPrivate() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertEqual(cloudinary?.createUrl().setSuffix("hello").setResourceType(.image).setType(.private).generate("test"), "http://test123-res.cloudinary.com/private_images/test/hello")
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertEqual(sut?.createUrl().setSuffix("hello").setResourceType(.image).setType(.private).generate("test"), "http://test123-res.cloudinary.com/private_images/test/hello")
     }
     
     // MARK: - SHA256
@@ -346,8 +346,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "", privateCdn: true, longUrlSignature: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "DUB-5kBqEhbyNmZ0oan_cTYdW-9HAh-O"
         
@@ -363,8 +363,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "UHH8qJ2eIEoPHdVQP08BMEN9f4YUDavr"
         
@@ -381,8 +381,8 @@ class UrlTests: XCTestCase {
         // Given
         let longString = "abcdefghijklmnopqrstuvwxyz1abcdefghijklmnopqrstuvwxyz2abcdefghijklmnopqrstuvwxyz3abcdefghijklmnopqrstuvwxyz4abcdefghijklmnopqrstuvwxyz5abcdefghijklmnopqrstuvwxyz6"
         let config = CLDConfiguration(cloudName: "test123", apiSecret: longString, privateCdn: true, longUrlSignature: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "7k8KYHY20iQ6sNTJIWb05ti7bYo1HG3R"
         
@@ -399,8 +399,8 @@ class UrlTests: XCTestCase {
         // Given
         let longString = "🔭!@#$%^&*()_+±§?><`~"
         let config = CLDConfiguration(cloudName: "test123", apiSecret: longString, privateCdn: true, longUrlSignature: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "g12ptQdGPID3Un4aOxZSuiEithIdT2Wm"
         
@@ -416,8 +416,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "FhXe8ZZ3"
         
@@ -433,8 +433,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: false)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: false)
          
         let expectedResult = "http://test123-res.cloudinary.com/image/upload/test.jpg"
         
@@ -447,7 +447,7 @@ class UrlTests: XCTestCase {
     func test_longUrlSign_unset_shouldCreateExpectedUrl() {
         
         // Given
-        let url = cloudinary?.createUrl().generate("sample.jpg", signUrl: true)
+        let url = sut?.createUrl().generate("sample.jpg", signUrl: true)
          
         let expectedResult = "https://res.cloudinary.com/test123/image/upload/s--v2fTPYTu--/sample.jpg"
         
@@ -465,8 +465,8 @@ class UrlTests: XCTestCase {
         let fullUrl               = urlCredentials + longUrlSignatureQuery
         
         let config = CLDConfiguration(cloudinaryUrl: fullUrl)
-        cloudinary = CLDCloudinary(configuration: config!)
-        let url = cloudinary?.createUrl().generate("sample.jpg", signUrl: true)
+        sut = CLDCloudinary(configuration: config!)
+        let url = sut?.createUrl().generate("sample.jpg", signUrl: true)
          
         let expectedResult = "https://res.cloudinary.com/test123/image/upload/s--2hbrSMPOjj5BJ4xV7SgFbRDevFaQNUFf--/sample.jpg"
         
@@ -478,198 +478,198 @@ class UrlTests: XCTestCase {
     }
 
     func testUseRootPathShared() {
-        XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).generate("test"), "\(prefix)/test")
-        XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).setTransformation(CLDTransformation().setAngle(0)).generate("test"), "\(prefix)/a_0/test")
+        XCTAssertEqual(sut?.createUrl().setUseRootPath(true).generate("test"), "\(prefix)/test")
+        XCTAssertEqual(sut?.createUrl().setUseRootPath(true).setTransformation(CLDTransformation().setAngle(0)).generate("test"), "\(prefix)/a_0/test")
     }
 
     func testUseRootPathNonImageUpload() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertNil(cloudinary?.createUrl().setUseRootPath(true).setType(.facebook).generate("test"))
-        XCTAssertNil(cloudinary?.createUrl().setUseRootPath(true).setResourceType(.raw).generate("test"))
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertNil(sut?.createUrl().setUseRootPath(true).setType(.facebook).generate("test"))
+        XCTAssertNil(sut?.createUrl().setUseRootPath(true).setResourceType(.raw).generate("test"))
     }
 
     func testUseRootPathPrivateCdn() {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).generate("test"), "http://test123-res.cloudinary.com/test")
-        XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).setTransformation(CLDTransformation().setAngle(0)).generate("test"), "http://test123-res.cloudinary.com/a_0/test")
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertEqual(sut?.createUrl().setUseRootPath(true).generate("test"), "http://test123-res.cloudinary.com/test")
+        XCTAssertEqual(sut?.createUrl().setUseRootPath(true).setTransformation(CLDTransformation().setAngle(0)).generate("test"), "http://test123-res.cloudinary.com/a_0/test")
     }
 
     func testUseRootPathUrlSuffixPrivateCdn() {
 
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        XCTAssertEqual(cloudinary?.createUrl().setUseRootPath(true).setSuffix("hello").generate("test"), "http://test123-res.cloudinary.com/test/hello")
+        sut = CLDCloudinary(configuration: config)
+        XCTAssertEqual(sut?.createUrl().setUseRootPath(true).setSuffix("hello").generate("test"), "http://test123-res.cloudinary.com/test/hello")
     }
 
     func testHttpEscape() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setType("youtube").generate("http://www.youtube.com/watch?v=d9NF2edxy-M"), "\(prefix)/image/youtube/http://www.youtube.com/watch%3Fv%3Dd9NF2edxy-M")
+        XCTAssertEqual(sut?.createUrl().setType("youtube").generate("http://www.youtube.com/watch?v=d9NF2edxy-M"), "\(prefix)/image/youtube/http://www.youtube.com/watch%3Fv%3Dd9NF2edxy-M")
     }
 
     func testDoubleSlash() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setType("youtube").generate("http://cloudinary.com//images//logo.png"), "\(prefix)/image/youtube/http://cloudinary.com/images/logo.png")
+        XCTAssertEqual(sut?.createUrl().setType("youtube").generate("http://cloudinary.com//images//logo.png"), "\(prefix)/image/youtube/http://cloudinary.com/images/logo.png")
     }
 
     func testBackground() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBackground("red")).generate("test"), "\(prefix)/image/upload/b_red/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBackground("#112233")).generate("test"), "\(prefix)/image/upload/b_rgb:112233/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setBackground("red")).generate("test"), "\(prefix)/image/upload/b_red/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setBackground("#112233")).generate("test"), "\(prefix)/image/upload/b_rgb:112233/test")
     }
 
     func testKeyframeInterval() {
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 10)).generate("test"), "\(prefix)/image/upload/ki_10.0/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 0.05)).generate("test"), "\(prefix)/image/upload/ki_0.05/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 3.45)).generate("test"), "\(prefix)/image/upload/ki_3.45/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 300)).generate("test"), "\(prefix)/image/upload/ki_300.0/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval("10")).generate("test"), "\(prefix)/image/upload/ki_10/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 10)).generate("test"), "\(prefix)/image/upload/ki_10.0/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 0.05)).generate("test"), "\(prefix)/image/upload/ki_0.05/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 3.45)).generate("test"), "\(prefix)/image/upload/ki_3.45/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval(interval: 300)).generate("test"), "\(prefix)/image/upload/ki_300.0/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setKeyframeInterval("10")).generate("test"), "\(prefix)/image/upload/ki_10/test")
     }
 
     func testDefaultImage() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setDefaultImage("default")).generate("test"), "\(prefix)/image/upload/d_default/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setDefaultImage("default")).generate("test"), "\(prefix)/image/upload/d_default/test")
     }
 
     func testAngle() {
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setAngle(12)).generate("test"), "\(prefix)/image/upload/a_12/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setAngle(["exif", "12"])).generate("test"), "\(prefix)/image/upload/a_exif.12/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setAngle(12)).generate("test"), "\(prefix)/image/upload/a_12/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setAngle(["exif", "12"])).generate("test"), "\(prefix)/image/upload/a_exif.12/test")
     }
 
     func testOverlay() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlay("text:hello")).generate("test"), "\(prefix)/image/upload/l_text:hello/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlay("text:hello").setWidth(100).setHeight(100)).generate("test"), "\(prefix)/image/upload/h_100,l_text:hello,w_100/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlay("text:hello")).generate("test"), "\(prefix)/image/upload/l_text:hello/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlay("text:hello").setWidth(100).setHeight(100)).generate("test"), "\(prefix)/image/upload/h_100,l_text:hello,w_100/test")
     }
 
     func testUnderlay() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setUnderlay("text:hello")).generate("test"), "\(prefix)/image/upload/u_text:hello/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setUnderlay("text:hello").setWidth(100).setHeight(100)).generate("test"), "\(prefix)/image/upload/h_100,u_text:hello,w_100/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setUnderlay("text:hello")).generate("test"), "\(prefix)/image/upload/u_text:hello/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setUnderlay("text:hello").setWidth(100).setHeight(100)).generate("test"), "\(prefix)/image/upload/h_100,u_text:hello,w_100/test")
     }
 
     func testFetchFormat() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setType(.fetch).setFormat("jpg").generate("http://cloudinary.com/images/logo.png"), "\(prefix)/image/fetch/f_jpg/http://cloudinary.com/images/logo.png")
+        XCTAssertEqual(sut?.createUrl().setType(.fetch).setFormat("jpg").generate("http://cloudinary.com/images/logo.png"), "\(prefix)/image/fetch/f_jpg/http://cloudinary.com/images/logo.png")
     }
 
     func testEffect() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia)).generate("test"), "\(prefix)/image/upload/e_sepia/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.hue)).generate("test"), "\(prefix)/image/upload/e_hue/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.red)).generate("test"), "\(prefix)/image/upload/e_red/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.green)).generate("test"), "\(prefix)/image/upload/e_green/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blue)).generate("test"), "\(prefix)/image/upload/e_blue/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.negate)).generate("test"), "\(prefix)/image/upload/e_negate/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.brightness)).generate("test"), "\(prefix)/image/upload/e_brightness/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia)).generate("test"), "\(prefix)/image/upload/e_sepia/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.grayscale)).generate("test"), "\(prefix)/image/upload/e_grayscale/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blackwhite)).generate("test"), "\(prefix)/image/upload/e_blackwhite/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.saturation)).generate("test"), "\(prefix)/image/upload/e_saturation/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.colorize)).generate("test"), "\(prefix)/image/upload/e_colorize/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.contrast)).generate("test"), "\(prefix)/image/upload/e_contrast/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.autoContrast)).generate("test"), "\(prefix)/image/upload/e_auto_contrast/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.vibrance)).generate("test"), "\(prefix)/image/upload/e_vibrance/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.autoColor)).generate("test"), "\(prefix)/image/upload/e_auto_color/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.improve)).generate("test"), "\(prefix)/image/upload/e_improve/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.autoBrightness)).generate("test"), "\(prefix)/image/upload/e_auto_brightness/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.fillLight)).generate("test"), "\(prefix)/image/upload/e_fill_light/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.viesusCorrect)).generate("test"), "\(prefix)/image/upload/e_viesus_correct/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.gamma)).generate("test"), "\(prefix)/image/upload/e_gamma/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.screen)).generate("test"), "\(prefix)/image/upload/e_screen/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.multiply)).generate("test"), "\(prefix)/image/upload/e_multiply/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.overlay)).generate("test"), "\(prefix)/image/upload/e_overlay/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.makeTransparent)).generate("test"), "\(prefix)/image/upload/e_make_transparent/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.trim)).generate("test"), "\(prefix)/image/upload/e_trim/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.shadow)).generate("test"), "\(prefix)/image/upload/e_shadow/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.distort)).generate("test"), "\(prefix)/image/upload/e_distort/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.shear)).generate("test"), "\(prefix)/image/upload/e_shear/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.displace)).generate("test"), "\(prefix)/image/upload/e_displace/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.oilPaint)).generate("test"), "\(prefix)/image/upload/e_oil_paint/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.redeye)).generate("test"), "\(prefix)/image/upload/e_redeye/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.advRedeye)).generate("test"), "\(prefix)/image/upload/e_adv_redeye/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.vignette)).generate("test"), "\(prefix)/image/upload/e_vignette/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.gradientFade)).generate("test"), "\(prefix)/image/upload/e_gradient_fade/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelate)).generate("test"), "\(prefix)/image/upload/e_pixelate/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelateRegion)).generate("test"), "\(prefix)/image/upload/e_pixelate_region/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelateFaces)).generate("test"), "\(prefix)/image/upload/e_pixelate_faces/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blur)).generate("test"), "\(prefix)/image/upload/e_blur/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blurRegion)).generate("test"), "\(prefix)/image/upload/e_blur_region/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.blurFaces)).generate("test"), "\(prefix)/image/upload/e_blur_faces/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sharpen)).generate("test"), "\(prefix)/image/upload/e_sharpen/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.unsharpMask)).generate("test"), "\(prefix)/image/upload/e_unsharp_mask/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.orderedDither)).generate("test"), "\(prefix)/image/upload/e_ordered_dither/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.art)).generate("test"), "\(prefix)/image/upload/e_art/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.assistColorblind)).generate("test"), "\(prefix)/image/upload/e_assist_colorblind/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia)).generate("test"), "\(prefix)/image/upload/e_sepia/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.hue)).generate("test"), "\(prefix)/image/upload/e_hue/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.red)).generate("test"), "\(prefix)/image/upload/e_red/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.green)).generate("test"), "\(prefix)/image/upload/e_green/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.blue)).generate("test"), "\(prefix)/image/upload/e_blue/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.negate)).generate("test"), "\(prefix)/image/upload/e_negate/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.brightness)).generate("test"), "\(prefix)/image/upload/e_brightness/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia)).generate("test"), "\(prefix)/image/upload/e_sepia/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.grayscale)).generate("test"), "\(prefix)/image/upload/e_grayscale/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.blackwhite)).generate("test"), "\(prefix)/image/upload/e_blackwhite/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.saturation)).generate("test"), "\(prefix)/image/upload/e_saturation/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.colorize)).generate("test"), "\(prefix)/image/upload/e_colorize/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.contrast)).generate("test"), "\(prefix)/image/upload/e_contrast/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.autoContrast)).generate("test"), "\(prefix)/image/upload/e_auto_contrast/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.vibrance)).generate("test"), "\(prefix)/image/upload/e_vibrance/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.autoColor)).generate("test"), "\(prefix)/image/upload/e_auto_color/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.improve)).generate("test"), "\(prefix)/image/upload/e_improve/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.autoBrightness)).generate("test"), "\(prefix)/image/upload/e_auto_brightness/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.fillLight)).generate("test"), "\(prefix)/image/upload/e_fill_light/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.viesusCorrect)).generate("test"), "\(prefix)/image/upload/e_viesus_correct/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.gamma)).generate("test"), "\(prefix)/image/upload/e_gamma/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.screen)).generate("test"), "\(prefix)/image/upload/e_screen/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.multiply)).generate("test"), "\(prefix)/image/upload/e_multiply/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.overlay)).generate("test"), "\(prefix)/image/upload/e_overlay/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.makeTransparent)).generate("test"), "\(prefix)/image/upload/e_make_transparent/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.trim)).generate("test"), "\(prefix)/image/upload/e_trim/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.shadow)).generate("test"), "\(prefix)/image/upload/e_shadow/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.distort)).generate("test"), "\(prefix)/image/upload/e_distort/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.shear)).generate("test"), "\(prefix)/image/upload/e_shear/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.displace)).generate("test"), "\(prefix)/image/upload/e_displace/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.oilPaint)).generate("test"), "\(prefix)/image/upload/e_oil_paint/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.redeye)).generate("test"), "\(prefix)/image/upload/e_redeye/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.advRedeye)).generate("test"), "\(prefix)/image/upload/e_adv_redeye/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.vignette)).generate("test"), "\(prefix)/image/upload/e_vignette/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.gradientFade)).generate("test"), "\(prefix)/image/upload/e_gradient_fade/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelate)).generate("test"), "\(prefix)/image/upload/e_pixelate/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelateRegion)).generate("test"), "\(prefix)/image/upload/e_pixelate_region/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.pixelateFaces)).generate("test"), "\(prefix)/image/upload/e_pixelate_faces/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.blur)).generate("test"), "\(prefix)/image/upload/e_blur/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.blurRegion)).generate("test"), "\(prefix)/image/upload/e_blur_region/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.blurFaces)).generate("test"), "\(prefix)/image/upload/e_blur_faces/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.sharpen)).generate("test"), "\(prefix)/image/upload/e_sharpen/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.unsharpMask)).generate("test"), "\(prefix)/image/upload/e_unsharp_mask/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.orderedDither)).generate("test"), "\(prefix)/image/upload/e_ordered_dither/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.art)).generate("test"), "\(prefix)/image/upload/e_art/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.assistColorblind)).generate("test"), "\(prefix)/image/upload/e_assist_colorblind/test")
     }
 
     func testEffectWithParam() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia, param: "10")).generate("test"), "\(prefix)/image/upload/e_sepia:10/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.sepia, param: "10")).generate("test"), "\(prefix)/image/upload/e_sepia:10/test")
     }
     
     func testArtisticEffect(){
         
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.alDente)).generate("test"), "\(prefix)/image/upload/e_art:al_dente/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.athena)).generate("test"), "\(prefix)/image/upload/e_art:athena/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.audrey)).generate("test"), "\(prefix)/image/upload/e_art:audrey/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.alDente)).generate("test"), "\(prefix)/image/upload/e_art:al_dente/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.athena)).generate("test"), "\(prefix)/image/upload/e_art:athena/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.audrey)).generate("test"), "\(prefix)/image/upload/e_art:audrey/test")
         
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.aurora)).generate("test"), "\(prefix)/image/upload/e_art:aurora/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.daguerre)).generate("test"), "\(prefix)/image/upload/e_art:daguerre/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.eucalyptus)).generate("test"), "\(prefix)/image/upload/e_art:eucalyptus/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.aurora)).generate("test"), "\(prefix)/image/upload/e_art:aurora/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.daguerre)).generate("test"), "\(prefix)/image/upload/e_art:daguerre/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.eucalyptus)).generate("test"), "\(prefix)/image/upload/e_art:eucalyptus/test")
         
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.fes)).generate("test"), "\(prefix)/image/upload/e_art:fes/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.frost)).generate("test"), "\(prefix)/image/upload/e_art:frost/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.hairspray)).generate("test"), "\(prefix)/image/upload/e_art:hairspray/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.fes)).generate("test"), "\(prefix)/image/upload/e_art:fes/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.frost)).generate("test"), "\(prefix)/image/upload/e_art:frost/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.hairspray)).generate("test"), "\(prefix)/image/upload/e_art:hairspray/test")
         
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.hokusai)).generate("test"), "\(prefix)/image/upload/e_art:hokusai/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.incognito)).generate("test"), "\(prefix)/image/upload/e_art:incognito/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.linen)).generate("test"), "\(prefix)/image/upload/e_art:linen/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.hokusai)).generate("test"), "\(prefix)/image/upload/e_art:hokusai/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.incognito)).generate("test"), "\(prefix)/image/upload/e_art:incognito/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.linen)).generate("test"), "\(prefix)/image/upload/e_art:linen/test")
         
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.peacock)).generate("test"), "\(prefix)/image/upload/e_art:peacock/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.primavera)).generate("test"), "\(prefix)/image/upload/e_art:primavera/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.quartz)).generate("test"), "\(prefix)/image/upload/e_art:quartz/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.peacock)).generate("test"), "\(prefix)/image/upload/e_art:peacock/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.primavera)).generate("test"), "\(prefix)/image/upload/e_art:primavera/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.quartz)).generate("test"), "\(prefix)/image/upload/e_art:quartz/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.redRock)).generate("test"), "\(prefix)/image/upload/e_art:red_rock/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.refresh)).generate("test"), "\(prefix)/image/upload/e_art:refresh/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sizzle)).generate("test"), "\(prefix)/image/upload/e_art:sizzle/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.redRock)).generate("test"), "\(prefix)/image/upload/e_art:red_rock/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.refresh)).generate("test"), "\(prefix)/image/upload/e_art:refresh/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.sizzle)).generate("test"), "\(prefix)/image/upload/e_art:sizzle/test")
         
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.sonnet)).generate("test"), "\(prefix)/image/upload/e_art:sonnet/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.ukulele)).generate("test"), "\(prefix)/image/upload/e_art:ukulele/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setEffect(.zorro)).generate("test"), "\(prefix)/image/upload/e_art:zorro/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.sonnet)).generate("test"), "\(prefix)/image/upload/e_art:sonnet/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.ukulele)).generate("test"), "\(prefix)/image/upload/e_art:ukulele/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.zorro)).generate("test"), "\(prefix)/image/upload/e_art:zorro/test")
     }
 
     func testDensity() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setDensity(150)).generate("test"), "\(prefix)/image/upload/dn_150/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setDensity(150)).generate("test"), "\(prefix)/image/upload/dn_150/test")
     }
 
     func testPage() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setPage(5)).generate("test"), "\(prefix)/image/upload/pg_5/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setPage(5)).generate("test"), "\(prefix)/image/upload/pg_5/test")
     }
 
     func testBorder() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBorder(5, color: "black")).generate("test"), "\(prefix)/image/upload/bo_5px_solid_black/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBorder(5, color: "#ffaabbdd")).generate("test"), "\(prefix)/image/upload/bo_5px_solid_rgb:ffaabbdd/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBorder("1px_solid_blue")).generate("test"), "\(prefix)/image/upload/bo_1px_solid_blue/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setBorder(5, color: "black")).generate("test"), "\(prefix)/image/upload/bo_5px_solid_black/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setBorder(5, color: "#ffaabbdd")).generate("test"), "\(prefix)/image/upload/bo_5px_solid_rgb:ffaabbdd/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setBorder("1px_solid_blue")).generate("test"), "\(prefix)/image/upload/bo_1px_solid_blue/test")
     }
 
     func testFlags() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setFlags(["abc"])).generate("test"), "\(prefix)/image/upload/fl_abc/test")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setFlags(["abc", "def"])).generate("test"), "\(prefix)/image/upload/fl_abc.def/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setFlags(["abc"])).generate("test"), "\(prefix)/image/upload/fl_abc/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setFlags(["abc", "def"])).generate("test"), "\(prefix)/image/upload/fl_abc.def/test")
     }
 
     func testDprFloat() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setDpr(2.0)).generate("test"), "\(prefix)/image/upload/dpr_2.0/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setDpr(2.0)).generate("test"), "\(prefix)/image/upload/dpr_2.0/test")
     }
 
     func testDprAuto() {
-        let url = cloudinary?.createUrl().setTransformation(CLDTransformation().setDprAuto()).generate("test")
+        let url = sut?.createUrl().setTransformation(CLDTransformation().setDprAuto()).generate("test")
         var dprValue = ""
         if let finalUrl = url, let range = finalUrl.range(of: "dpr_") {
             let startIndex = range.upperBound
@@ -685,7 +685,7 @@ class UrlTests: XCTestCase {
 
     func testAspectRatio() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setAspectRatio(2.0)).generate("test"), "\(prefix)/image/upload/ar_2.0/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setAspectRatio(2.0)).generate("test"), "\(prefix)/image/upload/ar_2.0/test")
     }
 
     func testSignature() {
@@ -695,59 +695,59 @@ class UrlTests: XCTestCase {
 
     func testFolders() {
 
-        XCTAssertEqual(cloudinary?.createUrl().generate("folder/test"), "\(prefix)/image/upload/v1/folder/test")
-        XCTAssertEqual(cloudinary?.createUrl().setVersion("123").generate("folder/test"), "\(prefix)/image/upload/v123/folder/test")
+        XCTAssertEqual(sut?.createUrl().generate("folder/test"), "\(prefix)/image/upload/v1/folder/test")
+        XCTAssertEqual(sut?.createUrl().setVersion("123").generate("folder/test"), "\(prefix)/image/upload/v123/folder/test")
     }
     
     func testFoldersWithForceVersion(){
         // should not add version if the user turned off forceVersion
-        var result = cloudinary?.createUrl().setForceVersion(false).generate("folder/test")
+        var result = sut?.createUrl().setForceVersion(false).generate("folder/test")
         XCTAssertEqual("\(prefix)/image/upload/folder/test", result)
         
         // should still show explicit version if passed by the user
-        result = cloudinary?.createUrl().setForceVersion(false).setVersion("1234").generate("folder/test")
+        result = sut?.createUrl().setForceVersion(false).setVersion("1234").generate("folder/test")
         XCTAssertEqual("\(prefix)/image/upload/v1234/folder/test", result)
         
         // should add version if no value specified for forceVersion:
-        result = cloudinary?.createUrl().generate("folder/test")
+        result = sut?.createUrl().generate("folder/test")
         XCTAssertEqual("\(prefix)/image/upload/v1/folder/test", result)
         
         // should add version if forceVersion is true
-        result = cloudinary?.createUrl().setForceVersion(true).generate("folder/test");
+        result = sut?.createUrl().setForceVersion(true).generate("folder/test");
         XCTAssertEqual("\(prefix)/image/upload/v1/folder/test", result)
         
         // should not use v1 if explicit version is passed
-        result = cloudinary?.createUrl().setForceVersion(true).setVersion("1234").generate("folder/test");
+        result = sut?.createUrl().setForceVersion(true).setVersion("1234").generate("folder/test");
         XCTAssertEqual("\(prefix)/image/upload/v1234/folder/test", result)
     }
 
     func testFoldersWithVersion() {
 
-        XCTAssertEqual(cloudinary?.createUrl().generate("v1234/test"), "\(prefix)/image/upload/v1234/test")
+        XCTAssertEqual(sut?.createUrl().generate("v1234/test"), "\(prefix)/image/upload/v1234/test")
     }
 
     func testShorten() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setShortenUrl(true).generate("test"), "\(prefix)/iu/test")
+        XCTAssertEqual(sut?.createUrl().setShortenUrl(true).generate("test"), "\(prefix)/iu/test")
     }
 
     func testSignUrls() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(10).setHeight(20).setCrop(.crop)).setVersion("1234").generate("image.jpg", signUrl: true), "\(prefix)/image/upload/s--Ai4Znfl3--/c_crop,h_20,w_10/v1234/image.jpg")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setWidth(10).setHeight(20).setCrop(.crop)).setVersion("1234").generate("image.jpg", signUrl: true), "\(prefix)/image/upload/s--Ai4Znfl3--/c_crop,h_20,w_10/v1234/image.jpg")
     }
 
     func testEscapePublicId() {
 
         let tests = ["a b": "a%20b", "a+b": "a%2Bb", "a%20b": "a%20b", "a-b": "a-b", "a??b": "a%3F%3Fb"]
         for key in tests.keys {
-            XCTAssertEqual(cloudinary?.createUrl().generate(key), "\(prefix)/image/upload/\(tests[key]!)")
+            XCTAssertEqual(sut?.createUrl().generate(key), "\(prefix)/image/upload/\(tests[key]!)")
         }
     }
 
     func testPreloadedImage() {
 
-        XCTAssertEqual(cloudinary?.createUrl().generate("raw/private/v1234567/document.docx"), "\(prefix)/raw/private/v1234567/document.docx")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(1.1).setCrop(.scale)).generate("image/private/v1234567/img.jpg"), "\(prefix)/image/private/c_scale,w_1.1/v1234567/img.jpg")
+        XCTAssertEqual(sut?.createUrl().generate("raw/private/v1234567/document.docx"), "\(prefix)/raw/private/v1234567/document.docx")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setWidth(1.1).setCrop(.scale)).generate("image/private/v1234567/img.jpg"), "\(prefix)/image/private/c_scale,w_1.1/v1234567/img.jpg")
     }
 
     func testGravity() {
@@ -774,81 +774,84 @@ class UrlTests: XCTestCase {
         testGravityUrl(CLDTransformation.CLDGravity.customFaces, "c_crop,g_custom:faces,w_100")
         testGravityUrl(CLDTransformation.CLDGravity.customAdvFace, "c_crop,g_custom:adv_face,w_100")
         testGravityUrl(CLDTransformation.CLDGravity.customAdvFaces, "c_crop,g_custom:adv_faces,w_100")
+        testGravityUrl(CLDTransformation.CLDGravity.autoOcrText, "c_crop,g_auto:ocr_text,w_100")
+        testGravityUrl(CLDTransformation.CLDGravity.ocrText, "c_crop,g_ocr_text,w_100")
+        testGravityUrl(CLDTransformation.CLDGravity.ocrTextAdvOcr, "c_crop,g_ocr_text:adv_ocr,w_100")
     }
 
     fileprivate func testGravityUrl(_ gravity: CLDTransformation.CLDGravity, _ expected: String) {
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setWidth(100).setCrop(CLDTransformation.CLDCrop.crop).setGravity(gravity)).generate("public_id"),
-                "\(prefix)/image/upload/\(expected)/public_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setWidth(100).setCrop(CLDTransformation.CLDCrop.crop).setGravity(gravity)).generate("public_id"),
+                "\(prefix)/image/upload/\(expected)/public_id","Creating url with gravity enum should return expected result")
     }
 
     func testVideoCodec() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoCodec("auto")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_auto/video_id")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: "3.1")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1/video_id")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: nil)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodec("auto")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_auto/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: "3.1")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: nil)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic/video_id")
     }
 
     func testAudioCodec() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setAudioCodec("acc")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/ac_acc/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setAudioCodec("acc")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/ac_acc/video_id")
     }
 
     func testBitRate() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBitRate("1m")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/br_1m/video_id")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBitRate(2048)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/br_2048/video_id")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setBitRate(kb: 44)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/br_44k/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setBitRate("1m")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/br_1m/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setBitRate(2048)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/br_2048/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setBitRate(kb: 44)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/br_44k/video_id")
     }
 
     func testAudioFrequency() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setAudioFrequency("44100")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/af_44100/video_id")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setAudioFrequency(44100)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/af_44100/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setAudioFrequency("44100")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/af_44100/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setAudioFrequency(44100)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/af_44100/video_id")
     }
 
     func testVideoSampling() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoSampling("20")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vs_20/video_id")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoSampling(frames: 20)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vs_20/video_id")
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setVideoSampling(delay: 2.3)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vs_2.3s/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoSampling("20")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vs_20/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoSampling(frames: 20)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vs_20/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoSampling(delay: 2.3)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vs_2.3s/video_id")
     }
 
     func testOverlayOptions() {
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "logo"))).generate("test"), "\(prefix)/image/upload/l_logo/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "logo"))).generate("test"), "\(prefix)/image/upload/l_logo/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "logo").setType(.private))).generate("test"), "\(prefix)/image/upload/l_private:logo/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "logo").setType(.private))).generate("test"), "\(prefix)/image/upload/l_private:logo/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "logo").setFormat(format: "png"))).generate("test"), "\(prefix)/image/upload/l_logo.png/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "logo").setFormat(format: "png"))).generate("test"), "\(prefix)/image/upload/l_logo.png/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "folder/logo"))).generate("test"), "\(prefix)/image/upload/l_folder:logo/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "folder/logo"))).generate("test"), "\(prefix)/image/upload/l_folder:logo/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "cat").setResourceType(.video))).generate("test"), "\(prefix)/image/upload/l_video:cat/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDLayer().setPublicId(publicId: "cat").setResourceType(.video))).generate("test"), "\(prefix)/image/upload/l_video:cat/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "Hello/World").setFontFamily(fontFamily: "Arial").setFontSize(18))).generate("test"), "\(prefix)/image/upload/l_text:Arial_18:Hello%252FWorld/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "Hello/World").setFontFamily(fontFamily: "Arial").setFontSize(18))).generate("test"), "\(prefix)/image/upload/l_text:Arial_18:Hello%252FWorld/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "Hello World, Nice to meet you?").setFontFamily(fontFamily: "Arial").setFontSize(18))).generate("test"), "\(prefix)/image/upload/l_text:Arial_18:Hello%20World%252C%20Nice%20to%20meet%20you%3F/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "Hello World, Nice to meet you?").setFontFamily(fontFamily: "Arial").setFontSize(18))).generate("test"), "\(prefix)/image/upload/l_text:Arial_18:Hello%20World%252C%20Nice%20to%20meet%20you%3F/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "Hello World, Nice to meet you?").setFontFamily(fontFamily: "Arial").setFontSize(18).setFontStyle(.italic).setFontWeight(.bold).setLetterSpacing(4))).generate("test"), "\(prefix)/image/upload/l_text:Arial_18_bold_italic_letter_spacing_4:Hello%20World%252C%20Nice%20to%20meet%20you%3F/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "Hello World, Nice to meet you?").setFontFamily(fontFamily: "Arial").setFontSize(18).setFontStyle(.italic).setFontWeight(.bold).setLetterSpacing(4))).generate("test"), "\(prefix)/image/upload/l_text:Arial_18_bold_italic_letter_spacing_4:Hello%20World%252C%20Nice%20to%20meet%20you%3F/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setPublicId(publicId: "sample_sub_en.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:sample_sub_en.srt/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setPublicId(publicId: "sample_sub_en.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:sample_sub_en.srt/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily: "Arial").setFontSize(40).setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40:sample_sub_he.srt/test")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily: "Arial").setFontSize(40).setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40:sample_sub_he.srt/test")
         
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily:"Arial").setFontSize(40).setFontAntialiasing(CLDTextLayer.CLDFontAntialiasing.FAST)
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily:"Arial").setFontSize(40).setFontAntialiasing(CLDTextLayer.CLDFontAntialiasing.FAST)
             .setFontHinting(CLDTextLayer.CLDFontHinting.MEDIUM).setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40_antialias_fast_hinting_medium:sample_sub_he.srt/test")
 
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily:"Arial").setFontSize(40).setFontAntialiasing("fast")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDSubtitlesLayer().setFontFamily(fontFamily:"Arial").setFontSize(40).setFontAntialiasing("fast")
             .setFontHinting("medium").setPublicId(publicId: "sample_sub_he.srt"))).generate("test"), "\(prefix)/image/upload/l_subtitles:Arial_40_antialias_fast_hinting_medium:sample_sub_he.srt/test")
         
-        XCTAssertEqual(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDFetchLayer(url: "https://res.cloudinary.com/demo/image/upload/sample"))).generate("test"),
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDFetchLayer(url: "https://res.cloudinary.com/demo/image/upload/sample"))).generate("test"),
                        "\(prefix)/image/upload/l_fetch:aHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZGVtby9pbWFnZS91cGxvYWQvc2FtcGxl/test")
     }
 
     func testOverlayErrors() {
-        XCTAssertNil(cloudinary?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "text").setFontStyle(.italic))).generate("test"))
+        XCTAssertNil(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "text").setFontStyle(.italic))).generate("test"))
 
-        XCTAssertNil(cloudinary?.createUrl().setTransformation(CLDTransformation().setUnderlayWithLayer(CLDLayer().setResourceType(.video))).generate("test"))
+        XCTAssertNil(sut?.createUrl().setTransformation(CLDTransformation().setUnderlayWithLayer(CLDLayer().setResourceType(.video))).generate("test"))
     }
     // MARK: - fsp
     func testFps(){

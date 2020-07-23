@@ -1,5 +1,5 @@
 //
-//  CLDInfo.swift
+//  CLDOcrBlockResult.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -24,35 +24,43 @@
 
 import Foundation
 
-@objcMembers open class CLDInfo: CLDBaseResult {
+@objcMembers open class CLDOcrBlockResult: CLDBaseResult {
     
-    open var detection: CLDDetection? {
-        guard let detection = getParam(.detection) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDDetection(json: detection)
+    open var boundingBox: CLDOcrBoundindBlockResult? {
+        guard let boundingBox = getParam(.boundingBox) as? [String : AnyObject]  else { return nil }
+        
+        return CLDOcrBoundindBlockResult(json: boundingBox)
     }
-    
-    open var ocr: CLDOcrResult? {
-        guard let ocr = getParam(.ocr) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDOcrResult(json: ocr)
+    open var property: CLDOcrPropertyResult? {
+        guard let property = getParam(.property) as? [String : AnyObject] else { return nil }
+        
+        return CLDOcrPropertyResult(json: property)
+    }
+    open var paragraphs: [CLDOcrParagraphResult]? {
+        guard let paragraphs = getParam(.paragraphs) as? [[String : AnyObject]] else { return nil }
+        
+        return paragraphs.compactMap({ CLDOcrParagraphResult(json: $0) })
+    }
+    open var blockType: String? {
+        guard let blockType = getParam(.blockType) as? String else { return nil }
+        
+        return blockType
     }
     
     // MARK: - Private Helpers
-    
-    fileprivate func getParam(_ param: CLDInfoKey) -> AnyObject? {
+    fileprivate func getParam(_ param: CLDOcrBlockResultKey) -> AnyObject? {
         return resultJson[String(describing: param)]
     }
     
-    fileprivate enum CLDInfoKey: CustomStringConvertible {
-        case detection, ocr
+    fileprivate enum CLDOcrBlockResultKey: CustomStringConvertible {
+        case boundingBox, property, paragraphs, blockType
         
         var description: String {
             switch self {
-            case .detection: return "detection"
-            case .ocr      : return "ocr"
+            case .boundingBox: return "boundingBox"
+            case .property   : return "property"
+            case .paragraphs : return "paragraphs"
+            case .blockType  : return "blockType"
             }
         }
     }

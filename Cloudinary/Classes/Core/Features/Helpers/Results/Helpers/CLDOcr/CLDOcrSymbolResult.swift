@@ -1,5 +1,5 @@
 //
-//  CLDInfo.swift
+//  CLDOcrSymbolResult.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -24,35 +24,37 @@
 
 import Foundation
 
-@objcMembers open class CLDInfo: CLDBaseResult {
+@objcMembers open class CLDOcrSymbolResult: CLDBaseResult {
     
-    open var detection: CLDDetection? {
-        guard let detection = getParam(.detection) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDDetection(json: detection)
+    open var boundingBox: CLDOcrBoundindBlockResult? {
+        guard let boundingBox = getParam(.boundingBox) as? [String : AnyObject]  else { return nil }
+        
+        return CLDOcrBoundindBlockResult(json: boundingBox)
     }
-    
-    open var ocr: CLDOcrResult? {
-        guard let ocr = getParam(.ocr) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDOcrResult(json: ocr)
+    open var property: CLDOcrPropertyResult? {
+        guard let property = getParam(.property) as? [String : AnyObject] else { return nil }
+        
+        return CLDOcrPropertyResult(json: property)
+    }
+    open var text: String? {
+        guard let text = getParam(.text) as? String else { return nil }
+        
+        return text
     }
     
     // MARK: - Private Helpers
-    
-    fileprivate func getParam(_ param: CLDInfoKey) -> AnyObject? {
+    fileprivate func getParam(_ param: CLDOcrSymbolResultKey) -> AnyObject? {
         return resultJson[String(describing: param)]
     }
     
-    fileprivate enum CLDInfoKey: CustomStringConvertible {
-        case detection, ocr
+    fileprivate enum CLDOcrSymbolResultKey: CustomStringConvertible {
+        case boundingBox, property, text
         
         var description: String {
             switch self {
-            case .detection: return "detection"
-            case .ocr      : return "ocr"
+            case .boundingBox: return "boundingBox"
+            case .property   : return "property"
+            case .text       : return "text"
             }
         }
     }
