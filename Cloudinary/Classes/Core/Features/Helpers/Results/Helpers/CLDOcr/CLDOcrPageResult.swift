@@ -1,5 +1,5 @@
 //
-//  CLDInfo.swift
+//  CLDOcrPageResult.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -24,35 +24,43 @@
 
 import Foundation
 
-@objcMembers open class CLDInfo: CLDBaseResult {
+@objcMembers open class CLDOcrPageResult: CLDBaseResult {
     
-    open var detection: CLDDetection? {
-        guard let detection = getParam(.detection) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDDetection(json: detection)
+    open var blocks: [CLDOcrBlockResult]? {
+        guard let blocks = getParam(.blocks) as? [[String : AnyObject]] else { return nil }
+        
+        return blocks.compactMap({ CLDOcrBlockResult(json: $0) })
     }
-    
-    open var ocr: CLDOcrResult? {
-        guard let ocr = getParam(.ocr) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDOcrResult(json: ocr)
+    open var property: CLDOcrPropertyResult? {
+        guard let property = getParam(.property) as? [String : AnyObject] else { return nil }
+        
+        return CLDOcrPropertyResult(json: property)
+    }
+    open var width: Int? {
+        guard let width = getParam(.pageWidth) as? Int else { return nil }
+        
+        return width
+    }
+    open var height: Int? {
+        guard let height = getParam(.pageHeight) as? Int else { return nil }
+        
+        return height
     }
     
     // MARK: - Private Helpers
-    
-    fileprivate func getParam(_ param: CLDInfoKey) -> AnyObject? {
+    fileprivate func getParam(_ param: CLDOcrPageResultKey) -> AnyObject? {
         return resultJson[String(describing: param)]
     }
     
-    fileprivate enum CLDInfoKey: CustomStringConvertible {
-        case detection, ocr
+    fileprivate enum CLDOcrPageResultKey: CustomStringConvertible {
+        case blocks, property, pageWidth, pageHeight
         
         var description: String {
             switch self {
-            case .detection: return "detection"
-            case .ocr      : return "ocr"
+            case .blocks    : return "blocks"
+            case .property  : return "property"
+            case .pageWidth : return "width"
+            case .pageHeight: return "height"
             }
         }
     }

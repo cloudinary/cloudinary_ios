@@ -879,7 +879,7 @@ class UploaderTests: NetworkBaseTest {
             XCTFail("Error should hold a message in its user info.")
         }
     }
-
+    
     func testDetection() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")

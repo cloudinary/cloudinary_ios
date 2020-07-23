@@ -1,5 +1,5 @@
 //
-//  CLDInfo.swift
+//  CLDOcrResult.swift
 //
 //  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
 //
@@ -24,35 +24,25 @@
 
 import Foundation
 
-@objcMembers open class CLDInfo: CLDBaseResult {
+@objcMembers open class CLDOcrResult: CLDBaseResult {
     
-    open var detection: CLDDetection? {
-        guard let detection = getParam(.detection) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDDetection(json: detection)
-    }
-    
-    open var ocr: CLDOcrResult? {
-        guard let ocr = getParam(.ocr) as? [String : AnyObject] else {
-            return nil
-        }
-        return CLDOcrResult(json: ocr)
+    open var advOcr: CLDAdvOcrResult? {
+        guard let advOcr = getParam(.advOcr) as? [String : AnyObject] else { return nil }
+        
+        return CLDAdvOcrResult(json: advOcr)
     }
     
     // MARK: - Private Helpers
-    
-    fileprivate func getParam(_ param: CLDInfoKey) -> AnyObject? {
+    fileprivate func getParam(_ param: CLDOcrResultKey) -> AnyObject? {
         return resultJson[String(describing: param)]
     }
     
-    fileprivate enum CLDInfoKey: CustomStringConvertible {
-        case detection, ocr
+    fileprivate enum CLDOcrResultKey: CustomStringConvertible {
+        case advOcr
         
         var description: String {
             switch self {
-            case .detection: return "detection"
-            case .ocr      : return "ocr"
+            case .advOcr: return "adv_ocr"
             }
         }
     }
