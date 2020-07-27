@@ -422,7 +422,6 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertEqual(result?.result ?? "", "ok")
     }
-    
     func testDestroyWithSignature() {
         var expectation = self.expectation(description: "Upload should succeed")
         
