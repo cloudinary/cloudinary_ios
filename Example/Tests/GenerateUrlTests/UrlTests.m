@@ -335,8 +335,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
      
     NSString* expectedResult = @"DUB-5kBq";
     
@@ -365,8 +365,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
      
     NSString* expectedResult = @"UHH8qJ2e";
     
@@ -398,8 +398,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                                    timeout:nil];
                                                        
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
      
     NSString* expectedResult = @"7k8KYHY2";
     
@@ -429,8 +429,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
      
     NSString* expectedResult = @"g12ptQdG";
     
@@ -459,8 +459,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
      
     NSString* expectedResult = @"FhXe8ZZ3";
     
@@ -489,8 +489,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:NO];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:NO];
      
     NSString* expectedResult = @"http://test123-res.cloudinary.com/image/upload/test.jpg";
     
@@ -503,7 +503,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
 - (void)test_signatureAlgorithm_unset_shouldCreateExpectedFullUrl {
     
     // Given
-    NSString* url = [[cloudinary createUrl] generate:@"sample.jpg" signUrl:YES];
+    NSString* url = [[self.sut createUrl] generate:@"sample.jpg" signUrl:YES];
      
     NSString* expectedResult = @"https://res.cloudinary.com/test123/image/upload/s--v2fTPYTu--/sample.jpg";
     
@@ -521,8 +521,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
     NSString* fullUrl               = [NSString stringWithFormat:@"%@%@",urlCredentials,signatureAlgorithQuery];
     
     CLDConfiguration* config = [[CLDConfiguration alloc] initWithCloudinaryUrl:fullUrl];
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[cloudinary createUrl] generate:@"sample.jpg" signUrl:YES];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[self.sut createUrl] generate:@"sample.jpg" signUrl:YES];
      
     NSString* expectedResult = @"https://res.cloudinary.com/test123/image/upload/s--2hbrSMPO--/sample.jpg";
     
@@ -551,8 +551,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
      
     NSString* expectedResult = @"UHH8qJ2eIEoPHdVQP08BMEN9f4YUDavr";
     
@@ -581,8 +581,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:YES];
      
     NSString* expectedResult = @"UHH8qJ2eIEoPHdVQP08BMEN9f4YUDavr";
     
@@ -611,8 +611,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:NO];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:NO];
      
     NSString* expectedResult = @"http://test123-res.cloudinary.com/image/upload/test.jpg";
     
@@ -639,8 +639,8 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                               uploadPrefix:nil
                                                                    timeout:nil];
     
-    cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
-    NSString* url = [[[cloudinary createUrl] setFormat:@"jpg"] generate:@"test" signUrl:NO];
+    self.sut = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:nil];
+    NSString* url = [[[self.sut createUrl] setFormat:@"jpg"] generate:@"test" signUrl:NO];
      
     NSString* expectedResult = @"http://test123-res.cloudinary.com/image/upload/test.jpg";
     

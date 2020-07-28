@@ -482,8 +482,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "", privateCdn: true, signatureAlgorithm: .sha256)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "DUB-5kBq"
         
@@ -499,8 +499,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, signatureAlgorithm: .sha256)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "UHH8qJ2e"
         
@@ -517,8 +517,8 @@ class UrlTests: XCTestCase {
         // Given
         let longString = "abcdefghijklmnopqrstuvwxyz1abcdefghijklmnopqrstuvwxyz2abcdefghijklmnopqrstuvwxyz3abcdefghijklmnopqrstuvwxyz4abcdefghijklmnopqrstuvwxyz5abcdefghijklmnopqrstuvwxyz6"
         let config = CLDConfiguration(cloudName: "test123", apiSecret: longString, privateCdn: true, signatureAlgorithm: .sha256)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "7k8KYHY2"
         
@@ -535,8 +535,8 @@ class UrlTests: XCTestCase {
         // Given
         let longString = "🔭!@#$%^&*()_+±§?><`~"
         let config = CLDConfiguration(cloudName: "test123", apiSecret: longString, privateCdn: true, signatureAlgorithm: .sha256)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "g12ptQdG"
         
@@ -552,8 +552,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "FhXe8ZZ3"
         
@@ -569,8 +569,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, signatureAlgorithm: .sha256)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: false)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: false)
          
         let expectedResult = "http://test123-res.cloudinary.com/image/upload/test.jpg"
         
@@ -583,7 +583,7 @@ class UrlTests: XCTestCase {
     func test_signatureAlgorithm_unset_shouldCreateExpectedFullUrl() {
         
         // Given
-        let url = cloudinary?.createUrl().generate("sample.jpg", signUrl: true)
+        let url = sut?.createUrl().generate("sample.jpg", signUrl: true)
          
         let expectedResult = "https://res.cloudinary.com/test123/image/upload/s--v2fTPYTu--/sample.jpg"
         
@@ -601,8 +601,8 @@ class UrlTests: XCTestCase {
         let fullUrl                 = urlCredentials + signatureAlgorithmQuery
         
         let config = CLDConfiguration(cloudinaryUrl: fullUrl)
-        cloudinary = CLDCloudinary(configuration: config!)
-        let url = cloudinary?.createUrl().generate("sample.jpg", signUrl: true)
+        sut = CLDCloudinary(configuration: config!)
+        let url = sut?.createUrl().generate("sample.jpg", signUrl: true)
          
         let expectedResult = "https://res.cloudinary.com/test123/image/upload/s--2hbrSMPO--/sample.jpg"
         
@@ -618,8 +618,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha1)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "UHH8qJ2eIEoPHdVQP08BMEN9f4YUDavr"
         
@@ -635,8 +635,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha1)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: true)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: true)
          
         let expectedResult = "UHH8qJ2eIEoPHdVQP08BMEN9f4YUDavr"
         
@@ -652,8 +652,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha1)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: false)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: false)
          
         let expectedResult = "http://test123-res.cloudinary.com/image/upload/test.jpg"
         
@@ -667,8 +667,8 @@ class UrlTests: XCTestCase {
         
         // Given
         let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha256)
-        cloudinary = CLDCloudinary(configuration: config)
-        let url = cloudinary?.createUrl().setFormat("jpg").generate("test", signUrl: false)
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: false)
          
         let expectedResult = "http://test123-res.cloudinary.com/image/upload/test.jpg"
         
