@@ -89,10 +89,10 @@
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
-        D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D779B69424B7117200E496EB /* UploaderAccessibilityTests.swift */; };
-        D779B69824B7117300E496EB /* UploaderAccessibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D779B69524B7117200E496EB /* UploaderAccessibilityTests.m */; };
-        D779B69924B7117300E496EB /* NetworkBaseTestObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */; };
-        D7866141248FE34A0099DE8C /* textImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7866140248FE34A0099DE8C /* textImage.jpg */; };
+		D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D779B69424B7117200E496EB /* UploaderAccessibilityTests.swift */; };
+		D779B69824B7117300E496EB /* UploaderAccessibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D779B69524B7117200E496EB /* UploaderAccessibilityTests.m */; };
+		D779B69924B7117300E496EB /* NetworkBaseTestObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */; };
+		D7866141248FE34A0099DE8C /* textImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7866140248FE34A0099DE8C /* textImage.jpg */; };
 		D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */; };
 		D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */; };
 		D79AE39C24585533004F2439 /* CLDVariableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D79AE39B24585533004F2439 /* CLDVariableTests.m */; };
@@ -207,11 +207,11 @@
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
-        D779B69224B7117200E496EB /* NetworkBaseTestObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkBaseTestObjc.h; sourceTree = "<group>"; };
-        D779B69424B7117200E496EB /* UploaderAccessibilityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderAccessibilityTests.swift; sourceTree = "<group>"; };
-        D779B69524B7117200E496EB /* UploaderAccessibilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderAccessibilityTests.m; sourceTree = "<group>"; };
-        D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkBaseTestObjc.m; sourceTree = "<group>"; };
-        D7866140248FE34A0099DE8C /* textImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = textImage.jpg; sourceTree = "<group>"; };
+		D779B69224B7117200E496EB /* NetworkBaseTestObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkBaseTestObjc.h; sourceTree = "<group>"; };
+		D779B69424B7117200E496EB /* UploaderAccessibilityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderAccessibilityTests.swift; sourceTree = "<group>"; };
+		D779B69524B7117200E496EB /* UploaderAccessibilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderAccessibilityTests.m; sourceTree = "<group>"; };
+		D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkBaseTestObjc.m; sourceTree = "<group>"; };
+		D7866140248FE34A0099DE8C /* textImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = textImage.jpg; sourceTree = "<group>"; };
 		D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationTests.swift; sourceTree = "<group>"; };
 		D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVariableTests.swift; sourceTree = "<group>"; };
 		D79AE39B24585533004F2439 /* CLDVariableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDVariableTests.m; sourceTree = "<group>"; };
@@ -394,6 +394,7 @@
 				272C5144242B6C350093AB1B /* ResponseSerializationTests.swift */,
 				272C5146242B6C350093AB1B /* URLProtocolTests.swift */,
 				272C514A242B6C350093AB1B /* ValidationTests.swift */,
+				5D53A94E2488CDB7005C14AB /* ConfigurationTests */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -420,10 +421,10 @@
 		274C6D1D23FBAF5E0090BC40 /* NetworkTests */ = {
 			isa = PBXGroup;
 			children = (
-                D779B69324B7117200E496EB /* AccessibilityUploderTests */,
-                D779B69224B7117200E496EB /* NetworkBaseTestObjc.h */,
-                D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */,
-                D73622B724910FDD0021E1D4 /* UploaderTests */,
+				D779B69324B7117200E496EB /* AccessibilityUploderTests */,
+				D779B69224B7117200E496EB /* NetworkBaseTestObjc.h */,
+				D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */,
+				D73622B724910FDD0021E1D4 /* UploaderTests */,
 				274C6D1E23FBAF5E0090BC40 /* NetworkBaseTest.swift */,
 				274C6D2023FBAF5E0090BC40 /* ManagementApiTests.swift */,
 				274C6D2123FBAF5E0090BC40 /* DownloaderTests.swift */,
@@ -682,7 +683,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				42985A7A2C618D5C385889D0 /* [CP] Embed Pods Frameworks */,
+				B072BA1D2EDCD250F21DFF4B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -814,7 +815,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		42985A7A2C618D5C385889D0 /* [CP] Embed Pods Frameworks */ = {
+		B072BA1D2EDCD250F21DFF4B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
