@@ -387,6 +387,7 @@
 				272C5144242B6C350093AB1B /* ResponseSerializationTests.swift */,
 				272C5146242B6C350093AB1B /* URLProtocolTests.swift */,
 				272C514A242B6C350093AB1B /* ValidationTests.swift */,
+                5D53A94E2488CDB7005C14AB /* CLDConfigurationTests */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -600,15 +601,15 @@
 			path = CryptoUtilsTests;
 			sourceTree = "<group>";
 		};
-		D73622B724910FDD0021E1D4 /* UploaderTests */ = {
-			isa = PBXGroup;
-			children = (
-				274C6D1F23FBAF5E0090BC40 /* UploaderTests.swift */,
-				D7E79DC224B515260082288A /* OcrUploaderTests */,
-			);
-			path = UploaderTests;
-			sourceTree = "<group>";
-		};
+        D73622B724910FDD0021E1D4 /* UploaderTests */ = {
+            isa = PBXGroup;
+            children = (
+                274C6D1F23FBAF5E0090BC40 /* UploaderTests.swift */,
+                D7E79DC224B515260082288A /* OcrUploaderTests */,
+            );
+            path = UploaderTests;
+            sourceTree = "<group>";
+        };
 		D79AE39924585499004F2439 /* CLDVariableTests */ = {
 			isa = PBXGroup;
 			children = (
