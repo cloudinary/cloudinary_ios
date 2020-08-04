@@ -45,7 +45,7 @@ class UploadRequestParamsTests: BaseTestCase {
     func test_getAccessibilityAnalysis_unset_shouldStoreValue() {
                 
         // Then
-        XCTAssertTrue(sut.accessibilityAnalysis == nil, "unset proerty should not be stored in params")
+        XCTAssertTrue(sut.accessibilityAnalysis == nil, "unset property should not be stored in params")
     }
     func test_setAccessibilityAnalysis_true_shouldStoreValue() {
 
@@ -53,7 +53,7 @@ class UploadRequestParamsTests: BaseTestCase {
         sut.setAccessibilityAnalysis(true)
         
         // Then
-        XCTAssertTrue(sut.accessibilityAnalysis!, "set proerty should be stored in params")
+        XCTAssertTrue(sut.accessibilityAnalysis!, "set property should be stored in params")
     }
     func test_setAccessibilityAnalysis_trueThenfalse_shouldRemoveValue() {
 
@@ -62,7 +62,7 @@ class UploadRequestParamsTests: BaseTestCase {
         sut.setAccessibilityAnalysis(false)
 
         // Then
-        XCTAssertFalse(sut.accessibilityAnalysis == nil, "Init without longUrlSignature should store the default false value")
+        XCTAssertFalse(sut.accessibilityAnalysis!, "changes to property value should be stored in params")
     }
     // MARK: - ocr
     func test_getOcr_unset_shouldStoreValue() {
