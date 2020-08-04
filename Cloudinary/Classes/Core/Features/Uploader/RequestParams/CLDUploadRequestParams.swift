@@ -207,6 +207,10 @@ import Foundation
         return getParam(.QualityAnalysis) as? Bool
     }
     
+    open var accessibilityAnalysis: Bool? {
+        return getParam(.AccessibilityAnalysis) as? Bool
+    }
+    
     open var ocr: Bool {
         return getParam(.Ocr) as? String != nil
     }
@@ -642,6 +646,20 @@ import Foundation
     }
     
     /**
+     Set a boolean parameter indicating whether to return accessibility analysis of the image.
+     Default: false.
+     
+     - parameter accessibilityAnalysis: The boolean parameter.
+     
+     - returns:                         The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setAccessibilityAnalysis(_ accessibilityAnalysis: Bool) -> Self {
+        setBoolParam(.AccessibilityAnalysis, value: accessibilityAnalysis)
+        return self
+    }
+    
+    /**
     A setter for any one of the simple boolean parameters. This is used to normalize boolean values in requests
     to be consistent across different platforms.
     
@@ -1057,6 +1075,7 @@ import Foundation
         case Phash =                                "phash"
         case ReturnDeleteToken =                    "return_delete_token"
         case QualityAnalysis =                      "quality_analysis"
+        case AccessibilityAnalysis =                "accessibility_analysis"
         
         case Transformation =                       "transformation"
         case Tags =                                 "tags"
