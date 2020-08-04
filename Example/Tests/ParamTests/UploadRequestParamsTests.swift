@@ -45,7 +45,7 @@ class UploadRequestParamsTests: BaseTestCase {
     func test_getAccessibilityAnalysis_unset_shouldNotStoreValue() {
                 
         // Then
-        XCTAssertTrue(sut.accessibilityAnalysis == nil, "unset property should not be stored in params")
+        XCTAssertNil(sut.accessibilityAnalysis, "unset property should not be stored in params")
     }
     func test_setAccessibilityAnalysis_true_shouldStoreTrueValue() {
 
