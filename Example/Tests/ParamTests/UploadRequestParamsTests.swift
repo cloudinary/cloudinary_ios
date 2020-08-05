@@ -1,6 +1,7 @@
 //
 //  UploadRequestParamsTests.swift
 //
+//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -40,11 +41,35 @@ class UploadRequestParamsTests: BaseTestCase {
         super.tearDown()
     }
     
+    // MARK: - accessibility analysis
+    func test_getAccessibilityAnalysis_unset_shouldNotStoreValue() {
+                
+        // Then
+        XCTAssertNil(sut.accessibilityAnalysis, "unset property should not be stored in params")
+    }
+    func test_setAccessibilityAnalysis_true_shouldStoreTrueValue() {
+
+        // When
+        sut.setAccessibilityAnalysis(true)
+        
+        // Then
+        XCTAssertTrue(sut.accessibilityAnalysis == true, "setting property to true should store true in params")
+    }
+    func test_setAccessibilityAnalysis_trueThenFalse_shouldUpdateValue() {
+
+        // When
+        sut.setAccessibilityAnalysis(true)
+        sut.setAccessibilityAnalysis(false)
+
+        // Then
+        XCTAssertTrue(sut.accessibilityAnalysis == false, "updating property to false value should store false in params")
+    }
+    
     // MARK: - ocr
     func test_getOcr_unset_shouldStoreValue() {
         
         XCTAssertFalse(sut.ocr, "set proerty should be stored in params")
-    } 
+    }
     func test_setOcr_true_shouldStoreValue() {
 
         // When
