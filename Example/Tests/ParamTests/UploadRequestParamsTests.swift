@@ -43,12 +43,12 @@ class UploadRequestParamsTests: BaseTestCase {
     
     // MARK: - accessibility analysis
     func test_getAccessibilityAnalysis_unset_shouldNotStoreValue() {
-                
+        
         // Then
         XCTAssertNil(sut.accessibilityAnalysis, "unset property should not be stored in params")
     }
     func test_setAccessibilityAnalysis_true_shouldStoreTrueValue() {
-
+        
         // When
         sut.setAccessibilityAnalysis(true)
         
@@ -56,35 +56,39 @@ class UploadRequestParamsTests: BaseTestCase {
         XCTAssertTrue(sut.accessibilityAnalysis == true, "setting property to true should store true in params")
     }
     func test_setAccessibilityAnalysis_trueThenFalse_shouldUpdateValue() {
-
+        
         // When
         sut.setAccessibilityAnalysis(true)
         sut.setAccessibilityAnalysis(false)
-
+        
         // Then
         XCTAssertTrue(sut.accessibilityAnalysis == false, "updating property to false value should store false in params")
     }
     
     // MARK: - ocr
-    func test_getOcr_unset_shouldStoreValue() {
+    func test_getOcr_unset_shouldNotStoreValue() {
         
-        XCTAssertFalse(sut.ocr, "set proerty should be stored in params")
+        // Then
+        XCTAssertNil(sut.ocr, "unset property should not be stored in params")
+        
     }
-    func test_setOcr_true_shouldStoreValue() {
-
+    
+    func test_setOcr_true_shouldStoreTrueValue() {
+        
         // When
         sut.setOcr(true)
         
         // Then
-        XCTAssertTrue(sut.ocr, "set proerty should be stored in params")
+        XCTAssertTrue(sut.ocr == true, "setting property to true should store true in params")
     }
-    func test_setOcr_trueThenfalse_shouldRemoveValue() {
-
+    
+    func test_setOcr_trueThenFalse_shouldRemoveValue() {
+        
         // When
         sut.setOcr(true)
         sut.setOcr(false)
-
+        
         // Then
-        XCTAssertFalse(sut.ocr, "Init without longUrlSignature should store the default false value")
+        XCTAssertNil(sut.ocr, "updating ocr property to false value should remove store property from params")
     }
 }
