@@ -89,6 +89,7 @@
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
+		D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */; };
 		D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D779B69424B7117200E496EB /* UploaderAccessibilityTests.swift */; };
 		D779B69824B7117300E496EB /* UploaderAccessibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D779B69524B7117200E496EB /* UploaderAccessibilityTests.m */; };
 		D779B69924B7117300E496EB /* NetworkBaseTestObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */; };
@@ -103,6 +104,7 @@
 		D7E79DCD24B515260082288A /* UploaderMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */; };
 		D7E79DCE24B515260082288A /* ExplicitMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */; };
 		D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */; };
+		D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,6 +209,7 @@
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
+		D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieCropped.jpg; sourceTree = "<group>"; };
 		D779B69224B7117200E496EB /* NetworkBaseTestObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkBaseTestObjc.h; sourceTree = "<group>"; };
 		D779B69424B7117200E496EB /* UploaderAccessibilityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderAccessibilityTests.swift; sourceTree = "<group>"; };
 		D779B69524B7117200E496EB /* UploaderAccessibilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderAccessibilityTests.m; sourceTree = "<group>"; };
@@ -222,6 +225,7 @@
 		D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplicitMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadRequestParamsTests.swift; sourceTree = "<group>"; };
+		D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreprocessUploaderTests.swift; sourceTree = "<group>"; };
 		F2530AD793711AEF6C37A33F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -394,7 +398,6 @@
 				272C5144242B6C350093AB1B /* ResponseSerializationTests.swift */,
 				272C5146242B6C350093AB1B /* URLProtocolTests.swift */,
 				272C514A242B6C350093AB1B /* ValidationTests.swift */,
-				5D53A94E2488CDB7005C14AB /* ConfigurationTests */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -424,8 +427,8 @@
 				D779B69324B7117200E496EB /* AccessibilityUploderTests */,
 				D779B69224B7117200E496EB /* NetworkBaseTestObjc.h */,
 				D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */,
-				D73622B724910FDD0021E1D4 /* UploaderTests */,
 				274C6D1E23FBAF5E0090BC40 /* NetworkBaseTest.swift */,
+				D73622B724910FDD0021E1D4 /* UploaderTests */,
 				274C6D2023FBAF5E0090BC40 /* ManagementApiTests.swift */,
 				274C6D2123FBAF5E0090BC40 /* DownloaderTests.swift */,
 			);
@@ -446,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				274C6D2523FBAF5E0090BC40 /* borderCollie.jpg */,
+				D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */,
 				D7866140248FE34A0099DE8C /* textImage.jpg */,
 				274C6D2623FBAF5E0090BC40 /* logo.png */,
 			);
@@ -615,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				274C6D1F23FBAF5E0090BC40 /* UploaderTests.swift */,
+				D7F3D45E24DC3B8A002C1D27 /* PreprocessUploaderTests */,
 				D7E79DC224B515260082288A /* OcrUploaderTests */,
 			);
 			path = UploaderTests;
@@ -670,6 +675,14 @@
 				D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */,
 			);
 			path = ParamTests;
+			sourceTree = "<group>";
+		};
+		D7F3D45E24DC3B8A002C1D27 /* PreprocessUploaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */,
+			);
+			path = PreprocessUploaderTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -785,6 +798,7 @@
 				274C6D3C23FBAF5E0090BC40 /* docx.docx in Resources */,
 				272C5197242B6C360093AB1B /* empty_string.txt in Resources */,
 				272C518F242B6C360093AB1B /* invalid.data in Resources */,
+				D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */,
 				274C6D3A23FBAF5E0090BC40 /* borderCollie.jpg in Resources */,
 				272C5192242B6C360093AB1B /* empty_data.json in Resources */,
 			);
@@ -885,6 +899,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				272C5189242B6C360093AB1B /* ResponseTests.swift in Sources */,
+				D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */,
 				274C6D3923FBAF5E0090BC40 /* StringUtilsTest.swift in Sources */,
 				274C6D2D23FBAF5E0090BC40 /* CryptoUtilsTests.swift in Sources */,
 				D7E79DCC24B515260082288A /* UploaderMockOcrTests.m in Sources */,
