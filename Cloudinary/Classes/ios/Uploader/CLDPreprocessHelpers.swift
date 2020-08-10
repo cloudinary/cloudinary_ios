@@ -54,6 +54,30 @@ public class CLDPreprocessHelpers {
     }
 
     /**
+     Get a CLDPreprocessStep closure to send to CLDPreprocessChain. Returns the image cropped to the requested rectangle. This step will validate that the chosen rectangle is within the image's dimensions, otherwise an exception is thrown and the CLDUploadRequest fails.
+
+      - parameter cropRect:          The requested crop rectangle.
+
+      - returns:                     A closure to use in a preprocessing chain.
+    */
+    public static func crop(cropRect: CGRect) -> CLDPreprocessStep<UIImage> {
+        return { image in
+            
+            let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+            guard imageRect.contains(cropRect) else {
+                throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "Crop dimensions out of bounds")
+            }
+            
+            if let croppedImage = image.cld_crop(cropRect) {
+                return croppedImage
+            }
+            else {
+                throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "Image cropping failed")
+            }
+        }
+    }
+
+    /**
      Get a CLDResourceEncoder to use in CLDPreprocessChain. This encoder saves the image with the
      chosen format and quality.
 
@@ -75,7 +99,6 @@ public class CLDPreprocessHelpers {
             return nil
         }
     }
-
 
     /**
      Get a CLDPreprocessStep to send to CLDPreprocessChain. This step will validate that a given image's
@@ -130,6 +153,18 @@ public class CLDPreprocessHelpers {
         UIGraphicsEndImageContext()
 
         return newImage
+    }
+}
+
+internal extension UIImage
+{
+    func cld_crop(_ rect: CGRect) -> UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, self.scale)
+        self.draw(at: CGPoint(x: -rect.origin.x, y: -rect.origin.y))
+        let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return croppedImage
     }
 }
 
