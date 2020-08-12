@@ -6,19 +6,18 @@
 //  Copyright © 2018 Cloudinary. All rights reserved.
 //
 
-import Foundation
 import XCTest
+import UIKit
 @testable import Cloudinary
 
 class PreprocessTests: NetworkBaseTest {
     
-    var sut : UIImage!
+    var sut: UIImage!
     
-    // MARK: - setup and teardDown
+    // MARK: - setup and tearDown
     override func setUp() {
         super.setUp()
     }
-    
     override func tearDown() {
         super.tearDown()
         sut = nil
@@ -31,8 +30,7 @@ class PreprocessTests: NetworkBaseTest {
         
         return CLDPreprocessHelpers.resizeImage(image: UIImage(contentsOfFile: url.path)!, requiredSize: CGSize(width: 300, height:300))
     }
-    
-    fileprivate func getFullSizeImage(_ resourceType: TestResourceType = .borderCollie)->UIImage {
+    fileprivate func getFullSizeImage(_ resourceType: TestResourceType = .borderCollie) -> UIImage {
         let bundle = Bundle(for: PreprocessTests.self)
         let url = bundle.url(forResource: resourceType.fileName, withExtension: resourceType.resourceExtension)!
         
@@ -84,7 +82,7 @@ class PreprocessTests: NetworkBaseTest {
         // Then
         XCTAssertEqual(sut.size ,imageNewRect.size, "image should be cropped to the requested size")
     }
-    func test_crop_big_shouldCropToSize() {
+    func test_crop_big_shouldCropToSize()   {
         
         // Given
         let image = getFullSizeImage()
@@ -96,7 +94,7 @@ class PreprocessTests: NetworkBaseTest {
         // Then
         XCTAssertEqual(sut.size, imageNewRect.size, "image should be cropped to the requested size")
     }
-    func test_crop_widthOutOfBounds_shouldCropToSize() {
+    func test_crop_widthOutOfBounds_shouldCropToSize()  {
         
         // Given
         let image = getFullSizeImage()
@@ -131,6 +129,95 @@ class PreprocessTests: NetworkBaseTest {
         
         // Then
         XCTAssertThrowsError(try CLDPreprocessHelpers.crop(cropRect: imageNewRect)(image), "trying to crop an image out of bounds should throw an error")
+    }
+    
+    // MARK: - rotate
+    func test_rotate_45_shouldRotateToAngle() {
+        
+        // Given
+        let image = getFullSizeImage()
+        let imageExpectedSize = CGSize(width: 1357, height: 1357)
+        
+        // When
+        sut = try! CLDPreprocessHelpers.rotate(degrees: 45)(image)
+        
+        // Then
+        XCTAssertEqual(sut.size ,imageExpectedSize, "image should be rotated to the requested angle (this should change the image size)")
+    }
+    func test_rotate_90_shouldRotateToAngle() {
+        
+        // Given
+        let image = getFullSizeImage(.logo)
+        let imageExpectedSize = CGSize(width: image.size.height, height: image.size.width)
+        
+        // When
+        sut = try! CLDPreprocessHelpers.rotate(degrees: 90)(image)
+        
+        // Then
+        XCTAssertEqual(sut.size ,imageExpectedSize, "image should be rotated to the requested angle (this should change the image size)")
+    }
+    func test_rotate_180_shouldRotateToAngle() {
+        
+        // Given
+        let image = getFullSizeImage()
+        let imageExpectedSize = image.size
+        
+        // When
+        sut = try! CLDPreprocessHelpers.rotate(degrees: 180)(image)
+        
+        // Then
+        XCTAssertEqual(sut.size ,imageExpectedSize, "image should be rotated to the requested angle (this should change the image size)")
+    }
+    func test_rotate_810_shouldRotateToAngle() {
+        
+        // Given
+        let image = getFullSizeImage()
+        let imageExpectedSize = CGSize(width: image.size.height, height: image.size.width)
+        
+        // When
+        sut = try! CLDPreprocessHelpers.rotate(degrees: 810)(image)
+        
+        // Then
+        XCTAssertEqual(sut.size ,imageExpectedSize, "image should be rotated to the requested angle (this should change the image size)")
+    }
+    func test_rotate_45png_shouldRotateToAngle()   {
+        
+        // Given
+        let image = getFullSizeImage(.logo)
+        let imageExpectedSize = CGSize(width: 206, height: 206)
+        
+        // When
+        sut = try! CLDPreprocessHelpers.rotate(degrees: 45)(image)
+        
+        // Then
+        XCTAssertEqual(sut.size ,imageExpectedSize, "image should be rotated to the requested angle (this should change the image size)")
+    }
+    func test_rotate_CIImage_shouldRotateToAngle() {
+        
+        // Given
+        let ciimage = CIImage(image: getFullSizeImage(.logo))!
+        let uiimageFromCIImage = UIImage(ciImage: ciimage)
+        
+        let imageExpectedSize = CGSize(width: 206, height: 206)
+        
+        // When
+        sut = try! CLDPreprocessHelpers.rotate(degrees: 45)(uiimageFromCIImage)
+        
+        // Then
+        XCTAssertNil(uiimageFromCIImage.cgImage, "image.cgImage should be nil")
+        XCTAssertEqual(sut.size ,imageExpectedSize, "image should be rotated to the requested angle (this should change the image size)")
+    }
+    func test_rotate_shouldEqualPrePreparedImage() {
+        
+        // Given
+        let image = getFullSizeImage()
+        let prePreparedImage = getFullSizeImage(.borderCollieRotatedPng)
+        
+        // When
+        sut = try! CLDPreprocessHelpers.rotate(degrees: 45)(image)
+        
+        // Then
+        XCTAssertEqual(sut.pngData(), prePreparedImage.pngData(), "rotated image should be equal to pre prepared image")
     }
     
     // MARK: - dimension validator

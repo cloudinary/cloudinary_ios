@@ -80,6 +80,8 @@ class NetworkBaseTest: XCTestCase {
         case logo
         case borderCollie
         case borderCollieCropped
+        case borderCollieRotatedPng
+        case borderCollieRotatedJpg
         case docx
         case dog
         case pdf
@@ -90,19 +92,21 @@ class NetworkBaseTest: XCTestCase {
         }
         
         var resourceExtension: String {
+            
             switch self {
-            case .logo:
+            case .logo: fallthrough
+            case .borderCollieRotatedPng:
                 return "png"
-            case .borderCollie: fallthrough
-            case .textImage   : fallthrough
-            case .borderCollieCropped:
+                
+            case .textImage             : fallthrough
+            case .borderCollie          : fallthrough
+            case .borderCollieCropped   : fallthrough
+            case .borderCollieRotatedJpg:
                 return "jpg"
-            case .docx:
-                return "docx"
-            case .dog:
-                return "mp4"
-            case .pdf:
-                return "pdf"
+                
+            case .docx: return "docx"
+            case .dog : return "mp4"
+            case .pdf : return "pdf"
             }
         }
         
