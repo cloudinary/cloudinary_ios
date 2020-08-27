@@ -273,7 +273,7 @@ class ManagementApiTests: NetworkBaseTest {
             expectation2.fulfill()
             }
         )
-        waitForExpectations(timeout: timeout)
+        waitForExpectations(timeout: longTimeout)
 
         let expectation = self.expectation(description: "Generating sprite should succeed")
         var result: CLDSpriteResult?
@@ -287,7 +287,7 @@ class ManagementApiTests: NetworkBaseTest {
         }
         
         
-        waitForExpectations(timeout: timeout, handler: nil)
+        waitForExpectations(timeout: longTimeout, handler: nil)
         
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result, "result should not be nil")
@@ -1100,7 +1100,7 @@ class ManagementApiTests: NetworkBaseTest {
             expectation2.fulfill()
             }
         )
-        waitForExpectations(timeout: timeout)
+        waitForExpectations(timeout: longTimeout)
 
         let expectation = self.expectation(description: "Generating sprite should succeed")
         var result: CLDSpriteResult?
@@ -1114,7 +1114,7 @@ class ManagementApiTests: NetworkBaseTest {
         }
         
         
-        waitForExpectations(timeout: timeout, handler: nil)
+        waitForExpectations(timeout: longTimeout, handler: nil)
         
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result, "result should not be nil")
