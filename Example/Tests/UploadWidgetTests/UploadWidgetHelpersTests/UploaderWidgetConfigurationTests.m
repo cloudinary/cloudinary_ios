@@ -65,7 +65,7 @@
     BOOL allowCrop                              = false;
     BOOL allowRotate                            = true;
     AspectRatioLockState initialAspectLockState = AspectRatioLockStateEnabledAndOn;
-    UploadType* uploadType                      = nil;
+    UploadType* uploadType                      = [[UploadType alloc] initWithSigned:true preset:@"preset"];
     
     // When
     self.sut = [[CLDWidgetConfiguration alloc] initWithAllowCrop:allowCrop allowRotate:allowRotate initialAspectLockState:initialAspectLockState uploadType:uploadType];
