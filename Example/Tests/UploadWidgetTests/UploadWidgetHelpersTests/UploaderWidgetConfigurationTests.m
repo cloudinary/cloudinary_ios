@@ -44,17 +44,15 @@
 - (void)test_init_falseInputParamaters_shouldStoreInputValues {
       
     // Given
-    BOOL allowCrop                              = false;
     BOOL allowRotate                            = false;
     AspectRatioLockState initialAspectLockState = AspectRatioLockStateDisabled;
     UploadType* uploadType                      = [[UploadType alloc] initWithSigned:false preset:nil];
     
     // When
-    self.sut = [[CLDWidgetConfiguration alloc] initWithAllowCrop:allowCrop allowRotate:allowRotate  initialAspectLockState:initialAspectLockState uploadType:uploadType];
+    self.sut = [[CLDWidgetConfiguration alloc] initWithAllowRotate:allowRotate  initialAspectLockState:initialAspectLockState uploadType:uploadType];
     
     // Then
     XCTAssertNotNil(self.sut, "object should be initialized");
-    XCTAssertFalse (self.sut.allowCrop, "object's properties should store value from init call");
     XCTAssertFalse (self.sut.allowRotate, "object's properties should store value from init call");
     XCTAssertEqual (self.sut.initialAspectLockState, initialAspectLockState, "object's properties should store value from init call");
     XCTAssertEqual (self.sut.uploadType, uploadType, "object's properties should store value from init call");
@@ -62,17 +60,15 @@
 - (void)test_init_mixInputParamaters_shouldStoreInputValues {
       
     // Given
-    BOOL allowCrop                              = false;
     BOOL allowRotate                            = true;
     AspectRatioLockState initialAspectLockState = AspectRatioLockStateEnabledAndOn;
     UploadType* uploadType                      = [[UploadType alloc] initWithSigned:true preset:@"preset"];
     
     // When
-    self.sut = [[CLDWidgetConfiguration alloc] initWithAllowCrop:allowCrop allowRotate:allowRotate initialAspectLockState:initialAspectLockState uploadType:uploadType];
+    self.sut = [[CLDWidgetConfiguration alloc] initWithAllowRotate:allowRotate initialAspectLockState:initialAspectLockState uploadType:uploadType];
     
     // Then
     XCTAssertNotNil(self.sut, "object should be initialized");
-    XCTAssertFalse (self.sut.allowCrop, "object's properties should store value from init call");
     XCTAssertTrue (self.sut.allowRotate, "object's properties should store value from init call");
     XCTAssertEqual (self.sut.initialAspectLockState, initialAspectLockState, "object's properties should store value from init call");
     XCTAssertEqual (self.sut.uploadType, uploadType, "object's properties should store value from init call");

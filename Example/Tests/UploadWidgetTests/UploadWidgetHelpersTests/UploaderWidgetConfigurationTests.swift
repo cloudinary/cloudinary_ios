@@ -47,7 +47,6 @@ class UploaderWidgetConfigurationTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
-        XCTAssertTrue  (sut.allowCrop, "allowCrop default value should be true")
         XCTAssertTrue  (sut.allowRotate, "allowRotate default value should be true")
         XCTAssertEqual (sut.initialAspectLockState, CLDWidgetConfiguration.AspectRatioLockState.enabledAndOff, "initialAspectLockState default value should be enabledAndOff")
         XCTAssertTrue  (sut.uploadType.signed, "uploadType.signed default value should be true")
@@ -56,17 +55,15 @@ class UploaderWidgetConfigurationTests: XCTestCase {
     func test_init_falseInputParamaters_shouldStoreInputValues() {
         
         // Given
-        let allowCrop   = false
         let allowRotate = false
         let initialAspectLockState = CLDWidgetConfiguration.AspectRatioLockState.disabled
         let uploadType: UploadType = UploadType(signed: false, preset: "preset")
     
         // When
-        sut = CLDWidgetConfiguration.init(allowCrop: allowCrop, allowRotate: allowRotate, initialAspectLockState: initialAspectLockState, uploadType: uploadType)
+        sut = CLDWidgetConfiguration.init(allowRotate: allowRotate, initialAspectLockState: initialAspectLockState, uploadType: uploadType)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
-        XCTAssertFalse (sut.allowCrop, "object's properties should store value from init call")
         XCTAssertFalse (sut.allowRotate, "object's properties should store value from init call")
         XCTAssertEqual (sut.initialAspectLockState, initialAspectLockState, "object's properties should store value from init call")
         XCTAssertEqual (sut.uploadType, uploadType, "object's properties should store value from init call")
@@ -74,17 +71,15 @@ class UploaderWidgetConfigurationTests: XCTestCase {
     func test_init_mixInputParamaters_shouldStoreInputValues() {
         
         // Given
-        let allowCrop              = false
         let allowRotate            = true
         let initialAspectLockState = CLDWidgetConfiguration.AspectRatioLockState.enabledAndOn
         let uploadType      = UploadType(signed: true, preset: nil)
         
         // When
-        sut = CLDWidgetConfiguration(allowCrop: allowCrop, allowRotate: allowRotate, initialAspectLockState: initialAspectLockState, uploadType: uploadType)
+        sut = CLDWidgetConfiguration(allowRotate: allowRotate, initialAspectLockState: initialAspectLockState, uploadType: uploadType)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
-        XCTAssertFalse (sut.allowCrop, "object's properties should store value from init call")
         XCTAssertTrue  (sut.allowRotate, "object's properties should store value from init call")
         XCTAssertEqual (sut.initialAspectLockState, initialAspectLockState, "object's properties should store value from init call")
         XCTAssertEqual (sut.uploadType, uploadType, "object's properties should store value from init call")

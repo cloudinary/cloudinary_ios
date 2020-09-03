@@ -26,16 +26,14 @@ import UIKit
 
 @objcMembers public class CLDWidgetConfiguration: NSObject {
     
-    public var allowCrop             : Bool
     public var allowRotate           : Bool
     public var initialAspectLockState: AspectRatioLockState
     public var uploadType            : UploadType
     
     // MARK: - init
     /**
-    Initializes the `CLDWidgetConfiguration` instance with the specified allowCrop, allowRotate, initialAspectLockState and uploadType.
+    Initializes the `CLDWidgetConfiguration` instance with the specified allowRotate, initialAspectLockState and uploadType.
      
-    - parameter allowCrop:               A boolean value specifying whether or not to allow image cropping. true by default.
     - parameter allowRotate:             A boolean value specifying whether or not to allow image rotation. true by default.
     - parameter initialAspectLockState:  Enum value specifying the initial aspect ratio lock state. enabledAndOn by default.
     - parameter uploadType:              UploadType object specifying the upload request type. signed without preset by default.
@@ -43,12 +41,10 @@ import UIKit
     - returns: The new `CLDWidgetConfiguration` instance.
     */
     public init(
-        allowCrop             : Bool = true,
         allowRotate           : Bool = true,
         initialAspectLockState: AspectRatioLockState = .enabledAndOff,
         uploadType            : UploadType = UploadType(signed: true, preset: nil)
     ) {
-        self.allowCrop              = allowCrop
         self.allowRotate            = allowRotate
         self.initialAspectLockState = initialAspectLockState
         self.uploadType             = uploadType
