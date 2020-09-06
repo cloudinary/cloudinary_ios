@@ -117,6 +117,7 @@
 		D6A2E74F9074301AC7535E3CDD75B0D4 /* CLDNSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190A50EECB1D2BAE6DA7E6D8D4BAECB2 /* CLDNSessionManager.swift */; };
 		D6EEDBBAAC18196F07AF946256B4EA12 /* CLDNetworkDataRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E9C9CF11F9BC0648507D967F592465 /* CLDNetworkDataRequestImpl.swift */; };
 		D7F34F2A2504D7AC00C282B1 /* CLDWidgetImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F292504D7AC00C282B1 /* CLDWidgetImageContainer.swift */; };
+		D7F34F2C2504F44000C282B1 /* CLDWidgetPreviewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F2B2504F44000C282B1 /* CLDWidgetPreviewCollectionCell.swift */; };
 		D900B562310BE6044718E48369F2E8A1 /* CLDTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5539E2ACB9B272C592CDF1F06C33AFBB /* CLDTransformation.swift */; };
 		DDB7157991BE4FA50B3841D44DAA0FEF /* CLDDeleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEA2DDA47F39296FCA3FBDAF9F00FC3 /* CLDDeleteResult.swift */; };
 		DE311A7B9D00A487DE894C2811BD2F6A /* CLDImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF19D9D9CD280B7E654E700AFB92B5D /* CLDImageUtils.swift */; };
@@ -287,6 +288,7 @@
 		D1E7EB7F05A5783605A718FCB3E3253B /* CLDVariable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDVariable.swift; sourceTree = "<group>"; };
 		D791170470E3EDCA1BB7E6CADFB236BD /* CLDCompatibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDCompatibility.swift; sourceTree = "<group>"; };
 		D7F34F292504D7AC00C282B1 /* CLDWidgetImageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDWidgetImageContainer.swift; sourceTree = "<group>"; };
+		D7F34F2B2504F44000C282B1 /* CLDWidgetPreviewCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDWidgetPreviewCollectionCell.swift; sourceTree = "<group>"; };
 		DBC516AA312E7CB0FFEEB0617CB6B017 /* Pods-Cloudinary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Cloudinary_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		DE54F3ADB551107205106BE51EF61C43 /* CLDTextResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDTextResult.swift; sourceTree = "<group>"; };
 		E063D6BBB708EF19E7A498F19A1C4A11 /* Pods-Cloudinary_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Cloudinary_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -834,6 +836,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F34F292504D7AC00C282B1 /* CLDWidgetImageContainer.swift */,
+				D7F34F2B2504F44000C282B1 /* CLDWidgetPreviewCollectionCell.swift */,
 			);
 			path = WidgetElements;
 			sourceTree = "<group>";
@@ -1079,6 +1082,7 @@
 				6AD156041782019566B0DD60E1BE914F /* CLDFace.swift in Sources */,
 				B17643F98C7BFC089A7D85D8E862B4A5 /* CLDFetchImageRequestImpl.swift in Sources */,
 				5D9B55BAFA5ADB585EC2543375E01F37 /* CLDFetchLayer.swift in Sources */,
+				D7F34F2C2504F44000C282B1 /* CLDWidgetPreviewCollectionCell.swift in Sources */,
 				8792CB003ADABAB2C25957947C443943 /* CLDFileUtils.swift in Sources */,
 				D1F042A7F07A7B5E5907989B35579C1D /* CLDGenericNetworkRequest.swift in Sources */,
 				EB5EADAFEA50522E327AE0DA6026B4D9 /* CLDImageCache.swift in Sources */,
