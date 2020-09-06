@@ -109,6 +109,8 @@
 		D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */; };
 		D7F34F272504D73500C282B1 /* UploaderWidgetImageContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */; };
 		D7F34F2F2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F2E2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift */; };
+		D7F34F3125052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F3025052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift */; };
+		D7F34F3325052FE700C282B1 /* WidgetBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */; };
 		D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */; };
 		FDFC161360D4903CDBE35F69 /* Pods_Cloudinary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23D636948CC68A4C0A98E7 /* Pods_Cloudinary_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -237,6 +239,8 @@
 		D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadRequestParamsTests.swift; sourceTree = "<group>"; };
 		D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetImageContainerTests.swift; sourceTree = "<group>"; };
 		D7F34F2E2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetCollectionCellTests.swift; sourceTree = "<group>"; };
+		D7F34F3025052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetPreviewViewControllerTests.swift; sourceTree = "<group>"; };
+		D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetBaseTest.swift; sourceTree = "<group>"; };
 		D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreprocessUploaderTests.swift; sourceTree = "<group>"; };
 		F2530AD793711AEF6C37A33F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -530,6 +534,7 @@
 			children = (
 				D7F34F2D2504F46600C282B1 /* UploaderWidgetPreviewTests */,
 				5DB2D29524FFE31000001845 /* UploadWidgetHelpersTests */,
+				D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */,
 			);
 			path = UploadWidgetTests;
 			sourceTree = "<group>";
@@ -715,6 +720,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F34F2E2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift */,
+				D7F34F3025052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift */,
 			);
 			path = UploaderWidgetPreviewTests;
 			sourceTree = "<group>";
@@ -988,6 +994,8 @@
 				D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */,
 				5DE4EC202469919A00F6C8D6 /* CLDTransformationBaselineTests.swift in Sources */,
 				27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */,
+				D7F34F3325052FE700C282B1 /* WidgetBaseTest.swift in Sources */,
+				D7F34F3125052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift in Sources */,
 				272C5182242B6C360093AB1B /* RequestTests.swift in Sources */,
 				D7E79DC924B515260082288A /* UploaderOcrTests.swift in Sources */,
 				272C51B3242B6C360093AB1B /* CLDNError+CloudinaryTests.swift in Sources */,
