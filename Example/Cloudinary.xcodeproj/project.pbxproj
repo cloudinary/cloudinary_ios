@@ -534,9 +534,9 @@
 		5DB2D29524FFE31000001845 /* UploadWidgetHelpersTests */ = {
 			isa = PBXGroup;
 			children = (
-				D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */,
 				5DB2D29724FFE32500001845 /* UploaderWidgetConfigurationTests.m */,
 				5DB2D29624FFE32500001845 /* UploaderWidgetConfigurationTests.swift */,
+                D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */,
 			);
 			path = UploadWidgetHelpersTests;
 			sourceTree = "<group>";
