@@ -27,14 +27,12 @@ import UIKit
 class RatioOpenedIconInstractions : CLDImageDrawingInstractions {
     
     var targetSize : CGSize
+    var fillColor : UIColor
     
     // MARK: - Initialization
-    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0)) {
+    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0), fillColor: UIColor = .white) {
         self.targetSize = size
-    }
-    
-    deinit {
-        
+        self.fillColor = fillColor
     }
     
     // MARK: - draw
@@ -76,7 +74,7 @@ class RatioOpenedIconInstractions : CLDImageDrawingInstractions {
         pathRatioOpenedPath.addCurve(to: CGPoint(x: container.minX + 0.50000 * container.width, y: container.minY + 0.70833 * container.height), controlPoint1: CGPoint(x: container.minX + 0.41667 * container.width, y: container.minY + 0.67083 * container.height), controlPoint2: CGPoint(x: container.minX + 0.45417 * container.width, y: container.minY + 0.70833 * container.height))
         pathRatioOpenedPath.close()
         pathRatioOpenedPath.usesEvenOddFillRule = true
-        CLDStyleKitName.fillColor.setFill()
+        fillColor.setFill()
         pathRatioOpenedPath.fill()
     }
 }

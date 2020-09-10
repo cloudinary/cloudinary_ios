@@ -27,14 +27,12 @@ import UIKit
 class CropRotateIconInstractions : CLDImageDrawingInstractions {
     
     var targetSize : CGSize
+    var fillColor : UIColor
     
     // MARK: - Initialization
-    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0)) {
+    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0), fillColor: UIColor = .white) {
         self.targetSize = size
-    }
-    
-    deinit {
-        
+        self.fillColor = fillColor
     }
     
     // MARK: - draw
@@ -78,7 +76,7 @@ class CropRotateIconInstractions : CLDImageDrawingInstractions {
         pathCropRotatePath.addCurve(to: CGPoint(x: container.minX + 0.46042 * container.width, y: container.minY + 0.04167 * container.height), controlPoint1: CGPoint(x: container.minX + 0.93708 * container.width, y: container.minY + 0.24333 * container.height), controlPoint2: CGPoint(x: container.minX + 0.72250 * container.width, y: container.minY + 0.04167 * container.height))
         pathCropRotatePath.close()
         pathCropRotatePath.usesEvenOddFillRule = true
-        CLDStyleKitName.fillColor.setFill()
+        fillColor.setFill()
         pathCropRotatePath.fill()
     }
 }

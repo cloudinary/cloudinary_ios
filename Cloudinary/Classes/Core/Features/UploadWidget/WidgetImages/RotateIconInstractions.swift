@@ -27,14 +27,12 @@ import UIKit
 class RotateIconInstractions : CLDImageDrawingInstractions {
     
     var targetSize : CGSize
+    var fillColor : UIColor
     
     // MARK: - Initialization
-    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0)) {
+    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0), fillColor: UIColor = .white) {
         self.targetSize = size
-    }
-    
-    deinit {
-        
+        self.fillColor = fillColor
     }
     
     // MARK: - draw
@@ -71,7 +69,7 @@ class RotateIconInstractions : CLDImageDrawingInstractions {
         pathRotatePath.addCurve(to: CGPoint(x: container.minX + 0.80667 * container.width, y: container.minY + 0.27667 * container.height), controlPoint1: CGPoint(x: container.minX + 0.95333 * container.width, y: container.minY + 0.66042 * container.height), controlPoint2: CGPoint(x: container.minX + 0.95333 * container.width, y: container.minY + 0.42292 * container.height))
         pathRotatePath.close()
         pathRotatePath.usesEvenOddFillRule = true
-        CLDStyleKitName.fillColor.setFill()
+        fillColor.setFill()
         pathRotatePath.fill()
     }
 }

@@ -35,10 +35,6 @@ class BackIconInstractions : CLDImageDrawingInstractions {
         self.fillColor = fillColor
     }
     
-    deinit {
-        
-    }
-    
     // MARK: - draw
     func draw(in context: CGContext) {
         

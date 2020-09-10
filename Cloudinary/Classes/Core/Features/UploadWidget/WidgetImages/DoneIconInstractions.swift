@@ -27,14 +27,12 @@ import UIKit
 class DoneIconInstractions : CLDImageDrawingInstractions {
     
     var targetSize : CGSize
+    var fillColor : UIColor
     
     // MARK: - Initialization
-    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0)) {
+    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0), fillColor: UIColor = .white) {
         self.targetSize = size
-    }
-    
-    deinit {
-        
+        self.fillColor = fillColor
     }
     
     // MARK: - draw
@@ -52,7 +50,7 @@ class DoneIconInstractions : CLDImageDrawingInstractions {
         pathDonePath.addLine(to: CGPoint(x: container.minX + 0.37500 * container.width, y: container.minY + 0.67500 * container.height))
         pathDonePath.close()
         pathDonePath.usesEvenOddFillRule = true
-        CLDStyleKitName.fillColor.setFill()
+        fillColor.setFill()
         pathDonePath.fill()
     }
 }

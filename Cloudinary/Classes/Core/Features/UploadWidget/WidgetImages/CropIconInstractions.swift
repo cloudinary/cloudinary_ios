@@ -27,14 +27,12 @@ import UIKit
 class CropIconInstractions : CLDImageDrawingInstractions {
     
     var targetSize : CGSize
+    var fillColor : UIColor
     
     // MARK: - Initialization
-    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0)) {
+    init(targetSize size: CGSize = CGSize(width: 24.0, height: 24.0), fillColor: UIColor = .white) {
         self.targetSize = size
-    }
-    
-    deinit {
-        
+        self.fillColor = fillColor
     }
     
     // MARK: - draw
@@ -70,7 +68,7 @@ class CropIconInstractions : CLDImageDrawingInstractions {
         pathCropPath.addLine(to: CGPoint(x: container.minX + 0.29167 * container.width, y: container.minY + 0.70833 * container.height))
         pathCropPath.close()
         pathCropPath.usesEvenOddFillRule = true
-        CLDStyleKitName.fillColor.setFill()
+        fillColor.setFill()
         pathCropPath.fill()
     }
 }
