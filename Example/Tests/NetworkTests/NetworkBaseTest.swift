@@ -128,5 +128,14 @@ class NetworkBaseTest: XCTestCase {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         return cloudinary!.createUploader().signedUpload(data: resource.data, params: params)
     }
+    
+    func getImage(_ resource: TestResourceType) -> UIImage {
+        if let image = UIImage(contentsOfFile: resource.url.path) {
+            return image
+        }
+        else {
+            return UIImage()
+        }
+    }
 }
 
