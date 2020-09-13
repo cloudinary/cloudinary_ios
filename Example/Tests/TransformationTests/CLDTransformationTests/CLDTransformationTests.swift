@@ -1979,4 +1979,128 @@ class CLDTransformationTests: BaseTestCase {
         // Then
         XCTAssertEqual(actualResult, expectedResult, "Calling for inserted param should return its value")
     }
+    
+    // MARK: - spaces removal
+    func test_replaceSpaces_namedNoSpaces_shouldReplaceSpaces() {
+        
+        // Given
+        let input = "name"
+        
+        let expectedResult = "t_name"
+        
+        // When
+        sut.setNamed(input)
+        
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "asString() should return a non spaced string")
+    }
+    func test_replaceSpaces_named_shouldReplaceSpaces() {
+        
+        // Given
+        let input = "named with spaces"
+        
+        let expectedResult = "t_named_with_spaces"
+        
+        // When
+        sut.setNamed(input)
+        
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "asString() should return a non spaced string")
+    }
+    func test_replaceSpaces_namedArrayNoSpaces_shouldReplaceSpaces() {
+        
+        // Given
+        let input1 = "name1"
+        let input2 = "name2"
+        
+        let expectedResult = "t_name1.name2"
+        
+        // When
+        sut.setNamed([input1, input2])
+        
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "asString() should return a non spaced string")
+    }
+    func test_replaceSpaces_namedArray_shouldReplaceSpaces() {
+        
+        // Given
+        let input1 = "named with spaces 1"
+        let input2 = "named with spaces 2"
+        
+        let expectedResult = "t_named_with_spaces_1.named_with_spaces_2"
+    
+        // When
+        sut.setNamed([input1, input2])
+        
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "asString() should return a non spaced string")
+    }
+    func test_replaceSpaces_borderNoSpaces_shouldReplaceSpaces() {
+        
+        // Given
+        let input = "border"
+        
+        let expectedResult = "bo_border"
+    
+        // When
+        sut.setBorder(input)
+        
+        let actualResult = sut.asString()
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "asString() should return a non spaced string")
+    }
+    func test_replaceSpaces_border_shouldReplaceSpaces() {
+        
+        // Given
+            let input = "border with spaces"
+            
+            let expectedResult = "bo_border_with_spaces"
+        
+            // When
+            sut.setBorder(input)
+            
+            let actualResult = sut.asString()
+            
+            // Then
+            XCTAssertEqual(actualResult, expectedResult, "asString() should return a non spaced string")
+    }
+    func test_replaceSpaces_effectNoSpaces_shouldReplaceSpaces() {
+        
+        // Given
+            let input = "effect"
+            
+            let expectedResult = "e_effect"
+        
+            // When
+            sut.setEffect(input)
+            
+            let actualResult = sut.asString()
+            
+            // Then
+            XCTAssertEqual(actualResult, expectedResult, "asString() should return a non spaced string")
+    }
+    func test_replaceSpaces_effect_shouldReplaceSpaces() {
+        
+        // Given
+            let input = "effect with spaces"
+            
+            let expectedResult = "e_effect_with_spaces"
+        
+            // When
+            sut.setEffect(input)
+            
+            let actualResult = sut.asString()
+            
+            // Then
+            XCTAssertEqual(actualResult, expectedResult, "asString() should return a non spaced string")
+    }
 }

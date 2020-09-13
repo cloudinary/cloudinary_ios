@@ -332,4 +332,121 @@
     XCTAssertEqualObjects(actualResult ,expectedResult, "custom pre function should only be used when custom function is not set");
 }
 
+
+// MARK: - spaces removal
+- (void)test_replaceSpaces_namedNoSpaces_shouldReplaceSpaces {
+    
+    // Given
+    NSString* input = @"named";
+    
+    NSString* expectedResult = @"t_named";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setNamed:input];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "asString() should return a non spaced string");
+}
+- (void)test_replaceSpaces_named_shouldReplaceSpaces {
+    
+    // Given
+    NSString* input = @"named with spaces";
+    
+    NSString* expectedResult = @"t_named_with_spaces";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setNamed:input];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "asString() should return a non spaced string");
+}
+- (void)test_replaceSpaces_namedArrayNoSpaces_shouldReplaceSpaces {
+    
+    // Given
+    NSString* input1 = @"name1";
+    NSString* input2 = @"name2";
+    
+    NSString* expectedResult = @"t_name1.name2";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setNamedWithArray:@[input1,input2]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "asString() should return a non spaced string");
+   
+}
+- (void)test_replaceSpaces_namedArray_shouldReplaceSpaces {
+    
+    // Given
+    NSString* input1 = @"named with spaces 1";
+    NSString* input2 = @"named with spaces 2";
+    
+    NSString* expectedResult = @"t_named_with_spaces_1.named_with_spaces_2";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setNamedWithArray:@[input1,input2]];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "asString() should return a non spaced string");
+}
+- (void)test_replaceSpaces_borderNoSpaces_shouldReplaceSpaces {
+    
+    // Given
+    NSString* input = @"border";
+    
+    NSString* expectedResult = @"bo_border";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setBorder:input];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "asString() should return a non spaced string");
+}
+- (void)test_replaceSpaces_border_shouldReplaceSpaces {
+    
+    // Given
+    NSString* input = @"border with spaces";
+    
+    NSString* expectedResult = @"bo_border_with_spaces";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setBorder:input];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "asString() should return a non spaced string");
+}
+- (void)test_replaceSpaces_effectNoSpaces_shouldReplaceSpaces {
+    
+    // Given
+    NSString* input = @"effect";
+    
+    NSString* expectedResult = @"e_effect";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setEffect:input];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "asString() should return a non spaced string");
+}
+- (void)test_replaceSpaces_effect_shouldReplaceSpaces {
+   
+    // Given
+    NSString* input = @"effect with spaces";
+    
+    NSString* expectedResult = @"e_effect_with_spaces";
+    
+    // When
+    self.sut = [[[CLDTransformation alloc] init] setEffect:input];
+    NSString* actualResult = [self.sut asString];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, "asString() should return a non spaced string");
+}
 @end

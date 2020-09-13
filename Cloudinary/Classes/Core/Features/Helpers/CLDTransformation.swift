@@ -1766,8 +1766,9 @@ import CoreGraphics
         if let rawTrans = params[TransformationParam.RAW_TRANSFORMATION.rawValue], !rawTrans.isEmpty {
             finalComponents.append(rawTrans)
         }
-        
-        return finalComponents.joined(separator: CLDTransformation.transformationContentSeparator)
+                 
+        let joinedComponents = finalComponents.joined(separator: CLDTransformation.transformationContentSeparator)
+        return joinedComponents.replacingOccurrences(of: " ", with: "_")
     }
     
     // MARK: - Params
