@@ -116,6 +116,7 @@
 		D7E79DCD24B515260082288A /* UploaderMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */; };
 		D7E79DCE24B515260082288A /* ExplicitMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */; };
 		D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */; };
+		D7F34F272504D73500C282B1 /* UploaderWidgetImageContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */; };
 		D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */; };
 		FDFC161360D4903CDBE35F69 /* Pods_Cloudinary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23D636948CC68A4C0A98E7 /* Pods_Cloudinary_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -252,6 +253,7 @@
 		D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplicitMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadRequestParamsTests.swift; sourceTree = "<group>"; };
+		D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetImageContainerTests.swift; sourceTree = "<group>"; };
 		D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreprocessUploaderTests.swift; sourceTree = "<group>"; };
 		F2530AD793711AEF6C37A33F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -555,6 +557,7 @@
 			children = (
 				5DB2D29724FFE32500001845 /* UploaderWidgetConfigurationTests.m */,
 				5DB2D29624FFE32500001845 /* UploaderWidgetConfigurationTests.swift */,
+                D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */,
 			);
 			path = UploadWidgetHelpersTests;
 			sourceTree = "<group>";
@@ -998,6 +1001,7 @@
 				D724FFEA25384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
 				D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */,
+				D7F34F272504D73500C282B1 /* UploaderWidgetImageContainerTests.swift in Sources */,
 				272C5181242B6C360093AB1B /* AuthenticationTests.swift in Sources */,
 				D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */,
 				D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */,
