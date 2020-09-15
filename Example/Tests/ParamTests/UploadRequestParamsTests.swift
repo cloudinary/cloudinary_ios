@@ -62,4 +62,34 @@ class UploadRequestParamsTests: BaseTestCase {
         // Then
         XCTAssertFalse(sut.ocr, "Init without longUrlSignature should store the default false value")
     }
+    
+    // MARK: - eval
+    func test_getEval_unset_shouldNotStoreValue() {
+        
+        XCTAssertNil(sut.eval, "unset property should not be stored in params")
+    }
+    func test_setEval_String_shouldStoreValue() {
+        
+        // Given
+        let input = "evalString"
+        
+        // When
+        sut.setEval(input)
+        
+        // Then
+        XCTAssertEqual(sut.eval, input, "set property should be stored in params")
+    }
+    func test_setOcr_updateValue_shouldUpdateValue() {
+
+        // Given
+        let initialInput = "evalString"
+        let updatedInput = "updatedString"
+        
+        // When
+        sut.setEval(initialInput)
+        sut.setEval(updatedInput)
+
+        // Then
+        XCTAssertEqual(sut.eval, updatedInput, "Init without longUrlSignature should store the default false value")
+    }
 }

@@ -99,6 +99,10 @@ import Foundation
         return getParam(.AccessControl) as? String
     }
     
+    open var eval: String? {
+        return getParam(.Eval) as? String
+    }
+    
     open var rawConvert: String? {
         return getParam(.RawConvert) as? String
     }
@@ -934,6 +938,21 @@ import Foundation
     }
     
     /**
+    Allows modification on upload parameters by specifying custom logic with JavaScript code that is evaluated when uploading a file.
+    For more information see the [documentation](https://cloudinary.com/documentation/analysis_on_upload#evaluating_and_modifying_upload_parameters).
+    
+    - parameter eval:               The java script code to assign to the uploaded asset.
+    
+    - returns:                      The same instance of CLDUploadRequestParams.
+    */
+    @objc(setEvalFromString:)
+    @discardableResult
+    open func setEval(_ eval: String) -> Self {
+        setParam(UploadRequestParams.Eval.rawValue, value: eval)
+        return self
+    }
+    
+    /**
      Set an array of headers lines for returning as response HTTP headers when delivering the uploaded resource to your users.
      Supported headers: `Link, X-Robots-Tag`. 
      For example: `X-Robots-Tag: noindex`.
@@ -1040,6 +1059,7 @@ import Foundation
         case UploadPreset =                         "upload_preset"
         case AccessControl =                        "access_control"
         case QualityOverride =                      "quality_override"
+        case Eval =                                 "eval"
         
         // Boolean params
         case Backup =                               "backup"
