@@ -24,7 +24,7 @@
 
 import UIKit
 
-// MARK: - CLDImageDrawingInstractions
+// MARK: - CLDImageDrawingInstructions
 protocol CLDImageDrawingInstructions {
     
     var targetSize: CGSize { get }
@@ -42,7 +42,7 @@ class CLDImageGenerator: NSObject {
             self.instructions = drawingInstructions
         }
         
-        /// Draws an image according to instractions
+        /// Draws an image according to instructions
         final func draw() -> UIImage? {
             
             UIGraphicsBeginImageContextWithOptions(instructions.targetSize, false, UIScreen.main.scale)
