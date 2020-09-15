@@ -1,5 +1,5 @@
 //
-//  DoneIconInstractions.swift
+//  DoneIconInstructions.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -24,8 +24,8 @@
 
 import UIKit
 
-class DoneIconInstractions : CLDImageDrawingInstractions {
-    
+class DoneIconInstructions : CLDImageDrawingInstructions {
+      
     var targetSize : CGSize
     var fillColor : UIColor
     

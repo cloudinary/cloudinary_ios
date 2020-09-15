@@ -1,5 +1,5 @@
 //
-//  CropIconInstractions.swift
+//  CropIconInstructions.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-class CropIconInstractions : CLDImageDrawingInstractions {
+class CropIconInstructions : CLDImageDrawingInstructions {
     
     var targetSize : CGSize
     var fillColor : UIColor

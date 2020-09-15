@@ -25,7 +25,7 @@
 import UIKit
 
 // MARK: - CLDImageDrawingInstractions
-protocol CLDImageDrawingInstractions {
+protocol CLDImageDrawingInstructions {
     
     var targetSize: CGSize { get }
     func draw(in context: CGContext)
@@ -36,21 +36,21 @@ class CLDImageGenerator: NSObject {
     
     class CLDGeneratableImage {
         
-        let instractions: CLDImageDrawingInstractions
+        let instructions: CLDImageDrawingInstructions
         
-        init(_ drawingInstractions: CLDImageDrawingInstractions) {
-            self.instractions = drawingInstractions
+        init(_ drawingInstructions: CLDImageDrawingInstructions) {
+            self.instructions = drawingInstructions
         }
         
         /// Draws an image according to instractions
         final func draw() -> UIImage? {
             
-            UIGraphicsBeginImageContextWithOptions(instractions.targetSize, false, UIScreen.main.scale)
+            UIGraphicsBeginImageContextWithOptions(instructions.targetSize, false, UIScreen.main.scale)
             
             guard let context = UIGraphicsGetCurrentContext() else { return nil }
             
             context.saveGState()
-            instractions.draw(in: context)
+            instructions.draw(in: context)
             context.restoreGState()
             
             guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
@@ -61,13 +61,13 @@ class CLDImageGenerator: NSObject {
         }
     }
     
-    /// Generates an image based on an instractions object
+    /// Generates an image based on an instructions object
     ///
-    /// - Parameter instractions: Drawing instractions used to generate an image
+    /// - Parameter instructions: Drawing instructions used to generate an image
     /// - Parameter direction       : The direction of the generated image
-    static func generateImage(from instractions: CLDImageDrawingInstractions, for direction: CLDImageGenerator.Direction = .up) -> UIImage? {
+    static func generateImage(from instructions: CLDImageDrawingInstructions, for direction: CLDImageGenerator.Direction = .up) -> UIImage? {
         
-        guard let workImage = CLDGeneratableImage(instractions).draw() else { return nil }
+        guard let workImage = CLDGeneratableImage(instructions).draw() else { return nil }
         
         return UIImage(cgImage: workImage.cgImage!, scale: workImage.scale, orientation: direction.imageOrientation)
     }

@@ -1,5 +1,5 @@
 //
-//  CropRotateIconInstractions.swift
+//  CropRotateIconInstructions.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-class CropRotateIconInstractions : CLDImageDrawingInstractions {
+class CropRotateIconInstructions : CLDImageDrawingInstructions {
     
     var targetSize : CGSize
     var fillColor : UIColor

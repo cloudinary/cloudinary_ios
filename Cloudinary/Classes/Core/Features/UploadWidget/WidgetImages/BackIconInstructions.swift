@@ -1,5 +1,5 @@
 //
-//  BackIconInstractions.swift
+//  BackIconInstructions.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-class BackIconInstractions : CLDImageDrawingInstractions {
+class BackIconInstructions : CLDImageDrawingInstructions {
     
     var targetSize : CGSize
     var fillColor : UIColor

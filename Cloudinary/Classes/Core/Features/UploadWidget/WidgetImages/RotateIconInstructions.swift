@@ -1,5 +1,5 @@
 //
-//  RotateIconInstractions.swift
+//  RotateIconInstructions.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -24,7 +24,7 @@
 
 import UIKit
 
-class RotateIconInstractions : CLDImageDrawingInstractions {
+class RotateIconInstructions : CLDImageDrawingInstructions {
     
     var targetSize : CGSize
     var fillColor : UIColor

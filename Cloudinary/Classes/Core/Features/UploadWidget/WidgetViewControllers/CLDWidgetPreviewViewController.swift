@@ -154,10 +154,12 @@ private extension CLDWidgetPreviewViewController {
         mainImageView             = UIImageView(image: images[0].editedImage)
         mainImageView.contentMode = .scaleAspectFit
         
+        let image = CLDImageGenerator.generateImage(from: DoneIconInstructions())
+        
         // upload button
         uploadButton = UIButton(type: .custom)
         uploadButton.setTitle(String(), for: .normal)
-        uploadButton.setImage(CLDImageGenerator.generateImage(from: DoneIconInstractions()), for: .normal)
+        uploadButton.setImage(image, for: .normal)
         uploadButton.addTarget(self, action: #selector(uploadPressed), for: .touchUpInside)
     }
     
