@@ -120,6 +120,10 @@
 		D54632EDC8E3F48485D0A85F73E0BE59 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A13AF44F8E234D88A56814CB36471B3 /* CLDNetworkUploadRequest.swift */; };
 		D625FE1E0A2CB3C492DA6D28730A6F23 /* CLDDictionaryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834852B7244FC03D174EA516B39E0753 /* CLDDictionaryUtils.swift */; };
 		D66C956D9BFB1FFB0A98CC3D20D5AD57 /* CLDOcrDetectedLanguagesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAC68B90E1FB7BE2C8EBA1669EA65C /* CLDOcrDetectedLanguagesResult.swift */; };
+		D7F34F8E25120D8900C282B1 /* CLDWidgetEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F8D25120D8900C282B1 /* CLDWidgetEditViewController.swift */; };
+		D7F34F9625120E5A00C282B1 /* CLDCropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F9325120E5A00C282B1 /* CLDCropOverlayView.swift */; };
+		D7F34F9725120E5A00C282B1 /* CLDCropScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F9425120E5A00C282B1 /* CLDCropScrollView.swift */; };
+		D7F34F9825120E5A00C282B1 /* CLDCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F9525120E5A00C282B1 /* CLDCropView.swift */; };
 		DA3C4B7DA717373421B588D13BBCA584 /* CLDNSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20480A207C4249C3E11A12F2BD8F6AF9 /* CLDNSessionDelegate.swift */; };
 		DA60DD09BF65B40AE17D83D4E74CA420 /* CLDImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE4D8D17A2B5D88A36EE773A4A634D /* CLDImageCache.swift */; };
 		DDAF8AA7629E0791CE055F53B94136A2 /* CLDUploadRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75347DD0612B1B4EB4F8B8937F761A3 /* CLDUploadRequestParams.swift */; };
@@ -314,6 +318,10 @@
 		D3FB89162C8B9D537743F02C46B6A7FC /* CLDBaseNetworkObject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDBaseNetworkObject.swift; sourceTree = "<group>"; };
 		D4B26CCBEB9E10E5526666E38AAE06E2 /* CLDImageGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDImageGenerator.swift; sourceTree = "<group>"; };
 		D52907B3933AC883FCD3C402FF4BA04C /* CLDManagementApi.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDManagementApi.swift; sourceTree = "<group>"; };
+		D7F34F8D25120D8900C282B1 /* CLDWidgetEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDWidgetEditViewController.swift; sourceTree = "<group>"; };
+		D7F34F9325120E5A00C282B1 /* CLDCropOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDCropOverlayView.swift; sourceTree = "<group>"; };
+		D7F34F9425120E5A00C282B1 /* CLDCropScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDCropScrollView.swift; sourceTree = "<group>"; };
+		D7F34F9525120E5A00C282B1 /* CLDCropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDCropView.swift; sourceTree = "<group>"; };
 		D8752AAB64A21EDF0EB78297BDB97494 /* CLDMultiRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDMultiRequest.swift; sourceTree = "<group>"; };
 		D9A47051D1D8A4D0624B17EA2D430A16 /* CLDRequestParams.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDRequestParams.swift; sourceTree = "<group>"; };
 		DBC516AA312E7CB0FFEEB0617CB6B017 /* Pods-Cloudinary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Cloudinary_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -494,6 +502,7 @@
 		22369400C49DBE7DFA5A7798828272A3 /* UploadWidget */ = {
 			isa = PBXGroup;
 			children = (
+				D7F34F9225120E4000C282B1 /* CropView */,
 				1A48848828984E0A3A0228914E724191 /* WidgetConfiguration */,
 				697359C19BEC19B9D7515504DA754AC6 /* WidgetElements */,
 				7C8CE96E1AED25CDDEE631393012A2AC /* WidgetImages */,
@@ -675,6 +684,7 @@
 			isa = PBXGroup;
 			children = (
 				0DFD4DD2332FFFDC91300CC6A0C7DB34 /* CLDWidgetPreviewViewController.swift */,
+				D7F34F8D25120D8900C282B1 /* CLDWidgetEditViewController.swift */,
 			);
 			path = WidgetViewControllers;
 			sourceTree = "<group>";
@@ -916,6 +926,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		D7F34F9225120E4000C282B1 /* CropView */ = {
+			isa = PBXGroup;
+			children = (
+				D7F34F9325120E5A00C282B1 /* CLDCropOverlayView.swift */,
+				D7F34F9425120E5A00C282B1 /* CLDCropScrollView.swift */,
+				D7F34F9525120E5A00C282B1 /* CLDCropView.swift */,
+			);
+			path = CropView;
+			sourceTree = "<group>";
+		};
 		E2983683FD097A93297E2F5D4E382B36 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -1120,6 +1140,7 @@
 				D625FE1E0A2CB3C492DA6D28730A6F23 /* CLDDictionaryUtils.swift in Sources */,
 				3385A45FE3032595604910130E6D08E9 /* CLDDownloader+Ios.swift in Sources */,
 				527F370EF2530CAC9AFF4CBF80080271 /* CLDDownloader.swift in Sources */,
+				D7F34F8E25120D8900C282B1 /* CLDWidgetEditViewController.swift in Sources */,
 				1632452F349586B356C7B62BEFBA3AFA /* CLDEagerTransformation.swift in Sources */,
 				054C26E978E194363629AEDB97C5195F /* CLDError.swift in Sources */,
 				68570D11DFA1C31A84367607CB07B431 /* CLDErrorRequest.swift in Sources */,
@@ -1131,6 +1152,7 @@
 				B448469346B9E525A463749162194F1A /* CLDExplodeResult.swift in Sources */,
 				33D19501FAA2CD0959EF3C60F9A2D618 /* CLDExpression.swift in Sources */,
 				DE443F227CAAFA8DB2276C1B37FC92DF /* CLDFace.swift in Sources */,
+				D7F34F9725120E5A00C282B1 /* CLDCropScrollView.swift in Sources */,
 				22F533BCAF90BB813CC1FDD729596129 /* CLDFetchImageRequestImpl.swift in Sources */,
 				66254AB534BC7EFD9E59FB3507C50CF0 /* CLDFetchLayer.swift in Sources */,
 				E25E8135189B2B53311A4792AC7B5D11 /* CLDFileUtils.swift in Sources */,
@@ -1171,6 +1193,7 @@
 				D66C956D9BFB1FFB0A98CC3D20D5AD57 /* CLDOcrDetectedLanguagesResult.swift in Sources */,
 				4814AAC57A4E763FAB47D69EBB7088FA /* CLDOcrFullTextAnnotationResult.swift in Sources */,
 				594E887DDE63C1BD18C5A42A023B3AE9 /* CLDOcrPageResult.swift in Sources */,
+				D7F34F9825120E5A00C282B1 /* CLDCropView.swift in Sources */,
 				82B4F13525D24C5A4B14E4276D37086F /* CLDOcrParagraphResult.swift in Sources */,
 				E36F462BFDD2884A3D2FB40D1749FBB7 /* CLDOcrPropertyResult.swift in Sources */,
 				0B28ABE418BBA336AB59DD5BB2EC0246 /* CLDOcrResult.swift in Sources */,
@@ -1197,6 +1220,7 @@
 				A3ECFEE1F67D0F82EDA3E1B6C033254F /* CLDTagRequest.swift in Sources */,
 				DDFE0B232BB8DCB51D375A2C0DFBB456 /* CLDTagResult.swift in Sources */,
 				8B39C7FAD1C52029CB02623C8BC3ACB2 /* CLDTagsRequestParams.swift in Sources */,
+				D7F34F9625120E5A00C282B1 /* CLDCropOverlayView.swift in Sources */,
 				11922D37309EA474073A6257E7CA36DC /* CLDTextLayer.swift in Sources */,
 				DE662CBEA4E4F2BC4BBEF7EA3F3EF4EB /* CLDTextRequest.swift in Sources */,
 				3FC5B7CF9D117D25B88E69BA964D8525 /* CLDTextRequestParams.swift in Sources */,
