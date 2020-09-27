@@ -51,13 +51,6 @@
             ReferencedContainer = "container:Cloudinary.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "CLOUDINARY_URL"
-            value = "cloudinary://193467895959537:dNi9GusxbpOgPjQtE2nC1WQ0SBs@ginidev"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <Testables>
          <TestableReference
             skipped = "NO">
