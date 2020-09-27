@@ -777,6 +777,74 @@ class UploaderTests: NetworkBaseTest {
         
         XCTAssertNotNil(result?.qualityAnalysis, "quality analysis field in upload result should not be nil")
     }
+    
+    // MARK: - eval
+    func test_eval_JavaScriptAddTag_shouldAddTag() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        let tagInput = "blurry"
+        let input = "upload_options.tags = '\(tagInput)'"
+        
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        let params = CLDUploadRequestParams()
+        params.setEval(input)
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+        
+        if let tags = result?.tags {
+            XCTAssertTrue(tags.contains(tagInput), "eval field in this scenario should add tag via javascript code, then in the upload result the tag should appear")
+        }
+        else {
+            XCTFail("eval field in this scenario should add tag via javascript code, then in the upload result the tag should appear")
+        }
+    }
+    func test_eval_JavaScriptAddTagWithCondition_shouldAddTag() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        let expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        let tagInput = "blurry"
+        let input = "if (resource_info.quality_analysis.focus > 0.5) { upload_options.tags = '\(tagInput)' }"
+        
+        var result: CLDUploadResult?
+        var error: NSError?
+        
+        let params = CLDUploadRequestParams()
+        params.setEval(input)
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+        
+        if let tags = result?.tags {
+            XCTAssertTrue(tags.contains(tagInput), "eval field in this scenario should add tag via javascript code, then in the upload result the tag should appear")
+        }
+        else {
+            XCTFail("eval field in this scenario should add tag via javascript code, then in the upload result the tag should appear")
+        }
+    }
 
     func testManualModeration() {
 
