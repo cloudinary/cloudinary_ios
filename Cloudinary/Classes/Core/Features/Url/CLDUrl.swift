@@ -386,7 +386,7 @@ import Foundation
             }
         }
         
-        let url = [prefix, resourceTypeAndType, signature, transformationStr, version , sourceName].joined(separator: "/")
+        let url = [prefix, resourceTypeAndType, signature, transformationStr, version , sourceName].joined(separator: "/").replacingOccurrences(of: " ", with: "%20")
         
         let regex = try! NSRegularExpression(pattern: "([^:])\\/+", options: NSRegularExpression.Options.caseInsensitive)
         
