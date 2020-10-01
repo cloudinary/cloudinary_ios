@@ -10,7 +10,7 @@ import XCTest
 import UIKit
 @testable import Cloudinary
 
-class PreprocessTests: NetworkBaseTest {
+class PreprocessTests: BaseTestCase {
     
     var sut: UIImage!
     
@@ -30,7 +30,8 @@ class PreprocessTests: NetworkBaseTest {
         
         return CLDPreprocessHelpers.resizeImage(image: UIImage(contentsOfFile: url.path)!, requiredSize: CGSize(width: 300, height:300))
     }
-    fileprivate func getFullSizeImage(_ resourceType: TestResourceType = .borderCollie) -> UIImage {
+    
+    fileprivate func getFullSizeImage(_ resourceType: NetworkBaseTest.TestResourceType = .borderCollie) -> UIImage {
         let bundle = Bundle(for: PreprocessTests.self)
         let url = bundle.url(forResource: resourceType.fileName, withExtension: resourceType.resourceExtension)!
         

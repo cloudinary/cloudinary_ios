@@ -7,7 +7,7 @@ import Foundation
 import XCTest
 @testable import Cloudinary
 
-class StringUtilsTests: XCTestCase {
+class StringUtilsTests: BaseTestCase {
     override func setUp() {
         super.setUp()
     }
