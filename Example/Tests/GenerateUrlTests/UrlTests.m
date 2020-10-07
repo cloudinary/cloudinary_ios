@@ -651,4 +651,81 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
     XCTAssertEqualObjects(actualResult, expectedResult, "Setting the configuration for signatureAlgorithm to sha256 and longUrlSignature = true and call for signUrl = false, should not encrypt nor add the ApiSecret to the url");
 }
 
+// MARK: - named spaces removal
+- (void)test_replaceSpaces_named_shouldCreateExpectedUrl {
+    
+    // Given
+    NSString* inputWidth    = @"100";
+    NSString* inputHeight   = @"200";
+    NSString* inputNamed    = @"named";
+    NSString* inputPublicId = @"publicId";
+    BOOL      inputSignUrl  = false;
+    
+    NSString* expectedResult = @"https://res.cloudinary.com/test123/image/upload/h_200,t_named,w_100/publicId";
+    
+    // When
+    CLDTransformation* transformation = [[[[[CLDTransformation alloc] init] setWidth:inputWidth] setNamed:inputNamed] setHeight:inputHeight];
+    NSString* actualResult            = [[[self.sut createUrl] setTransformation:transformation] generate:inputPublicId signUrl:inputSignUrl];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, @"creating url with named in transformation should return the expected result");
+}
+- (void)test_replaceSpaces_namedWithSpaces_shouldReplaceSpaces {
+    
+    // Given
+    NSString* inputWidth       = @"100";
+    NSString* inputHeight      = @"200";
+    NSString* inputSpacedNamed = @"named with spaces";
+    NSString* inputPublicId    = @"publicId";
+    BOOL      inputSignUrl     = false;
+    
+    NSString* expectedResult = @"https://res.cloudinary.com/test123/image/upload/h_200,t_named%20with%20spaces,w_100/publicId";
+    
+    // When
+    CLDTransformation* transformation = [[[[[CLDTransformation alloc] init] setWidth:inputWidth] setNamed:inputSpacedNamed] setHeight:inputHeight];
+    NSString* actualResult            = [[[self.sut createUrl] setTransformation:transformation] generate:inputPublicId signUrl:inputSignUrl];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, @"creating url with named in transformation should return the expected result");
+    
+}
+- (void)test_replaceSpaces_namedArray_shouldCreateExpectedUrl {
+    
+    // Given
+    NSString* inputWidth    = @"100";
+    NSString* inputHeight   = @"200";
+    NSString* inputNamed1   = @"named1";
+    NSString* inputNamed2   = @"named2";
+    NSString* inputPublicId = @"publicId";
+    BOOL      inputSignUrl  = false;
+    
+    NSString* expectedResult = @"https://res.cloudinary.com/test123/image/upload/h_200,t_named1.named2,w_100/publicId";
+    
+    // When
+    CLDTransformation* transformation = [[[[[CLDTransformation alloc] init] setWidth:inputWidth] setNamedWithArray:@[inputNamed1,inputNamed2]] setHeight:inputHeight];
+    NSString* actualResult            = [[[self.sut createUrl] setTransformation:transformation] generate:inputPublicId signUrl:inputSignUrl];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, @"creating url with named in transformation should return the expected result");
+}
+- (void)test_replaceSpaces_namedArrayWithSpaces_shouldReplaceSpaces {
+    
+    // Given
+    NSString* inputWidth        = @"100";
+    NSString* inputHeight       = @"200";
+    NSString* inputSpacedNamed1 = @"named with spaces 1";
+    NSString* inputSpacedNamed2 = @"named with spaces 2";
+    NSString* inputPublicId     = @"publicId";
+    BOOL      inputSignUrl      = false;
+    
+    NSString* expectedResult = @"https://res.cloudinary.com/test123/image/upload/h_200,t_named%20with%20spaces%201.named%20with%20spaces%202,w_100/publicId";
+    
+    // When
+    CLDTransformation* transformation = [[[[[CLDTransformation alloc] init] setWidth:inputWidth] setNamedWithArray:@[inputSpacedNamed1,inputSpacedNamed2]] setHeight:inputHeight];
+    NSString* actualResult            = [[[self.sut createUrl] setTransformation:transformation] generate:inputPublicId signUrl:inputSignUrl];
+    
+    // Then
+    XCTAssertEqualObjects(actualResult ,expectedResult, @"creating url with named in transformation should return the expected result");
+}
+
 @end
