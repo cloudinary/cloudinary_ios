@@ -1082,6 +1082,66 @@ class UrlTests: XCTestCase {
     func testOffset(){
         XCTAssertEqual(CLDTransformation().setStartOffset("auto").asString(), "so_auto")
     }
+    
+    // MARK: - named spaces removal
+    func test_replaceSpaces_named_shouldCreateExpectedUrl() {
+        
+        // Given
+        let input = "name"
+        
+        let expectedResult = "https://res.cloudinary.com/test123/image/upload/h_101,t_name,w_100/test"
+        
+        // When
+        let transformation = CLDTransformation().setWidth(100).setHeight(101).setNamed(input)
+        let actualResult   = sut?.createUrl().setTransformation(transformation).generate("test")
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "creating url with named in transformation should return the expected result")
+    }
+    func test_replaceSpaces_namedWithSpaces_shouldReplaceSpaces() {
+        
+        // Given
+        let input = "name with spaces"
+        
+        let expectedResult = "https://res.cloudinary.com/test123/image/upload/h_101,t_name%20with%20spaces,w_100/test"
+        
+        // When
+        let transformation = CLDTransformation().setWidth(100).setHeight(101).setNamed(input)
+        let actualResult   = sut?.createUrl().setTransformation(transformation).generate("test")
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "creating url with named in transformation should return the expected result")
+    }
+    func test_replaceSpaces_namedArray_shouldCreateExpectedUrl() {
+        
+        // Given
+        let input1 = "name1"
+        let input2 = "name2"
+        
+        let expectedResult = "https://res.cloudinary.com/test123/image/upload/h_101,t_name1.name2,w_100/test"
+        
+        // When
+        let transformation = CLDTransformation().setWidth(100).setHeight(101).setNamed([input1, input2])
+        let actualResult   = sut?.createUrl().setTransformation(transformation).generate("test")
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "creating url with named in transformation should return the expected result")
+    }
+    func test_replaceSpaces_namedArrayWithSpaces_shouldReplaceSpaces() {
+        
+        // Given
+        let input1 = "named with spaces 1"
+        let input2 = "named with spaces 2"
+        
+        let expectedResult = "https://res.cloudinary.com/test123/image/upload/h_101,t_named%20with%20spaces%201.named%20with%20spaces%202,w_100/test"
+        
+        // When
+        let transformation = CLDTransformation().setWidth(100).setHeight(101).setNamed([input1, input2])
+        let actualResult   = sut?.createUrl().setTransformation(transformation).generate("test")
+        
+        // Then
+        XCTAssertEqual(actualResult, expectedResult, "creating url with named in transformation should return the expected result")
+    }
 }
 
 
