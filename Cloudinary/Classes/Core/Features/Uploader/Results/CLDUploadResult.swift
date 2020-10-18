@@ -165,6 +165,13 @@ import Foundation
         return CLDInfo(json: info)
     }
     
+    open var qualityAnalysis: CLDQualityAnalysis? {
+        guard let qualityAnalysis = getParam(.qualityAnalysis) as? [String : AnyObject] else {
+            return nil
+        }
+        return CLDQualityAnalysis(json: qualityAnalysis)
+    }
+    
     // MARK: Video Params
     
     open var video: CLDVideo? {
@@ -195,10 +202,6 @@ import Foundation
     
     open var done: Bool? {
         return getParam(.done) as? Bool
-    }
-    
-    open var qualityAnalysis: [String : AnyObject]? {
-        return getParam(.qualityAnalysis) as? [String : AnyObject]
     }
     
     open var accessibilityAnalysis: CLDAccessibilityAnalysisResult? {

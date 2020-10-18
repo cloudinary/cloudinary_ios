@@ -35,7 +35,7 @@
 // MARK: - setup and teardown
 - (void)setUp {
     [super setUp];
-    self.sut = OcrMockProvider.explicitMockResult;
+    self.sut = OcrMockProvider.explicitResult;
 }
 
 - (void)tearDown {
