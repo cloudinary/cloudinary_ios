@@ -26,7 +26,7 @@ import Foundation
 import XCTest
 
 class BaseTestCase: XCTestCase {
-    let timeout: TimeInterval = 5.0
+    let timeout: TimeInterval = 30.0
 
     static var testDirectoryURL: URL { return FileManager.temporaryDirectoryURL.appendingPathComponent("org.cloudinary.tests") }
     var testDirectoryURL: URL { return BaseTestCase.testDirectoryURL }
@@ -38,6 +38,20 @@ class BaseTestCase: XCTestCase {
         FileManager.createDirectory(at: testDirectoryURL)
     }
 
+    override func setUpWithError() throws {
+        
+        try XCTSkipIf(shouldSkipTest(), "test skipped")
+        
+        try super.setUpWithError()
+    }
+    
+    /**
+     override this method to skip tests when needed
+    */
+    func shouldSkipTest() -> Bool {
+        return false
+    }
+    
     func url(forResource fileName: String, withExtension ext: String) -> URL {
         let bundle = Bundle(for: BaseTestCase.self)
         return bundle.url(forResource: fileName, withExtension: ext)!

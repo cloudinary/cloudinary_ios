@@ -19,7 +19,7 @@ public class CryptoObjcHelper: NSObject {
     }
 }
 
-class CryptoUtilsTests: XCTestCase {
+class CryptoUtilsTests: BaseTestCase {
     override func setUp() {
         super.setUp()
     }

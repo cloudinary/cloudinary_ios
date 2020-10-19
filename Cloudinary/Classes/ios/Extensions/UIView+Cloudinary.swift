@@ -35,7 +35,7 @@ internal extension UIView {
             self.setInProgressUrl(url)
         }
         
-        cloudinary.createDownloader().fetchImage(url) { [weak self] (responseImage, error) in
+        cloudinary.createDownloader().fetchImage(url, completionHandler:  { [weak self] (responseImage, error) in
             if let img = responseImage {
                 DispatchQueue.main.async {
                     if let view = self, view.isUrlStillRelevant(url) {
@@ -43,7 +43,7 @@ internal extension UIView {
                     }
                 }
             }
-        }
+        })
     }
     
     // set a url as the current request url for this view, if possible

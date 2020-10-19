@@ -24,8 +24,9 @@
 
 #import <XCTest/XCTest.h>
 #import <Cloudinary/Cloudinary-Swift.h>
+#import "ObjcBaseTestCase.h"
 
-@interface ObjcCLDConfigurationTests : XCTestCase
+@interface ObjcCLDConfigurationTests : ObjcBaseTestCase
 @property (nonatomic, strong, nullable) CLDConfiguration* sut;
 @end
 

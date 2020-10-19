@@ -1,5 +1,5 @@
 //
-//  NetworkBaseTestObjc.h
+//  ObjcBaseTestCase.h
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -24,25 +24,13 @@
 
 #import <XCTest/XCTest.h>
 #import <Cloudinary/Cloudinary-Swift.h>
-#import "ObjcBaseTestCase.h"
 #import "Cloudinary_Tests-Swift.h"
 
-typedef enum TestResourceType: NSUInteger {
-    logo,
-    borderCollie,
-    docx,
-    dog,
-    pdf,
-    textImage
-} TestResourceType;
 
-@interface NetworkBaseTestObjc: ObjcBaseTestCase
+@interface ObjcBaseTestCase: XCTestCase
 
-@property (nonatomic, strong, nullable) CLDCloudinary* cloudinary;
-@property (nonatomic, assign)           NSTimeInterval timeout;
+@property (nonatomic, assign) NSTimeInterval timeout;
 
-- (NSString* _Nonnull)getResourceNameBy:(TestResourceType)testResourceType;
-- (NSURL* _Nonnull)   getUrlBy         :(TestResourceType)testResourceType;
-- (NSData* _Nonnull)  getDataBy        :(TestResourceType)testResourceType;
+- (BOOL)shouldSkipTest;
 
 @end
