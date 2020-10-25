@@ -21,6 +21,25 @@ public class CLDCropScrollView : UIScrollView {
     public var touchesCancelled:CLDTouchHandler?
     public var touchesEnded    :CLDTouchHandler?
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureInitialState()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configureInitialState()
+    }
+    
+    private func configureInitialState() {
+        
+        self.autoresizingMask = [.flexibleHeight , .flexibleWidth]
+        self.alwaysBounceHorizontal = true
+        self.alwaysBounceVertical   = true
+        self.showsHorizontalScrollIndicator = false
+        self.showsVerticalScrollIndicator   = false
+    }
+    
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let handler = touchesBegan {
             handler()
