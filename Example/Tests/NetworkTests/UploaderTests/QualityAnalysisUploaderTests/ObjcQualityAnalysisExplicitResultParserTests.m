@@ -64,22 +64,22 @@
     
     // Then
     XCTAssertNotNil(self.sut,                 "explicit self.sut should not be nil");
-    XCTAssertNotNil(self.sut.qualityAnalysis, "value should be equal to expected value");
+    XCTAssertNotNil(self.sut.qualityAnalysisResult, "value should be equal to expected value");
     
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.blockiness,        expectedBlockiness,        "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.chromaSubsampling, expectedChromaSubsampling, "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.resolution,        expectedResolution,        "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.noise,             expectedNoise,             "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.colorScore,        expectedColorScore,        "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.jpegChroma,        expectedJpegChroma,        "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.dct,               expectedDct,               "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.jpegQuality,       expectedJpegQuality,       "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.focus,             expectedFocus,             "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.saturation,        expectedSaturation,        "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.contrast,          expectedContrast,          "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.exposure,          expectedExposure,          "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.lighting,          expectedLighting,          "value should be equal to expected value");
-    XCTAssertEqualObjects(self.sut.qualityAnalysis.pixelScore,        expectedPixelScore,        "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.blockiness,        expectedBlockiness,        "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.chromaSubsampling, expectedChromaSubsampling, "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.resolution,        expectedResolution,        "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.noise,             expectedNoise,             "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.colorScore,        expectedColorScore,        "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.jpegChroma,        expectedJpegChroma,        "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.dct,               expectedDct,               "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.jpegQuality,       expectedJpegQuality,       "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.focus,             expectedFocus,             "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.saturation,        expectedSaturation,        "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.contrast,          expectedContrast,          "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.exposure,          expectedExposure,          "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.lighting,          expectedLighting,          "value should be equal to expected value");
+    XCTAssertEqualObjects(self.sut.qualityAnalysisResult.pixelScore,        expectedPixelScore,        "value should be equal to expected value");
 }
 
 @end

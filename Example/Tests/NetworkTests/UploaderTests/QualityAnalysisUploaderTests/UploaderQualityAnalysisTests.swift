@@ -61,7 +61,7 @@ class UploaderQualityAnalysisTests: NetworkBaseTest {
         // Then
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(sut, "result should not be nil")
-        XCTAssertNil   (sut?.qualityAnalysis, "qualityAnalysis param should be nil")
+        XCTAssertNil   (sut?.qualityAnalysisResult, "qualityAnalysis param should be nil")
     }
     func test_upload_qualityAnalysisUnset_uploadShouldSucceedWithoutReturningQualityAnalysis() {
 
@@ -88,7 +88,7 @@ class UploaderQualityAnalysisTests: NetworkBaseTest {
         // Then
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(sut, "result should not be nil")
-        XCTAssertNil   (sut?.qualityAnalysis, "qualityAnalysis param should be nil, defualt value should be false")
+        XCTAssertNil   (sut?.qualityAnalysisResult, "qualityAnalysis param should be nil, defualt value should be false")
     }
     func test_upload_qualityAnalysis_uploadShouldReturnQualityAnalysis() throws {
 
@@ -118,21 +118,21 @@ class UploaderQualityAnalysisTests: NetworkBaseTest {
         // Then
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(sut, "result should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.blockiness, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.chromaSubsampling, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.resolution, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.noise, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.colorScore, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.jpegChroma, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.dct, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.jpegQuality, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.focus, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.saturation, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.contrast, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.exposure, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.lighting, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(sut?.qualityAnalysis?.pixelScore, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.blockiness, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.chromaSubsampling, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.resolution, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.noise, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.colorScore, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.jpegChroma, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.dct, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.jpegQuality, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.focus, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.saturation, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.contrast, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.exposure, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.lighting, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(sut?.qualityAnalysisResult?.pixelScore, "qualityAnalysis param should not be nil")
     }
     
     // MARK: - explicit
@@ -194,20 +194,20 @@ class UploaderQualityAnalysisTests: NetworkBaseTest {
         // Then
         XCTAssertNil(error, "explicit error should be nil")
         XCTAssertNotNil(explicitSut, "explicit result should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.blockiness, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.chromaSubsampling, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.resolution, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.noise, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.colorScore, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.jpegChroma, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.dct, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.jpegQuality, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.focus, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.saturation, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.contrast, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.exposure, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.lighting, "qualityAnalysis param should not be nil")
-        XCTAssertNotNil(explicitSut?.qualityAnalysis?.pixelScore, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.blockiness, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.chromaSubsampling, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.resolution, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.noise, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.colorScore, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.jpegChroma, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.dct, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.jpegQuality, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.focus, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.saturation, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.contrast, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.exposure, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.lighting, "qualityAnalysis param should not be nil")
+        XCTAssertNotNil(explicitSut?.qualityAnalysisResult?.pixelScore, "qualityAnalysis param should not be nil")
     }
 }

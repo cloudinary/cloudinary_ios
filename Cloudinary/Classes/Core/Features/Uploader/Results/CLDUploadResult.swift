@@ -165,7 +165,12 @@ import Foundation
         return CLDInfo(json: info)
     }
     
-    open var qualityAnalysis: CLDQualityAnalysis? {
+    @available(*, deprecated, message: "Use qualityAnalysisResult instead.")
+    open var qualityAnalysis: [String : AnyObject]? {
+        return getParam(.qualityAnalysis) as? [String : AnyObject]
+    }
+    
+    open var qualityAnalysisResult: CLDQualityAnalysis? {
         guard let qualityAnalysis = getParam(.qualityAnalysis) as? [String : AnyObject] else {
             return nil
         }
