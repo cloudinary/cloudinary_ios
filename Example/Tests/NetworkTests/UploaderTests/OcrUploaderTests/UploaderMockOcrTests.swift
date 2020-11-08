@@ -33,7 +33,7 @@ class UploaderMockOcrTests: NetworkBaseTest {
     // MARK: - setup and teardown
     override func setUp() {
         super.setUp()
-        sut = OcrMockProvider.uploadMockResult
+        sut = OcrMockProvider.uploadResult
     }
     override func tearDown() {
         super.tearDown()

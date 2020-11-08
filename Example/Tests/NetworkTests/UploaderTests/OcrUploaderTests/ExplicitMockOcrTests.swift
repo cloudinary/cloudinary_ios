@@ -33,7 +33,7 @@ class ExplicitMockOcrTests: NetworkBaseTest {
     // MARK: - setup and teardown
     override func setUp() {
         super.setUp()
-        sut = OcrMockProvider.explicitMockResult
+        sut = OcrMockProvider.explicitResult
     }
     override func tearDown() {
         super.tearDown()

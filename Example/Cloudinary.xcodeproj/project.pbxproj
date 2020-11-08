@@ -70,7 +70,6 @@
 		274C6D3F23FBAF5E0090BC40 /* dog.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2C23FBAF5E0090BC40 /* dog.mp4 */; };
 		27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC1FAD2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift */; };
 		27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC1FAF2431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift */; };
-		2A88031E2525D4FE00472AE0 /* PreprocessUploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88031D2525D4FE00472AE0 /* PreprocessUploaderTests.swift */; };
 		2B28AD0618DF267587896EE7 /* Pods_Cloudinary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B6463693C4831F35E6C0AD /* Pods_Cloudinary_Example.framework */; };
 		5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */; };
 		5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C514A242B6C350093AB1B /* ValidationTests.swift */; };
@@ -86,6 +85,13 @@
 		D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */; };
 		D71B790024680773004AA28E /* CLDTransformationExpressionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */; };
 		D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */; };
+		D724FFE425375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D724FFE325375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m */; };
+		D724FFE625383DC5002B31F3 /* MockProviderQualityAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFE525383DC5002B31F3 /* MockProviderQualityAnalysis.swift */; };
+		D724FFE825383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFE725383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift */; };
+		D724FFEA25384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFE925384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift */; };
+		D724FFEC25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D724FFEB25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m */; };
+		D724FFEE25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D724FFED25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m */; };
+		D724FFF12538533B002B31F3 /* BaseMockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFF02538533B002B31F3 /* BaseMockProvider.swift */; };
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
@@ -99,7 +105,7 @@
 		D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */; };
 		D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */; };
 		D79AE39C24585533004F2439 /* CLDVariableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D79AE39B24585533004F2439 /* CLDVariableTests.m */; };
-		D7D016CA251CFF080042A793 /* ObjcBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D016C9251CFF080042A793 /* ObjcBaseTestCase.m */; };
+		D7C2889025372FCA002846FE /* UploaderQualityAnalysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2888F25372FCA002846FE /* UploaderQualityAnalysisTests.swift */; };
 		D7E79DC924B515260082288A /* UploaderOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC324B515260082288A /* UploaderOcrTests.swift */; };
 		D7E79DCA24B515260082288A /* OcrMockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC424B515260082288A /* OcrMockProvider.swift */; };
 		D7E79DCB24B515260082288A /* ExplicitMockOcrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC524B515260082288A /* ExplicitMockOcrTests.m */; };
@@ -107,6 +113,7 @@
 		D7E79DCD24B515260082288A /* UploaderMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */; };
 		D7E79DCE24B515260082288A /* ExplicitMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */; };
 		D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */; };
+		D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */; };
 		FDFC161360D4903CDBE35F69 /* Pods_Cloudinary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23D636948CC68A4C0A98E7 /* Pods_Cloudinary_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -187,7 +194,6 @@
 		27BC1FAD2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLDNDataResponse+CloudinaryTests.swift"; sourceTree = "<group>"; };
 		27BC1FAF2431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLDNResult+CloudinaryTests.swift"; sourceTree = "<group>"; };
 		2A23D636948CC68A4C0A98E7 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A88031D2525D4FE00472AE0 /* PreprocessUploaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreprocessUploaderTests.swift; sourceTree = "<group>"; };
 		5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDConditionExpressionTests.swift; sourceTree = "<group>"; };
 		5D53A94F2488CE23005C14AB /* CLDConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDConfigurationTests.swift; sourceTree = "<group>"; };
 		5D53A9502488CE23005C14AB /* CLDConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLDConfigurationTests.m; sourceTree = "<group>"; };
@@ -210,6 +216,13 @@
 		D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationVariablesTests.swift; sourceTree = "<group>"; };
 		D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationExpressionsTests.swift; sourceTree = "<group>"; };
 		D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationConditionsTests.swift; sourceTree = "<group>"; };
+		D724FFE325375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcUploaderQualityAnalysisTests.m; sourceTree = "<group>"; };
+		D724FFE525383DC5002B31F3 /* MockProviderQualityAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProviderQualityAnalysis.swift; sourceTree = "<group>"; };
+		D724FFE725383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityAnalysisUploadResultParserTests.swift; sourceTree = "<group>"; };
+		D724FFE925384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityAnalysisExplicitResultParserTests.swift; sourceTree = "<group>"; };
+		D724FFEB25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcQualityAnalysisUploadResultParserTests.m; sourceTree = "<group>"; };
+		D724FFED25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcQualityAnalysisExplicitResultParserTests.m; sourceTree = "<group>"; };
+		D724FFF02538533B002B31F3 /* BaseMockProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMockProvider.swift; sourceTree = "<group>"; };
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
@@ -224,8 +237,7 @@
 		D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationTests.swift; sourceTree = "<group>"; };
 		D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVariableTests.swift; sourceTree = "<group>"; };
 		D79AE39B24585533004F2439 /* CLDVariableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDVariableTests.m; sourceTree = "<group>"; };
-		D7D016C8251CFF080042A793 /* ObjcBaseTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjcBaseTestCase.h; sourceTree = "<group>"; };
-		D7D016C9251CFF080042A793 /* ObjcBaseTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcBaseTestCase.m; sourceTree = "<group>"; };
+		D7C2888F25372FCA002846FE /* UploaderQualityAnalysisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploaderQualityAnalysisTests.swift; sourceTree = "<group>"; };
 		D7E79DC324B515260082288A /* UploaderOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DC424B515260082288A /* OcrMockProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OcrMockProvider.swift; sourceTree = "<group>"; };
 		D7E79DC524B515260082288A /* ExplicitMockOcrTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplicitMockOcrTests.m; sourceTree = "<group>"; };
@@ -233,6 +245,7 @@
 		D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplicitMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadRequestParamsTests.swift; sourceTree = "<group>"; };
+		D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreprocessUploaderTests.swift; sourceTree = "<group>"; };
 		F2530AD793711AEF6C37A33F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -314,8 +327,6 @@
 			isa = PBXGroup;
 			children = (
 				272C514B242B6C350093AB1B /* BaseTestCase.swift */,
-				D7D016C8251CFF080042A793 /* ObjcBaseTestCase.h */,
-				D7D016C9251CFF080042A793 /* ObjcBaseTestCase.m */,
 				272C51B6242C7F3D0093AB1B /* Core */,
 				272C51B7242C80720093AB1B /* Extensions */,
 				272C51B8242C80E70093AB1B /* Features */,
@@ -503,14 +514,6 @@
 			path = CLDExpressionTests;
 			sourceTree = "<group>";
 		};
-		2A88031C2525D4E500472AE0 /* PreprocessUploaderTests */ = {
-			isa = PBXGroup;
-			children = (
-				2A88031D2525D4FE00472AE0 /* PreprocessUploaderTests.swift */,
-			);
-			path = PreprocessUploaderTests;
-			sourceTree = "<group>";
-		};
 		5D4D8C2A246098A200AE9C96 /* CLDConditionExpressionTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,11 +637,21 @@
 			path = CryptoUtilsTests;
 			sourceTree = "<group>";
 		};
+		D724FFEF253852EF002B31F3 /* MockProvider */ = {
+			isa = PBXGroup;
+			children = (
+				D724FFF02538533B002B31F3 /* BaseMockProvider.swift */,
+			);
+			path = MockProvider;
+			sourceTree = "<group>";
+		};
 		D73622B724910FDD0021E1D4 /* UploaderTests */ = {
 			isa = PBXGroup;
 			children = (
-				2A88031C2525D4E500472AE0 /* PreprocessUploaderTests */,
 				274C6D1F23FBAF5E0090BC40 /* UploaderTests.swift */,
+				D724FFEF253852EF002B31F3 /* MockProvider */,
+				D7C2889125372FD7002846FE /* QualityAnalysisUploaderTests */,
+				D7F3D45E24DC3B8A002C1D27 /* PreprocessUploaderTests */,
 				D7E79DC224B515260082288A /* OcrUploaderTests */,
 			);
 			path = UploaderTests;
@@ -675,6 +688,20 @@
 			path = CLDTransformationTests;
 			sourceTree = "<group>";
 		};
+		D7C2889125372FD7002846FE /* QualityAnalysisUploaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7C2888F25372FCA002846FE /* UploaderQualityAnalysisTests.swift */,
+				D724FFE325375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m */,
+				D724FFE525383DC5002B31F3 /* MockProviderQualityAnalysis.swift */,
+				D724FFE725383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift */,
+				D724FFE925384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift */,
+				D724FFEB25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m */,
+				D724FFED25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m */,
+			);
+			path = QualityAnalysisUploaderTests;
+			sourceTree = "<group>";
+		};
 		D7E79DC224B515260082288A /* OcrUploaderTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +723,14 @@
 			path = ParamTests;
 			sourceTree = "<group>";
 		};
+		D7F3D45E24DC3B8A002C1D27 /* PreprocessUploaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */,
+			);
+			path = PreprocessUploaderTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -707,7 +742,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				A25E51DEC2AC01D396E3DDCB /* [CP] Embed Pods Frameworks */,
+				7D6ECEA3212D217F126E93A8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -842,7 +877,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A25E51DEC2AC01D396E3DDCB /* [CP] Embed Pods Frameworks */ = {
+		7D6ECEA3212D217F126E93A8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -912,7 +947,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				272C5189242B6C360093AB1B /* ResponseTests.swift in Sources */,
-				2A88031E2525D4FE00472AE0 /* PreprocessUploaderTests.swift in Sources */,
+				D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */,
 				274C6D3923FBAF5E0090BC40 /* StringUtilsTest.swift in Sources */,
 				274C6D2D23FBAF5E0090BC40 /* CryptoUtilsTests.swift in Sources */,
 				D7E79DCC24B515260082288A /* UploaderMockOcrTests.m in Sources */,
@@ -926,10 +961,13 @@
 				272C5187242B6C360093AB1B /* URLProtocolTests.swift in Sources */,
 				272C517F242B6C360093AB1B /* SessionManagerTests.swift in Sources */,
 				274C6D3823FBAF5E0090BC40 /* DownloaderTests.swift in Sources */,
+				D724FFEC25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */,
 				5D7C2DCF245E93F7007E95F7 /* CLDExpressionTests.swift in Sources */,
 				272C51B0242B6C360093AB1B /* UploadTests.swift in Sources */,
 				274C6D3723FBAF5E0090BC40 /* ManagementApiTests.swift in Sources */,
+				D724FFE625383DC5002B31F3 /* MockProviderQualityAnalysis.swift in Sources */,
 				D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */,
+				D724FFEA25384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
 				D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */,
 				272C5181242B6C360093AB1B /* AuthenticationTests.swift in Sources */,
@@ -937,6 +975,7 @@
 				D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */,
 				5D53A9512488CE23005C14AB /* CLDConfigurationTests.swift in Sources */,
 				D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */,
+				D724FFF12538533B002B31F3 /* BaseMockProvider.swift in Sources */,
 				27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */,
 				D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */,
 				274C6D3323FBAF5E0090BC40 /* UIButtonTests.swift in Sources */,
@@ -944,10 +983,13 @@
 				274C6D3523FBAF5E0090BC40 /* NetworkBaseTest.swift in Sources */,
 				274C6D2E23FBAF5E0090BC40 /* PreprocessTests.swift in Sources */,
 				D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */,
+				D724FFE425375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m in Sources */,
+				D724FFEE25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */,
 				274C6D3423FBAF5E0090BC40 /* UIImageViewTests.swift in Sources */,
 				D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */,
 				272C51B5242B6C360093AB1B /* ParameterEncodingTests.swift in Sources */,
 				274C6D2F23FBAF5E0090BC40 /* FileUtilsTests.swift in Sources */,
+				D724FFE825383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift in Sources */,
 				D7E79DCA24B515260082288A /* OcrMockProvider.swift in Sources */,
 				5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */,
 				D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */,
@@ -964,12 +1006,12 @@
 				D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */,
 				274C6D3623FBAF5E0090BC40 /* UploaderTests.swift in Sources */,
 				D7E79DCD24B515260082288A /* UploaderMockOcrTests.swift in Sources */,
-				D7D016CA251CFF080042A793 /* ObjcBaseTestCase.m in Sources */,
 				272C51B1242B6C360093AB1B /* CacheTests.swift in Sources */,
 				274C6D3023FBAF5E0090BC40 /* UrlTests.m in Sources */,
 				272C518C242B6C360093AB1B /* BaseTestCase.swift in Sources */,
 				5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */,
 				272C51B4242B6C360093AB1B /* ResultTests.swift in Sources */,
+				D7C2889025372FCA002846FE /* UploaderQualityAnalysisTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
