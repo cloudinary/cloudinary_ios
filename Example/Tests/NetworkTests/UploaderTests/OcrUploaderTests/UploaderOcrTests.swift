@@ -27,20 +27,11 @@ import XCTest
 
 class UploaderOcrTests: NetworkBaseTest {
 
-    // prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true.
-    lazy var allowOCRCalls: Bool = {
-        
-        if ProcessInfo.processInfo.arguments.contains("TEST_OCR") {
-            return true
-        } else {
-            return false
-        }
-    }()
+    // prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set environment variable "CLD_TEST_ADDONS" = "ocr".
+    override var testingAddonType: AddonType? { .ocr }
     
     // MARK: - upload
     func test_upload_ocr_uploadShouldSucceed() throws {
-
-        try XCTSkipUnless(allowOCRCalls, "prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true")
         
         // Given
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -71,8 +62,6 @@ class UploaderOcrTests: NetworkBaseTest {
     
     // MARK: - explicit
     func test_explicit_ocr_callShouldSucceed() throws {
-
-        try XCTSkipUnless(allowOCRCalls, "prevents redundant call to Cloudinary PAID OCR service. to allow OCR service testing - set to true")
         
         // Given
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")

@@ -25,7 +25,7 @@
 import XCTest
 @testable import Cloudinary
 
-class UrlTests: XCTestCase {
+class UrlTests: BaseTestCase {
     let prefix = "https://res.cloudinary.com/test123"
 
     var sut: CLDCloudinary?

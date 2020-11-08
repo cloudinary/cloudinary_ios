@@ -25,8 +25,9 @@
 #import <XCTest/XCTest.h>
 #import <Cloudinary/Cloudinary-Swift.h>
 #import "Cloudinary_Tests-Swift.h"
+#import "ObjcBaseTestCase.h"
 
-@interface ObjcUploaderMockOcrTests : XCTestCase
+@interface ObjcUploaderMockOcrTests : ObjcBaseTestCase
 @property (nonatomic, strong, nullable) CLDUploadResult* sut;
 @end
 

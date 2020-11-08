@@ -24,8 +24,9 @@
 
 #import <XCTest/XCTest.h>
 #import <Cloudinary/Cloudinary-Swift.h>
+#import "ObjcBaseTestCase.h"
 
-@interface ObjcCLDConditionExpressionTests : XCTestCase
+@interface ObjcCLDConditionExpressionTests : ObjcBaseTestCase
 
 @end
 
