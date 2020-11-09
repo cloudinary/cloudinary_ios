@@ -70,6 +70,7 @@
 		274C6D3F23FBAF5E0090BC40 /* dog.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2C23FBAF5E0090BC40 /* dog.mp4 */; };
 		27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC1FAD2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift */; };
 		27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC1FAF2431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift */; };
+		2AF4556A2559485200260D5A /* ObjcBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF455682559485200260D5A /* ObjcBaseTestCase.m */; };
 		2B28AD0618DF267587896EE7 /* Pods_Cloudinary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B6463693C4831F35E6C0AD /* Pods_Cloudinary_Example.framework */; };
 		5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */; };
 		5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C514A242B6C350093AB1B /* ValidationTests.swift */; };
@@ -194,6 +195,8 @@
 		27BC1FAD2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLDNDataResponse+CloudinaryTests.swift"; sourceTree = "<group>"; };
 		27BC1FAF2431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLDNResult+CloudinaryTests.swift"; sourceTree = "<group>"; };
 		2A23D636948CC68A4C0A98E7 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AF455682559485200260D5A /* ObjcBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjcBaseTestCase.m; sourceTree = "<group>"; };
+		2AF455692559485200260D5A /* ObjcBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcBaseTestCase.h; sourceTree = "<group>"; };
 		5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDConditionExpressionTests.swift; sourceTree = "<group>"; };
 		5D53A94F2488CE23005C14AB /* CLDConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDConfigurationTests.swift; sourceTree = "<group>"; };
 		5D53A9502488CE23005C14AB /* CLDConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLDConfigurationTests.m; sourceTree = "<group>"; };
@@ -327,6 +330,8 @@
 			isa = PBXGroup;
 			children = (
 				272C514B242B6C350093AB1B /* BaseTestCase.swift */,
+				2AF455692559485200260D5A /* ObjcBaseTestCase.h */,
+				2AF455682559485200260D5A /* ObjcBaseTestCase.m */,
 				272C51B6242C7F3D0093AB1B /* Core */,
 				272C51B7242C80720093AB1B /* Extensions */,
 				272C51B8242C80E70093AB1B /* Features */,
@@ -1011,6 +1016,7 @@
 				272C518C242B6C360093AB1B /* BaseTestCase.swift in Sources */,
 				5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */,
 				272C51B4242B6C360093AB1B /* ResultTests.swift in Sources */,
+				2AF4556A2559485200260D5A /* ObjcBaseTestCase.m in Sources */,
 				D7C2889025372FCA002846FE /* UploaderQualityAnalysisTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
