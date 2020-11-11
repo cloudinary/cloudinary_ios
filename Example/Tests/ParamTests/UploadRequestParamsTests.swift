@@ -123,4 +123,34 @@ class UploadRequestParamsTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.eval, updatedInput, "Init without longUrlSignature should store the default false value")
     }
+    
+    // MARK: - quality analysis
+    func test_getQualityAnalysis_unset_shouldNotStoreValue() {
+        
+        XCTAssertNil(sut.qualityAnalysis, "unset property should not be stored in params")
+    }
+    func test_setQualityAnalysis_String_shouldStoreValue() {
+        
+        // Given
+        let input = true
+        
+        // When
+        sut.setQualityAnalysis(input)
+        
+        // Then
+        XCTAssertEqual(sut.qualityAnalysis, input, "set property should be stored in params")
+    }
+    func test_setQualityAnalysis_updateValue_shouldUpdateValue() {
+
+        // Given
+        let initialInput = true
+        let updatedInput = false
+        
+        // When
+        sut.setQualityAnalysis(initialInput)
+        sut.setQualityAnalysis(updatedInput)
+
+        // Then
+        XCTAssertEqual(sut.qualityAnalysis, updatedInput, "updated property should be stored in params")
+    }
 }
