@@ -41,6 +41,8 @@
         config = [[CLDConfiguration alloc] initWithCloudinaryUrl:@"cloudinary://a:b@test123"];
     }
     
+//    config = [[CLDConfiguration alloc] initWithCloudinaryUrl:@"cloudinary://654361685413711:9NmBKTC-dR0rRQgkBSStph1r8vs@sdk-test-ios-test-cloud-511125612"];
+    
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
 
     self.cloudinary = [[CLDCloudinary alloc] initWithConfiguration:config networkAdapter:nil sessionConfiguration:sessionConfig];

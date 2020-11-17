@@ -63,6 +63,15 @@
     XCTAssertNil(error, "error should be nil");
     XCTAssertNotNil(sut, "result should not be nil");
     XCTAssertNil(sut.accessibilityAnalysis, "accessibility analysis field in upload result without setAccessibilityAnalysis(true) should be nil");
+    
+    XCTAssertEqual(self.cloudinary.config.apiKey, @"createError", "createError apiKey %@", self.cloudinary.config.apiKey);
+    XCTAssertEqual(self.cloudinary.config.apiSecret, @"createError", "createError apiSecret %@", self.cloudinary.config.apiSecret);
+    XCTAssertEqual(self.cloudinary.config.cloudName, @"createError", "createError cloudName %@", self.cloudinary.config.cloudName);
+    
+    CLDConfiguration* directEnvConfig = [CLDConfiguration initWithEnvParams];
+    XCTAssertEqual(directEnvConfig.apiKey, @"createError", "directEnvConfig createError apiKey %@", directEnvConfig.apiKey);
+    XCTAssertEqual(directEnvConfig.apiSecret, @"createError", "directEnvConfig createError apiSecret %@", directEnvConfig.apiSecret);
+    XCTAssertEqual(directEnvConfig.cloudName, @"createError", "directEnvConfig createError cloudName %@", directEnvConfig.cloudName);
 }
 - (void)test_uploadResult_accessibiltyAnalysisParsing_shouldParseAsExpected {
 
