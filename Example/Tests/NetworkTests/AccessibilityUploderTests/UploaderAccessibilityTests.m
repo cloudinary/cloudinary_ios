@@ -27,10 +27,10 @@
 #import "Cloudinary_Tests-Swift.h"
 #import "NetworkBaseTestObjc.h"
 
-@interface UploaderAccessibilityTests: NetworkBaseTestObjc
+@interface UploaderAccessibilityTestsObjc: NetworkBaseTestObjc
 @end
 
-@implementation UploaderAccessibilityTests
+@implementation UploaderAccessibilityTestsObjc
 
 // MARK: - upload result
 - (void)test_uploadResult_accessibiltyAnalysisUnset_shouldNotReturnAccessibilityInfo {
