@@ -42,13 +42,13 @@ class NetworkBaseTest: BaseTestCase {
         let config: CLDConfiguration
 
         if let url = Bundle(for: type(of: self)).infoDictionary?["cldCloudinaryUrl"] as? String, url.count > 0 {
-            print("before CLDConfiguration(cloudinaryUrl: url)! \(url)")
+            NSLog("before CLDConfiguration(cloudinaryUrl: url)! %@", url)
             config = CLDConfiguration(cloudinaryUrl: url)!
-            print("after CLDConfiguration(cloudinaryUrl: url)! \(url)")
+            NSLog("after CLDConfiguration(cloudinaryUrl: url)! %@", url)
         } else {
-            print("before else")
+            NSLog("before else")
             config = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
-            print("after else")
+            NSLog("after else")
         }
         
         let configInsufficientTimeout = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: config.apiSecret, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix, timeout: 0.01)
