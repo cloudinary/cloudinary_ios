@@ -56,37 +56,6 @@ class UploaderAccessibilityTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(sut, "result should not be nil")
         XCTAssertNil(sut?.accessibilityAnalysis, "accessibility analysis field in upload result without setAccessibilityAnalysis(true) should be nil")
-        
-        XCTAssertEqual(cloudinary!.config.apiKey, "createError", "swift createError apiKey \(String(describing: cloudinary!.config.apiKey))");
-        XCTAssertEqual(cloudinary!.config.apiSecret, "createError", "swift createError apiSecret \(String(describing: cloudinary!.config.apiSecret))");
-        XCTAssertEqual(cloudinary!.config.cloudName, "createError", "swift createError cloudName \(String(describing: cloudinary!.config.cloudName))");
-        
-        if let directEnvConfig = CLDConfiguration.initWithEnvParams() {
-            
-            XCTAssertEqual(directEnvConfig.apiKey, "createError", "swift directEnvConfig createError apiKey \(String(describing: directEnvConfig.apiKey))");
-            XCTAssertEqual(directEnvConfig.apiSecret, "createError", "swift directEnvConfig createError apiSecret \(String(describing: directEnvConfig.apiSecret))");
-            XCTAssertEqual(directEnvConfig.cloudName, "createError", "swift directEnvConfig createError cloudName \(String(describing: directEnvConfig.cloudName))");
-        }
-        else {
-            
-            XCTFail("cant get env params!!")
-            
-            let dict = ProcessInfo.processInfo.environment
-            if let url = dict["CLOUDINARY_URL"],
-                let configFromProcessInfo = CLDConfiguration(cloudinaryUrl: url) {
-                XCTAssertEqual(configFromProcessInfo.apiKey, "createError", "swift configFromProcessInfo createError apiKey \(String(describing: configFromProcessInfo.apiKey))");
-                XCTAssertEqual(configFromProcessInfo.apiSecret, "createError", "swift configFromProcessInfo createError apiSecret \(String(describing: configFromProcessInfo.apiSecret))");
-                XCTAssertEqual(configFromProcessInfo.cloudName, "createError", "swift configFromProcessInfo createError cloudName \(String(describing: configFromProcessInfo.cloudName))");
-            }
-        }
-        
-        
-        if let url = Bundle(for: type(of: self)).infoDictionary?["cldCloudinaryUrl"] as? String, url.count > 0 {
-            let directUrlConfig = CLDConfiguration(cloudinaryUrl: url)!
-            XCTAssertEqual(directUrlConfig.apiKey, "createError", "swift directUrlConfig createError apiKey \(String(describing: directUrlConfig.apiKey))");
-            XCTAssertEqual(directUrlConfig.apiSecret, "createError", "swift directUrlConfig createError apiSecret \(String(describing: directUrlConfig.apiSecret))");
-            XCTAssertEqual(directUrlConfig.cloudName, "createError", "swift directUrlConfig createError cloudName \(String(describing: directUrlConfig.cloudName))");
-        }
     }
     func test_uploadResult_accessibiltyAnalysisParsing_shouldParseAsExpected() {
        
