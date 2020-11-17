@@ -36,12 +36,19 @@
     self.timeout = 30.0;
     
     CLDConfiguration* config;
-    config = [CLDConfiguration initWithEnvParams];
-    if (config == nil) {
-        config = [[CLDConfiguration alloc] initWithCloudinaryUrl:@"cloudinary://a:b@test123"];
-    }
     
-//    config = [[CLDConfiguration alloc] initWithCloudinaryUrl:@"cloudinary://654361685413711:9NmBKTC-dR0rRQgkBSStph1r8vs@sdk-test-ios-test-cloud-511125612"];
+    NSString *cloudinaryUrl = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"cldCloudinaryUrl"];
+    
+    if (cloudinaryUrl.length) {
+        config = [[CLDConfiguration alloc] initWithCloudinaryUrl:cloudinaryUrl];
+    }
+    else {
+        
+        config = [CLDConfiguration initWithEnvParams];
+        if (config == nil) {
+            config = [[CLDConfiguration alloc] initWithCloudinaryUrl:@"cloudinary://a:b@test123"];
+        }
+    }
     
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
 

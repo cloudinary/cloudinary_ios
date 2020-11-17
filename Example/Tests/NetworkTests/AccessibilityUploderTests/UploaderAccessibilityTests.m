@@ -60,18 +60,25 @@
     [self waitForExpectationsWithTimeout:self.timeout handler:nil];
     
     // Then
-    XCTAssertNil(error, "error should be nil");
-    XCTAssertNotNil(sut, "result should not be nil");
-    XCTAssertNil(sut.accessibilityAnalysis, "accessibility analysis field in upload result without setAccessibilityAnalysis(true) should be nil");
-    
-    XCTAssertEqual(self.cloudinary.config.apiKey, @"createError", "createError apiKey %@", self.cloudinary.config.apiKey);
-    XCTAssertEqual(self.cloudinary.config.apiSecret, @"createError", "createError apiSecret %@", self.cloudinary.config.apiSecret);
-    XCTAssertEqual(self.cloudinary.config.cloudName, @"createError", "createError cloudName %@", self.cloudinary.config.cloudName);
+    XCTAssertEqual(self.cloudinary.config.apiKey, @"createError", "objc createError apiKey %@", self.cloudinary.config.apiKey);
+    XCTAssertEqual(self.cloudinary.config.apiSecret, @"createError", "objc createError apiSecret %@", self.cloudinary.config.apiSecret);
+    XCTAssertEqual(self.cloudinary.config.cloudName, @"createError", "objc createError cloudName %@", self.cloudinary.config.cloudName);
     
     CLDConfiguration* directEnvConfig = [CLDConfiguration initWithEnvParams];
-    XCTAssertEqual(directEnvConfig.apiKey, @"createError", "directEnvConfig createError apiKey %@", directEnvConfig.apiKey);
-    XCTAssertEqual(directEnvConfig.apiSecret, @"createError", "directEnvConfig createError apiSecret %@", directEnvConfig.apiSecret);
-    XCTAssertEqual(directEnvConfig.cloudName, @"createError", "directEnvConfig createError cloudName %@", directEnvConfig.cloudName);
+    XCTAssertEqual(directEnvConfig.apiKey, @"createError", "objc directEnvConfig createError apiKey %@", directEnvConfig.apiKey);
+    XCTAssertEqual(directEnvConfig.apiSecret, @"createError", "objc directEnvConfig createError apiSecret %@", directEnvConfig.apiSecret);
+    XCTAssertEqual(directEnvConfig.cloudName, @"createError", "objc directEnvConfig createError cloudName %@", directEnvConfig.cloudName);
+    
+    
+    NSString *cloudinaryUrl = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"cldCloudinaryUrl"];
+    
+    if (cloudinaryUrl.length) {
+        
+        CLDConfiguration* directUrlConfig = [[CLDConfiguration alloc] initWithCloudinaryUrl:cloudinaryUrl];
+        XCTAssertEqual(directUrlConfig.apiKey, @"createError", "objc directUrlConfig createError apiKey %@", directUrlConfig.apiKey);
+        XCTAssertEqual(directUrlConfig.apiSecret, @"createError", "objc directUrlConfig createError apiSecret %@", directUrlConfig.apiSecret);
+        XCTAssertEqual(directUrlConfig.cloudName, @"createError", "objc directUrlConfig createError cloudName %@", directUrlConfig.cloudName);
+    }
 }
 - (void)test_uploadResult_accessibiltyAnalysisParsing_shouldParseAsExpected {
 
