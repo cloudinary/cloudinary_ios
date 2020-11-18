@@ -443,7 +443,7 @@ class PreprocessUploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
         XCTAssertTrue(downloadedImage?.size.width  == localRotatedImage?.size.width, "image should be equal")
         XCTAssertTrue(downloadedImage?.size.height == localRotatedImage?.size.height, "image should be equal")
-        XCTAssertTrue(compare(tolerance: 5, expected: localRotatedImageData!, observed: downloadedImageData!), "image should be equal or close to that")
+        XCTAssertTrue(compare(tolerance: 0, expected: localRotatedImageData!, observed: downloadedImageData!), "image should be equal or close to that")
     }
     
     /// Value in range 0...100 %

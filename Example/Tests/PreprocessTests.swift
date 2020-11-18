@@ -220,7 +220,7 @@ class PreprocessTests: BaseTestCase {
         // Then
         XCTAssertTrue(sut.size.width  == prePreparedImage.size.width, "image should be equal")
         XCTAssertTrue(sut.size.height == prePreparedImage.size.height, "image should be equal")
-        XCTAssertTrue(compare(tolerance: 5, expected: sut.pngData()!, observed: prePreparedImage.pngData()!), "image should be equal or close to that")
+        XCTAssertTrue(compare(tolerance: 0, expected: sut.pngData()!, observed: prePreparedImage.pngData()!), "image should be equal or close to that")
     }
     
     /// Value in range 0...100 %
