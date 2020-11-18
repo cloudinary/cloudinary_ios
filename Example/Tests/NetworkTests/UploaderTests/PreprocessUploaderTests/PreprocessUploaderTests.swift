@@ -441,7 +441,6 @@ class PreprocessUploaderTests: NetworkBaseTest {
         // Then
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertNil(error, "error should be nil")
-        XCTAssertEqual(downloadedImageData, localRotatedImageData, "image downloaded after uploaded with rotate preprocess, should be equal to expected rotated image")
         XCTAssertTrue(downloadedImage?.size.width  == localRotatedImage?.size.width, "image should be equal")
         XCTAssertTrue(downloadedImage?.size.height == localRotatedImage?.size.height, "image should be equal")
         XCTAssertTrue(compare(tolerance: 5, expected: localRotatedImageData!, observed: downloadedImageData!), "image should be equal or close to that")
