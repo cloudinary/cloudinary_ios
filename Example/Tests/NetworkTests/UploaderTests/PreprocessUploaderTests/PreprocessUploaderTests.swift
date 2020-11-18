@@ -337,89 +337,89 @@ class PreprocessUploaderTests: NetworkBaseTest {
     }
 
     // MARK: - rotate download
-//    func test_rotatePreprocess_rotateDownloadingPng_UploadedImageDataShouldBeEqualToRotatedImage() {
-//
-//        XCTAssertNotNil(cloudinary!.config.apiSecret, "must set api secret for this test")
-//
-//        // Given
-//        let expectation = self.expectation(description: "upload should succeed")
-//
-//        let file = TestResourceType.borderCollie.url
-//        let inputDegree: Float = 45
-//
-//        var result: CLDUploadResult?
-//        var error: NSError?
-//        var publicId: String?
-//
-//        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.rotate(degrees: inputDegree))
-//
-//        // When
-//        cloudinary!.createUploader().signedUpload(url: file, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
-//            result = resultRes
-//            error = errorRes
-//            publicId = result?.publicId
-//
-//            expectation.fulfill()
-//        })
-//
-//        waitForExpectations(timeout: timeout, handler: nil)
-//
-//        // Then
-//        XCTAssertNotNil(result, "result should not be nil")
-//        XCTAssertNil(error, "error should be nil")
-//
-//        guard let pubId = publicId else {
-//            XCTFail("publicId should not be nil at this point")
-//            return
-//        }
-//
-//        rotateDownloading_uploadedImageDataShouldBeEqualToRotatedImage(publicId: pubId, testResourceType: .borderCollieRotatedPng)
-//    }
-//    func test_rotatePreprocess_rotateDownloadingJpg_UploadedImageDataShouldBeEqualToRotatedImage() {
-//
-//        XCTAssertNotNil(cloudinary!.config.apiSecret, "must set api secret for this test")
-//
-//        // Given
-//        let expectation = self.expectation(description: "upload should succeed")
-//
-//        let file = TestResourceType.borderCollie.url
-//        let inputDegree: Float = 45
-//
-//        var result: CLDUploadResult?
-//        var error: NSError?
-//        var publicId: String?
-//
-//        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.rotate(degrees: inputDegree)).setEncoder(CLDPreprocessHelpers.customImageEncoder(format: .JPEG, quality: 100))
-//
-//        // When
-//        cloudinary!.createUploader().signedUpload(url: file, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
-//            result = resultRes
-//            error = errorRes
-//            publicId = result?.publicId
-//
-//            expectation.fulfill()
-//        })
-//
-//        waitForExpectations(timeout: timeout, handler: nil)
-//
-//        // Then
-//        XCTAssertNotNil(result, "result should not be nil")
-//        XCTAssertNil(error, "error should be nil")
-//
-//        guard let pubId = publicId else {
-//            XCTFail("publicId should not be nil at this point")
-//            return
-//        }
-//
-//        rotateDownloading_uploadedImageDataShouldBeEqualToRotatedImage(publicId: pubId, testResourceType: .borderCollieRotatedJpg)
-//    }
+    func test_rotatePreprocess_rotateDownloadingPng_UploadedImageDataShouldBeEqualToRotatedImage() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "must set api secret for this test")
+
+        // Given
+        let expectation = self.expectation(description: "upload should succeed")
+
+        let file = TestResourceType.borderCollie.url
+        let inputDegree: Float = 45
+
+        var result  : CLDUploadResult?
+        var error   : NSError?
+        var publicId: String?
+
+        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.rotate(degrees: inputDegree)).setEncoder(CLDPreprocessHelpers.customImageEncoder(format: .PNG, quality: 100))
+
+        // When
+        cloudinary!.createUploader().signedUpload(url: file, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            publicId = result?.publicId
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+
+        guard let pubId = publicId else {
+            XCTFail("publicId should not be nil at this point")
+            return
+        }
+
+        rotateDownloading_uploadedImageDataShouldBeEqualToRotatedImage(publicId: pubId, testResourceType: .borderCollieRotatedPng)
+    }
+    func test_rotatePreprocess_rotateDownloadingJpg_UploadedImageDataShouldBeEqualToRotatedImage() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "must set api secret for this test")
+
+        // Given
+        let expectation = self.expectation(description: "upload should succeed")
+
+        let file = TestResourceType.borderCollie.url
+        let inputDegree: Float = 45
+
+        var result: CLDUploadResult?
+        var error: NSError?
+        var publicId: String?
+
+        let preprocessChain = CLDImagePreprocessChain().addStep(CLDPreprocessHelpers.rotate(degrees: inputDegree)).setEncoder(CLDPreprocessHelpers.customImageEncoder(format: .JPEG, quality:100))
+
+        // When
+        cloudinary!.createUploader().signedUpload(url: file, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            publicId = result?.publicId
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+
+        guard let pubId = publicId else {
+            XCTFail("publicId should not be nil at this point")
+            return
+        }
+
+        rotateDownloading_uploadedImageDataShouldBeEqualToRotatedImage(publicId: pubId, testResourceType: .borderCollieRotatedJpg)
+    }
     func rotateDownloading_uploadedImageDataShouldBeEqualToRotatedImage(publicId: String, testResourceType: TestResourceType) {
 
         let expectation = self.expectation(description: "download should succeed")
 
         // Given
         let localRotatedImageData = UIImage(data: testResourceType.data)?.pngData()
-
+        
         var response: UIImage?
         var error   : NSError?
 
