@@ -208,18 +208,18 @@ class PreprocessTests: BaseTestCase {
         XCTAssertNil(uiimageFromCIImage.cgImage, "image.cgImage should be nil")
         XCTAssertEqual(sut.size ,imageExpectedSize, "image should be rotated to the requested angle (this should change the image size)")
     }
-//    func test_rotate_shouldEqualPrePreparedImage() {
-//
-//        // Given
-//        let image = getFullSizeImage()
-//        let prePreparedImage = getFullSizeImage(.borderCollieRotatedPng)
-//
-//        // When
-//        sut = try! CLDPreprocessHelpers.rotate(degrees: 45)(image)
-//
-//        // Then
-//        XCTAssertEqual(sut.pngData(), prePreparedImage.pngData(), "rotated image should be equal to pre prepared image")
-//    }
+    func test_rotate_shouldEqualPrePreparedImage() {
+
+        // Given
+        let image = getFullSizeImage()
+        let prePreparedImage = getFullSizeImage(.borderCollieRotatedPng)
+
+        // When
+        sut = try! CLDPreprocessHelpers.rotate(degrees: 45)(image)
+
+        // Then
+        XCTAssertEqual(sut.pngData(), prePreparedImage.pngData(), "rotated image should be equal to pre prepared image")
+    }
     
     // MARK: - dimension validator
     func testDimensionValidator() {
