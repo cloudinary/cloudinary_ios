@@ -1,5 +1,5 @@
 //
-//  UploaderAccessibilityTests.m
+//  UploaderAccessibilityTestsObjc.m
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -27,10 +27,10 @@
 #import "Cloudinary_Tests-Swift.h"
 #import "NetworkBaseTestObjc.h"
 
-@interface UploaderAccessibilityTests: NetworkBaseTestObjc
+@interface UploaderAccessibilityTestsObjc: NetworkBaseTestObjc
 @end
 
-@implementation UploaderAccessibilityTests
+@implementation UploaderAccessibilityTestsObjc
 
 // MARK: - upload result
 - (void)test_uploadResult_accessibiltyAnalysisUnset_shouldNotReturnAccessibilityInfo {

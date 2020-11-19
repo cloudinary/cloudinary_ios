@@ -39,7 +39,6 @@ typedef enum TestResourceType: NSUInteger {
 @interface NetworkBaseTestObjc: ObjcBaseTestCase
 
 @property (nonatomic, strong, nullable) CLDCloudinary* cloudinary;
-@property (nonatomic, assign)           NSTimeInterval timeout;
 
 - (NSString* _Nonnull)getResourceNameBy:(TestResourceType)testResourceType;
 - (NSURL* _Nonnull)   getUrlBy         :(TestResourceType)testResourceType;
