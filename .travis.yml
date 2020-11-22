@@ -3,11 +3,11 @@ osx_image: xcode11.4
 xcode_project: Example/Cloudinary.xcworkspace
 podfile: Example/Podfile
 xcode_scheme: travis_public_scheme
-xcode_sdk: iphonesimulator12.0
+xcode_sdk: iphonesimulator13.0
 install: pod install --project-directory=Example
 
 before_script: >
   export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
   echo cloud_name: "$(echo $CLOUDINARY_URL | cut -d'@' -f2)"
 
-script: xcodebuild clean test -workspace Example/Cloudinary.xcworkspace -scheme travis_public_scheme -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.0' -CLOUDINARY_URL=$CLOUDINARY_URL | xcpretty && exit ${PIPESTATUS[0]}
+script: xcodebuild clean test -workspace Example/Cloudinary.xcworkspace -scheme travis_public_scheme -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.0' -CLOUDINARY_URL=$CLOUDINARY_URL | xcpretty && exit ${PIPESTATUS[0]}
