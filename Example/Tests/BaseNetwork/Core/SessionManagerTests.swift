@@ -612,12 +612,12 @@ class SessionManagerTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCount, 1)
-        XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty)
+        XCTAssertEqual(handler.adaptedCount, 2, "should be equal to expected result")
+        XCTAssertEqual(handler.retryCount, 1, "should be equal to expected result")
+        XCTAssertEqual(response?.result.isSuccess, true, "result should be successfull")
+        XCTAssertTrue (sessionManager.delegate.requests.isEmpty, "requests should be empty")
 
-        handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError) }
+        handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError, "should not have errors") }
     }
 
     func testThatSessionManagerCallsAdapterWhenRequestIsRetried() {
