@@ -10,6 +10,7 @@ env:
   matrix:
     - TEST_SDK=iphonesimulator OS=13.0 NAME='iPhone 8'
     - TEST_SDK=iphonesimulator OS=12.0 NAME='iPhone 8'
+    - TEST_SDK=iphonesimulator OS=11.0 NAME='iPhone 8'
 
 before_script: >
   export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
