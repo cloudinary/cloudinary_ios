@@ -30,4 +30,4 @@ before_script: >
   echo cloud_name: "$(echo $CLOUDINARY_URL | cut -d'@' -f2)"
 
 script:
-  - xcodebuild clean test -workspace Example/Cloudinary.xcworkspace -scheme travis_public_scheme -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" -CLOUDINARY_URL=$CLOUDINARY_URL | xcpretty && exit ${PIPESTATUS[0]}
+  - xcodebuild clean test -workspace Example/Cloudinary.xcworkspace -scheme travis_public_scheme -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" -CLOUDINARY_URL=$CLOUDINARY_URL
