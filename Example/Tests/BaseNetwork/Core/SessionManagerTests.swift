@@ -580,12 +580,12 @@ class SessionManagerTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCount, 1)
-        XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty)
+        XCTAssertEqual(handler.adaptedCount, 2, "handler.adaptedCount should be equal to 2")
+        XCTAssertEqual(handler.retryCount, 1, "handler.retryCount should be equal to 1")
+        XCTAssertEqual(response?.result.isSuccess, true, "response?.result.isSuccess should be equal to true")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests.isEmpty should be empty")
 
-        handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError) }
+        handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError, "retry error should not be AdaptError") }
     }
 
     func testThatSessionManagerCallsRequestRetrierWhenUploadInitiallyEncountersAdaptError() {
