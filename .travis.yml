@@ -3,7 +3,7 @@ language:
   - objective-c
   
 osx_image:
-  - xcode11.4
+  - xcode12.0
   
 xcode_project:
   - Example/Cloudinary.xcworkspace
@@ -20,8 +20,9 @@ install:
 # test on multi simulators
 env:
   matrix:
-    - TEST_SDK=iphonesimulator OS=13.0 NAME='iPhone 8'
     - TEST_SDK=iphonesimulator OS=12.0 NAME='iPhone 8'
+    - TEST_SDK=iphonesimulator OS=13.0 NAME='iPhone 8'
+    - TEST_SDK=iphonesimulator OS=14.0 NAME='iPhone 8'
 
 before_script: >
   export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
