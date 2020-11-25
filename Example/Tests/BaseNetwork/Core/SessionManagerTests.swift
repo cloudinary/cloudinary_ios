@@ -682,7 +682,7 @@ class SessionManagerTestCase: BaseTestCase {
 
         if let error = response?.result.error as? CLDNError {
             XCTAssertTrue(error.isInvalidURLError, "error.isInvalidURLError should be true")
-            XCTAssertEqual(error.urlConvertible as? String, "error.urlConvertible shold be true")
+            XCTAssertEqual(error.urlConvertible as? String, "", "error.urlConvertible shold be true")
         } else {
             XCTFail("error should not be nil")
         }
