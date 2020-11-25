@@ -13,9 +13,6 @@ podfile:
 xcode_scheme:
   - travis_public_scheme
   
-xcode_sdk:
-  - iphonesimulator13.0
-  
 install:
   - pod install --project-directory=Example
 
