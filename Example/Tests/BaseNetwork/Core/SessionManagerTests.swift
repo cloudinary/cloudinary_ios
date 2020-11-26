@@ -580,12 +580,12 @@ class SessionManagerTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCount, 1)
-        XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty)
+        XCTAssertEqual(handler.adaptedCount, 2, "handler.adaptedCount should be equal to 2")
+        XCTAssertEqual(handler.retryCount, 1, "handler.retryCount should be equal to 1")
+        XCTAssertEqual(response?.result.isSuccess, true, "response?.result.isSuccess should be equal to true")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests.isEmpty should be empty")
 
-        handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError) }
+        handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError, "retry error should not be AdaptError") }
     }
 
     func testThatSessionManagerCallsRequestRetrierWhenUploadInitiallyEncountersAdaptError() {
@@ -651,6 +651,7 @@ class SessionManagerTestCase: BaseTestCase {
     }
 
     func testThatRequestAdapterErrorThrowsResponseHandlerErrorWhenRequestIsRetried() {
+        
         // Given
         let handler = RequestHandler()
         handler.throwsErrorOnSecondAdapt = true
@@ -673,15 +674,15 @@ class SessionManagerTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCount, 1)
-        XCTAssertEqual(request.retryCount, 0)
-        XCTAssertEqual(response?.result.isSuccess, false)
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty)
+        XCTAssertEqual(handler.adaptedCount, 1, "handler.adaptedCount count should be equal to 0")
+        XCTAssertEqual(handler.retryCount, 1, "handler.retry count should be equal to 0")
+        XCTAssertEqual(request.retryCount, 0, "result.retry count should be equal to 0")
+        XCTAssertEqual(response?.result.isSuccess, false, "result should succeed")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty")
 
         if let error = response?.result.error as? CLDNError {
-            XCTAssertTrue(error.isInvalidURLError)
-            XCTAssertEqual(error.urlConvertible as? String, "")
+            XCTAssertTrue(error.isInvalidURLError, "error.isInvalidURLError should be true")
+            XCTAssertEqual(error.urlConvertible as? String, "", "error.urlConvertible shold be true")
         } else {
             XCTFail("error should not be nil")
         }
