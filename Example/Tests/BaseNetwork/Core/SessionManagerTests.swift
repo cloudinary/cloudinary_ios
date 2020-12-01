@@ -615,7 +615,7 @@ class SessionManagerTestCase: BaseTestCase {
         XCTAssertEqual(handler.adaptedCount, 2, "handler.adapt count should be 2")
         XCTAssertEqual(handler.retryCount, 1, "handler.retry count should be 1")
         XCTAssertEqual(response?.result.isSuccess, true, "result should be successful")
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty but they are - \(String(describing:  sessionManager.delegate.requests))")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty but they are - \(String(describing:  sessionManager.delegate.requests)), values \(String(describing:  sessionManager.delegate.requests.values)), and keys \(String(describing:  sessionManager.delegate.requests.keys)) and is empty \(String(describing:  sessionManager.delegate.requests.isEmpty))")
 
         handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError, "retryErrors should not be of type AdaptError") }
     }
