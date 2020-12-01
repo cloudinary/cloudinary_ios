@@ -250,7 +250,7 @@ class PreprocessUploaderTests: NetworkBaseTest {
         var error   : NSError?
         
         // When
-        let url = cloudinarySecured!.createUrl().generate(publicId)
+        let url = cloudinary!.createUrl().generate(publicId)
         cloudinarySecured.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             response = responseImage
             error    = errorRes
