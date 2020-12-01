@@ -552,10 +552,11 @@ class SessionManagerTestCase: BaseTestCase {
         XCTAssertEqual(handler.retryCount, 2, "handler.retry count should be 2")
         XCTAssertEqual(request.retryCount, 1, "request.retry count should be 1")
         XCTAssertEqual(response?.result.isSuccess, false, "result should not be successful")
-        XCTAssertTrue(sessionManager.delegate.requests.keys.count == 0, "delegate.requests should be empty but they are - \(String(describing:  sessionManager.delegate.requests)), values \(String(describing:  sessionManager.delegate.requests.values)), and keys \(String(describing:  sessionManager.delegate.requests.keys)) and is empty \(String(describing:  sessionManager.delegate.requests.isEmpty))")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty keys count \(String(describing:  sessionManager.delegate.requests.keys.count))")
     }
 
     func testThatSessionManagerCallsRequestRetrierWhenRequestInitiallyEncountersAdaptError() {
+        
         // Given
         let handler = RequestHandler()
         handler.adaptedCount = 1
@@ -583,12 +584,13 @@ class SessionManagerTestCase: BaseTestCase {
         XCTAssertEqual(handler.adaptedCount, 2, "handler.adaptedCount should be equal to 2")
         XCTAssertEqual(handler.retryCount, 1, "handler.retryCount should be equal to 1")
         XCTAssertEqual(response?.result.isSuccess, true, "response?.result.isSuccess should be equal to true")
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty but they are - \(String(describing:  sessionManager.delegate.requests)), values \(String(describing:  sessionManager.delegate.requests.values)), and keys \(String(describing:  sessionManager.delegate.requests.keys)) and is empty \(String(describing:  sessionManager.delegate.requests.isEmpty))")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty keys count \(String(describing:  sessionManager.delegate.requests.keys.count))")
 
         handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError, "retry error should not be AdaptError") }
     }
 
     func testThatSessionManagerCallsRequestRetrierWhenUploadInitiallyEncountersAdaptError() {
+        
         // Given
         let handler = UploadHandler()
 
@@ -615,7 +617,7 @@ class SessionManagerTestCase: BaseTestCase {
         XCTAssertEqual(handler.adaptedCount, 2, "handler.adapt count should be 2")
         XCTAssertEqual(handler.retryCount, 1, "handler.retry count should be 1")
         XCTAssertEqual(response?.result.isSuccess, true, "result should be successful")
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty but they are - \(String(describing:  sessionManager.delegate.requests)), values \(String(describing:  sessionManager.delegate.requests.values)), and keys \(String(describing:  sessionManager.delegate.requests.keys)) and is empty \(String(describing:  sessionManager.delegate.requests.isEmpty))")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty keys count \(String(describing:  sessionManager.delegate.requests.keys.count))")
 
         handler.retryErrors.forEach { XCTAssertFalse($0 is AdaptError, "retryErrors should not be of type AdaptError") }
     }
@@ -647,7 +649,7 @@ class SessionManagerTestCase: BaseTestCase {
         XCTAssertEqual(handler.retryCount, 1, "handler.retry count should be 1")
         XCTAssertEqual(request.retryCount, 1, "request.retry count should be 1")
         XCTAssertEqual(response?.result.isSuccess, true, "result should be successful")
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty but they are - \(String(describing:  sessionManager.delegate.requests)), values \(String(describing:  sessionManager.delegate.requests.values)), and keys \(String(describing:  sessionManager.delegate.requests.keys)) and is empty \(String(describing:  sessionManager.delegate.requests.isEmpty))")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty keys count \(String(describing:  sessionManager.delegate.requests.keys.count))")
     }
 
     func testThatRequestAdapterErrorThrowsResponseHandlerErrorWhenRequestIsRetried() {
@@ -678,7 +680,7 @@ class SessionManagerTestCase: BaseTestCase {
         XCTAssertEqual(handler.retryCount, 1, "handler.retry count should be equal to 0")
         XCTAssertEqual(request.retryCount, 0, "result.retry count should be equal to 0")
         XCTAssertEqual(response?.result.isSuccess, false, "result should succeed")
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty but they are - \(String(describing:  sessionManager.delegate.requests)), values \(String(describing:  sessionManager.delegate.requests.values)), and keys \(String(describing:  sessionManager.delegate.requests.keys)) and is empty \(String(describing:  sessionManager.delegate.requests.isEmpty))")
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.requests should be empty keys count \(String(describing:  sessionManager.delegate.requests.keys.count))")
 
         if let error = response?.result.error as? CLDNError {
             XCTAssertTrue(error.isInvalidURLError, "error.isInvalidURLError should be true")
