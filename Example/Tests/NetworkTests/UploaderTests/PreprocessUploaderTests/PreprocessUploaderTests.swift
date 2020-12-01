@@ -251,7 +251,7 @@ class PreprocessUploaderTests: NetworkBaseTest {
         
         // When
         let url = cloudinary!.createUrl().generate(publicId)
-        cloudinarySecured.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+        cloudinary!.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             response = responseImage
             error    = errorRes
             
