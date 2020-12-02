@@ -587,6 +587,7 @@ class SessionManagerTestCase: BaseTestCase {
     }
 
     func testThatSessionManagerCallsRequestRetrierWhenUploadInitiallyEncountersAdaptError() {
+        
         // Given
         let handler = UploadHandler()
 
