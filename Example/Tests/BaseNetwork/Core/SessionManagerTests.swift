@@ -531,6 +531,7 @@ class SessionManagerTestCase: BaseTestCase {
         let handler = RequestHandler()
 
         let sessionManager = CLDNSessionManager()
+        sessionManager.delegate.requests.removeAll()
         sessionManager.adapter = handler
         sessionManager.retrier = handler
 
@@ -564,6 +565,7 @@ class SessionManagerTestCase: BaseTestCase {
         handler.shouldApplyAuthorizationHeader = true
 
         let sessionManager = CLDNSessionManager()
+        sessionManager.delegate.requests.removeAll()
         sessionManager.adapter = handler
         sessionManager.retrier = handler
 
@@ -595,6 +597,7 @@ class SessionManagerTestCase: BaseTestCase {
         let handler = UploadHandler()
 
         let sessionManager = CLDNSessionManager()
+        sessionManager.delegate.requests.removeAll()
         sessionManager.adapter = handler
         sessionManager.retrier = handler
 
@@ -623,11 +626,13 @@ class SessionManagerTestCase: BaseTestCase {
     }
 
     func testThatSessionManagerCallsAdapterWhenRequestIsRetried() {
+        
         // Given
         let handler = RequestHandler()
         handler.shouldApplyAuthorizationHeader = true
 
         let sessionManager = CLDNSessionManager()
+        sessionManager.delegate.requests.removeAll()
         sessionManager.adapter = handler
         sessionManager.retrier = handler
 
@@ -659,9 +664,10 @@ class SessionManagerTestCase: BaseTestCase {
         handler.throwsErrorOnSecondAdapt = true
 
         let sessionManager = CLDNSessionManager()
+        sessionManager.delegate.requests.removeAll()
         sessionManager.adapter = handler
         sessionManager.retrier = handler
-
+        
         let expectation = self.expectation(description: "request should eventually fail")
         var response: CLDNDataResponse<Any>?
 
