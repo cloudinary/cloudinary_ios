@@ -619,6 +619,7 @@ class SessionManagerTestCase: BaseTestCase {
     }
 
     func testThatSessionManagerCallsAdapterWhenRequestIsRetried() {
+        
         // Given
         let handler = RequestHandler()
         handler.shouldApplyAuthorizationHeader = true
