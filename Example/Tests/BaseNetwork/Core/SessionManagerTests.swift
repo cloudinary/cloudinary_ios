@@ -647,7 +647,7 @@ class SessionManagerTestCase: BaseTestCase {
         XCTAssertEqual(handler.retryCount, 1)
         XCTAssertEqual(request.retryCount, 1)
         XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(sessionManager.delegate.requests.isEmpty)
+        XCTAssertTrue(sessionManager.delegate.requests.isEmpty, "delegate.request should be empty but its - \(String(describing: sessionManager.delegate.requests))")
     }
 
     func testThatRequestAdapterErrorThrowsResponseHandlerErrorWhenRequestIsRetried() {
