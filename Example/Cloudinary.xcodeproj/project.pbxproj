@@ -90,6 +90,7 @@
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
+		D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */; };
 		D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */; };
 		D7788A9424E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */; };
 		D7788A9524E29BEC00B63EB7 /* borderCollieRotatedPng.png in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9324E29BEC00B63EB7 /* borderCollieRotatedPng.png */; };
@@ -220,6 +221,7 @@
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
+		D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetViewControllerTests.swift; sourceTree = "<group>"; };
 		D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieCropped.jpg; sourceTree = "<group>"; };
 		D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieRotatedJpg.jpg; sourceTree = "<group>"; };
 		D7788A9324E29BEC00B63EB7 /* borderCollieRotatedPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = borderCollieRotatedPng.png; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 		5DB2D29424FFE2E600001845 /* UploadWidgetTests */ = {
 			isa = PBXGroup;
 			children = (
+				D7178DA8255D6578007C1995 /* UploaderWidgetViewControllerTests */,
 				D7F34F2D2504F46600C282B1 /* UploaderWidgetPreviewTests */,
 				D7F34F8F25120DE400C282B1 /* UploaderWidgetEditTests */,
 				5DB2D29524FFE31000001845 /* UploadWidgetHelpersTests */,
@@ -646,6 +649,14 @@
 				270C1BF623FBBA3C00A503C3 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		D7178DA8255D6578007C1995 /* UploaderWidgetViewControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */,
+			);
+			path = UploaderWidgetViewControllerTests;
 			sourceTree = "<group>";
 		};
 		D71ADD9A247D973E00235AD4 /* CryptoUtilsTests */ = {
@@ -981,6 +992,7 @@
 				274C6D3723FBAF5E0090BC40 /* ManagementApiTests.swift in Sources */,
 				D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
+				D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */,
 				D7F34F2F2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift in Sources */,
 				D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */,
 				D7F34F272504D73500C282B1 /* UploaderWidgetImageContainerTests.swift in Sources */,
