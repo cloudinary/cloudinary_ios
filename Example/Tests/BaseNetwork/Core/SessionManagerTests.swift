@@ -108,6 +108,10 @@ class SessionManagerTestCase: BaseTestCase {
         }
     }
 
+    lazy var allowManagerTest: Bool = {
+        return ProcessInfo.processInfo.arguments.contains("TEST_SESSION_MANAGER")
+    }()
+    
     // MARK: Tests - Initialization
 
     func testInitializerWithDefaultArguments() {
@@ -588,6 +592,10 @@ class SessionManagerTestCase: BaseTestCase {
 
     func testThatSessionManagerCallsRequestRetrierWhenUploadInitiallyEncountersAdaptError() {
         
+    func testThatSessionManagerCallsRequestRetrierWhenUploadInitiallyEncountersAdaptError() throws {
+        //TODO: OZ
+        try XCTSkipUnless(allowManagerTest, "XXXXXXXX OZD")
+
         // Given
         let handler = UploadHandler()
 
