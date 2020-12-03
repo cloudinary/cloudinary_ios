@@ -22,6 +22,7 @@
 //  SOFTWARE.
 //
 
+#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import <Cloudinary/Cloudinary-Swift.h>
 #import "Cloudinary_Tests-Swift.h"
@@ -70,6 +71,13 @@
     return [[self.cloudinary createUploader] signedUploadWithData:[self getDataBy:testResourceType] params:params progress:nil completionHandler:nil];
 }
 
+-(UIImage*)getImageBy:(TestResourceType)testResourceType {
+    
+    NSBundle* bundle = [NSBundle bundleForClass:[self class]];
+    NSURL*    url    = [bundle URLForResource:[self getResourceNameBy:testResourceType] withExtension:[self getResourceExtensionBy:testResourceType]];
+    return [UIImage imageWithContentsOfFile:url.path];
+}
+
 // Mark: - private methods
 - (NSString*)getResourceExtensionBy:(TestResourceType)testResourceType {
     
@@ -87,6 +95,7 @@
         break;
     }
 }
+
 - (NSString* _Nonnull)getResourceNameBy:(TestResourceType)testResourceType {
     
     switch (testResourceType) {
