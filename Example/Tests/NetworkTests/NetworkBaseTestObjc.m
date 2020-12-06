@@ -33,7 +33,7 @@
 - (void)setUp {
     [super setUp];
     
-    self.timeout = 50.0;
+    self.timeout = 40.0;
     
     CLDConfiguration* config;
     

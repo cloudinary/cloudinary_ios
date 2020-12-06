@@ -28,6 +28,3 @@ matrix:
 before_script: >
   export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
   echo cloud_name: "$(echo $CLOUDINARY_URL | cut -d'@' -f2)"
-
-# script:
-#   - xcodebuild clean test -workspace Example/Cloudinary.xcworkspace -scheme travis_public_scheme -sdk iphonesimulator -destination "platform=iOS Simulator,OS=$OS,name=$NAME" -CLOUDINARY_URL=$CLOUDINARY_URL | xcpretty && exit ${PIPESTATUS[0]}
