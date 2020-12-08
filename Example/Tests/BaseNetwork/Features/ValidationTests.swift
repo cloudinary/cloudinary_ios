@@ -419,6 +419,7 @@ class MultipleValidationTestCase: BaseTestCase {
 
 class AutomaticValidationTestCase: BaseTestCase {
     func testThatValidationForRequestWithAcceptableStatusCodeAndContentTypeResponseSucceeds() {
+        
         // Given
         let url = URL(string: "https://httpbin.org/ip")!
         var urlRequest = URLRequest(url: url)
