@@ -43,5 +43,6 @@ typedef enum TestResourceType: NSUInteger {
 - (NSString* _Nonnull)getResourceNameBy:(TestResourceType)testResourceType;
 - (NSURL* _Nonnull)   getUrlBy         :(TestResourceType)testResourceType;
 - (NSData* _Nonnull)  getDataBy        :(TestResourceType)testResourceType;
+- (UIImage* _Nonnull) getImageBy       :(TestResourceType)testResourceType;
 
 @end
