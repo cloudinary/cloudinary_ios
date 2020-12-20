@@ -46,11 +46,12 @@ internal class CLDWidgetViewController: UIViewController {
     
     private      var currentAspectLockState: CLDWidgetConfiguration.AspectRatioLockState
 
-    private let previewActionButtonTitle      = "edit "
-    private let editActionButtonLockedTitle   = "Aspect ratio locked "
-    private let editActionButtonUnlockedTitle = "Aspect ratio unlocked "
-    private let transitionDuration            = 0.5
-    
+    private lazy var previewActionButtonTitle      = NSAttributedString(string: "edit ", withSuffix: CLDImageGenerator.generateImage(from: CropRotateIconInstructions()))
+    private lazy var editActionButtonLockedTitle   = NSAttributedString(string: "Aspect ratio locked ", withSuffix: CLDImageGenerator.generateImage(from: RatioLockedIconInstructions()))
+    private lazy var editActionButtonUnlockedTitle = NSAttributedString(string: "Aspect ratio unlocked ", withSuffix: CLDImageGenerator.generateImage(from: RatioOpenedIconInstructions()))
+    private lazy var editActionButtonEmptyTitle    = NSAttributedString(string: String())
+    private lazy var transitionDuration            = 0.5
+        
     // MARK: - init
     internal init(
         images       : [CLDWidgetImageContainer],
@@ -131,6 +132,7 @@ extension CLDWidgetViewController: CLDWidgetEditDelegate {
     
     func widgetEditViewControllerDidReset(_ controller: CLDWidgetEditViewController) {
         if currentAspectLockState != .disabled {
+            currentAspectLockState = .enabledAndOff
             updateActionButton(by: .enabledAndOff)
         }
     }
@@ -251,20 +253,24 @@ private extension CLDWidgetViewController {
             switch actionButtonState {
             
             case .aspectRatioEnabledAndOff:
-                self.actionButton.cld_setImagedTitle(self.editActionButtonUnlockedTitle, withSuffix: CLDImageGenerator.generateImage(from: RatioOpenedIconInstructions()))
+                self.actionButton.setAttributedTitle(self.editActionButtonUnlockedTitle, for: .normal)
                 
             case .aspectRatioEnabledAndOn:
-                self.actionButton.cld_setImagedTitle(self.editActionButtonLockedTitle, withSuffix: CLDImageGenerator.generateImage(from: RatioLockedIconInstructions()))
+                self.actionButton.setAttributedTitle(self.editActionButtonLockedTitle,   for: .normal)
                 
             case .aspectRatioDisabled:
+                self.actionButton.setAttributedTitle(self.editActionButtonEmptyTitle,    for: .normal)
                 self.actionButton.isEnabled = false
-                self.actionButton.setAttributedTitle(NSAttributedString(string: String()), for: .normal)
                 
             case .goToEditScreen:
-                self.actionButton.cld_setImagedTitle(self.previewActionButtonTitle, withSuffix: CLDImageGenerator.generateImage(from: CropRotateIconInstructions()))
-                self.actionButton.isEnabled = true
+                self.setActionButtonToGoToEdit()
             }
         }, completion: nil)
+    }
+    
+    func setActionButtonToGoToEdit() {
+        self.actionButton.setAttributedTitle(previewActionButtonTitle, for: .normal)
+        self.actionButton.isEnabled = true
     }
 }
 
@@ -298,7 +304,8 @@ private extension CLDWidgetViewController {
         backButton.addTarget(self, action: #selector(backPressed), for: .touchUpInside)
         
         actionButton = UIButton(type: .custom)
-        updateActionButton(by: .goToEditScreen)
+        actionButton.accessibilityIdentifier = "widgetViewControllerActionButton"
+        setActionButtonToGoToEdit()
         actionButton.contentHorizontalAlignment = .right
         actionButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
         actionButton.addTarget(self, action: #selector(actionPressed), for: .touchUpInside)
@@ -379,12 +386,13 @@ private extension UIView {
     }
 }
 
-// MARK: - extension UIButton
-private extension UIButton {
-    
-    func cld_setImagedTitle(_ title: String, color: UIColor = .white, withSuffix image: UIImage?) {
+// MARK: - extension NSAttributedString
+private extension NSAttributedString {
+        
+    convenience init(string: String, color: UIColor = .white, withSuffix image: UIImage? = nil) {
         
         if let image = image {
+           
             // Create Attachment
             let imageAttachment   = NSTextAttachment()
             imageAttachment.image = image
@@ -397,15 +405,15 @@ private extension UIButton {
             let attachmentString = NSAttributedString(attachment: imageAttachment)
             
             // Initialize mutable string
-            let completeText = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor : color])
+            let completeText = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor: color])
             
             // Add image to mutable string
             completeText.append(attachmentString)
             
-            self.setAttributedTitle(completeText, for: .normal)
+            self.init(attributedString: completeText)
         }
         else {
-            self.setAttributedTitle(NSAttributedString(string: title), for: .normal)
+            self.init(string: string)
         }
     }
 }
