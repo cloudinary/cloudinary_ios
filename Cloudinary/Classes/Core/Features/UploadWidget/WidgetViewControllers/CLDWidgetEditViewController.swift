@@ -142,6 +142,8 @@ private extension CLDWidgetEditViewController {
             oldView?.removeFromSuperview()
         }
         
+        cropView.aspectRatioLockEnabled = false
+        
         delegate?.widgetEditViewControllerDidReset(self)
     }
     
@@ -251,6 +253,7 @@ private extension CLDWidgetEditViewController {
         
         let buttonImage = CLDImageGenerator.generateImage(from: RotateIconInstructions())
         rotateButton = UIButton(type: .custom)
+        rotateButton.accessibilityIdentifier = "editViewControllerRotateButton"
         rotateButton.setImage(buttonImage, for: .normal)
         rotateButton.addTarget(self, action: #selector(rotatePressed), for: .touchUpInside)
         

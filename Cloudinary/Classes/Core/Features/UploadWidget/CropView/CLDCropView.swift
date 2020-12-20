@@ -945,10 +945,6 @@ public class CLDCropView: UIView {
         isResettable = resettable
     }
     
-    deinit {
-        debugPrint("deinit called")
-    }
-    
     // MARK: -- fileprivate methods
     fileprivate func applyCropFrameAdjutsments(to scrollView: UIScrollView, originPoint: CGPoint, minimumScale: CGFloat, adjustedZoom scale: CGFloat) {
         
