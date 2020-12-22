@@ -86,20 +86,38 @@ class NetworkBaseTest: BaseTestCase {
         case textImage
 
         var fileName: String {
-            return String(describing: self)
+            switch self {
+        
+            case .borderCollieRotatedPng:
+                if #available(iOS 12.0, *) {
+                    return "borderCollieRotatedPng"
+                } else {
+                    return "borderCollieRotatedPngUnderIOS12"
+                }
+                
+            case .borderCollieRotatedJpg:
+                if #available(iOS 12.0, *) {
+                    return "borderCollieRotatedJpg"
+                } else {
+                    return "borderCollieRotatedJpgUnderIOS12"
+                }
+                
+            default:
+                return String(describing: self)
+            }
         }
         
         var resourceExtension: String {
             
             switch self {
-            case .logo: fallthrough
-            case .borderCollieRotatedPng:
+            case .logo                       : fallthrough
+            case .borderCollieRotatedPng     :
                 return "png"
                 
-            case .textImage             : fallthrough
-            case .borderCollie          : fallthrough
-            case .borderCollieCropped   : fallthrough
-            case .borderCollieRotatedJpg:
+            case .textImage                  : fallthrough
+            case .borderCollie               : fallthrough
+            case .borderCollieCropped        : fallthrough
+            case .borderCollieRotatedJpg     :
                 return "jpg"
                 
             case .docx: return "docx"
