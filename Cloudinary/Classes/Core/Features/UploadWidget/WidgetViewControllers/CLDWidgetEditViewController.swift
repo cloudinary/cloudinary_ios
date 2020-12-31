@@ -311,6 +311,7 @@ private extension CLDWidgetEditViewController {
         
         let doneButtonConstraints = [
             NSLayoutConstraint(item: doneButton!, attribute: .trailing, relatedBy: .equal, toItem: buttonsView, attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: doneButton!, attribute: .top, relatedBy: .equal, toItem: buttonsView, attribute: .top, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: doneButton!, attribute: .height, relatedBy: .equal, toItem: cancelButton, attribute: .height, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: doneButton!, attribute: .width, relatedBy: .equal, toItem: cancelButton, attribute: .width, multiplier: 1, constant: 0)
         ]
