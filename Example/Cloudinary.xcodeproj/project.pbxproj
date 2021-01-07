@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E635A3E25A756870003E9D3 /* ObjcBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A3D25A756860003E9D3 /* ObjcBaseTestCase.m */; };
+		1E635A7025A757DA0003E9D3 /* BaseMockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A6F25A757DA0003E9D3 /* BaseMockProvider.swift */; };
+		1E635A7F25A7585E0003E9D3 /* MockProviderQualityAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A7825A7585E0003E9D3 /* MockProviderQualityAnalysis.swift */; };
+		1E635A8025A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A7925A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m */; };
+		1E635A8125A7585E0003E9D3 /* QualityAnalysisUploadResultParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A7A25A7585E0003E9D3 /* QualityAnalysisUploadResultParserTests.swift */; };
+		1E635A8225A7585E0003E9D3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A7B25A7585E0003E9D3 /* ObjcQualityAnalysisExplicitResultParserTests.m */; };
+		1E635A8325A7585E0003E9D3 /* UploaderQualityAnalysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A7C25A7585E0003E9D3 /* UploaderQualityAnalysisTests.swift */; };
+		1E635A8425A7585E0003E9D3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A7D25A7585E0003E9D3 /* QualityAnalysisExplicitResultParserTests.swift */; };
+		1E635A8525A7585E0003E9D3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E635A7E25A7585E0003E9D3 /* ObjcQualityAnalysisUploadResultParserTests.m */; };
 		270C1BF723FBBA3C00A503C3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 270C1BF623FBBA3C00A503C3 /* LICENSE */; };
 		270C1C0823FC171900A503C3 /* CloudinaryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C1BF823FC171700A503C3 /* CloudinaryHelper.swift */; };
 		270C1C0923FC171900A503C3 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C1BF923FC171800A503C3 /* BaseCollectionViewController.swift */; };
@@ -57,7 +66,6 @@
 		274C6D3223FBAF5E0090BC40 /* UIBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D1A23FBAF5E0090BC40 /* UIBaseTest.swift */; };
 		274C6D3323FBAF5E0090BC40 /* UIButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D1B23FBAF5E0090BC40 /* UIButtonTests.swift */; };
 		274C6D3423FBAF5E0090BC40 /* UIImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D1C23FBAF5E0090BC40 /* UIImageViewTests.swift */; };
-		274C6D3523FBAF5E0090BC40 /* NetworkBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D1E23FBAF5E0090BC40 /* NetworkBaseTest.swift */; };
 		274C6D3623FBAF5E0090BC40 /* UploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D1F23FBAF5E0090BC40 /* UploaderTests.swift */; };
 		274C6D3723FBAF5E0090BC40 /* ManagementApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D2023FBAF5E0090BC40 /* ManagementApiTests.swift */; };
 		274C6D3823FBAF5E0090BC40 /* DownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C6D2123FBAF5E0090BC40 /* DownloaderTests.swift */; };
@@ -70,43 +78,39 @@
 		274C6D3F23FBAF5E0090BC40 /* dog.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2C23FBAF5E0090BC40 /* dog.mp4 */; };
 		27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC1FAD2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift */; };
 		27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC1FAF2431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift */; };
-		2AF4556A2559485200260D5A /* ObjcBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF455682559485200260D5A /* ObjcBaseTestCase.m */; };
-		2B28AD0618DF267587896EE7 /* Pods_Cloudinary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B6463693C4831F35E6C0AD /* Pods_Cloudinary_Example.framework */; };
+		5B1EF16C5EA94AD09F6C22C2 /* Pods_Cloudinary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07C87FEDB1F561D123D6873 /* Pods_Cloudinary_Tests.framework */; };
 		5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */; };
 		5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C514A242B6C350093AB1B /* ValidationTests.swift */; };
 		5D53A9512488CE23005C14AB /* CLDConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D53A94F2488CE23005C14AB /* CLDConfigurationTests.swift */; };
 		5D53A9522488CE23005C14AB /* CLDConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D53A9502488CE23005C14AB /* CLDConfigurationTests.m */; };
 		5D7C2DCF245E93F7007E95F7 /* CLDExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C2DCE245E93F7007E95F7 /* CLDExpressionTests.swift */; };
+		5DB2D29824FFE32500001845 /* UploaderWidgetConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2D29624FFE32500001845 /* UploaderWidgetConfigurationTests.swift */; };
+		5DB2D29924FFE32500001845 /* UploaderWidgetConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2D29724FFE32500001845 /* UploaderWidgetConfigurationTests.m */; };
 		5DE4EC202469919A00F6C8D6 /* CLDTransformationBaselineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4EC1E2469919700F6C8D6 /* CLDTransformationBaselineTests.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
+		9753E077581D46FC1463D265 /* Pods_Cloudinary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */; };
 		D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7119CE2246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift */; };
+		D7173498258296CE006F34CD /* WidgetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7173497258296CE006F34CD /* WidgetUITests.swift */; };
 		D71ADD9C247D976500235AD4 /* CryptoUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D71ADD9B247D976500235AD4 /* CryptoUtilsTests.m */; };
 		D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */; };
 		D71B790024680773004AA28E /* CLDTransformationExpressionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */; };
 		D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */; };
-		D724FFE425375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D724FFE325375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m */; };
-		D724FFE625383DC5002B31F3 /* MockProviderQualityAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFE525383DC5002B31F3 /* MockProviderQualityAnalysis.swift */; };
-		D724FFE825383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFE725383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift */; };
-		D724FFEA25384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFE925384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift */; };
-		D724FFEC25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D724FFEB25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m */; };
-		D724FFEE25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D724FFED25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m */; };
-		D724FFF12538533B002B31F3 /* BaseMockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFF02538533B002B31F3 /* BaseMockProvider.swift */; };
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
+		D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */; };
 		D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */; };
 		D7788A9424E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */; };
 		D7788A9524E29BEC00B63EB7 /* borderCollieRotatedPng.png in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9324E29BEC00B63EB7 /* borderCollieRotatedPng.png */; };
 		D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D779B69424B7117200E496EB /* UploaderAccessibilityTests.swift */; };
 		D779B69824B7117300E496EB /* UploaderAccessibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D779B69524B7117200E496EB /* UploaderAccessibilityTests.m */; };
-		D779B69924B7117300E496EB /* NetworkBaseTestObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */; };
 		D7866141248FE34A0099DE8C /* textImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7866140248FE34A0099DE8C /* textImage.jpg */; };
 		D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */; };
 		D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */; };
 		D79AE39C24585533004F2439 /* CLDVariableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D79AE39B24585533004F2439 /* CLDVariableTests.m */; };
-		D7C2889025372FCA002846FE /* UploaderQualityAnalysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2888F25372FCA002846FE /* UploaderQualityAnalysisTests.swift */; };
+		D7E650A5258126A400795F6D /* WidgetSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E650A4258126A400795F6D /* WidgetSettingsViewController.swift */; };
 		D7E79DC924B515260082288A /* UploaderOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC324B515260082288A /* UploaderOcrTests.swift */; };
 		D7E79DCA24B515260082288A /* OcrMockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC424B515260082288A /* OcrMockProvider.swift */; };
 		D7E79DCB24B515260082288A /* ExplicitMockOcrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC524B515260082288A /* ExplicitMockOcrTests.m */; };
@@ -114,8 +118,16 @@
 		D7E79DCD24B515260082288A /* UploaderMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */; };
 		D7E79DCE24B515260082288A /* ExplicitMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */; };
 		D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */; };
+		D7EF05AB255D8B8E00F93827 /* NetworkBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05A8255D8B8E00F93827 /* NetworkBaseTest.swift */; };
+		D7EF05AC255D8B8E00F93827 /* NetworkBaseTestObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05AA255D8B8E00F93827 /* NetworkBaseTestObjc.m */; };
+		D7EF05B0255D8C1900F93827 /* UploaderWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05AE255D8C1900F93827 /* UploaderWidgetTests.swift */; };
+		D7EF05B1255D8C1900F93827 /* UploaderWidgetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05AF255D8C1900F93827 /* UploaderWidgetTests.m */; };
+		D7F34F272504D73500C282B1 /* UploaderWidgetImageContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */; };
+		D7F34F2F2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F2E2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift */; };
+		D7F34F3125052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F3025052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift */; };
+		D7F34F3325052FE700C282B1 /* WidgetBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */; };
+		D7F34F9125120E0D00C282B1 /* UploaderWidgetEditViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F9025120E0C00C282B1 /* UploaderWidgetEditViewControllerTests.swift */; };
 		D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */; };
-		FDFC161360D4903CDBE35F69 /* Pods_Cloudinary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23D636948CC68A4C0A98E7 /* Pods_Cloudinary_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,10 +138,26 @@
 			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
 			remoteInfo = Cloudinary;
 		};
+		D717349A258296CE006F34CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = Cloudinary_Example;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01B6463693C4831F35E6C0AD /* Pods_Cloudinary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E635A3C25A756860003E9D3 /* ObjcBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcBaseTestCase.h; sourceTree = "<group>"; };
+		1E635A3D25A756860003E9D3 /* ObjcBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjcBaseTestCase.m; sourceTree = "<group>"; };
+		1E635A6F25A757DA0003E9D3 /* BaseMockProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMockProvider.swift; sourceTree = "<group>"; };
+		1E635A7825A7585E0003E9D3 /* MockProviderQualityAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockProviderQualityAnalysis.swift; sourceTree = "<group>"; };
+		1E635A7925A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjcUploaderQualityAnalysisTests.m; sourceTree = "<group>"; };
+		1E635A7A25A7585E0003E9D3 /* QualityAnalysisUploadResultParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QualityAnalysisUploadResultParserTests.swift; sourceTree = "<group>"; };
+		1E635A7B25A7585E0003E9D3 /* ObjcQualityAnalysisExplicitResultParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjcQualityAnalysisExplicitResultParserTests.m; sourceTree = "<group>"; };
+		1E635A7C25A7585E0003E9D3 /* UploaderQualityAnalysisTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderQualityAnalysisTests.swift; sourceTree = "<group>"; };
+		1E635A7D25A7585E0003E9D3 /* QualityAnalysisExplicitResultParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QualityAnalysisExplicitResultParserTests.swift; sourceTree = "<group>"; };
+		1E635A7E25A7585E0003E9D3 /* ObjcQualityAnalysisUploadResultParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjcQualityAnalysisUploadResultParserTests.m; sourceTree = "<group>"; };
 		270C1BF623FBBA3C00A503C3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		270C1BF823FC171700A503C3 /* CloudinaryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudinaryHelper.swift; sourceTree = "<group>"; };
 		270C1BF923FC171800A503C3 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
@@ -181,7 +209,6 @@
 		274C6D1A23FBAF5E0090BC40 /* UIBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBaseTest.swift; sourceTree = "<group>"; };
 		274C6D1B23FBAF5E0090BC40 /* UIButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonTests.swift; sourceTree = "<group>"; };
 		274C6D1C23FBAF5E0090BC40 /* UIImageViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewTests.swift; sourceTree = "<group>"; };
-		274C6D1E23FBAF5E0090BC40 /* NetworkBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkBaseTest.swift; sourceTree = "<group>"; };
 		274C6D1F23FBAF5E0090BC40 /* UploaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderTests.swift; sourceTree = "<group>"; };
 		274C6D2023FBAF5E0090BC40 /* ManagementApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagementApiTests.swift; sourceTree = "<group>"; };
 		274C6D2123FBAF5E0090BC40 /* DownloaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloaderTests.swift; sourceTree = "<group>"; };
@@ -194,13 +221,13 @@
 		274C6D2C23FBAF5E0090BC40 /* dog.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dog.mp4; sourceTree = "<group>"; };
 		27BC1FAD2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLDNDataResponse+CloudinaryTests.swift"; sourceTree = "<group>"; };
 		27BC1FAF2431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLDNResult+CloudinaryTests.swift"; sourceTree = "<group>"; };
-		2A23D636948CC68A4C0A98E7 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2AF455682559485200260D5A /* ObjcBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjcBaseTestCase.m; sourceTree = "<group>"; };
-		2AF455692559485200260D5A /* ObjcBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcBaseTestCase.h; sourceTree = "<group>"; };
+		2F5D96AD5982EFEBDEE91350 /* Pods-Cloudinary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Tests/Pods-Cloudinary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5D4D8C2B246098BA00AE9C96 /* CLDConditionExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDConditionExpressionTests.swift; sourceTree = "<group>"; };
 		5D53A94F2488CE23005C14AB /* CLDConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDConfigurationTests.swift; sourceTree = "<group>"; };
 		5D53A9502488CE23005C14AB /* CLDConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLDConfigurationTests.m; sourceTree = "<group>"; };
 		5D7C2DCE245E93F7007E95F7 /* CLDExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDExpressionTests.swift; sourceTree = "<group>"; };
+		5DB2D29624FFE32500001845 /* UploaderWidgetConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetConfigurationTests.swift; sourceTree = "<group>"; };
+		5DB2D29724FFE32500001845 /* UploaderWidgetConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderWidgetConfigurationTests.m; sourceTree = "<group>"; };
 		5DE4EC1E2469919700F6C8D6 /* CLDTransformationBaselineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDTransformationBaselineTests.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Cloudinary_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudinary_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -209,38 +236,31 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Cloudinary_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Cloudinary_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		670C7196428C566CDE78EB62 /* Pods-Cloudinary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Tests.release.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Tests/Pods-Cloudinary_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		9081A838524049E3374F8850 /* Pods-Cloudinary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Example.debug.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2F53C389142220209152BA /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Cloudinary.podspec; path = ../Cloudinary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		B87CB1ABA0A4EEF0FED5DFB4 /* Pods-Cloudinary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Example.release.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example.release.xcconfig"; sourceTree = "<group>"; };
-		C92873666BDEC4022FFF8A66 /* Pods-Cloudinary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Tests/Pods-Cloudinary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		D07C87FEDB1F561D123D6873 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7119CE2246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDConditionExpressionHelpersTests.swift; sourceTree = "<group>"; };
+		D7173495258296CE006F34CD /* Cloudinary_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Cloudinary_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7173497258296CE006F34CD /* WidgetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetUITests.swift; sourceTree = "<group>"; };
+		D7173499258296CE006F34CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D71ADD9B247D976500235AD4 /* CryptoUtilsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoUtilsTests.m; sourceTree = "<group>"; };
 		D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationVariablesTests.swift; sourceTree = "<group>"; };
 		D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationExpressionsTests.swift; sourceTree = "<group>"; };
 		D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationConditionsTests.swift; sourceTree = "<group>"; };
-		D724FFE325375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcUploaderQualityAnalysisTests.m; sourceTree = "<group>"; };
-		D724FFE525383DC5002B31F3 /* MockProviderQualityAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProviderQualityAnalysis.swift; sourceTree = "<group>"; };
-		D724FFE725383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityAnalysisUploadResultParserTests.swift; sourceTree = "<group>"; };
-		D724FFE925384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityAnalysisExplicitResultParserTests.swift; sourceTree = "<group>"; };
-		D724FFEB25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcQualityAnalysisUploadResultParserTests.m; sourceTree = "<group>"; };
-		D724FFED25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcQualityAnalysisExplicitResultParserTests.m; sourceTree = "<group>"; };
-		D724FFF02538533B002B31F3 /* BaseMockProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMockProvider.swift; sourceTree = "<group>"; };
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
+		D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetViewControllerTests.swift; sourceTree = "<group>"; };
 		D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieCropped.jpg; sourceTree = "<group>"; };
 		D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieRotatedJpg.jpg; sourceTree = "<group>"; };
 		D7788A9324E29BEC00B63EB7 /* borderCollieRotatedPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = borderCollieRotatedPng.png; sourceTree = "<group>"; };
-		D779B69224B7117200E496EB /* NetworkBaseTestObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkBaseTestObjc.h; sourceTree = "<group>"; };
 		D779B69424B7117200E496EB /* UploaderAccessibilityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderAccessibilityTests.swift; sourceTree = "<group>"; };
 		D779B69524B7117200E496EB /* UploaderAccessibilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderAccessibilityTests.m; sourceTree = "<group>"; };
-		D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkBaseTestObjc.m; sourceTree = "<group>"; };
 		D7866140248FE34A0099DE8C /* textImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = textImage.jpg; sourceTree = "<group>"; };
 		D79AE384244CC1D7004F2439 /* CLDTransformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationTests.swift; sourceTree = "<group>"; };
 		D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVariableTests.swift; sourceTree = "<group>"; };
 		D79AE39B24585533004F2439 /* CLDVariableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDVariableTests.m; sourceTree = "<group>"; };
-		D7C2888F25372FCA002846FE /* UploaderQualityAnalysisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploaderQualityAnalysisTests.swift; sourceTree = "<group>"; };
+		D7E650A4258126A400795F6D /* WidgetSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSettingsViewController.swift; sourceTree = "<group>"; };
 		D7E79DC324B515260082288A /* UploaderOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DC424B515260082288A /* OcrMockProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OcrMockProvider.swift; sourceTree = "<group>"; };
 		D7E79DC524B515260082288A /* ExplicitMockOcrTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplicitMockOcrTests.m; sourceTree = "<group>"; };
@@ -248,8 +268,21 @@
 		D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplicitMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadRequestParamsTests.swift; sourceTree = "<group>"; };
+		D7EF05A8255D8B8E00F93827 /* NetworkBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkBaseTest.swift; sourceTree = "<group>"; };
+		D7EF05A9255D8B8E00F93827 /* NetworkBaseTestObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkBaseTestObjc.h; sourceTree = "<group>"; };
+		D7EF05AA255D8B8E00F93827 /* NetworkBaseTestObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkBaseTestObjc.m; sourceTree = "<group>"; };
+		D7EF05AE255D8C1900F93827 /* UploaderWidgetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetTests.swift; sourceTree = "<group>"; };
+		D7EF05AF255D8C1900F93827 /* UploaderWidgetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderWidgetTests.m; sourceTree = "<group>"; };
+		D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetImageContainerTests.swift; sourceTree = "<group>"; };
+		D7F34F2E2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetCollectionCellTests.swift; sourceTree = "<group>"; };
+		D7F34F3025052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetPreviewViewControllerTests.swift; sourceTree = "<group>"; };
+		D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetBaseTest.swift; sourceTree = "<group>"; };
+		D7F34F9025120E0C00C282B1 /* UploaderWidgetEditViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetEditViewControllerTests.swift; sourceTree = "<group>"; };
 		D7F3D45F24DC3BAB002C1D27 /* PreprocessUploaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreprocessUploaderTests.swift; sourceTree = "<group>"; };
+		DE971235B5CF94F0DA4D461B /* Pods-Cloudinary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Example.debug.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		E5BA1162DEC8D6E579692502 /* Pods-Cloudinary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Example.release.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example.release.xcconfig"; sourceTree = "<group>"; };
 		F2530AD793711AEF6C37A33F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		FB8B4986C00FEC3B8BD40223 /* Pods-Cloudinary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudinary_Tests.release.xcconfig"; path = "Target Support Files/Pods-Cloudinary_Tests/Pods-Cloudinary_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,7 +290,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B28AD0618DF267587896EE7 /* Pods_Cloudinary_Example.framework in Frameworks */,
+				9753E077581D46FC1463D265 /* Pods_Cloudinary_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +298,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDFC161360D4903CDBE35F69 /* Pods_Cloudinary_Tests.framework in Frameworks */,
+				5B1EF16C5EA94AD09F6C22C2 /* Pods_Cloudinary_Tests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7173492258296CE006F34CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,21 +315,34 @@
 		0293C6AFE5E20FD5F3D8E4D4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9081A838524049E3374F8850 /* Pods-Cloudinary_Example.debug.xcconfig */,
-				B87CB1ABA0A4EEF0FED5DFB4 /* Pods-Cloudinary_Example.release.xcconfig */,
-				C92873666BDEC4022FFF8A66 /* Pods-Cloudinary_Tests.debug.xcconfig */,
-				670C7196428C566CDE78EB62 /* Pods-Cloudinary_Tests.release.xcconfig */,
+				DE971235B5CF94F0DA4D461B /* Pods-Cloudinary_Example.debug.xcconfig */,
+				E5BA1162DEC8D6E579692502 /* Pods-Cloudinary_Example.release.xcconfig */,
+				2F5D96AD5982EFEBDEE91350 /* Pods-Cloudinary_Tests.debug.xcconfig */,
+				FB8B4986C00FEC3B8BD40223 /* Pods-Cloudinary_Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		0AF20FC5EB3CFA77A0CA3B4B /* Frameworks */ = {
+		1E635A6E25A757DA0003E9D3 /* MockProvider */ = {
 			isa = PBXGroup;
 			children = (
-				01B6463693C4831F35E6C0AD /* Pods_Cloudinary_Example.framework */,
-				2A23D636948CC68A4C0A98E7 /* Pods_Cloudinary_Tests.framework */,
+				1E635A6F25A757DA0003E9D3 /* BaseMockProvider.swift */,
 			);
-			name = Frameworks;
+			path = MockProvider;
+			sourceTree = "<group>";
+		};
+		1E635A7725A7585E0003E9D3 /* QualityAnalysisUploaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				1E635A7825A7585E0003E9D3 /* MockProviderQualityAnalysis.swift */,
+				1E635A7925A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m */,
+				1E635A7A25A7585E0003E9D3 /* QualityAnalysisUploadResultParserTests.swift */,
+				1E635A7B25A7585E0003E9D3 /* ObjcQualityAnalysisExplicitResultParserTests.m */,
+				1E635A7C25A7585E0003E9D3 /* UploaderQualityAnalysisTests.swift */,
+				1E635A7D25A7585E0003E9D3 /* QualityAnalysisExplicitResultParserTests.swift */,
+				1E635A7E25A7585E0003E9D3 /* ObjcQualityAnalysisUploadResultParserTests.m */,
+			);
+			path = QualityAnalysisUploaderTests;
 			sourceTree = "<group>";
 		};
 		270C1C1823FC173B00A503C3 /* Views */ = {
@@ -312,6 +365,7 @@
 				270C1BF923FC171800A503C3 /* BaseCollectionViewController.swift */,
 				270C1C0523FC171800A503C3 /* TabContainerViewController.swift */,
 				270C1C0423FC171800A503C3 /* EffectsGalleryViewController.swift */,
+				D7E650A4258126A400795F6D /* WidgetSettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -329,9 +383,9 @@
 		272C513B242B6B6E0093AB1B /* BaseNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				1E635A3C25A756860003E9D3 /* ObjcBaseTestCase.h */,
+				1E635A3D25A756860003E9D3 /* ObjcBaseTestCase.m */,
 				272C514B242B6C350093AB1B /* BaseTestCase.swift */,
-				2AF455692559485200260D5A /* ObjcBaseTestCase.h */,
-				2AF455682559485200260D5A /* ObjcBaseTestCase.m */,
 				272C51B6242C7F3D0093AB1B /* Core */,
 				272C51B7242C80720093AB1B /* Extensions */,
 				272C51B8242C80E70093AB1B /* Features */,
@@ -458,11 +512,9 @@
 		274C6D1D23FBAF5E0090BC40 /* NetworkTests */ = {
 			isa = PBXGroup;
 			children = (
-				D779B69324B7117200E496EB /* AccessibilityUploderTests */,
-				D779B69224B7117200E496EB /* NetworkBaseTestObjc.h */,
-				D779B69624B7117200E496EB /* NetworkBaseTestObjc.m */,
-				274C6D1E23FBAF5E0090BC40 /* NetworkBaseTest.swift */,
 				D73622B724910FDD0021E1D4 /* UploaderTests */,
+				D7EF05A7255D8B6D00F93827 /* NetworkBaseTests */,
+				D779B69324B7117200E496EB /* AccessibilityUploderTests */,
 				274C6D2023FBAF5E0090BC40 /* ManagementApiTests.swift */,
 				274C6D2123FBAF5E0090BC40 /* DownloaderTests.swift */,
 			);
@@ -519,6 +571,15 @@
 			path = CLDExpressionTests;
 			sourceTree = "<group>";
 		};
+		29B7FB6ECAB68FF54197832A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */,
+				D07C87FEDB1F561D123D6873 /* Pods_Cloudinary_Tests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5D4D8C2A246098A200AE9C96 /* CLDConditionExpressionTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,6 +599,29 @@
 			path = ConfigurationTests;
 			sourceTree = "<group>";
 		};
+		5DB2D29424FFE2E600001845 /* UploadWidgetTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7EF05AD255D8C0000F93827 /* UploaderWidgetTests */,
+				D7178DA8255D6578007C1995 /* UploaderWidgetViewControllerTests */,
+				D7F34F2D2504F46600C282B1 /* UploaderWidgetPreviewTests */,
+				D7F34F8F25120DE400C282B1 /* UploaderWidgetEditTests */,
+				5DB2D29524FFE31000001845 /* UploadWidgetHelpersTests */,
+				D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */,
+			);
+			path = UploadWidgetTests;
+			sourceTree = "<group>";
+		};
+		5DB2D29524FFE31000001845 /* UploadWidgetHelpersTests */ = {
+			isa = PBXGroup;
+			children = (
+				5DB2D29724FFE32500001845 /* UploaderWidgetConfigurationTests.m */,
+				5DB2D29624FFE32500001845 /* UploaderWidgetConfigurationTests.swift */,
+				D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */,
+			);
+			path = UploadWidgetHelpersTests;
+			sourceTree = "<group>";
+		};
 		5DBC4D49247BFE570014B37E /* TransformationTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,9 +639,10 @@
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for Cloudinary */,
 				607FACE81AFB9204008FA782 /* Tests */,
+				D7173496258296CE006F34CD /* WidgetUITests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				0293C6AFE5E20FD5F3D8E4D4 /* Pods */,
-				0AF20FC5EB3CFA77A0CA3B4B /* Frameworks */,
+				29B7FB6ECAB68FF54197832A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -566,6 +651,7 @@
 			children = (
 				607FACD01AFB9204008FA782 /* Cloudinary_Example.app */,
 				607FACE51AFB9204008FA782 /* Cloudinary_Tests.xctest */,
+				D7173495258296CE006F34CD /* Cloudinary_UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -610,6 +696,7 @@
 				274C6D2323FBAF5E0090BC40 /* Resources */,
 				274C6D2223FBAF5E0090BC40 /* StringUtilsTest.swift */,
 				274C6D1923FBAF5E0090BC40 /* UIExtensions */,
+				5DB2D29424FFE2E600001845 /* UploadWidgetTests */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -633,6 +720,23 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		D7173496258296CE006F34CD /* WidgetUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D7173497258296CE006F34CD /* WidgetUITests.swift */,
+				D7173499258296CE006F34CD /* Info.plist */,
+			);
+			path = WidgetUITests;
+			sourceTree = "<group>";
+		};
+		D7178DA8255D6578007C1995 /* UploaderWidgetViewControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */,
+			);
+			path = UploaderWidgetViewControllerTests;
+			sourceTree = "<group>";
+		};
 		D71ADD9A247D973E00235AD4 /* CryptoUtilsTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -642,20 +746,12 @@
 			path = CryptoUtilsTests;
 			sourceTree = "<group>";
 		};
-		D724FFEF253852EF002B31F3 /* MockProvider */ = {
-			isa = PBXGroup;
-			children = (
-				D724FFF02538533B002B31F3 /* BaseMockProvider.swift */,
-			);
-			path = MockProvider;
-			sourceTree = "<group>";
-		};
 		D73622B724910FDD0021E1D4 /* UploaderTests */ = {
 			isa = PBXGroup;
 			children = (
+				1E635A7725A7585E0003E9D3 /* QualityAnalysisUploaderTests */,
+				1E635A6E25A757DA0003E9D3 /* MockProvider */,
 				274C6D1F23FBAF5E0090BC40 /* UploaderTests.swift */,
-				D724FFEF253852EF002B31F3 /* MockProvider */,
-				D7C2889125372FD7002846FE /* QualityAnalysisUploaderTests */,
 				D7F3D45E24DC3B8A002C1D27 /* PreprocessUploaderTests */,
 				D7E79DC224B515260082288A /* OcrUploaderTests */,
 			);
@@ -693,20 +789,6 @@
 			path = CLDTransformationTests;
 			sourceTree = "<group>";
 		};
-		D7C2889125372FD7002846FE /* QualityAnalysisUploaderTests */ = {
-			isa = PBXGroup;
-			children = (
-				D7C2888F25372FCA002846FE /* UploaderQualityAnalysisTests.swift */,
-				D724FFE325375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m */,
-				D724FFE525383DC5002B31F3 /* MockProviderQualityAnalysis.swift */,
-				D724FFE725383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift */,
-				D724FFE925384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift */,
-				D724FFEB25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m */,
-				D724FFED25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m */,
-			);
-			path = QualityAnalysisUploaderTests;
-			sourceTree = "<group>";
-		};
 		D7E79DC224B515260082288A /* OcrUploaderTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +810,42 @@
 			path = ParamTests;
 			sourceTree = "<group>";
 		};
+		D7EF05A7255D8B6D00F93827 /* NetworkBaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7EF05A8255D8B8E00F93827 /* NetworkBaseTest.swift */,
+				D7EF05A9255D8B8E00F93827 /* NetworkBaseTestObjc.h */,
+				D7EF05AA255D8B8E00F93827 /* NetworkBaseTestObjc.m */,
+			);
+			path = NetworkBaseTests;
+			sourceTree = "<group>";
+		};
+		D7EF05AD255D8C0000F93827 /* UploaderWidgetTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7EF05AF255D8C1900F93827 /* UploaderWidgetTests.m */,
+				D7EF05AE255D8C1900F93827 /* UploaderWidgetTests.swift */,
+			);
+			path = UploaderWidgetTests;
+			sourceTree = "<group>";
+		};
+		D7F34F2D2504F46600C282B1 /* UploaderWidgetPreviewTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7F34F2E2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift */,
+				D7F34F3025052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift */,
+			);
+			path = UploaderWidgetPreviewTests;
+			sourceTree = "<group>";
+		};
+		D7F34F8F25120DE400C282B1 /* UploaderWidgetEditTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7F34F9025120E0C00C282B1 /* UploaderWidgetEditViewControllerTests.swift */,
+			);
+			path = UploaderWidgetEditTests;
+			sourceTree = "<group>";
+		};
 		D7F3D45E24DC3B8A002C1D27 /* PreprocessUploaderTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -743,11 +861,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Cloudinary_Example" */;
 			buildPhases = (
-				5D30EE04596A6B3505752C61 /* [CP] Check Pods Manifest.lock */,
+				4DDBDAA6D5EA05A66CEFFB59 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				7D6ECEA3212D217F126E93A8 /* [CP] Embed Pods Frameworks */,
+				0B0BD5E65F34EDF0AD421887 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -762,7 +880,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Cloudinary_Tests" */;
 			buildPhases = (
-				C1F4B795B9E2DF5FE983A848 /* [CP] Check Pods Manifest.lock */,
+				66267CF881CE925C297775A4 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
@@ -777,14 +895,32 @@
 			productReference = 607FACE51AFB9204008FA782 /* Cloudinary_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D7173494258296CE006F34CD /* Cloudinary_UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D717349C258296CE006F34CD /* Build configuration list for PBXNativeTarget "Cloudinary_UITests" */;
+			buildPhases = (
+				D7173491258296CE006F34CD /* Sources */,
+				D7173492258296CE006F34CD /* Frameworks */,
+				D7173493258296CE006F34CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D717349B258296CE006F34CD /* PBXTargetDependency */,
+			);
+			name = Cloudinary_UITests;
+			productName = WidgetUITests;
+			productReference = D7173495258296CE006F34CD /* Cloudinary_UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 1130;
+				LastSwiftUpdateCheck = 1170;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
@@ -794,6 +930,12 @@
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 1130;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
+					D7173494258296CE006F34CD = {
+						CreatedOnToolsVersion = 11.7;
+						DevelopmentTeam = 69UZJ87W84;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -813,6 +955,7 @@
 			targets = (
 				607FACCF1AFB9204008FA782 /* Cloudinary_Example */,
 				607FACE41AFB9204008FA782 /* Cloudinary_Tests */,
+				D7173494258296CE006F34CD /* Cloudinary_UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -857,10 +1000,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7173493258296CE006F34CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5D30EE04596A6B3505752C61 /* [CP] Check Pods Manifest.lock */ = {
+		0B0BD5E65F34EDF0AD421887 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4DDBDAA6D5EA05A66CEFFB59 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -882,25 +1050,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7D6ECEA3212D217F126E93A8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cloudinary_Example/Pods-Cloudinary_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C1F4B795B9E2DF5FE983A848 /* [CP] Check Pods Manifest.lock */ = {
+		66267CF881CE925C297775A4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -934,6 +1084,7 @@
 				270C1C1423FC171900A503C3 /* TabContainerViewController.swift in Sources */,
 				270C1C1523FC171900A503C3 /* PersistenceHelper.swift in Sources */,
 				270C1C0B23FC171900A503C3 /* UploadedViewController.swift in Sources */,
+				D7E650A5258126A400795F6D /* WidgetSettingsViewController.swift in Sources */,
 				270C1C0A23FC171900A503C3 /* CldModel.xcdatamodeld in Sources */,
 				270C1C1123FC171900A503C3 /* InProgressViewController.swift in Sources */,
 				270C1C1223FC171900A503C3 /* EffectCell.swift in Sources */,
@@ -951,61 +1102,73 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DB2D29824FFE32500001845 /* UploaderWidgetConfigurationTests.swift in Sources */,
 				272C5189242B6C360093AB1B /* ResponseTests.swift in Sources */,
 				D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */,
+				1E635A8425A7585E0003E9D3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */,
 				274C6D3923FBAF5E0090BC40 /* StringUtilsTest.swift in Sources */,
 				274C6D2D23FBAF5E0090BC40 /* CryptoUtilsTests.swift in Sources */,
 				D7E79DCC24B515260082288A /* UploaderMockOcrTests.m in Sources */,
 				D79AE39C24585533004F2439 /* CLDVariableTests.m in Sources */,
+				D7F34F9125120E0D00C282B1 /* UploaderWidgetEditViewControllerTests.swift in Sources */,
 				D71B790024680773004AA28E /* CLDTransformationExpressionsTests.swift in Sources */,
 				D7E79DCE24B515260082288A /* ExplicitMockOcrTests.swift in Sources */,
 				272C5186242B6C360093AB1B /* MultipartFormDataTests.swift in Sources */,
+				D7EF05B1255D8C1900F93827 /* UploaderWidgetTests.m in Sources */,
+				1E635A8525A7585E0003E9D3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */,
 				272C5180242B6C360093AB1B /* FileManager+CloudinaryTests.swift in Sources */,
-				D779B69924B7117300E496EB /* NetworkBaseTestObjc.m in Sources */,
 				D71ADD9C247D976500235AD4 /* CryptoUtilsTests.m in Sources */,
 				272C5187242B6C360093AB1B /* URLProtocolTests.swift in Sources */,
 				272C517F242B6C360093AB1B /* SessionManagerTests.swift in Sources */,
 				274C6D3823FBAF5E0090BC40 /* DownloaderTests.swift in Sources */,
-				D724FFEC25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */,
 				5D7C2DCF245E93F7007E95F7 /* CLDExpressionTests.swift in Sources */,
 				272C51B0242B6C360093AB1B /* UploadTests.swift in Sources */,
 				274C6D3723FBAF5E0090BC40 /* ManagementApiTests.swift in Sources */,
-				D724FFE625383DC5002B31F3 /* MockProviderQualityAnalysis.swift in Sources */,
+				D7EF05B0255D8C1900F93827 /* UploaderWidgetTests.swift in Sources */,
 				D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */,
-				D724FFEA25384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
+				D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */,
+				D7F34F2F2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift in Sources */,
 				D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */,
+				D7F34F272504D73500C282B1 /* UploaderWidgetImageContainerTests.swift in Sources */,
+				1E635A8025A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m in Sources */,
 				272C5181242B6C360093AB1B /* AuthenticationTests.swift in Sources */,
+				D7EF05AB255D8B8E00F93827 /* NetworkBaseTest.swift in Sources */,
 				D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */,
 				D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */,
+				1E635A8125A7585E0003E9D3 /* QualityAnalysisUploadResultParserTests.swift in Sources */,
 				5D53A9512488CE23005C14AB /* CLDConfigurationTests.swift in Sources */,
 				D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */,
-				D724FFF12538533B002B31F3 /* BaseMockProvider.swift in Sources */,
 				27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */,
+				1E635A7F25A7585E0003E9D3 /* MockProviderQualityAnalysis.swift in Sources */,
 				D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */,
+				1E635A8325A7585E0003E9D3 /* UploaderQualityAnalysisTests.swift in Sources */,
+				1E635A3E25A756870003E9D3 /* ObjcBaseTestCase.m in Sources */,
 				274C6D3323FBAF5E0090BC40 /* UIButtonTests.swift in Sources */,
 				274C6D3223FBAF5E0090BC40 /* UIBaseTest.swift in Sources */,
-				274C6D3523FBAF5E0090BC40 /* NetworkBaseTest.swift in Sources */,
+				5DB2D29924FFE32500001845 /* UploaderWidgetConfigurationTests.m in Sources */,
+				1E635A7025A757DA0003E9D3 /* BaseMockProvider.swift in Sources */,
 				274C6D2E23FBAF5E0090BC40 /* PreprocessTests.swift in Sources */,
 				D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */,
-				D724FFE425375FB8002B31F3 /* ObjcUploaderQualityAnalysisTests.m in Sources */,
-				D724FFEE25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */,
 				274C6D3423FBAF5E0090BC40 /* UIImageViewTests.swift in Sources */,
 				D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */,
 				272C51B5242B6C360093AB1B /* ParameterEncodingTests.swift in Sources */,
 				274C6D2F23FBAF5E0090BC40 /* FileUtilsTests.swift in Sources */,
-				D724FFE825383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift in Sources */,
 				D7E79DCA24B515260082288A /* OcrMockProvider.swift in Sources */,
 				5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */,
 				D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */,
 				5DE4EC202469919A00F6C8D6 /* CLDTransformationBaselineTests.swift in Sources */,
 				27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */,
+				D7F34F3325052FE700C282B1 /* WidgetBaseTest.swift in Sources */,
+				D7F34F3125052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift in Sources */,
 				272C5182242B6C360093AB1B /* RequestTests.swift in Sources */,
 				D7E79DC924B515260082288A /* UploaderOcrTests.swift in Sources */,
 				272C51B3242B6C360093AB1B /* CLDNError+CloudinaryTests.swift in Sources */,
 				D779B69824B7117300E496EB /* UploaderAccessibilityTests.m in Sources */,
+				D7EF05AC255D8B8E00F93827 /* NetworkBaseTestObjc.m in Sources */,
 				272C5185242B6C360093AB1B /* ResponseSerializationTests.swift in Sources */,
 				272C5183242B6C360093AB1B /* SessionDelegateTests.swift in Sources */,
+				1E635A8225A7585E0003E9D3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */,
 				5D53A9522488CE23005C14AB /* CLDConfigurationTests.m in Sources */,
 				D7E79DCB24B515260082288A /* ExplicitMockOcrTests.m in Sources */,
 				D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */,
@@ -1016,8 +1179,14 @@
 				272C518C242B6C360093AB1B /* BaseTestCase.swift in Sources */,
 				5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */,
 				272C51B4242B6C360093AB1B /* ResultTests.swift in Sources */,
-				2AF4556A2559485200260D5A /* ObjcBaseTestCase.m in Sources */,
-				D7C2889025372FCA002846FE /* UploaderQualityAnalysisTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7173491258296CE006F34CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7173498258296CE006F34CD /* WidgetUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,6 +1197,11 @@
 			isa = PBXTargetDependency;
 			target = 607FACCF1AFB9204008FA782 /* Cloudinary_Example */;
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
+		};
+		D717349B258296CE006F34CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* Cloudinary_Example */;
+			targetProxy = D717349A258296CE006F34CD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1066,6 +1240,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1091,7 +1266,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1122,6 +1297,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1140,7 +1316,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1150,11 +1326,10 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9081A838524049E3374F8850 /* Pods-Cloudinary_Example.debug.xcconfig */;
+			baseConfigurationReference = DE971235B5CF94F0DA4D461B /* Pods-Cloudinary_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Cloudinary/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1166,11 +1341,10 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B87CB1ABA0A4EEF0FED5DFB4 /* Pods-Cloudinary_Example.release.xcconfig */;
+			baseConfigurationReference = E5BA1162DEC8D6E579692502 /* Pods-Cloudinary_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Cloudinary/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1182,7 +1356,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C92873666BDEC4022FFF8A66 /* Pods-Cloudinary_Tests.debug.xcconfig */;
+			baseConfigurationReference = 2F5D96AD5982EFEBDEE91350 /* Pods-Cloudinary_Tests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -1204,7 +1378,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 670C7196428C566CDE78EB62 /* Pods-Cloudinary_Tests.release.xcconfig */;
+			baseConfigurationReference = FB8B4986C00FEC3B8BD40223 /* Pods-Cloudinary_Tests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -1217,6 +1391,57 @@
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cloudinary_Example.app/Cloudinary_Example";
+			};
+			name = Release;
+		};
+		D717349D258296CE006F34CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 69UZJ87W84;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WidgetUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.WidgetUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cloudinary_Example;
+			};
+			name = Debug;
+		};
+		D717349E258296CE006F34CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 69UZJ87W84;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WidgetUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.WidgetUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cloudinary_Example;
 			};
 			name = Release;
 		};
@@ -1246,6 +1471,15 @@
 			buildConfigurations = (
 				607FACF31AFB9204008FA782 /* Debug */,
 				607FACF41AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D717349C258296CE006F34CD /* Build configuration list for PBXNativeTarget "Cloudinary_UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D717349D258296CE006F34CD /* Debug */,
+				D717349E258296CE006F34CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

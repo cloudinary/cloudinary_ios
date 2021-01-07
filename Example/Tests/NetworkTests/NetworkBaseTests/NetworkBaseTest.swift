@@ -126,6 +126,15 @@ class NetworkBaseTest: BaseTestCase {
         return cloudinary!.createUploader().signedUpload(data: resource.data, params: params)
     }
     
+    func getImage(_ resource: TestResourceType) -> UIImage {
+        if let image = UIImage(contentsOfFile: resource.url.path) {
+            return image
+        }
+        else {
+            return UIImage()
+        }
+    }
+    
     // MARK: - skip addons
     /**
      Override this variable to skip addons tests in order to prevent account related failures and to save addons quota.
