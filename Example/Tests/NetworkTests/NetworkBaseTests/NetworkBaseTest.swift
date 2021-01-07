@@ -26,8 +26,8 @@ import Foundation
 import XCTest
 import Cloudinary
 
-class NetworkBaseTest: XCTestCase {
-    let timeout: TimeInterval = 30.0
+class NetworkBaseTest: BaseTestCase {
+    
     let longTimeout: TimeInterval = 60.0
     
     var cloudinary: CLDCloudinary?
@@ -37,7 +37,6 @@ class NetworkBaseTest: XCTestCase {
     var cloudinarySecured:CLDCloudinary!
     
     // MARK: - Lifcycle
-    
     override func setUp() {
         super.setUp()
         let config: CLDConfiguration
@@ -75,7 +74,6 @@ class NetworkBaseTest: XCTestCase {
     }
     
     // MARK: - Resources
-    
     enum TestResourceType {
         case logo
         case borderCollie
@@ -122,7 +120,6 @@ class NetworkBaseTest: XCTestCase {
     }
     
     // MARK: - Helpers
-    
     @discardableResult
     func uploadFile(_ resource: TestResourceType = .borderCollie, params: CLDUploadRequestParams? = nil) -> CLDUploadRequest {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -137,5 +134,57 @@ class NetworkBaseTest: XCTestCase {
             return UIImage()
         }
     }
+    
+    // MARK: - skip addons
+    /**
+     Override this variable to skip addons tests in order to prevent account related failures and to save addons quota.
+     If set     - all tests in this class will be skipped, unless an environment variable "CLD_TEST_ADDONS" is set to the addon type OR set to "all". You can set multiple addons separated by comma.
+     If unset - skips nothing.
+     nil by default.
+     */
+    var testingAddonType: AddonType? { nil }
+    
+    let environmentAddonsKey = "CLD_TEST_ADDONS"
+    
+    override func shouldSkipTest() -> Bool {
+        
+        // only skip if testingAddonType is set
+        if let testingAddonType  = testingAddonType {
+            
+            if let testableAddonsList = ProcessInfo.processInfo.environment[environmentAddonsKey] {
+                
+                let addonContainedInEnvironmentList = testableAddonsList.lowercased().contains(testingAddonType.rawValue)
+                let environmentAddonListSetToAll    = testableAddonsList.lowercased() == AddonType.all.rawValue
+                
+                return !addonContainedInEnvironmentList && !environmentAddonListSetToAll
+            }
+            
+            // environmentAddonsKey is not set but testingAddonType is set - we should skip this tests.
+            return true
+        }
+        
+        return false
+    }
+    
+    enum AddonType: String {
+        
+        case all                       = "all"                       // test all addons
+        case lightroom                 = "lightroom"                 // adobe photoshop lightroom (BETA)
+        case facialAttributesDetection = "facialattributesdetection" // advanced facial attributes detection
+        case rekognition               = "rekognition"               // amazon rekognition AI moderation, amazon rekognition auto tagging, amazon rekognition celebrity detection
+        case aspose                    = "aspose"                    // aspose document conversion
+        case bgRemoval                 = "bgremoval"                 // cloudinary AI background removal cloudinary AI background removal
+        case objectAwareCropping       = "objectawarecropping"       // cloudinary object-aware cropping"
+        case google                    = "google"                    // google AI video moderation, google AI video transcription, google auto tagging, google automatic video tagging, google translation
+        case imagga                    = "imagga"                    // imagga auto tagging, imagga crop and scale
+        case jpegmini                  = "jpegmini"                  // JPEGmini image optimization
+        case metaDefender              = "metadefender"              // metaDefender anti-malware protection
+        case azure                     = "azure"                     // microsoft azure video indexer
+        case neuralArtwork             = "neuralartwork"             // neural artwork style transfer
+        case ocr                       = "ocr"                       // OCR text detection and extraction
+        case pixelz                    = "pixelz"                    // remove the background
+        case url2png                   = "url2png"                   // website screenshots
+        case viesus                    = "viesus"                    // automatic image enhancement
+        case webpurify                 = "webpurify"                 // webPurify image moderation
+    }
 }
-
