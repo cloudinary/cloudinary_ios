@@ -71,8 +71,10 @@ import UIKit
     }
     
     fileprivate func doResponsive(_ view: UIImageView){
-        let transformation = self.chainResponsiveTransformation(view)
-        view.cldSetImage(publicId: publicId, cloudinary: cloudinary, signUrl: signUrl, resourceType: resourceType, transformation: transformation, placeholder: placeholder)
+        // Only fetch an image of a responsive transformation was generated successfully:
+        if let transformation = self.chainResponsiveTransformation(view) {
+            view.cldSetImage(publicId: publicId, cloudinary: cloudinary, signUrl: signUrl, resourceType: resourceType, transformation: transformation, placeholder: placeholder)
+        }
     }
     
     fileprivate func chainResponsiveTransformation(_ view: UIImageView) -> CLDTransformation? {
