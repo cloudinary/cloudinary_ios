@@ -53,7 +53,9 @@ import UIKit
     override open func layoutSubviews() {
         super.layoutSubviews()
 
-        // notify the delegate that the view now knows it's own size
-        responsiveHelper.onViewSizeKnown(view: self)
+        if (bounds.width > 0 && bounds.height > 0) {
+            // notify the delegate that the view now knows it's own size
+            responsiveHelper.onViewSizeKnown(view: self)
+        }
     }
 }
