@@ -1,4 +1,32 @@
 
+2.10.0 / 2021-01-10
+==================
+
+New functionality
+-----------------
+* Add Upload Widget (#320)
+* Add support for crop preprocess action (#263)
+* Add support for rotation preprocess action (#264)
+* Add support for enhanced quality analysis scores
+* Add support for user defined variables and conditional expressions (#238)
+* Support array of values for radius (#235)
+* Add `eval` parameter to the upload Params.
+* Add support for accessibility analysis (#260)
+* Add option to control url signature algorithm (#256)
+* Add support for custom pre-functions (#253)
+* Add support for Long signature in URLs (#250)
+* Add global timeout support(#251)
+* Add OCR support un transformations and Upload APIs.
+
+Other changes
+-------------
+* Add checks to validate responsive transformation.
+* Fix space encoding in a generated URL (#274)
+* Change local cache-keys encoding to `sha256`
+* Fix OCR parameter usage in `UploadRequestParamsTests` (#262)
+* Support urls with mime-type suffix in uploader.
+* Update SPM definitions file (#234)
+
 2.9.0 / 2020-04-16
 ==================
 * Remove Alamofire dependency (#229)
