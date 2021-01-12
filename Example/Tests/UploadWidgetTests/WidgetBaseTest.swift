@@ -23,19 +23,49 @@
 //
 
 @testable import Cloudinary
+import AVKit
 
 class WidgetBaseTest: NetworkBaseTest {
         
-    func createImageContainers() -> [CLDWidgetImageContainer] {
+    func createMixAssetContainers() -> [CLDWidgetAssetContainer] {
         
-        var imageContainers = [CLDWidgetImageContainer]()
+        var assetContainers = [CLDWidgetAssetContainer]()
         
         for _ in 1...10 {
-            let imageContainer = CLDWidgetImageContainer(originalImage: getImage(.logo), editedImage: getImage(.logo))
-            imageContainers.append(imageContainer)
+            let imageContainer = CLDWidgetAssetContainer(originalImage: getImage(.logo), editedImage: getImage(.logo))
+            assetContainers.append(imageContainer)
         }
         
-        return imageContainers
+        for _ in 1...10 {
+            let videoContainer = CLDWidgetAssetContainer.init(videoItem: getVideo(.dog))
+            assetContainers.append(videoContainer)
+        }
+        
+        return assetContainers
+    }
+    
+    func createImageOnlyAssetContainers() -> [CLDWidgetAssetContainer] {
+        
+        var assetContainers = [CLDWidgetAssetContainer]()
+        
+        for _ in 1...10 {
+            let imageContainer = CLDWidgetAssetContainer(originalImage: getImage(.logo), editedImage: getImage(.logo))
+            assetContainers.append(imageContainer)
+        }
+        
+        return assetContainers
+    }
+    
+    func createVideoOnlyAssetContainers() -> [CLDWidgetAssetContainer] {
+        
+        var assetContainers = [CLDWidgetAssetContainer]()
+        
+        for _ in 1...10 {
+            let videoContainer = CLDWidgetAssetContainer.init(videoItem: getVideo(.dog))
+            assetContainers.append(videoContainer)
+        }
+        
+        return assetContainers
     }
     
     func createImages() -> [UIImage] {
@@ -48,6 +78,18 @@ class WidgetBaseTest: NetworkBaseTest {
         }
         
         return images
+    }
+    
+    func createVideos() -> [AVPlayerItem] {
+        
+        var videos = [AVPlayerItem]()
+        
+        for _ in 1...10 {
+            let video = getVideo(.dog)
+            videos.append(video)
+        }
+        
+        return videos
     }
 }
 

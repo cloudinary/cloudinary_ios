@@ -23,10 +23,12 @@
 //
 
 import UIKit
+import AVKit
 
 protocol CLDWidgetPreviewDelegate: class {
     
-    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didFinishEditing images: [CLDWidgetImageContainer])
+    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didFinishEditing assets: [CLDWidgetAssetContainer])
+    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didSelect asset: CLDWidgetAssetContainer)
     func widgetPreviewViewControllerDidCancel(_ controller: CLDWidgetPreviewViewController)
 }
 
@@ -35,14 +37,17 @@ class CLDWidgetPreviewViewController: UIViewController {
     private(set)  var collectionView: UICollectionView!
     private(set)  var mainImageView : UIImageView!
     private(set)  var uploadButton  : UIButton!
-    private(set)  var images        : [CLDWidgetImageContainer]
+    
+    private(set)  var videoView     : CLDVideoView!
+    
+    private(set)  var assets        : [CLDWidgetAssetContainer]
     internal weak var delegate      : CLDWidgetPreviewDelegate?
     private(set)  var selectedIndex : Int
-    
-    // MARK: - init
-    init(images: [CLDWidgetImageContainer], delegate: CLDWidgetPreviewDelegate? = nil) {
         
-        self.images        = images
+    // MARK: - init
+    init(assets: [CLDWidgetAssetContainer], delegate: CLDWidgetPreviewDelegate? = nil) {
+        
+        self.assets        = assets
         self.delegate      = delegate
         self.selectedIndex = 0
         
@@ -61,20 +66,20 @@ class CLDWidgetPreviewViewController: UIViewController {
         createUI()
     }
     
-    func selectedImageEdited(newImage: CLDWidgetImageContainer) {
+    func selectedImageEdited(newImage: CLDWidgetAssetContainer) {
         
-        images[selectedIndex] = newImage
+        assets[selectedIndex] = newImage
         collectionView.reloadItems(at: [IndexPath(row: selectedIndex, section: 0)])
         mainImageView.image = newImage.editedImage
     }
     
-    func selectedImage() -> CLDWidgetImageContainer {
-        return images[selectedIndex]
+    func selectedImage() -> CLDWidgetAssetContainer {
+        return assets[selectedIndex]
     }
     
     // MARK: - action
     @objc private func uploadPressed(sender: UIButton) {
-        delegate?.widgetPreviewViewController(self, didFinishEditing: images)
+        delegate?.widgetPreviewViewController(self, didFinishEditing: assets)
     }
 }
 
@@ -86,17 +91,17 @@ extension CLDWidgetPreviewViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return assets.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CLDWidgetPreviewCollectionCell
 
-        cell.imageView.image = images[indexPath.row].editedImage
+        cell.imageView.image = assets[indexPath.row].presentationImage
 
         return cell
-    } 
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -104,8 +109,67 @@ extension CLDWidgetPreviewViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        mainImageView.image = images[indexPath.row].editedImage
-        selectedIndex       = indexPath.row
+        guard selectedIndex != indexPath.row else { return }
+         
+        selectedIndex = indexPath.row
+        let selectedAsset = assets[selectedIndex]
+        
+        switch selectedAsset.assetType {
+        case .video: videoSelected(video: selectedAsset.originalVideo!)
+        case .image: imageSelected(image: selectedAsset.editedImage!)
+        }
+        
+        delegate?.widgetPreviewViewController(self, didSelect: selectedAsset)
+    }
+}
+
+// MARK: - present asset
+extension CLDWidgetPreviewViewController {
+    
+    var videoTransitionDelay   : TimeInterval { 0.1 }
+    var videoTransitionDuration: TimeInterval { 0.2 }
+    
+    func videoSelected(video: AVPlayerItem) {
+        
+        UIView.animate(withDuration: videoTransitionDuration, animations: {
+            
+            self.videoView.alpha     = 0.0
+            self.mainImageView.alpha = 0.0
+            
+        }) { (complete) in
+                
+            self.videoView.replaceCurrentItem(with: video)
+            
+            UIView.animate(withDuration: self.videoTransitionDuration, delay: self.videoTransitionDelay, options: .curveEaseInOut, animations: {
+                self.videoView.alpha = 1
+                
+            }, completion: nil)
+        }
+    }
+    
+    func imageSelected(image: UIImage) {
+        
+        videoView.pauseVideo()
+        
+        mainImageView.image = image
+        
+        showImageView()
+    }
+    
+    func showVideoView() {
+        
+        UIView.animate(withDuration: 0.4) {
+            self.videoView.alpha = 1.0
+            self.mainImageView.alpha = 0.0
+        }
+    }
+    
+    func showImageView() {
+        
+        UIView.animate(withDuration: 0.4) {
+            self.videoView.alpha = 0.0
+            self.mainImageView.alpha = 1.0
+        }
     }
 }
 
@@ -128,6 +192,12 @@ private extension CLDWidgetPreviewViewController {
         createAllSubviews()
         addAllSubviews()
         addAllConstraints()
+        
+        // initial asset presentation state
+        switch assets[0].assetType {
+        case .video: mainImageView.alpha = 0
+        case .image: videoView.alpha     = 0
+        }
     }
 
     func createAllSubviews() {
@@ -151,15 +221,19 @@ private extension CLDWidgetPreviewViewController {
         collectionView.register(CLDWidgetPreviewCollectionCell.self, forCellWithReuseIdentifier: cellId)
         
         // imageView
-        mainImageView             = UIImageView(image: images[0].editedImage)
+        mainImageView             = UIImageView(image: assets[0].editedImage)
         mainImageView.contentMode = .scaleAspectFit
         
-        let image = CLDImageGenerator.generateImage(from: DoneIconInstructions())
+        // videoView
+        let playerItem                    = assets[0].originalVideo
+        videoView                         = CLDVideoView(frame: CGRect.zero, playerItem: playerItem, isMuted: true)
+        videoView.accessibilityIdentifier = "previewViewControllerVideoView"
         
         // upload button
+        let buttonImage = CLDImageGenerator.generateImage(from: DoneIconInstructions())
         uploadButton = UIButton(type: .custom)
         uploadButton.setTitle(String(), for: .normal)
-        uploadButton.setImage(image, for: .normal)
+        uploadButton.setImage(buttonImage, for: .normal)
         uploadButton.addTarget(self, action: #selector(uploadPressed), for: .touchUpInside)
     }
     
@@ -167,6 +241,7 @@ private extension CLDWidgetPreviewViewController {
         
         view.addSubview(mainImageView)
         view.addSubview(collectionView)
+        view.addSubview(videoView)
         view.addSubview(uploadButton)
     }
     
@@ -175,6 +250,7 @@ private extension CLDWidgetPreviewViewController {
         mainImageView .translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         uploadButton  .translatesAutoresizingMaskIntoConstraints = false
+        videoView     .translatesAutoresizingMaskIntoConstraints = false
         
         // collectionView
         let collectionConstraints = [
@@ -193,6 +269,15 @@ private extension CLDWidgetPreviewViewController {
             NSLayoutConstraint(item: mainImageView!, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0)
         ]
         NSLayoutConstraint.activate(imageViewConstraints)
+        
+        // videoView
+        let videoViewConstraints = [
+            NSLayoutConstraint(item: videoView!, attribute: .leading, relatedBy: .equal, toItem: mainImageView, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: videoView!, attribute: .trailing, relatedBy: .equal, toItem: mainImageView, attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: videoView!, attribute: .top, relatedBy: .equal, toItem: mainImageView, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: videoView!, attribute: .bottom, relatedBy: .equal, toItem: mainImageView, attribute: .bottom, multiplier: 1, constant: 0)
+        ]
+        NSLayoutConstraint.activate(videoViewConstraints)
         
         // uploadButton
         let uploadButtonConstraints = [

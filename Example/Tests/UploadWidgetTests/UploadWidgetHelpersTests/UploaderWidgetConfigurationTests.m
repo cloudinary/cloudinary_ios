@@ -46,7 +46,7 @@
     // Given
     BOOL allowRotate                            = false;
     AspectRatioLockState initialAspectLockState = AspectRatioLockStateDisabled;
-    UploadType* uploadType                      = [[UploadType alloc] initWithSigned:false preset:nil];
+    CLDUploadType* uploadType                      = [[CLDUploadType alloc] initWithSigned:false preset:nil];
     
     // When
     self.sut = [[CLDWidgetConfiguration alloc] initWithAllowRotate:allowRotate  initialAspectLockState:initialAspectLockState uploadType:uploadType];
@@ -62,7 +62,7 @@
     // Given
     BOOL allowRotate                            = true;
     AspectRatioLockState initialAspectLockState = AspectRatioLockStateEnabledAndOn;
-    UploadType* uploadType                      = [[UploadType alloc] initWithSigned:true preset:@"preset"];
+    CLDUploadType* uploadType                      = [[CLDUploadType alloc] initWithSigned:true preset:@"preset"];
     
     // When
     self.sut = [[CLDWidgetConfiguration alloc] initWithAllowRotate:allowRotate initialAspectLockState:initialAspectLockState uploadType:uploadType];

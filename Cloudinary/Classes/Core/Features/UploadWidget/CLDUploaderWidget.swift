@@ -23,6 +23,8 @@
 //
 
 import UIKit
+import AVKit
+import MobileCoreServices
 
 @objc public protocol CLDUploaderWidgetDelegate: class {
     
@@ -58,20 +60,24 @@ import UIKit
     public private(set)      var cloudinaryObject      : CLDCloudinary
     public private(set)      var configuration         : CLDWidgetConfiguration?
     public private(set)      var images                : [UIImage]
-    private                  var selectImageFromLibrary: Bool
+    public private(set)      var videos                : [AVPlayerItem]
     private                  var widgetViewController  : CLDWidgetViewController!
     private                  var widgetPresented       : Bool
     private                  var imagePicker           : UIImagePickerController!
-    
     public              weak var delegate              : CLDUploaderWidgetDelegate?
+    
+    private var selectAssetFromLibrary: Bool {
+         self.images.count == 0 && self.videos.count == 0
+    }
     
     // MARK - public methods
     /**
-    Initializes the `CLDUploaderWidget` instance with the specified cloudinaryObject, configuration, images and delegate.
+    Initializes the `CLDUploaderWidget` instance with the specified cloudinary, configuration, images, videos and delegate.
      
-    - parameter cloudinary:             The CLDCloudinary object to be used for uploading the selected images.
+    - parameter cloudinary:             The CLDCloudinary object to be used for uploading the selected assets.
     - parameter configuration:          The configuration used by this CLDUploaderWidget instance.
     - parameter images:                 The images to be presented, edited and uploaded.
+    - parameter videos:                 The videos to be presented and uploaded.
     - parameter delegate:               The delegate object conforming to `CLDUploaderWidgetDelegate`.
     
     - returns: The new `CLDUploaderWidget` instance.
@@ -80,13 +86,14 @@ import UIKit
         cloudinary: CLDCloudinary,
         configuration: CLDWidgetConfiguration?,
         images: [UIImage]?,
+        videos: [AVPlayerItem]?,
         delegate: CLDUploaderWidgetDelegate?
     ) {
         
         self.cloudinaryObject       = cloudinary
         self.configuration          = configuration
         self.images                 = images != nil ? images! : [UIImage]()
-        self.selectImageFromLibrary = self.images.count == 0
+        self.videos                 = videos != nil ? videos! : [AVPlayerItem]()
         self.delegate               = delegate
         self.widgetPresented        = false
         
@@ -94,7 +101,7 @@ import UIKit
     }
     
     /**
-    Sets the CLDCloudinary object to be used for uploading the selected images
+    Sets the CLDCloudinary object to be used for uploading the selected assets
     
     - parameter cloudinary:        The cloudinary object.
     
@@ -154,6 +161,50 @@ import UIKit
     }
     
     /**
+    Sets videos to be presented and uploaded.
+    
+    - parameter videos:            The videos array object.
+    
+    - returns:                     The same instance of CLDUploaderWidget.
+    */
+    @objc(setVideosFromVideoItems:)
+    @discardableResult
+    public func setVideos(_ videoItems: [AVPlayerItem]) -> Self {
+        
+        guard widgetPresented == false else {
+            print("videos can not be set while widget is presented")
+            return self
+        }
+        
+        self.videos = videoItems
+        return self
+    }
+    
+    /**
+    Sets videos to be presented and uploaded.
+    
+    - parameter videos:            The videos array object.
+    
+    - returns:                     The same instance of CLDUploaderWidget.
+    */
+    @objc(setVideosFromVideoUrls:)
+    @discardableResult
+    public func setVideos(_ videoUrls: [URL]) -> Self {
+        
+        guard widgetPresented == false else {
+            print("videos can not be set while widget is presented")
+            return self
+        }
+        
+        let videoItems = videoUrls.compactMap {
+            AVPlayerItem(url: $0)
+        }
+                
+        self.videos = videoItems
+        return self
+    }
+    
+    /**
     Sets a delegate object conforming to `CLDUploaderWidgetDelegate` protocol to recieve information via delegate methods.
     
     - parameter delegate:          The delegate object.
@@ -177,7 +228,7 @@ import UIKit
         
         let viewControllerToPresent: UIViewController
         
-        if selectImageFromLibrary {
+        if selectAssetFromLibrary {
             imagePicker = createImagePicker()
             viewControllerToPresent = imagePicker
         }
@@ -207,7 +258,7 @@ import UIKit
     */
     public func dismissWidget() {
         
-        if selectImageFromLibrary {
+        if selectAssetFromLibrary {
             imagePicker.dismiss(animated: true) {
                 self.delegate?.uploadWidgetDidDismiss()
             }
@@ -223,22 +274,49 @@ import UIKit
     private func createWidgetViewController() -> CLDWidgetViewController {
         
         let imageContainers = images.compactMap {
-            CLDWidgetImageContainer(originalImage: $0, editedImage: $0)
+            CLDWidgetAssetContainer(originalImage: $0, editedImage: $0)
         }
-        return CLDWidgetViewController(images: imageContainers, configuration: configuration, delegate: self)
+        let videoContainers = videos.compactMap {
+            CLDWidgetAssetContainer(videoItem: $0)
+        }
+        
+        let assetContainers = videoContainers + imageContainers
+        
+        return CLDWidgetViewController(assets: assetContainers, configuration: configuration, delegate: self)
     }
     
     private func createImagePicker() -> UIImagePickerController {
+        
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = .savedPhotosAlbum
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+
         return picker
     }
     
-    private func upload(_ images: [CLDWidgetImageContainer]) -> [CLDUploadRequest] {
+    private func upload(assets: [CLDWidgetAssetContainer]) -> [CLDUploadRequest] {
+        
+        let images = assets.filter {
+            $0.assetType == .image
+        }
+        
+        let videos = assets.filter {
+            $0.assetType == .video
+        }
+        
+        let imagesUploadRequests = upload(images: images)
+        let videosUploadRequests = upload(videos: videos)
+        
+        return videosUploadRequests + imagesUploadRequests
+    }
+    
+    private func upload(images: [CLDWidgetAssetContainer]) -> [CLDUploadRequest] {
+        
+        guard images.count > 0 else { return [] }
         
         let datas = images.compactMap {
-            $0.editedImage.pngData()
+            $0.editedImage?.pngData()
         }
         
         let uploader = cloudinaryObject.createUploader()
@@ -252,18 +330,57 @@ import UIKit
                 
                 return uploader.upload(data: data, uploadPreset: preset).response {
                     (result, error) in
-                    print("result \(String(describing: result))")
-                    print("error \(String(describing: error))")
+                    print("image unsigned result \(String(describing: result))")
+                    print("image unsigned error  \(String(describing: error))")
                 }
             }
             else {
                 // default upload type
                 return uploader.signedUpload(data: data).response { (result, error) in
-                    print("result \(String(describing: result))")
-                    print("error \(String(describing: error))")
+                    print("image signed result \(String(describing: result))")
+                    print("image signed error  \(String(describing: error))")
                 }
             }
         }
+        
+        return requests
+    }
+    
+    private func upload(videos: [CLDWidgetAssetContainer]) -> [CLDUploadRequest] {
+        
+        guard videos.count > 0 else { return [] }
+        
+        let videosUrls = videos.compactMap {
+            ($0.originalVideo?.asset as? AVURLAsset)?.url
+        }
+        
+        let params   = CLDUploadRequestParams()
+        params.setResourceType(.video)
+        let uploader = cloudinaryObject.createUploader()
+        
+        let requests = videosUrls.compactMap { (url) -> CLDUploadRequest? in
+           
+            // unsigned upload must have a preset
+            if let configuration = configuration,
+                configuration.uploadType.signed == false,
+                let preset = configuration.uploadType.preset {
+                
+                return uploader.upload(url: url, uploadPreset: preset, params: params).response {
+                    (result, error) in
+                    print("video unsigned result \(String(describing: result))")
+                    print("video unsigned error  \(String(describing: error))")
+                }
+            }
+            else {
+                
+                // default upload type
+                return uploader.signedUpload(url: url, params: params).response { (result, error) in
+                    print("video signed result \(String(describing: result))")
+                    print("video signed error  \(String(describing: error))")
+                }
+            }
+        }
+        
         return requests
     }
 }
@@ -275,13 +392,18 @@ extension CLDUploaderWidget: UIImagePickerControllerDelegate, UINavigationContro
         
         if let image = info[.originalImage] as? UIImage {
             images = [image]
-            widgetViewController = createWidgetViewController()
-            picker.pushViewController(widgetViewController, animated: true)
+        }
+        else if let videoUrl = info[.mediaURL] as? URL {
+            let playerItem = AVPlayerItem(url: videoUrl)
+            videos = [playerItem]
         }
         else {
             dismissWidget()
             return
         }
+    
+        widgetViewController = createWidgetViewController()
+        picker.pushViewController(widgetViewController, animated: true)
     }
     
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -292,9 +414,10 @@ extension CLDUploaderWidget: UIImagePickerControllerDelegate, UINavigationContro
 
 // MARK: - CLDWidgetViewControllerDelegate
 extension CLDUploaderWidget: CLDWidgetViewControllerDelegate {
-    func widgetViewController(_ controller: CLDWidgetViewController, didFinishEditing editedImages: [CLDWidgetImageContainer]) {
+    
+    func widgetViewController(_ controller: CLDWidgetViewController, didFinishEditing editedAssets: [CLDWidgetAssetContainer]) {
         
-        let uploadRequests = upload(editedImages)
+        let uploadRequests = upload(assets: editedAssets)
         
         delegate?.uploadWidget(self, willCall: uploadRequests)
         dismissWidget()

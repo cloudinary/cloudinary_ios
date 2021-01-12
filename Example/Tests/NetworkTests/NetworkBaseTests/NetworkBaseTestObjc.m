@@ -87,6 +87,13 @@
     return [UIImage imageWithContentsOfFile:url.path];
 }
 
+-(AVPlayerItem*)getVideoBy:(TestResourceType)testResourceType {
+    
+    NSBundle* bundle = [NSBundle bundleForClass:[self class]];
+    NSURL*    url    = [bundle URLForResource:[self getResourceNameBy:testResourceType] withExtension:[self getResourceExtensionBy:testResourceType]];
+    return [AVPlayerItem playerItemWithURL:url];
+}
+
 // Mark: - private methods
 - (NSString*)getResourceExtensionBy:(TestResourceType)testResourceType {
     

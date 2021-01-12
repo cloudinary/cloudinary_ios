@@ -1,5 +1,5 @@
 //
-//  NetworkBaseTestObjc.h
+//  CLDVideoControlsState.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -22,29 +22,16 @@
 //  SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import <Cloudinary/Cloudinary-Swift.h>
-#import "ObjcBaseTestCase.h"
-#import "Cloudinary_Tests-Swift.h"
-#import <AVKit/AVKit.h>
+import Foundation
 
-typedef enum TestResourceType: NSUInteger {
-    logo,
-    borderCollie,
-    docx,
-    dog,
-    pdf,
-    textImage
-} TestResourceType;
-
-@interface NetworkBaseTestObjc: ObjcBaseTestCase
-
-@property (nonatomic, strong, nullable) CLDCloudinary* cloudinary;
-
-- (NSString* _Nonnull)     getResourceNameBy:(TestResourceType)testResourceType;
-- (NSURL* _Nonnull)        getUrlBy         :(TestResourceType)testResourceType;
-- (NSData* _Nonnull)       getDataBy        :(TestResourceType)testResourceType;
-- (UIImage* _Nonnull)      getImageBy       :(TestResourceType)testResourceType;
-- (AVPlayerItem* _Nonnull) getVideoBy       :(TestResourceType)testResourceType;
-
-@end
+protocol CLDVideoControlsState: class {
+    
+    var controlsView: CLDVideoControlsView { get set }
+    
+    init(controlsView: CLDVideoControlsView)
+    
+    func playPausePressed()
+    func backgroundPressed()
+    func timerFinished()
+    func videoEnded()
+}

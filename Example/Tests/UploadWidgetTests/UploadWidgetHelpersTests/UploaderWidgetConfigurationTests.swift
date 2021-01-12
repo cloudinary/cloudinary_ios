@@ -57,7 +57,7 @@ class UploaderWidgetConfigurationTests: XCTestCase {
         // Given
         let allowRotate = false
         let initialAspectLockState = CLDWidgetConfiguration.AspectRatioLockState.disabled
-        let uploadType: UploadType = UploadType(signed: false, preset: "preset")
+        let uploadType: CLDUploadType = CLDUploadType(signed: false, preset: "preset")
     
         // When
         sut = CLDWidgetConfiguration.init(allowRotate: allowRotate, initialAspectLockState: initialAspectLockState, uploadType: uploadType)
@@ -73,7 +73,7 @@ class UploaderWidgetConfigurationTests: XCTestCase {
         // Given
         let allowRotate            = true
         let initialAspectLockState = CLDWidgetConfiguration.AspectRatioLockState.enabledAndOn
-        let uploadType      = UploadType(signed: true, preset: nil)
+        let uploadType      = CLDUploadType(signed: true, preset: nil)
         
         // When
         sut = CLDWidgetConfiguration(allowRotate: allowRotate, initialAspectLockState: initialAspectLockState, uploadType: uploadType)

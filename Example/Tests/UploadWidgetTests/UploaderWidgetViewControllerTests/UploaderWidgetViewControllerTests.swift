@@ -40,22 +40,17 @@ class UploaderWidgetViewControllerTests: WidgetBaseTest, CLDWidgetViewController
     }
     
     // MARK: - delegate
-    func widgetViewController(_ controller: CLDWidgetViewController, didFinishEditing editedImages: [CLDWidgetImageContainer]) {
-        print("didFinishEditing")
-    }
-    
-    func widgetViewControllerDidCancel(_ controller: CLDWidgetViewController) {
-        print("did cancel")
-    }
+    func widgetViewController(_ controller: CLDWidgetViewController, didFinishEditing editedAssets: [CLDWidgetAssetContainer]) { print("didFinishEditing") }
+    func widgetViewControllerDidCancel(_ controller: CLDWidgetViewController) { print("did cancel") }
     
     // MARK: - test init
     func test_init_emptyArray_shouldCreateObject() {
         
         // Given
-        let images: [CLDWidgetImageContainer] = []
+        let assets: [CLDWidgetAssetContainer] = []
         
         // When
-        sut = CLDWidgetViewController(images: images)
+        sut = CLDWidgetViewController(assets: assets)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
@@ -63,36 +58,66 @@ class UploaderWidgetViewControllerTests: WidgetBaseTest, CLDWidgetViewController
     func test_init_emptyDelegate_shouldCreateObject() {
         
         // Given
-        let images = createImageContainers()
+        let assets = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetViewController(images: images, delegate: nil)
+        sut = CLDWidgetViewController(assets: assets, delegate: nil)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
     }
-    func test_init_allProperties_shouldCreateObjectWithProperties() {
+    func test_init_mixAssetsAllProperties_shouldCreateObjectWithProperties() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assets = createMixAssetContainers()
         let configuration = CLDWidgetConfiguration(allowRotate: true, initialAspectLockState: .enabledAndOn)
         
         // When
-        sut = CLDWidgetViewController(images: imageContainers, configuration: configuration, delegate: self)
+        sut = CLDWidgetViewController(assets: assets, configuration: configuration, delegate: self)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
         XCTAssertNotNil(sut.delegate, "delegate should be initialized")
-        XCTAssertEqual (sut.images, imageContainers, "objects should be equal")
+        XCTAssertEqual (sut.assets, assets, "objects should be equal")
+        XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
+    }
+    func test_init_imageAssetsAllProperties_shouldCreateObjectWithProperties() {
+        
+        // Given
+        let assets = createImageOnlyAssetContainers()
+        let configuration = CLDWidgetConfiguration(allowRotate: true, initialAspectLockState: .enabledAndOn)
+        
+        // When
+        sut = CLDWidgetViewController(assets: assets, configuration: configuration, delegate: self)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertNotNil(sut.delegate, "delegate should be initialized")
+        XCTAssertEqual (sut.assets, assets, "objects should be equal")
+        XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
+    }
+    func test_init_videoAssetsAllProperties_shouldCreateObjectWithProperties() {
+        
+        // Given
+        let assets = createVideoOnlyAssetContainers()
+        let configuration = CLDWidgetConfiguration(allowRotate: true, initialAspectLockState: .enabledAndOn)
+        
+        // When
+        sut = CLDWidgetViewController(assets: assets, configuration: configuration, delegate: self)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertNotNil(sut.delegate, "delegate should be initialized")
+        XCTAssertEqual (sut.assets, assets, "objects should be equal")
         XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
     }
     func test_init_updateAfterInit_shouldCreateObjectWithDelegate() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assets = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetViewController(images: imageContainers, delegate: nil)
+        sut = CLDWidgetViewController(assets: assets, delegate: nil)
         sut.delegate = self
         
         // Then
@@ -102,10 +127,10 @@ class UploaderWidgetViewControllerTests: WidgetBaseTest, CLDWidgetViewController
     func test_createView_shouldCreateObjectWithUIElements() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assets = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetViewController(images: imageContainers, delegate: self)
+        sut = CLDWidgetViewController(assets: assets, delegate: self)
         let _ = sut.view
            
         // Then
@@ -118,10 +143,10 @@ class UploaderWidgetViewControllerTests: WidgetBaseTest, CLDWidgetViewController
     func test_initAndCreateView_shouldCreateTopButtonsWithSpecificType() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assets = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetViewController(images: imageContainers, delegate: self)
+        sut = CLDWidgetViewController(assets: assets, delegate: self)
         let _ = sut.view
         
         // Then
@@ -133,13 +158,13 @@ class UploaderWidgetViewControllerTests: WidgetBaseTest, CLDWidgetViewController
     func test_init_shouldCreatePreviewViewController() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assets = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetViewController(images: imageContainers, delegate: self)
+        sut = CLDWidgetViewController(assets: assets, delegate: self)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
         XCTAssertNotNil(sut.previewViewController, "object should be initialized")
     }
-} 
+}

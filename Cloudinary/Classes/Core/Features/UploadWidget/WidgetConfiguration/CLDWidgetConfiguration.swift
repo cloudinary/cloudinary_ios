@@ -28,7 +28,7 @@ import UIKit
     
     public var allowRotate           : Bool
     public var initialAspectLockState: AspectRatioLockState
-    public var uploadType            : UploadType
+    public var uploadType            : CLDUploadType
     
     // MARK: - init
     /**
@@ -36,14 +36,14 @@ import UIKit
      
     - parameter allowRotate:             A boolean value specifying whether or not to allow image rotation. true by default.
     - parameter initialAspectLockState:  Enum value specifying the initial aspect ratio lock state. enabledAndOn by default.
-    - parameter uploadType:              UploadType object specifying the upload request type. signed without preset by default.
+    - parameter uploadType:              CLDUploadType object specifying the upload request type. signed without preset by default.
     
     - returns: The new `CLDWidgetConfiguration` instance.
     */
     public init(
         allowRotate           : Bool = true,
         initialAspectLockState: AspectRatioLockState = .enabledAndOff,
-        uploadType            : UploadType = UploadType(signed: true, preset: nil)
+        uploadType            : CLDUploadType = CLDUploadType(signed: true, preset: nil)
     ) {
         self.allowRotate            = allowRotate
         self.initialAspectLockState = initialAspectLockState
@@ -67,18 +67,18 @@ import UIKit
     }
 }
 
-@objcMembers public class UploadType: NSObject {
+@objcMembers public class CLDUploadType: NSObject {
     
     private(set) var signed: Bool
     private(set) var preset: String?
     
     /**
-    Initializes the `UploadType` instance with the specified signed and preset.
+    Initializes the `CLDUploadType` instance with the specified signed and preset.
      
     - parameter signed:             A boolean value specifying whether to use signed or unsigned upload.
     - parameter preset:             A string represents the preset for unsigned upload requests. preset MUST be set when choosing unsigned requests.
     
-    - returns: The new `UploadType` instance.
+    - returns: The new `CLDUploadType` instance.
     */
     public init(signed: Bool, preset: String?) {
         

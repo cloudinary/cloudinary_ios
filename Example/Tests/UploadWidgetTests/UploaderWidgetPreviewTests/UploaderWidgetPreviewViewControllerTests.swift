@@ -40,21 +40,18 @@ class UploaderWidgetPreviewViewControllerTests: WidgetBaseTest, CLDWidgetPreview
     }
     
     // MARK: - delegate
-    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didFinishEditing images: [CLDWidgetImageContainer]) {
-        print("delegate didFinishEditing")
-    }
-    func widgetPreviewViewControllerDidCancel(_ controller: CLDWidgetPreviewViewController) {
-        print("delegate didCancel")
-    }
+    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didFinishEditing assets: [CLDWidgetAssetContainer]) {}
+    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didSelect asset: CLDWidgetAssetContainer) {}
+    func widgetPreviewViewControllerDidCancel(_ controller: CLDWidgetPreviewViewController) {}
     
     // MARK: - test init
     func test_init_emptyArray_shouldCreateObject() {
         
         // Given
-        let images: [CLDWidgetImageContainer] = []
+        let assets: [CLDWidgetAssetContainer] = []
         
         // When
-        sut = CLDWidgetPreviewViewController(images: images)
+        sut = CLDWidgetPreviewViewController(assets: assets)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
@@ -62,35 +59,63 @@ class UploaderWidgetPreviewViewControllerTests: WidgetBaseTest, CLDWidgetPreview
     func test_init_emptyDelegate_shouldCreateObject() {
         
         // Given
-        let images = createImageContainers()
+        let assets = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetPreviewViewController(images: images, delegate: nil)
+        sut = CLDWidgetPreviewViewController(assets: assets, delegate: nil)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
     }
-    func test_init_imagesAndDelegate_shouldCreateObjectWithProperties() {
+    func test_init_mixAssetsAndDelegate_shouldCreateObjectWithProperties() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assetContainers = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetPreviewViewController(images: imageContainers, delegate: self)
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
         XCTAssertNotNil(sut.delegate, "delegate should be initialized")
-        XCTAssertEqual (sut.images, imageContainers, "objects should be equal")
+        XCTAssertEqual (sut.assets, assetContainers, "objects should be equal")
+        XCTAssertEqual (sut.selectedIndex, 0, "selectedIndex should be created with default value of 0")
+    }
+    func test_init_imageAssetsAndDelegate_shouldCreateObjectWithProperties() {
+        
+        // Given
+        let assetContainers = createImageOnlyAssetContainers()
+        
+        // When
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertNotNil(sut.delegate, "delegate should be initialized")
+        XCTAssertEqual (sut.assets, assetContainers, "objects should be equal")
+        XCTAssertEqual (sut.selectedIndex, 0, "selectedIndex should be created with default value of 0")
+    }
+    func test_init_videoAssetsAndDelegate_shouldCreateObjectWithProperties() {
+        
+        // Given
+        let assetContainers = createVideoOnlyAssetContainers()
+        
+        // When
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertNotNil(sut.delegate, "delegate should be initialized")
+        XCTAssertEqual (sut.assets, assetContainers, "objects should be equal")
         XCTAssertEqual (sut.selectedIndex, 0, "selectedIndex should be created with default value of 0")
     }
     func test_init_delegateAfterInit_shouldCreateObjectWithDelegate() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assetContainers = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetPreviewViewController(images: imageContainers, delegate: nil)
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: nil)
         sut.delegate = self
         
         // Then
@@ -100,53 +125,82 @@ class UploaderWidgetPreviewViewControllerTests: WidgetBaseTest, CLDWidgetPreview
     func test_createView_shouldCreateObjectWithUIElements() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assetContainers = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetPreviewViewController(images: imageContainers, delegate: self)
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
         let _ = sut.view
            
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
         XCTAssertNotNil(sut.collectionView, "object should be initialized")
         XCTAssertNotNil(sut.mainImageView, "object should be initialized")
+        XCTAssertNotNil(sut.videoView, "object should be initialized")
         XCTAssertNotNil(sut.uploadButton, "object should be initialized")
     }
-    func test_initWithImagesAndCreateView_shouldCreateCollectionWithSpecificCellCount() {
+    func test_initWithAssetsAndCreateView_shouldCreateCollectionWithSpecificCellCount() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assetContainers = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetPreviewViewController(images: imageContainers, delegate: self)
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
         let _ = sut.view
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
         XCTAssertNotNil(sut.delegate, "object should be initialized")
-        XCTAssertEqual (sut.collectionView.numberOfItems(inSection: 0),imageContainers.count, "objects should be equal")
+        XCTAssertEqual (sut.collectionView.numberOfItems(inSection: 0),assetContainers.count, "objects should be equal")
     }
-    func test_initWithImagesAndCreateView_shouldCreateImageViewWithSpecificImage() {
+    func test_initWithMixAssetsAndCreateView_shouldCreateImageViewWithSpecificImage() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assetContainers = createMixAssetContainers()
         
         // When
-        sut = CLDWidgetPreviewViewController(images: imageContainers, delegate: self)
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
         let _ = sut.view
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
         XCTAssertNotNil(sut.delegate, "object should be initialized")
-        XCTAssertEqual (sut.mainImageView.image, imageContainers[0].editedImage, "objects should be equal")
+        XCTAssertEqual (sut.mainImageView.image, assetContainers[0].presentationImage, "objects should be equal")
     }
-    func test_initWithImagesAndCreateView_shouldCreateUploadButtonWithSpecificType() {
+    func test_initWithImageAssetsAndCreateView_shouldCreateImageViewWithSpecificImage() {
         
         // Given
-        let imageContainers = createImageContainers()
+        let assetContainers = createImageOnlyAssetContainers()
         
         // When
-        sut = CLDWidgetPreviewViewController(images: imageContainers, delegate: self)
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
+        let _ = sut.view
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertNotNil(sut.delegate, "object should be initialized")
+        XCTAssertEqual (sut.mainImageView.image, assetContainers[0].presentationImage, "objects should be equal")
+    }
+    func test_initWithVideoAssetsAndCreateView_shouldCreateImageViewWithSpecificImage() {
+        
+        // Given
+        let assetContainers = createVideoOnlyAssetContainers()
+        
+        // When
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
+        let _ = sut.view
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertNotNil(sut.delegate, "object should be initialized")
+        XCTAssertEqual (sut.videoView.player.currentItem, assetContainers[0].originalVideo, "objects should be equal")
+    }
+    func test_initWithAssetsAndCreateView_shouldCreateUploadButtonWithSpecificType() {
+        
+        // Given
+        let assetContainers = createMixAssetContainers()
+        
+        // When
+        sut = CLDWidgetPreviewViewController(assets: assetContainers, delegate: self)
         let _ = sut.view
         
         // Then

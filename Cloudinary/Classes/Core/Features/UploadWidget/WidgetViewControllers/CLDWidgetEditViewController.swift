@@ -25,7 +25,7 @@
 import UIKit
 
 internal protocol CLDWidgetEditDelegate: class {
-    func widgetEditViewController(_ controller: CLDWidgetEditViewController, didFinishEditing image: CLDWidgetImageContainer)
+    func widgetEditViewController(_ controller: CLDWidgetEditViewController, didFinishEditing image: CLDWidgetAssetContainer)
     func widgetEditViewControllerDidReset (_ controller: CLDWidgetEditViewController)
     func widgetEditViewControllerDidCancel(_ controller: CLDWidgetEditViewController)
 }
@@ -38,7 +38,7 @@ internal class CLDWidgetEditViewController: UIViewController {
     private(set) var doneButton  : UIButton!
     private(set) var cropView    : CLDCropView!
     
-    private(set)  var image                 : CLDWidgetImageContainer
+    private(set)  var image                 : CLDWidgetAssetContainer
     private(set)  var configuration         : CLDWidgetConfiguration?
     private(set)  var initialAspectLockState: CLDWidgetConfiguration.AspectRatioLockState
     internal weak var delegate              : CLDWidgetEditDelegate?
@@ -49,7 +49,7 @@ internal class CLDWidgetEditViewController: UIViewController {
     
     // MARK: - init
     init(
-        image: CLDWidgetImageContainer,
+        image: CLDWidgetAssetContainer,
         configuration: CLDWidgetConfiguration? = nil,
         delegate: CLDWidgetEditDelegate? = nil,
         initialAspectLockState: CLDWidgetConfiguration.AspectRatioLockState = .enabledAndOff
@@ -118,7 +118,7 @@ private extension CLDWidgetEditViewController {
         
         // crete a new crop view with original image
         let oldView = cropView
-        let newView = createCropView(for: image.originalImage, aspectLockState: initialAspectLockState == .enabledAndOn)
+        let newView = createCropView(for: image.originalImage!, aspectLockState: initialAspectLockState == .enabledAndOn)
         
         view.insertSubview(newView, belowSubview: cropView)
         
@@ -155,11 +155,16 @@ private extension CLDWidgetEditViewController {
         
         let cropFrame  = cropView.imageCropFrame
         let angle      = cropView.angle
-        let editedImage: CLDWidgetImageContainer = image
+        let editedImage: CLDWidgetAssetContainer = image
         
         // check if image edited
-        if angle != 0 || !cropFrame.equalTo(CGRect(origin: CGPoint.zero, size: image.editedImage.size)) {
-            editedImage.editedImage = image.editedImage.cld_cropImage(to: cropFrame, angle: angle)
+        if angle != 0 || !cropFrame.equalTo(CGRect(origin: CGPoint.zero, size: image.editedImage!.size)) {
+            let newImage = image.editedImage?.cld_cropImage(to: cropFrame, angle: angle)
+            editedImage.editedImage = newImage
+            
+            if let presentationImage = newImage {
+                editedImage.presentationImage = presentationImage
+            }
         }
         
         delegate?.widgetEditViewController(self, didFinishEditing: editedImage)
@@ -245,7 +250,7 @@ private extension CLDWidgetEditViewController {
         
         buttonsView = UIView()
         
-        cropView = createCropView(for: image.editedImage, aspectLockState: initialAspectLockState == .enabledAndOn)
+        cropView = createCropView(for: image.editedImage!, aspectLockState: initialAspectLockState == .enabledAndOn)
         
         cancelButton = UIButton(type: .custom)
         cancelButton.setTitle("Reset", for: .normal)

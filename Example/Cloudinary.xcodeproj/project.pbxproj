@@ -97,9 +97,18 @@
 		D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */; };
 		D71B790024680773004AA28E /* CLDTransformationExpressionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */; };
 		D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */; };
+		D7289C7F258A9CB5004DBD29 /* dog2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D7289C7E258A9CB5004DBD29 /* dog2.mp4 */; };
+		D7289C81258A9D0B004DBD29 /* UploaderWidgetAssetContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7289C80258A9D0B004DBD29 /* UploaderWidgetAssetContainerTests.swift */; };
+		D7289C87258A9E18004DBD29 /* UploaderWidgetVideoControlsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7289C83258A9E18004DBD29 /* UploaderWidgetVideoControlsTests.swift */; };
+		D7289C88258A9E18004DBD29 /* UploaderWidgetVideoPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7289C84258A9E18004DBD29 /* UploaderWidgetVideoPlayerTests.swift */; };
+		D7289C89258A9E18004DBD29 /* UploaderWidgetVideoDisplayLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7289C85258A9E18004DBD29 /* UploaderWidgetVideoDisplayLinkTests.swift */; };
+		D7289C8A258A9E18004DBD29 /* UploaderWidgetVideoViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7289C86258A9E18004DBD29 /* UploaderWidgetVideoViewTests.swift */; };
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
+		D73DBB0A258BA0550002E7E5 /* dog2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D7289C7E258A9CB5004DBD29 /* dog2.mp4 */; };
+		D73DBB0B258BA0570002E7E5 /* dog.mov in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2B23FBAF5E0090BC40 /* dog.mov */; };
+		D73DBB0C258BA05A0002E7E5 /* dog.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2C23FBAF5E0090BC40 /* dog.mp4 */; };
 		D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */; };
 		D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */; };
 		D7788A9424E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */; };
@@ -122,7 +131,6 @@
 		D7EF05AC255D8B8E00F93827 /* NetworkBaseTestObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05AA255D8B8E00F93827 /* NetworkBaseTestObjc.m */; };
 		D7EF05B0255D8C1900F93827 /* UploaderWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05AE255D8C1900F93827 /* UploaderWidgetTests.swift */; };
 		D7EF05B1255D8C1900F93827 /* UploaderWidgetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05AF255D8C1900F93827 /* UploaderWidgetTests.m */; };
-		D7F34F272504D73500C282B1 /* UploaderWidgetImageContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */; };
 		D7F34F2F2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F2E2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift */; };
 		D7F34F3125052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F3025052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift */; };
 		D7F34F3325052FE700C282B1 /* WidgetBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */; };
@@ -247,6 +255,12 @@
 		D71B78FD24680743004AA28E /* CLDTransformationVariablesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationVariablesTests.swift; sourceTree = "<group>"; };
 		D71B78FF24680773004AA28E /* CLDTransformationExpressionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationExpressionsTests.swift; sourceTree = "<group>"; };
 		D71B7901246808EE004AA28E /* CLDTransformationConditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDTransformationConditionsTests.swift; sourceTree = "<group>"; };
+		D7289C7E258A9CB5004DBD29 /* dog2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dog2.mp4; sourceTree = "<group>"; };
+		D7289C80258A9D0B004DBD29 /* UploaderWidgetAssetContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetAssetContainerTests.swift; sourceTree = "<group>"; };
+		D7289C83258A9E18004DBD29 /* UploaderWidgetVideoControlsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetVideoControlsTests.swift; sourceTree = "<group>"; };
+		D7289C84258A9E18004DBD29 /* UploaderWidgetVideoPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetVideoPlayerTests.swift; sourceTree = "<group>"; };
+		D7289C85258A9E18004DBD29 /* UploaderWidgetVideoDisplayLinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetVideoDisplayLinkTests.swift; sourceTree = "<group>"; };
+		D7289C86258A9E18004DBD29 /* UploaderWidgetVideoViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetVideoViewTests.swift; sourceTree = "<group>"; };
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
@@ -273,7 +287,6 @@
 		D7EF05AA255D8B8E00F93827 /* NetworkBaseTestObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkBaseTestObjc.m; sourceTree = "<group>"; };
 		D7EF05AE255D8C1900F93827 /* UploaderWidgetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetTests.swift; sourceTree = "<group>"; };
 		D7EF05AF255D8C1900F93827 /* UploaderWidgetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderWidgetTests.m; sourceTree = "<group>"; };
-		D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetImageContainerTests.swift; sourceTree = "<group>"; };
 		D7F34F2E2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetCollectionCellTests.swift; sourceTree = "<group>"; };
 		D7F34F3025052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetPreviewViewControllerTests.swift; sourceTree = "<group>"; };
 		D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetBaseTest.swift; sourceTree = "<group>"; };
@@ -299,6 +312,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B1EF16C5EA94AD09F6C22C2 /* Pods_Cloudinary_Tests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7173492258296CE006F34CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,6 +576,7 @@
 		274C6D2A23FBAF5E0090BC40 /* Videos */ = {
 			isa = PBXGroup;
 			children = (
+				D7289C7E258A9CB5004DBD29 /* dog2.mp4 */,
 				274C6D2B23FBAF5E0090BC40 /* dog.mov */,
 				274C6D2C23FBAF5E0090BC40 /* dog.mp4 */,
 			);
@@ -606,6 +627,7 @@
 				D7178DA8255D6578007C1995 /* UploaderWidgetViewControllerTests */,
 				D7F34F2D2504F46600C282B1 /* UploaderWidgetPreviewTests */,
 				D7F34F8F25120DE400C282B1 /* UploaderWidgetEditTests */,
+				D7289C82258A9DD4004DBD29 /* UploadWidgetVideoTests */,
 				5DB2D29524FFE31000001845 /* UploadWidgetHelpersTests */,
 				D7F34F3225052FE700C282B1 /* WidgetBaseTest.swift */,
 			);
@@ -617,7 +639,7 @@
 			children = (
 				5DB2D29724FFE32500001845 /* UploaderWidgetConfigurationTests.m */,
 				5DB2D29624FFE32500001845 /* UploaderWidgetConfigurationTests.swift */,
-				D7F34F262504D73500C282B1 /* UploaderWidgetImageContainerTests.swift */,
+				D7289C80258A9D0B004DBD29 /* UploaderWidgetAssetContainerTests.swift */,
 			);
 			path = UploadWidgetHelpersTests;
 			sourceTree = "<group>";
@@ -744,6 +766,17 @@
 				D71ADD9B247D976500235AD4 /* CryptoUtilsTests.m */,
 			);
 			path = CryptoUtilsTests;
+			sourceTree = "<group>";
+		};
+		D7289C82258A9DD4004DBD29 /* UploadWidgetVideoTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7289C83258A9E18004DBD29 /* UploaderWidgetVideoControlsTests.swift */,
+				D7289C85258A9E18004DBD29 /* UploaderWidgetVideoDisplayLinkTests.swift */,
+				D7289C84258A9E18004DBD29 /* UploaderWidgetVideoPlayerTests.swift */,
+				D7289C86258A9E18004DBD29 /* UploaderWidgetVideoViewTests.swift */,
+			);
+			path = UploadWidgetVideoTests;
 			sourceTree = "<group>";
 		};
 		D73622B724910FDD0021E1D4 /* UploaderTests */ = {
@@ -967,7 +1000,10 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				270C1C1C23FC1A4D00A503C3 /* LaunchScreen.storyboard in Resources */,
+				D73DBB0C258BA05A0002E7E5 /* dog.mp4 in Resources */,
 				270C1BF723FBBA3C00A503C3 /* LICENSE in Resources */,
+				D73DBB0B258BA0570002E7E5 /* dog.mov in Resources */,
+				D73DBB0A258BA0550002E7E5 /* dog2.mp4 in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -981,6 +1017,7 @@
 				272C5191242B6C360093AB1B /* empty.data in Resources */,
 				274C6D3F23FBAF5E0090BC40 /* dog.mp4 in Resources */,
 				274C6D3B23FBAF5E0090BC40 /* logo.png in Resources */,
+				D7289C7F258A9CB5004DBD29 /* dog2.mp4 in Resources */,
 				272C5194242B6C360093AB1B /* invalid_data.json in Resources */,
 				D7788A9424E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg in Resources */,
 				274C6D3E23FBAF5E0090BC40 /* dog.mov in Resources */,
@@ -1116,6 +1153,7 @@
 				272C5186242B6C360093AB1B /* MultipartFormDataTests.swift in Sources */,
 				D7EF05B1255D8C1900F93827 /* UploaderWidgetTests.m in Sources */,
 				1E635A8525A7585E0003E9D3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */,
+				D7289C8A258A9E18004DBD29 /* UploaderWidgetVideoViewTests.swift in Sources */,
 				272C5180242B6C360093AB1B /* FileManager+CloudinaryTests.swift in Sources */,
 				D71ADD9C247D976500235AD4 /* CryptoUtilsTests.m in Sources */,
 				272C5187242B6C360093AB1B /* URLProtocolTests.swift in Sources */,
@@ -1126,12 +1164,12 @@
 				274C6D3723FBAF5E0090BC40 /* ManagementApiTests.swift in Sources */,
 				D7EF05B0255D8C1900F93827 /* UploaderWidgetTests.swift in Sources */,
 				D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */,
+				D7289C88258A9E18004DBD29 /* UploaderWidgetVideoPlayerTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
 				D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */,
 				D7F34F2F2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift in Sources */,
 				D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */,
-				D7F34F272504D73500C282B1 /* UploaderWidgetImageContainerTests.swift in Sources */,
-				1E635A8025A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m in Sources */,
+                1E635A8025A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m in Sources */,
 				272C5181242B6C360093AB1B /* AuthenticationTests.swift in Sources */,
 				D7EF05AB255D8B8E00F93827 /* NetworkBaseTest.swift in Sources */,
 				D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */,
@@ -1151,6 +1189,7 @@
 				274C6D2E23FBAF5E0090BC40 /* PreprocessTests.swift in Sources */,
 				D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */,
 				274C6D3423FBAF5E0090BC40 /* UIImageViewTests.swift in Sources */,
+				D7289C81258A9D0B004DBD29 /* UploaderWidgetAssetContainerTests.swift in Sources */,
 				D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */,
 				272C51B5242B6C360093AB1B /* ParameterEncodingTests.swift in Sources */,
 				274C6D2F23FBAF5E0090BC40 /* FileUtilsTests.swift in Sources */,
@@ -1158,6 +1197,7 @@
 				5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */,
 				D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */,
 				5DE4EC202469919A00F6C8D6 /* CLDTransformationBaselineTests.swift in Sources */,
+				D7289C89258A9E18004DBD29 /* UploaderWidgetVideoDisplayLinkTests.swift in Sources */,
 				27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */,
 				D7F34F3325052FE700C282B1 /* WidgetBaseTest.swift in Sources */,
 				D7F34F3125052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift in Sources */,
@@ -1166,6 +1206,7 @@
 				272C51B3242B6C360093AB1B /* CLDNError+CloudinaryTests.swift in Sources */,
 				D779B69824B7117300E496EB /* UploaderAccessibilityTests.m in Sources */,
 				D7EF05AC255D8B8E00F93827 /* NetworkBaseTestObjc.m in Sources */,
+				D7289C87258A9E18004DBD29 /* UploaderWidgetVideoControlsTests.swift in Sources */,
 				272C5185242B6C360093AB1B /* ResponseSerializationTests.swift in Sources */,
 				272C5183242B6C360093AB1B /* SessionDelegateTests.swift in Sources */,
 				1E635A8225A7585E0003E9D3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */,

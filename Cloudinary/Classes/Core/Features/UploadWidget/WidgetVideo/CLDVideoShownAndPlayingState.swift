@@ -1,5 +1,5 @@
 //
-//  CLDWidgetPreviewViewController.swift
+//  CLDVideoShownAndPlayingState.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -22,15 +22,44 @@
 //  SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-class CLDWidgetImageContainer: NSObject {
-   
-    var originalImage: UIImage
-    var editedImage  : UIImage
+class CLDVideoShownAndPlayingState: NSObject, CLDVideoControlsState {
     
-    init(originalImage: UIImage, editedImage: UIImage) {
-        self.originalImage = originalImage
-        self.editedImage   = editedImage
+    var controlsView: CLDVideoControlsView
+    
+    required init(controlsView: CLDVideoControlsView) {
+        
+        self.controlsView = controlsView
+        super.init()
+    }
+    
+    func playPausePressed() {
+        
+        controlsView.pauseVideo()
+        controlsView.setNewState(newState: controlsView.shownAndPausedState)
+    }
+    
+    func backgroundPressed() {
+        hideControls()
+    }
+    
+    func timerFinished() {
+        hideControls()
+    }
+    
+    private func hideControls() {
+
+        controlsView.stopTimer()
+        controlsView.setNewState(newState: controlsView.hiddenAndPlayingState)
+        
+        controlsView.hideControls()
+    }
+    
+    func videoEnded() {
+        
+        controlsView.pauseVideo()
+        
+        controlsView.setNewState(newState: controlsView.shownAndPausedState)
     }
 }

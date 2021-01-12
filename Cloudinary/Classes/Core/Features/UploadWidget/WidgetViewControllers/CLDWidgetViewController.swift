@@ -25,14 +25,14 @@
 import UIKit
 
 internal protocol CLDWidgetViewControllerDelegate: class {
-    func widgetViewController(_ controller: CLDWidgetViewController, didFinishEditing editedImages: [CLDWidgetImageContainer])
+    func widgetViewController(_ controller: CLDWidgetViewController, didFinishEditing editedAssets: [CLDWidgetAssetContainer])
     func widgetViewControllerDidCancel(_ controller: CLDWidgetViewController)
 }
 
 internal class CLDWidgetViewController: UIViewController {
     
     private(set)  var configuration        : CLDWidgetConfiguration?
-    private(set)  var images               : [CLDWidgetImageContainer]
+    private(set)  var assets               : [CLDWidgetAssetContainer]
     internal weak var delegate             : CLDWidgetViewControllerDelegate?
     
     private(set) var topButtonsView        : UIView!
@@ -54,13 +54,13 @@ internal class CLDWidgetViewController: UIViewController {
         
     // MARK: - init
     internal init(
-        images       : [CLDWidgetImageContainer],
+        assets       : [CLDWidgetAssetContainer],
         configuration: CLDWidgetConfiguration? = nil,
         delegate     : CLDWidgetViewControllerDelegate? = nil
     ) {
         
         self.configuration = configuration
-        self.images        = images
+        self.assets        = assets
         self.delegate      = delegate
         self.editIsPresented        = false
         self.currentAspectLockState = .enabledAndOff
@@ -71,7 +71,7 @@ internal class CLDWidgetViewController: UIViewController {
             currentAspectLockState = initialAspectLockState
         }
         
-        previewViewController = CLDWidgetPreviewViewController(images: images, delegate: self)
+        previewViewController = CLDWidgetPreviewViewController(assets: assets, delegate: self)
     }
     
     required init?(coder: NSCoder) {
@@ -96,7 +96,7 @@ private extension CLDWidgetViewController {
         updateActionButton(by: .goToEditScreen)
     }
     
-    func moveToEditScreen(with image: CLDWidgetImageContainer) {
+    func moveToEditScreen(with image: CLDWidgetAssetContainer) {
         
         editIsPresented = true
         
@@ -112,19 +112,27 @@ private extension CLDWidgetViewController {
 // MARK: - CLDWidgetPreviewDelegate
 extension CLDWidgetViewController: CLDWidgetPreviewDelegate {
     
-    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didFinishEditing images: [CLDWidgetImageContainer]) {
-        delegate?.widgetViewController(self, didFinishEditing: images)
+    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didFinishEditing assets: [CLDWidgetAssetContainer]) {
+        delegate?.widgetViewController(self, didFinishEditing: assets)
     }
     
     func widgetPreviewViewControllerDidCancel(_ controller: CLDWidgetPreviewViewController) {
         delegate?.widgetViewControllerDidCancel(self)
+    }
+    
+    func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didSelect asset: CLDWidgetAssetContainer) {
+        changeActionButtonState(by: asset)
+    }
+    
+    func changeActionButtonState(by asset: CLDWidgetAssetContainer) {
+        asset.assetType == .image ? updateActionButton(by: .goToEditScreen) : updateActionButton(by: .goToEditScreenDisabled)
     }
 }
 
 // MARK: - CLDWidgetEditDelegate
 extension CLDWidgetViewController: CLDWidgetEditDelegate {
     
-    func widgetEditViewController(_ controller: CLDWidgetEditViewController, didFinishEditing image: CLDWidgetImageContainer) {
+    func widgetEditViewController(_ controller: CLDWidgetEditViewController, didFinishEditing image: CLDWidgetAssetContainer) {
         
         previewViewController.selectedImageEdited(newImage: image)
         moveToPreviewScreen()
@@ -212,6 +220,7 @@ private extension CLDWidgetViewController {
         case aspectRatioEnabledAndOn
         case aspectRatioDisabled
         case goToEditScreen
+        case goToEditScreenDisabled
     }
     
     @objc func actionPressed(_ sender: UIButton) {
@@ -258,7 +267,8 @@ private extension CLDWidgetViewController {
             case .aspectRatioEnabledAndOn:
                 self.actionButton.setAttributedTitle(self.editActionButtonLockedTitle,   for: .normal)
                 
-            case .aspectRatioDisabled:
+            case .aspectRatioDisabled   : fallthrough
+            case .goToEditScreenDisabled:
                 self.actionButton.setAttributedTitle(self.editActionButtonEmptyTitle,    for: .normal)
                 self.actionButton.isEnabled = false
                 
@@ -297,15 +307,16 @@ private extension CLDWidgetViewController {
         topButtonsView = UIView(frame: CGRect.zero)
         
         // buttons
+        let buttonImage = CLDImageGenerator.generateImage(from: BackIconInstructions())
         backButton = UIButton(type: .custom)
-        backButton.setImage(CLDImageGenerator.generateImage(from: BackIconInstructions()), for: .normal)
+        backButton.setImage(buttonImage, for: .normal)
         backButton.contentHorizontalAlignment = .left
         backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         backButton.addTarget(self, action: #selector(backPressed), for: .touchUpInside)
         
         actionButton = UIButton(type: .custom)
         actionButton.accessibilityIdentifier = "widgetViewControllerActionButton"
-        setActionButtonToGoToEdit()
+        changeActionButtonState(by: assets[0])
         actionButton.contentHorizontalAlignment = .right
         actionButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
         actionButton.addTarget(self, action: #selector(actionPressed), for: .touchUpInside)
@@ -370,7 +381,7 @@ private extension CLDWidgetViewController {
 }
 
 // MARK: - extension UIView
-private extension UIView {
+extension UIView {
     
     func cld_addConstraintsToFill(_ parentView: UIView) {
         
@@ -381,6 +392,19 @@ private extension UIView {
             NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: parentView, attribute: .trailing, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: parentView, attribute: .top, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: parentView, attribute: .bottom, multiplier: 1, constant: 0)
+        ]
+        NSLayoutConstraint.activate(constraints)
+    }
+    
+    func cld_addConstraintsToCenter(_ parentView: UIView) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        let constraints = [
+            NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 80),
+            NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 80),
+            NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: parentView, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: parentView, attribute: .centerY, multiplier: 1, constant: 0),
         ]
         NSLayoutConstraint.activate(constraints)
     }
