@@ -1,7 +1,7 @@
 PODS:
-  - Cloudinary (2.9.0):
-    - Cloudinary/ios (= 2.9.0)
-  - Cloudinary/ios (2.9.0)
+  - Cloudinary (2.10.0):
+    - Cloudinary/ios (= 2.10.0)
+  - Cloudinary/ios (2.10.0)
 
 DEPENDENCIES:
   - Cloudinary (from `../`)
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Cloudinary: 8e9511826bd58df6b14f0c6c042f2c5a034081f4
+  Cloudinary: 3e098df10c085f1751dc93412023ce59e8d90772
 
 PODFILE CHECKSUM: 5af410a9417d7e6e8d5a59e0c55e0c8c4ae2f611
 
