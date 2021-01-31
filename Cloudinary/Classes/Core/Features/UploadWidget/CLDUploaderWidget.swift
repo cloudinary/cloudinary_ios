@@ -72,6 +72,25 @@ import MobileCoreServices
     
     // MARK - public methods
     /**
+    Initializes the `CLDUploaderWidget` instance with the specified cloudinary, configuration, images and delegate.
+     
+    - parameter cloudinary:             The CLDCloudinary object to be used for uploading the selected assets.
+    - parameter configuration:          The configuration used by this CLDUploaderWidget instance.
+    - parameter images:                 The images to be presented, edited and uploaded.
+    - parameter delegate:               The delegate object conforming to `CLDUploaderWidgetDelegate`.
+    
+    - returns: The new `CLDUploaderWidget` instance.
+    */
+    convenience public init(
+        cloudinary: CLDCloudinary,
+        configuration: CLDWidgetConfiguration?,
+        images: [UIImage]?,
+        delegate: CLDUploaderWidgetDelegate?
+    ) {
+        self.init(cloudinary: cloudinary, configuration: configuration, images: images, videos: nil, delegate: delegate)
+    }
+    
+    /**
     Initializes the `CLDUploaderWidget` instance with the specified cloudinary, configuration, images, videos and delegate.
      
     - parameter cloudinary:             The CLDCloudinary object to be used for uploading the selected assets.

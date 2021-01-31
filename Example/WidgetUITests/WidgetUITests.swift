@@ -213,8 +213,7 @@ class WidgetUITests: XCTestCase {
         app.segmentedControls[UITestConstants.initialImagesSegmented].children(matching: .button).element(boundBy: 2).tap()
         app.segmentedControls[UITestConstants.initialVideosSegmented].children(matching: .button).element(boundBy: 2).tap()
         app.buttons[UITestConstants.widgetSettingsPresentBarButton].tap()
-        let imagePicker = app.cells[UITestConstants.allPhotos]
-        
+        let imagePicker = app.navigationBars[UITestConstants.photos]
         
         // wait for image picker to load
         expectation(for: existsPredicate, evaluatedWith: imagePicker, handler: nil)
@@ -408,6 +407,7 @@ class UITestConstants {
     static let initialImagesSegmented           = "initialImagesSegmented"
     static let initialVideosSegmented           = "initialVideosSegmented"
     static let allPhotos                        = "All Photos"
+    static let photos                           = "Photos"
     
     static let previewViewControllerVideoView   = "previewViewControllerVideoView"
     static let videoViewPausePlayButton         = "videoViewPausePlayButton"

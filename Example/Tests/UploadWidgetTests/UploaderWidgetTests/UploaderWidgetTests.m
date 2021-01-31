@@ -75,7 +75,7 @@
 - (void)test_init_cloudinary_shouldCreateObject {
       
     // Given
-    CLDCloudinary* cloudinaryObject       = self.cloudinary;
+    CLDCloudinary* cloudinaryObject = self.cloudinary;
     
     // When
     self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:nil images:nil videos:nil delegate:nil];
@@ -88,7 +88,7 @@
       
     // Given
     CLDCloudinary* cloudinaryObject       = self.cloudinary;
-    CLDUploadType* uploadType                = [[CLDUploadType alloc] initWithSigned:true preset:nil];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
@@ -104,11 +104,28 @@
     // Given
     CLDCloudinary* cloudinaryObject       = self.cloudinary;
     NSArray* images                       = [self createImagesArray];
-    CLDUploadType* uploadType                = [[CLDUploadType alloc] initWithSigned:true preset:nil];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
     self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:configuration images:images videos:nil delegate:nil];
+    
+    // Then
+    XCTAssertNotNil(self.sut, "object should be initialized");
+    XCTAssertEqual (self.sut.cloudinaryObject, cloudinaryObject, "objects should be equal");
+    XCTAssertEqual (self.sut.configuration, configuration, "objects should be equal");
+    XCTAssertEqual (self.sut.images, images, "objects should be equal");
+}
+- (void)test_convenienceInit_cloudinaryConfigurationImages_shouldCreateObject {
+      
+    // Given
+    CLDCloudinary* cloudinaryObject       = self.cloudinary;
+    NSArray* images                       = [self createImagesArray];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
+    CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
+    
+    // When
+    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:configuration images:images delegate:nil];
     
     // Then
     XCTAssertNotNil(self.sut, "object should be initialized");
@@ -122,7 +139,7 @@
     CLDCloudinary* cloudinaryObject       = self.cloudinary;
     NSArray* images                       = [self createImagesArray];
     NSArray* videos                       = [self createVideosArray];
-    CLDUploadType* uploadType                = [[CLDUploadType alloc] initWithSigned:true preset:nil];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
@@ -141,7 +158,7 @@
     CLDCloudinary* cloudinaryObject       = self.cloudinary;
     NSArray* images                       = [self createImagesArray];
     NSArray* videos                       = [self createVideosArray];
-    CLDUploadType* uploadType                = [[CLDUploadType alloc] initWithSigned:true preset:nil];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
@@ -164,7 +181,7 @@
     CLDCloudinary* updatedCloudinaryObject = self.cloudinary;
     NSArray* images                        = [self createImagesArray];
     NSArray* videos                        = [self createVideosArray];
-    CLDUploadType* uploadType                 = [[CLDUploadType alloc] initWithSigned:true preset:nil];
+    CLDUploadType* uploadType              = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration  = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
