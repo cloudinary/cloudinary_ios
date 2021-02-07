@@ -40,12 +40,12 @@ class UploaderWidgetEditViewControllerTests: NetworkBaseTest, CLDWidgetEditDeleg
     }
     
     // MARK: - Helper
-    func createImageContainer() -> CLDWidgetImageContainer {
-        return CLDWidgetImageContainer(originalImage: getImage(.logo), editedImage: getImage(.logo))
+    func createImageContainer() -> CLDWidgetAssetContainer {
+        return CLDWidgetAssetContainer(originalImage: getImage(.logo), editedImage: getImage(.logo))
     }
     
     // MARK: - delegate
-    func widgetEditViewController(_ controller: CLDWidgetEditViewController, didFinishEditing image: CLDWidgetImageContainer) {
+    func widgetEditViewController(_ controller: CLDWidgetEditViewController, didFinishEditing image: CLDWidgetAssetContainer) {
         print("delegate didFinishEditing")
     }
     func widgetEditViewControllerDidReset(_ controller: CLDWidgetEditViewController) {
@@ -59,7 +59,7 @@ class UploaderWidgetEditViewControllerTests: NetworkBaseTest, CLDWidgetEditDeleg
     func test_init_emptyImage_shouldCreateObject() {
         
         // Given
-        let image = CLDWidgetImageContainer(originalImage: UIImage(), editedImage: UIImage())
+        let image = CLDWidgetAssetContainer(originalImage: UIImage(), editedImage: UIImage())
         
         // When
         sut = CLDWidgetEditViewController(image: image)
@@ -70,7 +70,7 @@ class UploaderWidgetEditViewControllerTests: NetworkBaseTest, CLDWidgetEditDeleg
     func test_init_emptyProperties_shouldCreateObject() {
         
         // Given
-        let image = CLDWidgetImageContainer(originalImage: UIImage(), editedImage: UIImage())
+        let image = CLDWidgetAssetContainer(originalImage: UIImage(), editedImage: UIImage())
         
         // When
         sut = CLDWidgetEditViewController(image: image, configuration: nil, delegate: nil)

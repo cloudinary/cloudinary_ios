@@ -25,6 +25,7 @@
 import Foundation
 import XCTest
 import Cloudinary
+import AVKit
 
 class NetworkBaseTest: BaseTestCase {
     
@@ -37,6 +38,7 @@ class NetworkBaseTest: BaseTestCase {
     var cloudinarySecured:CLDCloudinary!
     
     // MARK: - Lifcycle
+    
     override func setUp() {
         super.setUp()
         let config: CLDConfiguration
@@ -74,6 +76,7 @@ class NetworkBaseTest: BaseTestCase {
     }
     
     // MARK: - Resources
+    
     enum TestResourceType {
         case logo
         case borderCollie
@@ -82,6 +85,7 @@ class NetworkBaseTest: BaseTestCase {
         case borderCollieRotatedJpg
         case docx
         case dog
+        case dog2
         case pdf
         case textImage
 
@@ -103,7 +107,11 @@ class NetworkBaseTest: BaseTestCase {
                 return "jpg"
                 
             case .docx: return "docx"
-            case .dog : return "mp4"
+                
+            case .dog : fallthrough
+            case .dog2:
+                return "mp4"
+            
             case .pdf : return "pdf"
             }
         }
@@ -116,7 +124,7 @@ class NetworkBaseTest: BaseTestCase {
         var data: Data {
             let data = try! Data(contentsOf: url, options: .uncached)
             return data
-        }        
+        }
     }
     
     // MARK: - Helpers
@@ -133,6 +141,10 @@ class NetworkBaseTest: BaseTestCase {
         else {
             return UIImage()
         }
+    }
+    
+    func getVideo(_ resource: TestResourceType) -> AVPlayerItem {
+        return AVPlayerItem(url: resource.url)
     }
     
     // MARK: - skip addons

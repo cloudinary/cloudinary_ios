@@ -24,6 +24,7 @@
 
 import UIKit
 import Cloudinary
+import AVKit
 
 class WidgetSettingsViewController: UIViewController {
     
@@ -31,7 +32,7 @@ class WidgetSettingsViewController: UIViewController {
     
     var initialAspect: CLDWidgetConfiguration.AspectRatioLockState = .enabledAndOff
     var initialImages: InitialImagesState                          = .many
-    
+    var initialVideos: InitialVideosState                          = .many
     var uploaderWidget: CLDUploaderWidget!
     
     @IBAction func allowRotateChanged(_ sender: UISwitch) {
@@ -42,18 +43,22 @@ class WidgetSettingsViewController: UIViewController {
         initialAspect = CLDWidgetConfiguration.AspectRatioLockState(rawValue: sender.selectedSegmentIndex)!
     }
     
-    @IBAction func initialImages(_ sender: UISegmentedControl) {
+    @IBAction func initialImagesChanged(_ sender: UISegmentedControl) {
         initialImages = InitialImagesState(rawValue: sender.selectedSegmentIndex)!
     }
     
+    @IBAction func initialVideosChanged(_ sender: UISegmentedControl) {
+        initialVideos = InitialVideosState(rawValue: sender.selectedSegmentIndex)!
+    }
+
     @IBAction func presentWidget(_ sender: Any) {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        let uploadType    = UploadType(signed: false, preset: "ios_sample")
+        let uploadType    = CLDUploadType(signed: false, preset: "ios_sample")
         let configuration = CLDWidgetConfiguration(allowRotate: allowRotate, initialAspectLockState: initialAspect, uploadType: uploadType)
         
-        uploaderWidget = CLDUploaderWidget(cloudinary: appDelegate.cloudinary!, configuration: configuration, images: initialImages.images, delegate: self)
+        uploaderWidget = CLDUploaderWidget(cloudinary: appDelegate.cloudinary!, configuration: configuration, images: initialImages.images, videos: initialVideos.videos, delegate: self)
         
         uploaderWidget.presentWidget(from: self)
     }
@@ -72,18 +77,34 @@ class WidgetSettingsViewController: UIViewController {
             }
         }
     }
+    
+    enum InitialVideosState: Int {
+        case many
+        case one
+        case none
+        
+        var videos: [AVPlayerItem] {
+            
+            let bundle = Bundle(for: WidgetSettingsViewController.self)
+            let url    = bundle.url(forResource: "dog", withExtension: "mp4")!
+            let url2   = bundle.url(forResource: "dog2", withExtension: "mp4")!
+            let video  = AVPlayerItem(url:url)
+            let video2 = AVPlayerItem(url:url2)
+            
+            switch self {
+            case .many: return [video2, video, video2]
+            case .one : return [video2]
+            case .none: return []
+            }
+        }
+    }
 }
 
 extension WidgetSettingsViewController: CLDUploaderWidgetDelegate {
-    func uploadWidget(_ widget: CLDUploaderWidget, willCall uploadRequests: [CLDUploadRequest]) {
-        print("uploader widget delegate - will call")
-    }
     
-    func widgetDidCancel(_ widget: CLDUploaderWidget) {
-        print("uploader widget delegate -  did cancel")
-    }
+    func uploadWidget(_ widget: CLDUploaderWidget, willCall uploadRequests: [CLDUploadRequest]) { }
     
-    func uploadWidgetDidDismiss() {
-        print("uploader widget delegate - did dismiss")
-    }
+    func widgetDidCancel(_ widget: CLDUploaderWidget) { }
+    
+    func uploadWidgetDidDismiss() { }
 }

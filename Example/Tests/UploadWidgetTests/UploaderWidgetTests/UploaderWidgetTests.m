@@ -25,6 +25,7 @@
 #import <XCTest/XCTest.h>
 #import <Cloudinary/Cloudinary-Swift.h>
 #import "NetworkBaseTestObjc.h"
+#import <AVKit/AVKit.h>
 
 @interface ObjcUploaderWidgetTests : NetworkBaseTestObjc <CLDUploaderWidgetDelegate>
 @property (nonatomic, strong, nullable) CLDUploaderWidget* sut;
@@ -47,11 +48,22 @@
     NSMutableArray* imagesArray = [NSMutableArray new];
     
     for (int index = 0; index < 10; index++) {
-        UIImage* image = [self getImageBy: logo];
+        UIImage* image = [self getImageBy:logo];
         [imagesArray addObject:image];
     }
     
-    return [NSArray arrayWithArray: imagesArray];
+    return [NSArray arrayWithArray:imagesArray];
+}
+- (NSArray<AVPlayerItem*>*)createVideosArray {
+   
+    NSMutableArray* videosArray = [NSMutableArray new];
+    
+    for (int index = 0; index < 10; index++) {
+        AVPlayerItem* video = [self getVideoBy:dog];
+        [videosArray addObject:video];
+    }
+    
+    return [NSArray arrayWithArray:videosArray];
 }
 
 // MARK: - delegate
@@ -63,10 +75,10 @@
 - (void)test_init_cloudinary_shouldCreateObject {
       
     // Given
-    CLDCloudinary* cloudinaryObject       = self.cloudinary;
+    CLDCloudinary* cloudinaryObject = self.cloudinary;
     
     // When
-    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:nil images:nil delegate:nil];
+    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:nil images:nil videos:nil delegate:nil];
 
     // Then
     XCTAssertNotNil(self.sut, "object should be initialized");
@@ -76,11 +88,11 @@
       
     // Given
     CLDCloudinary* cloudinaryObject       = self.cloudinary;
-    UploadType* uploadType             = [[UploadType alloc] initWithSigned:true preset:nil];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
-    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:configuration images:nil delegate:nil];
+    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:configuration images:nil videos:nil delegate:nil];
     
     // Then
     XCTAssertNotNil(self.sut, "object should be initialized");
@@ -92,7 +104,24 @@
     // Given
     CLDCloudinary* cloudinaryObject       = self.cloudinary;
     NSArray* images                       = [self createImagesArray];
-    UploadType* uploadType             = [[UploadType alloc] initWithSigned:true preset:nil];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
+    CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
+    
+    // When
+    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:configuration images:images videos:nil delegate:nil];
+    
+    // Then
+    XCTAssertNotNil(self.sut, "object should be initialized");
+    XCTAssertEqual (self.sut.cloudinaryObject, cloudinaryObject, "objects should be equal");
+    XCTAssertEqual (self.sut.configuration, configuration, "objects should be equal");
+    XCTAssertEqual (self.sut.images, images, "objects should be equal");
+}
+- (void)test_convenienceInit_cloudinaryConfigurationImages_shouldCreateObject {
+      
+    // Given
+    CLDCloudinary* cloudinaryObject       = self.cloudinary;
+    NSArray* images                       = [self createImagesArray];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
@@ -104,16 +133,36 @@
     XCTAssertEqual (self.sut.configuration, configuration, "objects should be equal");
     XCTAssertEqual (self.sut.images, images, "objects should be equal");
 }
+- (void)test_init_cloudinaryConfigurationImagesVideos_shouldCreateObject {
+      
+    // Given
+    CLDCloudinary* cloudinaryObject       = self.cloudinary;
+    NSArray* images                       = [self createImagesArray];
+    NSArray* videos                       = [self createVideosArray];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
+    CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
+    
+    // When
+    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:configuration images:images videos:videos delegate:nil];
+    
+    // Then
+    XCTAssertNotNil(self.sut, "object should be initialized");
+    XCTAssertEqual (self.sut.cloudinaryObject, cloudinaryObject, "objects should be equal");
+    XCTAssertEqual (self.sut.configuration, configuration, "objects should be equal");
+    XCTAssertEqual (self.sut.images, images, "objects should be equal");
+    XCTAssertEqual (self.sut.videos, videos, "objects should be equal");
+}
 - (void)test_init_allProperties_shouldCreateObject {
       
     // Given
     CLDCloudinary* cloudinaryObject       = self.cloudinary;
     NSArray* images                       = [self createImagesArray];
-    UploadType* uploadType             = [[UploadType alloc] initWithSigned:true preset:nil];
+    NSArray* videos                       = [self createVideosArray];
+    CLDUploadType* uploadType             = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
-    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:configuration images:images delegate:self];
+    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:cloudinaryObject configuration:configuration images:images videos:videos delegate:self];
     
     // Then
     XCTAssertNotNil(self.sut, "object should be initialized");
@@ -121,6 +170,7 @@
     XCTAssertEqual (self.sut.cloudinaryObject, cloudinaryObject, "objects should be equal");
     XCTAssertEqual (self.sut.configuration, configuration, "objects should be equal");
     XCTAssertEqual (self.sut.images, images, "objects should be equal");
+    XCTAssertEqual (self.sut.videos, videos, "objects should be equal");
 }
 
 // MARK: - test update
@@ -130,19 +180,20 @@
     CLDCloudinary* initialCloudinaryObject = self.cloudinary;
     CLDCloudinary* updatedCloudinaryObject = self.cloudinary;
     NSArray* images                        = [self createImagesArray];
-    UploadType* uploadType              = [[UploadType alloc] initWithSigned:true preset:nil];
+    NSArray* videos                        = [self createVideosArray];
+    CLDUploadType* uploadType              = [[CLDUploadType alloc] initWithSigned:true preset:nil];
     CLDWidgetConfiguration* configuration  = [[CLDWidgetConfiguration alloc] initWithAllowRotate:true initialAspectLockState:AspectRatioLockStateEnabledAndOff uploadType:uploadType];
     
     // When
-    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:initialCloudinaryObject configuration:nil images:nil delegate:nil];
-    [[[[self.sut setCloudinaryFromCloudinary:updatedCloudinaryObject] setConfigurationFromConfiguration:configuration] setImagesFromImages:images] setDelegate:self];
+    self.sut = [[CLDUploaderWidget alloc] initWithCloudinary:initialCloudinaryObject configuration:nil images:nil videos:nil delegate:nil];
+    [[[[[self.sut setCloudinaryFromCloudinary:updatedCloudinaryObject] setConfigurationFromConfiguration:configuration] setImagesFromImages:images] setVideosFromVideoItems:videos] setDelegate:self];
     
     // Then
     XCTAssertNotNil(self.sut, "object should be initialized");
     XCTAssertNotNil(self.sut.delegate, "object should be initialized");
     XCTAssertEqual (self.sut.cloudinaryObject, updatedCloudinaryObject, "objects should be equal");
     XCTAssertEqual (self.sut.configuration, configuration, "objects should be equal");
-    XCTAssertEqual (self.sut.images, images, "objects should be equal");
+    XCTAssertEqual (self.sut.videos, videos, "objects should be equal");
 }
 
 @end

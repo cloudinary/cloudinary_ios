@@ -51,7 +51,7 @@ class UploaderWidgetTests: WidgetBaseTest, CLDUploaderWidgetDelegate {
         let cloudinaryObject = cloudinary!
         
         // When
-        sut = CLDUploaderWidget(cloudinary: cloudinaryObject, configuration: nil, images: nil, delegate: nil)
+        sut = CLDUploaderWidget(cloudinary: cloudinaryObject, configuration: nil, images: nil, videos: nil, delegate: nil)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
@@ -65,7 +65,7 @@ class UploaderWidgetTests: WidgetBaseTest, CLDUploaderWidgetDelegate {
         let configuration    = CLDWidgetConfiguration()
         
         // When
-        sut = CLDUploaderWidget(cloudinary: cloudinaryObject, configuration: configuration, images: nil, delegate: nil)
+        sut = CLDUploaderWidget(cloudinary: cloudinaryObject, configuration: configuration, images: nil, videos: nil, delegate: nil)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
@@ -73,6 +73,22 @@ class UploaderWidgetTests: WidgetBaseTest, CLDUploaderWidgetDelegate {
         XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
     }
     func test_init_cloudinaryConfigurationImages_shouldCreateObject() {
+        
+        // Given
+        let images           = createImages()
+        let cloudinaryObject = cloudinary!
+        let configuration    = CLDWidgetConfiguration()
+        
+        // When
+        sut = CLDUploaderWidget(cloudinary: cloudinaryObject, configuration: configuration, images: images, videos: nil, delegate: nil)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertEqual (sut.cloudinaryObject, cloudinaryObject, "objects should be equal")
+        XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
+        XCTAssertEqual (sut.images, images, "objects should be equal")
+    }
+    func test_convenienceInit_cloudinaryConfigurationImages_shouldCreateObject() {
         
         // Given
         let images           = createImages()
@@ -88,15 +104,34 @@ class UploaderWidgetTests: WidgetBaseTest, CLDUploaderWidgetDelegate {
         XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
         XCTAssertEqual (sut.images, images, "objects should be equal")
     }
-    func test_init_allProperties_shouldCreateObject() {
+    func test_init_cloudinaryConfigurationImagesVideos_shouldCreateObject() {
         
         // Given
         let images           = createImages()
+        let videos           = createVideos()
         let cloudinaryObject = cloudinary!
         let configuration    = CLDWidgetConfiguration()
         
         // When
-        sut = CLDUploaderWidget(cloudinary: cloudinaryObject, configuration: configuration, images: images, delegate: self)
+        sut = CLDUploaderWidget(cloudinary: cloudinaryObject, configuration: configuration, images: images, videos: videos, delegate: nil)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertEqual (sut.cloudinaryObject, cloudinaryObject, "objects should be equal")
+        XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
+        XCTAssertEqual (sut.images, images, "objects should be equal")
+        XCTAssertEqual (sut.videos, videos, "objects should be equal")
+    }
+    func test_init_allProperties_shouldCreateObject() {
+        
+        // Given
+        let images           = createImages()
+        let videos           = createVideos()
+        let cloudinaryObject = cloudinary!
+        let configuration    = CLDWidgetConfiguration()
+        
+        // When
+        sut = CLDUploaderWidget(cloudinary: cloudinaryObject, configuration: configuration, images: images, videos: videos, delegate: self)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
@@ -104,6 +139,7 @@ class UploaderWidgetTests: WidgetBaseTest, CLDUploaderWidgetDelegate {
         XCTAssertEqual (sut.cloudinaryObject, cloudinaryObject, "objects should be equal")
         XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
         XCTAssertEqual (sut.images, images, "objects should be equal")
+        XCTAssertEqual (sut.videos, videos, "objects should be equal")
     }
     
     // MARK: - update
@@ -111,13 +147,14 @@ class UploaderWidgetTests: WidgetBaseTest, CLDUploaderWidgetDelegate {
         
         // Given
         let images                  = createImages()
+        let videos                  = createVideos()
         let initialCloudinaryObject = cloudinary!
         let updatedCloudinaryObject = cloudinarySecured!
         let configuration           = CLDWidgetConfiguration()
         
         // When
-        sut = CLDUploaderWidget(cloudinary: initialCloudinaryObject, configuration: nil, images: nil, delegate: nil)
-        sut.setCloudinary(updatedCloudinaryObject).setConfiguration(configuration).setImages(images).setDelegate(self)
+        sut = CLDUploaderWidget(cloudinary: initialCloudinaryObject, configuration: nil, images: nil, videos: nil, delegate: nil)
+        sut.setCloudinary(updatedCloudinaryObject).setConfiguration(configuration).setImages(images).setVideos(videos).setDelegate(self)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
@@ -125,5 +162,6 @@ class UploaderWidgetTests: WidgetBaseTest, CLDUploaderWidgetDelegate {
         XCTAssertEqual (sut.cloudinaryObject, updatedCloudinaryObject, "objects should be equal")
         XCTAssertEqual (sut.configuration, configuration, "objects should be equal")
         XCTAssertEqual (sut.images, images, "objects should be equal")
+        XCTAssertEqual (sut.videos, videos, "objects should be equal")
     }
 }

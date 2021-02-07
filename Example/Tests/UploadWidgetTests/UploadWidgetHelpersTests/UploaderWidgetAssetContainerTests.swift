@@ -1,5 +1,5 @@
 //
-//  UploaderWidgetImageContainerTests.swift
+//  UploaderWidgetAssetContainerTests.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -25,10 +25,11 @@
 @testable import Cloudinary
 import Foundation
 import XCTest
+import AVKit
 
-class UploaderWidgetImageContainerTests: NetworkBaseTest {
+class UploaderWidgetAssetContainerTests: NetworkBaseTest {
     
-    var sut: CLDWidgetImageContainer!
+    var sut: CLDWidgetAssetContainer!
     
     // MARK: - setup and teardown
     override func setUp() {
@@ -46,7 +47,7 @@ class UploaderWidgetImageContainerTests: NetworkBaseTest {
         let image = UIImage()
     
         // When
-        sut = CLDWidgetImageContainer(originalImage: image, editedImage: image)
+        sut = CLDWidgetAssetContainer(originalImage: image, editedImage: image)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
@@ -54,6 +55,9 @@ class UploaderWidgetImageContainerTests: NetworkBaseTest {
         XCTAssertNotNil(sut.editedImage, "object's properties should store value from init call")
         XCTAssertEqual (sut.originalImage, image, "object's properties should store value from init call")
         XCTAssertEqual (sut.editedImage, image, "object's properties should store value from init call")
+        XCTAssertNil   (sut.originalVideo, "video should be nil")
+        XCTAssertNotNil(sut.presentationImage, "presentationImage should be created in the object's init")
+        XCTAssertEqual (sut.assetType, .image ,"assetType should be created in the object's init")
     }
     func test_init_localImages_shouldStoreInputValues() {
         
@@ -62,7 +66,7 @@ class UploaderWidgetImageContainerTests: NetworkBaseTest {
         let editedImage   = getImage(.logo)
     
         // When
-        sut = CLDWidgetImageContainer(originalImage: originalImage, editedImage: editedImage)
+        sut = CLDWidgetAssetContainer(originalImage: originalImage, editedImage: editedImage)
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
@@ -70,22 +74,72 @@ class UploaderWidgetImageContainerTests: NetworkBaseTest {
         XCTAssertNotNil(sut.editedImage, "object's properties should store value from init call")
         XCTAssertEqual (sut.originalImage, originalImage, "object's properties should store value from init call")
         XCTAssertEqual (sut.editedImage, editedImage, "object's properties should store value from init call")
+        XCTAssertNil   (sut.originalVideo, "video should be nil")
+        XCTAssertNotNil(sut.presentationImage, "presentationImage should be created in the object's init")
+        XCTAssertEqual (sut.assetType, .image ,"assetType should be created in the object's init")
+    }
+    func test_init_localVideoUrl_shouldStoreInputValues() {
+        
+        // Given
+        let videoUrl = TestResourceType.dog.url
+        
+        // When
+        sut = CLDWidgetAssetContainer(videoUrl: videoUrl)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertNil   (sut.originalImage, "image should be nil")
+        XCTAssertNil   (sut.editedImage, "image should be nil")
+        XCTAssertNotNil(sut.originalVideo, "object's properties should store value from init call")
+        XCTAssertNotNil(sut.presentationImage, "presentationImage should be created in the object's init")
+        XCTAssertEqual (sut.assetType, .video ,"assetType should be created in the object's init")
+    }
+    func test_init_localVideoItem_shouldStoreInputValues() {
+        
+        // Given
+        let videoItem = getVideo(.dog)
+        
+        // When
+        sut = CLDWidgetAssetContainer(videoItem: videoItem)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertNil   (sut.originalImage, "image should be nil")
+        XCTAssertNil   (sut.editedImage, "image should be nil")
+        XCTAssertNotNil(sut.originalVideo, "object's properties should store value from init call")
+        XCTAssertEqual (sut.originalVideo, videoItem, "object's properties should store value from init call")
+        XCTAssertNotNil(sut.presentationImage, "presentationImage should be created in the object's init")
+        XCTAssertEqual (sut.assetType, .video ,"assetType should be created in the object's init")
     }
     
     // MARK: - test input
-    func test_updateValues_localImages_shouldStoreInputValues() {
+    func test_updateValues_localImages_shouldUpdateInputValues() {
         
         // Given
         let initialImage = getImage(.borderCollie)
         let newImage     = getImage(.logo)
     
         // When
-        sut = CLDWidgetImageContainer(originalImage: initialImage, editedImage: initialImage)
+        sut             = CLDWidgetAssetContainer(originalImage: initialImage, editedImage: initialImage)
         sut.editedImage = newImage
         
         // Then
         XCTAssertNotNil(sut, "object should be initialized")
         XCTAssertEqual (sut.originalImage, initialImage, "object's properties should store value from init call")
         XCTAssertEqual (sut.editedImage, newImage, "object's properties should update its value")
+    }
+    
+    func test_thumbnailCreation_localVideo_shouldCreateExpectedThumbnail() {
+        
+        // Given
+        let videoItem = getVideo(.dog)
+        let knownSize = CGSize.init(width: 854, height: 480)
+    
+        // When
+        sut = CLDWidgetAssetContainer(videoItem: videoItem)
+        
+        // Then
+        XCTAssertNotNil(sut, "object should be initialized")
+        XCTAssertEqual (sut.presentationImage.size, knownSize, "object's properties should store value from init call")
     }
 }
