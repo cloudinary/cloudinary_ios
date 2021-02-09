@@ -22,6 +22,8 @@
 //  SOFTWARE.
 //
 
+import UIKit
+
 class CLDCropScrollViewController: NSObject, UIScrollViewDelegate {
     
     weak var cropView: CLDCropView!

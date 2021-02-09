@@ -22,6 +22,8 @@
 //  SOFTWARE.
 //
 
+import Foundation
+
 @objcMembers open class CLDQualityAnalysis: CLDBaseResult {
     
     open var blockiness: NSNumber? {
