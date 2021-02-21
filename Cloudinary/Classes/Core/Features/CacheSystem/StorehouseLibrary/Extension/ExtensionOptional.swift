@@ -1,7 +1,7 @@
 //
-//  CLDDownloader.swift
+//  ExtensionOptional.swift
 //
-//  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,21 +24,15 @@
 
 import Foundation
 
-/**
- The CLDDownloader class is used to asynchronously fetch images either from the image cache if they exist or download them from a remote source.
-*/
-@objcMembers open class CLDDownloader: CLDBaseNetworkObject {
+extension Optional {
     
-    // MARK: - Init
-    internal fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator!
-    
-    fileprivate override init() {
-        super.init()
-    }
-    
-    internal init(downloadCoordinator: CLDDownloadCoordinator) {
+    /// Extract value or throw an error
+    internal func cld_unwrapOrThrow(error: Error) throws -> Wrapped {
         
-        self.downloadCoordinator = downloadCoordinator
-        super.init(networkCoordinator: downloadCoordinator)
+        if let value = self {
+            return value
+        } else {
+            throw error
+        }
     }
 }

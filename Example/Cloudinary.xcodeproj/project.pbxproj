@@ -109,6 +109,25 @@
 		D73DBB0A258BA0550002E7E5 /* dog2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D7289C7E258A9CB5004DBD29 /* dog2.mp4 */; };
 		D73DBB0B258BA0570002E7E5 /* dog.mov in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2B23FBAF5E0090BC40 /* dog.mov */; };
 		D73DBB0C258BA05A0002E7E5 /* dog.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2C23FBAF5E0090BC40 /* dog.mp4 */; };
+		D7519FAC25E2693A006839B1 /* CLDCloudinaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7519FAA25E2693A006839B1 /* CLDCloudinaryTests.swift */; };
+		D7519FAD25E2693A006839B1 /* CLDCloudinaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7519FAB25E2693A006839B1 /* CLDCloudinaryTests.m */; };
+		D7519FEC25E26BE9006839B1 /* DownloaderAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7519FEB25E26BE9006839B1 /* DownloaderAssetTests.swift */; };
+		D751A01625E26D83006839B1 /* CLDURLCacheConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A01425E26D83006839B1 /* CLDURLCacheConfigurationTests.swift */; };
+		D751A01725E26D83006839B1 /* CLDURLCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A01525E26D83006839B1 /* CLDURLCacheTests.swift */; };
+		D751A03325E26DB0006839B1 /* StorehouseAccessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02025E26DB0006839B1 /* StorehouseAccessorTests.swift */; };
+		D751A03425E26DB0006839B1 /* BaseStorehouseAnyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02125E26DB0006839B1 /* BaseStorehouseAnyTests.swift */; };
+		D751A03525E26DB0006839B1 /* StorehouseTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02325E26DB0006839B1 /* StorehouseTransformerTests.swift */; };
+		D751A03625E26DB0006839B1 /* StorehouseEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02425E26DB0006839B1 /* StorehouseEntryTests.swift */; };
+		D751A03725E26DB0006839B1 /* StorehouseExpiryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02525E26DB0006839B1 /* StorehouseExpiryTests.swift */; };
+		D751A03825E26DB0006839B1 /* WarehouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02725E26DB0006839B1 /* WarehouseTests.swift */; };
+		D751A03925E26DB0006839B1 /* WarehouseTransformerFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02825E26DB0006839B1 /* WarehouseTransformerFactoryTests.swift */; };
+		D751A03A25E26DB0006839B1 /* StorehouseHybridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02A25E26DB0006839B1 /* StorehouseHybridTests.swift */; };
+		D751A03B25E26DB0006839B1 /* StorehouseAutoPurgingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02C25E26DB0006839B1 /* StorehouseAutoPurgingTests.swift */; };
+		D751A03C25E26DB0006839B1 /* StorehouseOnDiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02D25E26DB0006839B1 /* StorehouseOnDiskTests.swift */; };
+		D751A03D25E26DB0006839B1 /* StorehouseInMemoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A02E25E26DB0006839B1 /* StorehouseInMemoryTests.swift */; };
+		D751A03E25E26DB0006839B1 /* StorehouseConfigurationDiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A03025E26DB0006839B1 /* StorehouseConfigurationDiskTests.swift */; };
+		D751A03F25E26DB0006839B1 /* StorehouseConfigurationAutoPurgingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A03125E26DB0006839B1 /* StorehouseConfigurationAutoPurgingTests.swift */; };
+		D751A04025E26DB0006839B1 /* StorehouseConfigurationInMemoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751A03225E26DB0006839B1 /* StorehouseConfigurationInMemoryTests.swift */; };
 		D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */; };
 		D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */; };
 		D7788A9424E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */; };
@@ -264,6 +283,25 @@
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
+		D7519FAA25E2693A006839B1 /* CLDCloudinaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDCloudinaryTests.swift; sourceTree = "<group>"; };
+		D7519FAB25E2693A006839B1 /* CLDCloudinaryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLDCloudinaryTests.m; sourceTree = "<group>"; };
+		D7519FEB25E26BE9006839B1 /* DownloaderAssetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloaderAssetTests.swift; sourceTree = "<group>"; };
+		D751A01425E26D83006839B1 /* CLDURLCacheConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDURLCacheConfigurationTests.swift; sourceTree = "<group>"; };
+		D751A01525E26D83006839B1 /* CLDURLCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDURLCacheTests.swift; sourceTree = "<group>"; };
+		D751A02025E26DB0006839B1 /* StorehouseAccessorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseAccessorTests.swift; sourceTree = "<group>"; };
+		D751A02125E26DB0006839B1 /* BaseStorehouseAnyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStorehouseAnyTests.swift; sourceTree = "<group>"; };
+		D751A02325E26DB0006839B1 /* StorehouseTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseTransformerTests.swift; sourceTree = "<group>"; };
+		D751A02425E26DB0006839B1 /* StorehouseEntryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseEntryTests.swift; sourceTree = "<group>"; };
+		D751A02525E26DB0006839B1 /* StorehouseExpiryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseExpiryTests.swift; sourceTree = "<group>"; };
+		D751A02725E26DB0006839B1 /* WarehouseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarehouseTests.swift; sourceTree = "<group>"; };
+		D751A02825E26DB0006839B1 /* WarehouseTransformerFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarehouseTransformerFactoryTests.swift; sourceTree = "<group>"; };
+		D751A02A25E26DB0006839B1 /* StorehouseHybridTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseHybridTests.swift; sourceTree = "<group>"; };
+		D751A02C25E26DB0006839B1 /* StorehouseAutoPurgingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseAutoPurgingTests.swift; sourceTree = "<group>"; };
+		D751A02D25E26DB0006839B1 /* StorehouseOnDiskTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseOnDiskTests.swift; sourceTree = "<group>"; };
+		D751A02E25E26DB0006839B1 /* StorehouseInMemoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseInMemoryTests.swift; sourceTree = "<group>"; };
+		D751A03025E26DB0006839B1 /* StorehouseConfigurationDiskTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationDiskTests.swift; sourceTree = "<group>"; };
+		D751A03125E26DB0006839B1 /* StorehouseConfigurationAutoPurgingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationAutoPurgingTests.swift; sourceTree = "<group>"; };
+		D751A03225E26DB0006839B1 /* StorehouseConfigurationInMemoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationInMemoryTests.swift; sourceTree = "<group>"; };
 		D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderWidgetViewControllerTests.swift; sourceTree = "<group>"; };
 		D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieCropped.jpg; sourceTree = "<group>"; };
 		D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieRotatedJpg.jpg; sourceTree = "<group>"; };
@@ -312,13 +350,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B1EF16C5EA94AD09F6C22C2 /* Pods_Cloudinary_Tests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D7173492258296CE006F34CD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +506,8 @@
 		272C51B6242C7F3D0093AB1B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D7519FAB25E2693A006839B1 /* CLDCloudinaryTests.m */,
+				D7519FAA25E2693A006839B1 /* CLDCloudinaryTests.swift */,
 				272C5140242B6C340093AB1B /* AuthenticationTests.swift */,
 				272C517E242B6C360093AB1B /* ParameterEncodingTests.swift */,
 				272C5141242B6C350093AB1B /* RequestTests.swift */,
@@ -501,6 +534,7 @@
 		272C51B8242C80E70093AB1B /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				D751A01225E26D5D006839B1 /* CLDURLCacheTests */,
 				272C517A242B6C360093AB1B /* CacheTests.swift */,
 				272C5145242B6C350093AB1B /* MultipartFormDataTests.swift */,
 				272C5144242B6C350093AB1B /* ResponseSerializationTests.swift */,
@@ -537,6 +571,7 @@
 				D779B69324B7117200E496EB /* AccessibilityUploderTests */,
 				274C6D2023FBAF5E0090BC40 /* ManagementApiTests.swift */,
 				274C6D2123FBAF5E0090BC40 /* DownloaderTests.swift */,
+				D7519FEB25E26BE9006839B1 /* DownloaderAssetTests.swift */,
 			);
 			path = NetworkTests;
 			sourceTree = "<group>";
@@ -789,6 +824,93 @@
 				D7E79DC224B515260082288A /* OcrUploaderTests */,
 			);
 			path = UploaderTests;
+			sourceTree = "<group>";
+		};
+		D751A01225E26D5D006839B1 /* CLDURLCacheTests */ = {
+			isa = PBXGroup;
+			children = (
+				D751A01325E26D83006839B1 /* CLDURLCache */,
+				D751A01E25E26D9C006839B1 /* StorehouseLibraryTests */,
+			);
+			path = CLDURLCacheTests;
+			sourceTree = "<group>";
+		};
+		D751A01325E26D83006839B1 /* CLDURLCache */ = {
+			isa = PBXGroup;
+			children = (
+				D751A01425E26D83006839B1 /* CLDURLCacheConfigurationTests.swift */,
+				D751A01525E26D83006839B1 /* CLDURLCacheTests.swift */,
+			);
+			path = CLDURLCache;
+			sourceTree = "<group>";
+		};
+		D751A01E25E26D9C006839B1 /* StorehouseLibraryTests */ = {
+			isa = PBXGroup;
+			children = (
+				D751A02125E26DB0006839B1 /* BaseStorehouseAnyTests.swift */,
+				D751A01F25E26DB0006839B1 /* StorehouseAccessor */,
+				D751A02B25E26DB0006839B1 /* StorehouseAnyTypeTests */,
+				D751A02F25E26DB0006839B1 /* StorehouseConfigurationTests */,
+				D751A02225E26DB0006839B1 /* StorehouseContentTests */,
+				D751A02925E26DB0006839B1 /* StorehouseHybridTests */,
+				D751A02625E26DB0006839B1 /* WarehouseTests */,
+			);
+			path = StorehouseLibraryTests;
+			sourceTree = "<group>";
+		};
+		D751A01F25E26DB0006839B1 /* StorehouseAccessor */ = {
+			isa = PBXGroup;
+			children = (
+				D751A02025E26DB0006839B1 /* StorehouseAccessorTests.swift */,
+			);
+			path = StorehouseAccessor;
+			sourceTree = "<group>";
+		};
+		D751A02225E26DB0006839B1 /* StorehouseContentTests */ = {
+			isa = PBXGroup;
+			children = (
+				D751A02325E26DB0006839B1 /* StorehouseTransformerTests.swift */,
+				D751A02425E26DB0006839B1 /* StorehouseEntryTests.swift */,
+				D751A02525E26DB0006839B1 /* StorehouseExpiryTests.swift */,
+			);
+			path = StorehouseContentTests;
+			sourceTree = "<group>";
+		};
+		D751A02625E26DB0006839B1 /* WarehouseTests */ = {
+			isa = PBXGroup;
+			children = (
+				D751A02725E26DB0006839B1 /* WarehouseTests.swift */,
+				D751A02825E26DB0006839B1 /* WarehouseTransformerFactoryTests.swift */,
+			);
+			path = WarehouseTests;
+			sourceTree = "<group>";
+		};
+		D751A02925E26DB0006839B1 /* StorehouseHybridTests */ = {
+			isa = PBXGroup;
+			children = (
+				D751A02A25E26DB0006839B1 /* StorehouseHybridTests.swift */,
+			);
+			path = StorehouseHybridTests;
+			sourceTree = "<group>";
+		};
+		D751A02B25E26DB0006839B1 /* StorehouseAnyTypeTests */ = {
+			isa = PBXGroup;
+			children = (
+				D751A02C25E26DB0006839B1 /* StorehouseAutoPurgingTests.swift */,
+				D751A02D25E26DB0006839B1 /* StorehouseOnDiskTests.swift */,
+				D751A02E25E26DB0006839B1 /* StorehouseInMemoryTests.swift */,
+			);
+			path = StorehouseAnyTypeTests;
+			sourceTree = "<group>";
+		};
+		D751A02F25E26DB0006839B1 /* StorehouseConfigurationTests */ = {
+			isa = PBXGroup;
+			children = (
+				D751A03025E26DB0006839B1 /* StorehouseConfigurationDiskTests.swift */,
+				D751A03125E26DB0006839B1 /* StorehouseConfigurationAutoPurgingTests.swift */,
+				D751A03225E26DB0006839B1 /* StorehouseConfigurationInMemoryTests.swift */,
+			);
+			path = StorehouseConfigurationTests;
 			sourceTree = "<group>";
 		};
 		D779B69324B7117200E496EB /* AccessibilityUploderTests */ = {
@@ -1140,14 +1262,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DB2D29824FFE32500001845 /* UploaderWidgetConfigurationTests.swift in Sources */,
+				D7519FAC25E2693A006839B1 /* CLDCloudinaryTests.swift in Sources */,
 				272C5189242B6C360093AB1B /* ResponseTests.swift in Sources */,
+				D7519FAD25E2693A006839B1 /* CLDCloudinaryTests.m in Sources */,
 				D7F3D46024DC3BAB002C1D27 /* PreprocessUploaderTests.swift in Sources */,
 				1E635A8425A7585E0003E9D3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */,
 				274C6D3923FBAF5E0090BC40 /* StringUtilsTest.swift in Sources */,
 				274C6D2D23FBAF5E0090BC40 /* CryptoUtilsTests.swift in Sources */,
 				D7E79DCC24B515260082288A /* UploaderMockOcrTests.m in Sources */,
 				D79AE39C24585533004F2439 /* CLDVariableTests.m in Sources */,
+				D751A03A25E26DB0006839B1 /* StorehouseHybridTests.swift in Sources */,
+				D751A01725E26D83006839B1 /* CLDURLCacheTests.swift in Sources */,
 				D7F34F9125120E0D00C282B1 /* UploaderWidgetEditViewControllerTests.swift in Sources */,
+				D7519FEC25E26BE9006839B1 /* DownloaderAssetTests.swift in Sources */,
 				D71B790024680773004AA28E /* CLDTransformationExpressionsTests.swift in Sources */,
 				D7E79DCE24B515260082288A /* ExplicitMockOcrTests.swift in Sources */,
 				272C5186242B6C360093AB1B /* MultipartFormDataTests.swift in Sources */,
@@ -1156,6 +1283,7 @@
 				D7289C8A258A9E18004DBD29 /* UploaderWidgetVideoViewTests.swift in Sources */,
 				272C5180242B6C360093AB1B /* FileManager+CloudinaryTests.swift in Sources */,
 				D71ADD9C247D976500235AD4 /* CryptoUtilsTests.m in Sources */,
+				D751A01625E26D83006839B1 /* CLDURLCacheConfigurationTests.swift in Sources */,
 				272C5187242B6C360093AB1B /* URLProtocolTests.swift in Sources */,
 				272C517F242B6C360093AB1B /* SessionManagerTests.swift in Sources */,
 				274C6D3823FBAF5E0090BC40 /* DownloaderTests.swift in Sources */,
@@ -1164,12 +1292,15 @@
 				274C6D3723FBAF5E0090BC40 /* ManagementApiTests.swift in Sources */,
 				D7EF05B0255D8C1900F93827 /* UploaderWidgetTests.swift in Sources */,
 				D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */,
+				D751A03B25E26DB0006839B1 /* StorehouseAutoPurgingTests.swift in Sources */,
 				D7289C88258A9E18004DBD29 /* UploaderWidgetVideoPlayerTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
+				D751A03C25E26DB0006839B1 /* StorehouseOnDiskTests.swift in Sources */,
 				D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */,
 				D7F34F2F2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift in Sources */,
+				D751A03525E26DB0006839B1 /* StorehouseTransformerTests.swift in Sources */,
 				D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */,
-                1E635A8025A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m in Sources */,
+				1E635A8025A7585E0003E9D3 /* ObjcUploaderQualityAnalysisTests.m in Sources */,
 				272C5181242B6C360093AB1B /* AuthenticationTests.swift in Sources */,
 				D7EF05AB255D8B8E00F93827 /* NetworkBaseTest.swift in Sources */,
 				D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */,
@@ -1178,9 +1309,13 @@
 				5D53A9512488CE23005C14AB /* CLDConfigurationTests.swift in Sources */,
 				D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */,
 				27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */,
+				D751A03825E26DB0006839B1 /* WarehouseTests.swift in Sources */,
+				D751A03625E26DB0006839B1 /* StorehouseEntryTests.swift in Sources */,
 				1E635A7F25A7585E0003E9D3 /* MockProviderQualityAnalysis.swift in Sources */,
 				D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */,
 				1E635A8325A7585E0003E9D3 /* UploaderQualityAnalysisTests.swift in Sources */,
+				D751A03925E26DB0006839B1 /* WarehouseTransformerFactoryTests.swift in Sources */,
+				D751A03D25E26DB0006839B1 /* StorehouseInMemoryTests.swift in Sources */,
 				1E635A3E25A756870003E9D3 /* ObjcBaseTestCase.m in Sources */,
 				274C6D3323FBAF5E0090BC40 /* UIButtonTests.swift in Sources */,
 				274C6D3223FBAF5E0090BC40 /* UIBaseTest.swift in Sources */,
@@ -1191,6 +1326,7 @@
 				274C6D3423FBAF5E0090BC40 /* UIImageViewTests.swift in Sources */,
 				D7289C81258A9D0B004DBD29 /* UploaderWidgetAssetContainerTests.swift in Sources */,
 				D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */,
+				D751A04025E26DB0006839B1 /* StorehouseConfigurationInMemoryTests.swift in Sources */,
 				272C51B5242B6C360093AB1B /* ParameterEncodingTests.swift in Sources */,
 				274C6D2F23FBAF5E0090BC40 /* FileUtilsTests.swift in Sources */,
 				D7E79DCA24B515260082288A /* OcrMockProvider.swift in Sources */,
@@ -1198,6 +1334,7 @@
 				D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */,
 				5DE4EC202469919A00F6C8D6 /* CLDTransformationBaselineTests.swift in Sources */,
 				D7289C89258A9E18004DBD29 /* UploaderWidgetVideoDisplayLinkTests.swift in Sources */,
+				D751A03E25E26DB0006839B1 /* StorehouseConfigurationDiskTests.swift in Sources */,
 				27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */,
 				D7F34F3325052FE700C282B1 /* WidgetBaseTest.swift in Sources */,
 				D7F34F3125052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift in Sources */,
@@ -1209,17 +1346,21 @@
 				D7289C87258A9E18004DBD29 /* UploaderWidgetVideoControlsTests.swift in Sources */,
 				272C5185242B6C360093AB1B /* ResponseSerializationTests.swift in Sources */,
 				272C5183242B6C360093AB1B /* SessionDelegateTests.swift in Sources */,
+				D751A03325E26DB0006839B1 /* StorehouseAccessorTests.swift in Sources */,
 				1E635A8225A7585E0003E9D3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */,
 				5D53A9522488CE23005C14AB /* CLDConfigurationTests.m in Sources */,
 				D7E79DCB24B515260082288A /* ExplicitMockOcrTests.m in Sources */,
 				D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */,
+				D751A03725E26DB0006839B1 /* StorehouseExpiryTests.swift in Sources */,
 				274C6D3623FBAF5E0090BC40 /* UploaderTests.swift in Sources */,
 				D7E79DCD24B515260082288A /* UploaderMockOcrTests.swift in Sources */,
 				272C51B1242B6C360093AB1B /* CacheTests.swift in Sources */,
 				274C6D3023FBAF5E0090BC40 /* UrlTests.m in Sources */,
 				272C518C242B6C360093AB1B /* BaseTestCase.swift in Sources */,
 				5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */,
+				D751A03425E26DB0006839B1 /* BaseStorehouseAnyTests.swift in Sources */,
 				272C51B4242B6C360093AB1B /* ResultTests.swift in Sources */,
+				D751A03F25E26DB0006839B1 /* StorehouseConfigurationAutoPurgingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,7 +1,7 @@
 //
-//  CLDDownloader.swift
+//  StorehouseTransformer.swift
 //
-//  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +23,37 @@
 //
 
 import Foundation
-
-/**
- The CLDDownloader class is used to asynchronously fetch images either from the image cache if they exist or download them from a remote source.
-*/
-@objcMembers open class CLDDownloader: CLDBaseNetworkObject {
+///
+///
+///
+public class StorehouseTransformer<Item>
+{
+    ///
+    ///
+    ///
+    public typealias StorehouseEncode = (Item) throws -> Data
     
-    // MARK: - Init
-    internal fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator!
+    ///
+    ///
+    ///
+    public typealias StorehouseDecode = (Data) throws -> Item
     
-    fileprivate override init() {
-        super.init()
-    }
+    ///
+    ///
+    ///
+    let   toData : StorehouseEncode
     
-    internal init(downloadCoordinator: CLDDownloadCoordinator) {
-        
-        self.downloadCoordinator = downloadCoordinator
-        super.init(networkCoordinator: downloadCoordinator)
+    ///
+    ///
+    ///
+    let fromData : StorehouseDecode
+    
+    ///
+    ///
+    ///
+    public init(toData: @escaping StorehouseEncode, fromData: @escaping StorehouseDecode)
+    {
+        self.toData   = toData
+        self.fromData = fromData
     }
 }

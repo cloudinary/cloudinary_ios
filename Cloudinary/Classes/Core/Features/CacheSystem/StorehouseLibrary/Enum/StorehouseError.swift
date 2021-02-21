@@ -1,7 +1,7 @@
 //
-//  CLDDownloader.swift
+//  StorehouseError.swift
 //
-//  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +23,29 @@
 //
 
 import Foundation
+///
+///
+///
+public enum StorehouseError : Error {
+    
+    /// Object can not be found
+    case notFound
+    
+    /// Object is found, but casting to requested type failed
+    case typeNotMatch
+    
+    /// The file attributes are malformed
+    case malformedFileAttributes
 
-/**
- The CLDDownloader class is used to asynchronously fetch images either from the image cache if they exist or download them from a remote source.
-*/
-@objcMembers open class CLDDownloader: CLDBaseNetworkObject {
+    /// Can't perform Decode
+    case decodingFailed
     
-    // MARK: - Init
-    internal fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator!
-    
-    fileprivate override init() {
-        super.init()
-    }
-    
-    internal init(downloadCoordinator: CLDDownloadCoordinator) {
-        
-        self.downloadCoordinator = downloadCoordinator
-        super.init(networkCoordinator: downloadCoordinator)
-    }
+    /// Can't perform Encode
+    case encodingFailed
+
+    // /// The storage has been deallocated
+    // case deallocated
+    //
+    // /// Fail to perform transformation to or from Data
+    // case transformerFail
 }

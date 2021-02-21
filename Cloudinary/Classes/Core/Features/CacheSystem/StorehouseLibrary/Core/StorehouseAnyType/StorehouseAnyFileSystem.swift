@@ -1,7 +1,7 @@
 //
-//  CLDDownloader.swift
+//  StorehouseAnyFileSystem.swift
 //
-//  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +23,22 @@
 //
 
 import Foundation
-
-/**
- The CLDDownloader class is used to asynchronously fetch images either from the image cache if they exist or download them from a remote source.
-*/
-@objcMembers open class CLDDownloader: CLDBaseNetworkObject {
+///
+///
+///
+public class StorehouseAnyFileSystem<StoredItem> : StorehouseAny<StoredItem> , StorehouseFileSystemProtocol
+{
+    // MARK: - Types
     
-    // MARK: - Init
-    internal fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator!
+    // MARK: - Properties
     
-    fileprivate override init() {
-        super.init()
-    }
+    ///
+    /// The total memory capacity of the cache in bytes.
+    ///
+    public var diskCapacity    : Int { return NSNotFound }
     
-    internal init(downloadCoordinator: CLDDownloadCoordinator) {
-        
-        self.downloadCoordinator = downloadCoordinator
-        super.init(networkCoordinator: downloadCoordinator)
-    }
+    ///
+    /// The current total memory usage in bytes of all images stored within the cache.
+    ///
+    public var currentDiskUsage : Int { return NSNotFound }
 }

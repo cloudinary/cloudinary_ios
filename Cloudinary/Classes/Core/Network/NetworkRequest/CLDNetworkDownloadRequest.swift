@@ -27,7 +27,6 @@ import Foundation
 internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequest>, CLDFetchImageRequest {
 
     //MARK: - Handlers
-    
     func responseImage(_ completionHandler: CLDCompletionHandler?) -> CLDFetchImageRequest {
         
         return responseData { (responseData, error) -> () in
@@ -46,16 +45,15 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
             else {
                 completionHandler?(nil, CLDError.generalError())
             }
-        }
+        } as! CLDFetchImageRequest
     }
     
     // MARK: - Private
-    
     @discardableResult
-    internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDFetchImageRequest {
+    internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDNetworkDataRequest {
         request.responseData { response in
-            if let imageData = response.result.value {
-                completionHandler?(imageData, nil)
+            if let downloadedData = response.result.value {
+                completionHandler?(downloadedData, nil)
             }
             else if let err = response.result.error {
                 let error = err as NSError

@@ -1,7 +1,7 @@
 //
-//  CLDDownloader.swift
+//  StorehouseEntry.swift
 //
-//  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +23,33 @@
 //
 
 import Foundation
-
-/**
- The CLDDownloader class is used to asynchronously fetch images either from the image cache if they exist or download them from a remote source.
-*/
-@objcMembers open class CLDDownloader: CLDBaseNetworkObject {
+///
+/// A wrapper around cached object and its expiry date.
+///
+public struct StorehouseEntry<Item>
+{    
+    ///
+    /// Cached object
+    ///
+    public let object  : Item
     
-    // MARK: - Init
-    internal fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator!
+    ///
+    /// Expiry date
+    ///
+    public let expiry  : StorehouseExpiry
     
-    fileprivate override init() {
-        super.init()
-    }
+    ///
+    /// File path to the cached object
+    ///
+    public let filePath: String?
     
-    internal init(downloadCoordinator: CLDDownloadCoordinator) {
-        
-        self.downloadCoordinator = downloadCoordinator
-        super.init(networkCoordinator: downloadCoordinator)
+    ///
+    ///
+    ///
+    init(object: Item, expiry: StorehouseExpiry, filePath: String? = nil)
+    {
+        self.object = object
+        self.expiry = expiry
+        self.filePath = filePath
     }
 }

@@ -1,7 +1,7 @@
 //
-//  CLDDownloader.swift
+//  ExtensionDate.swift
 //
-//  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,21 +24,10 @@
 
 import Foundation
 
-/**
- The CLDDownloader class is used to asynchronously fetch images either from the image cache if they exist or download them from a remote source.
-*/
-@objcMembers open class CLDDownloader: CLDBaseNetworkObject {
+extension Date {
     
-    // MARK: - Init
-    internal fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator!
-    
-    fileprivate override init() {
-        super.init()
-    }
-    
-    internal init(downloadCoordinator: CLDDownloadCoordinator) {
-        
-        self.downloadCoordinator = downloadCoordinator
-        super.init(networkCoordinator: downloadCoordinator)
+    /// Checks if the date is in the past.
+    internal var cld_inThePast : Bool {
+        return timeIntervalSinceNow < 0
     }
 }

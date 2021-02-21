@@ -30,14 +30,15 @@ import UIKit
     case none, memory, disk
 }
 
-private struct Defines {
-    static let cacheDefaultName = "defaultImageCache"
-    static let cacheBaseName = "com.cloudinary.sdk.imageCache"
-    static let readWriteQueueName = "com.cloudinary.sdk.imageCache.readWriteQueue"
+internal struct Defines {
+    static let cacheDefaultName            = "defaultImageCache"
+    static let cacheAssetDefaultName       = "defaultAssetCache"
+    static let cacheBaseName               = "com.cloudinary.sdk.imageCache"
+    static let readWriteQueueName          = "com.cloudinary.sdk.imageCache.readWriteQueue"
     static let defaultMemoryTotalCostLimit = 30 * 1024 * 1024  // 30 MB
-    static let defaultMaxDiskCapacity = 150 * 1024 * 1024  // 150 MB
-    static let thresholdPercentSize = UInt64(0.8)
-    static let defaultBytesPerPixel = 4
+    static let defaultMaxDiskCapacity      = 150 * 1024 * 1024  // 150 MB
+    static let thresholdPercentSize        = UInt64(0.8)
+    static let defaultBytesPerPixel        = 4
 }
 
 
@@ -64,8 +65,6 @@ internal class CLDImageCache {
     fileprivate var usedCacheSize: UInt64 = 0
     
     fileprivate let readWriteQueue: DispatchQueue
-    
-    internal static let defaultImageCache: CLDImageCache = CLDImageCache(name: Defines.cacheDefaultName)
     
     //MARK: - Lifecycle
     
@@ -286,7 +285,7 @@ internal class CLDImageCache {
             }
             
         } catch {
-            printLog(.warning, text: "Failed listing cache directiry")
+            printLog(.warning, text: "Failed listing cache directory")
         }
     }
     
@@ -303,7 +302,7 @@ internal class CLDImageCache {
                 .sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
                 .map { $0.0 }
         } catch {
-            printLog(.warning, text: "Failed listing cache directiry")
+            printLog(.warning, text: "Failed listing cache directory")
             return nil
         }
     }

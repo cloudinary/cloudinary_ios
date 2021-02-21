@@ -1,7 +1,7 @@
 //
-//  CLDDownloader.swift
+//  StorehouseConfigurationInMemory.swift
 //
-//  Copyright (c) 2016 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +23,38 @@
 //
 
 import Foundation
-
-/**
- The CLDDownloader class is used to asynchronously fetch images either from the image cache if they exist or download them from a remote source.
-*/
-@objcMembers open class CLDDownloader: CLDBaseNetworkObject {
+///
+///
+///
+public struct StorehouseConfigurationInMemory
+{
+    ///
+    /// Expiry date that will be applied by default for every added object
+    /// if it's not overridden in the add(key: object: expiry: completion:) method
+    ///
+    public let expiry         : StorehouseExpiry
     
-    // MARK: - Init
-    internal fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator!
+    ///
+    /// The maximum number of objects in memory the cache should hold.
+    /// If 0, there is no count limit. The default value is 0.
+    ///
+    public let countLimit     : UInt
     
-    fileprivate override init() {
-        super.init()
-    }
+    ///
+    /// The maximum total cost that the cache can hold before it starts evicting objects.
+    /// If 0, there is no total cost limit. The default value is 0
+    ///
+    public let totalCostLimit : UInt
     
-    internal init(downloadCoordinator: CLDDownloadCoordinator) {
-        
-        self.downloadCoordinator = downloadCoordinator
-        super.init(networkCoordinator: downloadCoordinator)
+    ///
+    ///
+    ///
+    public init(expiry: StorehouseExpiry = .never,
+                countLimit: UInt = 0,
+                totalCostLimit: UInt = 0)
+    {
+        self.expiry         = expiry
+        self.countLimit     = countLimit
+        self.totalCostLimit = totalCostLimit
     }
 }

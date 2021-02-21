@@ -25,7 +25,7 @@
 import Foundation
 import UIKit
 
-internal class CLDNetworkCoordinator {
+internal class CLDNetworkCoordinator: NSObject {
     
     fileprivate struct CLDNetworkCoordinatorConsts {
         static let BASE_CLOUDINARY_URL =    "https://api.cloudinary.com"
@@ -39,7 +39,7 @@ internal class CLDNetworkCoordinator {
     
     // MARK: - Init
     
-    init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter = CLDDefaultNetworkAdapter.sharedNetworkDelegate) {
+    init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter = CLDDefaultNetworkAdapter.sharedAdapter) {
         config = configuration
         self.networkAdapter = networkAdapter
     }
@@ -70,7 +70,7 @@ internal class CLDNetworkCoordinator {
         return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data)
     }
     
-    internal func download(_ url: String) -> CLDFetchImageRequest {
+    internal func download(_ url: String) -> CLDNetworkDataRequest {
         return networkAdapter.downloadFromCloudinary(url)
     }
     
@@ -144,7 +144,7 @@ internal class CLDNetworkCoordinator {
     fileprivate func getVersion() -> String {
         let version = CLDNetworkCoordinatorConsts.DEFAULT_VERSION
         return version
-    }    
+    }
     
     internal enum CLDAPIAction: String, CustomStringConvertible {
         case Upload =                       "upload"
@@ -185,5 +185,41 @@ internal class CLDNetworkCoordinator {
     internal func setMaxConcurrentDownloads(_ maxConcurrentDownloads: Int) {
         networkAdapter.setMaxConcurrentDownloads(maxConcurrentDownloads)
     }
+}
+
+class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
+
+    let imageCache = CLDImageCache(name: Defines.cacheDefaultName)
+    let urlCache   = CLDURLCache(memoryCapacity: Defines.defaultMemoryTotalCostLimit, diskCapacity: Defines.defaultMaxDiskCapacity, diskPath: Defines.cacheAssetDefaultName, configuration: CLDURLCacheConfiguration.defualt)
     
+    init(configuration: CLDConfiguration) {
+
+        let downloadConfiguration                   = URLSessionConfiguration.default
+        downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
+        downloadConfiguration.urlCache              = urlCache
+        // downloadConfiguration.requestCachePolicy    = .returnCacheDataElseLoad
+        let downloadAdapter = CLDDefaultNetworkAdapter(configuration: downloadConfiguration)
+        
+        super.init(configuration: configuration, networkAdapter: downloadAdapter)
+        
+        urlCache.delegate = self
+    }
+
+    override init(configuration: CLDConfiguration, sessionConfiguration: URLSessionConfiguration) {
+        super.init(configuration: configuration, sessionConfiguration: sessionConfiguration)
+    }
+    
+    override init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter) {
+        super.init(configuration: configuration, networkAdapter: networkAdapter)
+    }
+    
+    func shouldExclude(response: HTTPURLResponse, for urlCache: CLDURLCache) -> Bool {
+    
+        if let contentType = response.cld_header.value(for: .contentType),
+           contentType.contains("image") {
+            return true
+        }
+        
+        return false
+    }
 }
