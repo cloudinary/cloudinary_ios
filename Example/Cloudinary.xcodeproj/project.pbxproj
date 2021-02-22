@@ -127,6 +127,8 @@
 		D7E79DCD24B515260082288A /* UploaderMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */; };
 		D7E79DCE24B515260082288A /* ExplicitMockOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */; };
 		D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */; };
+		D7EC161F2592261200DD7611 /* borderCollieRotatedJpgUnderIOS12.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7EC161E2592261200DD7611 /* borderCollieRotatedJpgUnderIOS12.jpg */; };
+		D7EC162125922BA200DD7611 /* borderCollieRotatedPngUnderIOS12.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EC162025922BA200DD7611 /* borderCollieRotatedPngUnderIOS12.png */; };
 		D7EF05AB255D8B8E00F93827 /* NetworkBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05A8255D8B8E00F93827 /* NetworkBaseTest.swift */; };
 		D7EF05AC255D8B8E00F93827 /* NetworkBaseTestObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05AA255D8B8E00F93827 /* NetworkBaseTestObjc.m */; };
 		D7EF05B0255D8C1900F93827 /* UploaderWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF05AE255D8C1900F93827 /* UploaderWidgetTests.swift */; };
@@ -282,6 +284,8 @@
 		D7E79DC724B515260082288A /* UploaderMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DC824B515260082288A /* ExplicitMockOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplicitMockOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DD024B515650082288A /* UploadRequestParamsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadRequestParamsTests.swift; sourceTree = "<group>"; };
+		D7EC161E2592261200DD7611 /* borderCollieRotatedJpgUnderIOS12.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieRotatedJpgUnderIOS12.jpg; sourceTree = "<group>"; };
+		D7EC162025922BA200DD7611 /* borderCollieRotatedPngUnderIOS12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = borderCollieRotatedPngUnderIOS12.png; sourceTree = "<group>"; };
 		D7EF05A8255D8B8E00F93827 /* NetworkBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkBaseTest.swift; sourceTree = "<group>"; };
 		D7EF05A9255D8B8E00F93827 /* NetworkBaseTestObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkBaseTestObjc.h; sourceTree = "<group>"; };
 		D7EF05AA255D8B8E00F93827 /* NetworkBaseTestObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkBaseTestObjc.m; sourceTree = "<group>"; };
@@ -554,8 +558,10 @@
 		274C6D2423FBAF5E0090BC40 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D7EC161E2592261200DD7611 /* borderCollieRotatedJpgUnderIOS12.jpg */,
 				D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */,
 				D7788A9324E29BEC00B63EB7 /* borderCollieRotatedPng.png */,
+				D7EC162025922BA200DD7611 /* borderCollieRotatedPngUnderIOS12.png */,
 				274C6D2523FBAF5E0090BC40 /* borderCollie.jpg */,
 				D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */,
 				D7866140248FE34A0099DE8C /* textImage.jpg */,
@@ -1027,9 +1033,11 @@
 				272C5193242B6C360093AB1B /* valid_data.json in Resources */,
 				272C5195242B6C360093AB1B /* utf8_string.txt in Resources */,
 				272C5196242B6C360093AB1B /* utf32_string.txt in Resources */,
+				D7EC162125922BA200DD7611 /* borderCollieRotatedPngUnderIOS12.png in Resources */,
 				274C6D3C23FBAF5E0090BC40 /* docx.docx in Resources */,
 				272C5197242B6C360093AB1B /* empty_string.txt in Resources */,
 				272C518F242B6C360093AB1B /* invalid.data in Resources */,
+				D7EC161F2592261200DD7611 /* borderCollieRotatedJpgUnderIOS12.jpg in Resources */,
 				D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */,
 				274C6D3A23FBAF5E0090BC40 /* borderCollie.jpg in Resources */,
 				272C5192242B6C360093AB1B /* empty_data.json in Resources */,
