@@ -93,16 +93,19 @@ class DownloaderAssetTests: NetworkBaseTest {
         expectation = self.expectation(description: "test_downloadAsset_pdf_shouldDownloadAssetAsData Download pdf should succeed")
         
         var response: Data?
+        var downloadError: Error?
         /// download asset by publicId
         let url = cloudinary!.createUrl().generate(pubId)
         cloudinary!.createDownloader().fetchAsset(url!).responseAsset { (responseData, err) in
             response = responseData
+            downloadError = err
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: timeout, handler: nil)
         
         // Then
+        XCTAssertNil(downloadError, "download error should be nil \(String(describing: downloadError))")
         XCTAssertEqual(response, resource.data, "uploaded data should be equal to downloaded data")
     }
     func test_downloadAsset_video_shouldDownloadAssetAsData() {
