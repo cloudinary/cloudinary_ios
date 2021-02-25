@@ -106,7 +106,7 @@ class DownloaderAssetTests: NetworkBaseTest {
         
         // Then
         XCTAssertNil(downloadError, "download error should be nil \(String(describing: downloadError))")
-        XCTAssertEqual(response, resource.data, "uploaded data should be equal to downloaded data")
+        XCTAssertEqual(response, resource.data, "uploaded data should be equal to downloaded data from url \(String(describing: url!))")
     }
     func test_downloadAsset_video_shouldDownloadAssetAsData() {
         
