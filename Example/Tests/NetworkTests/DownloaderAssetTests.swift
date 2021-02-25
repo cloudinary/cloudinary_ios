@@ -73,12 +73,12 @@ class DownloaderAssetTests: NetworkBaseTest {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
         // Given
+        var expectation = self.expectation(description: "Upload should succeed")
         let resource: TestResourceType = .pdf
         var publicId: String?
-        var expectation = self.expectation(description: "Upload should succeed")
         
         // When
-        uploadFile(.pdf).response({ (result, error) in
+        cloudinary!.createUploader().signedUpload(url: resource.url).response({ (result, error) in
             publicId = result?.publicId
             expectation.fulfill()
         })
@@ -96,11 +96,11 @@ class DownloaderAssetTests: NetworkBaseTest {
         var downloadError: Error?
         /// download asset by publicId
         let url = cloudinary!.createUrl().generate(pubId)
-        cloudinary!.createDownloader().fetchAsset(url!).responseAsset { (responseData, err) in
+        cloudinary!.createDownloader().fetchAsset(url!, completionHandler: { (responseData, err) in
             response = responseData
             downloadError = err
             expectation.fulfill()
-        }
+        })
         
         waitForExpectations(timeout: timeout, handler: nil)
         
