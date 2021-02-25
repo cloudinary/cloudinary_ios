@@ -26,7 +26,7 @@ import Foundation
 ///
 ///
 ///
-public class WarehouseTransformerFactory
+internal class WarehouseTransformerFactory
 {
     /// MARK: - Types
     
@@ -54,7 +54,7 @@ public class WarehouseTransformerFactory
     ///
     ///
     ///
-    public static func forCodable<Item: Codable>(ofType: Item.Type) -> StorehouseTransformer<Item>
+    internal static func forCodable<Item: Codable>(ofType: Item.Type) -> StorehouseTransformer<Item>
     {    
         let   toData : (Item) throws -> Data = { object in
             
@@ -74,7 +74,7 @@ public class WarehouseTransformerFactory
     ///
     ///
     ///
-    public static func forCoding<Item: NSCoding>(ofType: Item.Type) -> StorehouseTransformer<Item>
+    internal static func forCoding<Item: NSCoding>(ofType: Item.Type) -> StorehouseTransformer<Item>
     {
         let   toData : (Item) throws -> Data = { (object) in
             
@@ -103,7 +103,7 @@ public class WarehouseTransformerFactory
     ///
     ///
     ///
-    public static func forSecuredCoding<Item: NSCoding>(ofType: Item.Type) -> StorehouseTransformer<Item>
+    internal static func forSecuredCoding<Item: NSCoding>(ofType: Item.Type) -> StorehouseTransformer<Item>
     {
         let   toData : (Item) throws -> Data = { (object) in
             

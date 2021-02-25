@@ -31,7 +31,7 @@ import Foundation
 /// purged until the preferred memory usage after purge is met. Each time an entry is accessed through the cache, the
 /// internal access date of the entry is updated.
 ///
-public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<StoredItem>
+internal final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<StoredItem>
 {
     // MARK: - Types
     
@@ -92,14 +92,14 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
     ///
     /// The total memory capacity of the cache in bytes.
     ///
-    public override var memoryCapacity : Int {
+    internal override var memoryCapacity : Int {
         return configuration.memoryCapacity
     }
     
     ///
     /// The current total memory usage in bytes of all images stored within the cache.
     ///
-    public override var currentMemoryUsage : Int {
+    internal override var currentMemoryUsage : Int {
         var value : Int = 0
         synchronizationQueue.sync { value = self.memoryUsage }
         return value
@@ -109,7 +109,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
     /// The preferred memory usage after purge in bytes.
     /// During a purge , images will be purged until the memory capacity drops below this limit.
     ///
-    public var preferredMemoryUsageAfterPurge : Int {
+    internal var preferredMemoryUsageAfterPurge : Int {
         return configuration.preferredMemoryUsageAfterPurge
     }
     
@@ -152,7 +152,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
     ///
     /// - Returns: The new `StorehouseAutoPurging` instance.
     ///
-    public init(configuration: StorehouseConfigurationAutoPurging, transformer : StorehouseTransformer<Item>)
+    internal init(configuration: StorehouseConfigurationAutoPurging, transformer : StorehouseTransformer<Item>)
     {
         precondition(configuration.memoryCapacity >= configuration.preferredMemoryUsageAfterPurge,
                      "The `memoryCapacity` must be greater than or equal to `preferredMemoryUsageAfterPurge`")
@@ -244,7 +244,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
     // MARK: - StorehouseProtocol
     
     @discardableResult
-    public override func entry(forKey key: String) throws -> StorehouseEntry<Item>
+    internal override func entry(forKey key: String) throws -> StorehouseEntry<Item>
     {
         var capsule : StorehouseEntry<Item>?
         
@@ -257,7 +257,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
         return try capsule.cld_unwrapOrThrow(error: StorehouseError.notFound)
     }
     
-    public override func removeObject(forKey key: String) throws
+    internal override func removeObject(forKey key: String) throws
     {
         let identifier = key
         synchronizationQueue.sync(flags: [.barrier]) {
@@ -268,7 +268,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
         }
     }
     
-    public override func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry?) throws
+    internal override func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry?) throws
     {
         let identifier = key
         try synchronizationQueue.sync(flags: [.barrier]) {
@@ -291,7 +291,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
     }
     
     @objc
-    public override func removeAll() throws
+    internal override func removeAll() throws
     {
         synchronizationQueue.sync(flags: [.barrier]) {
             
@@ -302,7 +302,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
         }
     }
     
-    public override func removeExpiredObjects() throws
+    internal override func removeExpiredObjects() throws
     {
         let now     = Date()
         let allKeys = keys
@@ -311,7 +311,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
         }
     }
     
-    public override func removeStoredObjects(since date: Date) throws
+    internal override func removeStoredObjects(since date: Date) throws
     {
         let now     = Date()
         let allKeys = keys
@@ -320,7 +320,7 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
         }
     }
     
-    public override func removeObjectIfExpired(forKey key: String) throws
+    internal override func removeObjectIfExpired(forKey key: String) throws
     {
         try removeObjectIfExpired(forKey: key, since: Date())
     }

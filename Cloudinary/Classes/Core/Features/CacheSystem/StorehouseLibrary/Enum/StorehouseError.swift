@@ -26,7 +26,7 @@ import Foundation
 ///
 ///
 ///
-public enum StorehouseError : Error {
+internal enum StorehouseError : Error {
     
     /// Object can not be found
     case notFound

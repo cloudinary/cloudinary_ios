@@ -27,28 +27,28 @@ import Dispatch
 ///
 /// Manage a storehouse with wares, generic over SoredType.
 ///
-public final class Warehouse<SoredType>
+internal final class Warehouse<SoredType>
 {
     /// MARK: - Typealias
-    public typealias Item = SoredType
+    internal typealias Item = SoredType
     
     /// MARK: - Private Properties
     private let   accessor : StorehouseAccessor<Item>
     private let storehouse : StorehouseHybrid  <Item>
     
     /// MARK: - Public Computed Properties
-    public var memoryCapacity : Int {
+    internal var memoryCapacity : Int {
         return accessor.memoryCapacity
     }
-    public var   diskCapacity : Int {
+    internal var   diskCapacity : Int {
         return accessor.diskCapacity
     }
     
-    public var currentMemoryUsage : Int {
+    internal var currentMemoryUsage : Int {
         return accessor.currentMemoryUsage
     }
     
-    public var currentDiskUsage: Int {
+    internal var currentDiskUsage: Int {
         return accessor.currentDiskUsage
     }
     
@@ -64,7 +64,7 @@ public final class Warehouse<SoredType>
     ///
     /// - Throws: Throw StorehouseError if any.
     ///
-    public convenience init(memoryConfig: StorehouseConfigurationInMemory, diskConfig: StorehouseConfigurationDisk, transformer: StorehouseTransformer<Item>) throws
+    internal convenience init(memoryConfig: StorehouseConfigurationInMemory, diskConfig: StorehouseConfigurationDisk, transformer: StorehouseTransformer<Item>) throws
     {
         let disk    = try StorehouseOnDisk<Item>(configuration:   diskConfig, transformer: transformer)
         let memory  = StorehouseInMemory<Item>(configuration: memoryConfig)
@@ -82,7 +82,7 @@ public final class Warehouse<SoredType>
     ///
     /// - Throws: Throw StorehouseError if any.
     ///
-    public convenience init(purgingConfig: StorehouseConfigurationAutoPurging, diskConfig: StorehouseConfigurationDisk, transformer: StorehouseTransformer<Item>) throws
+    internal convenience init(purgingConfig: StorehouseConfigurationAutoPurging, diskConfig: StorehouseConfigurationDisk, transformer: StorehouseTransformer<Item>) throws
     {
         let disk    = try StorehouseOnDisk (configuration:    diskConfig, transformer: transformer)
         let memory  = StorehouseAutoPurging(configuration: purgingConfig, transformer: transformer)
@@ -94,7 +94,7 @@ public final class Warehouse<SoredType>
     /// Initialise a warehouse with a prepared storehouse.
     ///
     /// - Parameter storage: The storehouse to use
-    public init(hybrid storage: StorehouseHybrid<Item>)
+    internal init(hybrid storage: StorehouseHybrid<Item>)
     {
         let queue = DispatchQueue(label: "Warehouse.accessQueue", attributes: [.concurrent])
         self.storehouse = storage
@@ -114,37 +114,37 @@ public final class Warehouse<SoredType>
 extension Warehouse : StorehouseProtocol
 {
     @discardableResult
-    public func entry(forKey key: String) throws -> StorehouseEntry<Item>
+    internal func entry(forKey key: String) throws -> StorehouseEntry<Item>
     {
         return try accessor.entry(forKey: key)
     }
     
-    public func removeObject(forKey key: String) throws
+    internal func removeObject(forKey key: String) throws
     {
         try accessor.removeObject(forKey: key)
     }
     
-    public func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
+    internal func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
     {
         try accessor.setObject(object, forKey: key, expiry: expiry)
     }
     
-    public func removeAll() throws
+    internal func removeAll() throws
     {
         try accessor.removeAll()
     }
     
-    public func removeExpiredObjects() throws
+    internal func removeExpiredObjects() throws
     {
         try accessor.removeExpiredObjects()
     }
     
-    public func removeStoredObjects(since date: Date) throws
+    internal func removeStoredObjects(since date: Date) throws
     {
         try accessor.removeStoredObjects(since: date)
     }
     
-    public func removeObjectIfExpired(forKey key: String) throws
+    internal func removeObjectIfExpired(forKey key: String) throws
     {
         try accessor.removeObjectIfExpired(forKey: key)
     }

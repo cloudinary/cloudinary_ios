@@ -27,41 +27,41 @@ import Dispatch
 ///
 ///
 ///
-public class StorehouseAccessor<StoredItem>
+internal class StorehouseAccessor<StoredItem>
 {
     /// MARK: - Typealias
-    public typealias Item = StoredItem
+    internal typealias Item = StoredItem
     
     /// MARK: - Public Properties
-    public var storehouse  : StorehouseHybrid<Item>
-    public let accessQueue : DispatchQueue
+    internal var storehouse  : StorehouseHybrid<Item>
+    internal let accessQueue : DispatchQueue
     
-    public var memoryCapacity : Int {
+    internal var memoryCapacity : Int {
         var value : Int!
         accessQueue.sync { value = storehouse.memoryCapacity }
         return value
     }
     
-    public var diskCapacity : Int {
+    internal var diskCapacity : Int {
         var value : Int!
         accessQueue.sync { value = storehouse.diskCapacity }
         return value
     }
     
-    public var currentMemoryUsage : Int {
+    internal var currentMemoryUsage : Int {
         var value : Int!
         accessQueue.sync { value = storehouse.currentMemoryUsage }
         return value
     }
     
-    public var currentDiskUsage: Int {
+    internal var currentDiskUsage: Int {
         var value : Int!
         accessQueue.sync { value = storehouse.currentDiskUsage }
         return value
     }
     
     /// MARK: - Initializers
-    public init(storage: StorehouseHybrid<Item>, queue: DispatchQueue)
+    internal init(storage: StorehouseHybrid<Item>, queue: DispatchQueue)
     {
         self.storehouse  = storage
         self.accessQueue = queue
@@ -77,7 +77,7 @@ public class StorehouseAccessor<StoredItem>
 extension StorehouseAccessor : StorehouseProtocol
 {
     @discardableResult
-    public func entry(forKey key: String) throws -> StorehouseEntry<Item>
+    internal func entry(forKey key: String) throws -> StorehouseEntry<Item>
     {
         var entry : StorehouseEntry<Item>!
         try accessQueue.sync {
@@ -86,42 +86,42 @@ extension StorehouseAccessor : StorehouseProtocol
         return entry
     }
     
-    public func removeObject(forKey key: String) throws
+    internal func removeObject(forKey key: String) throws
     {
         try accessQueue.sync(flags: [.barrier]) {
             try self.storehouse.removeObject(forKey: key)
         }
     }
     
-    public func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
+    internal func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
     {
         try accessQueue.sync(flags: [.barrier]) {
             try storehouse.setObject(object, forKey: key, expiry: expiry)
         }
     }
     
-    public func removeAll() throws
+    internal func removeAll() throws
     {
         try accessQueue.sync(flags: [.barrier]) {
             try storehouse.removeAll()
         }
     }
     
-    public func removeExpiredObjects() throws
+    internal func removeExpiredObjects() throws
     {
         try accessQueue.sync(flags: [.barrier]) {
             try storehouse.removeExpiredObjects()
         }
     }
     
-    public func removeStoredObjects(since date: Date) throws
+    internal func removeStoredObjects(since date: Date) throws
     {
         try accessQueue.sync(flags: [.barrier]) {
             try storehouse.removeStoredObjects(since: date)
         }
     }
     
-    public func removeObjectIfExpired(forKey key: String) throws
+    internal func removeObjectIfExpired(forKey key: String) throws
     {
         try accessQueue.sync(flags: [.barrier]) {
             try storehouse.removeObjectIfExpired(forKey: key)

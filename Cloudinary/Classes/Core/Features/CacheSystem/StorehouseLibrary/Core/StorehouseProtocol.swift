@@ -26,7 +26,7 @@ import Foundation
 ///
 /// A protocol used for saving and loading from storehouse
 ///
-public protocol StorehouseProtocol
+internal protocol StorehouseProtocol
 {
     /// The generic type of the protocol
     associatedtype Item
@@ -97,7 +97,7 @@ public protocol StorehouseProtocol
     @discardableResult
     func isExpiredObject(forKey key: String) throws -> Bool
 }
-public extension StorehouseProtocol
+internal extension StorehouseProtocol
 {
     @discardableResult
     func object(forKey key: String) throws -> Item {
@@ -132,7 +132,7 @@ public extension StorehouseProtocol
 ///
 /// A protocol used for saving and loading from in memory storehouse
 ///
-public protocol StorehouseMemoryProtocol : StorehouseProtocol
+internal protocol StorehouseMemoryProtocol : StorehouseProtocol
 {
     var     memoryCapacity : Int { get }
     var currentMemoryUsage : Int { get }
@@ -140,7 +140,7 @@ public protocol StorehouseMemoryProtocol : StorehouseProtocol
 ///
 /// A protocol used for saving and loading from file system storehouse
 ///
-public protocol StorehouseFileSystemProtocol : StorehouseProtocol
+internal protocol StorehouseFileSystemProtocol : StorehouseProtocol
 {
     var     diskCapacity : Int { get }
     var currentDiskUsage : Int { get }
@@ -149,4 +149,4 @@ public protocol StorehouseFileSystemProtocol : StorehouseProtocol
 ///
 /// A protocol used for saving and loading from a hybrid storehouse
 ///
-public typealias StorehouseHybridProtocol = StorehouseMemoryProtocol & StorehouseFileSystemProtocol
+internal typealias StorehouseHybridProtocol = StorehouseMemoryProtocol & StorehouseFileSystemProtocol

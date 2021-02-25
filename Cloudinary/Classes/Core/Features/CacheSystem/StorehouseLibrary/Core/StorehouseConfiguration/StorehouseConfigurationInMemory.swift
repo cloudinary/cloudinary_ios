@@ -26,30 +26,30 @@ import Foundation
 ///
 ///
 ///
-public struct StorehouseConfigurationInMemory
+internal struct StorehouseConfigurationInMemory
 {
     ///
     /// Expiry date that will be applied by default for every added object
     /// if it's not overridden in the add(key: object: expiry: completion:) method
     ///
-    public let expiry         : StorehouseExpiry
+    internal let expiry         : StorehouseExpiry
     
     ///
     /// The maximum number of objects in memory the cache should hold.
     /// If 0, there is no count limit. The default value is 0.
     ///
-    public let countLimit     : UInt
+    internal let countLimit     : UInt
     
     ///
     /// The maximum total cost that the cache can hold before it starts evicting objects.
     /// If 0, there is no total cost limit. The default value is 0
     ///
-    public let totalCostLimit : UInt
+    internal let totalCostLimit : UInt
     
     ///
     ///
     ///
-    public init(expiry: StorehouseExpiry = .never,
+    internal init(expiry: StorehouseExpiry = .never,
                 countLimit: UInt = 0,
                 totalCostLimit: UInt = 0)
     {

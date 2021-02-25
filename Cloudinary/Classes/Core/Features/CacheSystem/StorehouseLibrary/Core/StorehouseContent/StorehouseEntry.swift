@@ -26,22 +26,22 @@ import Foundation
 ///
 /// A wrapper around cached object and its expiry date.
 ///
-public struct StorehouseEntry<Item>
+internal struct StorehouseEntry<Item>
 {    
     ///
     /// Cached object
     ///
-    public let object  : Item
+    internal let object  : Item
     
     ///
     /// Expiry date
     ///
-    public let expiry  : StorehouseExpiry
+    internal let expiry  : StorehouseExpiry
     
     ///
     /// File path to the cached object
     ///
-    public let filePath: String?
+    internal let filePath: String?
     
     ///
     ///

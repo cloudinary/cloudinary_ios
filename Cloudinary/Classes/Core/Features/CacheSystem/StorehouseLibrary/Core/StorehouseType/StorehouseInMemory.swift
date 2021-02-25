@@ -26,7 +26,7 @@ import Foundation
 ///
 ///
 ///
-public final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredItem>
+internal final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredItem>
 {
     /// MARK: - Types
     ///
@@ -57,11 +57,11 @@ public final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredI
         }
     }
     
-    public override var memoryCapacity : Int {
+    internal override var memoryCapacity : Int {
         return NSNotFound
     }
     
-    public override var currentMemoryUsage : Int {
+    internal override var currentMemoryUsage : Int {
         return NSNotFound
     }
     
@@ -77,7 +77,7 @@ public final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredI
     fileprivate let configuration : StorehouseConfigurationInMemory
     
     /// MARK: - Initializers
-    public init(configuration: StorehouseConfigurationInMemory)
+    internal init(configuration: StorehouseConfigurationInMemory)
     {
         self.configuration        = configuration
         self.cache.countLimit     = Int(configuration.countLimit)
@@ -97,7 +97,7 @@ public final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredI
     // MARK: - StorehouseProtocol
 
     @discardableResult
-    public override func entry(forKey key: String) throws -> StorehouseEntry<Item>
+    internal override func entry(forKey key: String) throws -> StorehouseEntry<Item>
     {
         let aKey = NSString(string: key)
         guard let capsule = cache.object(forKey: aKey) else { throw StorehouseError.notFound     }
@@ -105,33 +105,33 @@ public final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredI
         return StorehouseEntry(object: object, expiry: capsule.expiry)
     }
     
-    public override func removeObject(forKey key: String) throws
+    internal override func removeObject(forKey key: String) throws
     {
         let aKey = NSString(string: key)
         cache.removeObject(forKey: aKey)
         keys.remove(key)
     }
     
-    public override func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
+    internal override func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
     {
         let capsule = MemoryCapsule(value: object, expiry: .date(expiry?.date ?? configuration.expiry.date))
         cache.setObject(capsule, forKey: NSString(string: key))
         keys.insert(key)
     }
     
-    public override func removeAll() throws
+    internal override func removeAll() throws
     {
         cache.removeAllObjects()
         keys.removeAll()
     }
     
-    public override func removeExpiredObjects() throws
+    internal override func removeExpiredObjects() throws
     {
         let now = Date()
         try removeStoredObjects(since: now)
     }
     
-    public override func removeStoredObjects(since date: Date) throws
+    internal override func removeStoredObjects(since date: Date) throws
     {
         let allKeys = keys
         
@@ -140,7 +140,7 @@ public final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredI
         }
     }
     
-    public override func removeObjectIfExpired(forKey key: String) throws
+    internal override func removeObjectIfExpired(forKey key: String) throws
     {
         try removeObjectIfExpired(forKey: key, since: Date())
     }

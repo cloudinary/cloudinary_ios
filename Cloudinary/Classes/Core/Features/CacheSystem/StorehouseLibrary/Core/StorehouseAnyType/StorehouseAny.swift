@@ -26,10 +26,10 @@ import Foundation
 ///
 ///
 ///
-public class StorehouseAny<StoredItem> : StorehouseProtocol
+internal class StorehouseAny<StoredItem> : StorehouseProtocol
 {
     /// MARK: - Typealias
-    public typealias Item = StoredItem
+    internal typealias Item = StoredItem
     
     /// MARK: - Types
     
@@ -41,37 +41,37 @@ public class StorehouseAny<StoredItem> : StorehouseProtocol
     }
     
     @discardableResult
-    public func entry(forKey key: String) throws -> StorehouseEntry<Item>
+    internal func entry(forKey key: String) throws -> StorehouseEntry<Item>
     {
         fatalError("You must override this method")
     }
     
-    public func removeObject(forKey key: String) throws
+    internal func removeObject(forKey key: String) throws
     {
         fatalError("You must override this method")
     }
     
-    public func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
+    internal func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
     {
         fatalError("You must override this method")
     }
     
-    public func removeAll() throws
+    internal func removeAll() throws
     {
         fatalError("You must override this method")
     }
     
-    public func removeExpiredObjects() throws
+    internal func removeExpiredObjects() throws
     {
         fatalError("You must override this method")
     }
     
-    public func removeStoredObjects(since date: Date) throws
+    internal func removeStoredObjects(since date: Date) throws
     {
         fatalError("You must override this method")
     }
     
-    public func removeObjectIfExpired(forKey key: String) throws
+    internal func removeObjectIfExpired(forKey key: String) throws
     {
         fatalError("You must override this method")
     }

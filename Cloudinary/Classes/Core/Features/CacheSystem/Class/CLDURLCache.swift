@@ -25,25 +25,25 @@
 import Foundation
 
 @objc(CLDURLCacheDelegate)
-public protocol CLDURLCacheDelegate : NSObjectProtocol {
+internal protocol CLDURLCacheDelegate : NSObjectProtocol {
     @objc optional func networkAvailable(for urlCache: CLDURLCache) -> Bool
     @objc optional func shouldExclude(response: HTTPURLResponse, for urlCache: CLDURLCache) -> Bool
 }
 
 @objcMembers
 @objc(CLDURLCache)
-public final class CLDURLCache : URLCache
+internal final class CLDURLCache : URLCache
 {
     /// MARK: - Private properties
     internal fileprivate(set) var warehouse : Warehouse<CachedURLResponse>!
     internal fileprivate(set) var settings  : CLDURLCacheConfiguration!
     fileprivate var path      : String?
-    public weak var delegate  : CLDURLCacheDelegate?
+    internal weak var delegate  : CLDURLCacheDelegate?
     
     fileprivate var shouldReceateCacheResponse = false
     
     /// MARK: - Initializers
-    public init(memoryCapacity: Int, diskCapacity: Int, diskPath path: String?, configuration settings: CLDURLCacheConfiguration = CLDURLCacheConfiguration.defualt)
+    internal init(memoryCapacity: Int, diskCapacity: Int, diskPath path: String?, configuration settings: CLDURLCacheConfiguration = CLDURLCacheConfiguration.defualt)
     {
         self.settings = settings
         self.path     = path
@@ -62,19 +62,19 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override var memoryCapacity : Int {
+    internal override var memoryCapacity : Int {
         get { return warehouse.memoryCapacity }
         set { /* No-Op*/ }
     }
-    public override var diskCapacity   : Int {
+    internal override var diskCapacity   : Int {
         get { return warehouse.diskCapacity }
         set { /* No-Op*/ }
     }
     
-    public override var currentMemoryUsage : Int {
+    internal override var currentMemoryUsage : Int {
         return warehouse.currentMemoryUsage
     }
-    public override var currentDiskUsage   : Int {
+    internal override var currentDiskUsage   : Int {
         return warehouse.currentDiskUsage
     }
     
@@ -82,7 +82,7 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override func cachedResponse(for request: URLRequest) -> CachedURLResponse?
+    internal override func cachedResponse(for request: URLRequest) -> CachedURLResponse?
     {
         guard let urlObject = request.url else {
             printLog(.debug, text: "CLDURLCache cannot extract CachedURLResponse for nil URLs")
@@ -145,7 +145,7 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for request: URLRequest)
+    internal override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for request: URLRequest)
     {
         let requestObject = request.cld_URLRequestWithoutFragment
         
@@ -213,7 +213,7 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override func removeCachedResponse(for request: URLRequest)
+    internal override func removeCachedResponse(for request: URLRequest)
     {
         guard let urlObject = request.url else { return }
         do {
@@ -227,7 +227,7 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override func removeAllCachedResponses()
+    internal override func removeAllCachedResponses()
     {
         do {
             try warehouse.removeAll()
@@ -240,7 +240,7 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override func removeCachedResponses(since date: Date)
+    internal override func removeCachedResponses(since date: Date)
     {
         do {
             try warehouse.removeStoredObjects(since: date)
@@ -253,7 +253,7 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for dataTask: URLSessionDataTask)
+    internal override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for dataTask: URLSessionDataTask)
     {
         guard let urlRequest = dataTask.currentRequest else { return }
         storeCachedResponse(cachedResponse, for: urlRequest)
@@ -262,7 +262,7 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override func getCachedResponse(for dataTask: URLSessionDataTask, completionHandler: @escaping (CachedURLResponse?) -> Void)
+    internal override func getCachedResponse(for dataTask: URLSessionDataTask, completionHandler: @escaping (CachedURLResponse?) -> Void)
     {
         guard let urlRequest = dataTask.currentRequest else { completionHandler(nil) ; return }
         let response = cachedResponse(for: urlRequest)
@@ -272,7 +272,7 @@ public final class CLDURLCache : URLCache
     ///
     ///
     ///
-    public override func removeCachedResponse(for dataTask: URLSessionDataTask)
+    internal override func removeCachedResponse(for dataTask: URLSessionDataTask)
     {
         guard let urlRequest = dataTask.currentRequest else { return }
         removeCachedResponse(for: urlRequest)
@@ -281,7 +281,7 @@ public final class CLDURLCache : URLCache
     ///
     /// Clears the cache, by removing all CachedURLResponse objects that it stores older then the minCacheResponseAge.
     ///
-    public func clearCachedResponsesToMinAgeThreshold()
+    internal func clearCachedResponsesToMinAgeThreshold()
     {
         let current   = Date()
         let threshold = current.addingTimeInterval(-settings.minCacheResponseAge)

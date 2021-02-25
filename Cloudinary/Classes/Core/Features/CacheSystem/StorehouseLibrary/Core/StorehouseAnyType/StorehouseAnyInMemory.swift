@@ -26,7 +26,7 @@ import Foundation
 ///
 ///
 ///
-public class StorehouseAnyInMemory<StoredItem> : StorehouseAny<StoredItem> , StorehouseMemoryProtocol
+internal class StorehouseAnyInMemory<StoredItem> : StorehouseAny<StoredItem> , StorehouseMemoryProtocol
 {
     // MARK: - Types
     
@@ -35,10 +35,10 @@ public class StorehouseAnyInMemory<StoredItem> : StorehouseAny<StoredItem> , Sto
     ///
     /// The total memory capacity of the cache in bytes.
     ///
-    public var memoryCapacity    : Int { return NSNotFound }
+    internal var memoryCapacity    : Int { return NSNotFound }
     
     ///
     /// The current total memory usage in bytes of all images stored within the cache.
     ///
-    public var currentMemoryUsage : Int { return NSNotFound }
+    internal var currentMemoryUsage : Int { return NSNotFound }
 }

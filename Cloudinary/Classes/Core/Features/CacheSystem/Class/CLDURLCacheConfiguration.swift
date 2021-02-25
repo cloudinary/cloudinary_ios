@@ -26,9 +26,9 @@ import Foundation
 
 @objcMembers
 @objc(CLDURLCacheConfiguration)
-public class CLDURLCacheConfiguration : NSObject {
+internal class CLDURLCacheConfiguration : NSObject {
     
-    public enum LogingScope {
+    internal enum LogingScope {
         case all
         case debugOnly
         case none
@@ -39,49 +39,49 @@ public class CLDURLCacheConfiguration : NSObject {
     ///
     /// Note: defualts to false
     ///
-    public var securedStorage : Bool
+    internal var securedStorage : Bool
     
     ///
     /// The default maximum age of a cached file in seconds. (3 days)
     ///
-    public var minCacheResponseAge : TimeInterval
+    internal var minCacheResponseAge : TimeInterval
     
     ///
     /// The default maximum age of a cached file in seconds. (1 week)
     ///
-    public var maxCacheResponseAge : TimeInterval
+    internal var maxCacheResponseAge : TimeInterval
     
     ///
     /// Default cache expiration delay if none defined (1 hour)
     ///
-    public var expirationDelayDefault : TimeInterval
+    internal var expirationDelayDefault : TimeInterval
     
     ///
     /// Minimum cache expiration delay toused if not specifieyid in the responce 5 minute
     ///
-    public var expirationDelayMinimum : TimeInterval
+    internal var expirationDelayMinimum : TimeInterval
     
     ///
     /// Default modification fraction is 10% since Last-Modified suggested by RFC2616 section 13.2.4
     ///
-    public var lastModificationFraction : Double
+    internal var lastModificationFraction : Double
     
     ///
     /// Default loging scope is debug only 
     ///
-    public var logingScope : LogingScope
+    internal var logingScope : LogingScope
     
     ///
     ///
     ///
-    public class var defualt : CLDURLCacheConfiguration {
+    internal class var defualt : CLDURLCacheConfiguration {
         return CLDURLCacheConfiguration()
     }
     
     ///
     ///
     ///
-    public override init()
+    internal override init()
     {
         self.securedStorage           = false
         self.minCacheResponseAge      = TimeInterval(604800)

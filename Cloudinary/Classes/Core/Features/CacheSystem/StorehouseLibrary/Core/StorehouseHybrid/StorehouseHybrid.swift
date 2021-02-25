@@ -26,38 +26,38 @@ import Foundation
 ///
 /// Use both memory and disk storage. Try on memory first.
 ///
-public final class StorehouseHybrid<StoredItem> : StorehouseAny <StoredItem>
+internal final class StorehouseHybrid<StoredItem> : StorehouseAny <StoredItem>
 {
     /// MARK: - Public Properties
-    public let memoryStorage : StorehouseAnyInMemory<Item>
-    public let   diskStorage : StorehouseAnyFileSystem<Item>
+    internal let memoryStorage : StorehouseAnyInMemory<Item>
+    internal let   diskStorage : StorehouseAnyFileSystem<Item>
     
     /// MARK: - Computed Public Properties
-    public var memoryCapacity : Int {
+    internal var memoryCapacity : Int {
         return memoryStorage.memoryCapacity
     }
     
-    public var diskCapacity : Int {
+    internal var diskCapacity : Int {
         return diskStorage.diskCapacity
     }
     
-    public var currentMemoryUsage : Int {
+    internal var currentMemoryUsage : Int {
         return memoryStorage.currentMemoryUsage
     }
     
-    public var currentDiskUsage: Int {
+    internal var currentDiskUsage: Int {
         return diskStorage.currentDiskUsage
     }
     
     /// MARK: - Initializers
-    public init(inMemory memory: StorehouseAnyInMemory<Item>, onDisk disk: StorehouseAnyFileSystem<Item>)
+    internal init(inMemory memory: StorehouseAnyInMemory<Item>, onDisk disk: StorehouseAnyFileSystem<Item>)
     {    
         self.memoryStorage = memory
         self.diskStorage   =   disk
     }
     // MARK: - StorehouseHybridProtocol
     @discardableResult
-    public override func entry(forKey key: String) throws -> StorehouseEntry<Item>
+    internal override func entry(forKey key: String) throws -> StorehouseEntry<Item>
     {
         do {
             return try memoryStorage.entry(forKey: key)
@@ -70,37 +70,37 @@ public final class StorehouseHybrid<StoredItem> : StorehouseAny <StoredItem>
         }
     }
     
-    public override func removeObject(forKey key: String) throws
+    internal override func removeObject(forKey key: String) throws
     {
         try memoryStorage.removeObject(forKey: key)
         try   diskStorage.removeObject(forKey: key)
     }
     
-    public override func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
+    internal override func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
     {
         try memoryStorage.setObject(object, forKey: key, expiry: expiry)
         try   diskStorage.setObject(object, forKey: key, expiry: expiry)
     }
     
-    public override func removeAll() throws
+    internal override func removeAll() throws
     {
         try memoryStorage.removeAll()
         try   diskStorage.removeAll()
     }
 
-    public override func removeExpiredObjects() throws
+    internal override func removeExpiredObjects() throws
     {
         try memoryStorage.removeExpiredObjects()
         try   diskStorage.removeExpiredObjects()
     }
     
-    public override func removeStoredObjects(since date: Date) throws
+    internal override func removeStoredObjects(since date: Date) throws
     {
         try memoryStorage.removeStoredObjects(since: date)
         try   diskStorage.removeStoredObjects(since: date)
     }
     
-    public override func removeObjectIfExpired(forKey key: String) throws
+    internal override func removeObjectIfExpired(forKey key: String) throws
     {    
         try memoryStorage.removeObjectIfExpired(forKey: key)
         try   diskStorage.removeObjectIfExpired(forKey: key)

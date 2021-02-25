@@ -26,34 +26,34 @@ import Foundation
 ///
 ///
 ///
-public struct StorehouseConfigurationDisk
+internal struct StorehouseConfigurationDisk
 {
     ///
     /// The name of disk storage, this will be used as folder name within directory
     ///
-    public let name           : String
+    internal let name           : String
     
     ///
     /// Expiry date that will be applied by default for every added object
     /// if it's not overridden in the add(key: object: expiry:) method
     ///
-    public let expiry         : StorehouseExpiry
+    internal let expiry         : StorehouseExpiry
     
     ///
     /// Maximum size of the disk cache storage (in bytes)
     ///
-    public let maximumSize    : Int
+    internal let maximumSize    : Int
     
     ///
     /// Data protection is used to store files in an encrypted format on disk and to decrypt them on demand.
     /// Support only on iOS and tvOS.
     ///
-    public let protectionType : FileProtectionType?
+    internal let protectionType : FileProtectionType?
     
     ///
     ///
     ///
-    public init(name: String,
+    internal init(name: String,
                 expiry: StorehouseExpiry = .never,
                 maxSize: Int = 0,
                 protectionType: FileProtectionType? = nil)

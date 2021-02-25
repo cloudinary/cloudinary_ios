@@ -26,7 +26,7 @@ import Foundation
 ///
 /// Helper enum to set the expiration date
 ///
-public enum StorehouseExpiry
+internal enum StorehouseExpiry
 {    
     ///
     /// Object will be expired in the nearest future
@@ -46,7 +46,7 @@ public enum StorehouseExpiry
     ///
     /// Returns the appropriate date object
     ///
-    public var date : Date {
+    internal var date : Date {
         
         switch self {
         case .never:
@@ -64,13 +64,13 @@ public enum StorehouseExpiry
     ///
     /// Checks if cached object is expired according to expiration date
     ///
-    public var isExpired : Bool {
+    internal var isExpired : Bool {
         return date.cld_inThePast
     }
     ///
     /// Checks if cached object is expired according to expiration date
     ///
-    public func isExpired(for base: Date) -> Bool {
+    internal func isExpired(for base: Date) -> Bool {
         return date.timeIntervalSince1970 - base.timeIntervalSince1970 < 0
     }
 }

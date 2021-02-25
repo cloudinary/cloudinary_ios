@@ -26,17 +26,17 @@ import Foundation
 ///
 ///
 ///
-public class StorehouseTransformer<Item>
+internal class StorehouseTransformer<Item>
 {
     ///
     ///
     ///
-    public typealias StorehouseEncode = (Item) throws -> Data
+    internal typealias StorehouseEncode = (Item) throws -> Data
     
     ///
     ///
     ///
-    public typealias StorehouseDecode = (Data) throws -> Item
+    internal typealias StorehouseDecode = (Data) throws -> Item
     
     ///
     ///
@@ -51,7 +51,7 @@ public class StorehouseTransformer<Item>
     ///
     ///
     ///
-    public init(toData: @escaping StorehouseEncode, fromData: @escaping StorehouseDecode)
+    internal init(toData: @escaping StorehouseEncode, fromData: @escaping StorehouseDecode)
     {
         self.toData   = toData
         self.fromData = fromData

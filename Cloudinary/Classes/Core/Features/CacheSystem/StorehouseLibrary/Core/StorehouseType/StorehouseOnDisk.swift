@@ -30,7 +30,7 @@ typealias ResourceObject = (url: Foundation.URL, resourceValues: URLResourceValu
 ///
 /// Save objects to file on disk
 ///
-final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredItem>
+final internal class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredItem>
 {
     /// MARK: - Types
     enum Error : Swift.Error {
@@ -69,7 +69,7 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
     /// The on-disk capacity, measured in bytes, for the receiver.
     /// On mutation the on-disk cache will truncate its contents to the size given, if necessary.
     ///
-    public override var diskCapacity     : Int {
+    internal override var diskCapacity     : Int {
         return configuration.maximumSize
     }
     
@@ -78,7 +78,7 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
     ///
     /// This size, measured in bytes, indicates the current usage of the on-disk storage.
     ///
-    public override var currentDiskUsage : Int {
+    internal override var currentDiskUsage : Int {
 
         var diskUsage : Int = 0
         do {
@@ -121,7 +121,7 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
     }()
     
     /// File manager to read/write to the disk
-    public let fileManager : FileManager
+    internal let fileManager : FileManager
     
     /// Configuration
     fileprivate let configuration : StorehouseConfigurationDisk
@@ -134,7 +134,7 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
     ///
     ///
     ///
-    public init(configuration: StorehouseConfigurationDisk, fileManager: FileManager = FileManager.default, transformer: StorehouseTransformer<Item>) throws
+    internal init(configuration: StorehouseConfigurationDisk, fileManager: FileManager = FileManager.default, transformer: StorehouseTransformer<Item>) throws
     {
         self.configuration = configuration
         self.fileManager   = fileManager
@@ -284,7 +284,7 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
     // MARK: - StorehouseProtocol
     
     @discardableResult
-    public override func entry(forKey key: String) throws -> StorehouseEntry<Item>
+    internal override func entry(forKey key: String) throws -> StorehouseEntry<Item>
     {
         let filePath   = makeFilePath(for: key)
         let data       = try Data(contentsOf: URL(fileURLWithPath: filePath))
@@ -296,13 +296,13 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
         return StorehouseEntry(object: object, expiry: .date(date), filePath: filePath)
     }
 
-    public override func removeObject(forKey key: String) throws
+    internal override func removeObject(forKey key: String) throws
     {
         let filePath = makeFilePath(for: key)
         try fileManager.removeItem(atPath: filePath)
     }
     
-    public override func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
+    internal override func setObject(_ object: Item, forKey key: String, expiry: StorehouseExpiry? = nil) throws
     {
         let expiry   = expiry ?? configuration.expiry
         let data     = try transformer.toData(object)
@@ -312,7 +312,7 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
         try fileManager.setAttributes([.modificationDate: expiry.date], ofItemAtPath: filePath)
     }
     
-    public override func removeAll() throws
+    internal override func removeAll() throws
     {
         let fileEnumerator = fileManager.enumerator(at: diskFilesFolderURL, includingPropertiesForKeys: nil)
         
@@ -328,12 +328,12 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
         }
     }
     
-    public override func removeExpiredObjects() throws
+    internal override func removeExpiredObjects() throws
     {
         try removeStoredObjects(since: Date())
     }
     
-    public override func removeStoredObjects(since date: Date) throws
+    internal override func removeStoredObjects(since date: Date) throws
     {
         let resourceKeys: [URLResourceKey] = [
             .isDirectoryKey,
@@ -363,7 +363,7 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
         try removeResourceObjects(closure.resourceObjects, currentSize: closure.totalItemsSize)
     }
     
-    public override func removeObjectIfExpired(forKey key: String) throws
+    internal override func removeObjectIfExpired(forKey key: String) throws
     {
         let filePath   = makeFilePath(for: key)
      

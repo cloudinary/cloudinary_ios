@@ -26,26 +26,26 @@ import Foundation
 ///
 ///
 ///
-public struct StorehouseConfigurationAutoPurging
+internal struct StorehouseConfigurationAutoPurging
 {
     ///
     /// Expiry date that will be applied by default for every added object
     /// if it's not overridden in the add(key: object: expiry: completion:) method
     ///
-    public let expiry         : StorehouseExpiry
+    internal let expiry         : StorehouseExpiry
     
     ///
     /// In-memory capacity of the receiver.
     /// At the time this call is made, the in-memory cache will truncate its contents to the size given, if necessary.
     /// The in-memory capacity, measured in bytes, for the receiver.
     ///
-    public let memoryCapacity : Int
+    internal let memoryCapacity : Int
     
     ///
     /// The preferred memory usage after purge in bytes.
     /// During a purge, objects will be purged until the memory capacity drops below this limit.
     ///
-    public let preferredMemoryUsageAfterPurge : Int
+    internal let preferredMemoryUsageAfterPurge : Int
     
     ///
     /// Initialies the `StorehouseConfigurationAutoPurging` instance with the given memory capacity and
@@ -60,7 +60,7 @@ public struct StorehouseConfigurationAutoPurging
     ///
     /// - Returns: The new `StorehouseConfigurationAutoPurging` instance.
     ///
-    public init(expiry: StorehouseExpiry = .never,
+    internal init(expiry: StorehouseExpiry = .never,
                 memory capacity: Int = 100_000_000,
                 preferredMemoryUsageAfterPurge preferredUsage: Int = 60_000_000
         )
