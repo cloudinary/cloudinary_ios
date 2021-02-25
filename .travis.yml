@@ -2,7 +2,7 @@ language:
   - objective-c
   
 osx_image:
-  - xcode11
+  - xcode12
 
 xcode_workspace:
   - Example/Cloudinary.xcworkspace
