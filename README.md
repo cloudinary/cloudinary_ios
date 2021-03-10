@@ -233,7 +233,7 @@ let request = cloudinary.createDownloader().fetchImage(url, progress: { (bytes, 
         }
 ```
 
-Every download request returns an instance implementing CLDFetchImageRequest, allowing options such as cancelling, suspending or resuming it.
+Every download request returns an instance implementing CLDNetworkDataRequest, allowing options such as cancelling, suspending or resuming it.
 
 The downloaded image is cached both to the memory and the disk (customizable). The disk cache size is limited and can be changed.
 

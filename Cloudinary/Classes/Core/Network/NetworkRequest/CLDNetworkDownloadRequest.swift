@@ -27,7 +27,6 @@ import Foundation
 internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequest>, CLDFetchImageRequest {
 
     //MARK: - Handlers
-    
     func responseImage(_ completionHandler: CLDCompletionHandler?) -> CLDFetchImageRequest {
         
         return responseData { (responseData, error) -> () in
@@ -46,16 +45,25 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
             else {
                 completionHandler?(nil, CLDError.generalError())
             }
-        }
+        } as! CLDFetchImageRequest
     }
     
     // MARK: - Private
-    
     @discardableResult
-    internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDFetchImageRequest {
+    internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDNetworkDataRequest {
+        
         request.responseData { response in
-            if let imageData = response.result.value {
-                completionHandler?(imageData, nil)
+            if let downloadedData = response.result.value {
+                
+                if let statusCode = response.response?.statusCode,
+                   !self.isAcceptableCode(code: statusCode) {
+                    
+                    let statusCodeError = CLDError.error(code: .unacceptableStatusCode, message: "request error - unacceptable statusCode - \(statusCode)")
+                    completionHandler?(downloadedData, statusCodeError)
+                }
+                else {
+                    completionHandler?(downloadedData, nil)
+                }
             }
             else if let err = response.result.error {
                 let error = err as NSError
@@ -66,5 +74,9 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
             }
         }
         return self
+    }
+    
+    func isAcceptableCode(code: Int) -> Bool {
+        self.request.acceptableStatusCodes.contains(code)
     }
 }

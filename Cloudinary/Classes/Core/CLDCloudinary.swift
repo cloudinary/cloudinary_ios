@@ -26,6 +26,7 @@ import Foundation
 import UIKit
 
 public typealias CLDCompletionHandler = (_ responseImage: UIImage?, _ error: NSError?) -> ()
+public typealias CLDAssetCompletionHandler = (_ responseAsset: Data?, _ error: NSError?) -> ()
 public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ error: NSError?) -> ()
 
 @objcMembers open class CLDCloudinary: NSObject {
@@ -40,6 +41,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     fileprivate var networkCoordinator: CLDNetworkCoordinator
 
+    /**
+     The network download coordinator coordinates between the SDK's API level classes to its network adapter layer.
+     */
+    fileprivate var downloadCoordinator: CLDDownloadCoordinator
 
     // MARK: - SDK Configurations
 
@@ -65,23 +70,23 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     open var cachePolicy: CLDImageCachePolicy {
         get {
-            return CLDImageCache.defaultImageCache.cachePolicy
+            return downloadCoordinator.imageCache.cachePolicy
         }
         set {
-            CLDImageCache.defaultImageCache.cachePolicy = newValue
+            downloadCoordinator.imageCache.cachePolicy = newValue
         }
     }
 
     /**
      Sets Cloudinary SDK's image cache maximum disk capacity.
-     default is 150 MB.     
+     default is 150 MB.
      */
     open var cacheMaxDiskCapacity: UInt64 {
         get {
-            return CLDImageCache.defaultImageCache.maxDiskCapacity
+            return downloadCoordinator.imageCache.maxDiskCapacity
         }
         set {
-            CLDImageCache.defaultImageCache.maxDiskCapacity = newValue
+            downloadCoordinator.imageCache.maxDiskCapacity = newValue
         }
     }
 
@@ -91,13 +96,39 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     open var cacheMaxMemoryTotalCost: Int {
         get {
-            return CLDImageCache.defaultImageCache.maxMemoryTotalCost
+            return downloadCoordinator.imageCache.maxMemoryTotalCost
         }
         set {
-            CLDImageCache.defaultImageCache.maxMemoryTotalCost = newValue
+            downloadCoordinator.imageCache.maxMemoryTotalCost = newValue
         }
     }
 
+    /**
+     Sets Cloudinary SDK's asset cache maximum disk capacity.
+     default is 150 MB.
+     */
+    open var cacheAssetMaxDiskCapacity: Int {
+        get {
+            return downloadCoordinator.urlCache.diskCapacity
+        }
+        set {
+            downloadCoordinator.urlCache.updateDiskCapacity(newValue)
+        }
+    }
+
+    /**
+     Sets Cloudinary SDK's asset cache maximum memory total cost.
+     default is 30 MB.
+     */
+    open var cacheAssetMaxMemoryTotalCost: Int {
+        get {
+            return downloadCoordinator.urlCache.memoryCapacity
+        }
+        set {
+            downloadCoordinator.urlCache.updateMemoryCapacity(newValue)
+        }
+    }
+    
     /**
     Removes an image from the downloaded images cache, both disk and memory.
 
@@ -105,7 +136,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
 
     */
     open func removeFromCache(key: String) {
-        CLDImageCache.defaultImageCache.removeCacheImageForKey(key)
+        downloadCoordinator.imageCache.removeCacheImageForKey(key)
     }
 
     // MARK: - Init
@@ -118,7 +149,25 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     
      - returns: The new `CLDCloudinary` instance.
      */
-    public init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter? = nil, sessionConfiguration: URLSessionConfiguration? = nil) {
+    public convenience init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter? = nil, sessionConfiguration: URLSessionConfiguration? = nil) {
+
+        self.init(configuration: configuration, networkAdapter: networkAdapter, downloadAdapter: nil, sessionConfiguration: sessionConfiguration, downloadSessionConfiguration: nil)
+    }
+    
+    /**
+    Initializes the `CLDCloudinary` instance with the specified configuration and network adapter.
+     
+    - parameter configuration:                The configuration used by this CLDCloudinary instance.
+    - parameter networkAdapter:               A network adapter that implements `CLDNetworkAdapter`.
+    - parameter downloadAdapter:              A download adapter that implements `CLDNetworkAdapter`.
+    - parameter sessionConfiguration:         A session configuration that implements `URLSessionConfiguration`.
+    - parameter downloadSessionConfiguration: A download session configuration that implements `URLSessionConfiguration`.
+     CLDNetworkDelegate() by default.
+    
+     - returns: The new `CLDCloudinary` instance.
+     */
+    public init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter? = nil, downloadAdapter: CLDNetworkAdapter? = nil, sessionConfiguration: URLSessionConfiguration? = nil, downloadSessionConfiguration: URLSessionConfiguration? = nil) {
+        
         config = configuration
         if let customNetworkAdapter = networkAdapter {
             networkCoordinator = CLDNetworkCoordinator(configuration: config, networkAdapter: customNetworkAdapter)
@@ -129,6 +178,17 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
                 networkCoordinator = CLDNetworkCoordinator(configuration: config)
             }
         }
+        
+        if let customDownloadAdapter = downloadAdapter {
+            downloadCoordinator = CLDDownloadCoordinator(configuration: config, networkAdapter: customDownloadAdapter)
+        } else {
+            if let downloadSessionConfiguration = downloadSessionConfiguration {
+                downloadCoordinator = CLDDownloadCoordinator(configuration: config, sessionConfiguration: downloadSessionConfiguration)
+            } else {
+                downloadCoordinator = CLDDownloadCoordinator(configuration: config)
+            }
+        }
+        
         super.init()
     }
 
@@ -158,7 +218,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      - returns: A new `CLDDownloader` instance.
      */
     open func createDownloader() -> CLDDownloader {
-        return CLDDownloader(networkCoordinator: networkCoordinator)
+        return CLDDownloader(downloadCoordinator: downloadCoordinator)
     }
 
     /**
