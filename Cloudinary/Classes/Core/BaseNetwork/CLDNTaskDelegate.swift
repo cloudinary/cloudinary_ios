@@ -66,6 +66,7 @@ internal class CLDNTaskDelegate: NSObject {
         self.queue = {
             let operationQueue = OperationQueue()
 
+            operationQueue.name = "com.cloudinary.CLDNTaskDelegateOperationQueue"
             operationQueue.maxConcurrentOperationCount = 1
             operationQueue.isSuspended = true
             operationQueue.qualityOfService = .utility
