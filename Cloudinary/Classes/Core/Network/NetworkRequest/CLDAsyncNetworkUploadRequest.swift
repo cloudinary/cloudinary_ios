@@ -38,6 +38,7 @@ internal class CLDAsyncNetworkUploadRequest: CLDNetworkDataRequest {
     
     fileprivate let closureQueue: OperationQueue = {
         let operationQueue = OperationQueue()
+        operationQueue.name = "com.cloudinary.CLDAsyncNetworkUploadRequest"
         operationQueue.maxConcurrentOperationCount = 1
         operationQueue.isSuspended = true
         return operationQueue
