@@ -41,6 +41,7 @@ internal class CLDUploadRequestWrapper: CLDUploadRequest {
     fileprivate let queue = DispatchQueue(label: "RequestsHandlingQueue", attributes: .concurrent)
     fileprivate let closureQueue: OperationQueue = {
         let operationQueue = OperationQueue()
+        operationQueue.name = "com.cloudinary.CLDUploadRequestWrapper"
         operationQueue.maxConcurrentOperationCount = 1
         operationQueue.isSuspended = true
         return operationQueue

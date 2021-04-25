@@ -42,7 +42,11 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
 
     fileprivate let manager: CLDNSessionManager
 
-    fileprivate let downloadQueue: OperationQueue = OperationQueue()
+    fileprivate let downloadQueue: OperationQueue = {
+        let operationQueue = OperationQueue()
+        operationQueue.name = "com.cloudinary.CLDDefaultNetworkAdapter"
+        return operationQueue
+    }()
 
     internal static let sharedAdapter             = CLDDefaultNetworkAdapter()
     
