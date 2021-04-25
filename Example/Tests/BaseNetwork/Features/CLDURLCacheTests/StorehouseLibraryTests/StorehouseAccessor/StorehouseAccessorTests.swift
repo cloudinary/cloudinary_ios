@@ -62,7 +62,7 @@ class StorehouseAccessorTests: XCTestCase {
         
         // create storehouseHybrid
         let storehouseHybrid =  StorehouseHybrid(inMemory: storehouseInMemory, onDisk: storehouseOnDisk)
-        let queue = DispatchQueue(label: "Warehouse.accessQueue", attributes: [.concurrent])
+        let queue = DispatchQueue(label: "com.cloudinary.accessQueue", attributes: [.concurrent])
         return StorehouseAccessor(storage: storehouseHybrid, queue: queue)
     }
     

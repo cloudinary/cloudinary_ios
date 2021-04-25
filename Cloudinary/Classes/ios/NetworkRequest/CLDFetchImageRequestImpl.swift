@@ -45,7 +45,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
         self.downloadCoordinator = downloadCoordinator
         closureQueue = {
             let operationQueue = OperationQueue()
-            operationQueue.name = "com.cloudinary.CLDFetchImageRequestImpl"
+            operationQueue.name = "com.cloudinary.CLDFetchImageRequest"
             operationQueue.maxConcurrentOperationCount = 1
             operationQueue.isSuspended = true
             return operationQueue

@@ -43,6 +43,7 @@ internal class CLDFetchAssetRequestImpl: CLDFetchAssetRequest {
         self.downloadCoordinator = downloadCoordinator
         closureQueue = {
             let operationQueue = OperationQueue()
+            operationQueue.name = "com.cloudinary.CLDFetchAssetRequest"
             operationQueue.maxConcurrentOperationCount = 1
             operationQueue.isSuspended = true
             return operationQueue

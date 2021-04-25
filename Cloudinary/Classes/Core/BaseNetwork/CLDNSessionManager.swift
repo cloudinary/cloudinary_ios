@@ -147,7 +147,7 @@ internal class CLDNSessionManager {
     /// `nil` by default.
     internal var backgroundCompletionHandler: (() -> Void)?
 
-    let queue = DispatchQueue(label: "org.cloudinary.session-manager." + UUID().uuidString)
+    let queue = DispatchQueue(label: "com.cloudinary.session-manager." + UUID().uuidString)
 
     // MARK: - Lifecycle
 

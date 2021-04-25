@@ -165,7 +165,7 @@ internal final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<S
         
         self.synchronizationQueue = {
             
-            let queueName = String(format: "com.gini-apps.autopurgingcache-%08x%08x", arc4random(), arc4random())
+            let queueName = String(format: "com.cloudinary.autopurgingcache-%08x%08x", arc4random(), arc4random())
             return DispatchQueue(label: queueName, attributes: .concurrent)
         }()
         

@@ -96,7 +96,7 @@ internal final class Warehouse<SoredType>
     /// - Parameter storage: The storehouse to use
     internal init(hybrid storage: StorehouseHybrid<Item>)
     {
-        let queue = DispatchQueue(label: "Warehouse.accessQueue", attributes: [.concurrent])
+        let queue = DispatchQueue(label: "com.cloudinary.accessQueue", attributes: [.concurrent])
         self.storehouse = storage
         self.accessor   = StorehouseAccessor(storage: storage, queue: queue)
     }
