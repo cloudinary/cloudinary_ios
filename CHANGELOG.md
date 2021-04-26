@@ -1,4 +1,22 @@
 
+3.0.0 / 2021-04-26
+=============
+
+Breaking changes
+-----------------
+  * Bump minimum iOS target version to 9.0 (#334)
+
+New functionality
+-----------------
+  * Add new url cache system (#331)
+  * Add operationQueue names (#333)
+  * Add support for video assets in upload widget (#322)
+
+Other changes
+-------------
+  * Fix image assets for tests in multiple OS versions (#329)
+  * Add missing imports for SPM (#326)
+
 2.10.1 / 2021-01-20
 ==================
 
