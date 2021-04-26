@@ -52,7 +52,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'MyApp' do
-  pod 'Cloudinary', '~> 3.0.0'
+  pod 'Cloudinary', '~> 3.0'
 end
 ```
 
