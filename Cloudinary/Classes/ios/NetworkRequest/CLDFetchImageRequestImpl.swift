@@ -28,7 +28,7 @@ import UIKit
 internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     
     fileprivate let url: String
-    fileprivate let networkCoordinator: CLDNetworkCoordinator
+    fileprivate let downloadCoordinator: CLDDownloadCoordinator
     
     fileprivate let closureQueue: OperationQueue
     
@@ -40,12 +40,12 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     fileprivate var imageDownloadRequest: CLDNetworkDownloadRequest?
     fileprivate var progress: ((Progress) -> Void)?
     
-    init(url: String, networkCoordinator: CLDNetworkCoordinator) {
+    init(url: String, downloadCoordinator: CLDDownloadCoordinator) {
         self.url = url
-        self.networkCoordinator = networkCoordinator
+        self.downloadCoordinator = downloadCoordinator
         closureQueue = {
             let operationQueue = OperationQueue()
-            operationQueue.name = "com.cloudinary.CLDFetchImageRequestImpl"
+            operationQueue.name = "com.cloudinary.CLDFetchImageRequest"
             operationQueue.maxConcurrentOperationCount = 1
             operationQueue.isSuspended = true
             return operationQueue
@@ -56,8 +56,8 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     
     func fetchImage() {
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-            if CLDImageCache.defaultImageCache.hasCachedImageForKey(self.url) {
-                CLDImageCache.defaultImageCache.getImageForKey(self.url, completion: { [weak self] (image) -> () in
+            if self.downloadCoordinator.imageCache.hasCachedImageForKey(self.url) {
+                self.downloadCoordinator.imageCache.getImageForKey(self.url, completion: { [weak self] (image) -> () in
                     if let fetchedImage = image {
                         self?.image = fetchedImage
                         self?.closureQueue.isSuspended = false
@@ -76,7 +76,8 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     // MARK: Private
     
     fileprivate func downloadImageAndCacheIt() {
-        imageDownloadRequest = networkCoordinator.download(url) as? CLDNetworkDownloadRequest
+        
+        imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
         
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError) -> () in
@@ -85,7 +86,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                     image = data.cldToUIImageThreadSafe(),
                     let url = self?.url {
                     self?.image = image
-                    CLDImageCache.defaultImageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
                 }
                 else {
                     let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.")
@@ -114,7 +115,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
             else if let error = self.error {
                 completionHandler?(nil, error)
             }
-            else {                
+            else {
                 completionHandler?(nil, CLDError.generalError())
             }
         }

@@ -30,12 +30,15 @@ import Foundation
 @objcMembers open class CLDDownloader: CLDBaseNetworkObject {
     
     // MARK: - Init
+    internal fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator!
     
     fileprivate override init() {
         super.init()
     }
     
-    internal override init(networkCoordinator: CLDNetworkCoordinator) {
-        super.init(networkCoordinator: networkCoordinator)
+    internal init(downloadCoordinator: CLDDownloadCoordinator) {
+        
+        self.downloadCoordinator = downloadCoordinator
+        super.init(networkCoordinator: downloadCoordinator)
     }
 }

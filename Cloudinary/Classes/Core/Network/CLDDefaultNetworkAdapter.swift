@@ -24,7 +24,6 @@
 
 import Foundation
 
-
 internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
 
     init(configuration: URLSessionConfiguration? = nil) {
@@ -32,17 +31,13 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
             manager = CLDNSessionManager(configuration: configuration)
         } else {
             let configuration: URLSessionConfiguration = {
-                let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.identifier)
+                let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.networkIdentifier)
                 configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
                 return configuration
             }()
             manager = CLDNSessionManager(configuration: configuration)
         }
         manager.startRequestsImmediately = false
-    }
-
-    private struct SessionProperties {
-        static let identifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
     }
 
     fileprivate let manager: CLDNSessionManager
@@ -53,10 +48,14 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
         return operationQueue
     }()
 
-    internal static let sharedNetworkDelegate = CLDDefaultNetworkAdapter()
+    internal static let sharedAdapter             = CLDDefaultNetworkAdapter()
+    
+    private struct SessionProperties {
+        static let networkIdentifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
+        static let downloadIdentifier: String = "" + ".cloudinarySDKbackgroundDownloadSession"
+    }
 
     // MARK: Features
-
     internal func cloudinaryRequest(_ url: String, headers: [String: String], parameters: [String: Any]) -> CLDNetworkDataRequest {
         let req: CLDNDataRequest = manager.request(url, method: .post, parameters: parameters, headers: headers)
         req.resume()
@@ -118,7 +117,8 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
         return asyncUploadRequest
     }
 
-    internal func downloadFromCloudinary(_ url: String) -> CLDFetchImageRequest {
+    internal func downloadFromCloudinary(_ url: String) -> CLDNetworkDataRequest {
+        
         let req = manager.request(url)
         downloadQueue.addOperation { () -> () in
             req.resume()
@@ -127,7 +127,6 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
     }
 
     // MARK: - Setters
-
     internal func setBackgroundCompletionHandler(_ newValue: (() -> ())?) {
         manager.backgroundCompletionHandler = newValue
     }
@@ -137,9 +136,7 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
     }
 
     // MARK: - Getters
-
     internal func getBackgroundCompletionHandler() -> (() -> ())? {
         return manager.backgroundCompletionHandler
     }
-
 }

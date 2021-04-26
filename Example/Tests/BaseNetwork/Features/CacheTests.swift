@@ -129,7 +129,7 @@ class CacheTestCase: BaseTestCase {
     */
     func primeCachedResponses() {
         let dispatchGroup = DispatchGroup()
-        let serialQueue = DispatchQueue(label: "org.cloudinary.cache-tests")
+        let serialQueue = DispatchQueue(label: "com.cloudinary.cache-tests")
 
         for cacheControl in CacheControl.allValues {
             dispatchGroup.enter()
