@@ -323,7 +323,7 @@ import Foundation
     internal override func getStringComponents() -> [String]? {
         
         if (text == nil || text!.isEmpty) && (publicId == nil || publicId!.isEmpty) {
-            printLog(.error, text: "Must supply either text or publicId")
+            cld_printLog(.error, text: "Must supply either text or publicId")
             return nil
         }
         
@@ -343,7 +343,7 @@ import Foundation
             components.append(textProperties.joined(separator: "_"))
         }
         else  {
-            printLog(.error, text: "Must supply fontSize and fontFamily for text layer")
+            cld_printLog(.error, text: "Must supply fontSize and fontFamily for text layer")
             return nil
         }
         

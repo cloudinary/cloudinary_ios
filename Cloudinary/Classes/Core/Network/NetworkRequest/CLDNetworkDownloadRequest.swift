@@ -24,33 +24,10 @@
 
 import Foundation
 
-internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequest>, CLDFetchImageRequest {
-
-    //MARK: - Handlers
-    func responseImage(_ completionHandler: CLDCompletionHandler?) -> CLDFetchImageRequest {
-        
-        return responseData { (responseData, error) -> () in
-            if let data = responseData {
-                if let image = data.cldToUIImageThreadSafe() {
-                    completionHandler?(image, nil)
-                }
-                else {
-                    let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.")
-                    completionHandler?(nil, error)
-                }
-            }
-            else if let err = error {
-                completionHandler?(nil, err)
-            }
-            else {
-                completionHandler?(nil, CLDError.generalError())
-            }
-        } as! CLDFetchImageRequest
-    }
-    
+public class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequest> {
     // MARK: - Private
     @discardableResult
-    internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDNetworkDataRequest {
+    public func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDNetworkDataRequest {
         
         request.responseData { response in
             if let downloadedData = response.result.value {

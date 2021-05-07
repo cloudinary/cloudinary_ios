@@ -52,7 +52,7 @@ internal struct CLDLogManager {
 }
 
 
-internal func printLog<T>(_ logLevel : CLDLogLevel, text: T, _ file: String = #file, _ function: String = #function, _ line: Int = #line){
+public func cld_printLog<T>(_ logLevel : CLDLogLevel, text: T, _ file: String = #file, _ function: String = #function, _ line: Int = #line){
     
     if CLDLogManager.minimumLogLevel.rawValue <= logLevel.rawValue {
         let filename = (file as NSString).lastPathComponent

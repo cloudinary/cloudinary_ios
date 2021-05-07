@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'Cloudinary'
-    s.version          = '3.0.0'
+    s.version          = '3.0.1'
     s.summary          = "Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline."
     
     s.description      = <<-DESC
@@ -19,21 +19,28 @@ Pod::Spec.new do |s|
     Cloudinary provides URL and HTTP based APIs that can be easily integrated with any Web development framework.
     DESC
     
-    s.homepage         = 'http://cloudinary.com'
-    s.license          = { :type => 'MIT', :file => 'LICENSE' }
-    s.author           = { "Cloudinary" => "info@cloudinary.com" }
-    s.source           = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => s.version.to_s }
+    s.homepage      = 'http://cloudinary.com'
+    s.license       = { :type => 'MIT', :file => 'LICENSE' }
+    s.author        = { "Cloudinary" => "info@cloudinary.com" }
+    s.source        = { :git => "https://github.com/cloudinary/cloudinary_ios.git", :tag => s.version.to_s }
+
+    s.swift_version = '5.0'
     
-    s.swift_version         = '5.0'
-    s.ios.deployment_target = '9.0'
-    s.frameworks            = 'UIKit', 'Foundation'
+    s.ios.deployment_target     = '9.0'
+    s.osx.deployment_target     = '10.12'
+    s.tvos.deployment_target    = '9.0'
+    s.watchos.deployment_target = '3.0'
     
-    s.default_subspec  = 'ios'
+    s.frameworks      = 'UIKit', 'Foundation'
+    s.default_subspec = 'cloudinary-ios'
     
-    s.subspec 'ios' do |spec|
-        
-        spec.platform              = :ios
-        spec.source_files          = 'Cloudinary/Classes/**/*'
+    s.subspec 'cloudinary-core' do |spec|
+        spec.source_files          = 'Cloudinary/Classes/Core/**/*'
+    end
     
+    s.subspec 'cloudinary-ios' do |spec|
+        spec.dependency   'Cloudinary/cloudinary-core'
+        spec.platform     = :ios
+        spec.source_files = 'Cloudinary/Classes/iOS/**/*'
     end
 end

@@ -25,7 +25,7 @@
 
 import Foundation
 
-public typealias CLDPreprocessStep<T> = (T) throws -> T
+public typealias CLDPreprocessStep<T>  = (T) throws -> T
 public typealias CLDResourceEncoder<T> = (T) throws -> URL?
 
 /**
@@ -33,12 +33,12 @@ public typealias CLDResourceEncoder<T> = (T) throws -> URL?
  Supports processing, validations and encoders, all fully customizable. Note: This class should not be used
  directly, use a concrete subclass (e.g. CLDImagePreprocessingChain).
 */
-public class CLDPreprocessChain<T> {
-    internal var encoder: CLDResourceEncoder<T>?
+open class CLDPreprocessChain<T> {
+    public internal(set) var encoder: CLDResourceEncoder<T>?
 
     var chain = [CLDPreprocessStep<T>]()
 
-    internal init() {
+    public init() {
     }
 
     /**
@@ -88,11 +88,11 @@ public class CLDPreprocessChain<T> {
         }
     }
 
-    internal func decodeResource(_ resourceData: Any) throws -> T? {
+    open func decodeResource(_ resourceData: Any) throws -> T? {
         throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "No decoder implemented - Did you mean to use ImagePreprocessChain?")
     }
 
-    internal func verifyEncoder() throws {
+    open func verifyEncoder() throws {
         if (encoder == nil) {
             throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "No encoder set - Did you mean to use ImagePreprocessChain?")
         }

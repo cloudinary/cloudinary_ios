@@ -149,7 +149,7 @@ import Foundation
         var components: [String] = []
         
         if publicId == nil, let resourceType = resourceType , resourceType != String(describing: LayerResourceType.text) {
-            printLog(.error, text: "Must supply publicId for non-text layer")
+            cld_printLog(.error, text: "Must supply publicId for non-text layer")
             return nil
         }
         

@@ -50,7 +50,16 @@ public func cloudinarySignParamsUsingSecret(_ paramsToSign: [String : Any],cloud
     let toSign = paramsArr.joined(separator: "&")
     return toSign.sha1_base8(cloudinaryApiSecret)
 }
-
+public extension String {
+    
+    func cld_sha1_base64() -> String {
+        return sha_base64(type: .sha1)
+    }
+    
+    func cld_sha256_base64() -> String {
+        return sha_base64(type: .sha256)
+    }
+}
 internal extension String {
 
     func sha1_base8(_ secret: String?) -> String {
@@ -75,13 +84,7 @@ internal extension String {
         return hexBytes.joined()
     }
 
-    func sha1_base64() -> String {
-        return sha_base64(type: .sha1)
-    }
-    
-    func sha256_base64() -> String {
-        return sha_base64(type: .sha256)
-    }
+
     
     fileprivate func sha_base64(type: shaBase64Type) -> String {
         var digest = [UInt8](repeating: 0, count:type.count)

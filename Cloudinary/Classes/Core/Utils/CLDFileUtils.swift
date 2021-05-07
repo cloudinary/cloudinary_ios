@@ -24,7 +24,7 @@
 //
 import Foundation
 
-internal class CLDFileUtils {
+public class CLDFileUtils {
     internal static func getFileSize(url: URL)->Int64?{
         let attr = try? FileManager.default.attributesOfItem(atPath: url.path)
         return attr?[FileAttributeKey.size] as? Int64
@@ -121,7 +121,7 @@ internal class CLDFileUtils {
         return maxLength
     }
 
-    internal static func getTempFileUrl(fileName: String, baseFolder: String) -> (URL, URL) {
+    public static func getTempFileUrl(fileName: String, baseFolder: String) -> (URL, URL) {
         let randomId = NSUUID().uuidString
         let baseUrl = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(baseFolder)
         let tempDirURL = baseUrl.appendingPathComponent(randomId)

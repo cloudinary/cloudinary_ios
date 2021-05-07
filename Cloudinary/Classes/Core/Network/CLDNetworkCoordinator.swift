@@ -22,10 +22,13 @@
 //  SOFTWARE.
 //
 
-import Foundation
+#if os(iOS) || os(tvOS)
 import UIKit
+#endif
 
-internal class CLDNetworkCoordinator: NSObject {
+import Foundation
+
+public class CLDNetworkCoordinator: NSObject {
     
     fileprivate struct CLDNetworkCoordinatorConsts {
         static let BASE_CLOUDINARY_URL =    "https://api.cloudinary.com"
@@ -43,12 +46,12 @@ internal class CLDNetworkCoordinator: NSObject {
         config = configuration
         self.networkAdapter = networkAdapter
     }
-
+    
     init(configuration: CLDConfiguration, sessionConfiguration: URLSessionConfiguration) {
         config = configuration
         self.networkAdapter = CLDDefaultNetworkAdapter(configuration: sessionConfiguration)
     }
-
+    
     // MARK: - Actions
     
     internal func callAction(_ action: CLDAPIAction, params: CLDRequestParams) -> CLDNetworkDataRequest {
@@ -70,7 +73,7 @@ internal class CLDNetworkCoordinator: NSObject {
         return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data)
     }
     
-    internal func download(_ url: String) -> CLDNetworkDataRequest {
+    public func download(_ url: String) -> CLDNetworkDataRequest {
         return networkAdapter.downloadFromCloudinary(url)
     }
     
@@ -80,7 +83,7 @@ internal class CLDNetworkCoordinator: NSObject {
         var params: [String : Any] = requestParams.params
         
         guard let apiKey = config.apiKey else {
-            printLog(.error, text: "Must supply api key for a signed request")
+            cld_printLog(.error, text: "Must supply api key for a signed request")
             return params
         }
         
@@ -96,7 +99,7 @@ internal class CLDNetworkCoordinator: NSObject {
             params[CLDSignature.SignatureParam.Signature.rawValue] = signature
         }
         else {
-            printLog(.error, text: "Must supply api secret for a signed request")
+            cld_printLog(.error, text: "Must supply api secret for a signed request")
         }
         
         params[CLDNetworkCoordinatorConsts.API_KEY] = apiKey
@@ -132,12 +135,14 @@ internal class CLDNetworkCoordinator: NSObject {
         else {
             userAgent = "CloudinaryiOS/\(getVersion())"
         }
-
-        userAgent += " (\(UIDevice.current.model); \(UIDevice.current.systemName) \(UIDevice.current.systemVersion))"
-
+        #if os(iOS)
+        if #available(iOS 9.0, *) {
+            userAgent += " (\(UIDevice.current.model); \(UIDevice.current.systemName) \(UIDevice.current.systemVersion))"
+        }
+        #endif
         headers["User-Agent"] = userAgent
         headers["X-Requested-With"] = "XMLHttpRequest"
-
+        
         return headers
     }
     
@@ -177,7 +182,7 @@ internal class CLDNetworkCoordinator: NSObject {
     }
     
     // MARK: - Public
-        
+    
     internal func setBackgroundCompletionHandler(_ newValue: (() -> ())?) {
         networkAdapter.setBackgroundCompletionHandler(newValue)
     }
@@ -186,14 +191,21 @@ internal class CLDNetworkCoordinator: NSObject {
         networkAdapter.setMaxConcurrentDownloads(maxConcurrentDownloads)
     }
 }
-
-class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
-
-    let imageCache = CLDImageCache(name: Defines.cacheDefaultName)
-    let urlCache   = CLDURLCache(memoryCapacity: Defines.defaultMemoryTotalCostLimit, diskCapacity: Defines.defaultMaxDiskCapacity, diskPath: Defines.cacheAssetDefaultName, configuration: CLDURLCacheConfiguration.defualt)
+internal struct Defines {
+    static let cacheAssetDefaultName       = "defaultAssetCache"
+    static let defaultMemoryTotalCostLimit =  30 * 1024 * 1024 //  30 MB
+    static let defaultMaxDiskCapacity      = 150 * 1024 * 1024 // 150 MB
+}
+public class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
     
-    init(configuration: CLDConfiguration) {
-
+    let urlCache   = CLDURLCache(
+        memoryCapacity: Defines.defaultMemoryTotalCostLimit,
+        diskCapacity: Defines.defaultMaxDiskCapacity,
+        diskPath: Defines.cacheAssetDefaultName,
+        configuration: CLDURLCacheConfiguration.defualt)
+    
+    public init(configuration: CLDConfiguration) {
+        
         let downloadConfiguration                   = URLSessionConfiguration.default
         downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
         downloadConfiguration.urlCache              = urlCache
@@ -204,17 +216,17 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
         
         urlCache.delegate = self
     }
-
-    override init(configuration: CLDConfiguration, sessionConfiguration: URLSessionConfiguration) {
+    
+    public override init(configuration: CLDConfiguration, sessionConfiguration: URLSessionConfiguration) {
         super.init(configuration: configuration, sessionConfiguration: sessionConfiguration)
     }
     
-    override init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter) {
+    public override init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter) {
         super.init(configuration: configuration, networkAdapter: networkAdapter)
     }
     
     func shouldExclude(response: HTTPURLResponse, for urlCache: CLDURLCache) -> Bool {
-    
+        
         if let contentType = response.cld_header.value(for: .contentType),
            contentType.contains("image") {
             return true

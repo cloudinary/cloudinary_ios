@@ -135,7 +135,7 @@ internal func cldParamValueAsString(value: Any) -> String? {
         return String(describing: valueNum)
     }
     else {
-        printLog(.error, text: "The parameter value must ba a String or a Number")
+        cld_printLog(.error, text: "The parameter value must ba a String or a Number")
         return nil
     }
 }

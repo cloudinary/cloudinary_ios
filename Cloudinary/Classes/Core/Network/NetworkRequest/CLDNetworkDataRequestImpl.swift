@@ -24,7 +24,7 @@
 
 import Foundation
 
-internal class CLDNetworkDataRequestImpl<T: CLDNDataRequest>: CLDGenericNetworkRequest<T>, CLDNetworkDataRequest {
+public class CLDNetworkDataRequestImpl<T: CLDNDataRequest>: CLDGenericNetworkRequest<T>, CLDNetworkDataRequest {
     
     @discardableResult
     public func progress(_ progress: ((Progress) -> Void)?) -> CLDNetworkDataRequest {
@@ -37,7 +37,7 @@ internal class CLDNetworkDataRequestImpl<T: CLDNDataRequest>: CLDGenericNetworkR
     
     //MARK: - Handlers
     
-    func response(_ completionHandler: ((_ response: Any?, _ error: NSError?) -> ())?) -> CLDNetworkRequest {
+    public func response(_ completionHandler: ((_ response: Any?, _ error: NSError?) -> ())?) -> CLDNetworkRequest {
         
         request.responseJSON { response in
             if let value = response.result.value as? [String : AnyObject] {

@@ -164,8 +164,8 @@ final internal class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<Store
             try fileManager.createDirectory(atPath: URLObject.path, withIntermediateDirectories: true, attributes: nil)
         }
         catch let error as NSError {
-            printLog(.error, text: "Error unable to create directory \(URLObject.path)")
-            printLog(.error, text: "Error \(error.debugDescription)")
+            cld_printLog(.error, text: "Error unable to create directory \(URLObject.path)")
+            cld_printLog(.error, text: "Error \(error.debugDescription)")
             throw error
         }
     }

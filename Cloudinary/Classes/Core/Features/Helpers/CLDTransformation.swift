@@ -1738,7 +1738,7 @@ import CoreGraphics
         
         let emptyParams = params.filter { $0.0.isEmpty || $0.1.isEmpty }
         if !emptyParams.isEmpty {
-            printLog(.error, text: "An empty string key or value are not allowed.")
+            cld_printLog(.error, text: "An empty string key or value are not allowed.")
             return nil
         }
         

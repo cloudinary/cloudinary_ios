@@ -24,11 +24,11 @@
 
 import Foundation
 
-internal struct CLDError {
+public struct CLDError {
     
-    fileprivate static let domain = "com.cloudinary.error"
+    public static let domain = "com.cloudinary.error"
     
-    enum CloudinaryErrorCode: Int {
+    public enum CloudinaryErrorCode: Int {
         case generalErrorCode                       = -7000
         case failedCreatingImageFromData            = -7001
         case failedDownloadingImage                 = -7002
@@ -38,16 +38,16 @@ internal struct CLDError {
         case unacceptableStatusCode                 = -7006
     }
     
-    static func generalError() -> NSError {
+    public static func generalError() -> NSError {
         return error(code: .generalErrorCode, message: "Something went wrong.")
     }
     
-    static func error(domain: String = CLDError.domain, code: CloudinaryErrorCode, message: String) -> NSError {
+    public static func error(domain: String = CLDError.domain, code: CloudinaryErrorCode, message: String) -> NSError {
         let userInfo = [NSLocalizedFailureReasonErrorKey: message]
         return error(domain: domain, code: code.rawValue, userInfo: userInfo)
     }
     
-    static func error(domain: String = CLDError.domain, code: Int, userInfo: [AnyHashable: Any]?) -> NSError {
+    public static func error(domain: String = CLDError.domain, code: Int, userInfo: [AnyHashable: Any]?) -> NSError {
         var info = [String: Any]()
         if let userInfo = userInfo {
             userInfo.forEach {key, value in info[String(describing: key)] = value}

@@ -25,9 +25,9 @@
 import Foundation
 
 /// Represents a failure to create the request
-internal class CLDRequestError: CLDFetchImageRequest {
-    
-    var error: Error
+public class CLDRequestError : CLDNetworkDataRequest
+{    
+    public internal(set) var error: Error
     
     // MARK: - Init
     
@@ -36,30 +36,23 @@ internal class CLDRequestError: CLDFetchImageRequest {
     }
     
     // MARK: - CLDNetworkRequest
-    func resume() {
+    public func resume() {
     }
     
-    func suspend() {
+    public func suspend() {
     }
     
-    func cancel() {        
+    public func cancel() {        
     }
     
     // MARK: - CLDNetworkDataRequest
     
-    func progress(_ progress: ((Progress) -> Void)?) -> CLDNetworkDataRequest {
+    public func progress(_ progress: ((Progress) -> Void)?) -> CLDNetworkDataRequest {
         return self
     }
     
     
-    func response(_ completionHandler: ((_ response: Any?, _ error: NSError?) -> ())?) -> CLDNetworkRequest {
-        completionHandler?(nil, error as NSError?)
-        return self
-    }
-    
-    // MARK: - CLDFetchImageRequest
-    
-    func responseImage(_ completionHandler: CLDCompletionHandler?) -> CLDFetchImageRequest {
+    public func response(_ completionHandler: ((_ response: Any?, _ error: NSError?) -> ())?) -> CLDNetworkRequest {
         completionHandler?(nil, error as NSError?)
         return self
     }

@@ -15,7 +15,7 @@ import XCTest
 public class CryptoObjcHelper: NSObject {
     
     @objc public class func sha256_base64(string: String) -> String {
-        return string.sha256_base64()
+        return string.cld_sha256_base64()
     }
 }
 
@@ -47,7 +47,7 @@ class CryptoUtilsTests: BaseTestCase {
     
     func testSha1Base64(){
         let value = "sadnkjqndlk3j43qdaoni834j032df8j0a9sdfu03124"
-        let sha1 = value.sha1_base64()
+        let sha1 = value.cld_sha1_base64()
         
         XCTAssertEqual("ifMNlf1eg86TJHZ35KMB4nmkjKI", sha1)
     }
@@ -61,7 +61,7 @@ class CryptoUtilsTests: BaseTestCase {
         let expectedResult = "47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU"
         
         // When
-        let actualResult = initialString.sha256_base64()
+        let actualResult = initialString.cld_sha256_base64()
         
         // Then
         XCTAssertNotNil(actualResult, "Hashed string should not be nil")
@@ -75,7 +75,7 @@ class CryptoUtilsTests: BaseTestCase {
         let expectedResult = "jXJPEpRxcbKlIzNzH1RzAsaDeDR87Ir0cENeW8b5t-g"
         
         // When
-        let actualResult = initialString.sha256_base64()
+        let actualResult = initialString.cld_sha256_base64()
         
         // Then
         XCTAssertNotNil(actualResult, "Hashed string should not be nil")
@@ -89,7 +89,7 @@ class CryptoUtilsTests: BaseTestCase {
         let expectedResult = "Ncsntkv4ywCQbf4Xz3pTYrxglVm02y4_X9nmCR8uNt0"
         
         // When
-        let actualResult = initialString.sha256_base64()
+        let actualResult = initialString.cld_sha256_base64()
         
         // Then
         XCTAssertNotNil(actualResult, "Hashed string should not be nil")

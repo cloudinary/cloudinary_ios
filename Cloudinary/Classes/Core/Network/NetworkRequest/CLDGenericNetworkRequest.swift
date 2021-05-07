@@ -24,7 +24,7 @@
 
 import Foundation
 
-internal class CLDGenericNetworkRequest<T: CLDNRequest>: NSObject, CLDNetworkRequest {
+public class CLDGenericNetworkRequest<T: CLDNRequest>: NSObject, CLDNetworkRequest {
     
     internal let request: T
     
@@ -39,21 +39,21 @@ internal class CLDGenericNetworkRequest<T: CLDNRequest>: NSObject, CLDNetworkReq
     /**
     Resume the current request.
     */
-    func resume() {
+    public func resume() {
         request.resume()
     }
     
     /**
      Suspend the current request.
      */
-    func suspend() {
+    public func suspend() {
         request.suspend()
     }
     
     /**
      Cancel the current request.
      */
-    func cancel() {
+    public func cancel() {
         request.cancel()
     }
 }

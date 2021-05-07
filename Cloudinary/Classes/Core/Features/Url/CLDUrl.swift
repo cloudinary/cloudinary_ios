@@ -26,7 +26,7 @@ import Foundation
 
 /**
  The CLDUrl class represents a URL to a remote asset either on your Cloudinary cloud, or from another remote source.
-*/
+ */
 @objcMembers open class CLDUrl: NSObject {
     
     fileprivate struct CLDUrlConsts {
@@ -34,14 +34,14 @@ import Foundation
         static let CLD_SHARED_CDN = "res\(CLD_COM)"
         static let CLD_COM = ".cloudinary.com"
     }
-
+    
     /**
      The Cloudinary public ID of the resource
-    */
+     */
     fileprivate var publicId: String?
     /**
      The current Cloudinary session configuration.
-    */
+     */
     fileprivate var config: CLDConfiguration!
     
     /**
@@ -101,33 +101,33 @@ import Foundation
         config = configuration
         super.init()
     }
-
+    
     // MARK: - Set Values
     
     /**
-    Set the media source of the URL.
-    
-    - parameter publicId:    the media source to set.
-    
-    - returns:               the same instance of CLDUrl.
-    */
+     Set the media source of the URL.
+     
+     - parameter publicId:    the media source to set.
+     
+     - returns:               the same instance of CLDUrl.
+     */
     open func setPublicId(_ publicId: String) -> CLDUrl {
         self.publicId = publicId
         return self
     }
-
+    
     /**
-    Set the media source of the URL.
-
-    - parameter type:       the media source to set.
-
-    - returns:               the same instance of CLDUrl.
-    */
+     Set the media source of the URL.
+     
+     - parameter type:       the media source to set.
+     
+     - returns:               the same instance of CLDUrl.
+     */
     @objc(setTypeFromType:)
     open func setType(_ type: CLDType) -> CLDUrl {
         return setType(String(describing: type))
     }
-
+    
     /**
      Set the media source of the URL.
      
@@ -254,12 +254,12 @@ import Foundation
     }
     
     // MARK: - Actions
-
+    
     /**
      Generate a string URL representation of the CLDUrl.
-
+     
      - parameter signUrl:       Indicates whether to generate a signature out of the API secret and add it to the generated URL. Default is false.
-
+     
      - returns:                  The generated string URL representation.
      */
     open func generate(signUrl: Bool = false) -> String? {
@@ -269,7 +269,7 @@ import Foundation
             return nil
         }
     }
-
+    
     /**
      Generate a string URL representation of the CLDUrl.
      
@@ -281,7 +281,7 @@ import Foundation
     open func generate(_ publicId: String, signUrl: Bool = false) -> String? {
         
         if signUrl && config.apiSecret == nil {
-            printLog(.error, text: "Must supply api_secret for signing urls")
+            cld_printLog(.error, text: "Must supply api_secret for signing urls")
             return nil
         }
         
@@ -309,15 +309,15 @@ import Foundation
         }
         
         guard let transformationStr = transformation.asString() else {
-                printLog(.error, text: "An invalid transformation was added.")
-                return nil
+            cld_printLog(.error, text: "An invalid transformation was added.")
+            return nil
         }
         
         if  forceVersion &&
-            version.isEmpty &&
-            sourceName.contains("/") &&
-            sourceName.range(of: "^v[0-9]+/.*", options: NSString.CompareOptions.regularExpression, range: nil, locale: nil) == nil &&
-            sourceName.range(of: "^https?:/.*", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) == nil
+                version.isEmpty &&
+                sourceName.contains("/") &&
+                sourceName.range(of: "^v[0-9]+/.*", options: NSString.CompareOptions.regularExpression, range: nil, locale: nil) == nil &&
+                sourceName.range(of: "^https?:/.*", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) == nil
         {
             version = "1"
         }
@@ -345,7 +345,7 @@ import Foundation
             
             if let suffix = suffix , !suffix.isEmpty {
                 if suffix.range(of: "[/\\.]", options: NSString.CompareOptions.regularExpression, range: nil, locale: nil) != nil {
-                    printLog(.error, text: "URL Suffix should not include . or /")
+                    cld_printLog(.error, text: "URL Suffix should not include . or /")
                     return nil
                 }
                 sourceName = "\(sourceName)/\(suffix)"
@@ -359,8 +359,8 @@ import Foundation
         
         let prefix = finalizePrefix(sourceName)
         guard let resourceTypeAndType = finalizeResourceTypeAndType(resourceType, type: type)
-            else {
-                return nil
+        else {
+            return nil
         }
         
         var signature = String()
@@ -371,16 +371,16 @@ import Foundation
             
             if config.longUrlSignature {
                 // long url forces sha256 algorithm
-                let encoded = toSign.sha256_base64()
+                let encoded = toSign.cld_sha256_base64()
                 signature = "s--\(encoded[0...31])--"
             }
             else {
                 switch config.signatureAlgorithm {
                 case .sha1:
-                    let encoded = toSign.sha1_base64()
+                    let encoded = toSign.cld_sha1_base64()
                     signature = "s--\(encoded[0...7])--"
                 case .sha256:
-                    let encoded = toSign.sha256_base64()
+                    let encoded = toSign.cld_sha256_base64()
                     signature = "s--\(encoded[0...7])--"
                 }
             }
@@ -404,7 +404,7 @@ import Foundation
     
     fileprivate func finalizePrefix(_ basename: String) -> String {
         var prefix = String()
-
+        
         if config.secure {
             var secureDistribution = String()
             if let secureDist = config.secureDistribution , (secureDist != CLDUrlConsts.CLD_OLD_AKAMAI_CHARED_CDN && !secureDist.isEmpty) {
@@ -449,14 +449,14 @@ import Foundation
     
     fileprivate func finalizeResourceTypeAndType(_ resourceType: String, type: String) -> String? {
         if !config.privateCdn, let urlSuffix = suffix , !urlSuffix.isEmpty {
-            printLog(.error, text: "URL Suffix only supported in private CDN")
+            cld_printLog(.error, text: "URL Suffix only supported in private CDN")
             return nil
         }
         
         var resourceTypeAndType = "\(resourceType)/\(type)"
         if let urlSuffix = suffix , !urlSuffix.isEmpty {
             if resourceTypeAndType == "\(String(describing: CLDUrlResourceType.image))/\(String(describing: CLDType.upload))" {
-               resourceTypeAndType = "images"
+                resourceTypeAndType = "images"
             }
             else if resourceTypeAndType == "\(String(describing: CLDUrlResourceType.image))/\(String(describing: CLDType.private))" {
                 resourceTypeAndType = "private_images"
@@ -465,17 +465,17 @@ import Foundation
                 resourceTypeAndType = "files"
             }
             else {
-                printLog(.error, text: "URL Suffix only supported for image/upload, image/private and raw/upload")
+                cld_printLog(.error, text: "URL Suffix only supported for image/upload, image/private and raw/upload")
                 return nil
             }
         }
         
         if useRootPath {
             if resourceTypeAndType == "\(String(describing: CLDUrlResourceType.image))/\(String(describing: CLDType.upload))" || resourceTypeAndType == "images" {
-               resourceTypeAndType = String()
+                resourceTypeAndType = String()
             }
             else {
-                printLog(.error, text: "Root path only supported for image/upload")
+                cld_printLog(.error, text: "Root path only supported for image/upload")
                 return nil
             }
         }
@@ -487,7 +487,7 @@ import Foundation
         return resourceTypeAndType
     }
     
-   
+    
 }
 
 

@@ -31,14 +31,14 @@ import Foundation
     public static let defaultMinDimension = 50
     public static let defaultReloadOnSizeChange = false
 
-    internal let autoWidth: Bool
-    internal let autoHeight: Bool
-    internal let cropMode: CLDTransformation.CLDCrop?
-    internal let gravity: CLDTransformation.CLDGravity?
-    internal var shouldReloadOnSizeChange = defaultReloadOnSizeChange
-    internal var stepSizePoints = defaultStepSize
-    internal var maxDimensionPoints = defaultMaxDimension
-    internal var minDimensionPoints = defaultMinDimension
+    public let autoWidth: Bool
+    public let autoHeight: Bool
+    public let cropMode: CLDTransformation.CLDCrop?
+    public let gravity: CLDTransformation.CLDGravity?
+    public internal(set) var shouldReloadOnSizeChange = defaultReloadOnSizeChange
+    public internal(set) var stepSizePoints = defaultStepSize
+    public internal(set) var maxDimensionPoints = defaultMaxDimension
+    public internal(set) var minDimensionPoints = defaultMinDimension
 
     // MARK: - Init
     public init(autoWidth: Bool, autoHeight: Bool, cropMode: CLDTransformation.CLDCrop?, gravity: CLDTransformation.CLDGravity?) {

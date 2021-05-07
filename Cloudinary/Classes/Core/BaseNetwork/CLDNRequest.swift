@@ -69,7 +69,7 @@ internal typealias CLDNHTTPHeaders = [String: String]
 
 /// Responsible for sending a request and receiving the response and associated data from the server, as well as
 /// managing its underlying `URLSessionTask`.
-internal class CLDNRequest {
+public class CLDNRequest {
 
     // MARK: Helper Types
 
@@ -220,7 +220,7 @@ internal class CLDNRequest {
 extension CLDNRequest: CustomStringConvertible {
     /// The textual representation used when written to an output stream, which includes the HTTP method and URL, as
     /// well as the response status code if a response has been received.
-    internal var description: String {
+    public var description: String {
         var components: [String] = []
 
         if let HTTPMethod = request?.httpMethod {
@@ -243,7 +243,7 @@ extension CLDNRequest: CustomStringConvertible {
 
 extension CLDNRequest: CustomDebugStringConvertible {
     /// The textual representation used when written to an output stream, in the form of a cURL command.
-    internal var debugDescription: String {
+    public var debugDescription: String {
         return cURLRepresentation()
     }
 
@@ -327,7 +327,7 @@ extension CLDNRequest: CustomDebugStringConvertible {
 // MARK: -
 
 /// Specific type of `CLDNRequest` that manages an underlying `URLSessionDataTask`.
-internal class CLDNDataRequest: CLDNRequest {
+public class CLDNDataRequest: CLDNRequest {
 
     // MARK: Helper Types
 

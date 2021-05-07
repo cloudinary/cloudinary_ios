@@ -22,7 +22,9 @@
 //  SOFTWARE.
 //
 
+#if !os(macOS)
 import UIKit
+#endif
 
 import Foundation
 ///

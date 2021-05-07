@@ -23,13 +23,12 @@
 //
 
 import Foundation
-import UIKit
 
-public typealias CLDCompletionHandler = (_ responseImage: UIImage?, _ error: NSError?) -> ()
 public typealias CLDAssetCompletionHandler = (_ responseAsset: Data?, _ error: NSError?) -> ()
 public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ error: NSError?) -> ()
 
-@objcMembers open class CLDCloudinary: NSObject {
+@objcMembers
+open class CLDCloudinary: NSObject {
 
     /**
      Holds the configuration parameters to be used by the `CLDCloudinary` instance.
@@ -44,7 +43,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     /**
      The network download coordinator coordinates between the SDK's API level classes to its network adapter layer.
      */
-    fileprivate var downloadCoordinator: CLDDownloadCoordinator
+    public fileprivate(set) var downloadCoordinator: CLDDownloadCoordinator
 
     // MARK: - SDK Configurations
 
@@ -62,47 +61,8 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
     }
 
-    // MARK: Image Cache
-
-    /**
-     Sets Cloudinary SDK's caching policy for images that are downloaded via the SDK's CLDDownloader.
-     The options are: **None**, **Memory** and **Disk**. default is Disk
-     */
-    open var cachePolicy: CLDImageCachePolicy {
-        get {
-            return downloadCoordinator.imageCache.cachePolicy
-        }
-        set {
-            downloadCoordinator.imageCache.cachePolicy = newValue
-        }
-    }
-
-    /**
-     Sets Cloudinary SDK's image cache maximum disk capacity.
-     default is 150 MB.
-     */
-    open var cacheMaxDiskCapacity: UInt64 {
-        get {
-            return downloadCoordinator.imageCache.maxDiskCapacity
-        }
-        set {
-            downloadCoordinator.imageCache.maxDiskCapacity = newValue
-        }
-    }
-
-    /**
-     Sets Cloudinary SDK's image cache maximum memory total cost.
-     default is 30 MB.
-     */
-    open var cacheMaxMemoryTotalCost: Int {
-        get {
-            return downloadCoordinator.imageCache.maxMemoryTotalCost
-        }
-        set {
-            downloadCoordinator.imageCache.maxMemoryTotalCost = newValue
-        }
-    }
-
+    // MARK: Asset Cache
+    
     /**
      Sets Cloudinary SDK's asset cache maximum disk capacity.
      default is 150 MB.
@@ -127,16 +87,6 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         set {
             downloadCoordinator.urlCache.updateMemoryCapacity(newValue)
         }
-    }
-    
-    /**
-    Removes an image from the downloaded images cache, both disk and memory.
-
-    - parameter key:    The full url of the image to remove.
-
-    */
-    open func removeFromCache(key: String) {
-        downloadCoordinator.imageCache.removeCacheImageForKey(key)
     }
 
     // MARK: - Init
