@@ -25,7 +25,7 @@
 import UIKit
 import AVKit
 
-protocol CLDWidgetPreviewDelegate: class {
+protocol CLDWidgetPreviewDelegate: AnyObject {
     
     func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didFinishEditing assets: [CLDWidgetAssetContainer])
     func widgetPreviewViewController(_ controller: CLDWidgetPreviewViewController, didSelect asset: CLDWidgetAssetContainer)
@@ -253,38 +253,53 @@ private extension CLDWidgetPreviewViewController {
         videoView     .translatesAutoresizingMaskIntoConstraints = false
         
         // collectionView
-        let collectionConstraints = [
+        var collectionConstraints = [
             NSLayoutConstraint(item: collectionView!, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: collectionView!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: collectionView!, attribute: .top, relatedBy: .equal, toItem: mainImageView, attribute: .bottom, multiplier: 1, constant: 5),
-            NSLayoutConstraint(item: collectionView!, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: -10),
-            NSLayoutConstraint(item: collectionView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: collectionHeight)
+            NSLayoutConstraint(item: collectionView!, attribute: .top, relatedBy: .equal, toItem: mainImageView, attribute: .bottom, multiplier: 1, constant: 5)
         ]
+        
+        let bottomConstraint: NSLayoutConstraint
+        if #available(iOS 11.0, *) {
+            bottomConstraint = collectionView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+        } else {
+            bottomConstraint = NSLayoutConstraint(item: collectionView!, attribute: .bottom   , relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: -10)
+        }
+        collectionConstraints.append(bottomConstraint)
+        collectionConstraints.append(NSLayoutConstraint(item: collectionView!,
+                                                        attribute: .height        , relatedBy : .equal, toItem: nil,
+                                                        attribute: .notAnAttribute, multiplier: 1, constant: collectionHeight))
         NSLayoutConstraint.activate(collectionConstraints)
         
         // imageView
-        let imageViewConstraints = [
+        var imageViewConstraints = [
             NSLayoutConstraint(item: mainImageView!, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: mainImageView!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: mainImageView!, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0)
         ]
+        if #available(iOS 11.0, *) {
+            imageViewConstraints.append(mainImageView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0))
+        } else {
+            imageViewConstraints.append(NSLayoutConstraint(item: mainImageView!,
+                                                           attribute: .top   , relatedBy: .equal, toItem: topLayoutGuide,
+                                                           attribute: .bottom, multiplier: 1, constant: 0))
+        }
         NSLayoutConstraint.activate(imageViewConstraints)
         
         // videoView
         let videoViewConstraints = [
-            NSLayoutConstraint(item: videoView!, attribute: .leading, relatedBy: .equal, toItem: mainImageView, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: videoView!, attribute: .leading , relatedBy: .equal, toItem: mainImageView, attribute: .leading , multiplier: 1, constant: 0),
             NSLayoutConstraint(item: videoView!, attribute: .trailing, relatedBy: .equal, toItem: mainImageView, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: videoView!, attribute: .top, relatedBy: .equal, toItem: mainImageView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: videoView!, attribute: .bottom, relatedBy: .equal, toItem: mainImageView, attribute: .bottom, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: videoView!, attribute: .top     , relatedBy: .equal, toItem: mainImageView, attribute: .top     , multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: videoView!, attribute: .bottom  , relatedBy: .equal, toItem: mainImageView, attribute: .bottom  , multiplier: 1, constant: 0)
         ]
         NSLayoutConstraint.activate(videoViewConstraints)
         
         // uploadButton
         let uploadButtonConstraints = [
-            NSLayoutConstraint(item: uploadButton!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: uploadButton!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: buttonSize.width),
-            NSLayoutConstraint(item: uploadButton!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: buttonSize.height),
-            NSLayoutConstraint(item: uploadButton!, attribute: .bottom, relatedBy: .equal, toItem: mainImageView, attribute: .bottom, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: uploadButton!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing       , multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: uploadButton!, attribute: .width   , relatedBy: .equal, toItem: nil , attribute: .notAnAttribute , multiplier: 1, constant: buttonSize.width),
+            NSLayoutConstraint(item: uploadButton!, attribute: .height  , relatedBy: .equal, toItem: nil , attribute: .notAnAttribute , multiplier: 1, constant: buttonSize.height),
+            NSLayoutConstraint(item: uploadButton!, attribute: .bottom  , relatedBy: .equal, toItem: mainImageView, attribute: .bottom, multiplier: 1, constant: 0)
         ]
         NSLayoutConstraint.activate(uploadButtonConstraints)
     }

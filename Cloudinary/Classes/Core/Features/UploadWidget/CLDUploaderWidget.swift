@@ -26,7 +26,7 @@ import UIKit
 import AVKit
 import MobileCoreServices
 
-@objc public protocol CLDUploaderWidgetDelegate: class {
+@objc public protocol CLDUploaderWidgetDelegate: AnyObject {
     
     /**
     Informs the delegate that the upload process will begin for the added requests.

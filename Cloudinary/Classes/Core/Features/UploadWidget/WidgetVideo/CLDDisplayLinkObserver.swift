@@ -24,7 +24,7 @@
 
 import UIKit
 
-protocol CLDDisplayLinkObserverDelegate: class {
+protocol CLDDisplayLinkObserverDelegate: AnyObject {
     func displayLinkObserverDidTick(_ linkObserver: CLDDisplayLinkObserver)
 }
 

@@ -24,7 +24,7 @@
 
 import UIKit
 
-protocol CLDVideoControlsViewDelegate: class {
+protocol CLDVideoControlsViewDelegate: AnyObject {
     func playPressedOnVideoControls (_ videoControls: CLDVideoControlsView)
     func pausePressedOnVideoControls(_ videoControls: CLDVideoControlsView)
 }

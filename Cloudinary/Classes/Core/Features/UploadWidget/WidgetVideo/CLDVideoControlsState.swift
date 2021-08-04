@@ -24,7 +24,7 @@
 
 import Foundation
 
-protocol CLDVideoControlsState: class {
+protocol CLDVideoControlsState: AnyObject {
     
     var controlsView: CLDVideoControlsView { get set }
     

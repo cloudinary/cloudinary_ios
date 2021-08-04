@@ -24,7 +24,7 @@
 
 import UIKit
 
-internal protocol CLDWidgetEditDelegate: class {
+internal protocol CLDWidgetEditDelegate: AnyObject {
     func widgetEditViewController(_ controller: CLDWidgetEditViewController, didFinishEditing image: CLDWidgetAssetContainer)
     func widgetEditViewControllerDidReset (_ controller: CLDWidgetEditViewController)
     func widgetEditViewControllerDidCancel(_ controller: CLDWidgetEditViewController)
@@ -61,7 +61,9 @@ internal class CLDWidgetEditViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {} else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -178,42 +180,42 @@ extension UIImage {
         guard let cgimage = self.cgImage else { return false }
         let alphaInfo = cgimage.alphaInfo
         return (alphaInfo == .first || alphaInfo == .last ||
-            alphaInfo == .premultipliedFirst || alphaInfo == .premultipliedLast)
+                    alphaInfo == .premultipliedFirst || alphaInfo == .premultipliedLast)
     }
     
     func cld_cropImage(to frame: CGRect, angle: NSInteger) -> UIImage {
-       
+        
         var croppedImage: UIImage?
         
         UIGraphicsBeginImageContextWithOptions(frame.size, !cld_hasAlpha(), scale)
         
-            let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()
+        
+        //To conserve memory in not needing to completely re-render the image re-rotated,
+        //map the image to a view and then use Core Animation to manipulate its rotation
+        if (angle != 0) {
+            let imageView = UIImageView(image: self)
+            imageView.layer.minificationFilter  = .nearest
+            imageView.layer.magnificationFilter = .nearest
+            imageView.transform = CGAffineTransform.identity.rotated(by: CGFloat(angle) * (CGFloat(Double.pi)/180.0))
             
-            //To conserve memory in not needing to completely re-render the image re-rotated,
-            //map the image to a view and then use Core Animation to manipulate its rotation
-            if (angle != 0) {
-                let imageView = UIImageView(image: self)
-                imageView.layer.minificationFilter  = .nearest
-                imageView.layer.magnificationFilter = .nearest
-                imageView.transform = CGAffineTransform.identity.rotated(by: CGFloat(angle) * (CGFloat(Double.pi)/180.0))
-                
-                let rotatedRect = imageView.bounds.applying(imageView.transform)
-                let containerView = UIView(frame: CGRect(origin: .zero, size: rotatedRect.size))
-                containerView.addSubview(imageView)
-                imageView.center = containerView.center
-                context?.translateBy(x: -frame.origin.x, y: -frame.origin.y)
-                
-                containerView.layer.render(in: context!)
-            }
-            else {
-                context?.translateBy(x: -frame.origin.x, y: -frame.origin.y)
-                draw(at: .zero)
-            }
+            let rotatedRect = imageView.bounds.applying(imageView.transform)
+            let containerView = UIView(frame: CGRect(origin: .zero, size: rotatedRect.size))
+            containerView.addSubview(imageView)
+            imageView.center = containerView.center
+            context?.translateBy(x: -frame.origin.x, y: -frame.origin.y)
             
-            croppedImage = UIGraphicsGetImageFromCurrentImageContext()
+            containerView.layer.render(in: context!)
+        }
+        else {
+            context?.translateBy(x: -frame.origin.x, y: -frame.origin.y)
+            draw(at: .zero)
+        }
+        
+        croppedImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
-
+        
         if let croppedCGImage = croppedImage?.cgImage {
             return UIImage(cgImage:croppedCGImage , scale: scale, orientation: .up)
         }
@@ -225,7 +227,7 @@ extension UIImage {
 
 // MARK: - create UI
 private extension CLDWidgetEditViewController {
- 
+    
     var buttonsViewHeight: CGFloat { return 70 }
     
     // MARK: - methods
@@ -266,7 +268,7 @@ private extension CLDWidgetEditViewController {
         doneButton.setTitle("Done", for: .normal)
         doneButton.addTarget(self, action: #selector(donePressed), for: .touchUpInside)
     }
-        
+    
     func adjustCropViewLocation(_ aView: CLDCropView) {
         
         aView.frame = frameForCropView()
@@ -290,35 +292,43 @@ private extension CLDWidgetEditViewController {
         rotateButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton  .translatesAutoresizingMaskIntoConstraints = false
         
-        let buttonsViewConstraints = [
-            NSLayoutConstraint(item: buttonsView!, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: buttonsView!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: buttonsView!, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: -bottomButtonsViewPadding),
-            NSLayoutConstraint(item: buttonsView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: buttonsViewHeight)
+        var buttonsViewConstraints = [
+            NSLayoutConstraint(item: buttonsView!, attribute: .leading  , relatedBy: .equal, toItem: view, attribute: .leading , multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: buttonsView!, attribute: .trailing , relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0),
         ]
+        let bottomConstraint: NSLayoutConstraint
+        if #available(iOS 11.0, *) {
+            bottomConstraint = buttonsView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -bottomButtonsViewPadding)
+        } else {
+            bottomConstraint = NSLayoutConstraint(item: buttonsView!, attribute: .bottom   , relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: -bottomButtonsViewPadding)
+        }
+        buttonsViewConstraints.append(bottomConstraint)
+        buttonsViewConstraints.append(NSLayoutConstraint(item: buttonsView!,
+                                                         attribute: .height        , relatedBy: .equal, toItem: nil,
+                                                         attribute: .notAnAttribute, multiplier: 1, constant: buttonsViewHeight))
         NSLayoutConstraint.activate(buttonsViewConstraints)
         
         let cancelButtonConstraints = [
-            NSLayoutConstraint(item: cancelButton!, attribute: .leading, relatedBy: .equal, toItem: buttonsView, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: cancelButton!, attribute: .leading , relatedBy: .equal, toItem: buttonsView , attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: cancelButton!, attribute: .trailing, relatedBy: .equal, toItem: rotateButton, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: cancelButton!, attribute: .top, relatedBy: .equal, toItem: buttonsView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: cancelButton!, attribute: .bottom, relatedBy: .equal, toItem: buttonsView, attribute: .bottom, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: cancelButton!, attribute: .top     , relatedBy: .equal, toItem: buttonsView , attribute: .top    , multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: cancelButton!, attribute: .bottom  , relatedBy: .equal, toItem: buttonsView , attribute: .bottom , multiplier: 1, constant: 0)
         ]
         NSLayoutConstraint.activate(cancelButtonConstraints)
         
         let rotateButtonConstraints = [
-            NSLayoutConstraint(item: rotateButton!, attribute: .trailing, relatedBy: .equal, toItem: doneButton, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: rotateButton!, attribute: .top, relatedBy: .equal, toItem: buttonsView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: rotateButton!, attribute: .height, relatedBy: .equal, toItem: cancelButton, attribute: .height, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: rotateButton!, attribute: .width, relatedBy: .equal, toItem: cancelButton, attribute: .width, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: rotateButton!, attribute: .trailing, relatedBy: .equal, toItem: doneButton  , attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: rotateButton!, attribute: .top     , relatedBy: .equal, toItem: buttonsView , attribute: .top    , multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: rotateButton!, attribute: .height  , relatedBy: .equal, toItem: cancelButton, attribute: .height , multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: rotateButton!, attribute: .width   , relatedBy: .equal, toItem: cancelButton, attribute: .width  , multiplier: 1, constant: 0)
         ]
         NSLayoutConstraint.activate(rotateButtonConstraints)
         
         let doneButtonConstraints = [
-            NSLayoutConstraint(item: doneButton!, attribute: .trailing, relatedBy: .equal, toItem: buttonsView, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: doneButton!, attribute: .top, relatedBy: .equal, toItem: buttonsView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: doneButton!, attribute: .height, relatedBy: .equal, toItem: cancelButton, attribute: .height, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: doneButton!, attribute: .width, relatedBy: .equal, toItem: cancelButton, attribute: .width, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: doneButton!, attribute: .trailing, relatedBy: .equal, toItem: buttonsView , attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: doneButton!, attribute: .top     , relatedBy: .equal, toItem: buttonsView , attribute: .top     , multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: doneButton!, attribute: .height  , relatedBy: .equal, toItem: cancelButton, attribute: .height  , multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: doneButton!, attribute: .width   , relatedBy: .equal, toItem: cancelButton, attribute: .width   , multiplier: 1, constant: 0)
         ]
         NSLayoutConstraint.activate(doneButtonConstraints)
     }
@@ -326,7 +336,7 @@ private extension CLDWidgetEditViewController {
     func configureScreen() {
         
         guard let configuration = configuration else { return }
-
+        
         if !configuration.allowRotate {
             rotateButton.isEnabled = false
             rotateButton.isHidden = true

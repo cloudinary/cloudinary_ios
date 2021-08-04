@@ -90,7 +90,10 @@ extension CLDNDataRequest {
                     timeline: self.timeline
                 )
 
-                dataResponse.CLDN_Add(self.delegate.metrics)
+                if #available(iOS 10.0, *)
+                {
+                    dataResponse.CLDN_Add(self.delegate.metrics)
+                }
 
                 completionHandler(dataResponse)
             }
@@ -129,8 +132,11 @@ extension CLDNDataRequest {
                 result: result,
                 timeline: self.timeline
             )
-
-            dataResponse.CLDN_Add(self.delegate.metrics)
+            
+            if #available(iOS 10.0, *)
+            {
+                dataResponse.CLDN_Add(self.delegate.metrics)
+            }
 
             (queue ?? DispatchQueue.main).async { completionHandler(dataResponse) }
         }
