@@ -78,22 +78,40 @@ internal class WarehouseTransformerFactory
     {
         let   toData : (Item) throws -> Data = { (object) in
             
-            let data = NSMutableData()
-            //let archiver = NSKeyedArchiver(forWritingWith: data)
-            let archiver = NSKeyedArchiver(forWritingWith: data)
-            archiver.requiresSecureCoding = false
+            let data     = NSMutableData()
+            let archiver : NSKeyedArchiver
+            if #available(iOS 12.0, *) {
+                archiver = NSKeyedArchiver(requiringSecureCoding: false)
+            } else {
+                archiver = NSKeyedArchiver(forWritingWith: data)
+                archiver.requiresSecureCoding = false
+            }
             
             archiver.encode(object, forKey: NSKeyedArchiveRootObjectKey)
             archiver.finishEncoding()
-            return data as Data
+            
+            let encodedData: Data
+            if #available(iOS 10.0, *) {
+                encodedData = archiver.encodedData
+            } else {
+                encodedData = data  as Data
+            }
+            return encodedData as Data
         }
         let fromData : (Data) throws -> Item = { (data) in
             
-            let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+            let unarchiver : NSKeyedUnarchiver
+            if #available(iOS 12.0, *) {
+                unarchiver = try! NSKeyedUnarchiver(forReadingFrom: data)
+            } else {
+                unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+            }
+            
             unarchiver.requiresSecureCoding = false
             
             let object = unarchiver.decodeObject(of: [Item.self], forKey: NSKeyedArchiveRootObjectKey)
             unarchiver.finishDecoding()
+            
             return try (object as? Item).cld_unwrapOrThrow(error: StorehouseError.decodingFailed)
         }
         
@@ -107,21 +125,40 @@ internal class WarehouseTransformerFactory
     {
         let   toData : (Item) throws -> Data = { (object) in
             
-            let data = NSMutableData()
-            let archiver = NSKeyedArchiver(forWritingWith: data)
-            archiver.requiresSecureCoding = true
+            let data     = NSMutableData()
+            let archiver : NSKeyedArchiver
+            if #available(iOS 12.0, *) {
+                archiver = NSKeyedArchiver(requiringSecureCoding: true)
+            } else {
+                archiver = NSKeyedArchiver(forWritingWith: data)
+                archiver.requiresSecureCoding = true
+            }
             
             archiver.encode(object, forKey: NSKeyedArchiveRootObjectKey)
             archiver.finishEncoding()
-            return data as Data
+            
+            let encodedData: Data
+            if #available(iOS 10.0, *) {
+                encodedData = archiver.encodedData
+            } else {
+                encodedData = data  as Data
+            }
+            return encodedData as Data
         }
         let fromData : (Data) throws -> Item = { (data) in
             
-            let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+            let unarchiver : NSKeyedUnarchiver
+            if #available(iOS 12.0, *) {
+                unarchiver = try! NSKeyedUnarchiver(forReadingFrom: data)
+            } else {
+                unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+            }
+            
             unarchiver.requiresSecureCoding = true
             
             let object = unarchiver.decodeObject(of: [Item.self], forKey: NSKeyedArchiveRootObjectKey)
             unarchiver.finishDecoding()
+            
             return try (object as? Item).cld_unwrapOrThrow(error: StorehouseError.decodingFailed)
         }
         

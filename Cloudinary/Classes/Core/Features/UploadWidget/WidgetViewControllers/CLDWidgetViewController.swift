@@ -24,7 +24,7 @@
 
 import UIKit
 
-internal protocol CLDWidgetViewControllerDelegate: class {
+internal protocol CLDWidgetViewControllerDelegate: AnyObject {
     func widgetViewController(_ controller: CLDWidgetViewController, didFinishEditing editedAssets: [CLDWidgetAssetContainer])
     func widgetViewControllerDidCancel(_ controller: CLDWidgetViewController)
 }
@@ -341,12 +341,21 @@ private extension CLDWidgetViewController {
         containerView .translatesAutoresizingMaskIntoConstraints = false
         
         // top buttons view
-        let collectionConstraints = [
+        var collectionConstraints = [
             NSLayoutConstraint(item: topButtonsView!, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: topButtonsView!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: topButtonsView!, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: topButtonsView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: topButtonsViewHeight)
         ]
+        if #available(iOS 11.0, *) {
+            collectionConstraints.append(topButtonsView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0))
+        } else {
+            collectionConstraints.append(NSLayoutConstraint(item: topButtonsView!,
+                                                            attribute: .top   , relatedBy: .equal, toItem: topLayoutGuide,
+                                                            attribute: .bottom, multiplier: 1, constant: 0))
+        }
+        collectionConstraints.append(NSLayoutConstraint(item: topButtonsView!,
+                                                        attribute: .height        , relatedBy: .equal, toItem: nil,
+                                                        attribute: .notAnAttribute, multiplier: 1, constant: topButtonsViewHeight))
+        
         NSLayoutConstraint.activate(collectionConstraints)
         
         // buttons
@@ -370,12 +379,19 @@ private extension CLDWidgetViewController {
         NSLayoutConstraint.activate(actionButtonConstraints)
         
         // container view
-        let containerViewConstraints = [
+        var containerViewConstraints = [
             NSLayoutConstraint(item: containerView!, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: containerView!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: containerView!, attribute: .top, relatedBy: .equal, toItem: topButtonsView, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: containerView!, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
         ]
+        
+        if #available(iOS 11.0, *) {
+            containerViewConstraints.append(containerView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0))
+        } else {
+            containerViewConstraints.append(NSLayoutConstraint(item: containerView!,
+                                                               attribute: .bottom, relatedBy : .equal, toItem: bottomLayoutGuide,
+                                                               attribute: .top   , multiplier: 1, constant: 0))
+        }
         NSLayoutConstraint.activate(containerViewConstraints)
     }
 }
