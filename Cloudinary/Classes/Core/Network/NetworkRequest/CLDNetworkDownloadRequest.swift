@@ -53,9 +53,11 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
     internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDNetworkDataRequest {
         
         request.responseData { response in
+            let statusCode = response.response?.statusCode
+            
             if let downloadedData = response.result.value {
                 
-                if let statusCode = response.response?.statusCode,
+                if let statusCode = statusCode,
                    !self.isAcceptableCode(code: statusCode) {
                     
                     let statusCodeError = CLDError.error(code: .unacceptableStatusCode, message: "request error - unacceptable statusCode - \(statusCode)")
@@ -66,7 +68,11 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
                 }
             }
             else if let err = response.result.error {
-                let error = err as NSError
+                var error = err as NSError
+                if let statusCode = statusCode {
+                    let userInfo = error.userInfo.merging(["statusCode": statusCode]) { (current, _) in current }
+                    error = CLDError.error(domain: error.domain, code: error.code, userInfo: userInfo)
+                }
                 completionHandler?(nil, error)
             }
             else {

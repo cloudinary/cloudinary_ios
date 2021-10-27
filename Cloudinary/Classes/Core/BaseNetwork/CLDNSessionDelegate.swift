@@ -373,7 +373,12 @@ extension CLDNSessionDelegate: URLSessionTaskDelegate {
         if request.delegate.error != nil {
             error = request.delegate.error
         }
-
+        
+        if let extendedError = error,
+            let networkErrorCode = (task.response as? HTTPURLResponse)?.cld_code {
+            error = CLDError.error(domain: extendedError._domain, code: extendedError._code, userInfo: ["statusCode": networkErrorCode.rawValue])
+        }
+        
         /// If an error occurred and the retrier is set, asynchronously ask the retrier if the request
         /// should be retried. Otherwise, complete the task by notifying the task delegate.
         if let retrier = retrier, let error = error {
