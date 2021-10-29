@@ -374,7 +374,8 @@ extension CLDNSessionDelegate: URLSessionTaskDelegate {
             error = request.delegate.error
         }
 
-        if let networkErrorCode = (task.response as? HTTPURLResponse)?.cld_code,
+        if let taskResponse = task.response as? HTTPURLResponse,
+            let networkErrorCode = taskResponse.cld_code, taskResponse.allHeaderFields["X-Cld-Error"] == nil,
             (networkErrorCode.isClientError || networkErrorCode.isServerError) {
             error = CLDError.error(domain: error?._domain, code: error?._code ?? networkErrorCode.rawValue, userInfo: ["statusCode": networkErrorCode])
         }

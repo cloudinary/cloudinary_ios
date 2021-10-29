@@ -169,8 +169,8 @@ class HTTPDigestAuthenticationTestCase: AuthenticationTestCase {
         XCTAssertNotNil(response?.request)
         XCTAssertNotNil(response?.response)
         XCTAssertEqual(response?.response?.statusCode, 401)
+        XCTAssertEqual(response?.error?._code, 401)
         XCTAssertNotNil(response?.data)
-        XCTAssertNil(response?.error)
     }
 
     func testHTTPDigestAuthenticationWithValidCredentials() {
