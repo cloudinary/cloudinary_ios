@@ -47,12 +47,16 @@ internal struct CLDError {
         return error(domain: domain, code: code.rawValue, userInfo: userInfo)
     }
     
-    static func error(domain: String = CLDError.domain, code: Int, userInfo: [AnyHashable: Any]?) -> NSError {
+    static func error(domain: String? = CLDError.domain, code: Int, userInfo: [AnyHashable: Any]?) -> NSError {
         var info = [String: Any]()
+        var _domain = CLDError.domain
+        if let domain = domain {
+            _domain = domain
+        }
         if let userInfo = userInfo {
             userInfo.forEach {key, value in info[String(describing: key)] = value}
         }
         
-        return NSError(domain: domain, code: code, userInfo: info)
+        return NSError(domain: _domain, code: code, userInfo: info)
     }
 }

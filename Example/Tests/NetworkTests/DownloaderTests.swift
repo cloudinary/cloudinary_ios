@@ -29,6 +29,39 @@ import Cloudinary
 class DownloaderTests: NetworkBaseTest {
         
     // MARK: - Tests
+    func test_downloadImage_shouldReturnNetworkErrorCode() {
+        let expectation = self.expectation(description: "Should get 404 error")
+        var error: NSError?
+        
+        cloudinarySecured.createDownloader().fetchImage("https://www.httpstat.us/404").responseImage({ (responseImage, errorRes) in
+            error = errorRes
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        XCTAssertNotNil(error, "should get an error")
+        XCTAssertTrue(error?._code == 404, "Mock error should be 404 in this test")
+        let httpStatusCode = HTTPStatusCode(rawValue: error!._code)
+        XCTAssertNotNil(httpStatusCode, "should get a case")
+        XCTAssertTrue(httpStatusCode?.rawValue == 404)
+    }
+    
+    func test_downloadImage_withProgress_shouldReturnNetworkErrorCode() {
+        let expectation = self.expectation(description: "Should get 404 error")
+        var error: NSError?
+        cloudinarySecured.createDownloader().fetchImage("https://www.httpstat.us/404", nil, completionHandler: { _, errorRes in
+            error = errorRes
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        XCTAssertNotNil(error, "should get an error")
+        XCTAssertTrue(error?._code == 404, "Mock error should be 404 in this test")
+        let httpStatusCode = HTTPStatusCode(rawValue: error!._code)
+        XCTAssertNotNil(httpStatusCode, "should get a case")
+        XCTAssertTrue(httpStatusCode?.rawValue == 404)
+    }
+    
     func test_downloadImage_shouldDownloadImage() {
         XCTAssertNotNil(cloudinarySecured.config.apiSecret, "Must set api secret for this test")
         
