@@ -90,7 +90,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                 }
                 else {
                     let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.")
-                    self?.error = error
+                    self?.error = responseError ?? error
                 }
             }
             else if let err = responseError {

@@ -374,11 +374,13 @@ extension CLDNSessionDelegate: URLSessionTaskDelegate {
             error = request.delegate.error
         }
         
-        if let taskResponse = task.response as? HTTPURLResponse,
-            let networkErrorCode = taskResponse.cld_code,
-            (taskResponse.allHeaderFields["X-Cld-Error"] == nil && taskResponse.allHeaderFields["x-cld-error"] == nil),
-            (networkErrorCode.isClientError || networkErrorCode.isServerError) {
-            error = CLDError.error(domain: error?._domain, code: error?._code ?? networkErrorCode.rawValue, userInfo: ["statusCode": networkErrorCode])
+        if let taskResponse = task.response as? HTTPURLResponse, let networkErrorCode = taskResponse.cld_code {
+            let headerError = taskResponse.allHeaderFields["X-Cld-Error"] == nil && taskResponse.allHeaderFields["x-cld-error"] == nil
+            let serverOrClientError = networkErrorCode.isServerError || networkErrorCode.isClientError
+    
+            if headerError || serverOrClientError {
+                error = CLDError.error(domain: error?._domain, code: error?._code ?? networkErrorCode.rawValue, userInfo: ["statusCode": networkErrorCode])
+            }
         }
     
         /// If an error occurred and the retrier is set, asynchronously ask the retrier if the request
