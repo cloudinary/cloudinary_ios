@@ -29,13 +29,13 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
     //MARK: - Handlers
     func responseImage(_ completionHandler: CLDCompletionHandler?) -> CLDFetchImageRequest {
         
-        return responseData { (responseData, error) -> () in
+        return responseData { (responseData, error, statusCode) -> () in
             if let data = responseData {
                 if let image = data.cldToUIImageThreadSafe() {
                     completionHandler?(image, nil)
                 }
                 else {
-                    let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.")
+                    let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.", userInfo: ["statusCode": statusCode])
                     completionHandler?(nil, error)
                 }
             }
@@ -43,34 +43,36 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
                 completionHandler?(nil, err)
             }
             else {
-                completionHandler?(nil, CLDError.generalError())
+                completionHandler?(nil, CLDError.generalError(userInfo: ["statusCode": statusCode]))
             }
         } as! CLDFetchImageRequest
     }
     
     // MARK: - Private
     @discardableResult
-    internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDNetworkDataRequest {
+    internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?, _ httpCode: Int?) -> ())?) -> CLDNetworkDataRequest {
         
         request.responseData { response in
+            let statusCode = response.response?.statusCode
+            
             if let downloadedData = response.result.value {
                 
-                if let statusCode = response.response?.statusCode,
+                if let statusCode = statusCode,
                    !self.isAcceptableCode(code: statusCode) {
                     
-                    let statusCodeError = CLDError.error(code: .unacceptableStatusCode, message: "request error - unacceptable statusCode - \(statusCode)")
-                    completionHandler?(downloadedData, statusCodeError)
+                    let statusCodeError = CLDError.error(code: .unacceptableStatusCode, message: "request error - unacceptable statusCode - \(statusCode)", userInfo: ["statusCode": statusCode])
+                    completionHandler?(downloadedData, statusCodeError, statusCode)
                 }
                 else {
-                    completionHandler?(downloadedData, nil)
+                    completionHandler?(downloadedData, nil, statusCode)
                 }
             }
             else if let err = response.result.error {
                 let error = err as NSError
-                completionHandler?(nil, error)
+                completionHandler?(nil, error, statusCode)
             }
             else {
-                completionHandler?(nil, CLDError.generalError())
+                completionHandler?(nil, CLDError.generalError(userInfo: ["statusCode": statusCode]), statusCode)
             }
         }
         return self

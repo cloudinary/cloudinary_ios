@@ -63,7 +63,7 @@ internal class CLDFetchAssetRequestImpl: CLDFetchAssetRequest {
         dataDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         dataDownloadRequest?.progress(progress)
         
-        dataDownloadRequest?.responseData { [weak self] (responseData, responseError) -> () in
+        dataDownloadRequest?.responseData { [weak self] (responseData, responseError, statusCode) -> () in
             if let data = responseData,
                let err = responseError {
                 self?.data  = data
@@ -76,7 +76,7 @@ internal class CLDFetchAssetRequestImpl: CLDFetchAssetRequest {
                 self?.error = err
             }
             else {
-                let error = CLDError.error(code: .failedDownloadingAsset, message: "Failed attempting to download asset.")
+                let error = CLDError.error(code: .failedDownloadingAsset, message: "Failed attempting to download asset.", userInfo: ["statusCode": statusCode])
                 self?.error = error
             }
             self?.closureQueue.isSuspended = false

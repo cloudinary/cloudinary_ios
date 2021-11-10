@@ -30,34 +30,54 @@ class DownloaderTests: NetworkBaseTest {
         
     // MARK: - Tests
     func test_downloadImage_shouldReturnNetworkErrorCode() {
-        let expectation = self.expectation(description: "Should get 404 error")
+        var expectation = self.expectation(description: "Should get 404 error")
         var error: NSError?
+        let firstMockUrl = "https://demo-res.cloudinary.com/image/upload/c_fill,dpr_3.0,f_heic,g_auto,h_100,q_auto,w_100/v1/some_invalid_url"
+        let secondMockUrl = "https://www.httpstat.us/404"
         
-        cloudinarySecured.createDownloader().fetchImage("https://www.httpstat.us/404").responseImage({ (responseImage, errorRes) in
+        cloudinarySecured.createDownloader().fetchImage(firstMockUrl).responseImage({ (responseImage, errorRes) in
             error = errorRes
             expectation.fulfill()
         })
         
         waitForExpectations(timeout: timeout, handler: nil)
-        XCTAssertNotNil(error, "should get an error")
-        XCTAssertTrue(error?._code == 404, "Mock error should be 404 in this test")
-        let httpStatusCode = HTTPStatusCode(rawValue: error!._code)
-        XCTAssertNotNil(httpStatusCode, "should get a case")
-        XCTAssertTrue(httpStatusCode?.rawValue == 404)
+        verify404ErrorCode(in: error)
+        
+        expectation = self.expectation(description: "Should get 404 error")
+        cloudinarySecured.createDownloader().fetchImage(secondMockUrl).responseImage({ (responseImage, errorRes) in
+            error = errorRes
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        verify404ErrorCode(in: error)
+        
+        expectation = self.expectation(description: "Should get 404 error")
+        cloudinarySecured.createDownloader().fetchImage(firstMockUrl, nil, completionHandler: { _, errorRes in
+            error = errorRes
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        verify404ErrorCode(in: error)
+        
+        expectation = self.expectation(description: "Should get 404 error")
+        cloudinarySecured.createDownloader().fetchImage(secondMockUrl, nil, completionHandler: { _, errorRes in
+            error = errorRes
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        verify404ErrorCode(in: error)
     }
     
-    func test_downloadImage_withProgress_shouldReturnNetworkErrorCode() {
-        let expectation = self.expectation(description: "Should get 404 error")
-        var error: NSError?
-        cloudinarySecured.createDownloader().fetchImage("https://www.httpstat.us/404", nil, completionHandler: { _, errorRes in
-            error = errorRes
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
+    private func verify404ErrorCode(in error: Error?) {
         XCTAssertNotNil(error, "should get an error")
-        XCTAssertTrue(error?._code == 404, "Mock error should be 404 in this test")
-        let httpStatusCode = HTTPStatusCode(rawValue: error!._code)
+        XCTAssertNotNil((error! as NSError).userInfo["statusCode"], "should get a statusCode in user info")
+        
+        let statusCode = (error! as NSError).userInfo["statusCode"] as! Int
+        XCTAssertTrue(statusCode == 404, "Mock error should be 404 in this test")
+        let httpStatusCode = HTTPStatusCode(rawValue: statusCode)
         XCTAssertNotNil(httpStatusCode, "should get a case")
         XCTAssertTrue(httpStatusCode?.rawValue == 404)
     }
