@@ -29,7 +29,7 @@ internal class CLDNetworkCoordinator: NSObject {
     
     fileprivate struct CLDNetworkCoordinatorConsts {
         static let BASE_CLOUDINARY_URL =    "https://api.cloudinary.com"
-        static let DEFAULT_VERSION =        "3.0.2"
+        static let DEFAULT_VERSION =        "3.0.3"
         
         static let API_KEY =                "api_key"
     }
