@@ -80,8 +80,8 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
         imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
         
-        imageDownloadRequest?.responseData { [weak self] (responseData, responseError) -> () in
-            if let data = responseData {
+        imageDownloadRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
+            if let data = responseData, !data.isEmpty {
                 if let
                     image = data.cldToUIImageThreadSafe(),
                     let url = self?.url {
@@ -89,7 +89,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                     self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
                 }
                 else {
-                    let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.")
+                    let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.", userInfo: ["statusCode": httpCode])
                     self?.error = error
                 }
             }
@@ -97,7 +97,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                 self?.error = err
             }
             else {
-                let error = CLDError.error(code: .failedDownloadingImage, message: "Failed attempting to download image.")
+                let error = CLDError.error(code: .failedDownloadingImage, message: "Failed attempting to download image.", userInfo: ["statusCode": httpCode])
                 self?.error = error
             }
             self?.closureQueue.isSuspended = false
