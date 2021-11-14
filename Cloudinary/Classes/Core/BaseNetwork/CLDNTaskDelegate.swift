@@ -148,15 +148,7 @@ internal class CLDNTaskDelegate: NSObject {
 
     @objc(URLSession:task:didCompleteWithError:)
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if let statusCode = (task.response as? HTTPURLResponse)?.cld_code, statusCode.isClientError || statusCode.isServerError {
-            if self.error == nil {
-                self.error = CLDError.error(code: statusCode.rawValue, userInfo: ["statusCode": statusCode.rawValue])
-            } else {
-                self.error = CLDError.error(domain: self.error!._domain, code: self.error!._code, userInfo: ["statusCode": statusCode])
-            }
-            queue.isSuspended = false
-        }
-        else if let taskDidCompleteWithError = taskDidCompleteWithError {
+        if let taskDidCompleteWithError = taskDidCompleteWithError {
             taskDidCompleteWithError(session, task, error)
         } else {
             if let error = error {
