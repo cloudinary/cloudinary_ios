@@ -41,8 +41,9 @@ internal class CLDNetworkDataRequestImpl<T: CLDNDataRequest>: CLDGenericNetworkR
         
         request.responseJSON { response in
             if let value = response.result.value as? [String : AnyObject] {
-                if let error = value["error"] as? [String : AnyObject] {
+                if var error = value["error"] as? [String : AnyObject] {
                     let code = response.response?.statusCode ?? CLDError.CloudinaryErrorCode.generalErrorCode.rawValue
+                    error["statusCode"] = code as AnyObject
                     let err = CLDError.error(code: code, userInfo: error)
                     completionHandler?(nil, err)
                 }

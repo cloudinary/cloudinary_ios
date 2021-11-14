@@ -910,8 +910,9 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(result, "result should be nil")
         XCTAssertNotNil(error, "error should not be nil")
 
-        if let errMessage = error?.userInfo["message"] as? String {
+        if let userInfo = error?.userInfo, let errMessage = userInfo["message"] as? String {
             XCTAssertNotNil(errMessage.range(of: "Raw convert is invalid"))
+            XCTAssertEqual(userInfo["statusCode"] as? Int, 400)
         } else {
             XCTFail("Error should hold a message in its user info.")
         }
@@ -941,8 +942,9 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(result, "result should be nil")
         XCTAssertNotNil(error, "error should not be nil")
 
-        if let errMessage = error?.userInfo["message"] as? String {
+        if let userInfo = error?.userInfo, let errMessage = userInfo["message"] as? String {
             XCTAssertNotNil(errMessage.range(of: "Categorization item illegal is not valid"))
+            XCTAssertEqual(userInfo["statusCode"] as? Int, 400)
         } else {
             XCTFail("Error should hold a message in its user info.")
         }
