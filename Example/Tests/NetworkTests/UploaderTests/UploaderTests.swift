@@ -853,7 +853,7 @@ class UploaderTests: NetworkBaseTest {
         
         XCTAssertNotNil(cloudinary!.config.apiKey, "Must set api key for this test")
 
-        let expectation = self.expectation(description: "Upload should succeed with the key passed as an argument")
+        let expectation = self.expectation(description: "Upload should succeed with the key in config")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
         var result: CLDUploadResult?
