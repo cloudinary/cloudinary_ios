@@ -45,6 +45,11 @@ import Foundation
      */
     internal var signature: CLDSignature?
     
+    /**
+     Override config apiKey with this value.
+     */
+    internal var apiKey: String?
+    
     internal override init() {
         super.init()
     }
@@ -86,6 +91,13 @@ import Foundation
         return self
     }
     
+    @discardableResult
+    @objc(setApiKeyWithKey:)
+    open func setApiKey(_ apiKey: String) -> Self {
+        self.apiKey = apiKey
+        return self
+    }
+    
     // MARK: - Get Param
     
     /**
@@ -105,6 +117,7 @@ import Foundation
             self.signature = other.signature
             self.resourceType = other.resourceType
             self.params.cldMerge(other.params)
+            self.apiKey = other.apiKey
         }
     }
     

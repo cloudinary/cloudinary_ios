@@ -79,7 +79,7 @@ internal class CLDNetworkCoordinator: NSObject {
     fileprivate func getSignedRequestParams(_ requestParams: CLDRequestParams) -> [String : Any] {
         var params: [String : Any] = requestParams.params
         
-        guard let apiKey = config.apiKey else {
+        guard let apiKey = requestParams.apiKey ?? config.apiKey else {
             printLog(.error, text: "Must supply api key for a signed request")
             return params
         }
