@@ -778,7 +778,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(result?.qualityAnalysis, "quality analysis field in upload result should not be nil")
     }
     
-    func test_upload_NoApiKeyFail() {
+    func test_upload_NoApiKeyFails() {
         
         // Given
         XCTAssertNotNil(cloudinary!.config.apiKey, "Must set api key for this test")
