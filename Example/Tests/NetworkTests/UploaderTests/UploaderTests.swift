@@ -793,10 +793,10 @@ class UploaderTests: NetworkBaseTest {
                                                      apiKey: "",
                                                      apiSecret: cloudinary!.config.apiSecret,
                                                      secure: true)
-        let _cloudinary = CLDCloudinary(configuration: configWithEmptyApiKey)
+        let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey)
 
         // When
-        _cloudinary.createUploader().signedUpload(url: file, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
+        cloudinaryWithNoKey.createUploader().signedUpload(url: file, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
 
@@ -826,14 +826,14 @@ class UploaderTests: NetworkBaseTest {
         var error: NSError?
 
         let configWithEmptyApiKey = CLDConfiguration(cloudName: cloudinary!.config.cloudName, apiKey: "", apiSecret: cloudinary!.config.apiSecret, secure: true)
-        let _cloudinary = CLDCloudinary(configuration: configWithEmptyApiKey)
+        let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey)
         
-        XCTAssertEqual(_cloudinary.config.apiKey, "", "Should be empty")
+        XCTAssertEqual(cloudinaryWithNoKey.config.apiKey, "", "Should be empty")
         
         // When
         let params = CLDUploadRequestParams().setApiKey(cloudinary!.config.apiKey!)
     
-        _cloudinary.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+        cloudinaryWithNoKey.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
 
