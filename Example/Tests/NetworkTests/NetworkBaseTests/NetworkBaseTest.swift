@@ -88,6 +88,7 @@ class NetworkBaseTest: BaseTestCase {
         case dog2
         case pdf
         case textImage
+        case largeImage
 
         var fileName: String {
             switch self {
@@ -118,6 +119,7 @@ class NetworkBaseTest: BaseTestCase {
             case .borderCollieRotatedPng     :
                 return "png"
                 
+            case .largeImage                 : fallthrough
             case .textImage                  : fallthrough
             case .borderCollie               : fallthrough
             case .borderCollieCropped        : fallthrough
