@@ -297,7 +297,7 @@ import Foundation
      You activate this behavior by setting the 'backgroundRemoval' parameter to 'cloudinary_ai' when uploading an image (Upload method)
      or by using the Update method of the Admin API for existing images.
      
-     - parameter backgroundRemoval: Use 'cloudinary_ai' key to remove the background or  'cloudinary_ai:[object_to_keep]' to leave specific objects.
+     - parameter backgroundRemoval: Use 'cloudinary_ai' or 'cloudinary_ai:[object_to_keep]'
      
      - returns:                     The same instance of CLDUploadRequestParams.
      */
