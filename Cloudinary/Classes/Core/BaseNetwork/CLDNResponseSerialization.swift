@@ -163,6 +163,10 @@ extension CLDNRequest {
         guard let validData = data else {
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNil))
         }
+        
+        if let statusCode = response?.statusCode, HTTPStatusCode(rawValue: statusCode) == .payloadTooLarge {
+            return .failure(CLDError.error(code: statusCode, userInfo: ["message": HTTPStatusCode.payloadTooLarge.localizedReason]))
+        }
 
         return .success(validData)
     }
@@ -222,6 +226,10 @@ extension CLDNRequest {
 
         guard let validData = data else {
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNil))
+        }
+        
+        if let statusCode = response?.statusCode, HTTPStatusCode(rawValue: statusCode) == .payloadTooLarge {
+            return .failure(CLDError.error(code: statusCode, userInfo: ["message": HTTPStatusCode.payloadTooLarge.localizedReason]))
         }
 
         var convertedEncoding = encoding
@@ -304,6 +312,10 @@ extension CLDNRequest {
 
         guard let validData = data, validData.count > 0 else {
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNilOrZeroLength))
+        }
+        
+        if let statusCode = response?.statusCode, HTTPStatusCode(rawValue: statusCode) == .payloadTooLarge {
+            return .failure(CLDError.error(code: statusCode, userInfo: ["message": HTTPStatusCode.payloadTooLarge.localizedReason]))
         }
 
         do {
