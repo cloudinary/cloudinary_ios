@@ -219,10 +219,13 @@ import Foundation
         return getParam(.Ocr) as? String != nil
     }
     
+    open var backgroundRemoval: String? {
+        return getParam(.BackgroundRemoval) as? String
+    }
+    
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
         return params[param.rawValue] as AnyObject
     }
-    
     
     // MARK: Set Simple Params
     
@@ -286,6 +289,21 @@ import Foundation
      */
     open func setNotificationUrl(_ notificationUrl: String) -> Self {
         setParam(UploadRequestParams.NotificationUrl.rawValue, value: notificationUrl)
+        return self
+    }
+    
+    /**
+     The default background removal behavior detects the foreground objects(s) of the image and removes the background.
+     You activate this behavior by setting the 'backgroundRemoval' parameter to 'cloudinary_ai' when uploading an image (Upload method)
+     or by using the Update method of the Admin API for existing images.
+     
+     - parameter backgroundRemoval: Use 'cloudinary_ai' key to remove the background or  'cloudinary_ai:[object_to_keep]' to leave specific objects.
+     
+     - returns:                     The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setBackgroundRemoval(_ backgroundRemoval: String) -> Self {
+        setParam(UploadRequestParams.BackgroundRemoval.rawValue, value: backgroundRemoval)
         return self
     }
     
@@ -1107,5 +1125,6 @@ import Foundation
         case Headers =                              "headers"
         case ResponsiveBreakpoints =                "responsive_breakpoints"
         case Ocr =                                  "ocr"
+        case BackgroundRemoval =                    "background_removal"
     }
 }
