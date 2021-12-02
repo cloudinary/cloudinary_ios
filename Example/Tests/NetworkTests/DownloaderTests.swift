@@ -35,7 +35,7 @@ class DownloaderTests: NetworkBaseTest {
         let firstMockUrl = "https://demo-res.cloudinary.com/image/upload/c_fill,dpr_3.0,f_heic,g_auto,h_100,q_auto,w_100/v1/some_invalid_url"
         let secondMockUrl = "https://httpbin.org/status/404"
         
-        cloudinarySecured.createDownloader().fetchImage(firstMockUrl).responseImage({ (responseImage, errorRes) in
+        cloudinarySecured.createDownloader().fetchImage(firstMockUrl).responseImage({ (_, errorRes) in
             error = errorRes
             expectation.fulfill()
         })
@@ -44,25 +44,7 @@ class DownloaderTests: NetworkBaseTest {
         verify404ErrorCode(in: error)
         
         expectation = self.expectation(description: "Should get 404 error")
-        cloudinarySecured.createDownloader().fetchImage(secondMockUrl).responseImage({ (responseImage, errorRes) in
-            error = errorRes
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        verify404ErrorCode(in: error)
-        
-        expectation = self.expectation(description: "Should get 404 error")
-        cloudinarySecured.createDownloader().fetchImage(firstMockUrl, nil, completionHandler: { _, errorRes in
-            error = errorRes
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        verify404ErrorCode(in: error)
-        
-        expectation = self.expectation(description: "Should get 404 error")
-        cloudinarySecured.createDownloader().fetchImage(secondMockUrl, nil, completionHandler: { _, errorRes in
+        cloudinarySecured.createDownloader().fetchImage(secondMockUrl).responseImage({ (_, errorRes) in
             error = errorRes
             expectation.fulfill()
         })
@@ -73,13 +55,9 @@ class DownloaderTests: NetworkBaseTest {
     
     private func verify404ErrorCode(in error: Error?) {
         XCTAssertNotNil(error, "should get an error")
-        XCTAssertNotNil((error! as NSError).userInfo["statusCode"], "should get a statusCode in user info")
-        
-        let statusCode = (error! as NSError).userInfo["statusCode"] as! Int
+        let statusCode = error!._code
         XCTAssertTrue(statusCode == 404, "Mock error should be 404 in this test")
-        let httpStatusCode = HTTPStatusCode(rawValue: statusCode)
-        XCTAssertNotNil(httpStatusCode, "should get a case")
-        XCTAssertTrue(httpStatusCode?.rawValue == 404)
+        XCTAssertEqual(HTTPStatusCode(rawValue: statusCode)?.rawValue, 404)
     }
     
     func test_downloadImage_shouldDownloadImage() {

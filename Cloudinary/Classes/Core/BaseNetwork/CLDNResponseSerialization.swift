@@ -164,8 +164,9 @@ extension CLDNRequest {
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNil))
         }
         
-        if let statusCode = response?.statusCode, HTTPStatusCode(rawValue: statusCode) == .payloadTooLarge {
-            return .failure(CLDError.error(code: statusCode, userInfo: ["message": HTTPStatusCode.payloadTooLarge.localizedReason]))
+        if let statusCode = response?.statusCode,
+            let httpStatusCode = HTTPStatusCode(rawValue: statusCode), httpStatusCode.isError {
+            return .failure(CLDError.error(code: statusCode, userInfo: ["message": httpStatusCode.localizedReason]))
         }
 
         return .success(validData)
@@ -228,10 +229,6 @@ extension CLDNRequest {
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNil))
         }
         
-        if let statusCode = response?.statusCode, HTTPStatusCode(rawValue: statusCode) == .payloadTooLarge {
-            return .failure(CLDError.error(code: statusCode, userInfo: ["message": HTTPStatusCode.payloadTooLarge.localizedReason]))
-        }
-
         var convertedEncoding = encoding
 
         if let encodingName = response?.textEncodingName as CFString?, convertedEncoding == nil {
@@ -245,6 +242,10 @@ extension CLDNRequest {
         if let string = String(data: validData, encoding: actualEncoding) {
             return .success(string)
         } else {
+            if let statusCode = response?.statusCode,
+                let httpStatusCode = HTTPStatusCode(rawValue: statusCode), httpStatusCode.isError {
+                return .failure(CLDError.error(code: statusCode, userInfo: ["message": httpStatusCode.localizedReason]))
+            }
             return .failure(CLDNError.responseSerializationFailed(reason: .stringSerializationFailed(encoding: actualEncoding)))
         }
     }
@@ -314,14 +315,14 @@ extension CLDNRequest {
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNilOrZeroLength))
         }
         
-        if let statusCode = response?.statusCode, HTTPStatusCode(rawValue: statusCode) == .payloadTooLarge {
-            return .failure(CLDError.error(code: statusCode, userInfo: ["message": HTTPStatusCode.payloadTooLarge.localizedReason]))
-        }
-
         do {
             let json = try JSONSerialization.jsonObject(with: validData, options: options)
             return .success(json)
         } catch {
+            if let statusCode = response?.statusCode,
+                let httpStatusCode = HTTPStatusCode(rawValue: statusCode), httpStatusCode.isError {
+                return .failure(CLDError.error(code: statusCode, userInfo: ["message": httpStatusCode.localizedReason]))
+            }
             return .failure(CLDNError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error)))
         }
     }
