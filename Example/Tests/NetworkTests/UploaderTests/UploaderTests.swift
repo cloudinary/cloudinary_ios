@@ -896,7 +896,7 @@ class UploaderTests: NetworkBaseTest {
         var error: NSError?
 
         let params = CLDUploadRequestParams()
-        params.setBackgroundRemoval("cloudinary_ai")
+        params.setBackgroundRemoval("illegal")
         params.setResourceType(.image)
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
@@ -911,8 +911,8 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(error, "error should not be nil")
 
         if let userInfo = error?.userInfo, let errMessage = userInfo["message"] as? String {
-            XCTAssertNotNil(errMessage.range(of: "You don't have an active subscription for Cloudinary AI Background Removal"))
-            XCTAssertEqual(userInfo["statusCode"] as? Int, 420)
+            XCTAssertNotNil(errMessage.range(of: "Background removal is invalid"))
+            XCTAssertEqual(userInfo["statusCode"] as? Int, 400)
         } else {
             XCTFail("Error should hold a message in its user info.")
         }
