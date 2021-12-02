@@ -33,7 +33,7 @@ import Foundation
     /**
      A dictionary of the params to be sent as part of the request.
     */
-    internal var params: [String : Any] = [:]
+    internal var params: [String : Any]
     
     /**
      The request's resource type, if set it will be part of the request URL. On most cases defaults to "image".
@@ -51,6 +51,10 @@ import Foundation
     internal var apiKey: String?
     
     internal override init() {
+        apiKey = nil
+        signature = nil
+        resourceType = nil
+        params = [:]
         super.init()
     }
     
