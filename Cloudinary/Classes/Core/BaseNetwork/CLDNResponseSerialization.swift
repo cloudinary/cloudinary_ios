@@ -161,14 +161,13 @@ extension CLDNRequest {
         if let response = response, emptyDataStatusCodes.contains(response.statusCode) { return .success(Data()) }
 
         guard let validData = data else {
+            if let statusCode = response?.statusCode,
+                let httpStatusCode = HTTPStatusCode(rawValue: statusCode), httpStatusCode.isError {
+                return .failure(CLDError.error(code: statusCode, userInfo: ["message": httpStatusCode.localizedReason]))
+            }
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNil))
         }
         
-        if let statusCode = response?.statusCode,
-            let httpStatusCode = HTTPStatusCode(rawValue: statusCode), httpStatusCode.isError {
-            return .failure(CLDError.error(code: statusCode, userInfo: ["message": httpStatusCode.localizedReason]))
-        }
-
         return .success(validData)
     }
 }
