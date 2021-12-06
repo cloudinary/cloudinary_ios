@@ -110,6 +110,17 @@ class UploadRequestParamsTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.eval, input, "set property should be stored in params")
     }
+    func test_backgroundRemoval_String_shouldStoreValue() {
+        
+        // Given
+        let input = "backgroundString"
+        
+        // When
+        sut.setBackgroundRemoval(input)
+        
+        // Then
+        XCTAssertEqual(sut.backgroundRemoval, input, "set property should be stored in params")
+    }
     func test_setOcr_updateValue_shouldUpdateValue() {
 
         // Given

@@ -884,6 +884,39 @@ class UploaderTests: NetworkBaseTest {
         }
 
     }
+    
+    func testBackgroundRemoval() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setBackgroundRemoval("illegal")
+        params.setResourceType(.image)
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNil(result, "result should be nil")
+        XCTAssertNotNil(error, "error should not be nil")
+
+        if let userInfo = error?.userInfo, let errMessage = userInfo["message"] as? String {
+            XCTAssertNotNil(errMessage.range(of: "Background removal is invalid"))
+            XCTAssertEqual(userInfo["statusCode"] as? Int, 400)
+        } else {
+            XCTFail("Error should hold a message in its user info.")
+        }
+    }
 
     func testRawConversion() {
 
