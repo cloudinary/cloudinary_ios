@@ -63,6 +63,7 @@ pod install
 ```
 
 ### Carthage
+
 ```bash
 github “cloudinary/cloudinary_ios” ~> 3.1.0
 ```
@@ -73,6 +74,10 @@ Then, run the command:
 carthage update --use-xcframeworks
 ```
 
+### Swift Package Manager
+    * File > Add Pakcages... >
+    * Add https://github.com/cloudinary/cloudinary_ios.git
+    * Select "Up to Next Major" with "3.0.0"
 
 ### Working with the Cloudinary iOS SDK Manually
 
