@@ -52,7 +52,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'MyApp' do
-  pod 'Cloudinary', '~> 3.0'
+  pod 'Cloudinary', '~> 3.1.0'
 end
 ```
 
@@ -61,6 +61,12 @@ Then, run the command:
 ```bash
 pod install
 ```
+
+### Carthage
+```bash
+github “cloudinary/cloudinary_ios” ~> 3.1.0
+```
+
 
 ### Working with the Cloudinary iOS SDK Manually
 
