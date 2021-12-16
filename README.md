@@ -67,6 +67,12 @@ pod install
 github “cloudinary/cloudinary_ios” ~> 3.1.0
 ```
 
+Then, run the command:
+
+```bash
+carthage update --use-xcframeworks
+```
+
 
 ### Working with the Cloudinary iOS SDK Manually
 
