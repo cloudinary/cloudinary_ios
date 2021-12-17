@@ -161,7 +161,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result!.width, "width should not be nil")
         XCTAssertNotNil(result!.height, "height should not be nil")
-            // The image "logo" is not a square, setting maximum width and height to 50 will match its aspect ratio but still should be less then or equal to 50.
+        // The image "logo" is not a square, setting maximum width and height to 50 will match its aspect ratio but still should be less then or equal to 50.
         XCTAssertTrue(result!.width! <= 50, "Width must be less then 50")
         XCTAssertTrue(result!.height! <= 50, "Height must be less then 50")
     }
