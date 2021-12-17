@@ -102,7 +102,7 @@ public class CLDPreprocessHelpers {
      chosen format and quality.
      
      - parameter format:   Image format to encode the image
-     - parameter height:   Quality to save the image (ignored if the chosen
+     - parameter quality:  Quality to save the image (ignored if the chosen
      format doesn't support quality)
      
      - returns:            A closure to use as encoder in a preprocessing chain

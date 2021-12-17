@@ -53,6 +53,118 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
+    
+    func testUploadPNGImageData() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed")
+        let data = TestResourceType.logo.data
+
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setResourceType(.image)
+        let chain = CLDImagePreprocessChain().setEncoder(CLDPreprocessHelpers.customImageEncoder(format: EncodingFormat.PNG, quality: 100))
+        
+        cloudinary!.createUploader().signedUpload(data: data, params: params, preprocessChain: chain).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
+    
+    func testUploadPNGImageDataFromMemory() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed")
+        let pngImageDataLoadedToMemory = UIImage(data: TestResourceType.logo.data)!.pngData()!
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setResourceType(.image)
+        let chain = CLDImagePreprocessChain().setEncoder(CLDPreprocessHelpers.customImageEncoder(format: EncodingFormat.PNG, quality: 100))
+        
+        cloudinary!.createUploader().signedUpload(data: pngImageDataLoadedToMemory, params: params, preprocessChain: chain).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
+    
+    func testUploadPNGImageFile() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed")
+        let url = TestResourceType.logo.url
+
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setResourceType(.image)
+        let chain = CLDImagePreprocessChain().setEncoder(CLDPreprocessHelpers.customImageEncoder(format: EncodingFormat.PNG, quality: 100))
+        
+        cloudinary!.createUploader().signedUpload(url: url, params: params, preprocessChain: chain).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
+    
+    func testUploadPNGImageFileWithPreprocess() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed")
+        let file = TestResourceType.logo.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let preprocessChain = CLDImagePreprocessChain()
+            .addStep(CLDPreprocessHelpers.limit(width: 50, height: 50))
+            .setEncoder(CLDPreprocessHelpers.customImageEncoder(format: EncodingFormat.PNG, quality: 100))
+        let params = CLDUploadRequestParams()
+        params.setColors(true)
+        cloudinary!.createUploader().signedUpload(url: file, params: params, preprocessChain: preprocessChain).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result!.width, "width should not be nil")
+        XCTAssertNotNil(result!.height, "height should not be nil")
+            // The image "logo" is not a square, setting maximum width and height to 50 will match its aspect ratio but still should be less then or equal to 50.
+        XCTAssertTrue(result!.width! <= 50, "Width must be less then 50")
+        XCTAssertTrue(result!.height! <= 50, "Height must be less then 50")
+    }
 
     func testUploadImageFile() {
 
