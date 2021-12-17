@@ -167,7 +167,7 @@ extension CLDNRequest {
             }
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNil))
         }
-        
+
         return .success(validData)
     }
 }
@@ -227,7 +227,7 @@ extension CLDNRequest {
         guard let validData = data else {
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNil))
         }
-        
+
         var convertedEncoding = encoding
 
         if let encodingName = response?.textEncodingName as CFString?, convertedEncoding == nil {
@@ -313,7 +313,7 @@ extension CLDNRequest {
         guard let validData = data, validData.count > 0 else {
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNilOrZeroLength))
         }
-        
+
         do {
             let json = try JSONSerialization.jsonObject(with: validData, options: options)
             return .success(json)
