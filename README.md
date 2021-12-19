@@ -52,7 +52,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'MyApp' do
-  pod 'Cloudinary', '~> 3.1.0'
+  pod 'Cloudinary', '~> 3.0'
 end
 ```
 
@@ -65,7 +65,7 @@ pod install
 ### Carthage
 
 ```bash
-github “cloudinary/cloudinary_ios” ~> 3.1.0
+github “cloudinary/cloudinary_ios” ~> 3.0
 ```
 
 Then, run the command:
@@ -75,7 +75,7 @@ carthage update --use-xcframeworks
 ```
 
 ### Swift Package Manager
-    * File > Add Pakcages... >
+    * File > Add Packages... >
     * Add https://github.com/cloudinary/cloudinary_ios.git
     * Select "Up to Next Major" with "3.0.0"
 
