@@ -60,7 +60,9 @@ class UploaderTests: NetworkBaseTest {
 
         let expectation = self.expectation(description: "Upload should succeed")
         let data = TestResourceType.logo.data
-
+        
+        // Load the image into memory to decompress it, this will give us the real size of the image.
+        let imageSize = UIImage(data: data)?.pngData()?.count
         var result: CLDUploadResult?
         var error: NSError?
 
@@ -79,6 +81,7 @@ class UploaderTests: NetworkBaseTest {
 
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
+        XCTAssertEqual(imageSize, Int(result!.length!))
     }
     
     func testUploadPNGImageDataFromMemory() {
@@ -105,6 +108,7 @@ class UploaderTests: NetworkBaseTest {
 
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
+        XCTAssertEqual(pngImageDataLoadedToMemory.count, Int(result!.length!))
     }
     
     func testUploadPNGImageFile() {
@@ -114,6 +118,8 @@ class UploaderTests: NetworkBaseTest {
         let expectation = self.expectation(description: "Upload should succeed")
         let url = TestResourceType.logo.url
 
+        // Load the image into memory to decompress it, this will give us the real size of the image.
+        let imageSize = UIImage(contentsOfFile: url.relativePath)?.pngData()?.count
         var result: CLDUploadResult?
         var error: NSError?
 
@@ -132,6 +138,7 @@ class UploaderTests: NetworkBaseTest {
 
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
+        XCTAssertEqual(imageSize, Int(result!.length!))
     }
     
     func testUploadPNGImageFileWithPreprocess() {
