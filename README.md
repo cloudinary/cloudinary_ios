@@ -75,9 +75,9 @@ carthage update --use-xcframeworks
 ```
 
 ### Swift Package Manager
-    * File > Add Packages... >
-    * Add https://github.com/cloudinary/cloudinary_ios.git
-    * Select "Up to Next Major" with "3.0.0"
+* File > Add Packages... >
+* Add https://github.com/cloudinary/cloudinary_ios.git
+* Select "Up to Next Major" with "3.0.0"
 
 ### Working with the Cloudinary iOS SDK Manually
 
