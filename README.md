@@ -62,6 +62,30 @@ Then, run the command:
 pod install
 ```
 
+### Carthage
+
+Create `Carfile`
+```bash
+touch Cartfile
+```
+
+Open `Cartfile` and enter the following line
+
+```bash
+github “cloudinary/cloudinary_ios” ~> 3.0
+```
+
+Then, run the command:
+
+```bash
+carthage update --use-xcframeworks
+```
+
+### Swift Package Manager
+* File > Add Packages... >
+* Add https://github.com/cloudinary/cloudinary_ios.git
+* Select "Up to Next Major" with "3.0.0"
+
 ### Working with the Cloudinary iOS SDK Manually
 
 If you prefer not use a dependency manager, you can add Cloudinary manually by adding it as a submodule to your project:
