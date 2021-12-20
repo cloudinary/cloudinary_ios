@@ -64,6 +64,13 @@ pod install
 
 ### Carthage
 
+Create `Carfile`
+```bash
+touch Cartfile
+```
+
+Open `Cartfile` and enter the following line
+
 ```bash
 github “cloudinary/cloudinary_ios” ~> 3.0
 ```
