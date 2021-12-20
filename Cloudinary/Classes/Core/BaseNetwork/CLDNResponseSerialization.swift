@@ -161,6 +161,10 @@ extension CLDNRequest {
         if let response = response, emptyDataStatusCodes.contains(response.statusCode) { return .success(Data()) }
 
         guard let validData = data else {
+            if let statusCode = response?.statusCode,
+               let httpStatusCode = HTTPStatusCode(rawValue: statusCode), httpStatusCode.isError {
+                return .failure(CLDError.error(code: statusCode, userInfo: ["message": httpStatusCode.localizedReason]))
+            }
             return .failure(CLDNError.responseSerializationFailed(reason: .inputDataNil))
         }
 
@@ -237,6 +241,10 @@ extension CLDNRequest {
         if let string = String(data: validData, encoding: actualEncoding) {
             return .success(string)
         } else {
+            if let statusCode = response?.statusCode,
+                let httpStatusCode = HTTPStatusCode(rawValue: statusCode), httpStatusCode.isError {
+                return .failure(CLDError.error(code: statusCode, userInfo: ["message": httpStatusCode.localizedReason]))
+            }
             return .failure(CLDNError.responseSerializationFailed(reason: .stringSerializationFailed(encoding: actualEncoding)))
         }
     }
@@ -310,6 +318,10 @@ extension CLDNRequest {
             let json = try JSONSerialization.jsonObject(with: validData, options: options)
             return .success(json)
         } catch {
+            if let statusCode = response?.statusCode,
+                let httpStatusCode = HTTPStatusCode(rawValue: statusCode), httpStatusCode.isError {
+                return .failure(CLDError.error(code: statusCode, userInfo: ["message": httpStatusCode.localizedReason]))
+            }
             return .failure(CLDNError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error)))
         }
     }
