@@ -64,7 +64,7 @@ pod install
 
 ### Carthage
 
-Create `Carfile`
+Create `Cartfile`
 ```bash
 touch Cartfile
 ```
