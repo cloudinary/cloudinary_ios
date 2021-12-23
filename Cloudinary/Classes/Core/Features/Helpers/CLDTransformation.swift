@@ -1997,7 +1997,7 @@ import CoreGraphics
     // MARK: Effect
     
     @objc public enum CLDEffect: Int, CustomStringConvertible {
-        case hue, red, green, blue, negate, brightness, sepia, grayscale, blackwhite, saturation, colorize, contrast, autoContrast, vibrance, autoColor, improve, autoBrightness, fillLight, viesusCorrect, gamma, screen, multiply, overlay, makeTransparent, trim, shadow, distort, shear, displace, oilPaint, redeye, advRedeye, vignette, gradientFade, pixelate, pixelateRegion, pixelateFaces, blur, blurRegion, blurFaces, sharpen, unsharpMask, orderedDither, art, assistColorblind
+        case hue, red, green, blue, negate, brightness, sepia, grayscale, blackwhite, saturation, colorize, contrast, autoContrast, vibrance, autoColor, improve, autoBrightness, fillLight, viesusCorrect, gamma, screen, multiply, overlay, makeTransparent, trim, shadow, distort, shear, displace, oilPaint, redeye, advRedeye, vignette, gradientFade, pixelate, pixelateRegion, pixelateFaces, blur, blurRegion, blurFaces, sharpen, unsharpMask, orderedDither, art, assistColorblind, preview
         
         public var description: String {
             get {
@@ -2047,6 +2047,7 @@ import CoreGraphics
                 case .orderedDither:    return "ordered_dither"
                 case .art:              return "art"
                 case .assistColorblind: return "assist_colorblind"
+                case .preview:           return "preview"
                 }
             }
         }
