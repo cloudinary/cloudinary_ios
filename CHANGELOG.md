@@ -1,4 +1,15 @@
 
+3.1.0 / 2021-12-03
+==================
+
+New functionality
+-----------------
+* Add support for `backgroundRemoval` upload parameter
+
+Other changes
+-------------
+  * Fix `Carthage`
+
 3.0.3 / 2021-11-14
 ==================
 

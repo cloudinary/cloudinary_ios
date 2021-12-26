@@ -134,6 +134,9 @@ extension HTTPStatusCode
         default: return false
         }
     }
+    internal var isError         : Bool {
+        return self.isClientError || isServerError
+    }
     
     internal var localizedReason : String {
         return HTTPURLResponse.localizedString(forStatusCode: rawValue)

@@ -35,7 +35,7 @@ class DownloaderTests: NetworkBaseTest {
         let firstMockUrl = "https://demo-res.cloudinary.com/image/upload/c_fill,dpr_3.0,f_heic,g_auto,h_100,q_auto,w_100/v1/some_invalid_url"
         let secondMockUrl = "https://httpbin.org/status/404"
         
-        cloudinarySecured.createDownloader().fetchImage(firstMockUrl).responseImage({ (responseImage, errorRes) in
+        cloudinarySecured.createDownloader().fetchImage(firstMockUrl).responseImage({ (_, errorRes) in
             error = errorRes
             expectation.fulfill()
         })
@@ -44,25 +44,7 @@ class DownloaderTests: NetworkBaseTest {
         verify404ErrorCode(in: error)
         
         expectation = self.expectation(description: "Should get 404 error")
-        cloudinarySecured.createDownloader().fetchImage(secondMockUrl).responseImage({ (responseImage, errorRes) in
-            error = errorRes
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        verify404ErrorCode(in: error)
-        
-        expectation = self.expectation(description: "Should get 404 error")
-        cloudinarySecured.createDownloader().fetchImage(firstMockUrl, nil, completionHandler: { _, errorRes in
-            error = errorRes
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        verify404ErrorCode(in: error)
-        
-        expectation = self.expectation(description: "Should get 404 error")
-        cloudinarySecured.createDownloader().fetchImage(secondMockUrl, nil, completionHandler: { _, errorRes in
+        cloudinarySecured.createDownloader().fetchImage(secondMockUrl).responseImage({ (_, errorRes) in
             error = errorRes
             expectation.fulfill()
         })
