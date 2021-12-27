@@ -2047,7 +2047,7 @@ import CoreGraphics
                 case .orderedDither:    return "ordered_dither"
                 case .art:              return "art"
                 case .assistColorblind: return "assist_colorblind"
-                case .preview:           return "preview"
+                case .preview:          return "preview"
                 }
             }
         }
