@@ -932,7 +932,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertEqual("Missing required parameter - api_key", error!.userInfo["message"] as! String, "Api key should be unassigned")
     }
     
-    func test_upload_ApiKeyAsArgument() {
+    func test_upload_ApiKey() {
         
         // Given
         
@@ -945,21 +945,21 @@ class UploaderTests: NetworkBaseTest {
         var error: NSError?
 
         let cloudName = cloudinary!.config.cloudName!
-//        let apiKey    = ""
+        let apiKey    = ""
         let apiSecret = cloudinary!.config.apiSecret
-
-//        XCTAssertNotNil(cloudName, "cloudName Should not be nil")
-//        XCTAssertNotNil(apiSecret, "apiSecret Should not be nil")
-
-        let configWithEmptyApiKey = CLDConfiguration(cloudName: cloudName, apiKey: "", apiSecret: apiSecret, secure: true)
+        
+        XCTAssertNotNil(cloudName, "cloudName Should not be nil")
+        XCTAssertNotNil(apiSecret, "apiSecret Should not be nil")
+        
+        let configWithEmptyApiKey = CLDConfiguration(cloudName: cloudName, apiKey: apiKey, apiSecret: apiSecret, secure: true)
         let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey)
-
-//        XCTAssertEqual(cloudinaryWithNoKey.config.apiKey, "", "Should be empty")
+        
+        XCTAssertEqual(cloudinaryWithNoKey.config.apiKey, "", "Should be empty")
         
         // When
         let params = CLDUploadRequestParams()
         params.setApiKey(cloudinary!.config.apiKey!)
-
+        
         cloudinaryWithNoKey.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
@@ -969,7 +969,7 @@ class UploaderTests: NetworkBaseTest {
 
         waitForExpectations(timeout: timeout, handler: nil)
 
-//        // Expect
+        // Expect
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
