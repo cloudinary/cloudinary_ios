@@ -937,7 +937,7 @@ class UploaderTests: NetworkBaseTest {
         // Given
         
         XCTAssertNotNil(cloudinary!.config.apiKey, "Must set api key for this test")
-
+        print("test_upload_ApiKeyAsArgument: Before expectation")
         let expectation = self.expectation(description: "Upload should succeed with the key passed as an argument")
         let resource: TestResourceType = .borderCollie
         let file = resource.url
@@ -947,15 +947,15 @@ class UploaderTests: NetworkBaseTest {
         let cloudName = cloudinary!.config.cloudName!
         let apiKey    = ""
         let apiSecret = cloudinary!.config.apiSecret
-        
+        print("test_upload_ApiKeyAsArgument: Before XCTAssertNotNil")
         XCTAssertNotNil(cloudName, "cloudName Should not be nil")
         XCTAssertNotNil(apiSecret, "apiSecret Should not be nil")
-        
+        print("test_upload_ApiKeyAsArgument: After XCTAssertNotNil")
         let configWithEmptyApiKey = CLDConfiguration(cloudName: cloudName, apiKey: apiKey, apiSecret: apiSecret, secure: true)
         let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey)
-        
+        print("test_upload_ApiKeyAsArgument: Before XCTAssertEqual")
         XCTAssertEqual(cloudinaryWithNoKey.config.apiKey, "", "Should be empty")
-        
+        print("test_upload_ApiKeyAsArgument: After XCTAssertEqual")
         // When
         let params = CLDUploadRequestParams()
         params.setApiKey(cloudinary!.config.apiKey!)
@@ -967,11 +967,18 @@ class UploaderTests: NetworkBaseTest {
             expectation.fulfill()
         })
 
-        waitForExpectations(timeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout,handler: { error in
+            guard let error = error else {
+                return
+            }
+            print("test_upload_ApiKeyAsArgument: Timeout failure!")
+        })
 
         // Expect
+        print("test_upload_ApiKeyAsArgument: Before XCTAssertNotNil")
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
+        print("test_upload_ApiKeyAsArgument: After XCTAssertNil")
     }
     
     func test_upload_ApiKeyWithConfig() {
