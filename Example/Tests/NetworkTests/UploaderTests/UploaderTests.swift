@@ -897,41 +897,6 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(result?.qualityAnalysis, "quality analysis field in upload result should not be nil")
     }
     
-    func test_upload_NoApiKeyFail() {
-        
-        // Given
-        XCTAssertNotNil(cloudinary!.config.apiKey, "Must set api key for this test")
-        
-        let expectation = self.expectation(description: "Upload should fail for not specifing an api key in config and not passing it as argument")
-        let resource: TestResourceType = .borderCollie
-        let file = resource.url
-        var result: CLDUploadResult?
-        var error: NSError?
-
-        let configWithEmptyApiKey = CLDConfiguration(cloudName: cloudinary!.config.cloudName,
-                                                     apiKey: "",
-                                                     apiSecret: cloudinary!.config.apiSecret,
-                                                     secure: true)
-        let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey)
-
-        // When
-        cloudinaryWithNoKey.createUploader().signedUpload(url: file, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
-            result = resultRes
-            error = errorRes
-
-            expectation.fulfill()
-        })
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Expect
-        XCTAssertNil(result, "result should be nil")
-        XCTAssertNotNil(error, "error should not be nil")
-        
-        XCTAssertEqual(400, error!.code)
-        XCTAssertEqual("Missing required parameter - api_key", error!.userInfo["message"] as! String, "Api key should be unassigned")
-    }
-    
     func test_upload_ApiKey() {
         
         // Given
@@ -972,6 +937,41 @@ class UploaderTests: NetworkBaseTest {
         // Expect
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
+    }
+    
+    func test_upload_NoApiKeyFail() {
+        
+        // Given
+        XCTAssertNotNil(cloudinary!.config.apiKey, "Must set api key for this test")
+        
+        let expectation = self.expectation(description: "Upload should fail for not specifing an api key in config and not passing it as argument")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let configWithEmptyApiKey = CLDConfiguration(cloudName: cloudinary!.config.cloudName,
+                                                     apiKey: "",
+                                                     apiSecret: cloudinary!.config.apiSecret,
+                                                     secure: true)
+        let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey)
+
+        // When
+        cloudinaryWithNoKey.createUploader().signedUpload(url: file, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Expect
+        XCTAssertNil(result, "result should be nil")
+        XCTAssertNotNil(error, "error should not be nil")
+        
+        XCTAssertEqual(400, error!.code)
+        XCTAssertEqual("Missing required parameter - api_key", error!.userInfo["message"] as! String, "Api key should be unassigned")
     }
     
     func test_upload_ApiKeyWithConfig() {
