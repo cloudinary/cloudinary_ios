@@ -793,7 +793,7 @@ class UploaderTests: NetworkBaseTest {
                                                      apiKey: "",
                                                      apiSecret: cloudinary!.config.apiSecret,
                                                      secure: true)
-        let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey)
+        let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey, sessionConfiguration: .default)
 
         // When
         cloudinaryWithNoKey.createUploader().signedUpload(url: file, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
@@ -833,7 +833,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(apiSecret, "apiSecret Should not be nil")
         
         let configWithEmptyApiKey = CLDConfiguration(cloudName: cloudName, apiKey: apiKey, apiSecret: apiSecret, secure: true)
-        let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey)
+        let cloudinaryWithNoKey = CLDCloudinary(configuration: configWithEmptyApiKey, sessionConfiguration: .default)
         
         XCTAssertEqual(cloudinaryWithNoKey.config.apiKey, "", "Should be empty")
         
