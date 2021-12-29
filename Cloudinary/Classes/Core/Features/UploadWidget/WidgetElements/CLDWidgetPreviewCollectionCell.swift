@@ -26,15 +26,12 @@ import UIKit
 
 class CLDWidgetPreviewCollectionCell: UICollectionViewCell {
     
-    var imageView: UIImageView
+    var imageView: UIImageView!
     
     // MARK: - init
     override init(frame: CGRect) {
-        
-        self.imageView = UIImageView()
-        
         super.init(frame: frame)
-        
+
         initialize()
     }
     
@@ -44,29 +41,12 @@ class CLDWidgetPreviewCollectionCell: UICollectionViewCell {
     
     // MARK: - private methods
     private func initialize() {
-        
+        self.imageView = UIImageView(frame: self.contentView.bounds)
         addSubview(imageView)
         addImageViewProperties()
-        addImageViewConstraints()
     }
     
     private func addImageViewProperties() {
-        imageView.contentMode = .scaleAspectFit
-    }
-    
-    private func addImageViewConstraints() {
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let constraints = [
-            NSLayoutConstraint(item: imageView, attribute: .leading , relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: imageView, attribute: .top     , relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: imageView, attribute: .bottom  , relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
-        ]
-        NSLayoutConstraint.activate(constraints)
-        
-        setNeedsLayout()
-        layoutIfNeeded()
+        imageView.contentMode = .scaleAspectFill
     }
 }
