@@ -1,49 +1,68 @@
-language:
-    - objective-c
+matrix:
+    include:
 
-osx_image:
-    - xcode12
-        xcode_workspace:
-        - Example/Cloudinary.xcworkspace
-        
-        xcode_scheme: travis_public_scheme
-        
-        podfile: Example/Podfile
-        
-        install: pod install --project-directory=Example
-        
-        env: CLOUDINARY_URL=$CLOUDINARY_URL
-        
-        matrix:
-        include:
-            - xcode_destination: platform=iOS Simulator,OS=14.1,name=iPhone 8
-        
-        before_script: >
-            export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
-            echo cloud_name: "$(echo $CLOUDINARY_URL | cut -d'@' -f2)"
+    - language: objective-c
     
-    - xcode13.2
+        osx_image:
+        - xcode12
+
         xcode_workspace:
         - Example/Cloudinary.xcworkspace
-        
-        xcode_scheme: travis_public_scheme
-        
-        podfile: Example/Podfile
-        
-        install: pod install --project-directory=Example
-        
-        env: CLOUDINARY_URL=$CLOUDINARY_URL
-        
+
+        xcode_scheme:
+        - travis_public_scheme
+
+        podfile:
+        - Example/Podfile
+
+        install:
+        - pod install --project-directory=Example
+
+        env:
+        - CLOUDINARY_URL=$CLOUDINARY_URL
+
         matrix:
-        include:
+            include:
             - xcode_destination: platform=iOS Simulator,OS=14.1,name=iPhone 8
-        
+
         before_script: >
             export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
             echo cloud_name: "$(echo $CLOUDINARY_URL | cut -d'@' -f2)"
 
+        notifications:
+            email:
+            recipients:
+                - sdk_developers@cloudinary.com
+    - language: objective-c
+    
+        osx_image:
+        - xcode13.2
 
-notifications:
-    email:
-    recipients:
-        - sdk_developers@cloudinary.com
+        xcode_workspace:
+        - Example/Cloudinary.xcworkspace
+
+        xcode_scheme:
+        - travis_public_scheme
+
+        podfile:
+        - Example/Podfile
+
+        install:
+        - pod install --project-directory=Example
+
+        env:
+        - CLOUDINARY_URL=$CLOUDINARY_URL
+
+        matrix:
+            include:
+            - xcode_destination: platform=iOS Simulator,OS=15.2,name=iPhone 8
+
+        before_script: >
+            export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
+            echo cloud_name: "$(echo $CLOUDINARY_URL | cut -d'@' -f2)"
+
+        notifications:
+            email:
+            recipients:
+                - sdk_developers@cloudinary.com
+   
