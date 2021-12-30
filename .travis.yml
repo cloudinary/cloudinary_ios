@@ -5,25 +5,23 @@ matrix:
   include:
     - os: osx
       osx_image: xcode13.2
+        xcode_workspace:
+            - Example/Cloudinary.xcworkspace
 
-xcode_workspace:
-  - Example/Cloudinary.xcworkspace
+        xcode_scheme:
+            - travis_public_scheme
 
-xcode_scheme:
-  - travis_public_scheme
+        podfile:
+            - Example/Podfile
 
-podfile:
-  - Example/Podfile
+        install:
+            - pod install --project-directory=Example
 
-install:
-  - pod install --project-directory=Example
-
-env:
-  - CLOUDINARY_URL=$CLOUDINARY_URL
-
-matrix:
-  include:
-    - xcode_destination: platform=iOS Simulator,OS=15.2,name=iPhone 8
+        env:
+            - CLOUDINARY_URL=$CLOUDINARY_URL
+        matrix:
+            include:
+                - xcode_destination: platform=iOS Simulator,OS=15.2,name=iPhone 8
 
 before_script: >
   export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
