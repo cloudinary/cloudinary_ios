@@ -4,8 +4,6 @@ language:
 matrix:
   include:
     - os: osx
-      osx_image: xcode12
-    - os: osx
       osx_image: xcode13.2
 
 xcode_workspace:
