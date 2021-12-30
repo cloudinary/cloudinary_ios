@@ -3,10 +3,7 @@ language:
 
 jobs:
   include:
-    - os: osx
-      osx_image: xcode12
-    - os: osx
-      osx_image: xcode13.2
+    - osx_image: xcode13.2
 
 xcode_workspace:
   - Example/Cloudinary.xcworkspace
