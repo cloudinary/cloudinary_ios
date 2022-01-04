@@ -806,6 +806,7 @@ class UrlTests: BaseTestCase {
         XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.art)).generate("test"), "\(prefix)/image/upload/e_art/test")
         XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setEffect(.assistColorblind)).generate("test"), "\(prefix)/image/upload/e_assist_colorblind/test")
         XCTAssertEqual(sut?.createUrl().setResourceType(.video).setTransformation(CLDTransformation().setEffect(.preview)).generate("test"), "\(prefix)/video/upload/e_preview/test")
+        XCTAssertEqual(sut?.createUrl().setResourceType(.video).setTransformation(CLDTransformation().setEffect(.preview, param: "duration_2")).generate("test"), "\(prefix)/video/upload/e_preview:duration_2/test")
     }
 
     func testEffectWithParam() {
