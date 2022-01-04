@@ -894,7 +894,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
         
-        XCTAssertNotNil(result?.qualityAnalysis, "quality analysis field in upload result should not be nil")
+        XCTAssertNotNil(result?.qualityAnalysisResult, "quality analysis field in upload result should not be nil")
     }
     
     func test_upload_NoApiKeyFail() {
