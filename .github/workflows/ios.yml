@@ -9,7 +9,6 @@ on:
 jobs:
   test:
     runs-on: macOS-latest
-    strategy:
     steps:
         - uses: actions/checkout@v2
         - name: Create test Cloud
