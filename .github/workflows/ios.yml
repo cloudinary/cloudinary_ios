@@ -13,6 +13,7 @@ jobs:
         matrix:
           destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X']
     steps:
+        - uses: actions/checkout@v2
         - name: Create test Cloud
           run: |
              export CLOUDINARY_URL=$(bash tools/get_test_cloud.sh);
