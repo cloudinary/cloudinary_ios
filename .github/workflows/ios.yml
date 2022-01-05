@@ -28,5 +28,5 @@ jobs:
             cd Example
              xcodebuild clean test -workspace Cloudinary.xcworkspace -scheme travis_public_scheme -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty
           env:
-            - CLOUDINARY_URL=$CLOUDINARY_URL
-            - destination: ${{ matrix.destination }}
+            CLOUDINARY_URL: $CLOUDINARY_URL
+            destination: ${{ matrix.destination }}
