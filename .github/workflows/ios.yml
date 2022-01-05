@@ -11,7 +11,7 @@ jobs:
     runs-on: macOS-latest
     strategy:
         matrix:
-          destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X']
+          destination: ['platform=iOS Simulator,OS=15.0,name=iPhone 8']
     steps:
         - uses: actions/checkout@v2
         - name: Create test Cloud
