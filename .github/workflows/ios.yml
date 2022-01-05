@@ -21,7 +21,7 @@ jobs:
         - name: Install Dependencies
           run: |
             cd Example
-            pod install
+            pod install --repo-update
           shell: bash
         - name: Build and test
           run: |
