@@ -22,9 +22,11 @@ jobs:
             cd Example
             pod install --repo-update
           shell: bash
+        - name: Setup Xcode
+            uses: maxim-lobanov/setup-xcode@v1.4.0
+            with:
+              xcode-version: "12.0"
         - name: Build and test for iOS 10.3.1
           run: |
             cd Example
              xcodebuild clean test -workspace Cloudinary.xcworkspace -scheme travis_public_scheme -destination 'platform=iOS Simulator,OS=10.3.1,name=iPhone 8' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty
-          env:
-            DEVELOPER_DIR: /Applications/Xcode_12.app/Contents/Developer
