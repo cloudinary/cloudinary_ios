@@ -20,9 +20,8 @@ jobs:
             pod install --repo-update
           shell: bash
         - name: Set Xcode12.1
-          run:
-            env:
-              DEVELOPER_DIR: /Applications/Xcode_12.1.app/Contents/Developer
+          env:
+            DEVELOPER_DIR: /Applications/Xcode_12.1.app/Contents/Developer
         - name: Build and test for iOS 15.0
           run: |
             cd Example
