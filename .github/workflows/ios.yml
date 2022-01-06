@@ -1,4 +1,4 @@
-name: iOS starter workflow
+name: Cloudinary iOS Tests
 
 on:
   push:
@@ -9,9 +9,6 @@ on:
 jobs:
   test:
     runs-on: macOS-latest
-    strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,OS=15.0,name=iPhone 8']
     steps:
         - uses: actions/checkout@v2
         - name: Create test Cloud
@@ -22,9 +19,7 @@ jobs:
             cd Example
             pod install --repo-update
           shell: bash
-        - name: Build and test
+        - name: Build and test for iOS 15.0
           run: |
             cd Example
-             xcodebuild clean test -workspace Cloudinary.xcworkspace -scheme travis_public_scheme -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty
-          env:
-            destination: ${{ matrix.destination }}
+             xcodebuild clean test -workspace Cloudinary.xcworkspace -scheme travis_public_scheme -destination 'platform=iOS Simulator,OS=15.0,name=iPhone 8' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty
