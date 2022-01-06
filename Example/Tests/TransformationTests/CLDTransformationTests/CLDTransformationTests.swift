@@ -617,7 +617,7 @@ class CLDTransformationTests: BaseTestCase {
         let expectedResult = "200"
         
         // When
-        sut.setQuality(input)
+        sut.setQuality(.fixed(input))
         
         let actualResult = sut.quality!
         
