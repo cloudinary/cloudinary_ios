@@ -72,13 +72,13 @@ touch Cartfile
 Open `Cartfile` and enter the following line
 
 ```bash
-github “cloudinary/cloudinary_ios” ~> 3.0
+github "cloudinary/cloudinary_ios" ~> 3.0
 ```
 
 Then, run the command:
 
 ```bash
-carthage update --use-xcframeworks
+carthage update --use-xcframeworks --platform iOS
 ```
 
 ### Swift Package Manager
