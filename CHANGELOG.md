@@ -1,4 +1,21 @@
 
+3.2.0 / 2022-01-10
+==================
+
+New functionality
+-----------------
+  * Add support for `apiKey` argument in Upload API
+  * Add support for `preview` effect
+  
+Other changes
+-------------
+  * Update travis job to support multiple iOS versions
+  * Add test for preview effect with duration parameter
+  * Recover `Cloudinary.xcodeproj` file
+  * Fix `ImageView` size in preview widget `CollectionView`
+  * Improve network error handling
+  * Add `PNG` image upload unit tests
+
 3.1.0 / 2021-12-03
 ==================
 
