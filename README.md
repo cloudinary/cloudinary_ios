@@ -78,7 +78,7 @@ github "cloudinary/cloudinary_ios" ~> 3.0
 Then, run the command:
 
 ```bash
-carthage update --use-xcframeworks --platform iOS
+carthage update --use-xcframeworks
 ```
 
 ### Swift Package Manager
