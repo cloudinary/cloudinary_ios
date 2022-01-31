@@ -1,36 +1,34 @@
-![Cloudinary: Image And Video Management In The Cloud](https://res.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png)
-==================
-
 Cloudinary iOS SDK
-==================
+=========================
+[![Build Status](https://api.travis-ci.com/cloudinary/cloudinary_ios.svg?branch=master)](https://app.travis-ci.com/github/cloudinary/cloudinary_ios)
+## About
+The Cloudinary iOS SDK allows you to quickly and easily integrate your application with Cloudinary.
+Effortlessly optimize and transform your cloud's assets.
 
-Cloudinary is a cloud service that offers a solution to an application's entire image management pipeline.
+### Additional documentation
+This Readme provides basic installation and usage information.
+For the complete documentation, see the [iOS SDK Guide](https://cloudinary.com/documentation/ios_integration).
 
-## Features
+## Table of Contents
+- [Key Features](#key-features)
+- [Version Support](#Version-Support)
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Setup](#Setup)
+    - [Transform and Optimize Assets](#Transform-and-Optimize-Assets)
+    - [File Upload](#File-Upload)
+    - [File Download](#File-Download)
 
-* Easily upload images and videos to the cloud.
-* Automatically perform smart image resizing, cropping and conversion without installing complex software.
-* Integrate Facebook or Twitter profile images in a snap, in any dimension and style to match your website’s graphics requirements.
-* Media resources are seamlessly delivered through a fast CDN.
+## Key Features
+- [Transform](https://cloudinary.com/documentation/ios_video_manipulation#video_transformation_examples) and [optimize](https://cloudinary.com/documentation/ios_image_manipulation#image_optimizations) assets.
 
-and much much more...
+## Version Support
+| SDK Version    | iOS 8    |   iOS 9+  |
+|----------------|----------|-----------|
+| 2.0.0 - 2.10.1 | V        | V         |
+| 3.0.0 - 3.2.1  | X        | V         |
 
-Cloudinary offers comprehensive APIs and administration capabilities and is easy to integrate with any web application, existing or new.
-
-Cloudinary provides URL and HTTP based APIs that can be easily integrated with any Web development framework.
-
-For iOS, Cloudinary provides an SDK for simplifying the integration even further.
-
-[Complete Documentation](https://cloudinary.com/documentation/)
-
-## Requirements
-
-- iOS 9.0+
-- Compatible with Swift, tested up to version 5.0.
-- Compatible with Objective-C, see [usage example](CloudinaryTests/GenerateUrlTests/UrlTests.m).
-
-## Integration
-
+## Installation
 ### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects. 
@@ -110,10 +108,8 @@ git submodule add https://github.com/cloudinary/cloudinary_ios.git
 2. Select `Cloudinary.xcodeproj` and make sure the deployment target matches that of your application target.
 3. Select your application project. Under 'TARGETS' select your application, open the 'General' tab, click on the `+` button under the 'Embedded Binaries' and Select 'Cloudinary.framework'.
 
-## Usage
-
-### Configuration
-
+## Usage 
+### Setup
 To use the API, you will need a CLDCloudinary instance, which is initialized with an instance of CLDConfiguration.
 
 The CLDConfiguration must have its `cloudName` and `apiKey` properties set. Other properties are optional. 
@@ -140,9 +136,7 @@ Now you can create a CLDCloudinary instance to work with
 let cloudinary = CLDCloudinary(configuration: config)
 ```
 
-
-### URL generation
-
+### Transform and Optimize Assets
 The following example generates a URL on an uploaded `sample` image:
 ```swift
 cloudinary.createUrl().generate("sample.jpg")
@@ -187,9 +181,7 @@ let url = cloudinary.createUrl().setTransformation().generate("sample.jpg")
 // http://res.cloudinary.com/CLOUD_NAME/image/facebook/h_150,w_100/c_fit/sample.jpg
 ```
 
-See [our documentation](https://cloudinary.com/documentation/image_transformations) for more information about displaying and transforming images.
-
-### Upload
+### File Upload
 
 Uploading to your cloud is very straightforward.
 
@@ -231,15 +223,7 @@ let request = cloudinary.createUploader().upload(file: fileUrl, params: params, 
 
 Every upload request returns a CLDUploadRequest instance, allowing options such as cancelling, suspending or resuming it.
 
-### Safe Mobile Requests
-
-You should avoid keeping the sensitive `apiSecret` on the mobile device. Instead, if you must perform a signed request, generate the authentication signature on the server side.
-
-You can use any server-side Cloudinary SDK (Ruby on Rails, PHP, Django(Python), Java, .NET, etc.) on your server to [generate the signature](https://cloudinary.com/documentation/upload_images#generating_authentication_signatures). 
-
-After generating the signature on your server, create a `CLDSignature` instance and pass it to the desired secure request.
-
-### Download
+### File Download
 
 The SDK provides some convenient methods for downloading files from your cloud:
 
@@ -261,46 +245,27 @@ Every download request returns an instance implementing CLDNetworkDataRequest, a
 
 The downloaded image is cached both to the memory and the disk (customizable). The disk cache size is limited and can be changed.
 
-### Other APIs
+## Contributions
+See [contributing guidelines](/CONTRIBUTING.md).
 
-Management APIs are available as well, via CLDManagementApi
-```swift
-cloudinary.createManagementApi()
-```
+## Get Help
+If you run into an issue or have a question, you can either:
+- [Open a Github issue](https://github.com/cloudinary/cloudinary_ios/issues) (for issues related to the SDK)
+- [Open a support ticket](https://cloudinary.com/contact) (for issues related to your account)
 
-See out [documentation](https://cloudinary.com/documentation/image_upload_api_reference) for further details.
+## About Cloudinary
+Cloudinary is a powerful media API for websites and mobile apps alike, Cloudinary enables developers to efficiently manage, transform, optimize, and deliver images and videos through multiple CDNs. Ultimately, viewers enjoy responsive and personalized visual-media experiences—irrespective of the viewing device.
 
-## Additional resources
+## Additional Resources
+- [Cloudinary Transformation and REST API References](https://cloudinary.com/documentation/cloudinary_references): Comprehensive references, including syntax and examples for all SDKs.
+- [MediaJams.dev](https://mediajams.dev/): Bite-size use-case tutorials written by and for Cloudinary Developers
+- [DevJams](https://www.youtube.com/playlist?list=PL8dVGjLA2oMr09amgERARsZyrOz_sPvqw): Cloudinary developer podcasts on YouTube.
+- [Cloudinary Academy](https://training.cloudinary.com/): Free self-paced courses, instructor-led virtual courses, and on-site courses.
+- [Code Explorers and Feature Demos](https://cloudinary.com/documentation/code_explorers_demos_index): A one-stop shop for all code explorers, Postman collections, and feature demos found in the docs.
+- [Cloudinary Roadmap](https://cloudinary.com/roadmap): Your chance to follow, vote, or suggest what Cloudinary should develop next.
+- [Cloudinary Facebook Community](https://www.facebook.com/groups/CloudinaryCommunity): Learn from and offer help to other Cloudinary developers.
+- [Cloudinary Account Registration](https://cloudinary.com/users/register/free): Free Cloudinary account registration.
+- [Cloudinary Website](https://cloudinary.com)
 
-Additional resources are available at:
-
-* [Website](https://cloudinary.com)
-* [Interactive demo](https://demo.cloudinary.com/default)
-* [Features overview](https://cloudinary.com/features)
-* [Documentation](https://cloudinary.com/documentation)
-* [Knowledge Base](https://support.cloudinary.com/hc/en-us)
-* [Image transformations documentation](https://cloudinary.com/documentation/image_transformations)
-* [Upload API documentation](https://cloudinary.com/documentation/upload_images)
-
-## How to open the example project
-
-To open the example project, follow these steps:
-1. Open to "Example" folder
-2. Open the "Cloudinary.xcworkspace"
-
-
-## Support
-
-You can [open an issue through GitHub](https://github.com/cloudinary/cloudinary_ios/issues).
-
-Contact us at [https://cloudinary.com/contact](https://cloudinary.com/contact).
-
-Stay tuned for updates, tips and tutorials: [Blog](https://cloudinary.com/blog), [Twitter](https://twitter.com/cloudinary), [Facebook](https://www.facebook.com/Cloudinary).
-
-## Join the Community ##########################################################
-
-Impact the product, hear updates, test drive new features and more! Join [here](https://www.facebook.com/groups/CloudinaryCommunity).
-
-## License
-
-Cloudinary is released under the MIT license. See LICENSE for details.
+## Licence
+Released under the MIT license.
