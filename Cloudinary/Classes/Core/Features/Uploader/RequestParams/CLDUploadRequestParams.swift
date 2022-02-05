@@ -223,6 +223,10 @@ import Foundation
         return getParam(.BackgroundRemoval) as? String
     }
     
+    open var filenameOverride: String? {
+        return getParam(.FilenameOverride) as? String
+    }
+    
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
         return params[param.rawValue] as AnyObject
     }
@@ -304,6 +308,19 @@ import Foundation
     @discardableResult
     open func setBackgroundRemoval(_ backgroundRemoval: String) -> Self {
         setParam(UploadRequestParams.BackgroundRemoval.rawValue, value: backgroundRemoval)
+        return self
+    }
+    
+    /**
+     Setting this params will override the original asset name.
+     
+     - parameter filenameOverride: New file name
+     
+     - returns:                    The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setFilenameOverride(_ filenameOverride: String) -> Self {
+        setParam(UploadRequestParams.FilenameOverride.rawValue, value: filenameOverride)
         return self
     }
     
@@ -1126,5 +1143,6 @@ import Foundation
         case ResponsiveBreakpoints =                "responsive_breakpoints"
         case Ocr =                                  "ocr"
         case BackgroundRemoval =                    "background_removal"
+        case FilenameOverride =                     "filename_override"
     }
 }
