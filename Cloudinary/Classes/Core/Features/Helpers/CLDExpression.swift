@@ -286,15 +286,16 @@ import Foundation
     // MARK: - provide content
     public func asString() -> String {
         
-        guard !currentKey.isEmpty && !currentValue.isEmpty else {
-            
-            return String()
+        guard !currentKey.isEmpty else { return String() }
+        
+        let key = replaceAllExpressionKeys(in: currentKey)
+        
+        if currentValue.isEmpty {
+            return "\(key)"
+        } else {
+            let value = removeExtraDashes(from: replaceAllUnencodeChars(in: currentValue))
+            return "\(key)_\(value)"
         }
-        
-        let key   = replaceAllExpressionKeys(in: currentKey)
-        let value = removeExtraDashes(from: replaceAllUnencodeChars(in: currentValue))
-        
-        return "\(key)_\(value)"
     }
     
     public func asParams() -> [String : String] {

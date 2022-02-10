@@ -1055,6 +1055,8 @@ class UrlTests: BaseTestCase {
     
     func testTextStyle() {
         XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVariable("$style", string: "!Arial_12!").chain().setOverlayWithLayer(CLDTextLayer().setText(text: "hello-world").setTextStyle(textStyle: "$style"))).generate("test"), "\(prefix)/image/upload/$style_!Arial_12!/l_text:$style:hello-world/test")
+        
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVariable("$style", string: "!Arial_12!").chain().setOverlayWithLayer(CLDTextLayer().setText(text: "hello-world").setTextStyle(expression: CLDExpression(value: "$style")))).generate("test"), "\(prefix)/image/upload/$style_!Arial_12!/l_text:$style:hello-world/test")
     }
     
     func testTextStyleOverpowerOtherTextAttributes() {

@@ -81,6 +81,19 @@ import Foundation
     }
     
     /**
+     Sets a text style identifier using an expression.
+     Note: If this is used, all other style attributes are ignored in favor of this identifier
+     
+     - parameter text:          An expression instance referencing the style.
+     
+     - returns:                 The same instance of CLDTextLayer.
+     */
+    open func setTextStyle(expression: CLDExpression) -> CLDTextLayer {
+        self.textStyle = expression.asString()
+        return self
+    }
+    
+    /**
      Set the name of a font family. e.g. `arial`.
      
      - parameter fontFamily:    The layer font family.
