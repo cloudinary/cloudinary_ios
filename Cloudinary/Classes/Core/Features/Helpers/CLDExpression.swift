@@ -292,10 +292,9 @@ import Foundation
         
         if currentValue.isEmpty {
             return "\(key)"
-        } else {
-            let value = removeExtraDashes(from: replaceAllUnencodeChars(in: currentValue))
-            return "\(key)_\(value)"
         }
+        let value = removeExtraDashes(from: replaceAllUnencodeChars(in: currentValue))
+        return "\(key)_\(value)"
     }
     
     public func asParams() -> [String : String] {
