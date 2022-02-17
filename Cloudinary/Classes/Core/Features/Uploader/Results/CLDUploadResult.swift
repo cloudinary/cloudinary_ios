@@ -159,7 +159,7 @@ import Foundation
     }
     
     open var fileName: String? {
-        return getParam(.filenameOverride) as? String
+        return getParam(.originalFilename) as? String
     }
     
     open var info: CLDInfo? {

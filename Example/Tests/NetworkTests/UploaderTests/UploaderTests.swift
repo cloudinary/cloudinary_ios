@@ -1170,10 +1170,10 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
         
-        if let filenameOverrideParam = result?.getParam(.filenameOverride) as? String {
-            XCTAssertEqual(filenameOverrideParam, "overridden", "Filename mismatch, replaced name should be 'overridden'")
+        if let originalFilenameParam = result?.getParam(.originalFilename) as? String {
+            XCTAssertEqual(originalFilenameParam, "overridden", "Filename mismatch, replaced name should be 'overridden'")
         } else {
-            XCTFail("Upload param 'filename_override' is missing")
+            XCTFail("Upload param 'original_filename' is missing")
         }
     }
 
