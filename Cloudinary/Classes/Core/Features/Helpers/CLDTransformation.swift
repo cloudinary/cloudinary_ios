@@ -2170,6 +2170,12 @@ extension CLDTransformation
     public func setAngle(_ input: CLDExpression) -> Self {
         return setParam(TransformationParam.ANGLE, value: input.asString())
     }
+    
+    @objc(setQualityFromExpression:)
+    @discardableResult
+    public func setQuality(_ input: CLDExpression) -> Self {
+        return setParam(TransformationParam.QUALITY, value: input.asString())
+    }
 }
 // MARK: - Condition Expression
 extension CLDTransformation

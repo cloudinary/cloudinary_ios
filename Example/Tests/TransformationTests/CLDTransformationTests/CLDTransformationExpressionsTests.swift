@@ -258,6 +258,24 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         XCTAssertNil(actualResult, "Empty CLDExpression should not be stored in params")
     }
     
+    func test_setQuality_inputExpression_shouldStoreNewValue() {
+        
+        // Given
+        let input       = "90"
+        let expression  = CLDExpression(value: input).subtract(by: 10)
+        
+        let expectedResult = "90_sub_10"
+        
+        // When
+        sut.setQuality(expression)
+        
+        let actualResult = sut.quality!
+
+        // Then
+        XCTAssertFalse(actualResult.isEmpty, "x should stored new value")
+        XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
+    }
+    
     func test_asString_expressionHeightWithEmptyInputParamaters_shouldReturnEmptyString() {
         
         // Given
