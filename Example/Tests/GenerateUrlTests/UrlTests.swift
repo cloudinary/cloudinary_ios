@@ -194,6 +194,16 @@ class UrlTests: BaseTestCase {
         let url = sut?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setCrop(.fill).chain().setCrop(.crop).setWidth(100)).generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/c_fill,x_100,y_100/c_crop,w_100/test")
     }
+    
+    func testContextMetadataToUserVariables() {
+        let url = sut?.createUrl().setTransformation(CLDTransformation()
+                                                        .setVariable(CLDVariable(name: "$xpos", value: "ctx:!x_pos!_to_f"))
+                                                        .setVariable(CLDVariable(name: "$ypos", value: "ctx:!y_pos!_to_f"))
+                                                        .setCrop("crop")
+                                                        .setX("$xpos * w")
+                                                        .setY("$ypos * h")).generate("test")
+        XCTAssertEqual(url, "\(prefix)/image/upload/$xpos_ctx:!x_pos!_to_f,$ypos_ctx:!y_pos!_to_f,c_crop,x_$xpos_mul_w,y_$ypos_mul_h/test")
+    }
 
     func testBaseTransformationArray() {
         let url = sut?.createUrl().setTransformation(CLDTransformation().setX(100).setY(100).setWidth(200).setCrop(.fill).chain().setRadius(10).chain().setCrop(.crop).setWidth(100)).generate("test")
