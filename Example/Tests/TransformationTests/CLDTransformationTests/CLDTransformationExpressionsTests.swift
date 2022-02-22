@@ -539,6 +539,5 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         // Then
         XCTAssertEqual(actualResult, expectedResult, "chained conditions should create the expected result")
     }
-    
 }
 
