@@ -2164,6 +2164,12 @@ extension CLDTransformation
         
         return setParam(TransformationParam.RADIUS, value: input.asString())
     }
+    
+    @objc(setAngleFromExpression:)
+    @discardableResult
+    public func setAngle(_ input: CLDExpression) -> Self {
+        return setParam(TransformationParam.ANGLE, value: input.asString())
+    }
 }
 // MARK: - Condition Expression
 extension CLDTransformation

@@ -26,7 +26,7 @@ import Foundation
 import XCTest
 
 class CLDTransformationExpressionsTests: BaseTestCase {
-     
+    
     var sut : CLDTransformation!
     
     // MARK: - setup and teardown
@@ -206,6 +206,39 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         // Then
         XCTAssertFalse(actualResult.isEmpty, "y should stored new value")
         XCTAssertEqual(actualResult, expectedResult, "Calling get y should return its value")
+    }
+    
+    func test_setAngle_emptyInputParamaters_shouldNotStoreNewVariable() {
+        
+        // Given
+        let input       = String()
+        let expression  = CLDExpression(value: input)
+        
+        // When
+        sut.setAngle(expression)
+        
+        let actualResult = sut.angle!
+        
+        // Then
+        XCTAssertTrue(actualResult.isEmpty, "Empty expression should not be stored in params")
+    }
+    
+    func test_setAngle_inputExpression_shouldStoreNewValue() {
+        
+        // Given
+        let input       = "90"
+        let expression  = CLDExpression(value: input).subtract(by: 10)
+        
+        let expectedResult = "90_sub_10"
+        
+        // When
+        sut.setAngle(expression)
+        
+        let actualResult = sut.angle!
+
+        // Then
+        XCTAssertFalse(actualResult.isEmpty, "x should stored new value")
+        XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
     }
     
     // MARK: - test asString() on empty expression
@@ -506,6 +539,6 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         // Then
         XCTAssertEqual(actualResult, expectedResult, "chained conditions should create the expected result")
     }
-
+    
 }
 
