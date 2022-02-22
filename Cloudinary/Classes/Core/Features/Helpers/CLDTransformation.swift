@@ -2176,6 +2176,12 @@ extension CLDTransformation
     public func setQuality(_ input: CLDExpression) -> Self {
         return setParam(TransformationParam.QUALITY, value: input.asString())
     }
+    
+    @objc(setOpacityFromExpression:)
+    @discardableResult
+    public func setOpacity(_ input: CLDExpression) -> Self {
+        return setParam(TransformationParam.OPACITY, value: input.asString())
+    }
 }
 // MARK: - Condition Expression
 extension CLDTransformation

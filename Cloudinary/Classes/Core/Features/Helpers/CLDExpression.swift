@@ -66,6 +66,8 @@ import Foundation
         
         case quality
         
+        case opacity
+        
         var asString: String {
             
             switch self {
@@ -106,6 +108,8 @@ import Foundation
             case .angle: return "angle"
                 
             case .quality: return "quality"
+                
+            case .opacity: return "opacity"
             }
         }
     }
@@ -194,11 +198,17 @@ import Foundation
     public class func initialDuration() -> CLDExpression {
         return CLDExpression(expressionKey: .initialDuration)
     }
+    
     public class func angle() -> CLDExpression {
             return CLDExpression(expressionKey: .angle)
     }
+    
     public class func quality() -> CLDExpression {
             return CLDExpression(expressionKey: .quality)
+    }
+    
+    public class func opacity() -> CLDExpression {
+            return CLDExpression(expressionKey: .opacity)
     }
     
     // MARK: - Public methods
