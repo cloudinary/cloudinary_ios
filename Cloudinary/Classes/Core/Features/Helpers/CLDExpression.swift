@@ -64,6 +64,8 @@ import Foundation
         
         case angle
         
+        case quality
+        
         var asString: String {
             
             switch self {
@@ -102,6 +104,8 @@ import Foundation
             case .initialDuration : return "idu"
                 
             case .angle: return "angle"
+                
+            case .quality: return "quality"
             }
         }
     }
@@ -192,6 +196,9 @@ import Foundation
     }
     public class func angle() -> CLDExpression {
             return CLDExpression(expressionKey: .angle)
+    }
+    public class func quality() -> CLDExpression {
+            return CLDExpression(expressionKey: .quality)
     }
     
     // MARK: - Public methods
