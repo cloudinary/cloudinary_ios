@@ -74,6 +74,8 @@ import Foundation
         
         case dpr
         
+        case fps
+        
         var asString: String {
             
             switch self {
@@ -122,6 +124,8 @@ import Foundation
             case .zoom: return "zoom"
                 
             case .dpr: return "dpr"
+                
+            case .fps: return "fps"
             }
         }
     }
@@ -233,6 +237,10 @@ import Foundation
     
     public class func dpr() -> CLDExpression {
             return CLDExpression(expressionKey: .dpr)
+    }
+    
+    public class func fps() -> CLDExpression {
+            return CLDExpression(expressionKey: .fps)
     }
     
     // MARK: - Public methods

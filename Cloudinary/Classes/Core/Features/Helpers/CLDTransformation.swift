@@ -2194,6 +2194,12 @@ extension CLDTransformation
     public func setDpr(_ input: CLDExpression) -> Self {
         return setParam(TransformationParam.DPR, value: input.asString())
     }
+    
+    @objc(setFpsFromExpression:)
+    @discardableResult
+    public func setFps(_ input: CLDExpression) -> Self {
+        return setParam(TransformationParam.FPS, value: input.asString())
+    }
 }
 // MARK: - Condition Expression
 extension CLDTransformation

@@ -373,6 +373,39 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
     }
     
+    func test_setFps_emptyInputParamaters_shouldNotStoreNewVariable() {
+        
+        // Given
+        let input       = String()
+        let expression  = CLDExpression(value: input)
+        
+        // When
+        sut.setFps(expression)
+        
+        let actualResult = sut.fps!
+        
+        // Then
+        XCTAssertTrue(actualResult.isEmpty, "Empty expression should not be stored in params")
+    }
+    
+    func test_setFps_inputExpression_shouldStoreNewValue() {
+        
+        // Given
+        let input       = "90"
+        let expression  = CLDExpression(value: input).subtract(by: 10)
+        
+        let expectedResult = "90_sub_10"
+        
+        // When
+        sut.setFps(expression)
+        
+        let actualResult = sut.fps!
+
+        // Then
+        XCTAssertFalse(actualResult.isEmpty, "x should stored new value")
+        XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
+    }
+    
     // MARK: - test asString() on empty expression
     
     func test_asString_expressionWidthWithEmptyInputParamaters_shouldReturnEmptyString() {
