@@ -2188,6 +2188,12 @@ extension CLDTransformation
     public func setZoom(_ input: CLDExpression) -> Self {
         return setParam(TransformationParam.ZOOM, value: input.asString())
     }
+    
+    @objc(setDprFromExpression:)
+    @discardableResult
+    public func setDpr(_ input: CLDExpression) -> Self {
+        return setParam(TransformationParam.DPR, value: input.asString())
+    }
 }
 // MARK: - Condition Expression
 extension CLDTransformation
