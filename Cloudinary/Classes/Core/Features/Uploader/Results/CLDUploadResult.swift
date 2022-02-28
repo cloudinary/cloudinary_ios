@@ -158,7 +158,7 @@ import Foundation
         return getParam(.deleteToken) as? String
     }
     
-    open var fileName: String? {
+    open var originalFilename: String? {
         return getParam(.originalFilename) as? String
     }
     
