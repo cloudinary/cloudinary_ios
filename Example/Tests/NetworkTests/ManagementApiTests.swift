@@ -250,7 +250,7 @@ class ManagementApiTests: NetworkBaseTest {
             if let pubId = uploadResult?.publicId {
                 uploadedPublicId = pubId
                 
-                // test adding a tag
+                // test adding a tags
                 self.cloudinary!.createManagementApi().addTag(tagsArray, publicIds: [uploadedPublicId]).response({ (resultRes, errorRes) in
                     result = resultRes
                     error = errorRes
@@ -270,7 +270,7 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
         
-        // Remove tag
+        // Remove tags
         result = nil
         error = nil
         expectation = self.expectation(description: "Removing a tag should succeed")
