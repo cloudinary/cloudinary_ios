@@ -237,6 +237,8 @@ class ManagementApiTests: NetworkBaseTest {
     }
     
     func testTagsAsArray() {
+        let tagsArray = ["tag1","tag2","tag3"]
+        
         var expectation = self.expectation(description: "Adding a tag should succeed")
         
         var result: CLDTagResult?
@@ -249,7 +251,7 @@ class ManagementApiTests: NetworkBaseTest {
                 uploadedPublicId = pubId
                 
                 // test adding a tag
-                self.cloudinary!.createManagementApi().addTag(["tag1","tag2","tag3"], publicIds: [uploadedPublicId]).response({ (resultRes, errorRes) in
+                self.cloudinary!.createManagementApi().addTag(tagsArray, publicIds: [uploadedPublicId]).response({ (resultRes, errorRes) in
                     result = resultRes
                     error = errorRes
                     expectation.fulfill()
@@ -267,7 +269,27 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertNotNil(result, "result should not be nil")
 
         XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
+        
+        // Remove tag
+        result = nil
+        error = nil
+        expectation = self.expectation(description: "Removing a tag should succeed")
+        cloudinary!.createManagementApi().removeTag(tagsArray, publicIds: [uploadedPublicId]) { (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+
+        XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
     }
+    
+    
+    
     
     // MARK: - text
     func testGenerateText() {

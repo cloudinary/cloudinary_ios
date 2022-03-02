@@ -119,7 +119,7 @@ import Foundation
      for example to delete images, create sprites, ZIP files, JSON lists, or animated GIFs.
      Each image can be assigned one or more tags, which is a short name that you can dynamically use (no need to predefine tags).
      
-     - parameter tags:                  An array of tags
+     - parameter tags:                  An array of tags to assign
      - parameter publicIds:             An array of Public IDs of images uploaded to Cloudinary.
      - parameter params:                An object holding the available parameters for the request.
      - parameter completionHandler:     The closure to be called once the request has finished, holding either the response object or the error.
@@ -158,6 +158,33 @@ import Foundation
      */
     @discardableResult
     open func removeTag(_ tag: String, publicIds: [String], params: CLDTagsRequestParams? = nil, completionHandler: ((_ result: CLDTagResult?, _ error: Error?) -> ())? = nil) -> CLDTagRequest {
+        let removeTagParams = CLDTagsRequestParams(tag: tag, publicIds: publicIds)
+        removeTagParams.merge(params)
+        let request = networkCoordinator.callAction(.Tags, params: removeTagParams.setCommand(.remove))
+        let tagRequest = CLDTagRequest(networkRequest: request)
+        tagRequest.response(completionHandler)
+        return tagRequest
+    }
+    
+    /**
+     Remove a tag to one or more assets in your cloud.
+     Tags are used to categorize and organize your images, and can also be used to apply group actions to images,
+     for example to delete images, create sprites, ZIP files, JSON lists, or animated GIFs.
+     Each image can be assigned one or more tags, which is a short name that you can dynamically use (no need to predefine tags).
+     
+     - parameter tags:                  An array of tags to remove
+     - parameter publicIds:             An array of Public IDs of images uploaded to Cloudinary.
+     - parameter params:                An object holding the available parameters for the request.
+     - parameter completionHandler:     The closure to be called once the request has finished, holding either the response object or the error.
+     
+     - returns:             An instance of `CLDTagRequest`,
+     allowing the options to add response closure to be called once the request has finished,
+     as well as performing actions on the request, such as cancelling, suspending or resuming it.
+     */
+    @discardableResult
+    @objc(removeTagTags:publicIds:params:completionHandler:)
+    open func removeTag(_ tags: [String], publicIds: [String], params: CLDTagsRequestParams? = nil, completionHandler: ((_ result: CLDTagResult?, _ error: Error?) -> ())? = nil) -> CLDTagRequest {
+        let tag = tags.joined(separator: ",")
         let removeTagParams = CLDTagsRequestParams(tag: tag, publicIds: publicIds)
         removeTagParams.merge(params)
         let request = networkCoordinator.callAction(.Tags, params: removeTagParams.setCommand(.remove))
