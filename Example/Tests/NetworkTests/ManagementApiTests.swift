@@ -236,6 +236,39 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
     }
     
+    func testTagsAsArray() {
+        var expectation = self.expectation(description: "Adding a tag should succeed")
+        
+        var result: CLDTagResult?
+        var error: Error?
+        
+        var uploadedPublicId: String = ""
+        // first upload
+        uploadFile().response({ (uploadResult, uploadError) in
+            if let pubId = uploadResult?.publicId {
+                uploadedPublicId = pubId
+                
+                // test adding a tag
+                self.cloudinary!.createManagementApi().addTag(["tag1","tag2","tag3"], publicIds: [uploadedPublicId]).response({ (resultRes, errorRes) in
+                    result = resultRes
+                    error = errorRes
+                    expectation.fulfill()
+                })
+            }
+            else {
+                error = uploadError
+                expectation.fulfill()
+            }
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+
+        XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
+    }
+    
     // MARK: - text
     func testGenerateText() {
         
