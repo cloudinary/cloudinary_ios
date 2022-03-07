@@ -158,6 +158,10 @@ import Foundation
         return getParam(.deleteToken) as? String
     }
     
+    open var originalFilename: String? {
+        return getParam(.originalFilename) as? String
+    }
+    
     open var info: CLDInfo? {
         guard let info = getParam(.info) as? [String : AnyObject] else {
             return nil

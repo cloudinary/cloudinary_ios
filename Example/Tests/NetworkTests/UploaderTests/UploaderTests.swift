@@ -1143,6 +1143,39 @@ class UploaderTests: NetworkBaseTest {
             XCTFail("Error should hold a message in its user info.")
         }
     }
+    
+    func testFilenameOverride() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed and uploaded filename should change to 'overridden'")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setFilenameOverride("overridden")
+        params.setUseFilename(true)
+        params.setResourceType(.image)
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+        
+        if let originalFilename = result?.originalFilename {
+            XCTAssertEqual(originalFilename, "overridden", "Filename mismatch, replaced name should be 'overridden'")
+        } else {
+            XCTFail("Upload param 'original_filename' is missing")
+        }
+    }
 
     func testRawConversion() {
 
