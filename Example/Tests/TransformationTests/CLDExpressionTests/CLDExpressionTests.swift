@@ -917,7 +917,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionBlankString_underscore() {
         // Given
         let name = "  "
@@ -929,7 +928,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionUnderscore_underscore() {
         // Given
@@ -943,7 +941,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionUnderscores_underscore() {
         // Given
         let name = "___"
@@ -955,7 +952,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionUnderscoresAndSpaces_underscore() {
         // Given
@@ -969,7 +965,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionArbitraryText_isNotAffected() {
         // Given
         let name = "foobar"
@@ -981,7 +976,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionDoubleAmpersand_replacedWithAndOperator() {
         // Given
@@ -995,7 +989,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionDoubleAmpersandWithNoSpaceAtEnd_isNotAffected() {
         // Given
         let name = "foo&&bar"
@@ -1007,7 +1000,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionWidth_recognizedAsVariableAndReplacedWithW() {
         // Given
@@ -1021,7 +1013,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionInitialAspectRatio_recognizedAsVariableAndReplacedWithW() {
         // Given
         let name = "width"
@@ -1033,7 +1024,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionDollarWidth_recognizedAsUserVariableAndNotAffected() {
         // Given
@@ -1047,7 +1037,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionDollarInitialAspectRatio_recognizedAsUserVariableAndAsVariableReplacedWithAr() {
         // Given
         let name = "$initial_aspect_ratio"
@@ -1059,7 +1048,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionDollarMyWidth_recognizedAsUserVariableAndNotAffected() {
         // Given
@@ -1073,7 +1061,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionDollarWidthWidth_recognizedAsUserVariableAndNotAffected() {
         // Given
         let name = "$widthwidth"
@@ -1085,7 +1072,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionDollarUnderscoreWidth_recognizedAsUserVariableAndNotAffected() {
         // Given
@@ -1111,7 +1097,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionDollarX2Width_recognizedAsUserVariableAndNotAffected() {
         // Given
         let name = "$\\$width"
@@ -1123,7 +1108,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionDoesntReplaceVariable_1() {
         // Given
@@ -1138,7 +1122,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionDoesntReplaceVariable_2() {
         // Given
         let name = "$heightt"
@@ -1151,7 +1134,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionDoesntReplaceVariable_3() {
         // Given
@@ -1166,7 +1148,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionDoesntReplaceVariable_4() {
         // Given
         let name = "$heightmy"
@@ -1179,7 +1160,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionDoesntReplaceVariable_5() {
         // Given
@@ -1194,7 +1174,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionDoesntReplaceVariable_6() {
         // Given
         let name = "$heightheight"
@@ -1208,7 +1187,6 @@ class CLDExpressionTests: BaseTestCase {
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
 
-
     func testExpressionDoesntReplaceVariable_7() {
         // Given
         let name = "$theheight"
@@ -1221,7 +1199,6 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
     }
-
 
     func testExpressionDoesntReplaceVariable_8() {
         // Given
