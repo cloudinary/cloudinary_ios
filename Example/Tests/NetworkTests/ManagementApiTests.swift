@@ -270,6 +270,24 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
         
+        // Reaplace tag
+        result = nil
+        error = nil
+        expectation = self.expectation(description: "Replacing a tag should succeed")
+        let replacedTag = ["replaced_tag", "replaced_tag2"]
+        cloudinary!.createManagementApi().replaceTag(replacedTag, publicIds: [uploadedPublicId]) { (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+
+        XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
+        
         // Remove tags
         result = nil
         error = nil
