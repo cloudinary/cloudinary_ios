@@ -239,7 +239,7 @@ class ManagementApiTests: NetworkBaseTest {
     func testTagsAsArray() {
         let tagsArray = ["tag1","tag2","tag3"]
         
-        var expectation = self.expectation(description: "Adding a tag should succeed")
+        var expectation = self.expectation(description: "Adding tags as an array should succeed")
         
         var result: CLDTagResult?
         var error: Error?
@@ -273,7 +273,7 @@ class ManagementApiTests: NetworkBaseTest {
         // Reaplace tag
         result = nil
         error = nil
-        expectation = self.expectation(description: "Replacing a tag should succeed")
+        expectation = self.expectation(description: "Replacing tags as an array should succeed")
         let replacedTag = ["replaced_tag", "replaced_tag2"]
         cloudinary!.createManagementApi().replaceTag(replacedTag, publicIds: [uploadedPublicId]) { (resultRes, errorRes) in
             result = resultRes
@@ -291,7 +291,7 @@ class ManagementApiTests: NetworkBaseTest {
         // Remove tags
         result = nil
         error = nil
-        expectation = self.expectation(description: "Removing a tag should succeed")
+        expectation = self.expectation(description: "Removing tags as an array should succeed")
         cloudinary!.createManagementApi().removeTag(tagsArray, publicIds: [uploadedPublicId]) { (resultRes, errorRes) in
             result = resultRes
             error = errorRes
