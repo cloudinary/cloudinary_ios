@@ -42,9 +42,9 @@ import Foundation
     
     - returns:                       A new instance of CLDTagsRequestParams.
     */
-    internal init(tag: String, publicIds: [String]) {
+    internal init(tags: [String], publicIds: [String]) {
         super.init()
-        setParam(TagsParams.Tag.rawValue, value: tag)
+        setParam(TagsParams.Tag.rawValue, value: tags.joined(separator: ","))
         setParam(TagsParams.PublicIds.rawValue, value: publicIds)
     }
     
