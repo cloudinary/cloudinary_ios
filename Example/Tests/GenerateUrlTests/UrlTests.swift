@@ -1002,8 +1002,8 @@ class UrlTests: BaseTestCase {
     func testVideoCodec() {
 
         XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodec("auto")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_auto/video_id")
-        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevelAndBFrames("h264", videoProfile: "basic", level: "3.1")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1/video_id")
-        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevelAndBFrames("h264", videoProfile: "basic", level: nil)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: "3.1")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: nil)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic/video_id")
     }
 
     func testVideoCodecBFrameTrueOrNil() {
