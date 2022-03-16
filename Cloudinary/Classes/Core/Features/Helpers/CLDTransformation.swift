@@ -1483,12 +1483,12 @@ import CoreGraphics
     /**
      Used to determine the video codec, video profile and level to use.
      You can set this parameter to auto instead.
-     
+
      - parameter videoCodec:        The video codec to set.
      - parameter videoProfile:      The video profile to set.
      - parameter level:             The level to set.
      - parameter bframes:           Should use B-frames.
-     
+
      - returns:                     The same instance of CLDTransformation.
      */
     @discardableResult
