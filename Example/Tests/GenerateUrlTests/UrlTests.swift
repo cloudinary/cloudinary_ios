@@ -1006,6 +1006,18 @@ class UrlTests: BaseTestCase {
         XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevel("h264", videoProfile: "basic", level: nil)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic/video_id")
     }
 
+    func testVideoCodecBFrameTrueOrNil() {
+
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevelAndBFrames("h264", videoProfile: "basic", level: "3.1", bframes: true)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevelAndBFrames("h264", videoProfile: "basic", level: "3.1", bframes: nil)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1/video_id")
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevelAndBFrames("h264", videoProfile: "basic", level: "3.1")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1/video_id")
+    }
+
+    func testVideoCodecBFrameFalse() {
+
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVideoCodecAndProfileAndLevelAndBFrames("h264", videoProfile: "basic", level: "3.1", bframes: false)).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/vc_h264:basic:3.1:bframes_no/video_id")
+    }
+
     func testAudioCodec() {
 
         XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setAudioCodec("acc")).setResourceType(.video).generate("video_id"), "\(prefix)/video/upload/ac_acc/video_id")

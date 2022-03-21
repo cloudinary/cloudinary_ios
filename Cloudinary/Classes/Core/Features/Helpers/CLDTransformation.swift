@@ -1468,16 +1468,36 @@ import CoreGraphics
     /**
      Used to determine the video codec, video profile and level to use.
      You can set this parameter to auto instead.
-     
+
      - parameter videoCodec:        The video codec to set.
      - parameter videoProfile:      The video profile to set.
      - parameter level:             The level to set.
-     
+
      - returns:                     The same instance of CLDTransformation.
      */
     @discardableResult
     open func setVideoCodecAndProfileAndLevel(_ videoCodec: String, videoProfile: String, level: String? = nil) -> Self {
         return level == nil ? setVideoCodec("\(videoCodec):\(videoProfile)") : setVideoCodec("\(videoCodec):\(videoProfile):\(level!)")
+    }
+    // MARK: - Set Values - VideoCodecAndProfileAndLevelAndBframes
+    /**
+     Used to determine the video codec, video profile and level to use.
+     You can set this parameter to auto instead.
+
+     - parameter videoCodec:        The video codec to set.
+     - parameter videoProfile:      The video profile to set.
+     - parameter level:             The level to set.
+     - parameter bframes:           Should use B-frames.
+
+     - returns:                     The same instance of CLDTransformation.
+     */
+    @discardableResult
+    open func setVideoCodecAndProfileAndLevelAndBFrames(_ videoCodec: String, videoProfile: String, level: String? = nil, bframes: Bool? = nil) -> Self {
+        var videoCodec = "\(videoCodec):\(videoProfile)"
+        if let level = level {
+            videoCodec.append(":\(level)" + (bframes == false ? ":bframes_no" : ""))
+        }
+        return setVideoCodec(videoCodec)
     }
     // MARK: - Set Values - VideoCodec
     /**
