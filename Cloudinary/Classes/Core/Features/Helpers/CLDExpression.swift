@@ -303,7 +303,7 @@ import Foundation
         if currentValue.isEmpty {
             return "\(key)"
         }
-        let value = removeExtraDashes(from: replaceAllUnicodeChars(in: currentValue))
+        let value = removeExtraDashes(from: replaceAllUnencodeChars(in: currentValue))
         return "\(key)_\(value)"
     }
     
@@ -315,7 +315,7 @@ import Foundation
         }
         
         let key   = replaceAllExpressionKeys(in: currentKey)
-        let value = removeExtraDashes(from: replaceAllUnicodeChars(in: currentValue))
+        let value = removeExtraDashes(from: replaceAllUnencodeChars(in: currentValue))
         
         return [key:value]
     }
@@ -330,7 +330,7 @@ import Foundation
     }
     
     // MARK: - Private methods
-    private func replaceAllUnicodeChars(in string: String) -> String {
+    private func replaceAllUnencodeChars(in string: String) -> String {
         
         var wipString   = string
         wipString       = replaceAllOperators(in: string)
