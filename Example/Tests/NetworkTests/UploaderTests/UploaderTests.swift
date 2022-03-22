@@ -197,6 +197,36 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    func testUploadFolderDecoupling() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed")
+        let file = TestResourceType.borderCollie.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+
+        params.setUseFilenameAsDisplayName(true) //not working
+        params.setPublicIdPrefix("public_id_prefix") // stronger from "test_folder" if sent together
+        params.setDisplayName("display_name") // not working
+        params.setAssetFolder("asset_folder")
+        params.setFolder("folder/test")
+
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
+
     func testUploadImageFileWithPreprocess() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")

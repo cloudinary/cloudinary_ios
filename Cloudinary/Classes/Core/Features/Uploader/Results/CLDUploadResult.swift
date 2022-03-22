@@ -212,6 +212,22 @@ import Foundation
     open var done: Bool? {
         return getParam(.done) as? Bool
     }
+
+    open var assetFolder: String? {
+        return getParam(.assetFolder) as? String
+    }
+
+    open var publicIdPrefix: String? {
+        return getParam(.publicIdPrefix) as? String
+    }
+
+    open var useFilenameAsDisplayName: Bool? {
+        return getParam(.useFilenameAsDisplayName) as? Bool
+    }
+
+    open var displayName: String? {
+        return getParam(.displayName) as? String
+    }
     
     open var accessibilityAnalysis: CLDAccessibilityAnalysisResult? {
         guard let accessibilityAnalysis = getParam(.accessibilityAnalysis) as? [String : AnyObject] else {
