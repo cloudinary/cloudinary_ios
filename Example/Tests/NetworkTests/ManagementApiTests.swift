@@ -342,6 +342,79 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
     }
     
+    func testTagsAsArray() {
+        let tagsArray = ["tag1","tag2","tag3"]
+        
+        var expectation = self.expectation(description: "Adding tags as an array should succeed")
+        
+        var result: CLDTagResult?
+        var error: Error?
+        
+        var uploadedPublicId: String = ""
+        // first upload
+        uploadFile().response({ (uploadResult, uploadError) in
+            if let pubId = uploadResult?.publicId {
+                uploadedPublicId = pubId
+                
+                // test adding a tags
+                self.cloudinary!.createManagementApi().addTag(tagsArray, publicIds: [uploadedPublicId]).response({ (resultRes, errorRes) in
+                    result = resultRes
+                    error = errorRes
+                    expectation.fulfill()
+                })
+            }
+            else {
+                error = uploadError
+                expectation.fulfill()
+            }
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+
+        XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
+        
+        // Reaplace tag
+        result = nil
+        error = nil
+        expectation = self.expectation(description: "Replacing tags as an array should succeed")
+        let replacedTag = ["replaced_tag", "replaced_tag2"]
+        cloudinary!.createManagementApi().replaceTag(replacedTag, publicIds: [uploadedPublicId]) { (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+
+        XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
+        
+        // Remove tags
+        result = nil
+        error = nil
+        expectation = self.expectation(description: "Removing tags as an array should succeed")
+        cloudinary!.createManagementApi().removeTag(tagsArray, publicIds: [uploadedPublicId]) { (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+
+        XCTAssertEqual(result?.publicIds?.first ?? "", uploadedPublicId)
+    }
+    
+    
+    
+    
     // MARK: - text
     func testGenerateText() {
         
