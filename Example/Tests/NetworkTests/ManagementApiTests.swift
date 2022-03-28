@@ -27,7 +27,9 @@ import XCTest
 
 
 class ManagementApiTests: NetworkBaseTest {
-    
+
+    private var allowFolderDecouplingCalls: Bool = false
+
     // MARK: - rename
     func testRename() {
         
@@ -84,6 +86,110 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result, "response should not be nil")
+    }
+
+    func testRenameShouldReturnContext() throws {
+
+        try XCTSkipUnless(allowFolderDecouplingCalls, "prevents redundant call to Cloudinary PAID Folder Decoupling service. to allow Folder Decoupling service testing - set to true")
+
+        let expectation = self.expectation(description: "Rename should succeed")
+
+        var result: CLDRenameResult?
+        var error: Error?
+
+
+        uploadFile().response({ (uploadResult, uploadError) in
+            if let publicId = uploadResult?.publicId {
+                let toRename = publicId + "__APPENDED STRING"
+                self.cloudinary!.createManagementApi().rename(publicId, to: toRename, overwrite: true, invalidate: true, context: true).response({ (resultRes, errorRes) in
+                    result = resultRes
+                    error = errorRes
+
+                    expectation.fulfill()
+                })
+            }
+            else {
+                error = uploadError
+                expectation.fulfill()
+            }
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result?.context, "response should not be nil")
+    }
+
+    func testRenameShouldReturnContextSimplifiedToRequest() {
+        do {
+            var urlRequest = URLRequest(url: URL(string: "https://example.com/image/rename")!)
+            urlRequest.httpMethod = CLDNHTTPMethod.post.rawValue
+            let renameParams = CLDRenameRequestParams(fromPublicId: "from", toPublicId: "to", overwrite: true, invalidate: true, context: true, metadata: false)
+
+            let encodedURLRequest = try CLDNURLEncoding.default.CLDN_Encode(urlRequest, with: renameParams.params)
+
+            XCTAssertNotNil(encodedURLRequest.httpBody, "HTTPBody should not be nil")
+
+            if let httpBody = encodedURLRequest.httpBody, let decodedHTTPBody = String(data: httpBody, encoding: .utf8) {
+                XCTAssertTrue(decodedHTTPBody.contains("context=1") && decodedHTTPBody.contains("metadata=0"))
+            } else {
+                XCTFail("decoded http body should not be nil")
+            }
+        } catch {
+            XCTFail("Test encountered unexpected error: \(error)")
+        }
+    }
+
+    func testRenameShouldReturnMetadata() throws {
+
+        try XCTSkipUnless(allowFolderDecouplingCalls, "prevents redundant call to Cloudinary PAID Folder Decoupling service. to allow Folder Decoupling service testing - set to true")
+
+        let expectation = self.expectation(description: "Rename should succeed")
+
+        var result: CLDRenameResult?
+        var error: Error?
+
+        uploadFile().response({ (uploadResult, uploadError) in
+            if let publicId = uploadResult?.publicId {
+                let toRename = publicId + "__APPENDED STRING"
+                self.cloudinary!.createManagementApi().rename(publicId, to: toRename, overwrite: true, invalidate: true, metadata: true).response({ (resultRes, errorRes) in
+                    result = resultRes
+                    error = errorRes
+
+                    expectation.fulfill()
+                })
+            }
+            else {
+                error = uploadError
+                expectation.fulfill()
+            }
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(result?.metadata, "response should not be nil")
+    }
+
+    func testRenameShouldReturnMetadataSimplifiedToRequest() {
+        do {
+            var urlRequest = URLRequest(url: URL(string: "https://example.com/image/rename")!)
+            urlRequest.httpMethod = CLDNHTTPMethod.post.rawValue
+            let renameParams = CLDRenameRequestParams(fromPublicId: "from", toPublicId: "to", overwrite: true, invalidate: true, context: false, metadata: true)
+
+            // When
+            let encodedURLRequest = try CLDNURLEncoding.default.CLDN_Encode(urlRequest, with: renameParams.params)
+
+            XCTAssertNotNil(encodedURLRequest.httpBody, "HTTPBody should not be nil")
+
+            if let httpBody = encodedURLRequest.httpBody, let decodedHTTPBody = String(data: httpBody, encoding: .utf8) {
+                XCTAssertTrue(decodedHTTPBody.contains("metadata=1") && decodedHTTPBody.contains("context=0"))
+            } else {
+                XCTFail("decoded http body should not be nil")
+            }
+        } catch {
+            XCTFail("Test encountered unexpected error: \(error)")
+        }
     }
     
     // MARK: - explicit

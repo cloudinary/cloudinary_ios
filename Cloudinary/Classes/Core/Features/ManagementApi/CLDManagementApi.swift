@@ -49,6 +49,8 @@ import Foundation
     - parameter to:                     The new identifier to assign to the uploaded asset.
     - parameter overwrite:              A boolean parameter indicating whether or not to overwrite an existing image with the target Public ID. Default: false.
     - parameter invalidate:             A boolean parameter indicating whether to invalidate CDN cached copies of the image (and all its transformed versions). Default: false.
+    - parameter context:                A boolean parameter indicating whether to include contextual metadata for the asset in the response. Default: false.
+    - parameter metadata:               A boolean parameter indicating whether to include structured metadata for the asset in the response. Default: false.
     - parameter params:                 An object holding the available parameters for the request.
     - parameter completionHandler:      The closure to be called once the request has finished, holding either the response object or the error.
     
@@ -57,8 +59,8 @@ import Foundation
                             as well as performing actions on the request, such as cancelling, suspending or resuming it.
     */
     @discardableResult
-    open func rename(_ publicId: String, to: String, overwrite: Bool? = nil, invalidate: Bool? = nil, params: CLDRenameRequestParams? = nil, completionHandler: ((_ result: CLDRenameResult?, _ error: Error?) -> ())? = nil) -> CLDRenameRequest {
-        let renameParams = CLDRenameRequestParams(fromPublicId: publicId, toPublicId: to, overwrite: overwrite, invalidate: invalidate)
+    open func rename(_ publicId: String, to: String, overwrite: Bool? = nil, invalidate: Bool? = nil, params: CLDRenameRequestParams? = nil, context: Bool? = nil, metadata: Bool? = nil, completionHandler: ((_ result: CLDRenameResult?, _ error: Error?) -> ())? = nil) -> CLDRenameRequest {
+        let renameParams = CLDRenameRequestParams(fromPublicId: publicId, toPublicId: to, overwrite: overwrite, invalidate: invalidate, context: context, metadata: metadata)
         renameParams.merge(params)
         let request = networkCoordinator.callAction(.Rename, params:renameParams)
         let renameRequest = CLDRenameRequest(networkRequest: request)
