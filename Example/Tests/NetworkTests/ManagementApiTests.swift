@@ -97,7 +97,6 @@ class ManagementApiTests: NetworkBaseTest {
         var result: CLDRenameResult?
         var error: Error?
 
-
         uploadFile().response({ (uploadResult, uploadError) in
             if let publicId = uploadResult?.publicId {
                 let toRename = publicId + "__APPENDED STRING"
