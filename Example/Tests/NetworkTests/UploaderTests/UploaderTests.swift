@@ -27,6 +27,8 @@ import XCTest
 
 class UploaderTests: NetworkBaseTest {
 
+    let allowFolderDecouplingCalls: Bool = false
+
     // MARK: - Tests
 
     func testUploadImageData() {
@@ -197,21 +199,23 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
-    func testUploadFolderDecoupling() {
+    func testUploadFolderDecoupling() throws {
+
+        try XCTSkipUnless(allowFolderDecouplingCalls, "prevents redundant call to Cloudinary PAID Folder Decoupling service. to allow Folder Decoupling service testing - set to true")
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
 
-        let expectation = self.expectation(description: "Upload should succeed")
+        let expectation = self.expectation(description: "Upload should succeed and return the params sent")
         let file = TestResourceType.borderCollie.url
         var result: CLDUploadResult?
         var error: NSError?
 
         let params = CLDUploadRequestParams()
 
-        params.setUseFilenameAsDisplayName(true) //not working
-        params.setPublicIdPrefix("public_id_prefix") // stronger from "test_folder" if sent together
-        params.setDisplayName("display_name") // not working
+        params.setPublicIdPrefix("public_id_prefix")
         params.setAssetFolder("asset_folder")
+        params.setDisplayName("display_name")
+        params.setUseFilenameAsDisplayName(true)
         params.setFolder("folder/test")
 
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
@@ -223,8 +227,41 @@ class UploaderTests: NetworkBaseTest {
 
         waitForExpectations(timeout: timeout, handler: nil)
 
-        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNotNil(result?.publicIdPrefix, "result should not be nil")
+        XCTAssertNotNil(result?.assetFolder, "result should not be nil")
+        XCTAssertNotNil(result?.displayName, "result should not be nil")
+        XCTAssertNotNil(result?.useFilenameAsDisplayName, "result should not be nil")
+
         XCTAssertNil(error, "error should be nil")
+    }
+
+    func testUploadFolderDecouplingSimplifiedToRequest() throws {
+        var urlRequest = URLRequest(url: URL(string: "https://example.com/")!)
+        urlRequest.httpMethod = CLDNHTTPMethod.post.rawValue
+
+        let params = CLDUploadRequestParams()
+        params.setPublicIdPrefix("public_id_prefix")
+        params.setAssetFolder("asset_folder")
+        params.setDisplayName("display_name")
+        params.setUseFilenameAsDisplayName(true)
+        params.setFolder("folder/test")
+
+        let encodedURLRequest = try CLDNURLEncoding.default.CLDN_Encode(urlRequest, with: params.params)
+
+        XCTAssertNotNil(encodedURLRequest.httpBody, "HTTPBody should not be nil")
+
+        if let httpBody = encodedURLRequest.httpBody, let decodedHTTPBody = String(data: httpBody, encoding: .utf8) {
+            let params = ["asset_folder=asset_folder",
+                          "display_name=display_name",
+                          "folder=folder/test",
+                          "public_id_prefix=public_id_prefix",
+                          "use_filename_as_display_name=1"]
+            params.forEach({
+                XCTAssertTrue(decodedHTTPBody.contains($0))
+            })
+        } else {
+            XCTFail("decoded http body should not be nil")
+        }
     }
 
     func testUploadImageFileWithPreprocess() {

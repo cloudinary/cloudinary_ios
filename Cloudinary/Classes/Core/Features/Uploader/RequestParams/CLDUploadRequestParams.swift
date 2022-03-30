@@ -266,7 +266,7 @@ import Foundation
     /**
      Set the identifier prefix that is used for accessing the uploaded resource.
 
-     - parameter folder:    The folder URL.
+     - parameter prefix:    The prefix to prepend.
 
      - returns:             The same instance of CLDUploadRequestParams.
      */
@@ -391,11 +391,11 @@ import Foundation
     }
 
     /**
-     Set an optional folder name where the uploaded resource will be stored. The Public ID contains the full path of the uploaded resource, including the folder name.
+     Set an optional asset folder url where the uploaded resource will be stored.
 
-     - parameter folder:    The folder URL.
+     - parameter assetFolder:    The folder URL.
 
-     - returns:             The same instance of CLDUploadRequestParams.
+     - returns:                  The same instance of CLDUploadRequestParams.
      */
     @discardableResult
     open func setAssetFolder(_ assetFolder: String) -> Self {
@@ -404,11 +404,11 @@ import Foundation
     }
 
     /**
-     Set an optional folder name where the uploaded resource will be stored. The Public ID contains the full path of the uploaded resource, including the folder name.
+     Set the display name of the uploaded resource.
 
-     - parameter folder:    The folder URL.
+     - parameter displayName:    The name of the resource.
 
-     - returns:             The same instance of CLDUploadRequestParams.
+     - returns:                  The same instance of CLDUploadRequestParams.
      */
     @discardableResult
     open func setDisplayName(_ displayName: String) -> Self {
@@ -417,11 +417,11 @@ import Foundation
     }
 
     /**
-     Set an optional folder name where the uploaded resource will be stored. The Public ID contains the full path of the uploaded resource, including the folder name.
+     Set A boolean parameter that determines whether to use the filename as the display name of the uploaded resource.
 
-     - parameter folder:    The folder URL.
+     - parameter useFilenameAsDisplayName:    The boolean parameter.
 
-     - returns:             The same instance of CLDUploadRequestParams.
+     - returns:                               The same instance of CLDUploadRequestParams.
      */
     @discardableResult
     open func setUseFilenameAsDisplayName(_ useFilenameAsDisplayName: Bool) -> Self {
