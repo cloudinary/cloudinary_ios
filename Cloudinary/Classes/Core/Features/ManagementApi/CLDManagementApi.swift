@@ -49,8 +49,6 @@ import Foundation
     - parameter to:                     The new identifier to assign to the uploaded asset.
     - parameter overwrite:              A boolean parameter indicating whether or not to overwrite an existing image with the target Public ID. Default: false.
     - parameter invalidate:             A boolean parameter indicating whether to invalidate CDN cached copies of the image (and all its transformed versions). Default: false.
-    - parameter context:                A boolean parameter indicating whether to include contextual metadata for the asset in the response. Default: false.
-    - parameter metadata:               A boolean parameter indicating whether to include structured metadata for the asset in the response. Default: false.
     - parameter params:                 An object holding the available parameters for the request.
     - parameter completionHandler:      The closure to be called once the request has finished, holding either the response object or the error.
     
