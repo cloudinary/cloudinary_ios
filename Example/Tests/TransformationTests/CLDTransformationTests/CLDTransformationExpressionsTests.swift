@@ -142,6 +142,72 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
     }
     
+    func test_setStartOffset_emptyInputParamaters_shouldNotStoreNewVariable() {
+        
+        // Given
+        let input       = String()
+        let expression  = CLDExpression(value: input)
+        
+        // When
+        sut.setStartOffset(expression)
+        
+        let actualResult = sut.startOffset!
+        
+        // Then
+        XCTAssertTrue(actualResult.isEmpty, "Empty expression should not be stored in params")
+    }
+    
+    func test_setStartOffset_inputExpression_shouldStoreNewValue() {
+        
+        // Given
+        let input       = "initialHeight * 2"
+        let expression  = CLDExpression(value: input)
+        
+        let expectedResult = "ih_mul_2"
+        
+        // When
+        sut.setStartOffset(expression)
+        
+        let actualResult = sut.startOffset!
+        
+        // Then
+        XCTAssertFalse(actualResult.isEmpty, "x should stored new value")
+        XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
+    }
+    
+    func test_setEndOffset_emptyInputParamaters_shouldNotStoreNewVariable() {
+        
+        // Given
+        let input       = String()
+        let expression  = CLDExpression(value: input)
+        
+        // When
+        sut.setEndOffset(expression)
+        
+        let actualResult = sut.endOffset!
+        
+        // Then
+        XCTAssertTrue(actualResult.isEmpty, "Empty expression should not be stored in params")
+    }
+    
+    func test_setEndOffset_inputExpression_shouldStoreNewValue() {
+        
+        // Given
+        let input       = "initialHeight * 2"
+        let expression  = CLDExpression(value: input)
+        
+        let expectedResult = "ih_mul_2"
+        
+        // When
+        sut.setEndOffset(expression)
+        
+        let actualResult = sut.endOffset!
+        
+        // Then
+        XCTAssertFalse(actualResult.isEmpty, "x should stored new value")
+        XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
+    }
+    
     func test_setY_emptyInputParamaters_shouldNotStoreNewVariable() {
         
         // Given

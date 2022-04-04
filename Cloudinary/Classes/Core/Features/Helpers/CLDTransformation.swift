@@ -2184,6 +2184,20 @@ extension CLDTransformation
         
         return setParam(TransformationParam.RADIUS, value: input.asString())
     }
+    
+    @objc(setStartOffsetFromExpression:)
+    @discardableResult
+    public func setStartOffset(_ input: CLDExpression) -> Self {
+        
+        return setParam(TransformationParam.START_OFFSET, value: input.asString())
+    }
+    
+    @objc(setEndOffsetFromExpression:)
+    @discardableResult
+    public func setEndOffset(_ input: CLDExpression) -> Self {
+        
+        return setParam(TransformationParam.END_OFFSET, value: input.asString())
+    }
 }
 // MARK: - Condition Expression
 extension CLDTransformation
