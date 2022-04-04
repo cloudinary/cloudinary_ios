@@ -100,7 +100,8 @@ class ManagementApiTests: NetworkBaseTest {
         uploadFile().response({ (uploadResult, uploadError) in
             if let publicId = uploadResult?.publicId {
                 let toRename = publicId + "__APPENDED STRING"
-                self.cloudinary!.createManagementApi().rename(publicId, to: toRename, overwrite: true, invalidate: true, context: true).response({ (resultRes, errorRes) in
+                let params = CLDRenameRequestParams(overwrite: true, invalidate: true, context: true, metadata: false)
+                self.cloudinary!.createManagementApi().rename(publicId, to: toRename, params: params).response({ (resultRes, errorRes) in
                     result = resultRes
                     error = errorRes
 
@@ -151,7 +152,8 @@ class ManagementApiTests: NetworkBaseTest {
         uploadFile().response({ (uploadResult, uploadError) in
             if let publicId = uploadResult?.publicId {
                 let toRename = publicId + "__APPENDED STRING"
-                self.cloudinary!.createManagementApi().rename(publicId, to: toRename, overwrite: true, invalidate: true, metadata: true).response({ (resultRes, errorRes) in
+                let params = CLDRenameRequestParams(overwrite: true, invalidate: true, context: false, metadata: true)
+                self.cloudinary!.createManagementApi().rename(publicId, to: toRename, params: params).response({ (resultRes, errorRes) in
                     result = resultRes
                     error = errorRes
 

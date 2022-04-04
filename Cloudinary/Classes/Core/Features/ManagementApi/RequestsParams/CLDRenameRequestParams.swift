@@ -51,7 +51,26 @@ import Foundation
     internal init(fromPublicId: String, toPublicId: String, overwrite: Bool? = nil, invalidate: Bool? = nil, context: Bool? = nil, metadata: Bool? = nil) {
         super.init()
         setParam(RenameParams.FromPublicId.rawValue, value: fromPublicId)
-        setParam(RenameParams.ToPublicId.rawValue, value: toPublicId)        
+        setParam(RenameParams.ToPublicId.rawValue, value: toPublicId)
+        setOptionalRequestParams(overwrite: overwrite, invalidate: invalidate, context: context, metadata: metadata)
+    }
+
+    /**
+    Initializes a CLDRenameRequestParams instance.
+
+    - parameter overwrite:          A boolean parameter indicating whether or not to overwrite an existing image with the target Public ID. Default: false.
+    - parameter invalidate:         A boolean parameter whether to invalidate CDN cached copies of the image (and all its transformed versions). Default: false.
+    - parameter context:            A boolean parameter indicating whether to include contextual metadata for the asset in the response. Default: false.
+    - parameter metadata:           A boolean parameter indicating whether to include structured metadata for the asset in the response. Default: false.
+
+    - returns:                       A new instance of CLDRenameRequestParams.
+    */
+    internal init(overwrite: Bool? = nil, invalidate: Bool? = nil, context: Bool? = nil, metadata: Bool? = nil) {
+        super.init()
+        setOptionalRequestParams(overwrite: overwrite, invalidate: invalidate, context: context, metadata: metadata)
+    }
+
+    private func setOptionalRequestParams(overwrite: Bool? = nil, invalidate: Bool? = nil, context: Bool? = nil, metadata: Bool? = nil) {
         setParam(RenameParams.Overwrite.rawValue, value: overwrite)
         setParam(RenameParams.Invalidate.rawValue, value: invalidate)
         setParam(RenameParams.context.rawValue, value: context)
