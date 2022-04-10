@@ -27,7 +27,7 @@ import XCTest
 
 class UploaderTests: NetworkBaseTest {
 
-    let allowFolderDecouplingCalls: Bool = true
+    let allowFolderDecouplingCalls: Bool = false
 
     // MARK: - Tests
 
