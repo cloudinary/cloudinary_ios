@@ -217,14 +217,6 @@ import Foundation
         return getParam(.assetFolder) as? String
     }
 
-    open var publicIdPrefix: String? {
-        return getParam(.publicIdPrefix) as? String
-    }
-
-    open var useFilenameAsDisplayName: Bool? {
-        return getParam(.useFilenameAsDisplayName) as? Bool
-    }
-
     open var displayName: String? {
         return getParam(.displayName) as? String
     }
