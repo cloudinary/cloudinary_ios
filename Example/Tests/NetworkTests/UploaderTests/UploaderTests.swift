@@ -27,7 +27,7 @@ import XCTest
 
 class UploaderTests: NetworkBaseTest {
 
-    let allowFolderDecouplingCalls: Bool = false
+    let allowFolderDecouplingCalls: Bool = true
 
     // MARK: - Tests
 
@@ -227,10 +227,8 @@ class UploaderTests: NetworkBaseTest {
 
         waitForExpectations(timeout: timeout, handler: nil)
 
-        XCTAssertNotNil(result?.publicIdPrefix, "result should not be nil")
         XCTAssertNotNil(result?.assetFolder, "result should not be nil")
         XCTAssertNotNil(result?.displayName, "result should not be nil")
-        XCTAssertNotNil(result?.useFilenameAsDisplayName, "result should not be nil")
 
         XCTAssertNil(error, "error should be nil")
     }
