@@ -160,10 +160,10 @@ class CLDTransformationExpressionsTests: BaseTestCase {
     func test_setStartOffset_inputExpression_shouldStoreNewValue() {
         
         // Given
-        let input       = "initialHeight * 2"
+        let input       = "duration - 3"
         let expression  = CLDExpression(value: input)
         
-        let expectedResult = "ih_mul_2"
+        let expectedResult = "du_sub_3"
         
         // When
         sut.setStartOffset(expression)
@@ -171,8 +171,8 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         let actualResult = sut.startOffset!
         
         // Then
-        XCTAssertFalse(actualResult.isEmpty, "x should stored new value")
-        XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
+        XCTAssertFalse(actualResult.isEmpty, "actualy result should not be empty")
+        XCTAssertEqual(actualResult, expectedResult, "acutalyResult and expectedResult should be eqaul")
     }
     
     func test_setEndOffset_emptyInputParamaters_shouldNotStoreNewVariable() {
@@ -193,10 +193,10 @@ class CLDTransformationExpressionsTests: BaseTestCase {
     func test_setEndOffset_inputExpression_shouldStoreNewValue() {
         
         // Given
-        let input       = "initialHeight * 2"
+        let input       = "duration - 3"
         let expression  = CLDExpression(value: input)
         
-        let expectedResult = "ih_mul_2"
+        let expectedResult = "du_sub_3"
         
         // When
         sut.setEndOffset(expression)
@@ -204,8 +204,8 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         let actualResult = sut.endOffset!
         
         // Then
-        XCTAssertFalse(actualResult.isEmpty, "x should stored new value")
-        XCTAssertEqual(actualResult, expectedResult, "Calling get x should return its value")
+        XCTAssertFalse(actualResult.isEmpty, "actualy result should not be empty")
+        XCTAssertEqual(actualResult, expectedResult, "acutalyResult and expectedResult should be eqaul")
     }
     
     func test_setY_emptyInputParamaters_shouldNotStoreNewVariable() {
