@@ -171,8 +171,8 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         let actualResult = sut.startOffset!
         
         // Then
-        XCTAssertFalse(actualResult.isEmpty, "actualy result should not be empty")
-        XCTAssertEqual(actualResult, expectedResult, "acutalyResult and expectedResult should be eqaul")
+        XCTAssertFalse(actualResult.isEmpty, "actualResult should not be empty")
+        XCTAssertEqual(actualResult, expectedResult, "actualResult and expectedResult should be equal")
     }
     
     func test_setEndOffset_emptyInputParamaters_shouldNotStoreNewVariable() {
@@ -204,8 +204,8 @@ class CLDTransformationExpressionsTests: BaseTestCase {
         let actualResult = sut.endOffset!
         
         // Then
-        XCTAssertFalse(actualResult.isEmpty, "actualy result should not be empty")
-        XCTAssertEqual(actualResult, expectedResult, "acutalyResult and expectedResult should be eqaul")
+        XCTAssertFalse(actualResult.isEmpty, "actualResult should not be empty")
+        XCTAssertEqual(actualResult, expectedResult, "actualResult and expectedResult should be equal")
     }
     
     func test_setY_emptyInputParamaters_shouldNotStoreNewVariable() {
