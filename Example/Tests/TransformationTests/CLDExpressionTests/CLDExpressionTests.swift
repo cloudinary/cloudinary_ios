@@ -877,4 +877,339 @@ class CLDExpressionTests: BaseTestCase {
         // Then
         XCTAssertEqual(actualResult, expectedResult, "Calling asParams, should remove extra dashes/spaces")
     }
+
+    func test_powerString_shouldAppendValidValuex() {
+        // Given
+        let name = "$________height"
+        let initialValue = "$_____width"
+        let value = "30.3"
+
+        let expectedValueResult = "$_height_$_width_pow_30.3"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(initialValue)").power(by: value)
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionNumber() {
+        // Given
+        let name = 10
+        let expectedValueResult = "10"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionSingleSpace_underscore() {
+        // Given
+        let name = " "
+        let expectedValueResult = "_"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionBlankString_underscore() {
+        // Given
+        let name = "  "
+        let expectedValueResult = "_"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionUnderscore_underscore() {
+        // Given
+        let name = "_"
+        let expectedValueResult = "_"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionUnderscores_underscore() {
+        // Given
+        let name = "___"
+        let expectedValueResult = "_"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionUnderscoresAndSpaces_underscore() {
+        // Given
+        let name = " _ __  _"
+        let expectedValueResult = "_"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionArbitraryText_isNotAffected() {
+        // Given
+        let name = "foobar"
+        let expectedValueResult = "foobar"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoubleAmpersand_replacedWithAndOperator() {
+        // Given
+        let name = "foo && bar"
+        let expectedValueResult = "foo_and_bar"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoubleAmpersandWithNoSpaceAtEnd_isNotAffected() {
+        // Given
+        let name = "foo&&bar"
+        let expectedValueResult = "foo&&bar"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionWidth_recognizedAsVariableAndReplacedWithW() {
+        // Given
+        let name = "width"
+        let expectedValueResult = "w"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionInitialAspectRatio_recognizedAsVariableAndReplacedWithW() {
+        // Given
+        let name = "width"
+        let expectedValueResult = "w"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDollarWidth_recognizedAsUserVariableAndNotAffected() {
+        // Given
+        let name = "$width"
+        let expectedValueResult = "$width"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDollarInitialAspectRatio_recognizedAsUserVariableAndAsVariableReplacedWithAr() {
+        // Given
+        let name = "$initial_aspect_ratio"
+        let expectedValueResult = "$initial_ar"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDollarMyWidth_recognizedAsUserVariableAndNotAffected() {
+        // Given
+        let name = "$mywidth"
+        let expectedValueResult = "$mywidth"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDollarWidthWidth_recognizedAsUserVariableAndNotAffected() {
+        // Given
+        let name = "$widthwidth"
+        let expectedValueResult = "$widthwidth"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDollarUnderscoreWidth_recognizedAsUserVariableAndNotAffected() {
+        // Given
+        let name = "$_width"
+        let expectedValueResult = "$_width"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDollarUnderscoreX2Width_recognizedAsUserVariableAndNotAffected() {
+        // Given
+        let name = "$__width"
+        let expectedValueResult = "$_width"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDollarX2Width_recognizedAsUserVariableAndNotAffected() {
+        // Given
+        let name = "$\\$width"
+        let expectedValueResult = "$\\$width"
+
+        // When
+        sut = CLDExpression(value: "\(name)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoesntReplaceVariable_1() {
+        // Given
+        let name = "$height"
+        let value = "100"
+        let expectedValueResult = "$height_100"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(value)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoesntReplaceVariable_2() {
+        // Given
+        let name = "$heightt"
+        let value = "100"
+        let expectedValueResult = "$heightt_100"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(value)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoesntReplaceVariable_3() {
+        // Given
+        let name = "$\\$height"
+        let value = "100"
+        let expectedValueResult = "$\\$height_100"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(value)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoesntReplaceVariable_4() {
+        // Given
+        let name = "$heightmy"
+        let value = "100"
+        let expectedValueResult = "$heightmy_100"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(value)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoesntReplaceVariable_5() {
+        // Given
+        let name = "$myheight"
+        let value = "100"
+        let expectedValueResult = "$myheight_100"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(value)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoesntReplaceVariable_6() {
+        // Given
+        let name = "$heightheight"
+        let value = "100"
+        let expectedValueResult = "$heightheight_100"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(value)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoesntReplaceVariable_7() {
+        // Given
+        let name = "$theheight"
+        let value = "100"
+        let expectedValueResult = "$theheight_100"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(value)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
+
+    func testExpressionDoesntReplaceVariable_8() {
+        // Given
+        let name = "$________height"
+        let value = "100"
+        let expectedValueResult = "$_height_100"
+
+        // When
+        sut = CLDExpression(value: "\(name) \(value)")
+
+        // Then
+        XCTAssertEqual(sut.asString(), expectedValueResult, "string should be equal to expectedValueResult")
+    }
 }
