@@ -233,35 +233,6 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
-    func testUploadFolderDecouplingSimplifiedToRequest() throws {
-        var urlRequest = URLRequest(url: URL(string: "https://example.com/")!)
-        urlRequest.httpMethod = CLDNHTTPMethod.post.rawValue
-
-        let params = CLDUploadRequestParams()
-        params.setPublicIdPrefix("public_id_prefix")
-        params.setAssetFolder("asset_folder")
-        params.setDisplayName("display_name")
-        params.setUseFilenameAsDisplayName(true)
-        params.setFolder("folder/test")
-
-        let encodedURLRequest = try CLDNURLEncoding.default.CLDN_Encode(urlRequest, with: params.params)
-
-        XCTAssertNotNil(encodedURLRequest.httpBody, "HTTPBody should not be nil")
-
-        if let httpBody = encodedURLRequest.httpBody, let decodedHTTPBody = String(data: httpBody, encoding: .utf8) {
-            let params = ["asset_folder=asset_folder",
-                          "display_name=display_name",
-                          "folder=folder/test",
-                          "public_id_prefix=public_id_prefix",
-                          "use_filename_as_display_name=1"]
-            params.forEach({
-                XCTAssertTrue(decodedHTTPBody.contains($0))
-            })
-        } else {
-            XCTFail("decoded http body should not be nil")
-        }
-    }
-
     func testUploadImageFileWithPreprocess() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -288,7 +259,6 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertEqual(result?.width, 500)
         XCTAssertEqual(result?.height, 500)
     }
-
 
     func testUploadWithPreprocessValidator() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
