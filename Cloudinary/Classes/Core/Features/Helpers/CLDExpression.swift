@@ -36,9 +36,9 @@ import Foundation
         case initial_height
         case initialHeight
         
+        case initial_aspect_ratio
         case aspect_ratio
         case aspectRatio
-        case initial_aspect_ratio
         case initialAspectRatio
         
         case page_count
@@ -73,9 +73,9 @@ import Foundation
             case .initial_height: return "ih"
             case .initialHeight : return "ih"
                 
+            case .initial_aspect_ratio: return "iar"
             case .aspect_ratio        : return "ar"
             case .aspectRatio         : return "ar"
-            case .initial_aspect_ratio: return "iar"
             case .initialAspectRatio  : return "iar"
                 
             case .page_count: return "pc"
@@ -105,7 +105,9 @@ import Foundation
     internal var currentValue      : String
     internal var currentKey        : String
     
-    private let consecutiveDashesRegex: String = "[ _]+"
+    private var allSpaceAndOrDash       : Bool = false
+    private let consecutiveDashesRegex  : String = "[ _]+"
+    private let userVariableRegex       : String = "\\$_*[^_]+"
     
     // MARK: - Init
     public override init() {
@@ -118,6 +120,9 @@ import Foundation
         var components = value.components(separatedBy: .whitespacesAndNewlines)
         self.currentKey   = components.removeFirst()
         self.currentValue = components.joined(separator: CLDVariable.elementsSeparator)
+        let range = NSRange(location: 0, length: value.utf16.count)
+        let regex = try? NSRegularExpression(pattern: "^" + consecutiveDashesRegex)
+        self.allSpaceAndOrDash = !(regex?.firstMatch(in: value, options: [], range: range) == nil)
         super.init()
     }
     
@@ -286,14 +291,20 @@ import Foundation
     // MARK: - provide content
     public func asString() -> String {
         
-        guard !currentKey.isEmpty && !currentValue.isEmpty else {
-            
+        guard !currentKey.isEmpty else {
+            if allSpaceAndOrDash {
+                return "_"
+            }
             return String()
         }
         
-        let key   = replaceAllExpressionKeys(in: currentKey)
-        let value = removeExtraDashes(from: replaceAllUnencodeChars(in: currentValue))
+        let key = removeExtraDashes(from: replaceAllExpressionKeys(in: currentKey))
+
+        if currentValue.isEmpty {
+            return "\(key)"
+        }
         
+        let value = removeExtraDashes(from: replaceAllUnencodeChars(in: currentValue))
         return "\(key)_\(value)"
     }
     
@@ -355,24 +366,32 @@ import Foundation
     }
     
     private func replace(expressionKey: ExpressionKeys, in string: String) -> String {
-        
-        var result : String
-        
+
+        var result : String!
+        let string = removeExtraDashes(from: string)
+
         if string.contains(CLDVariable.variableNamePrefix) {
-            
-            result = string.components(separatedBy: CLDVariable.elementsSeparator).map({
-                
-                let temp : String
-                switch $0.hasPrefix(CLDVariable.variableNamePrefix) {
-                case true : temp = $0
-                case false: temp = $0.replacingOccurrences(of: expressionKey.rawValue, with: expressionKey.asString)
+            let range = NSRange(location: 0, length: string.utf16.count)
+            let regex = try? NSRegularExpression(pattern: userVariableRegex)
+            let allRanges = regex?.matches(in: string, options: [], range: range).map({ $0.range }) ?? []
+
+            // Replace substring in between user variables. e.x $initial_aspect_ratio_$width, only '_aspect_ratio_' will be addressed.
+            for (index, range) in allRanges.enumerated() {
+                let location = range.length + range.location
+                var length = range.length
+
+                if index + 1 == allRanges.count {
+                    length = string.count
+                } else {
+                    let nextRange = allRanges[index + 1]
+                    length = nextRange.location
                 }
-                return temp
-                
-            }).joined(separator: CLDVariable.elementsSeparator)
-            
+
+                if let stringRange = Range(NSRange(location: location, length: length - location), in: string) {
+                    result = string.replacingOccurrences(of: expressionKey.rawValue, with: expressionKey.asString, options: .regularExpression, range: stringRange)
+                }
+            }
         } else {
-            
             result = string.replacingOccurrences(of: expressionKey.rawValue, with: expressionKey.asString)
         }
         return result
