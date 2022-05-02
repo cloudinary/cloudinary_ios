@@ -34,6 +34,7 @@ import Foundation
     internal var textDecoration: String?
     internal var textAlign: String?
     internal var stroke: String?
+    internal var textStyle: String?
     internal var letterSpacing: String?
     internal var lineSpacing: String?
     internal var fontAntialiasing: String?
@@ -65,7 +66,33 @@ import Foundation
         self.text = text
         return self
     }
-    
+
+    /**
+     Sets a text style identifier.
+     Note: If this is used, all other style attributes are ignored in favor of this identifier
+
+     - parameter text:          A variable string or an explicit style (e.g. "Arial_17_bold_antialias_best").
+
+     - returns:                 The same instance of CLDTextLayer.
+     */
+    open func setTextStyle(textStyle: String) -> CLDTextLayer {
+        self.textStyle = textStyle
+        return self
+    }
+
+    /**
+     Sets a text style identifier using an expression.
+     Note: If this is used, all other style attributes are ignored in favor of this identifier
+
+     - parameter text:          An expression instance referencing the style.
+
+     - returns:                 The same instance of CLDTextLayer.
+     */
+    open func setTextStyle(expression: CLDExpression) -> CLDTextLayer {
+        self.textStyle = expression.asString()
+        return self
+    }
+
     /**
      Set the name of a font family. e.g. `arial`.
      
@@ -333,7 +360,10 @@ import Foundation
         
         let optionalTextParams = getOptionalTextPropertiesArray()
         let mandatoryTextParams = getMandatoryTextPropertiesArray()
-        if optionalTextParams.isEmpty {
+        if let textStyle = textStyle {
+            components.append([textStyle].joined(separator: "_"))
+        }
+        else if optionalTextParams.isEmpty {
             if !mandatoryTextParams.isEmpty {
                 components.append(mandatoryTextParams.joined(separator: "_"))
             }
