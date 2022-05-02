@@ -1075,6 +1075,29 @@ class UrlTests: BaseTestCase {
                        "\(prefix)/image/upload/l_fetch:aHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZGVtby9pbWFnZS91cGxvYWQvc2FtcGxl/test")
     }
 
+    func testTextStyle() {
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVariable("$style", string: "!Arial_12!").chain().setOverlayWithLayer(CLDTextLayer().setText(text: "hello-world").setTextStyle(textStyle: "$style"))).generate("test"), "\(prefix)/image/upload/$style_!Arial_12!/l_text:$style:hello-world/test")
+
+        XCTAssertEqual(sut?.createUrl().setTransformation(CLDTransformation().setVariable("$style", string: "!Arial_12!").chain().setOverlayWithLayer(CLDTextLayer().setText(text: "hello-world").setTextStyle(expression: CLDExpression(value: "$style")))).generate("test"), "\(prefix)/image/upload/$style_!Arial_12!/l_text:$style:hello-world/test")
+    }
+
+    func testTextStyleOverpowerOtherTextAttributes() {
+        let layer = CLDTextLayer()
+            .setText(text: "hello_world")
+            .setFontFamily(fontFamily: "Arial")
+            .setFontSize(18)
+            .setFontStyle(.italic)
+            .setFontWeight(.bold)
+            .setLetterSpacing(4)
+            .setTextStyle(textStyle: "$style")
+
+        let transformation = CLDTransformation().setVariable("$style", string: "!Arial_12!").chain().setOverlayWithLayer(layer)
+        let url = sut?.createUrl().setTransformation(transformation).generate("test")
+
+        XCTAssertNotNil(url)
+        XCTAssertFalse(url!.contains("Arial_18_bold_italic_letter_spacing_4"), "$style should overpower other text attributes.")
+    }
+
     func testOverlayErrors() {
         XCTAssertNil(sut?.createUrl().setTransformation(CLDTransformation().setOverlayWithLayer(CLDTextLayer().setText(text: "text").setFontStyle(.italic))).generate("test"))
 
