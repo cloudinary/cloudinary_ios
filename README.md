@@ -183,6 +183,8 @@ let url = cloudinary.createUrl().setTransformation().generate("sample.jpg")
 
 ### File Upload
 
+##### 1. Signed upload
+
 Uploading to your cloud is very straightforward.
 
 In the following example the file located at `fileUrl` is uploaded to your cloud:
@@ -219,6 +221,16 @@ let request = cloudinary.createUploader().upload(file: fileUrl, params: params, 
     }) { (response, error) in
         // Handle response
 }
+```
+
+##### 2. Unsigned uploads using [Upload Presets.](https://cloudinary.com/documentation/android_image_and_video_upload)
+You can create an upload preset in your Cloudinary account console, defining rules that limit the formats, transformations, dimensions and more.
+Once the preset is defined, it's name is supplied when calling upload. An upload call will only succeed if the preset name is used and the resource is within the preset's pre-defined limits.
+
+The following example uploads a local resource, assuming a preset named 'sample_preset' already exists in the account:
+```swift
+cloudinary.createUploader().upload(url: file, uploadPreset: "sample_preset", params: CLDUploadRequestParams()).response({
+})
 ```
 
 Every upload request returns a CLDUploadRequest instance, allowing options such as cancelling, suspending or resuming it.
