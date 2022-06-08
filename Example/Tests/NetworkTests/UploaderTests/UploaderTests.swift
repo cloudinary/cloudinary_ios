@@ -485,7 +485,6 @@ class UploaderTests: NetworkBaseTest {
             error = errorRes
             expectation.fulfill()
         })
-        
         waitForExpectations(timeout: timeout, handler: nil)
 
         XCTAssertNotNil(result, "result should not be nil")
