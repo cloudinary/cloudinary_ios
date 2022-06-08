@@ -223,7 +223,7 @@ let request = cloudinary.createUploader().upload(file: fileUrl, params: params, 
 }
 ```
 
-##### 2. Unsigned uploads using [Upload Presets.](https://cloudinary.com/documentation/android_image_and_video_upload)
+##### 2. Unsigned uploads using [Upload Presets.](https://cloudinary.com/documentation/ios_image_and_video_upload#unsigned_upload)
 You can create an upload preset in your Cloudinary account console, defining rules that limit the formats, transformations, dimensions and more.
 Once the preset is defined, it's name is supplied when calling upload. An upload call will only succeed if the preset name is used and the resource is within the preset's pre-defined limits.
 
