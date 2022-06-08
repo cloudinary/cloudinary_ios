@@ -229,7 +229,9 @@ Once the preset is defined, it's name is supplied when calling upload. An upload
 
 The following example uploads a local resource, assuming a preset named 'sample_preset' already exists in the account:
 ```swift
-cloudinary.createUploader().upload(url: file, uploadPreset: "sample_preset", params: CLDUploadRequestParams()).response({
+let request = cloudinary.createUploader().upload(url: file, uploadPreset: "sample_preset", params: CLDUploadRequestParams()).response({
+    (response, error) in
+    // Handle response
 })
 ```
 
