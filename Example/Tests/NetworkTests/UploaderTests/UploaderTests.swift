@@ -483,11 +483,8 @@ class UploaderTests: NetworkBaseTest {
         cloudinaryNoSecret.createUploader().upload(url: file, uploadPreset: presetName, params: CLDUploadRequestParams()).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
-
             expectation.fulfill()
         })
-        
-
         
         waitForExpectations(timeout: timeout, handler: nil)
 
