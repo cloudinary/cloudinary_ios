@@ -41,9 +41,9 @@ class ParameterEncodingTestCase: BaseTestCase {
         }).reduce([], +)
 
         if let httpBody = encodedURLRequest.httpBody, let decodedHTTPBody = String(data: httpBody, encoding: .utf8) {
-            queryParams.forEach({ query in
+            for query in queryParams {
                 XCTAssert(decodedHTTPBody.contains("\(query.0)=\(query.1)"))
-            })
+            }
         } else {
             XCTFail("decoded http body should not be nil")
         }
