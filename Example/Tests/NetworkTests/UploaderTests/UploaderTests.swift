@@ -197,6 +197,40 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
     }
 
+    func testUploadFolderDecoupling() throws {
+
+        try XCTSkipUnless(skipFolderDecouplingTest(), "prevents redundant call to Cloudinary PAID Folder Decoupling service. to allow Folder Decoupling service testing - set to true")
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed and return the params sent")
+        let file = TestResourceType.borderCollie.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+
+        params.setPublicIdPrefix("public_id_prefix")
+        params.setAssetFolder("asset_folder")
+        params.setDisplayName("display_name")
+        params.setUseFilenameAsDisplayName(true)
+        params.setFolder("folder/test")
+
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result?.assetFolder, "result should not be nil")
+        XCTAssertNotNil(result?.displayName, "result should not be nil")
+
+        XCTAssertNil(error, "error should be nil")
+    }
+
     func testUploadImageFileWithPreprocess() {
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -223,7 +257,6 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertEqual(result?.width, 500)
         XCTAssertEqual(result?.height, 500)
     }
-
 
     func testUploadWithPreprocessValidator() {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
@@ -1398,6 +1431,15 @@ class UploaderTests: NetworkBaseTest {
         }
 
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+
+    let environmentFolderDecoupling = "CLD_FOLDER_DECOUPLING"
+
+    func skipFolderDecouplingTest() -> Bool {
+        guard let _ = ProcessInfo.processInfo.environment[environmentFolderDecoupling] else {
+            return false
+        }
+        return true
     }
 
 }

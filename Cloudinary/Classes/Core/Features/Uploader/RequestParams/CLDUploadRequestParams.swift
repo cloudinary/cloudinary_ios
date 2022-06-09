@@ -226,6 +226,22 @@ import Foundation
     open var filenameOverride: String? {
         return getParam(.FilenameOverride) as? String
     }
+
+    open var assetFolder: String? {
+        return getParam(.AssetFolder) as? String
+    }
+
+    open var publicIdPrefix: String? {
+        return getParam(.PublicIdPrefix) as? String
+    }
+
+    open var useFilenameAsDisplayName: Bool? {
+        return getParam(.UseFilenameAsDisplayName) as? Bool
+    }
+
+    open var displayName: String? {
+        return getParam(.DisplayName) as? String
+    }
     
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
         return params[param.rawValue] as AnyObject
@@ -244,6 +260,19 @@ import Foundation
     @discardableResult
     open func setPublicId(_ publicId: String) -> Self {
         setParam(UploadRequestParams.PublicId.rawValue, value: publicId)
+        return self
+    }
+
+    /**
+     Set the identifier prefix that is used for accessing the uploaded resource.
+
+     - parameter prefix:    The prefix to prepend.
+
+     - returns:             The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setPublicIdPrefix(_ prefix: String) -> Self {
+        setParam(UploadRequestParams.PublicIdPrefix.rawValue, value: prefix)
         return self
     }
     
@@ -355,8 +384,48 @@ import Foundation
      
      - returns:             The same instance of CLDUploadRequestParams.
      */
+    @discardableResult
     open func setFolder(_ folder: String) -> Self {
         setParam(UploadRequestParams.Folder.rawValue, value: folder)
+        return self
+    }
+
+    /**
+     Set an optional asset folder url where the uploaded resource will be stored.
+
+     - parameter assetFolder:    The folder URL.
+
+     - returns:                  The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setAssetFolder(_ assetFolder: String) -> Self {
+        setParam(UploadRequestParams.AssetFolder.rawValue, value: assetFolder)
+        return self
+    }
+
+    /**
+     Set the display name of the uploaded resource.
+
+     - parameter displayName:    The name of the resource.
+
+     - returns:                  The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setDisplayName(_ displayName: String) -> Self {
+        setParam(UploadRequestParams.DisplayName.rawValue, value: displayName)
+        return self
+    }
+
+    /**
+     Set A boolean parameter that determines whether to use the filename as the display name of the uploaded resource.
+
+     - parameter useFilenameAsDisplayName:    The boolean parameter.
+
+     - returns:                               The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setUseFilenameAsDisplayName(_ useFilenameAsDisplayName: Bool) -> Self {
+        setParam(UploadRequestParams.UseFilenameAsDisplayName.rawValue, value: useFilenameAsDisplayName)
         return self
     }
     
@@ -1096,6 +1165,7 @@ import Foundation
     
     fileprivate enum UploadRequestParams: String {
         case PublicId =                             "public_id"
+        case PublicIdPrefix =                       "public_id_prefix"
         case Callback =                             "callback"
         case Format =                               "format"
         case FileType =                             "type"
@@ -1103,6 +1173,7 @@ import Foundation
         case EagerNotificationUrl =                 "eager_notification_url"
         case Proxy =                                "proxy"
         case Folder =                               "folder"
+        case AssetFolder =                          "asset_folder"
         case Moderation =                           "moderation"
         case RawConvert =                           "raw_convert"
         case Categorization =                       "categorization"
@@ -1113,8 +1184,10 @@ import Foundation
         case AccessControl =                        "access_control"
         case QualityOverride =                      "quality_override"
         case Eval =                                 "eval"
-        
+        case DisplayName =                          "display_name"
+
         // Boolean params
+        case UseFilenameAsDisplayName =             "use_filename_as_display_name"
         case Backup =                               "backup"
         case Exif =                                 "exif"
         case Faces =                                "faces"
