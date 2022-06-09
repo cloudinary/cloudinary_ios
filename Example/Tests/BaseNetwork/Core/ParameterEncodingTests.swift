@@ -29,10 +29,10 @@ class ParameterEncodingTestCase: BaseTestCase {
     let urlRequest = URLRequest(url: URL(string: "https://example.com/")!)
 
     internal func checkParamsEncodedCorrectly(params: [String: Any], encoding: CLDNURLEncoding = CLDNURLEncoding.default) throws {
-        var urlRequest = urlRequest
-        urlRequest.httpMethod = CLDNHTTPMethod.post.rawValue
+        var request = urlRequest
+        request.httpMethod = CLDNHTTPMethod.post.rawValue
 
-        let encodedURLRequest = try encoding.CLDN_Encode(urlRequest, with: params)
+        let encodedURLRequest = try encoding.CLDN_Encode(request, with: params)
 
         XCTAssertNotNil(encodedURLRequest.httpBody, "HTTPBody should not be nil")
 
@@ -41,9 +41,9 @@ class ParameterEncodingTestCase: BaseTestCase {
         }).reduce([], +)
 
         if let httpBody = encodedURLRequest.httpBody, let decodedHTTPBody = String(data: httpBody, encoding: .utf8) {
-            queryParams.forEach({ query in
+            for query in queryParams {
                 XCTAssert(decodedHTTPBody.contains("\(query.0)=\(query.1)"))
-            })
+            }
         } else {
             XCTFail("decoded http body should not be nil")
         }
