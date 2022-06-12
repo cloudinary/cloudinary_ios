@@ -1,4 +1,19 @@
 
+3.3.0 / 2022-06-12
+==================
+
+New functionality
+-----------------
+  * Add support for folder decoupling
+  * Add support for `startOffset` and `endOffset` as expression
+  * Allow to disable b-frames
+  * Send tags as an array
+  * Add support for `originalFilename` upload parameter
+
+Other changes
+-------------
+  * Fix expression normalisation
+
 3.2.1 / 2022-01-11
 ==================
   * Fix `Carthage`
