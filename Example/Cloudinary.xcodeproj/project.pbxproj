@@ -91,6 +91,7 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		9753E077581D46FC1463D265 /* Pods_Cloudinary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */; };
+		B6F11F3D288FC20900A895CD /* CLDAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F11F3C288FC20900A895CD /* CLDAnalyticsTests.swift */; };
 		D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7119CE2246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift */; };
 		D7173498258296CE006F34CD /* WidgetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7173497258296CE006F34CD /* WidgetUITests.swift */; };
 		D71ADD9C247D976500235AD4 /* CryptoUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D71ADD9B247D976500235AD4 /* CryptoUtilsTests.m */; };
@@ -267,6 +268,7 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2F53C389142220209152BA /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Cloudinary.podspec; path = ../Cloudinary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B6F11F3C288FC20900A895CD /* CLDAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDAnalyticsTests.swift; sourceTree = "<group>"; };
 		D07C87FEDB1F561D123D6873 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7119CE2246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDConditionExpressionHelpersTests.swift; sourceTree = "<group>"; };
 		D7173495258296CE006F34CD /* Cloudinary_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Cloudinary_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -657,6 +659,7 @@
 			children = (
 				5D53A9502488CE23005C14AB /* CLDConfigurationTests.m */,
 				5D53A94F2488CE23005C14AB /* CLDConfigurationTests.swift */,
+				B6F11F3C288FC20900A895CD /* CLDAnalyticsTests.swift */,
 			);
 			path = ConfigurationTests;
 			sourceTree = "<group>";
@@ -1318,6 +1321,7 @@
 				D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */,
 				27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */,
 				D751A03825E26DB0006839B1 /* WarehouseTests.swift in Sources */,
+				B6F11F3D288FC20900A895CD /* CLDAnalyticsTests.swift in Sources */,
 				D751A03625E26DB0006839B1 /* StorehouseEntryTests.swift in Sources */,
 				1E635A7F25A7585E0003E9D3 /* MockProviderQualityAnalysis.swift in Sources */,
 				D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */,
