@@ -97,6 +97,11 @@ import Foundation
      A custom timeout in milliseconds to be used instead of Cloudinary's default timeout. nil by default.
      */
     open fileprivate(set) var timeout: NSNumber?
+
+    /**
+     A boolean value specifying whether or not to use analytics. false by default.
+    */
+   open fileprivate(set) var analytics: Bool = false
     
     internal var userPlatform: CLDUserPlatform?
     

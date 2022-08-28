@@ -8,11 +8,16 @@
 
 import Foundation
 import Cloudinary
+import XCTest
 class CLDAnalyticsTests: BaseTestCase {
 
     func test_analyicsString() {
         let cldAnalytics = CLDAnalytics();
-        let analyticsString = cldAnalytics.generateAnalyticsSignature()
-        print(analyticsString)
+        var analyticsString = cldAnalytics.generateAnalyticsSignature(sdkVersion: "1.24.0",techVersion: "12.0")
+        XCTAssertEqual(analyticsString, "AEAlhAM0")
+
+        analyticsString = cldAnalytics.generateAnalyticsSignature(sdkVersion: "1.24.0-beta.6",techVersion: "12.0")
+        XCTAssertEqual(analyticsString, "AEAlhAM0")
+
     }
 }

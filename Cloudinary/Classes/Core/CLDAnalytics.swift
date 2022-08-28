@@ -11,23 +11,30 @@ import Foundation
     private final let SDK = "E"
     private final let ERROR_SIGNATURE = "E"
     private final let NO_FEATURE_CHAR = "0"
+    
 
-    public func generateAnalyticsSignature() -> String {
-        let sdkVersion = CLDNetworkCoordinator.DEFAULT_VERSION
-        let swiftVersion = getSwiftVersion()
-        let swiftVersionArray = swiftVersion.split(separator: ".")
-        guard let swiftVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "0") else {
+    public func generateAnalyticsSignature(sdkVersion: String? = nil, techVersion: String? = nil) -> String {
+        var sdkVersion = sdkVersion
+        if sdkVersion == nil {
+            sdkVersion = CLDNetworkCoordinator.DEFAULT_VERSION
+        }
+        var techVersion = techVersion
+        if techVersion == nil {
+            techVersion = getSwiftVersion()
+        }
+        let swiftVersionArray = techVersion!.split(usingRegex: "\\.|\\-")
+        guard let swiftVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
             return ERROR_SIGNATURE
         }
-        let sdkVersionArray = sdkVersion.split(separator: ".")
-        guard let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersion[2])) else {
+        let sdkVersionArray = sdkVersion!.split(usingRegex: "\\.|\\-")
+        guard let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersionArray[2])) else {
             return ERROR_SIGNATURE
         }
-        return "\(ALGO_VERSION)\(sdkVersionString)\(swiftVersionString)\(NO_FEATURE_CHAR)"
+        return "\(ALGO_VERSION)\(SDK)\(sdkVersionString)\(swiftVersionString)\(NO_FEATURE_CHAR)"
     }
 
     private func generateVersionString(major: String, minor: String, patch: String) -> String? {
-        let versionString = (patch.padding(toLength: 2, withPad: "0", startingAt: 0) + minor.padding(toLength: 2, withPad: "0", startingAt: 0) + major.padding(toLength: 2, withPad: "0", startingAt: 0))
+        let versionString = (patch.leftPadding(toLength: 2, withPad: "0") + minor.leftPadding(toLength: 2, withPad: "0") + major.leftPadding(toLength: 2, withPad: "0"))
         guard let doubleValue = Int(versionString) else {
             return nil
         }
@@ -38,7 +45,7 @@ import Foundation
         if (!patch.isEmpty) {
             patchStr = String(hexString[hexString.startIndex..<hexString.index(hexString.startIndex, offsetBy: 5)]).toAnalyticsVersionStr()
         }
-        let minorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 6)..<hexString.index(hexString.startIndex, offsetBy: 11)]).toAnalyticsVersionStr()
+        let minorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 6)..<hexString.index(hexString.startIndex, offsetBy: 12)]).toAnalyticsVersionStr()
         let majorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 12)..<hexString.index(hexString.startIndex, offsetBy: 18)]).toAnalyticsVersionStr()
 
         return "\(patchStr)\(minorStr)\(majorStr)"
@@ -56,5 +63,14 @@ import Foundation
         #elseif swift(>=2.1)
             return 2.1
         #endif
+    }
+}
+extension String {
+    func split(usingRegex pattern: String) -> [String] {
+        //### Crashes when you pass invalid `pattern`
+        let regex = try! NSRegularExpression(pattern: pattern)
+        let matches = regex.matches(in: self, range: NSRange(0..<utf16.count))
+        let ranges = [startIndex..<startIndex] + matches.map{Range($0.range, in: self)!} + [endIndex..<endIndex]
+        return (0...matches.count).map {String(self[ranges[$0].upperBound..<ranges[$0+1].lowerBound])}
     }
 }

@@ -127,17 +127,17 @@ internal extension String {
             guard let value = UnicodeScalar(UnicodeScalar("A").value + binaryInt) else {
                 return ""
             }
-            return String(Character(value))
+            return String(UnicodeScalar(value))
         case 26..<51:
-            guard let value = UnicodeScalar(UnicodeScalar("a").value + binaryInt) else {
+            guard let value = UnicodeScalar(UnicodeScalar("a").value + binaryInt - 26) else {
                 return ""
             }
-            return String(Character(value))
+            return String(UnicodeScalar(value))
         default:
-            guard let value = UnicodeScalar(UnicodeScalar("0").value + binaryInt) else {
+            guard let value = UnicodeScalar(UnicodeScalar("0").value + binaryInt - 52) else {
                 return ""
             }
-            return String(Character(value))
+            return String(UnicodeScalar(value))
         }
     }
 }
