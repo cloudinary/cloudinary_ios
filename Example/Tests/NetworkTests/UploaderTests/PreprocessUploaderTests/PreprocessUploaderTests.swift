@@ -418,7 +418,7 @@ class PreprocessUploaderTests: NetworkBaseTest {
         let expectation = self.expectation(description: "download should succeed")
 
         // Given
-        let localRotatedImageData = UIImage(data: testResourceType.data)?.pngData()
+        let localRotatedImageData = UIImage(data: testResourceType.data)
 
         var response: UIImage?
         var error   : NSError?
@@ -439,6 +439,6 @@ class PreprocessUploaderTests: NetworkBaseTest {
         // Then
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertNil(error, "error should be nil")
-        XCTAssertEqual(downloadedImageData, localRotatedImageData, "image downloaded after uploaded with rotate preprocess, should be equal to expected rotated image")
+        XCTAssertEqual(response?.size, localRotatedImageData?.size, "image downloaded after uploaded with rotate preprocess, should be equal to expected rotated image")
     }
 }
