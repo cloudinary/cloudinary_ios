@@ -147,7 +147,7 @@ cloudinary.createUrl().generate("sample.jpg")
 The following example generates an image URL of an uploaded `sample` image while transforming it to fill a 100x150 rectangle:
 
 ```swift
-let transformation = CLDTransformation().setWidth(100).setHeight(150).setCrop(.Crop)
+let transformation = CLDTransformation().setWidth(100).setHeight(150).setCrop(.crop)
 cloudinary.createUrl().setTransformation(transformation).generate("sample.jpg")
 
 // http://res.cloudinary.com/CLOUD_NAME/image/upload/c_fill,h_150,w_100/sample.jpg
