@@ -78,8 +78,8 @@ Then, run the command:
 ```bash
 carthage update --use-xcframeworks
 ```
-A Cartfile.resolved file and a Carthage directory will appear in the same directory where your .xcodeproj or .xcworkspace is.
-Drag the built .xcframework bundles from Carthage/Build into the "Frameworks and Libraries" section of your application’s Xcode project.
+A `Cartfile.resolved` file and a `Carthage` directory will appear in the same directory where your `.xcodeproj` or `.xcworkspace` is.
+Drag the built `.xcframework` bundles from `Carthage/Build` into the `Frameworks and Libraries` section of your application’s Xcode project.
 
 ### Swift Package Manager
 * File > Add Packages... >
