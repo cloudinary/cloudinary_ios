@@ -801,4 +801,19 @@ class UploaderEncodingTestCase: ParameterEncodingTestCase {
         uploadRequestParams.setFolder("folder/test")
         try checkParamsEncodedCorrectly(params: uploadRequestParams.params)
     }
+
+    func testRenameFolderDecouplingSimplifiedToRequest() throws {
+        var renameRequestParams = CLDRenameRequestParams(params: ["asset_folder": "asset_folder" as AnyObject, "display_name": "display_name"  as AnyObject, "public_id_prefix": "public_id_prefix"  as AnyObject])
+        try checkParamsEncodedCorrectly(params: renameRequestParams.params)
+    }
+
+    func testExplicityFolderDecouplingSimplifiedToRequest() throws {
+        let explicitRequestParams = CLDExplicitRequestParams()
+        explicitRequestParams.setPublicIdPrefix("public_id_prefix")
+        explicitRequestParams.setAssetFolder("asset_folder")
+        explicitRequestParams.setDisplayName("display_name")
+        explicitRequestParams.setUseFilenameAsDisplayName(true)
+        explicitRequestParams.setFolder("folder/test")
+        try checkParamsEncodedCorrectly(params: explicitRequestParams.params)
+    }
 }

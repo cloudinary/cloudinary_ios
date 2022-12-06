@@ -218,7 +218,7 @@ class PreprocessTests: BaseTestCase {
         sut = try! CLDPreprocessHelpers.rotate(degrees: 45)(image)
         
         // Then
-        XCTAssertEqual(sut.pngData(), prePreparedImage.pngData(), "rotated image should be equal to pre prepared image")
+        XCTAssertEqual(sut.size, prePreparedImage.size, "rotated image should be equal to pre prepared image")
     }
     
     // MARK: - dimension validator

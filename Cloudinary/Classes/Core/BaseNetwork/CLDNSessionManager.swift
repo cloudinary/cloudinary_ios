@@ -165,6 +165,7 @@ internal class CLDNSessionManager {
         configuration: URLSessionConfiguration = URLSessionConfiguration.default,
         delegate: CLDNSessionDelegate = CLDNSessionDelegate())
     {
+        configuration.urlCredentialStorage = nil;
         self.delegate = delegate
         self.session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
 
