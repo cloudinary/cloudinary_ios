@@ -63,7 +63,8 @@
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
-                                                   timeout:input];
+                                                   timeout:input
+                                                 analytics:NO];
     
     // Then
     XCTAssertEqualObjects(self.sut.timeout, expectedResult, "Init with timeout = number, should be stored in property");
@@ -84,7 +85,8 @@
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
-                                                   timeout:nil];
+                                                   timeout:nil
+                                                 analytics:NO];
     
     // Then
     XCTAssertNil(self.sut.timeout, "Init with timeout = nil, should not be stored in property");
@@ -156,7 +158,8 @@
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
-                                                   timeout:nil];
+                                                   timeout:nil
+                                                 analytics:NO];
     
     // Then
     XCTAssertTrue(self.sut.longUrlSignature, "Init with longUrlSignature = true, should be stored in property");
@@ -176,7 +179,8 @@
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
-                                                   timeout:nil];
+                                                   timeout:nil
+                                                 analytics:NO];
     
     // Then
     XCTAssertFalse(self.sut.longUrlSignature, "Init without longUrlSignature should store the default false value");
@@ -242,7 +246,8 @@
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
-                                                   timeout:nil];
+                                                   timeout:nil
+                                                 analytics:NO];
     
     // Then
     XCTAssertEqual(self.sut.signatureAlgorithm, SignatureAlgorithmSha256, "Init with signatureAlgorithm should store that value in property");
@@ -262,7 +267,8 @@
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
-                                                   timeout:nil];
+                                                   timeout:nil
+                                                 analytics:NO];
     
     // Then
     XCTAssertEqual(self.sut.signatureAlgorithm, SignatureAlgorithmSha1, "Init without signatureAlgorithm should store the default .sha1 value");

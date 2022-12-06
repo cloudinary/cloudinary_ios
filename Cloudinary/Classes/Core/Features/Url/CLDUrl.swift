@@ -385,8 +385,17 @@ import Foundation
                 }
             }
         }
+
         
-        let url = [prefix, resourceTypeAndType, signature, transformationStr, version , sourceName].joined(separator: "/").replacingOccurrences(of: " ", with: "%20")
+        var url = [prefix, resourceTypeAndType, signature, transformationStr, version , sourceName].joined(separator: "/").replacingOccurrences(of: " ", with: "%20")
+
+        //Analytics
+        if let urlObject = URL(string: url) {
+            if(config.analytics && urlObject.query == nil) {
+                let analytics = "a_" + CLDAnalytics().generateAnalyticsSignature()
+                url = url + "?" + analytics
+            }
+        }
         
         let regex = try! NSRegularExpression(pattern: "([^:])\\/+", options: NSRegularExpression.Options.caseInsensitive)
         

@@ -46,12 +46,13 @@ class NetworkBaseTest: BaseTestCase {
         if let url = Bundle(for: type(of: self)).infoDictionary?["cldCloudinaryUrl"] as? String, url.count > 0 {
             config = CLDConfiguration(cloudinaryUrl: url)!
         } else {
-            config = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
+            config = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123?analytics=false")!
+            config.analytics = false
         }
         
         let configInsufficientTimeout = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: config.apiSecret, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix, timeout: 0.01)
         
-        let configSufficientTimeout = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: config.apiSecret, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix, timeout: 30000)
+        let configSufficientTimeout = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: config.apiSecret, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix, timeout: 30000, analytics: false)
         
         let configNoSecret = CLDConfiguration (cloudName: config.cloudName, apiKey: config.apiKey, apiSecret: nil, privateCdn: config.privateCdn, secure: config.secure, cdnSubdomain: config.cdnSubdomain, secureCdnSubdomain: config.secureCdnSubdomain, secureDistribution: config.secureDistribution, cname: config.cname, uploadPrefix: config.uploadPrefix)
 

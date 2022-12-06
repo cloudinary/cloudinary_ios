@@ -99,9 +99,9 @@ import Foundation
     open fileprivate(set) var timeout: NSNumber?
 
     /**
-     A boolean value specifying whether or not to use analytics. false by default.
+     A boolean value specifying whether or not to use analytics. true by default.
     */
-   open fileprivate(set) var analytics: Bool = false
+   open var analytics: Bool = true
     
     internal var userPlatform: CLDUserPlatform?
     
@@ -264,7 +264,8 @@ import Foundation
         secureDistribution: String? = nil,
         cname: String? = nil,
         uploadPrefix: String? = nil,
-        timeout: NSNumber? = nil
+        timeout: NSNumber? = nil,
+        analytics: Bool = true
     ) {
         self.cloudName = cloudName
         self.apiKey = apiKey
@@ -279,6 +280,7 @@ import Foundation
         self.cname = cname
         self.uploadPrefix = uploadPrefix
         self.timeout = timeout
+        self.analytics = analytics
         super.init()
     }
     
@@ -330,6 +332,7 @@ import Foundation
                 case .CName: cname = value
                 case .UploadPrefix: uploadPrefix = value
                 case .Timeout: timeout = value.cldAsNSNumber()
+                case .Analytics: analytics = value.cldAsBool()
                 default:
                     continue
                 }
@@ -353,6 +356,7 @@ import Foundation
         case PrivateCdn         = "private_cdn"
         case SecureDistribution = "secure_distribution"
         case Timeout            = "timeout"
+        case Analytics          = "analytics"
         
         internal var description: String {
             switch self {
@@ -369,6 +373,7 @@ import Foundation
             case .PrivateCdn:           return "private_cdn"
             case .SecureDistribution:   return "secure_distribution"
             case .Timeout:              return "timeout"
+            case .Analytics:            return "analytics"
             }
         }
     }
