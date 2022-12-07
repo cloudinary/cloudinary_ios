@@ -127,10 +127,10 @@ internal class CLDNetworkCoordinator: NSObject {
         var headers: [String : String] = [:]
         var userAgent: String
         if let userPlatform = config.userPlatform {
-            userAgent = "\(userPlatform.platform)/\(userPlatform.version) CloudinaryiOS/\(getVersion())"
+            userAgent = "\(userPlatform.platform)/\(userPlatform.version) CloudinaryiOS/\(CLDNetworkCoordinator.getVersion())"
         }
         else {
-            userAgent = "CloudinaryiOS/\(getVersion())"
+            userAgent = "CloudinaryiOS/\(CLDNetworkCoordinator.getVersion())"
         }
 
         userAgent += " (\(UIDevice.current.model); \(UIDevice.current.systemName) \(UIDevice.current.systemVersion))"
@@ -141,7 +141,7 @@ internal class CLDNetworkCoordinator: NSObject {
         return headers
     }
     
-    fileprivate func getVersion() -> String {
+    static func getVersion() -> String {
         let version = CLDNetworkCoordinator.DEFAULT_VERSION
         return version
     }

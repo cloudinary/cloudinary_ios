@@ -7,30 +7,48 @@
 
 import Foundation
 @objcMembers open class CLDAnalytics: NSObject {
+
+    public static let shared = CLDAnalytics()
+
     private final let ALGO_VERSION = "A"
     private final let SDK = "E"
     private final let ERROR_SIGNATURE = "E"
     private final let NO_FEATURE_CHAR = "0"
+
+    private var sdkVersion: String? = nil
+    private var techVersion: String? = nil
     
 
-    public func generateAnalyticsSignature(sdkVersion: String? = nil, techVersion: String? = nil) -> String {
-        var sdkVersion = sdkVersion
+    public func generateAnalyticsSignature(sdkVersionString: String? = nil, techVersionString: String? = nil) -> String {
         if sdkVersion == nil {
-            sdkVersion = CLDNetworkCoordinator.DEFAULT_VERSION
+            sdkVersion = sdkVersionString
+            if sdkVersion == nil {
+                sdkVersion = CLDNetworkCoordinator.getVersion()
+            }
         }
-        var techVersion = techVersion
         if techVersion == nil {
-            techVersion = getSwiftVersion()
+            techVersion = techVersionString
+            if techVersion == nil {
+                techVersion = getSwiftVersion()
+            }
         }
         let swiftVersionArray = techVersion!.split(usingRegex: "\\.|\\-")
-        guard let swiftVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
+        guard swiftVersionArray.count > 1, let swiftVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
             return ERROR_SIGNATURE
         }
         let sdkVersionArray = sdkVersion!.split(usingRegex: "\\.|\\-")
-        guard let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersionArray[2])) else {
+        guard sdkVersionArray.count > 1, let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersionArray[2])) else {
             return ERROR_SIGNATURE
         }
         return "\(ALGO_VERSION)\(SDK)\(sdkVersionString)\(swiftVersionString)\(NO_FEATURE_CHAR)"
+    }
+
+    public func setSDKVersion(version: String) {
+        sdkVersion = version;
+    }
+
+    public func setTechVersion(version: String) {
+        techVersion = version;
     }
 
     private func generateVersionString(major: String, minor: String, patch: String) -> String? {
