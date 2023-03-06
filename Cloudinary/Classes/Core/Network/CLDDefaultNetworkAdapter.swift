@@ -117,9 +117,17 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
         return asyncUploadRequest
     }
 
-    internal func downloadFromCloudinary(_ url: String) -> CLDNetworkDataRequest {
+    internal func downloadFromCloudinary(_ url: String, headers: CLDNHTTPHeaders? = nil) -> CLDNetworkDataRequest {
         
-        let req = manager.request(url)
+        let req = manager.request(url, headers: headers)
+        downloadQueue.addOperation { () -> () in
+            req.resume()
+        }
+        return CLDNetworkDownloadRequest(request: req)
+    }
+
+    internal func headRequest(_ url: String, headers: [String : String]?) -> CLDNetworkDataRequest {
+        let req = manager.request(url, method: .head, headers: headers)
         downloadQueue.addOperation { () -> () in
             req.resume()
         }

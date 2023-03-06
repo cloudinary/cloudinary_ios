@@ -63,30 +63,60 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                         self?.closureQueue.isSuspended = false
                     }
                     else {
-                        self?.downloadImageAndCacheIt()
+                        self?.checkUrlCacheAndDownload()
                     }
                 })
             }
             else {
-                self.downloadImageAndCacheIt()
+                self.checkUrlCacheAndDownload()
             }
         }
     }
     
     // MARK: Private
     
-    fileprivate func downloadImageAndCacheIt() {
-        
+    fileprivate func checkUrlCacheAndDownload() {
+        var headers: CLDNHTTPHeaders?
+        if let cachedResponse = try? self.downloadCoordinator.urlCache.warehouse.entry(forKey: url), downloadCoordinator.imageCache.cachePolicy == .none {
+            let lastModified = cachedResponse.expiry.date
+            headers = CLDNHTTPHeaders()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+
+            let lastModifiedDate = Date() // replace with the actual date you want to use
+            let ifModifiedSinceHeader = dateFormatter.string(from: lastModifiedDate)
+            headers!["If-Modified-Since"] = ifModifiedSinceHeader
+            let headRequest = downloadCoordinator.head(url, headers: headers) as? CLDNetworkDownloadRequest
+            headRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
+                if httpCode == 200 { // If we get 200 that means the image changed we need to remove it from the cache and download it again
+                    if let url = self?.url {
+                        try? self?.downloadCoordinator.urlCache.removeCachedResponse(for: URLRequest(url: url, method: .get))
+                    }
+                }
+                self?.downloadImageAndCacheIt()
+            }
+            return
+        } else {
+            downloadImageAndCacheIt()
+        }
+    }
+
+    func downloadImageAndCacheIt() {
         imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
-        
+        // Here we need to check for the cached image and set the if-modified header with the currect date.
+
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
             if let data = responseData, !data.isEmpty {
                 if let
                     image = data.cldToUIImageThreadSafe(),
-                    let url = self?.url {
+                   let url = self?.url {
                     self?.image = image
-                    self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    if self?.downloadCoordinator.imageCache.cachePolicy != .none {
+                        self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    }
                 }
                 else {
                     let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.", userInfo: ["statusCode": httpCode])

@@ -37,13 +37,14 @@ class UIImageViewTests: UIBaseTest {
         let imageView = TestImageView { (image) in
             if image != nil {
                 imageDownloadedAndSet = true
-            }
+            }   
             expectation.fulfill()
         }
-        
-        imageView.cldSetImage(url, cloudinary: cloudinarySecured)
-        waitForExpectations(timeout: timeout, handler: nil)
-        
+        cloudinarySecured.cachePolicy = .none
+        cloudinarySecured.shouldExcludeImagesFromCacheUrl = false
+        imageView.cldSetImage("https://res.cloudinary.com/adimizrahi2/image/upload/test", cloudinary: cloudinarySecured)
+        waitForExpectations(timeout: 300, handler: nil)
+        let image = imageView.image
         XCTAssertTrue(imageDownloadedAndSet)
         
     }

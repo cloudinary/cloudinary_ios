@@ -39,6 +39,8 @@ internal final class CLDURLCache : URLCache
     internal fileprivate(set) var settings  : CLDURLCacheConfiguration!
     fileprivate var path                    : String?
     internal weak var delegate              : CLDURLCacheDelegate?
+
+    internal var shouldExcludeImages = true
     
     fileprivate var shouldReceateCacheResponse = false
     
@@ -114,8 +116,10 @@ internal final class CLDURLCache : URLCache
         // Check file status only if we have network, otherwise return it anyway.
         if networkAvailable() && responseEntry.expiry.isExpired
         {
+            //Check wheter the request has a specific max age attribute or we're taking it from the URLCache settings
             let maxAge = request.value(forHTTPHeaderField: "Access-Control-Max-Age") ?? String(settings.maxCacheResponseAge)
             printLog(.debug, text: "CLDURLCache cannot read item, older than \(maxAge) seconds")
+            shouldReceateCacheResponse = true
         }
         
         let response = responseEntry.object
@@ -134,7 +138,6 @@ internal final class CLDURLCache : URLCache
                     return cachedResponse(for: redirectRequest)
                 }
             }
-            
             guard let responseURL = response.response.url else { return response }
             let URLResponse = Foundation.URLResponse(url: responseURL, mimeType: response.response.mimeType, expectedContentLength: response.data.count, textEncodingName: response.response.textEncodingName)
             return CachedURLResponse(response: URLResponse, data: response.data, userInfo: response.userInfo, storagePolicy: .allowed)
@@ -161,9 +164,11 @@ internal final class CLDURLCache : URLCache
         
         guard let httpResponse = cachedResponse.response as? HTTPURLResponse else { return }
         guard let httpStatus   = httpResponse.cld_code                       else { return }
-        
-        let shouldExclude = delegate?.shouldExclude?(response: httpResponse, for: self)
-        guard shouldExclude == false else { return }
+
+        if shouldExcludeImages {
+            let shouldExclude = delegate?.shouldExclude?(response: httpResponse, for: self)
+            guard shouldExclude == false else { return }
+        }
         
         let expirationDate = httpResponse.cld_expirationDate(forCache: settings)
         
@@ -300,6 +305,13 @@ internal final class CLDURLCache : URLCache
     ///
     internal func updateMemoryCapacity(_ newMemoryCapacity: Int) {
         handleWarehouse(memoryCapacity: newMemoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
+    }
+
+    ///
+    ///
+    ///
+    func shouldExcludeImages(_ shouldExclude: Bool) {
+        shouldExcludeImages = shouldExclude
     }
 }
 

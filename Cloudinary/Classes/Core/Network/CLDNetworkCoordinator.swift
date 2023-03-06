@@ -70,8 +70,12 @@ internal class CLDNetworkCoordinator: NSObject {
         return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data)
     }
     
-    internal func download(_ url: String) -> CLDNetworkDataRequest {
-        return networkAdapter.downloadFromCloudinary(url)
+    internal func download(_ url: String, headers: CLDNHTTPHeaders? = nil) -> CLDNetworkDataRequest {
+        return networkAdapter.downloadFromCloudinary(url, headers: headers)
+    }
+
+    internal func head(_ url: String, headers: CLDNHTTPHeaders? = nil) -> CLDNetworkRequest {
+        return networkAdapter.headRequest(url, headers: headers)
     }
     
     // MARK: - Helpers
