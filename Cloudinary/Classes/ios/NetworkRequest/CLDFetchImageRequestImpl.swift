@@ -76,28 +76,26 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     // MARK: Private
     
     fileprivate func checkUrlCacheAndDownload() {
-        var headers: CLDNHTTPHeaders?
-        if let cachedResponse = try? self.downloadCoordinator.urlCache.warehouse.entry(forKey: url), downloadCoordinator.imageCache.cachePolicy == .none {
+        if let cachedResponse = try? self.downloadCoordinator.urlCache.warehouse.entry(forKey: url), downloadCoordinator.imageCache.cachePolicy == .none, cachedResponse.expiry.isExpired {
+            var headers = CLDNHTTPHeaders()
             let lastModified = cachedResponse.expiry.date
-            headers = CLDNHTTPHeaders()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
-            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-
-            let lastModifiedDate = Date() // replace with the actual date you want to use
-            let ifModifiedSinceHeader = dateFormatter.string(from: lastModifiedDate)
-            headers!["If-Modified-Since"] = ifModifiedSinceHeader
+            headers.buildIfModifiedSinceHeader(lastModified)
             let headRequest = downloadCoordinator.head(url, headers: headers) as? CLDNetworkDownloadRequest
             headRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
-                if httpCode == 200 { // If we get 200 that means the image changed we need to remove it from the cache and download it again
+                if let err = responseError, httpCode != 304 {
+                    self?.error = err
+                    return
+                } else if httpCode == 200 { // If we get 200 that means the image changed we need to remove it from the cache and download it again
+                    if let data = responseData, let
+                        image = data.cldToUIImageThreadSafe() {
+                        self?.image = image
+                    }
                     if let url = self?.url {
                         try? self?.downloadCoordinator.urlCache.removeCachedResponse(for: URLRequest(url: url, method: .get))
                     }
                 }
                 self?.downloadImageAndCacheIt()
             }
-            return
         } else {
             downloadImageAndCacheIt()
         }
@@ -106,13 +104,12 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     func downloadImageAndCacheIt() {
         imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
-        // Here we need to check for the cached image and set the if-modified header with the currect date.
 
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
             if let data = responseData, !data.isEmpty {
                 if let
                     image = data.cldToUIImageThreadSafe(),
-                   let url = self?.url {
+                    let url = self?.url {
                     self?.image = image
                     if self?.downloadCoordinator.imageCache.cachePolicy != .none {
                         self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
