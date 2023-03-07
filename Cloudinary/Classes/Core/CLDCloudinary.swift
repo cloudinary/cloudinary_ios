@@ -128,6 +128,15 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             downloadCoordinator.urlCache.updateMemoryCapacity(newValue)
         }
     }
+
+    open var shouldExcludeImagesFromCacheUrl: Bool {
+        get {
+            return downloadCoordinator.urlCache.shouldExcludeImages
+        }
+        set {
+            downloadCoordinator.urlCache.shouldExcludeImages(newValue)
+        }
+    }
     
     /**
     Removes an image from the downloaded images cache, both disk and memory.

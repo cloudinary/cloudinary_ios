@@ -126,6 +126,14 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
         return CLDNetworkDownloadRequest(request: req)
     }
 
+    internal func headRequest(_ url: String, headers: [String : String]?) -> CLDNetworkDataRequest {
+        let req = manager.request(url, method: .head, headers: headers)
+        downloadQueue.addOperation { () -> () in
+            req.resume()
+        }
+        return CLDNetworkDownloadRequest(request: req)
+    }
+
     // MARK: - Setters
     internal func setBackgroundCompletionHandler(_ newValue: (() -> ())?) {
         manager.backgroundCompletionHandler = newValue

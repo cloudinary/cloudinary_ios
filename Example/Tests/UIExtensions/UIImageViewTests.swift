@@ -37,15 +37,30 @@ class UIImageViewTests: UIBaseTest {
         let imageView = TestImageView { (image) in
             if image != nil {
                 imageDownloadedAndSet = true
+            }   
+            expectation.fulfill()
+        }
+        imageView.cldSetImage(url, cloudinary: cloudinarySecured)
+        waitForExpectations(timeout: timeout, handler: nil)
+        XCTAssertTrue(imageDownloadedAndSet)
+    }
+
+    func testImageDownloadedWithUrlCache() {
+        let expectation = self.expectation(description: "should succeed downloading and setting image.")
+
+        var imageDownloadedAndSet = false
+        let imageView = TestImageView { (image) in
+            if image != nil {
+                imageDownloadedAndSet = true
             }
             expectation.fulfill()
         }
-        
+        cloudinarySecured.cachePolicy = .none
+        cloudinarySecured.shouldExcludeImagesFromCacheUrl = false
         imageView.cldSetImage(url, cloudinary: cloudinarySecured)
         waitForExpectations(timeout: timeout, handler: nil)
-        
+        let image = imageView.image
         XCTAssertTrue(imageDownloadedAndSet)
-        
     }
     
     func testResponsiveImageDownloadedAndSetFromURL() {

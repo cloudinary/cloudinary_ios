@@ -63,30 +63,57 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                         self?.closureQueue.isSuspended = false
                     }
                     else {
-                        self?.downloadImageAndCacheIt()
+                        self?.checkUrlCacheAndDownload()
                     }
                 })
             }
             else {
-                self.downloadImageAndCacheIt()
+                self.checkUrlCacheAndDownload()
             }
         }
     }
     
     // MARK: Private
     
-    fileprivate func downloadImageAndCacheIt() {
-        
+    fileprivate func checkUrlCacheAndDownload() {
+        if let cachedResponse = try? self.downloadCoordinator.urlCache.warehouse.entry(forKey: url), downloadCoordinator.imageCache.cachePolicy == .none, cachedResponse.expiry.isExpired {
+            var headers = CLDNHTTPHeaders()
+            let lastModified = cachedResponse.expiry.date
+            headers.buildIfModifiedSinceHeader(lastModified)
+            let headRequest = downloadCoordinator.head(url, headers: headers) as? CLDNetworkDownloadRequest
+            headRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
+                if let err = responseError, httpCode != 304 {
+                    self?.error = err
+                    return
+                } else if httpCode == 200 { // If we get 200 that means the image changed we need to remove it from the cache and download it again
+                    if let data = responseData, let
+                        image = data.cldToUIImageThreadSafe() {
+                        self?.image = image
+                    }
+                    if let url = self?.url {
+                        try? self?.downloadCoordinator.urlCache.removeCachedResponse(for: URLRequest(url: url, method: .get))
+                    }
+                }
+                self?.downloadImageAndCacheIt()
+            }
+        } else {
+            downloadImageAndCacheIt()
+        }
+    }
+
+    func downloadImageAndCacheIt() {
         imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
-        
+
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
             if let data = responseData, !data.isEmpty {
                 if let
                     image = data.cldToUIImageThreadSafe(),
                     let url = self?.url {
                     self?.image = image
-                    self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    if self?.downloadCoordinator.imageCache.cachePolicy != CLDImageCachePolicy.none {
+                        self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    }
                 }
                 else {
                     let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.", userInfo: ["statusCode": httpCode])
