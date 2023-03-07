@@ -111,7 +111,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                     image = data.cldToUIImageThreadSafe(),
                     let url = self?.url {
                     self?.image = image
-                    if self?.downloadCoordinator.imageCache.cachePolicy != .none {
+                    if self?.downloadCoordinator.imageCache.cachePolicy != CLDImageCachePolicy.none {
                         self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
                     }
                 }
