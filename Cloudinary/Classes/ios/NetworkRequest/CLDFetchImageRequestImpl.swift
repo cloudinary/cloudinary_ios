@@ -85,6 +85,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
             downloadImageAndCacheIt()
             return
         }
+        //if Cached image is found and expired we'll add the if-modified-since header and send request
         verifyCachedResponse(cachedResponse: cachedResponse)
     }
 
