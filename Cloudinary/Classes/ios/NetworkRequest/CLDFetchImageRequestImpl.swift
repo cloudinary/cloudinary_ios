@@ -49,7 +49,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
             operationQueue.maxConcurrentOperationCount = 1
             operationQueue.isSuspended = true
             return operationQueue
-            }()
+        }()
     }
     
     // MARK: - Actions
@@ -76,40 +76,44 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     // MARK: Private
     
     fileprivate func checkUrlCacheAndDownload() {
-        if let cachedResponse = try? self.downloadCoordinator.urlCache.warehouse.entry(forKey: url), downloadCoordinator.imageCache.cachePolicy == .none, cachedResponse.expiry.isExpired {
-            var headers = CLDNHTTPHeaders()
-            let lastModified = cachedResponse.expiry.date
-            headers.buildIfModifiedSinceHeader(lastModified)
-            let headRequest = downloadCoordinator.head(url, headers: headers) as? CLDNetworkDownloadRequest
-            headRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
-                if let err = responseError, httpCode != 304 {
-                    self?.error = err
-                    return
-                } else if httpCode == 200 { // If we get 200 that means the image changed we need to remove it from the cache and download it again
-                    if let data = responseData, let
-                        image = data.cldToUIImageThreadSafe() {
-                        self?.image = image
-                    }
-                    if let url = self?.url {
-                        try? self?.downloadCoordinator.urlCache.removeCachedResponse(for: URLRequest(url: url, method: .get))
-                    }
-                }
-                self?.downloadImageAndCacheIt()
-            }
-        } else {
+        if downloadCoordinator.imageCache.cachePolicy != .none {
             downloadImageAndCacheIt()
+            return
         }
+        // If not cached download and cache it and return
+        guard let cachedResponse = try? self.downloadCoordinator.urlCache.warehouse.entry(forKey: url), cachedResponse.expiry.isExpired else {
+            downloadImageAndCacheIt()
+            return
+        }
+        verifyCachedResponse(cachedResponse: cachedResponse)
     }
 
-    func downloadImageAndCacheIt() {
-        imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
+    func verifyCachedResponse(cachedResponse: StorehouseEntry<CachedURLResponse>) {
+        let lastModified = cachedResponse.expiry.date
+        var headers = CLDNHTTPHeaders()
+        headers.buildIfModifiedSinceHeader(lastModified)
+        downloadImageAndCacheIt(headers: headers)
+    }
+
+
+    func downloadImageAndCacheIt(headers: CLDNHTTPHeaders? = nil) {
+        imageDownloadRequest = downloadCoordinator.download(url, headers: headers) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
 
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
+            if httpCode == 304 { // Image not modified get it from cache
+                self?.downloadCoordinator.urlCache.getCachedResponse(for: self?.imageDownloadRequest?.request.task as! URLSessionDataTask) { response in
+                    if let image = response?.data.cldToUIImageThreadSafe() {
+                        self?.image = image
+                        self?.closureQueue.isSuspended = false
+                    }
+                }
+                return
+            }
             if let data = responseData, !data.isEmpty {
                 if let
                     image = data.cldToUIImageThreadSafe(),
-                    let url = self?.url {
+                   let url = self?.url {
                     self?.image = image
                     if self?.downloadCoordinator.imageCache.cachePolicy != CLDImageCachePolicy.none {
                         self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)

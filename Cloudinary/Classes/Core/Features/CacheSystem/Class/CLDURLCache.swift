@@ -267,7 +267,11 @@ internal final class CLDURLCache : URLCache
     ///
     internal override func getCachedResponse(for dataTask: URLSessionDataTask, completionHandler: @escaping (CachedURLResponse?) -> Void)
     {
-        guard let urlRequest = dataTask.currentRequest else { completionHandler(nil) ; return }
+        guard let urlRequest = dataTask.currentRequest else {
+            completionHandler(nil) ;
+            return
+            
+        }
         let response = cachedResponse(for: urlRequest)
         completionHandler( response )
     }
