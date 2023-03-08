@@ -42,7 +42,7 @@ internal class CLDURLCacheConfiguration : NSObject {
     internal var securedStorage : Bool
     
     ///
-    /// The default maximum age of a cached file in seconds. (3 days)
+    /// The default minimum age of a cached file in seconds. (3 days)
     ///
     internal var minCacheResponseAge : TimeInterval
     

@@ -42,6 +42,7 @@ internal final class CLDURLCache : URLCache
             return _settings
         }
         set {
+            _settings = newValue
             handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: newValue)
         }
     }
@@ -206,10 +207,9 @@ internal final class CLDURLCache : URLCache
             return
         }
         
-        if let previousResponse = self.cachedResponse(for: requestObject) , previousResponse.data == cachedResponse.data {
-            
-            return
-        }
+//        if let previousResponse = self.cachedResponse(for: requestObject) , previousResponse.data == cachedResponse.data {
+//            return
+//        }
         
         guard let urlObject = requestObject.url , let expiration = expirationDate else { return }
         do {
