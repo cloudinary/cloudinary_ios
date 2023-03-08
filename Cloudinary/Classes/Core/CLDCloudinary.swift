@@ -137,6 +137,15 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             downloadCoordinator.urlCache.shouldExcludeImages(newValue)
         }
     }
+
+    var urlCacheSettings: CLDURLCacheConfiguration {
+        get {
+            return downloadCoordinator.urlCache._settings
+        }
+        set {
+            downloadCoordinator.urlCache.settings = newValue
+        }
+    }
     
     /**
     Removes an image from the downloaded images cache, both disk and memory.
