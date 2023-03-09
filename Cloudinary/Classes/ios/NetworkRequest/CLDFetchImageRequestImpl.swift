@@ -63,42 +63,20 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                         self?.closureQueue.isSuspended = false
                     }
                     else {
-                        self?.checkUrlCacheAndDownload()
+                        self?.downloadImageAndCacheIt()
                     }
                 })
             }
             else {
-                self.checkUrlCacheAndDownload()
+                self.downloadImageAndCacheIt()
             }
         }
     }
     
     // MARK: Private
-    
-    fileprivate func checkUrlCacheAndDownload() {
-        if downloadCoordinator.imageCache.cachePolicy != .none {
-            downloadImageAndCacheIt()
-            return
-        }
-        // If not cached download and cache it and return
-        guard let cachedResponse = try? self.downloadCoordinator.urlCache.warehouse.entry(forKey: url), cachedResponse.expiry.isExpired else {
-            downloadImageAndCacheIt()
-            return
-        }
-        //if Cached image is found and expired we'll add the if-modified-since header and send request
-        verifyCachedResponse(cachedResponse: cachedResponse)
-    }
 
-    func verifyCachedResponse(cachedResponse: StorehouseEntry<CachedURLResponse>) {
-        let lastModified = cachedResponse.expiry.date
-        var headers = CLDNHTTPHeaders()
-        headers.buildIfModifiedSinceHeader(lastModified)
-        downloadImageAndCacheIt(headers: headers)
-    }
-
-
-    func downloadImageAndCacheIt(headers: CLDNHTTPHeaders? = nil) {
-        imageDownloadRequest = downloadCoordinator.download(url, headers: headers) as? CLDNetworkDownloadRequest
+    fileprivate func downloadImageAndCacheIt() {
+        imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
 
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
