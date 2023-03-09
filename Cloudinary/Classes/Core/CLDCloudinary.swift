@@ -73,12 +73,20 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             return downloadCoordinator.imageCache.cachePolicy
         }
         set {
-            if newValue == .urlCache {
+            downloadCoordinator.imageCache.cachePolicy = newValue
+        }
+    }
+    open var enableUrlCache: Bool {
+        get {
+            return downloadCoordinator.imageCache.cachePolicy == .none
+        }
+        set {
+            if newValue == true {
                 downloadCoordinator.imageCache.cachePolicy = .none // turn old cache off
                 downloadCoordinator.imageCache.maxDiskCapacity = 0 // purge the old cache
                 downloadCoordinator.urlCache.shouldExcludeImages(false) // turn on the new cache
             } else {
-                downloadCoordinator.imageCache.cachePolicy = newValue
+                downloadCoordinator.urlCache.shouldExcludeImages(true)
             }
         }
     }
