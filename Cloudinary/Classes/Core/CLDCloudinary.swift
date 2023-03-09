@@ -76,6 +76,18 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             downloadCoordinator.imageCache.cachePolicy = newValue
         }
     }
+    open var enableUrlCache: Bool {
+        get {
+            return downloadCoordinator.imageCache.cachePolicy == .none
+        }
+        set {
+            if newValue == true {
+                downloadCoordinator.imageCache.cachePolicy = .none // turn old cache off
+                downloadCoordinator.imageCache.maxDiskCapacity = 0 // purge the old cache
+            }
+            downloadCoordinator.urlCache.shouldIncludeImages(newValue) // turn on the new cache if true
+        }
+    }
 
     /**
      Sets Cloudinary SDK's image cache maximum disk capacity.
