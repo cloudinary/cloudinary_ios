@@ -74,7 +74,7 @@ to use a custom network adapter you must implement the `CLDNetworkAdapter` proto
                                 The protocol also allows the options to add a progress closure that is called periodically during the download,
                                 as well as cancelling the request.
      */
-    func downloadFromCloudinary(_ url: String, headers: [String: String]?) -> CLDNetworkDataRequest
+    func downloadFromCloudinary(_ url: String) -> CLDNetworkDataRequest
     
     // MARK: Setters
     

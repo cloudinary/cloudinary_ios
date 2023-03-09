@@ -84,8 +84,8 @@ internal class CLDURLCacheConfiguration : NSObject {
     internal override init()
     {
         self.securedStorage           = false
-        self.minCacheResponseAge      = TimeInterval(604800)
-        self.maxCacheResponseAge      = TimeInterval(259200)
+        self.minCacheResponseAge      = TimeInterval(259200)
+        self.maxCacheResponseAge      = TimeInterval(604800)
         self.expirationDelayDefault   = TimeInterval(1 * 60 * 60) // 1 hours
         self.expirationDelayMinimum   = TimeInterval(5 * 60     ) // 5 minutes
         self.lastModificationFraction = Double(0.1)

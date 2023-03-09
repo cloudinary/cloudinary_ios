@@ -197,10 +197,10 @@ internal final class CLDURLCache : URLCache
             printLog(.debug, text: "CLDURLCache Do not cache error \(httpResponse.statusCode) page for : \(String(describing: requestObject.url)) \(httpResponse.debugDescription)")
             return
         }
-        
-//        if let previousResponse = self.cachedResponse(for: requestObject) , previousResponse.data == cachedResponse.data {
-//            return
-//        }
+
+        if let previousResponse = self.cachedResponse(for: requestObject) , previousResponse.data == cachedResponse.data {
+            return
+        }
         
         guard let urlObject = requestObject.url , let expiration = expirationDate else { return }
         do {
@@ -266,11 +266,7 @@ internal final class CLDURLCache : URLCache
     ///
     internal override func getCachedResponse(for dataTask: URLSessionDataTask, completionHandler: @escaping (CachedURLResponse?) -> Void)
     {
-        guard let urlRequest = dataTask.currentRequest else {
-            completionHandler(nil) ;
-            return
-            
-        }
+        guard let urlRequest = dataTask.currentRequest else { completionHandler(nil); return }
         let response = cachedResponse(for: urlRequest)
         completionHandler( response )
     }

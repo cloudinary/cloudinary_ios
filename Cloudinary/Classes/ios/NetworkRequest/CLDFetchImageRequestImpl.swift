@@ -74,7 +74,6 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     }
     
     // MARK: Private
-
     fileprivate func downloadImageAndCacheIt() {
         imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
