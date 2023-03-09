@@ -142,32 +142,6 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             downloadCoordinator.urlCache.updateMemoryCapacity(newValue)
         }
     }
-
-    /**
-     Sets Cloudinary SDK's asset cache maximum response age.
-     default is 3 days.
-     */
-    open var cacheAssetMaxCacheResponseAge: TimeInterval {
-        get {
-            return downloadCoordinator.urlCache.settings.maxCacheResponseAge
-        }
-        set {
-            downloadCoordinator.urlCache.updateMaxCacheResponseAge(newValue)
-        }
-    }
-
-    /**
-     Sets Cloudinary SDK's asset cache maximum response age.
-     default is 7 days.
-     */
-    open var cacheAssetMinCacheResponseAge: TimeInterval {
-        get {
-            return downloadCoordinator.urlCache.settings.minCacheResponseAge
-        }
-        set {
-            downloadCoordinator.urlCache.updateMinCacheResponseAge(newValue)
-        }
-    }
     
     /**
     Removes an image from the downloaded images cache, both disk and memory.
