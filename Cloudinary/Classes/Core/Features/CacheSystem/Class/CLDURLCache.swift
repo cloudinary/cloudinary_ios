@@ -36,16 +36,7 @@ internal final class CLDURLCache : URLCache
 {
     /// MARK: - Private properties
     internal fileprivate(set) var warehouse : Warehouse<CachedURLResponse>!
-    internal fileprivate(set) var _settings  : CLDURLCacheConfiguration!
-    var settings : CLDURLCacheConfiguration! {
-        get {
-            return _settings
-        }
-        set {
-            _settings = newValue
-            handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: newValue)
-        }
-    }
+    internal fileprivate(set) var settings  : CLDURLCacheConfiguration!
     fileprivate var path                    : String?
     internal weak var delegate              : CLDURLCacheDelegate?
 
@@ -56,7 +47,7 @@ internal final class CLDURLCache : URLCache
     /// MARK: - Initializers
     internal init(memoryCapacity: Int, diskCapacity: Int, diskPath path: String?, configuration settings: CLDURLCacheConfiguration = CLDURLCacheConfiguration.defualt)
     {
-        self._settings = settings
+        self.settings = settings
         self.path     = path
         
         super.init(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path)
@@ -125,7 +116,7 @@ internal final class CLDURLCache : URLCache
         // Check file status only if we have network, otherwise return it anyway.
         if networkAvailable() && responseEntry.expiry.isExpired
         {
-            let maxAge = request.value(forHTTPHeaderField: "Access-Control-Max-Age") ?? String(_settings.maxCacheResponseAge)
+            let maxAge = request.value(forHTTPHeaderField: "Access-Control-Max-Age") ?? String(settings.maxCacheResponseAge)
             printLog(.debug, text: "CLDURLCache cannot read item, older than \(maxAge) seconds")
         }
         
@@ -177,7 +168,7 @@ internal final class CLDURLCache : URLCache
             guard shouldExclude == false else { return }
         }
         
-        let expirationDate = httpResponse.cld_expirationDate(forCache: _settings)
+        let expirationDate = httpResponse.cld_expirationDate(forCache: settings)
         
         switch cachedResponse.storagePolicy
         {
@@ -193,7 +184,7 @@ internal final class CLDURLCache : URLCache
                 return
             }
             
-            guard expirationDate.timeIntervalSinceNow - _settings.expirationDelayMinimum > 0 else {
+            guard expirationDate.timeIntervalSinceNow - settings.expirationDelayMinimum > 0 else {
                 // This response is not cacheable, headers said
                 return
             }
@@ -299,7 +290,7 @@ internal final class CLDURLCache : URLCache
     internal func clearCachedResponsesToMinAgeThreshold()
     {
         let current   = Date()
-        let threshold = current.addingTimeInterval(-_settings.minCacheResponseAge)
+        let threshold = current.addingTimeInterval(-settings.minCacheResponseAge)
         removeCachedResponses(since: threshold)
     }
     
@@ -307,14 +298,30 @@ internal final class CLDURLCache : URLCache
     ///
     ///
     internal func updateDiskCapacity(_ newDiskCapacity: Int) {
-        handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: newDiskCapacity, diskPath: path, configuration: self._settings, onlyUpdate: true)
+        handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: newDiskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
     }
 
     ///
     ///
     ///
     internal func updateMemoryCapacity(_ newMemoryCapacity: Int) {
-        handleWarehouse(memoryCapacity: newMemoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self._settings, onlyUpdate: true)
+        handleWarehouse(memoryCapacity: newMemoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
+    }
+
+    ///
+    ///
+    ///
+    internal func updateMaxCacheResponseAge(_ newMaxResonseAge: TimeInterval) {
+        settings.maxCacheResponseAge = newMaxResonseAge
+        handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
+    }
+
+    ///
+    ///
+    ///
+    internal func updateMinCacheResponseAge(_ newMinResonseAge: TimeInterval) {
+        settings.minCacheResponseAge = newMinResonseAge
+        handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
     }
 
     ///

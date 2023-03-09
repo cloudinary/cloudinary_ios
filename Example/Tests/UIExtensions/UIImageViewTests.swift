@@ -55,8 +55,7 @@ class UIImageViewTests: UIBaseTest {
             }
             expectation.fulfill()
         }
-        cloudinarySecured.cachePolicy = .none
-        cloudinarySecured.shouldExcludeImagesFromCacheUrl = false
+        cloudinarySecured.cachePolicy = .urlCache
         imageView.cldSetImage(url, cloudinary: cloudinarySecured)
         waitForExpectations(timeout: timeout, handler: nil)
         XCTAssertTrue(imageDownloadedAndSet)

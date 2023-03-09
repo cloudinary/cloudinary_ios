@@ -73,7 +73,13 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             return downloadCoordinator.imageCache.cachePolicy
         }
         set {
-            downloadCoordinator.imageCache.cachePolicy = newValue
+            if newValue == .urlCache {
+                downloadCoordinator.imageCache.cachePolicy = .none // turn old cache off
+                downloadCoordinator.imageCache.maxDiskCapacity = 0 // purge the old cache
+                downloadCoordinator.urlCache.shouldExcludeImages(false) // turn on the new cache
+            } else {
+                downloadCoordinator.imageCache.cachePolicy = newValue
+            }
         }
     }
 
@@ -129,21 +135,29 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
     }
 
-    open var shouldExcludeImagesFromCacheUrl: Bool {
+    /**
+     Sets Cloudinary SDK's asset cache maximum response age.
+     default is 3 days.
+     */
+    open var cacheAssetMaxCacheResponseAge: TimeInterval {
         get {
-            return downloadCoordinator.urlCache.shouldExcludeImages
+            return downloadCoordinator.urlCache.settings.maxCacheResponseAge
         }
         set {
-            downloadCoordinator.urlCache.shouldExcludeImages(newValue)
+            downloadCoordinator.urlCache.updateMaxCacheResponseAge(newValue)
         }
     }
 
-    var urlCacheSettings: CLDURLCacheConfiguration {
+    /**
+     Sets Cloudinary SDK's asset cache maximum response age.
+     default is 7 days.
+     */
+    open var cacheAssetMinCacheResponseAge: TimeInterval {
         get {
-            return downloadCoordinator.urlCache._settings
+            return downloadCoordinator.urlCache.settings.minCacheResponseAge
         }
         set {
-            downloadCoordinator.urlCache.settings = newValue
+            downloadCoordinator.urlCache.updateMinCacheResponseAge(newValue)
         }
     }
     

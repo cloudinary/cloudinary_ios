@@ -27,7 +27,7 @@ import UIKit
 
 
 @objc public enum CLDImageCachePolicy: Int {
-    case none, memory, disk
+    case none, memory, disk, urlCache
 }
 
 internal struct Defines {
