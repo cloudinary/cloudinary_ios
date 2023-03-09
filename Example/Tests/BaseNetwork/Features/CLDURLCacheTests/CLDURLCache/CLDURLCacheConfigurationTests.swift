@@ -46,8 +46,8 @@ class CLDURLCacheConfigurationTests: XCTestCase {
         
         // Given
         let securedStorage            = false
-        let minCacheResponseAge       = TimeInterval(604800)
-        let maxCacheResponseAge       = TimeInterval(259200)
+        let minCacheResponseAge       = TimeInterval(259200)
+        let maxCacheResponseAge       = TimeInterval(604800)
         let expirationDelayDefault    = TimeInterval(1 * 60 * 60) // 1 hours
         let expirationDelayMinimum    = TimeInterval(5 * 60     ) // 5 minutes
         let lastModificationFraction  = Double(0.1)
