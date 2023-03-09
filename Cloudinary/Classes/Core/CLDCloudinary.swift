@@ -84,10 +84,8 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             if newValue == true {
                 downloadCoordinator.imageCache.cachePolicy = .none // turn old cache off
                 downloadCoordinator.imageCache.maxDiskCapacity = 0 // purge the old cache
-                downloadCoordinator.urlCache.shouldExcludeImages(false) // turn on the new cache
-            } else {
-                downloadCoordinator.urlCache.shouldExcludeImages(true)
             }
+            downloadCoordinator.urlCache.shouldIncludeImages(newValue) // turn on the new cache if true
         }
     }
 

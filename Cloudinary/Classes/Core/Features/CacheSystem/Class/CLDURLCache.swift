@@ -40,7 +40,7 @@ internal final class CLDURLCache : URLCache
     fileprivate var path                    : String?
     internal weak var delegate              : CLDURLCacheDelegate?
 
-    internal var shouldExcludeImages = true
+    internal var includeImages = false
     
     fileprivate var shouldReceateCacheResponse = false
     
@@ -163,7 +163,7 @@ internal final class CLDURLCache : URLCache
         guard let httpResponse = cachedResponse.response as? HTTPURLResponse else { return }
         guard let httpStatus   = httpResponse.cld_code                       else { return }
 
-        if shouldExcludeImages {
+        if !includeImages {
             let shouldExclude = delegate?.shouldExclude?(response: httpResponse, for: self)
             guard shouldExclude == false else { return }
         }
@@ -323,8 +323,8 @@ internal final class CLDURLCache : URLCache
     ///
     ///
     ///
-    func shouldExcludeImages(_ shouldExclude: Bool) {
-        shouldExcludeImages = shouldExclude
+    func shouldIncludeImages(_ includeImages: Bool) {
+        self.includeImages = includeImages
     }
 }
 

@@ -79,15 +79,6 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
         imageDownloadRequest?.progress(progress)
 
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
-            if httpCode == 304 { // Image not modified get it from cache
-                self?.downloadCoordinator.urlCache.getCachedResponse(for: self?.imageDownloadRequest?.request.task as! URLSessionDataTask) { response in
-                    if let image = response?.data.cldToUIImageThreadSafe() {
-                        self?.image = image
-                        self?.closureQueue.isSuspended = false
-                    }
-                }
-                return
-            }
             if let data = responseData, !data.isEmpty {
                 if let
                     image = data.cldToUIImageThreadSafe(),
