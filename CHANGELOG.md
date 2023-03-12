@@ -1,4 +1,16 @@
 
+3.4.0 / 2023-03-12
+==================
+
+New functionality
+-----------------
+  * Add URLCache support for images
+  * Add tests for explicit and rename
+  
+Other changes
+-------------
+  * Fix warning using `URLCredentialStorage`
+
 3.3.0 / 2022-06-12
 ==================
 
