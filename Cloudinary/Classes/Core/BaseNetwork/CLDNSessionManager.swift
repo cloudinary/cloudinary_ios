@@ -470,11 +470,14 @@ internal class CLDNSessionManager {
         method: CLDNHTTPMethod = .post,
         headers: CLDNHTTPHeaders? = nil,
         queue: DispatchQueue? = nil,
+        timeout: NSNumber? = nil,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
     {
         do {
-            let urlRequest = try URLRequest(url: url, method: method, headers: headers)
-
+            var urlRequest = try URLRequest(url: url, method: method, headers: headers)
+            if let timeout = timeout {
+                urlRequest.timeoutInterval = timeout.doubleValue
+            }
             return upload(
                 multipartFormData: multipartFormData,
                 usingThreshold: encodingMemoryThreshold,
