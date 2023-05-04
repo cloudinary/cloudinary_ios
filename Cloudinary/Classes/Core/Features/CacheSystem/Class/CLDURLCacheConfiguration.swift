@@ -42,7 +42,7 @@ internal class CLDURLCacheConfiguration : NSObject {
     internal var securedStorage : Bool
     
     ///
-    /// The default maximum age of a cached file in seconds. (3 days)
+    /// The default minimum age of a cached file in seconds. (3 days)
     ///
     internal var minCacheResponseAge : TimeInterval
     
@@ -84,9 +84,9 @@ internal class CLDURLCacheConfiguration : NSObject {
     internal override init()
     {
         self.securedStorage           = false
-        self.minCacheResponseAge      = TimeInterval(604800)
-        self.maxCacheResponseAge      = TimeInterval(259200)
-        self.expirationDelayDefault   = TimeInterval(5 * 60 * 60) // 1 hours
+        self.minCacheResponseAge      = TimeInterval(259200)
+        self.maxCacheResponseAge      = TimeInterval(604800)
+        self.expirationDelayDefault   = TimeInterval(1 * 60 * 60) // 1 hours
         self.expirationDelayMinimum   = TimeInterval(5 * 60     ) // 5 minutes
         self.lastModificationFraction = Double(0.1)
         self.logingScope              = .debugOnly

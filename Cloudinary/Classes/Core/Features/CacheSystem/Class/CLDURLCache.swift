@@ -39,6 +39,8 @@ internal final class CLDURLCache : URLCache
     internal fileprivate(set) var settings  : CLDURLCacheConfiguration!
     fileprivate var path                    : String?
     internal weak var delegate              : CLDURLCacheDelegate?
+
+    internal var includeImages = false
     
     fileprivate var shouldReceateCacheResponse = false
     
@@ -134,7 +136,6 @@ internal final class CLDURLCache : URLCache
                     return cachedResponse(for: redirectRequest)
                 }
             }
-            
             guard let responseURL = response.response.url else { return response }
             let URLResponse = Foundation.URLResponse(url: responseURL, mimeType: response.response.mimeType, expectedContentLength: response.data.count, textEncodingName: response.response.textEncodingName)
             return CachedURLResponse(response: URLResponse, data: response.data, userInfo: response.userInfo, storagePolicy: .allowed)
@@ -161,9 +162,11 @@ internal final class CLDURLCache : URLCache
         
         guard let httpResponse = cachedResponse.response as? HTTPURLResponse else { return }
         guard let httpStatus   = httpResponse.cld_code                       else { return }
-        
-        let shouldExclude = delegate?.shouldExclude?(response: httpResponse, for: self)
-        guard shouldExclude == false else { return }
+
+        if !includeImages {
+            let shouldExclude = delegate?.shouldExclude?(response: httpResponse, for: self)
+            guard shouldExclude == false else { return }
+        }
         
         let expirationDate = httpResponse.cld_expirationDate(forCache: settings)
         
@@ -194,9 +197,8 @@ internal final class CLDURLCache : URLCache
             printLog(.debug, text: "CLDURLCache Do not cache error \(httpResponse.statusCode) page for : \(String(describing: requestObject.url)) \(httpResponse.debugDescription)")
             return
         }
-        
+
         if let previousResponse = self.cachedResponse(for: requestObject) , previousResponse.data == cachedResponse.data {
-            
             return
         }
         
@@ -264,7 +266,7 @@ internal final class CLDURLCache : URLCache
     ///
     internal override func getCachedResponse(for dataTask: URLSessionDataTask, completionHandler: @escaping (CachedURLResponse?) -> Void)
     {
-        guard let urlRequest = dataTask.currentRequest else { completionHandler(nil) ; return }
+        guard let urlRequest = dataTask.currentRequest else { completionHandler(nil); return }
         let response = cachedResponse(for: urlRequest)
         completionHandler( response )
     }
@@ -300,6 +302,29 @@ internal final class CLDURLCache : URLCache
     ///
     internal func updateMemoryCapacity(_ newMemoryCapacity: Int) {
         handleWarehouse(memoryCapacity: newMemoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
+    }
+
+    ///
+    ///
+    ///
+    internal func updateMaxCacheResponseAge(_ newMaxResonseAge: TimeInterval) {
+        settings.maxCacheResponseAge = newMaxResonseAge
+        handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
+    }
+
+    ///
+    ///
+    ///
+    internal func updateMinCacheResponseAge(_ newMinResonseAge: TimeInterval) {
+        settings.minCacheResponseAge = newMinResonseAge
+        handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
+    }
+
+    ///
+    ///
+    ///
+    func shouldIncludeImages(_ includeImages: Bool) {
+        self.includeImages = includeImages
     }
 }
 

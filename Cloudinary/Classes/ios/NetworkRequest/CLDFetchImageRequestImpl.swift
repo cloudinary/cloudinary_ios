@@ -49,7 +49,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
             operationQueue.maxConcurrentOperationCount = 1
             operationQueue.isSuspended = true
             return operationQueue
-            }()
+        }()
     }
     
     // MARK: - Actions
@@ -74,19 +74,19 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     }
     
     // MARK: Private
-    
     fileprivate func downloadImageAndCacheIt() {
-        
         imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
-        
+
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError, httpCode) -> () in
             if let data = responseData, !data.isEmpty {
                 if let
                     image = data.cldToUIImageThreadSafe(),
-                    let url = self?.url {
+                   let url = self?.url {
                     self?.image = image
-                    self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    if self?.downloadCoordinator.imageCache.cachePolicy != CLDImageCachePolicy.none {
+                        self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    }
                 }
                 else {
                     let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.", userInfo: ["statusCode": httpCode])
