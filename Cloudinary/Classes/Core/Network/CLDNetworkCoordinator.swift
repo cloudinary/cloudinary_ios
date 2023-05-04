@@ -27,12 +27,10 @@ import UIKit
 
 internal class CLDNetworkCoordinator: NSObject {
 
-    static let DEFAULT_VERSION =        "3.3.0"
+    static let DEFAULT_VERSION =        "3.4.0"
     
     fileprivate struct CLDNetworkCoordinatorConsts {
         static let BASE_CLOUDINARY_URL =    "https://api.cloudinary.com"
-        static let DEFAULT_VERSION =        "3.4.0"
-        
         static let API_KEY =                "api_key"
     }
     
@@ -144,7 +142,7 @@ internal class CLDNetworkCoordinator: NSObject {
     }
     
     static func getVersion() -> String {
-        let version = CLDNetworkCoordinator.DEFAULT_VERSION
+        let version = DEFAULT_VERSION
         return version
     }
     
