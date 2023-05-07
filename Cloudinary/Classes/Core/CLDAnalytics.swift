@@ -61,7 +61,7 @@ import Foundation
 
         var patchStr = ""
         if (!patch.isEmpty) {
-            patchStr = String(hexString[hexString.startIndex..<hexString.index(hexString.startIndex, offsetBy: 5)]).toAnalyticsVersionStr()
+            patchStr = String(hexString[hexString.startIndex..<hexString.index(hexString.startIndex, offsetBy: 6)]).toAnalyticsVersionStr()
         }
         let minorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 6)..<hexString.index(hexString.startIndex, offsetBy: 12)]).toAnalyticsVersionStr()
         let majorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 12)..<hexString.index(hexString.startIndex, offsetBy: 18)]).toAnalyticsVersionStr()
