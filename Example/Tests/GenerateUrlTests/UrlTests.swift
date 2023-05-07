@@ -32,7 +32,7 @@ class UrlTests: BaseTestCase {
 
     override func setUp() {
         super.setUp()
-        let config = CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
+        let config = CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123?analytics=false")!
         sut = CLDCloudinary(configuration: config)
     }
 
@@ -89,59 +89,68 @@ class UrlTests: BaseTestCase {
     }
 
     func testSecure() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/test")
     }
 
     func testSecureDistribution() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true, secureDistribution: "something.else.com")
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true, secureDistribution: "something.else.com", analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://something.else.com/test123/image/upload/test")
     }
 
     func testSecureAkamai() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://test123-res.cloudinary.com/image/upload/test")
     }
 
     func testSecureNonAkamai() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, secureDistribution: "something.cloudfront.net")
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, secureDistribution: "something.cloudfront.net", analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://something.cloudfront.net/image/upload/test")
     }
 
     func testHttpPrivateCdn() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "http://test123-res.cloudinary.com/image/upload/test")
     }
 
     func testCdnSubDomain() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cdnSubdomain: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cdnSubdomain: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "http://res-2.cloudinary.com/test123/image/upload/test")
     }
 
     func testSecureCdnSubDomainFalse() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true, cdnSubdomain: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", secure: true, cdnSubdomain: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/test")
     }
 
     func testSecureCdnSubDomainTrue() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, cdnSubdomain: true, secureCdnSubdomain: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, cdnSubdomain: true, secureCdnSubdomain: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://test123-res-2.cloudinary.com/image/upload/test")
+    }
+
+    func testAnalyticsTrue() {
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, cdnSubdomain: true, secureCdnSubdomain: true, analytics: true)
+        CLDAnalytics.shared.setSDKVersion(version: "3.3.0")
+        CLDAnalytics.shared.setTechVersion(version: "5.0")
+        sut = CLDCloudinary(configuration: config)
+        let url = sut?.createUrl().generate("test")
+        XCTAssertEqual(url, "https://test123-res-2.cloudinary.com/image/upload/test?a_AEAEvAF0")
     }
 
     func testFormat() {
@@ -274,14 +283,14 @@ class UrlTests: BaseTestCase {
     }
 
     func testCname() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cname: "hello.com")
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cname: "hello.com", analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "http://hello.com/test123/image/upload/test")
     }
 
     func testCnameSubdomain() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cdnSubdomain: true, cname: "hello.com")
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", cdnSubdomain: true, cname: "hello.com", analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "http://a2.hello.com/test123/image/upload/test")
@@ -305,14 +314,14 @@ class UrlTests: BaseTestCase {
     }
 
     func testUrlSuffixPrivateCdn() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         XCTAssertEqual(sut?.createUrl().setSuffix("hello").generate("test"), "http://test123-res.cloudinary.com/images/test/hello")
         XCTAssertEqual(sut?.createUrl().setSuffix("hello").setTransformation(CLDTransformation().setAngle(0)).generate("test"), "http://test123-res.cloudinary.com/images/a_0/test/hello")
     }
 
     func testUrlSuffixFormat() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         XCTAssertEqual(sut?.createUrl().setSuffix("hello").setFormat("jpg").generate("test"), "http://test123-res.cloudinary.com/images/test/hello.jpg")
     }
@@ -340,13 +349,13 @@ class UrlTests: BaseTestCase {
     }
 
     func testUrlSuffixRaw() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         XCTAssertEqual(sut?.createUrl().setSuffix("hello").setResourceType(.raw).generate("test"), "http://test123-res.cloudinary.com/files/test/hello")
     }
 
     func testUrlSuffixPrivate() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         XCTAssertEqual(sut?.createUrl().setSuffix("hello").setResourceType(.image).setType(.private).generate("test"), "http://test123-res.cloudinary.com/private_images/test/hello")
     }
@@ -442,7 +451,7 @@ class UrlTests: BaseTestCase {
     func test_longUrlSign_signUrlFalse_shouldNotUseSigning() {
         
         // Given
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: false)
          
@@ -470,7 +479,7 @@ class UrlTests: BaseTestCase {
     func test_longUrlSign_true_shouldCreateExpectedUrl() {
         
         // Given
-        let longUrlSignatureQuery = ("?\(CLDConfiguration.ConfigParam.LongUrlSignature.description)=true")
+        let longUrlSignatureQuery = ("?analytics=false&\(CLDConfiguration.ConfigParam.LongUrlSignature.description)=true")
         let urlCredentials        = "cloudinary://a:b@test123"
         let fullUrl               = urlCredentials + longUrlSignatureQuery
         
@@ -578,7 +587,7 @@ class UrlTests: BaseTestCase {
     func test_signatureAlgorithm_signUrlFalse_shouldCreateFullUrlWithoutSigning() {
         
         // Given
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, signatureAlgorithm: .sha256)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, signatureAlgorithm: .sha256, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: false)
          
@@ -606,7 +615,7 @@ class UrlTests: BaseTestCase {
     func test_signatureAlgorithm_sha256_shouldCreateExpectedFullUrl() {
         
         // Given
-        let signatureAlgorithmQuery = ("?\(CLDConfiguration.ConfigParam.SignatureAlgorithm.description)=sha256")
+        let signatureAlgorithmQuery = ("?analytics=false&\(CLDConfiguration.ConfigParam.SignatureAlgorithm.description)=sha256")
         let urlCredentials          = "cloudinary://a:b@test123"
         let fullUrl                 = urlCredentials + signatureAlgorithmQuery
         
@@ -661,7 +670,7 @@ class UrlTests: BaseTestCase {
     func test_signingCombinations_signFalseLongTrueAlgorithmSha1_shouldNotUseSigning() {
         
         // Given
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha1)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha1, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: false)
          
@@ -676,7 +685,7 @@ class UrlTests: BaseTestCase {
     func test_signingCombinations_signFalseLongTrueAlgorithmSha256_shouldUseSigning() {
         
         // Given
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha256)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "apiKey", apiSecret: "apiSecret", privateCdn: true, longUrlSignature: true, signatureAlgorithm: .sha256, analytics: false)
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().setFormat("jpg").generate("test", signUrl: false)
          
@@ -703,7 +712,7 @@ class UrlTests: BaseTestCase {
     }
 
     func testUseRootPathPrivateCdn() {
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         XCTAssertEqual(sut?.createUrl().setUseRootPath(true).generate("test"), "http://test123-res.cloudinary.com/test")
         XCTAssertEqual(sut?.createUrl().setUseRootPath(true).setTransformation(CLDTransformation().setAngle(0)).generate("test"), "http://test123-res.cloudinary.com/a_0/test")
@@ -711,7 +720,7 @@ class UrlTests: BaseTestCase {
 
     func testUseRootPathUrlSuffixPrivateCdn() {
 
-        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true)
+        let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, analytics: false)
         sut = CLDCloudinary(configuration: config)
         XCTAssertEqual(sut?.createUrl().setUseRootPath(true).setSuffix("hello").generate("test"), "http://test123-res.cloudinary.com/test/hello")
     }

@@ -108,6 +108,38 @@ internal extension String {
     func cldIsRemoteUrl() -> Bool {
         return self.range(of: "^ftp:|^https?:|^s3:|^gs:|^data:([\\w-]+\\/[\\w-]+(\\+[\\w-]+)?)?(;[\\w-]+=[\\w-]+)*;base64,([a-zA-Z0-9\\/+\\n=]+)$", options: [NSString.CompareOptions.regularExpression, NSString.CompareOptions.caseInsensitive], range: nil, locale: nil) != nil
     }
+
+    func leftPadding(toLength: Int, withPad character: Character) -> String {
+        let newLength = self.count
+        if newLength < toLength {
+            return String(repeatElement(character, count: toLength - newLength)) + self
+        } else {
+            return self.substring(from: index(self.startIndex, offsetBy: newLength - toLength))
+        }
+    }
+
+    func toAnalyticsVersionStr() -> String {
+        guard let binaryInt = UInt32(self, radix: 2) else {
+            return ""
+        }
+        switch binaryInt {
+        case 0..<25:
+            guard let value = UnicodeScalar(UnicodeScalar("A").value + binaryInt) else {
+                return ""
+            }
+            return String(UnicodeScalar(value))
+        case 26..<51:
+            guard let value = UnicodeScalar(UnicodeScalar("a").value + binaryInt - 26) else {
+                return ""
+            }
+            return String(UnicodeScalar(value))
+        default:
+            guard let value = UnicodeScalar(UnicodeScalar("0").value + binaryInt - 52) else {
+                return ""
+            }
+            return String(UnicodeScalar(value))
+        }
+    }
 }
 
 internal extension String.Index{
