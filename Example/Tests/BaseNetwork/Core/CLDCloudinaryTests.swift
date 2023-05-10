@@ -132,7 +132,8 @@ class CLDCloudinaryTests: XCTestCase {
     func test_init_defaultVaues_shouldBeEqualToExpectedValues() {
         
         // Given
-        let defaultCachePolicy            : CLDImageCachePolicy = .disk
+        let defaultCachePolicy            : CLDImageCachePolicy = .none
+        let defaultUrlCachePolicy         : Bool = true
         let defaultCacheMaxDiskCapacity   : UInt64              = 150 * 1024 * 1024
         let defaultCacheMaxMemoryTotalCost: Int                 = 30 * 1024 * 1024
         
@@ -140,6 +141,7 @@ class CLDCloudinaryTests: XCTestCase {
         XCTAssertNotNil(sut, "initialized object should not be nil")
         XCTAssertEqual (sut.config, config, "Initilized object should contain expected value")
         XCTAssertEqual (sut.cachePolicy, defaultCachePolicy, "Initilized object should contain expected value")
+        XCTAssertEqual(sut.enableUrlCache, defaultUrlCachePolicy)
         XCTAssertEqual (sut.cacheMaxDiskCapacity, defaultCacheMaxDiskCapacity, "Initilized object should contain expected value")
         XCTAssertEqual (sut.cacheMaxMemoryTotalCost, defaultCacheMaxMemoryTotalCost, "Initilized object should contain expected value")
     }
