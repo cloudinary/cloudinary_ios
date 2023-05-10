@@ -44,7 +44,7 @@ internal struct Defines {
 
 internal class CLDImageCache {
     
-    internal var cachePolicy = CLDImageCachePolicy.disk
+    internal var cachePolicy = CLDImageCachePolicy.none
     
     fileprivate let memoryCache = NSCache<NSString, UIImage>()
     internal var maxMemoryTotalCost: Int = Defines.defaultMemoryTotalCostLimit {

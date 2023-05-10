@@ -197,6 +197,8 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
         let downloadConfiguration                   = URLSessionConfiguration.default
         downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
         downloadConfiguration.urlCache              = urlCache
+        // Turn urlCache as default
+        urlCache.shouldIncludeImages(true)
         
         let downloadAdapter = CLDDefaultNetworkAdapter(configuration: downloadConfiguration)
         
