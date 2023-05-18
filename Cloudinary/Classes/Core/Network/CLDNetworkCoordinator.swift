@@ -64,6 +64,7 @@ internal class CLDNetworkCoordinator: NSObject {
     
     internal func upload(_ data: Any, params: CLDUploadRequestParams, extraHeaders: [String:String]?=[:]) -> CLDNetworkDataRequest {
         let url = getUrl(.Upload, resourceType: params.resourceType)
+        params.setTimeout(from: config)
         let requestParams = params.signed ? getSignedRequestParams(params) : params.params
         var headers :[String : String] = getHeaders()
         headers.cldMerge(extraHeaders)

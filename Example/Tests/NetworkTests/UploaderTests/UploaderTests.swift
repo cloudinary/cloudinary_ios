@@ -53,6 +53,71 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
+
+    func testUploadRespectTimeoutFromConfiguration() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectedResult = "-1001"
+        let expectation = self.expectation(description: "upload should fail")
+        let data = TestResourceType.borderCollie.data
+
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setColors(true)
+        cloudinaryInsufficientTimeout!.createUploader().signedUpload(data: data, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        var actualResult = String()
+
+        if let error = error {
+            actualResult = String((error as NSError).code)
+        }
+
+        XCTAssertNotNil(error, "error should not be nil")
+        XCTAssertNil(result, "response should be nil")
+        XCTAssertEqual(actualResult, expectedResult, "error should occur due to timeout")
+    }
+
+    func testUploadRespectTimeoutFromParameters() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectedResult = "-1001"
+        let expectation = self.expectation(description: "upload should fail")
+        let data = TestResourceType.borderCollie.data
+
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setColors(true)
+        params.setTimeout(from: cloudinaryInsufficientTimeout!.config)
+        cloudinaryInsufficientTimeout!.createUploader().signedUpload(data: data, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        var actualResult = String()
+
+        if let error = error {
+            actualResult = String((error as NSError).code)
+        }
+
+        XCTAssertNotNil(error, "error should not be nil")
+        XCTAssertNil(result, "response should be nil")
+        XCTAssertEqual(actualResult, expectedResult, "error should occur due to timeout")
+    }
     
     func testUploadPNGImageData() {
 
