@@ -63,7 +63,8 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
     }
 
     internal func uploadToCloudinary(_ url: String, headers: [String: String], parameters: [String: Any], data: Any) -> CLDNetworkDataRequest {
-
+        var parameters = parameters
+        let timeout = parameters.removeValue(forKey: "timeout") as? NSNumber
         let asyncUploadRequest = CLDAsyncNetworkUploadRequest()
         manager.upload(multipartFormData: { (multipartFormData) in
 
@@ -103,7 +104,7 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
                 }
             }
 
-        }, usingThreshold: UInt64(), to: url, method: .post, headers: headers) { (encodingResult) in
+        }, usingThreshold: UInt64(), to: url, method: .post, headers: headers, timeout: timeout) { (encodingResult) in
             switch encodingResult {
             case .success(let upload, _, _):
                 upload.resume()
