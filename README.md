@@ -26,7 +26,7 @@ For the complete documentation, see the [iOS SDK Guide](https://cloudinary.com/d
 | SDK Version    | iOS 9+    |   iOS 8   |
 |----------------|-----------|-----------|
 | 2.0.0 - 2.10.1 | V         | V         |
-| 3.0.0 - 3.2.1  | V         | X         |
+| 3.0.0 - 4.0.0  | V         | X         |
 
 ## Installation
 ### CocoaPods
