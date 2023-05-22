@@ -86,6 +86,8 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                     self?.image = image
                     if self?.downloadCoordinator.imageCache.cachePolicy != CLDImageCachePolicy.none {
                         self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    } else {
+                        self?.downloadCoordinator.imageCache.maxDiskCapacity = 0 // Description: https://github.com/cloudinary/cloudinary_ios/pull/402
                     }
                 }
                 else {
