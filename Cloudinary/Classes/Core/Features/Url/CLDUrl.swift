@@ -392,7 +392,7 @@ import Foundation
         //Analytics
         if let urlObject = URL(string: url) {
             if(config.analytics && urlObject.query == nil) {
-                let analytics = "a_" + CLDAnalytics.shared.generateAnalyticsSignature()
+                let analytics = "_a=" + CLDAnalytics.shared.generateAnalyticsSignature()
                 url = url + "?" + analytics
             }
         }
