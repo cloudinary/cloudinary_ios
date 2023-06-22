@@ -263,7 +263,7 @@ class SessionManagerTestCase: BaseTestCase {
         let manager = CLDNSessionManager()
         manager.startRequestsImmediately = false
 
-        let url = URL(string: "https://httpbin.org/get")!
+        let url = URL(string: "https://mockbin.com/")!
         let urlRequest = URLRequest(url: url)
 
         let expectation = self.expectation(description: "\(url)")
@@ -292,7 +292,7 @@ class SessionManagerTestCase: BaseTestCase {
         var manager: CLDNSessionManager? = CLDNSessionManager()
         manager?.startRequestsImmediately = false
 
-        let url = URL(string: "https://httpbin.org/get")!
+        let url = URL(string: "https://mockbin.com/get")!
         let urlRequest = URLRequest(url: url)
 
         // When
@@ -309,7 +309,7 @@ class SessionManagerTestCase: BaseTestCase {
         var manager: CLDNSessionManager? = CLDNSessionManager()
         manager!.startRequestsImmediately = false
 
-        let url = URL(string: "https://httpbin.org/get")!
+        let url = URL(string: "https://mockbin.com/get")!
         let urlRequest = URLRequest(url: url)
 
         // When
@@ -333,7 +333,7 @@ class SessionManagerTestCase: BaseTestCase {
         var response: CLDNDefaultDataResponse?
 
         // When
-        sessionManager.request("https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.request("https://mockbin.com/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -349,7 +349,7 @@ class SessionManagerTestCase: BaseTestCase {
 
         if let error = response?.error as? CLDNError {
             XCTAssertTrue(error.isInvalidURLError)
-            XCTAssertEqual(error.urlConvertible as? String, "https://httpbin.org/get/äëïöü")
+            XCTAssertEqual(error.urlConvertible as? String, "https://mockbin.com/get/äëïöü")
         } else {
             XCTFail("error should not be nil")
         }
@@ -363,7 +363,7 @@ class SessionManagerTestCase: BaseTestCase {
         var response: CLDNDefaultDataResponse?
 
         // When
-        sessionManager.upload(Data(), to: "https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.upload(Data(), to: "https://mockbin.com/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -379,7 +379,7 @@ class SessionManagerTestCase: BaseTestCase {
 
         if let error = response?.error as? CLDNError {
             XCTAssertTrue(error.isInvalidURLError)
-            XCTAssertEqual(error.urlConvertible as? String, "https://httpbin.org/get/äëïöü")
+            XCTAssertEqual(error.urlConvertible as? String, "https://mockbin.com/get/äëïöü")
         } else {
             XCTFail("error should not be nil")
         }
@@ -393,7 +393,7 @@ class SessionManagerTestCase: BaseTestCase {
         var response: CLDNDefaultDataResponse?
 
         // When
-        sessionManager.upload(URL(fileURLWithPath: "/invalid"), to: "https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.upload(URL(fileURLWithPath: "/invalid"), to: "https://mockbin.com/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -409,7 +409,7 @@ class SessionManagerTestCase: BaseTestCase {
 
         if let error = response?.error as? CLDNError {
             XCTAssertTrue(error.isInvalidURLError)
-            XCTAssertEqual(error.urlConvertible as? String, "https://httpbin.org/get/äëïöü")
+            XCTAssertEqual(error.urlConvertible as? String, "https://mockbin.com/get/äëïöü")
         } else {
             XCTFail("error should not be nil")
         }
@@ -423,7 +423,7 @@ class SessionManagerTestCase: BaseTestCase {
         var response: CLDNDefaultDataResponse?
 
         // When
-        sessionManager.upload(InputStream(data: Data()), to: "https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.upload(InputStream(data: Data()), to: "https://mockbin.com/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -439,7 +439,7 @@ class SessionManagerTestCase: BaseTestCase {
 
         if let error = response?.error as? CLDNError {
             XCTAssertTrue(error.isInvalidURLError)
-            XCTAssertEqual(error.urlConvertible as? String, "https://httpbin.org/get/äëïöü")
+            XCTAssertEqual(error.urlConvertible as? String, "https://mockbin.com/get/äëïöü")
         } else {
             XCTFail("error should not be nil")
         }
@@ -456,7 +456,7 @@ class SessionManagerTestCase: BaseTestCase {
         sessionManager.startRequestsImmediately = false
 
         // When
-        let request = sessionManager.request("https://httpbin.org/get")
+        let request = sessionManager.request("https://mockbin.com/get")
 
         // Then
         XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
@@ -471,7 +471,7 @@ class SessionManagerTestCase: BaseTestCase {
         sessionManager.startRequestsImmediately = false
 
         // When
-        let request = sessionManager.upload("data".data(using: .utf8)!, to: "https://httpbin.org/post")
+        let request = sessionManager.upload("data".data(using: .utf8)!, to: "https://mockbin.com/post")
 
         // Then
         XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
@@ -487,7 +487,7 @@ class SessionManagerTestCase: BaseTestCase {
 
         // When
         let fileURL = URL(fileURLWithPath: "/path/to/some/file.txt")
-        let request = sessionManager.upload(fileURL, to: "https://httpbin.org/post")
+        let request = sessionManager.upload(fileURL, to: "https://mockbin.com/post")
 
         // Then
         XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
@@ -503,7 +503,7 @@ class SessionManagerTestCase: BaseTestCase {
 
         // When
         let inputStream = InputStream(data: "data".data(using: .utf8)!)
-        let request = sessionManager.upload(inputStream, to: "https://httpbin.org/post")
+        let request = sessionManager.upload(inputStream, to: "https://mockbin.com/post")
 
         // Then
         XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
@@ -518,7 +518,7 @@ class SessionManagerTestCase: BaseTestCase {
         sessionManager.startRequestsImmediately = false
 
         // When
-        let request = sessionManager.request("https://httpbin.org/get")
+        let request = sessionManager.request("https://mockbin.com/get")
 
         // Then
         if let error = request.delegate.error as? CLDNError {
@@ -546,7 +546,7 @@ class SessionManagerTestCase: BaseTestCase {
         var response: CLDNDataResponse<Any>?
 
         // When
-        let request = sessionManager.request("https://httpbin.org/basic-auth/user/password")
+        let request = sessionManager.request("https://mockbin.com/basic-auth/user/password")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -581,7 +581,7 @@ class SessionManagerTestCase: BaseTestCase {
         var response: CLDNDataResponse<Any>?
 
         // When
-        sessionManager.request("https://httpbin.org/basic-auth/user/password")
+        sessionManager.request("https://mockbin.com/basic-auth/user/password")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -616,7 +616,7 @@ class SessionManagerTestCase: BaseTestCase {
         let uploadData = "upload data".data(using: .utf8, allowLossyConversion: false)!
 
         // When
-        sessionManager.upload(uploadData, to: "https://httpbin.org/post")
+        sessionManager.upload(uploadData, to: "https://mockbin.com/post")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -650,7 +650,7 @@ class SessionManagerTestCase: BaseTestCase {
         var response: CLDNDataResponse<Any>?
 
         // When
-        let request = sessionManager.request("https://httpbin.org/basic-auth/user/password")
+        let request = sessionManager.request("https://mockbin.com/basic-auth/user/password")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -683,7 +683,7 @@ class SessionManagerTestCase: BaseTestCase {
         var response: CLDNDataResponse<Any>?
 
         // When
-        let request = sessionManager.request("https://httpbin.org/basic-auth/user/password")
+        let request = sessionManager.request("https://mockbin.com/basic-auth/user/password")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -762,7 +762,7 @@ class SessionManagerConfigurationHeadersTestCase: BaseTestCase {
         var response: CLDNDataResponse<Any>?
 
         // When
-        manager.request("https://httpbin.org/headers")
+        manager.request("https://mockbin.com/header/Authorization")
             .responseJSON { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -778,9 +778,7 @@ class SessionManagerConfigurationHeadersTestCase: BaseTestCase {
             XCTAssertTrue(response.result.isSuccess, "result should be a success")
 
             if
-                let response = response.result.value as? [String: Any],
-                let headers = response["headers"] as? [String: String],
-                let authorization = headers["Authorization"]
+                let authorization = response.result.value as? String
             {
                 XCTAssertEqual(authorization, "Bearer 123456", "authorization header value does not match")
             } else {
