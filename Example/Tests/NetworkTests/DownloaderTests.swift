@@ -33,7 +33,7 @@ class DownloaderTests: NetworkBaseTest {
         var expectation = self.expectation(description: "Should get 404 error")
         var error: NSError?
         let firstMockUrl = "https://demo-res.cloudinary.com/image/upload/c_fill,dpr_3.0,f_heic,g_auto,h_100,q_auto,w_100/v1/some_invalid_url"
-        let secondMockUrl = "https://httpbin.org/status/404"
+        let secondMockUrl = "https://mockbin.com/status/404"
         
         cloudinarySecured.createDownloader().fetchImage(firstMockUrl).responseImage({ (_, errorRes) in
             error = errorRes

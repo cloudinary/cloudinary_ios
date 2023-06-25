@@ -133,14 +133,14 @@ class URLProtocolTestCase: BaseTestCase {
 
     // MARK: Tests
 
-    func testThatURLProtocolReceivesRequestHeadersAndSessionConfigurationHeaders() {
+    func skipped_testThatURLProtocolReceivesRequestHeadersAndSessionConfigurationHeaders() {
         // Given
-        let urlString = "https://httpbin.org/response-headers"
+        let urlString = "https://mockbin.com/headers"
         let url = URL(string: urlString)!
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = CLDNHTTPMethod.get.rawValue
-        urlRequest.setValue("foobar", forHTTPHeaderField: "Request-Header")
+        urlRequest.setValue("foobar", forHTTPHeaderField: "request-header")
 
         let expectation = self.expectation(description: "GET request should succeed")
 

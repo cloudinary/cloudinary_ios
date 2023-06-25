@@ -26,7 +26,7 @@ import Foundation
 import XCTest
 
 private func httpURLResponse(forStatusCode statusCode: Int, headers: CLDNHTTPHeaders = [:]) -> HTTPURLResponse {
-    let url = URL(string: "https://httpbin.org/get")!
+    let url = URL(string: "https://mockbin.com/get")!
     return HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/1.1", headerFields: headers)!
 }
 
