@@ -84,7 +84,7 @@ class SessionDelegateTestCase: BaseTestCase {
             }
             
             // When
-            manager.request("https://httpbin.org/get").responseJSON { closureResponse in
+            manager.request("https://mockbin.com/").responseJSON { closureResponse in
                 response = closureResponse.response
                 expectation.fulfill()
             }
@@ -116,7 +116,7 @@ class SessionDelegateTestCase: BaseTestCase {
             }
             
             // When
-            manager.request("https://httpbin.org/get").responseJSON { closureResponse in
+            manager.request("https://mockbin.com/").responseJSON { closureResponse in
                 response = closureResponse.response
                 expectation.fulfill()
             }
@@ -142,7 +142,7 @@ class SessionDelegateTestCase: BaseTestCase {
         
         // Given
         let redirectURLString = "https://www.apple.com/"
-        let urlString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
+        let urlString = "https://mockbin.com/redirect-to?url=\(redirectURLString)"
         
         let expectation = self.expectation(description: "Request should redirect to \(redirectURLString)")
         
@@ -172,8 +172,8 @@ class SessionDelegateTestCase: BaseTestCase {
         try XCTSkipUnless(allowDelegateTest, "prevents the test from running, currently there's an issue with the remote server used")
         
         // Given
-        let redirectURLString = "https://httpbin.org/get"
-        let urlString = "https://httpbin.org/redirect/5"
+        let redirectURLString = "https://mockbin.com/get"
+        let urlString = "https://mockbin.com/redirect/5"
         
         let expectation = self.expectation(description: "Request should redirect to \(redirectURLString)")
         
@@ -204,7 +204,7 @@ class SessionDelegateTestCase: BaseTestCase {
         
         // Given
         let redirectURLString = "https://www.apple.com/"
-        let urlString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
+        let urlString = "https://mockbin.com/redirect-to?url=\(redirectURLString)"
         
         let expectation = self.expectation(description: "Request should redirect to \(redirectURLString)")
         let callbackExpectation = self.expectation(description: "Redirect callback should be made")
@@ -242,7 +242,7 @@ class SessionDelegateTestCase: BaseTestCase {
         
         // Given
         let redirectURLString = "https://www.apple.com/"
-        let urlString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
+        let urlString = "https://mockbin.com/redirect-to?url=\(redirectURLString)"
         
         let expectation = self.expectation(description: "Request should redirect to \(redirectURLString)")
         let callbackExpectation = self.expectation(description: "Redirect callback should be made")
@@ -280,7 +280,7 @@ class SessionDelegateTestCase: BaseTestCase {
         
         // Given
         let redirectURLString = "https://www.apple.com"
-        let urlString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
+        let urlString = "https://mockbin.com/redirect-to?url=\(redirectURLString)"
         
         let expectation = self.expectation(description: "Request should not redirect to \(redirectURLString)")
         let callbackExpectation = self.expectation(description: "Redirect callback should be made")
@@ -318,7 +318,7 @@ class SessionDelegateTestCase: BaseTestCase {
         
         // Given
         let redirectURLString = "https://www.apple.com"
-        let urlString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
+        let urlString = "https://mockbin.com/redirect-to?url=\(redirectURLString)"
         
         let expectation = self.expectation(description: "Request should not redirect to \(redirectURLString)")
         let callbackExpectation = self.expectation(description: "Redirect callback should be made")
@@ -356,8 +356,8 @@ class SessionDelegateTestCase: BaseTestCase {
         
         // Given
         let redirectCount = 5
-        let redirectURLString = "https://httpbin.org/get"
-        let urlString = "https://httpbin.org/redirect/\(redirectCount)"
+        let redirectURLString = "https://mockbin.com/get"
+        let urlString = "https://mockbin.com/redirect/\(redirectCount)"
         
         let expectation = self.expectation(description: "Request should redirect to \(redirectURLString)")
         let delegate: CLDNSessionDelegate = manager.delegate
@@ -403,8 +403,8 @@ class SessionDelegateTestCase: BaseTestCase {
         
         // Given
         let redirectCount = 5
-        let redirectURLString = "https://httpbin.org/get"
-        let urlString = "https://httpbin.org/redirect/\(redirectCount)"
+        let redirectURLString = "https://mockbin.com/get"
+        let urlString = "https://mockbin.com/redirect/\(redirectCount)"
         
         let expectation = self.expectation(description: "Request should redirect to \(redirectURLString)")
         let delegate: CLDNSessionDelegate = manager.delegate
@@ -451,8 +451,8 @@ class SessionDelegateTestCase: BaseTestCase {
         try XCTSkipUnless(allowDelegateTest, "prevents the test from running, currently there's an issue with the remote server used")
         
         // Given
-        let redirectURLString = "https://httpbin.org/get"
-        let urlString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
+        let redirectURLString = "https://mockbin.com/get"
+        let urlString = "https://mockbin.com/redirect-to?url=\(redirectURLString)"
         let headers = [
             "Authorization": "1234",
             "Custom-Header": "foobar",
@@ -518,7 +518,7 @@ class SessionDelegateTestCase: BaseTestCase {
         }
         
         // When
-        manager.request("https://httpbin.org/get").responseJSON { closureResponse in
+        manager.request("https://mockbin.com/").responseJSON { closureResponse in
             response = closureResponse.response
             expectation.fulfill()
         }
@@ -543,7 +543,7 @@ class SessionDelegateTestCase: BaseTestCase {
         }
         
         // When
-        manager.request("https://httpbin.org/get").responseJSON { closureResponse in
+        manager.request("https://mockbin.com/").responseJSON { closureResponse in
             response = closureResponse.response
             expectation.fulfill()
         }
