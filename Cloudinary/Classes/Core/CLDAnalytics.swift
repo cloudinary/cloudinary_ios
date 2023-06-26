@@ -29,7 +29,7 @@ import Foundation
         if techVersion == nil {
             techVersion = techVersionString
             if techVersion == nil {
-                techVersion = getSwiftVersion()
+                techVersion = getiOSVersion()
             }
         }
         let swiftVersionArray = techVersion!.split(usingRegex: "\\.|\\-")
@@ -69,18 +69,8 @@ import Foundation
         return "\(patchStr)\(minorStr)\(majorStr)"
     }
 
-    private func getSwiftVersion() -> String {
-        #if swift(>=5.0)
-            return "5.0"
-        #elseif swift(>=4.0)
-            return 4.0
-        #elseif swift(>=3.0)
-            return 3.0
-        #elseif swift(>=2.2)
-            return 2.2
-        #elseif swift(>=2.1)
-            return 2.1
-        #endif
+    private func getiOSVersion() -> String {
+        return UIDevice.current.systemVersion
     }
 }
 extension String {
