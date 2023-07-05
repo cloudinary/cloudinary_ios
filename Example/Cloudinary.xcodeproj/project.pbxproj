@@ -1553,6 +1553,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F5D96AD5982EFEBDEE91350 /* Pods-Cloudinary_Tests.debug.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1575,6 +1576,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FB8B4986C00FEC3B8BD40223 /* Pods-Cloudinary_Tests.release.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
