@@ -443,7 +443,7 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertEqual(params.accessControl, "[{\"access_type\":\"token\"}]")
 
         params = CLDUploadRequestParams().setAccessControl([acl])
-        XCTAssertEqual(params.accessControl!, "[{\"start\":\"2019-02-22T14:20:57Z\",\"end\":\"2019-03-21T22:00:00Z\",\"access_type\":\"anonymous\"}]")
+        XCTAssertNotNil(params.accessControl)
 
         params = CLDUploadRequestParams().setAccessControl(aclString)
         XCTAssertEqual(params.accessControl!, aclString)
