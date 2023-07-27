@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B6C2D4862A724C4200AA0039 /* CLDVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2D4852A724C4200AA0039 /* CLDVideoPlayer.swift */; };
 		OBJ_257 /* CLDNConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* CLDNConvertible.swift */; };
 		OBJ_258 /* CLDNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* CLDNError.swift */; };
 		OBJ_259 /* CLDNMultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* CLDNMultipartFormData.swift */; };
@@ -190,6 +191,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B6C2D4852A724C4200AA0039 /* CLDVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoPlayer.swift; sourceTree = "<group>"; };
 		"Cloudinary::Cloudinary::Product" /* Cloudinary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cloudinary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* CLDNConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDNConvertible.swift; sourceTree = "<group>"; };
 		OBJ_100 /* CLDDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDDetection.swift; sourceTree = "<group>"; };
@@ -391,6 +393,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B6C2D4842A724C2F00AA0039 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				B6C2D4852A724C4200AA0039 /* CLDVideoPlayer.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		OBJ_103 /* CLDOcr */ = {
 			isa = PBXGroup;
 			children = (
@@ -675,6 +685,7 @@
 		OBJ_226 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				B6C2D4842A724C2F00AA0039 /* Video */,
 				OBJ_227 /* Extensions */,
 				OBJ_233 /* NetworkRequest */,
 				OBJ_236 /* UIViews */,
@@ -835,7 +846,7 @@
 			path = StorehouseAnyType;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -850,7 +861,6 @@
 				OBJ_250 /* Cloudinary.podspec */,
 				OBJ_251 /* README.md */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_50 /* StorehouseConfiguration */ = {
@@ -1100,7 +1110,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_243 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1178,6 +1188,7 @@
 				OBJ_316 /* CLDRequestParams.swift in Sources */,
 				OBJ_317 /* CLDRequestParamsHelpers.swift in Sources */,
 				OBJ_318 /* CLDRequest.swift in Sources */,
+				B6C2D4862A724C4200AA0039 /* CLDVideoPlayer.swift in Sources */,
 				OBJ_319 /* CLDBaseResult.swift in Sources */,
 				OBJ_320 /* CLDAccessibilityAnalysisResult.swift in Sources */,
 				OBJ_321 /* CLDColorblindAccessibilityAnalysisResult.swift in Sources */,
