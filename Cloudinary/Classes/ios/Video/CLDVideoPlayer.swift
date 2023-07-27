@@ -24,7 +24,7 @@
 
 import Foundation
 import AVKit
-class CLDVideoPlayer: AVPlayer {
+@objcMembers open class CLDVideoPlayer: AVPlayer {
 
     var automaticStreamingProfile = true
 
@@ -45,7 +45,7 @@ class CLDVideoPlayer: AVPlayer {
      - parameter automaticStreamingProfile:     A bool to indicate the use of automatic streaming profile default: true
 
      */
-    init(publicId: String, cloudinary: CLDCloudinary, transformation: CLDTransformation? = nil, automaticStreamingProfile: Bool? = true) {
+    public init(publicId: String, cloudinary: CLDCloudinary, transformation: CLDTransformation? = nil, automaticStreamingProfile: Bool? = true) {
         var transformation = transformation
         var cldUrl = cloudinary.createUrl()
         if automaticStreamingProfile ?? true  && transformation == nil {
@@ -68,7 +68,7 @@ class CLDVideoPlayer: AVPlayer {
      - parameter item:  The player item to put into AVPlayer
 
     */
-    override init(playerItem item: AVPlayerItem?) {
+    public override init(playerItem item: AVPlayerItem?) {
         super.init(playerItem: item)
     }
 
@@ -78,7 +78,7 @@ class CLDVideoPlayer: AVPlayer {
      - parameter url:  The URL to put into AVPlayer
 
     */
-    override init(url URL: URL) {
+    public override init(url URL: URL) {
         super.init(url: URL)
     }
 
@@ -88,7 +88,7 @@ class CLDVideoPlayer: AVPlayer {
      - parameter url:  The string to put into AVPlayer
 
     */
-    init(url string: String) {
+    public init(url string: String) {
         guard let url = URL(string: string) else {
             print("Error - could not generate URL for CLDVideoPlayer")
             super.init()
