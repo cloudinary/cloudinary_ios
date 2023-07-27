@@ -24,8 +24,6 @@
 
 import XCTest
 import Cloudinary
-import AVFoundation
-import AVKit
 
 class UIImageViewTests: UIBaseTest {
         
