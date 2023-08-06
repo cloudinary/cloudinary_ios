@@ -268,7 +268,7 @@
 		607FACE51AFB9204008FA782 /* Cloudinary_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Cloudinary_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA2F53C389142220209152BA /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Cloudinary.podspec; path = ../Cloudinary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AA2F53C389142220209152BA /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Cloudinary.podspec; path = ../Cloudinary.podspec; sourceTree = "<group>"; };
 		B6C2D4872A72741B00AA0039 /* CLDVideoPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoPlayerTests.swift; sourceTree = "<group>"; };
 		B6F11F3C288FC20900A895CD /* CLDAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDAnalyticsTests.swift; sourceTree = "<group>"; };
 		D07C87FEDB1F561D123D6873 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
