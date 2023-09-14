@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 @objcMembers open class CLDAnalytics: NSObject {
 
     public static let shared = CLDAnalytics()
