@@ -70,27 +70,27 @@ import Foundation
     
     */
     @discardableResult
-    open func setParam(_ key: String, value: Any?) -> CLDRequestParams {
+    open func setParam(_ key: String, value: Any?) -> Self {
         params[key] = value
         return self
     }
 
     @discardableResult
     @objc(setResourceTypeFromUrlResourceType:)
-    open func setResourceType(_ resourceType: CLDUrlResourceType) -> CLDRequestParams {
+    open func setResourceType(_ resourceType: CLDUrlResourceType) -> Self {
         return setResourceType(String(describing: resourceType))
     }
 
     @discardableResult
     @objc(setResourceTypeFromString:)
-    open func setResourceType(_ resourceType: String) -> CLDRequestParams {
+    open func setResourceType(_ resourceType: String) -> Self {
         self.resourceType = resourceType
         return self
     }
 
     @discardableResult
     @objc(setSignatureWithSignature:)
-    open func setSignature(_ signature: CLDSignature) -> CLDRequestParams {
+    open func setSignature(_ signature: CLDSignature) -> Self {
         self.signature = signature
         return self
     }
