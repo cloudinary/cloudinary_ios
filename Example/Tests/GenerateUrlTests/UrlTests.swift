@@ -150,7 +150,7 @@ class UrlTests: BaseTestCase {
         CLDAnalytics.shared.setTechVersion(version: "5.0")
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
-        XCTAssertEqual(url, "https://test123-res-2.cloudinary.com/image/upload/test?_a=AEAEvAF0")
+        XCTAssertEqual(url, "https://test123-res-2.cloudinary.com/image/upload/test?_a=CAEAEvAFBAF0")
     }
 
     func testFormat() {
