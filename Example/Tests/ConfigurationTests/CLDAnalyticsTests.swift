@@ -13,10 +13,10 @@ class CLDAnalyticsTests: BaseTestCase {
 
     func test_analyicsString() {
         var analyticsString = CLDAnalytics.shared.generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "12.0")
-        XCTAssertEqual(analyticsString, "AEAlhAM0")
+        XCTAssertEqual(analyticsString, "CAEAlhAMBAM0")
 
         analyticsString = CLDAnalytics.shared.generateAnalyticsSignature(sdkVersionString: "1.24.0-beta.6",techVersionString: "12.0")
-        XCTAssertEqual(analyticsString, "AEAlhAM0")
+        XCTAssertEqual(analyticsString, "CAEAlhAMBAM0")
     }
 
     func test_errorAnalytics() {
@@ -33,6 +33,6 @@ class CLDAnalyticsTests: BaseTestCase {
         XCTAssertEqual(analyticsString, "E")
 
         analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "43.21.26",techVersionString: "5.0")
-        XCTAssertEqual(analyticsString, "AE;;;AF0")
+        XCTAssertEqual(analyticsString, "CAE;;;AFBAF0")
     }
 }

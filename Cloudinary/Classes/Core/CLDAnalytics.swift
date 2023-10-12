@@ -11,14 +11,16 @@ import UIKit
 
     public static let shared = CLDAnalytics()
 
-    private final let ALGO_VERSION = "A"
+    private final let ALGO_VERSION = "C"
+    private final let PRODUCT = "A"
     private final let SDK = "E"
+    private final let OS_TYPE = "B"
     private final let ERROR_SIGNATURE = "E"
     private final let NO_FEATURE_CHAR = "0"
 
     private var sdkVersion: String? = nil
     private var techVersion: String? = nil
-    
+
 
     public func generateAnalyticsSignature(sdkVersionString: String? = nil, techVersionString: String? = nil) -> String {
         if sdkVersion == nil {
@@ -41,7 +43,7 @@ import UIKit
         guard sdkVersionArray.count > 1, let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersionArray[2])) else {
             return ERROR_SIGNATURE
         }
-        return "\(ALGO_VERSION)\(SDK)\(sdkVersionString)\(swiftVersionString)\(NO_FEATURE_CHAR)"
+        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(swiftVersionString)\(OS_TYPE)\(swiftVersionString)\(NO_FEATURE_CHAR)"
     }
 
     public func setSDKVersion(version: String) {
