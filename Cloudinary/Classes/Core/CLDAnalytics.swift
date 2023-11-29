@@ -36,14 +36,17 @@ import UIKit
             }
         }
         let swiftVersionArray = techVersion!.split(usingRegex: "\\.|\\-")
-        guard swiftVersionArray.count > 1, let swiftVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
+        guard swiftVersionArray.count > 1, let techVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
+            return ERROR_SIGNATURE
+        }
+        guard let osVersionString = generateOSVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1])) else {
             return ERROR_SIGNATURE
         }
         let sdkVersionArray = sdkVersion!.split(usingRegex: "\\.|\\-")
         guard sdkVersionArray.count > 1, let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersionArray[2])) else {
             return ERROR_SIGNATURE
         }
-        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(swiftVersionString)\(OS_TYPE)\(swiftVersionString)\(NO_FEATURE_CHAR)"
+        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(techVersionString)\(OS_TYPE)\(osVersionString)\(NO_FEATURE_CHAR)"
     }
 
     public func setSDKVersion(version: String) {
@@ -52,6 +55,23 @@ import UIKit
 
     public func setTechVersion(version: String) {
         techVersion = version;
+    }
+
+    private func generateOSVersionString(major: String, minor: String) -> String? {
+        let majorVersionString = major.leftPadding(toLength: 2, withPad: "0")
+        let minorVersionString = minor.leftPadding(toLength: 2, withPad: "0")
+        guard let majorDoubleValue = Int(majorVersionString), let minorVersionString = Int(minorVersionString) else {
+            return nil
+        }
+        let majorString = String(majorDoubleValue, radix: 2)
+        let minorString = String(minorVersionString, radix: 2)
+//010000000011
+        let majorStr = majorString.toAnalyticsVersionStr()
+        let minorStr = minorString.toAnalyticsVersionStr()
+//        let minorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 6)..<hexString.index(hexString.startIndex, offsetBy: 12)]).toAnalyticsVersionStr()
+//        let majorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 12)..<hexString.index(hexString.startIndex, offsetBy: 18)]).toAnalyticsVersionStr()
+
+        return "\(majorStr)\(minorStr)"
     }
 
     private func generateVersionString(major: String, minor: String, patch: String) -> String? {

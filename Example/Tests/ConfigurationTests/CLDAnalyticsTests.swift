@@ -12,11 +12,17 @@ import XCTest
 class CLDAnalyticsTests: BaseTestCase {
 
     func test_analyicsString() {
-        var analyticsString = CLDAnalytics.shared.generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "12.0")
-        XCTAssertEqual(analyticsString, "CAEAlhAMBAM0")
+        var analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "12.0")
+        XCTAssertEqual(analyticsString, "CAEAlhAMBMA0")
 
-        analyticsString = CLDAnalytics.shared.generateAnalyticsSignature(sdkVersionString: "1.24.0-beta.6",techVersionString: "12.0")
-        XCTAssertEqual(analyticsString, "CAEAlhAMBAM0")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0-beta.6",techVersionString: "12.0")
+        XCTAssertEqual(analyticsString, "CAEAlhAMBMA0")
+
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "16.3")
+        XCTAssertEqual(analyticsString, "CAEAlhE8BQD0")
+
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "17.1")
+        XCTAssertEqual(analyticsString, "CAEAlhB1BRB0")
     }
 
     func test_errorAnalytics() {
