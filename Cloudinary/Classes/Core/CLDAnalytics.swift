@@ -65,12 +65,9 @@ import UIKit
         }
         let majorString = String(majorDoubleValue, radix: 2)
         let minorString = String(minorVersionString, radix: 2)
-//010000000011
         let majorStr = majorString.toAnalyticsVersionStr()
         let minorStr = minorString.toAnalyticsVersionStr()
-//        let minorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 6)..<hexString.index(hexString.startIndex, offsetBy: 12)]).toAnalyticsVersionStr()
-//        let majorStr = String(hexString[hexString.index(hexString.startIndex, offsetBy: 12)..<hexString.index(hexString.startIndex, offsetBy: 18)]).toAnalyticsVersionStr()
-
+        
         return "\(majorStr)\(minorStr)"
     }
 
