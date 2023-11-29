@@ -13,16 +13,16 @@ class CLDAnalyticsTests: BaseTestCase {
 
     func test_analyicsString() {
         var analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "12.0")
-        XCTAssertEqual(analyticsString, "CAEAlhAMBMA0")
+        XCTAssertEqual(analyticsString, "DAEAlhAMBMA0")
 
         analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0-beta.6",techVersionString: "12.0")
-        XCTAssertEqual(analyticsString, "CAEAlhAMBMA0")
+        XCTAssertEqual(analyticsString, "DAEAlhAMBMA0")
 
         analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "16.3")
-        XCTAssertEqual(analyticsString, "CAEAlhE8BQD0")
+        XCTAssertEqual(analyticsString, "DAEAlhE8BQD0")
 
         analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "17.1")
-        XCTAssertEqual(analyticsString, "CAEAlhB1BRB0")
+        XCTAssertEqual(analyticsString, "DAEAlhB1BRB0")
     }
 
     func test_errorAnalytics() {
@@ -39,6 +39,6 @@ class CLDAnalyticsTests: BaseTestCase {
         XCTAssertEqual(analyticsString, "E")
 
         analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "43.21.26",techVersionString: "5.0")
-        XCTAssertEqual(analyticsString, "CAE;;;AFBFA0")
+        XCTAssertEqual(analyticsString, "DAE;;;AFBFA0")
     }
 }

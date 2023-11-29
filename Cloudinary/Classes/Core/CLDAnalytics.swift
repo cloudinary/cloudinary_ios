@@ -11,7 +11,7 @@ import UIKit
 
     public static let shared = CLDAnalytics()
 
-    private final let ALGO_VERSION = "C"
+    private final let ALGO_VERSION = "D"
     private final let PRODUCT = "A"
     private final let SDK = "E"
     private final let OS_TYPE = "B"
