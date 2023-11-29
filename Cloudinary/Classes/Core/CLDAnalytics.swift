@@ -60,11 +60,11 @@ import UIKit
     private func generateOSVersionString(major: String, minor: String) -> String? {
         let majorVersionString = major.leftPadding(toLength: 2, withPad: "0")
         let minorVersionString = minor.leftPadding(toLength: 2, withPad: "0")
-        guard let majorDoubleValue = Int(majorVersionString), let minorVersionString = Int(minorVersionString) else {
+        guard let majorDoubleValue = Int(majorVersionString), let minorDoubleValue = Int(minorVersionString) else {
             return nil
         }
         let majorString = String(majorDoubleValue, radix: 2)
-        let minorString = String(minorVersionString, radix: 2)
+        let minorString = String(minorDoubleValue, radix: 2)
         let majorStr = majorString.toAnalyticsVersionStr()
         let minorStr = minorString.toAnalyticsVersionStr()
         
