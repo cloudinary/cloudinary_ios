@@ -12,16 +12,16 @@ import XCTest
 class CLDAnalyticsTests: BaseTestCase {
 
     func test_analyicsString() {
-        var analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "12.0")
+        var analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "12.0", osType: "B", osVersionString: "12.0")
         XCTAssertEqual(analyticsString, "DAEAlhAMBMA0")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0-beta.6",techVersionString: "12.0")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0-beta.6",techVersionString: "12.0", osType: "B", osVersionString: "12.0")
         XCTAssertEqual(analyticsString, "DAEAlhAMBMA0")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "16.3")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "16.3", osType: "B", osVersionString: "16.3")
         XCTAssertEqual(analyticsString, "DAEAlhE8BQD0")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "17.1")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "17.1", osType: "B", osVersionString: "17.1")
         XCTAssertEqual(analyticsString, "DAEAlhB1BRB0")
     }
 
