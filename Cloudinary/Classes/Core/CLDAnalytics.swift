@@ -54,7 +54,7 @@ import UIKit
         guard sdkVersionArray.count > 1, let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersionArray[2])) else {
             return ERROR_SIGNATURE
         }
-        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(techVersionString)\(OS_TYPE)\(osVersionString)\(NO_FEATURE_CHAR)"
+        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(techVersionString)\(osType ?? OS_TYPE)\(osVersionString)\(NO_FEATURE_CHAR)"
     }
 
     public func setSDKVersion(version: String) {
