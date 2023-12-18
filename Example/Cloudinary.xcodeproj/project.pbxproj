@@ -91,6 +91,8 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		9753E077581D46FC1463D265 /* Pods_Cloudinary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */; };
+		B694AAF32B308C3C00075041 /* VideoEventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAF22B308C3C00075041 /* VideoEventsTests.swift */; };
+		B694AAF52B308C5A00075041 /* VideoEventsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAF42B308C5A00075041 /* VideoEventsManagerTests.swift */; };
 		B6C2D4882A72741B00AA0039 /* CLDVideoPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2D4872A72741B00AA0039 /* CLDVideoPlayerTests.swift */; };
 		B6F11F3D288FC20900A895CD /* CLDAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F11F3C288FC20900A895CD /* CLDAnalyticsTests.swift */; };
 		D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7119CE2246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift */; };
@@ -269,6 +271,8 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2F53C389142220209152BA /* Cloudinary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Cloudinary.podspec; path = ../Cloudinary.podspec; sourceTree = "<group>"; };
+		B694AAF22B308C3C00075041 /* VideoEventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEventsTests.swift; sourceTree = "<group>"; };
+		B694AAF42B308C5A00075041 /* VideoEventsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEventsManagerTests.swift; sourceTree = "<group>"; };
 		B6C2D4872A72741B00AA0039 /* CLDVideoPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoPlayerTests.swift; sourceTree = "<group>"; };
 		B6F11F3C288FC20900A895CD /* CLDAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDAnalyticsTests.swift; sourceTree = "<group>"; };
 		D07C87FEDB1F561D123D6873 /* Pods_Cloudinary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cloudinary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -564,6 +568,7 @@
 		274C6D1923FBAF5E0090BC40 /* UIExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				B694AAF62B308C6B00075041 /* Video Analytics */,
 				274C6D1A23FBAF5E0090BC40 /* UIBaseTest.swift */,
 				274C6D1B23FBAF5E0090BC40 /* UIButtonTests.swift */,
 				274C6D1C23FBAF5E0090BC40 /* UIImageViewTests.swift */,
@@ -787,6 +792,15 @@
 				270C1BF623FBBA3C00A503C3 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		B694AAF62B308C6B00075041 /* Video Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				B694AAF22B308C3C00075041 /* VideoEventsTests.swift */,
+				B694AAF42B308C5A00075041 /* VideoEventsManagerTests.swift */,
+			);
+			path = "Video Analytics";
 			sourceTree = "<group>";
 		};
 		D7173496258296CE006F34CD /* WidgetUITests */ = {
@@ -1092,10 +1106,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 3TR999VVAS;
 						LastSwiftMigration = 1130;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 3TR999VVAS;
 						LastSwiftMigration = 1130;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -1309,6 +1325,7 @@
 				D751A03B25E26DB0006839B1 /* StorehouseAutoPurgingTests.swift in Sources */,
 				D7289C88258A9E18004DBD29 /* UploaderWidgetVideoPlayerTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
+				B694AAF52B308C5A00075041 /* VideoEventsManagerTests.swift in Sources */,
 				D751A03C25E26DB0006839B1 /* StorehouseOnDiskTests.swift in Sources */,
 				D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */,
 				D7F34F2F2504F48C00C282B1 /* UploaderWidgetCollectionCellTests.swift in Sources */,
@@ -1353,6 +1370,7 @@
 				D751A03E25E26DB0006839B1 /* StorehouseConfigurationDiskTests.swift in Sources */,
 				27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */,
 				D7F34F3325052FE700C282B1 /* WidgetBaseTest.swift in Sources */,
+				B694AAF32B308C3C00075041 /* VideoEventsTests.swift in Sources */,
 				D7F34F3125052FBD00C282B1 /* UploaderWidgetPreviewViewControllerTests.swift in Sources */,
 				272C5182242B6C360093AB1B /* RequestTests.swift in Sources */,
 				D7E79DC924B515260082288A /* UploaderOcrTests.swift in Sources */,
@@ -1528,6 +1546,7 @@
 			baseConfigurationReference = DE971235B5CF94F0DA4D461B /* Pods-Cloudinary_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3TR999VVAS;
 				INFOPLIST_FILE = Cloudinary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -1543,6 +1562,7 @@
 			baseConfigurationReference = E5BA1162DEC8D6E579692502 /* Pods-Cloudinary_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3TR999VVAS;
 				INFOPLIST_FILE = Cloudinary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -1558,6 +1578,7 @@
 			baseConfigurationReference = 2F5D96AD5982EFEBDEE91350 /* Pods-Cloudinary_Tests.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				DEVELOPMENT_TEAM = 3TR999VVAS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1581,6 +1602,7 @@
 			baseConfigurationReference = FB8B4986C00FEC3B8BD40223 /* Pods-Cloudinary_Tests.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				DEVELOPMENT_TEAM = 3TR999VVAS;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
