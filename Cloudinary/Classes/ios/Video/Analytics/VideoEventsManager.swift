@@ -9,7 +9,7 @@ import Foundation
 @objcMembers public class VideoEventsManager {
 
     let CLD_ANALYTICS_ENDPOINT_PRODUCTION_URL: String = "https://video-analytics-api.cloudinary.com/v1/video-analytics"
-    public var CLD_ANALYTICS_ENDPOINT_DEVELOPMENT_URL = "http://localhost:3001/events"
+    public var CLD_ANALYTICS_ENDPOINT_DEVELOPMENT_URL = ""
 
     var viewId: String
 
