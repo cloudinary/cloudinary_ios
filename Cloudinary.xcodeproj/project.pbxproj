@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B694AAEC2B308AF100075041 /* CLDAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAEB2B308AF100075041 /* CLDAnalytics.swift */; };
 		B6C2D4862A724C4200AA0039 /* CLDVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2D4852A724C4200AA0039 /* CLDVideoPlayer.swift */; };
 		OBJ_257 /* CLDNConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* CLDNConvertible.swift */; };
 		OBJ_258 /* CLDNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* CLDNError.swift */; };
@@ -191,6 +192,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B694AAEB2B308AF100075041 /* CLDAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDAnalytics.swift; sourceTree = "<group>"; };
 		B6C2D4852A724C4200AA0039 /* CLDVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoPlayer.swift; sourceTree = "<group>"; };
 		"Cloudinary::Cloudinary::Product" /* Cloudinary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cloudinary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* CLDNConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDNConvertible.swift; sourceTree = "<group>"; };
@@ -959,6 +961,7 @@
 			children = (
 				OBJ_9 /* BaseNetwork */,
 				OBJ_24 /* CLDCloudinary.swift */,
+				B694AAEB2B308AF100075041 /* CLDAnalytics.swift */,
 				OBJ_25 /* CLDCompatibility.swift */,
 				OBJ_26 /* CLDConfiguration.swift */,
 				OBJ_27 /* CLDEagerTransformation.swift */,
@@ -1249,6 +1252,7 @@
 				OBJ_376 /* CLDWidgetAssetContainer.swift in Sources */,
 				OBJ_377 /* CLDWidgetPreviewCollectionCell.swift in Sources */,
 				OBJ_378 /* BackIconInstructions.swift in Sources */,
+				B694AAEC2B308AF100075041 /* CLDAnalytics.swift in Sources */,
 				OBJ_379 /* CropIconInstructions.swift in Sources */,
 				OBJ_380 /* CropRotateIconInstructions.swift in Sources */,
 				OBJ_381 /* DoneIconInstructions.swift in Sources */,
