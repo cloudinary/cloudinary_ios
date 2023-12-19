@@ -57,7 +57,7 @@ class AuthenticationTestCase: BaseTestCase {
 class BasicAuthenticationTestCase: AuthenticationTestCase {
     override func setUp() {
         super.setUp()
-        urlString = "https://mockbin.com/"
+        urlString = "https://httpbin.org/"
     }
 
     func skipped_testHTTPBasicAuthenticationWithInvalidCredentials() {
@@ -111,7 +111,7 @@ class BasicAuthenticationTestCase: AuthenticationTestCase {
 
     func testHiddenHTTPBasicAuthentication() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
         let expectation = self.expectation(description: "\(urlString) 200")
 
         var headers: CLDNHTTPHeaders?
@@ -147,7 +147,7 @@ class HTTPDigestAuthenticationTestCase: AuthenticationTestCase {
 
     override func setUp() {
         super.setUp()
-        urlString = "https://mockbin.com/"
+        urlString = "https://httpbin.org/"
     }
 
     func skipped_testHTTPDigestAuthenticationWithInvalidCredentials() {

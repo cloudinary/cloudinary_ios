@@ -28,7 +28,7 @@ import XCTest
 class StatusCodeValidationTestCase: BaseTestCase {
     func testThatValidationForRequestWithAcceptableStatusCodeResponseSucceeds() {
         // Given
-        let urlString = "https://mockbin.com/status/200"
+        let urlString = "https://httpbin.org/status/200"
 
         let expectation1 = self.expectation(description: "request should return 200 status code")
 
@@ -49,7 +49,7 @@ class StatusCodeValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithUnacceptableStatusCodeResponseFails() {
         // Given
-        let urlString = "https://mockbin.com/status/404"
+        let urlString = "https://httpbin.org/status/404"
 
         let expectation1 = self.expectation(description: "request should return 404 status code")
 
@@ -80,7 +80,7 @@ class StatusCodeValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithNoAcceptableStatusCodesFails() {
         // Given
-        let urlString = "https://mockbin.com/status/201"
+        let urlString = "https://httpbin.org/status/201"
 
         let expectation1 = self.expectation(description: "request should return 201 status code")
 
@@ -115,7 +115,7 @@ class StatusCodeValidationTestCase: BaseTestCase {
 class ContentTypeValidationTestCase: BaseTestCase {
     func testThatValidationForRequestWithAcceptableContentTypeResponseSucceeds() {
         // Given
-        let urlString = "https://mockbin.com/ip"
+        let urlString = "https://httpbin.org/ip"
 
         let expectation1 = self.expectation(description: "request should succeed and return ip")
 
@@ -139,7 +139,7 @@ class ContentTypeValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithAcceptableWildcardContentTypeResponseSucceeds() {
         // Given
-        let urlString = "https://mockbin.com/ip"
+        let urlString = "https://httpbin.org/ip"
 
         let expectation1 = self.expectation(description: "request should succeed and return ip")
 
@@ -163,7 +163,7 @@ class ContentTypeValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithUnacceptableContentTypeResponseFails() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
 
         let expectation1 = self.expectation(description: "request should succeed and return html")
 
@@ -195,7 +195,7 @@ class ContentTypeValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithNoAcceptableContentTypeResponseFails() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
 
         let expectation1 = self.expectation(description: "request should succeed and return html")
 
@@ -297,7 +297,7 @@ class ContentTypeValidationTestCase: BaseTestCase {
             return MockManager(configuration: configuration)
         }()
 
-        let urlString = "https://mockbin.com/delete"
+        let urlString = "https://httpbin.org/delete"
 
         let expectation1 = self.expectation(description: "request should be stubbed and return 204 status code")
 
@@ -328,7 +328,7 @@ class ContentTypeValidationTestCase: BaseTestCase {
 class MultipleValidationTestCase: BaseTestCase {
     func testThatValidationForRequestWithAcceptableStatusCodeAndContentTypeResponseSucceeds() {
         // Given
-        let urlString = "https://mockbin.com/ip"
+        let urlString = "https://httpbin.org/ip"
 
         let expectation1 = self.expectation(description: "request should succeed and return ip")
 
@@ -351,10 +351,10 @@ class MultipleValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithUnacceptableStatusCodeAndContentTypeResponseFailsWithStatusCodeError() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
 
         let expectation1 = self.expectation(description: "request should succeed and return status code 200")
-        
+
         var requestError: Error?
 
         // When
@@ -383,7 +383,7 @@ class MultipleValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithUnacceptableStatusCodeAndContentTypeResponseFailsWithContentTypeError() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
 
         let expectation1 = self.expectation(description: "request should succeed and return html")
 
@@ -419,9 +419,9 @@ class MultipleValidationTestCase: BaseTestCase {
 
 class AutomaticValidationTestCase: BaseTestCase {
     func testThatValidationForRequestWithAcceptableStatusCodeAndContentTypeResponseSucceeds() {
-        
+
         // Given
-        let url = URL(string: "https://mockbin.com/ip")!
+        let url = URL(string: "https://httpbin.org/ip")!
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
 
@@ -443,7 +443,7 @@ class AutomaticValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithUnacceptableStatusCodeResponseFails() {
         // Given
-        let urlString = "https://mockbin.com/status/404"
+        let urlString = "https://httpbin.org/status/404"
 
         let expectation1 = self.expectation(description: "request should return 404 status code")
 
@@ -456,7 +456,7 @@ class AutomaticValidationTestCase: BaseTestCase {
                 requestError = resp.error
                 expectation1.fulfill()
             }
-        
+
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -474,7 +474,7 @@ class AutomaticValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithAcceptableWildcardContentTypeResponseSucceeds() {
         // Given
-        let url = URL(string: "https://mockbin.com/ip")!
+        let url = URL(string: "https://httpbin.org/ip")!
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue("application/*", forHTTPHeaderField: "Accept")
 
@@ -496,7 +496,7 @@ class AutomaticValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithAcceptableComplexContentTypeResponseSucceeds() {
         // Given
-        let url = URL(string: "https://mockbin.com/")!
+        let url = URL(string: "https://httpbin.org/")!
         var urlRequest = URLRequest(url: url)
 
         let headerValue = "text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8,*/*;q=0.5"
@@ -520,7 +520,7 @@ class AutomaticValidationTestCase: BaseTestCase {
 
     func testThatValidationForRequestWithUnacceptableContentTypeResponseFails() {
         // Given
-        let url = URL(string: "https://mockbin.com/")!
+        let url = URL(string: "https://httpbin.org/")!
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
 
@@ -575,7 +575,7 @@ extension CLDNDataRequest {
 class CustomValidationTestCase: BaseTestCase {
     func testThatCustomValidationClosureHasAccessToServerResponseData() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
 
         let expectation1 = self.expectation(description: "request should return 200 status code")
 
@@ -601,7 +601,7 @@ class CustomValidationTestCase: BaseTestCase {
 
     func testThatCustomValidationCanThrowCustomError() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
 
         let expectation1 = self.expectation(description: "request should return 200 status code")
 
@@ -625,7 +625,7 @@ class CustomValidationTestCase: BaseTestCase {
 
     func testThatValidationExtensionHasAccessToServerResponseData() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
 
         let expectation1 = self.expectation(description: "request should return 200 status code")
 
@@ -647,7 +647,7 @@ class CustomValidationTestCase: BaseTestCase {
 
     func testThatValidationExtensionCanThrowCustomError() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
 
         let expectation1 = self.expectation(description: "request should return 200 status code")
 
