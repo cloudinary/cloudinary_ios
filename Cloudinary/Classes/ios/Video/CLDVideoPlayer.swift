@@ -24,16 +24,28 @@
 
 import Foundation
 import AVKit
+
+
+@available(iOS 10.0, *)
 @objcMembers open class CLDVideoPlayer: AVPlayer {
 
-    var automaticStreamingProfile = true
+    var automaticStreamingProfile: Bool = true
+
+    var analytics: Bool = true
+    var isIntialized: Bool = false
+    var loadMetadataSent: Bool = false
 
     var publicId: String?
 
     var transformation: CLDTransformation?
 
+     var eventsManager: VideoEventsManager = VideoEventsManager()
+
+    var providedData: [String: Any]?
+
     override init() {
         super.init()
+        setAnalyticsObservers()
     }
 
     /**
@@ -67,7 +79,7 @@ import AVKit
 
      - parameter item:  The player item to put into AVPlayer
 
-    */
+     */
     public override init(playerItem item: AVPlayerItem?) {
         super.init(playerItem: item)
     }
@@ -77,7 +89,7 @@ import AVKit
 
      - parameter url:  The URL to put into AVPlayer
 
-    */
+     */
     public override init(url URL: URL) {
         super.init(url: URL)
     }
@@ -87,7 +99,7 @@ import AVKit
 
      - parameter url:  The string to put into AVPlayer
 
-    */
+     */
     public init(url string: String) {
         guard let url = URL(string: string) else {
             print("Error - could not generate URL for CLDVideoPlayer")
@@ -95,5 +107,121 @@ import AVKit
             return
         }
         super.init(url: url)
+    }
+
+    func setAnalytics(_ analyticsType: AnalyticsType, cloudName: String?, publicId: String?) {
+        switch analyticsType {
+        case .auto:
+            eventsManager.trackingType = .auto
+            eventsManager.cloudName = cloudName ?? ""
+            eventsManager.publicId = publicId ?? self.publicId
+            break
+        case .manual:
+            eventsManager.trackingType = .manual
+            eventsManager.cloudName = cloudName ?? ""
+            eventsManager.publicId = publicId ?? self.publicId
+            break
+        case .disabled:
+            analytics = false
+        }
+    }
+
+    deinit {
+        if analytics {
+            removeObserver(self, forKeyPath: PlayerKeyPath.status.rawValue)
+            removeObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue)
+            removeObserver(self, forKeyPath: PlayerKeyPath.duration.rawValue)
+            eventsManager.sendViewEndEvent(providedData: providedData)
+            eventsManager.sendEvents()
+        }
+    }
+
+    func setAnalyticsObservers() {
+        guard analytics else {
+            return
+        }
+        addObserver(self, forKeyPath: PlayerKeyPath.status.rawValue, options: [.new], context: nil)
+        addObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue, options: [.new], context: nil)
+        addObserver(self, forKeyPath: PlayerKeyPath.duration.rawValue, options: [.new], context: nil)
+    }
+
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard let path = keyPath, let changes = change else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            return
+        }
+
+        switch path {
+        case PlayerKeyPath.status.rawValue:
+            if let newStatusNumber = changes[.newKey] as? NSNumber, let newStatus = AVPlayer.Status(rawValue: newStatusNumber.intValue) {
+                handleStatusChanged(newStatus)
+            }
+        case PlayerKeyPath.timeControlStatus.rawValue:
+            if let newStatusNumber = changes[.newKey] as? NSNumber, let newStatus = AVPlayer.TimeControlStatus(rawValue: newStatusNumber.intValue) {
+                handleTimeControlStatusChanged(newStatus)
+            }
+        case PlayerKeyPath.duration.rawValue:
+            if let playerItem = changes[.newKey] as? AVPlayerItem {
+                observeDuration(of: playerItem)
+            }
+        default:
+            super.observeValue(forKeyPath: path, of: object, change: changes, context: context)
+        }
+    }
+
+}
+
+@available(iOS 10.0, *)
+extension CLDVideoPlayer {
+    func observeDuration(of playerItem: AVPlayerItem) {
+        let duration = playerItem.asset.duration
+
+        let durationInSeconds = Int(CMTimeGetSeconds(duration))
+        if !loadMetadataSent {
+            loadMetadataSent = true
+            self.eventsManager.sendLoadMetadataEvent(duration: durationInSeconds)
+        }
+    }
+    func handleStatusChanged(_ status: AVPlayer.Status) {
+        switch status {
+        case .readyToPlay:
+            if let assetURL = self.currentItem?.asset as? AVURLAsset {
+                let mediaURL = assetURL.url
+                eventsManager.sendViewStartEvent(videoUrl: mediaURL.absoluteString, providedData: providedData)
+                isIntialized = true
+            }
+            break
+        case .failed:
+            // Playback failed
+            break
+        case .unknown:
+            // Unknown status
+            break
+        @unknown default:
+            break
+        }
+    }
+
+    func handleTimeControlStatusChanged(_ status: AVPlayer.TimeControlStatus) {
+        switch status {
+        case .playing:
+            break
+            eventsManager.sendPlayEvent(providedData: providedData)
+        case .paused:
+            // Player paused
+            if isIntialized {
+                if self.timeControlStatus == .paused {
+                    eventsManager.sendPauseEvent(providedData: providedData)
+                }
+            }
+        case .waitingToPlayAtSpecifiedRate:
+            break
+        @unknown default:
+            break
+        }
+    }
+
+    func setProvidedData(data: [String: Any]) {
+        providedData = data
     }
 }

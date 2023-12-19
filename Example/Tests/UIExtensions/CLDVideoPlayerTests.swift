@@ -53,6 +53,8 @@ class CLDVideoPlayerTests: UIBaseTest {
     func testPlaybackPauses() {
         var publicId: String? = ""
         let file = TestResourceType.dog.url
+        let params = CLDUploadRequestParams().setColors(true)
+        params.setResourceType(.video)
 
         XCTAssertNotNil(publicId)
         let player = CLDVideoPlayer(url: file)
