@@ -146,28 +146,29 @@ import AVKit
     }
 
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard let keyPath = keyPath, let change = change else {
+        guard let path = keyPath, let changes = change else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
 
-        switch keyPath {
+        switch path {
         case PlayerKeyPath.status.rawValue:
-            if let newStatusNumber = change[.newKey] as? NSNumber, let newStatus = AVPlayer.Status(rawValue: newStatusNumber.intValue) {
+            if let newStatusNumber = changes[.newKey] as? NSNumber, let newStatus = AVPlayer.Status(rawValue: newStatusNumber.intValue) {
                 handleStatusChanged(newStatus)
             }
         case PlayerKeyPath.timeControlStatus.rawValue:
-            if let newStatusNumber = change[.newKey] as? NSNumber, let newStatus = AVPlayer.TimeControlStatus(rawValue: newStatusNumber.intValue) {
+            if let newStatusNumber = changes[.newKey] as? NSNumber, let newStatus = AVPlayer.TimeControlStatus(rawValue: newStatusNumber.intValue) {
                 handleTimeControlStatusChanged(newStatus)
             }
         case PlayerKeyPath.duration.rawValue:
-            if let playerItem = change[.newKey] as? AVPlayerItem {
+            if let playerItem = changes[.newKey] as? AVPlayerItem {
                 observeDuration(of: playerItem)
             }
         default:
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            super.observeValue(forKeyPath: path, of: object, change: changes, context: context)
         }
     }
+
 }
 
 @available(iOS 10.0, *)
