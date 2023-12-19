@@ -12,53 +12,40 @@ typealias CustomerData = [String: Any]
 typealias VideoData = [String: Any]
 typealias ProvidedData = [String: Any]
 
-public enum AnalyticsType {
-    case auto
-    case manual
-    case disabled
+public enum TrackingType: String {
+    case manual = "manual"
+    case auto = "auto"
 }
+
 public enum PlayerKeyPath: String {
     case status = "status"
     case timeControlStatus = "timeControlStatus"
     case duration = "duration"
 }
 
-public enum TrackingType: String {
-    case manual = "manual"
-    case auto = "auto"
+enum AnalyticsType {
+    case auto
+    case manual
+    case disabled
 }
 
-public struct VideoPlayer {
+struct VideoPlayer {
     var type: String
     var version: String
 }
 
 public class VideoEvent {
-    public var userId: String?
     public var trackingType: TrackingType
-    public var viewId: String
     public var eventName: String
     public var eventTime: Int
     public var eventDetails: EventDetails
-    init(trackingType: TrackingType, viewId: String, eventName: String, eventDetails: EventDetails? = nil) {
+
+    init(trackingType: TrackingType, eventName: String, eventDetails: EventDetails? = nil) {
         self.trackingType = trackingType
-        self.viewId = viewId
         self.eventName = eventName
         self.eventTime = Int(Int64((Date().timeIntervalSince1970 * 1000.0).rounded()))
         self.eventDetails = eventDetails ?? [String: Any]()
-        self.userId = getUserId()
         self.eventDetails[VideoEventJSONKeys.videoPlayer.rawValue] = createVideoPlayerObject()
-    }
-
-    func getUserId() -> String {
-        if let userId = UserDefaults.standard.string(forKey: "CLDVideoPlayerUserId") {
-            return userId
-        } else {
-            var newUserId = UUID().uuidString
-            newUserId = newUserId.lowercased().replacingOccurrences(of: "-", with: "")
-            UserDefaults.standard.set(newUserId, forKey: "CLDVideoPlayerUserId")
-            return newUserId
-        }
     }
 
     func createVideoPlayerObject() -> [String: Any] {
@@ -90,8 +77,6 @@ public class VideoEvent {
             detailsDictionary[key] = value
         }
         return [
-            VideoEventJSONKeys.userId.rawValue: userId!,
-            VideoEventJSONKeys.viewId.rawValue: viewId,
             VideoEventJSONKeys.eventName.rawValue: eventName,
             VideoEventJSONKeys.eventName.rawValue: eventTime,
             VideoEventJSONKeys.eventDetails.rawValue: detailsDictionary
@@ -100,46 +85,46 @@ public class VideoEvent {
 }
 
 public class VideoViewStartEvent: VideoEvent {
-    public init(trackingType: TrackingType = .auto, viewId: String, videoUrl: String, trackingData: [String: String]?,providedData: [String: Any]? = nil) {
+    public init(trackingType: TrackingType = .auto, videoUrl: String, trackingData: [String: String]?,providedData: [String: Any]? = nil) {
         var eventDetails = EventDetails()
         eventDetails[VideoEventJSONKeys.trackingType.rawValue] = trackingType.rawValue
         eventDetails[VideoEventJSONKeys.videoUrl.rawValue] = videoUrl
         let defaultEventName = EventNames.viewStart.rawValue
-        super.init(trackingType: trackingType, viewId: viewId, eventName: defaultEventName, eventDetails: eventDetails)
+        super.init(trackingType: trackingType, eventName: defaultEventName, eventDetails: eventDetails)
         super.eventDetails[VideoEventJSONKeys.customerData.rawValue] = createCustomerData(trackingData: trackingData, providedData: providedData)
     }
 }
 
 public class VideoLoadMetadata: VideoEvent {
-    public init(trackingType: TrackingType = .auto, viewId: String, duration: Int, providedData: [String: Any]? = nil) {
+    public init(trackingType: TrackingType = .auto, duration: Int, providedData: [String: Any]? = nil) {
         var eventDetails = EventDetails()
         eventDetails[VideoEventJSONKeys.trackingType.rawValue] = trackingType.rawValue
         eventDetails[VideoEventJSONKeys.videoDuration.rawValue] = duration
         let defaultEventName = EventNames.loadMetadata.rawValue
-        super.init(trackingType: trackingType, viewId: viewId, eventName: defaultEventName, eventDetails: eventDetails)
+        super.init(trackingType: trackingType, eventName: defaultEventName, eventDetails: eventDetails)
     }
 }
 
 public class VideoViewEnd: VideoEvent {
-    public init(trackingType: TrackingType = .auto, viewId: String, providedData: [String: Any]? = nil) {
+    public init(trackingType: TrackingType = .auto, providedData: [String: Any]? = nil) {
         var eventDetails = EventDetails()
         eventDetails[VideoEventJSONKeys.trackingType.rawValue] = trackingType.rawValue
         let defaultEventName = EventNames.viewEnd.rawValue
-        super.init(trackingType: trackingType, viewId: viewId, eventName: defaultEventName, eventDetails: eventDetails)
+        super.init(trackingType: trackingType, eventName: defaultEventName, eventDetails: eventDetails)
     }
 }
 
 public class VideoPlayEvent: VideoEvent {
-    public init(trackingType: TrackingType = .auto, viewId: String, providedData: [String: Any]? = nil) {
+    public init(trackingType: TrackingType = .auto, providedData: [String: Any]? = nil) {
         let defaultEventName = EventNames.play.rawValue
-        super.init(trackingType: trackingType, viewId: viewId, eventName: defaultEventName)
+        super.init(trackingType: trackingType, eventName: defaultEventName)
     }
 }
 
 public class VideoPauseEvent: VideoEvent {
-    public init(trackingType: TrackingType = .auto, viewId: String, providedData: [String: Any]? = nil) {
+    public init(trackingType: TrackingType = .auto, providedData: [String: Any]? = nil) {
         let defaultEventName = EventNames.pause.rawValue
-        super.init(trackingType: trackingType, viewId: viewId, eventName: defaultEventName)
+        super.init(trackingType: trackingType, eventName: defaultEventName)
     }
 }
 

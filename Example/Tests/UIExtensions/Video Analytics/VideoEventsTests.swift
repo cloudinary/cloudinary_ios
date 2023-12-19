@@ -11,14 +11,12 @@ import Cloudinary
 public class VideoEventTests: XCTestCase {
 
     func testVideoViewStartEventInitialization() {
-        let viewId = "123456"
         let videoUrl = "https://www.example.com/video.mp4"
         let trackingData = ["cloudName": "exampleCloud", "publicId": "abc123"]
         let providedData = ["key": "value"]
 
-        let event = VideoViewStartEvent(viewId: viewId, videoUrl: videoUrl, trackingData: trackingData, providedData: providedData)
+        let event = VideoViewStartEvent(videoUrl: videoUrl, trackingData: trackingData, providedData: providedData)
 
-        XCTAssertEqual(event.viewId, viewId)
         XCTAssertEqual(event.eventName, EventNames.viewStart.rawValue)
         XCTAssertEqual(event.eventDetails[VideoEventJSONKeys.trackingType.rawValue] as? String, TrackingType.auto.rawValue)
         XCTAssertEqual(event.eventDetails[VideoEventJSONKeys.videoUrl.rawValue] as? String, videoUrl)
@@ -35,24 +33,20 @@ public class VideoEventTests: XCTestCase {
     }
 
     func testVideoLoadMetadataEventInitialization() {
-        let viewId = "123456"
         let duration = 120
 
-        let event = VideoLoadMetadata(viewId: viewId, duration: duration)
+        let event = VideoLoadMetadata(duration: duration)
 
-        XCTAssertEqual(event.viewId, viewId)
         XCTAssertEqual(event.eventName, EventNames.loadMetadata.rawValue)
         XCTAssertEqual(event.eventDetails[VideoEventJSONKeys.trackingType.rawValue] as? String, TrackingType.auto.rawValue)
         XCTAssertEqual(event.eventDetails[VideoEventJSONKeys.videoDuration.rawValue] as? Int, duration)
     }
 
     func testVideoViewEndEventInitialization() {
-        let viewId = "123456"
         let providedData = ["key": "value"]
 
-        let event = VideoViewEnd(viewId: viewId, providedData: providedData)
+        let event = VideoViewEnd(providedData: providedData)
 
-        XCTAssertEqual(event.viewId, viewId)
         XCTAssertEqual(event.eventName, EventNames.viewEnd.rawValue)
         XCTAssertEqual(event.eventDetails[VideoEventJSONKeys.trackingType.rawValue] as? String, TrackingType.auto.rawValue)
 
@@ -62,12 +56,10 @@ public class VideoEventTests: XCTestCase {
     }
 
     func testVideoPlayEventInitialization() {
-        let viewId = "123456"
         let providedData = ["key": "value"]
 
-        let event = VideoPlayEvent(viewId: viewId, providedData: providedData)
+        let event = VideoPlayEvent(providedData: providedData)
 
-        XCTAssertEqual(event.viewId, viewId)
         XCTAssertEqual(event.eventName, EventNames.play.rawValue)
 
         if let providedDataObject = event.eventDetails[VideoEventJSONKeys.providedData.rawValue] as? [String: Any] {
@@ -76,12 +68,10 @@ public class VideoEventTests: XCTestCase {
     }
 
     func testVideoPauseEventInitialization() {
-        let viewId = "123456"
         let providedData = ["key": "value"]
 
-        let event = VideoPauseEvent(viewId: viewId, providedData: providedData)
+        let event = VideoPauseEvent(providedData: providedData)
 
-        XCTAssertEqual(event.viewId, viewId)
         XCTAssertEqual(event.eventName, EventNames.pause.rawValue)
 
         if let providedDataObject = event.eventDetails[VideoEventJSONKeys.providedData.rawValue] as? [String: Any] {
