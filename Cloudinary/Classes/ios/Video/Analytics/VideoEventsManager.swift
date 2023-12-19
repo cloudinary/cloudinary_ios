@@ -122,21 +122,10 @@ import Foundation
         var body = Data()
 
         // Add events data
-
         body.append(buildFormDataPart(boundary: boundary, name: "userId", value: userId))
         body.append(buildFormDataPart(boundary: boundary, name: "viewId", value: viewId))
         body.append(buildFormDataPart(boundary: boundary, name: "events"))
         body.append(buildEventsData(childEvents: childEvents)!)
-
-//        body.append(contentsOf: "--\(boundary)\r\n".utf8)
-//        body.append(contentsOf: "Content-Disposition: form-data; name=\"viewId\"\r\n\r\n".utf8)
-//        body.append(contentsOf: "\(viewId)\r\n".utf8)
-
-//        body.append(contentsOf: "--\(boundary)\r\n".utf8)
-//        body.append(contentsOf: "Content-Disposition: form-data; name=\"events\"\r\n\r\n".utf8)
-
-
-
         body.append(contentsOf: "--\(boundary)--\r\n".utf8)
         request.httpBody = body
 
