@@ -72,7 +72,7 @@ class CacheTestCase: BaseTestCase {
     var urlCache: URLCache!
     var manager: CLDNSessionManager!
 
-    let urlString = "https://mockbin.com/response-headers"
+    let urlString = "https://httpbin.org/response-headers"
     let requestTimeout: TimeInterval = 30
 
     var requests: [String: URLRequest] = [:]

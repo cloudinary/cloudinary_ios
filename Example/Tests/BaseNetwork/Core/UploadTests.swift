@@ -28,7 +28,7 @@ import XCTest
 class UploadFileInitializationTestCase: BaseTestCase {
     func testUploadClassMethodWithMethodURLAndFile() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
         let imageURL = url(forResource: "rainbow", withExtension: "jpg")
 
         // When
@@ -43,7 +43,7 @@ class UploadFileInitializationTestCase: BaseTestCase {
 
     func testUploadClassMethodWithMethodURLHeadersAndFile() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
         let headers = ["Authorization": "123456"]
         let imageURL = url(forResource: "rainbow", withExtension: "jpg")
 
@@ -67,7 +67,7 @@ class UploadFileInitializationTestCase: BaseTestCase {
 class UploadDataInitializationTestCase: BaseTestCase {
     func testUploadClassMethodWithMethodURLAndData() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
 
         // When
         let request = CLDNSessionManager.default.upload(Data(), to: urlString)
@@ -81,7 +81,7 @@ class UploadDataInitializationTestCase: BaseTestCase {
 
     func testUploadClassMethodWithMethodURLHeadersAndData() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
         let headers = ["Authorization": "123456"]
 
         // When
@@ -104,7 +104,7 @@ class UploadDataInitializationTestCase: BaseTestCase {
 class UploadStreamInitializationTestCase: BaseTestCase {
     func testUploadClassMethodWithMethodURLAndStream() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
         let imageURL = url(forResource: "rainbow", withExtension: "jpg")
         let imageStream = InputStream(url: imageURL)!
 
@@ -120,7 +120,7 @@ class UploadStreamInitializationTestCase: BaseTestCase {
 
     func testUploadClassMethodWithMethodURLHeadersAndStream() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
         let imageURL = url(forResource: "rainbow", withExtension: "jpg")
         let headers = ["Authorization": "123456"]
         let imageStream = InputStream(url: imageURL)!
@@ -145,7 +145,7 @@ class UploadStreamInitializationTestCase: BaseTestCase {
 class UploadDataTestCase: BaseTestCase {
     func testUploadDataRequest() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let data = "Lorem ipsum dolor sit amet".data(using: .utf8, allowLossyConversion: false)!
 
         let expectation = self.expectation(description: "Upload request should succeed: \(urlString)")
@@ -168,7 +168,7 @@ class UploadDataTestCase: BaseTestCase {
 
     func skipped_testUploadDataRequestWithProgress() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let data: Data = {
             var text = ""
             for _ in 1...3_000 {
@@ -242,7 +242,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 
     func testThatUploadingMultipartFormDataSetsContentTypeHeader() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let uploadData = "upload_data".data(using: .utf8, allowLossyConversion: false)!
 
         let expectation = self.expectation(description: "multipart form data upload should succeed")
@@ -291,7 +291,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 
     func testThatUploadingMultipartFormDataSucceedsWithDefaultParameters() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let frenchData = "français".data(using: .utf8, allowLossyConversion: false)!
         let japaneseData = "日本語".data(using: .utf8, allowLossyConversion: false)!
 
@@ -337,7 +337,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 
     func testThatUploadingMultipartFormDataBelowMemoryThresholdStreamsFromMemory() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let frenchData = "français".data(using: .utf8, allowLossyConversion: false)!
         let japaneseData = "日本語".data(using: .utf8, allowLossyConversion: false)!
 
@@ -381,7 +381,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 
     func testThatUploadingMultipartFormDataBelowMemoryThresholdSetsContentTypeHeader() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let uploadData = "upload data".data(using: .utf8, allowLossyConversion: false)!
 
         let expectation = self.expectation(description: "multipart form data upload should succeed")
@@ -434,7 +434,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 
     func testThatUploadingMultipartFormDataAboveMemoryThresholdStreamsFromDisk() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let frenchData = "français".data(using: .utf8, allowLossyConversion: false)!
         let japaneseData = "日本語".data(using: .utf8, allowLossyConversion: false)!
 
@@ -480,7 +480,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 
     func testThatUploadingMultipartFormDataAboveMemoryThresholdSetsContentTypeHeader() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let uploadData = "upload data".data(using: .utf8, allowLossyConversion: false)!
 
         let expectation = self.expectation(description: "multipart form data upload should succeed")
@@ -542,7 +542,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
             return SessionManager(configuration: configuration, serverTrustPolicyManager: nil)
         }()
 
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let french = "français".data(using: .utf8, allowLossyConversion: false)!
         let japanese = "日本語".data(using: .utf8, allowLossyConversion: false)!
 
@@ -600,7 +600,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 
     private func executeMultipartFormDataUploadRequestWithProgress(streamFromDisk: Bool) {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let loremData1: Data = {
             var loremValues: [String] = []
             for _ in 1...1_500 {
