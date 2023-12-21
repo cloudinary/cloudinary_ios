@@ -135,7 +135,7 @@ class URLProtocolTestCase: BaseTestCase {
 
     func skipped_testThatURLProtocolReceivesRequestHeadersAndSessionConfigurationHeaders() {
         // Given
-        let urlString = "https://mockbin.com/headers"
+        let urlString = "https://httpbin.org/headers"
         let url = URL(string: urlString)!
 
         var urlRequest = URLRequest(url: url)

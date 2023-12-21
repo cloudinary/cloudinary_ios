@@ -51,20 +51,13 @@ class CLDVideoPlayerTests: UIBaseTest {
 
 
     func testPlaybackPauses() {
-        let uploadExpectation = self.expectation(description: "Upload should succeed")
         var publicId: String? = ""
         let file = TestResourceType.dog.url
         let params = CLDUploadRequestParams().setColors(true)
         params.setResourceType(.video)
-        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
-            publicId = resultRes?.publicId ?? nil
-            uploadExpectation.fulfill()
-        })
-
-        waitForExpectations(timeout: 60.0, handler: nil)
 
         XCTAssertNotNil(publicId)
-        let player = CLDVideoPlayer(publicId: publicId!, cloudinary: cloudinarySecured)
+        let player = CLDVideoPlayer(url: file)
 
         // Assuming you have a test expectation for the video to pause.
         let expectation = XCTestExpectation(description: "Video should pause.")

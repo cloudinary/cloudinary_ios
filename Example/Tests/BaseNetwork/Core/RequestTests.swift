@@ -28,7 +28,7 @@ import XCTest
 class RequestInitializationTestCase: BaseTestCase {
     func testRequestClassMethodWithMethodAndURL() {
         // Given
-        let urlString = "http://mockbin.com/"
+        let urlString = "http://httpbin.org/"
 
         // When
         let request = CLDNSessionManager.default.request(urlString)
@@ -42,7 +42,7 @@ class RequestInitializationTestCase: BaseTestCase {
 
     func testRequestClassMethodWithMethodAndURLAndParameters() {
         // Given
-        let urlString = "http://mockbin.com/get"
+        let urlString = "http://httpbin.org/get"
 
         // When
         let request = CLDNSessionManager.default.request(urlString, parameters: ["foo": "bar"])
@@ -57,7 +57,7 @@ class RequestInitializationTestCase: BaseTestCase {
 
     func testRequestClassMethodWithMethodURLParametersAndHeaders() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
         let headers = ["Authorization": "123456"]
 
         // When
@@ -99,7 +99,7 @@ class RequestSubclassRequestPropertyTestCase: BaseTestCase {
 
     func testDataRequestHasURLRequest() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
 
         // When
         let request = sessionManager.request(urlString)
@@ -113,7 +113,7 @@ class RequestSubclassRequestPropertyTestCase: BaseTestCase {
 
     func testUploadDataRequestHasURLRequest() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
 
         // When
         let request = sessionManager.upload(Data(), to: urlString)
@@ -127,7 +127,7 @@ class RequestSubclassRequestPropertyTestCase: BaseTestCase {
 
     func testUploadFileRequestHasURLRequest() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
         let imageURL = url(forResource: "rainbow", withExtension: "jpg")
 
         // When
@@ -142,7 +142,7 @@ class RequestSubclassRequestPropertyTestCase: BaseTestCase {
 
     func testUploadStreamRequestHasURLRequest() {
         // Given
-        let urlString = "https://mockbin.com/"
+        let urlString = "https://httpbin.org/"
         let imageURL = url(forResource: "rainbow", withExtension: "jpg")
         let imageStream = InputStream(url: imageURL)!
 
@@ -162,7 +162,7 @@ class RequestSubclassRequestPropertyTestCase: BaseTestCase {
 class RequestResponseTestCase: BaseTestCase {
     func testRequestResponse() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
 
         let expectation = self.expectation(description: "GET request should succeed: \(urlString)")
 
@@ -187,7 +187,7 @@ class RequestResponseTestCase: BaseTestCase {
     func testRequestResponseWithProgress() {
         // Given
         let randomBytes = 4 * 1024 * 1024
-        let urlString = "https://mockbin.com/bytes/\(randomBytes)"
+        let urlString = "https://httpbin.org/bytes/\(randomBytes)"
 
         let expectation = self.expectation(description: "Bytes download progress should be reported: \(urlString)")
 
@@ -229,7 +229,7 @@ class RequestResponseTestCase: BaseTestCase {
     func testRequestResponseWithStream() {
         // Given
         let randomBytes = 4 * 1024 * 1024
-        let urlString = "https://mockbin.com/bytes/\(randomBytes)"
+        let urlString = "https://httpbin.org/bytes/\(randomBytes)"
 
         let expectation = self.expectation(description: "Bytes download progress should be reported: \(urlString)")
 
@@ -275,7 +275,7 @@ class RequestResponseTestCase: BaseTestCase {
 
     func testPOSTRequestWithUnicodeParameters() {
         // Given
-        let urlString = "https://mockbin.com/request"
+        let urlString = "https://httpbin.org/post"
         let parameters = [
             "french": "français",
             "japanese": "日本語",
@@ -300,7 +300,7 @@ class RequestResponseTestCase: BaseTestCase {
         XCTAssertNotNil(response?.request)
         XCTAssertNotNil(response?.response)
         XCTAssertNotNil(response?.data)
-        if let json = response?.result.value as? [String: Any], let form = ((response?.result.value as? [String: Any])?["postData"] as? [String: Any])?["params"] as? [String: String] {
+        if let json = response?.result.value as? [String: Any], let form = json["form"] as? [String: String] {
             XCTAssertEqual(form["french"], parameters["french"])
             XCTAssertEqual(form["japanese"], parameters["japanese"])
             XCTAssertEqual(form["arabic"], parameters["arabic"])
@@ -312,7 +312,7 @@ class RequestResponseTestCase: BaseTestCase {
 
     func testPOSTRequestWithBase64EncodedImages() {
         // Given
-        let urlString = "https://mockbin.com/request"
+        let urlString = "https://httpbin.org/post"
 
         let pngBase64EncodedString: String = {
             let URL = url(forResource: "unicorn", withExtension: "png")
@@ -353,7 +353,7 @@ class RequestResponseTestCase: BaseTestCase {
         XCTAssertNotNil(response?.data)
         XCTAssertEqual(response?.result.isSuccess, true)
 
-        if let json = response?.result.value as? [String: Any], let form = ((response?.result.value as? [String: Any])?["postData"] as? [String: Any])?["params"] as? [String: String] {
+        if let json = response?.result.value as? [String: Any], let form = json["form"] as? [String: String] {
             XCTAssertEqual(form["email"], parameters["email"])
             XCTAssertEqual(form["png_image"], parameters["png_image"])
             XCTAssertEqual(form["jpeg_image"], parameters["jpeg_image"])
@@ -388,7 +388,7 @@ extension CLDNRequest {
 class RequestExtensionTestCase: BaseTestCase {
     func testThatRequestExtensionHasAccessToTaskDelegateQueue() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
         let expectation = self.expectation(description: "GET request should succeed: \(urlString)")
 
         var responses: [String] = []
@@ -425,7 +425,7 @@ class RequestExtensionTestCase: BaseTestCase {
 class RequestDescriptionTestCase: BaseTestCase {
     func testRequestDescription() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
         let request = CLDNSessionManager.default.request(urlString)
         let initialRequestDescription = request.description
 
@@ -445,8 +445,8 @@ class RequestDescriptionTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(initialRequestDescription, "GET https://mockbin.com/get")
-        XCTAssertEqual(finalRequestDescription, "GET https://mockbin.com/get (\(response?.statusCode ?? -1))")
+        XCTAssertEqual(initialRequestDescription, "GET https://httpbin.org/get")
+        XCTAssertEqual(finalRequestDescription, "GET https://httpbin.org/get (\(response?.statusCode ?? -1))")
     }
 }
 
@@ -501,7 +501,7 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
 
     func testGETRequestDebugDescription() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
 
         // When
         let request = manager.request(urlString)
@@ -515,7 +515,7 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
 
     func testGETRequestWithJSONHeaderDebugDescription() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
 
         // When
         let headers: [String: String] = [ "X-Custom-Header": "{\"key\": \"value\"}" ]
@@ -527,7 +527,7 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
 
     func testGETRequestWithDuplicateHeadersDebugDescription() {
         // Given
-        let urlString = "https://mockbin.com/get"
+        let urlString = "https://httpbin.org/get"
 
         // When
         let headers = [ "Accept-Language": "en-GB" ]
@@ -547,7 +547,7 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
 
     func testPOSTRequestDebugDescription() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
 
         // When
         let request = manager.request(urlString, method: .post)
@@ -561,7 +561,7 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
 
     func testPOSTRequestWithJSONParametersDebugDescription() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
 
         let parameters = [
             "foo": "bar",
@@ -588,7 +588,7 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
 
     func testPOSTRequestWithCookieDebugDescription() {
         // Given
-        let urlString = "https://mockbin.com/request"
+        let urlString = "https://httpbin.org/post"
 
         let properties = [
             HTTPCookiePropertyKey.domain: "httpbin.org",
@@ -608,12 +608,12 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
         XCTAssertEqual(components[0..<3], ["$", "curl", "-v"])
         XCTAssertEqual(components[3..<5], ["-X", "POST"])
         XCTAssertEqual(components.last, "\"\(urlString)\"")
-        XCTAssertEqual(components[5..<6], ["\"https://mockbin.com/request\""])
+        XCTAssertEqual(components[5..<6], ["-b"])
     }
 
     func testPOSTRequestWithCookiesDisabledDebugDescription() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
 
         let properties = [
             HTTPCookiePropertyKey.domain: "httpbin.org",
@@ -636,7 +636,7 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
 
     func testMultipartFormDataRequestWithDuplicateHeadersDebugDescription() {
         // Given
-        let urlString = "https://mockbin.com/post"
+        let urlString = "https://httpbin.org/post"
         let japaneseData = "日本語".data(using: .utf8, allowLossyConversion: false)!
         let expectation = self.expectation(description: "multipart form data encoding should succeed")
 
