@@ -1,9 +1,14 @@
+4.3.0 / 2023-12-25
+==================
+Other Changes
+-------------
+  * Add video player analytics
+
 4.2.0 / 2023-10-12
 ==================
 Other Changes
 -------------
   * Update analytics token
-
 
 4.1.1 / 2023-09-18
 ==================
