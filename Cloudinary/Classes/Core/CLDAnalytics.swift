@@ -58,11 +58,15 @@ import UIKit
     }
 
     public func setSDKVersion(version: String) {
-        sdkVersion = version;
+        sdkVersion = version
     }
 
     public func setTechVersion(version: String) {
-        techVersion = version;
+        techVersion = version
+    }
+
+    public func setOsVersion(version: String) {
+        osVersion = version
     }
 
     private func generateOSVersionString(major: String, minor: String) -> String? {
