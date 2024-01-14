@@ -12,33 +12,49 @@ import XCTest
 class CLDAnalyticsTests: BaseTestCase {
 
     func test_analyicsString() {
-        var analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "12.0", osType: "B", osVersionString: "12.0")
+        var analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "1.24.0",techVersion: "12.0", osType: "B", osVersion: "12.0")
         XCTAssertEqual(analyticsString, "DAEAlhAMBMA0")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0-beta.6",techVersionString: "12.0", osType: "B", osVersionString: "12.0")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "1.24.0-beta.6",techVersion: "12.0", osType: "B", osVersion: "12.0")
         XCTAssertEqual(analyticsString, "DAEAlhAMBMA0")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "16.3", osType: "B", osVersionString: "16.3")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "1.24.0",techVersion: "16.3", osType: "B", osVersion: "16.3")
         XCTAssertEqual(analyticsString, "DAEAlhE8BQD0")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "17.1", osType: "B", osVersionString: "17.1")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "1.24.0",techVersion: "17.1", osType: "B", osVersion: "17.1")
         XCTAssertEqual(analyticsString, "DAEAlhB1BRB0")
     }
 
     func test_errorAnalytics() {
-        var analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "0")
+        var analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "1.24.0",techVersion: "0")
         XCTAssertEqual(analyticsString, "E")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "0",techVersionString: "12.0")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "0",techVersion: "12.0")
         XCTAssertEqual(analyticsString, "E")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "",techVersionString: "12.0")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "",techVersion: "12.0")
         XCTAssertEqual(analyticsString, "E")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "1.24.0",techVersion: "")
         XCTAssertEqual(analyticsString, "E")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "43.21.26",techVersionString: "5.0", osVersionString: "17.1")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersion: "43.21.26",techVersion: "5.0", osVersion: "17.1")
         XCTAssertEqual(analyticsString, "DAE;;;AFBRB0")
+    }
+
+    func test_analyticsInitialized() {
+        let analytics = CLDAnalytics(sdkVersion: "1.24.0",techVersion: "12.0", osType: "B", osVersion: "12.0")
+        XCTAssertEqual(analytics.generateAnalyticsSignature(), "DAEAlhAMBMA0")
+
+        analytics.setSDKVersion(version: "1.25.0")
+        XCTAssertEqual(analytics.generateAnalyticsSignature(), "DAEAnFAMBMA0")
+
+        analytics.setTechVersion(version: "13.0")
+        XCTAssertEqual(analytics.generateAnalyticsSignature(), "DAEAnFANBMA0")
+
+        analytics.setOsVersion(version: "17.1")
+        XCTAssertEqual(analytics.generateAnalyticsSignature(), "DAEAnFANBRB0")
+
+
     }
 }

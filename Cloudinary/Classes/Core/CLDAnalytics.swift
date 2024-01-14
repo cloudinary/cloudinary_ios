@@ -21,27 +21,22 @@ import UIKit
     private var sdkVersion: String? = nil
     private var techVersion: String? = nil
     private var osVersion: String? = nil
+    private var osType: String? = nil
+
+    public init(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil) {
+        super.init()
+        self.sdkVersion = sdkVersion ?? CLDNetworkCoordinator.getVersion()
+        self.techVersion = techVersion ?? getiOSVersion()
+        self.osType = osType
+        self.osVersion = osVersion ?? getiOSVersion()
+    }
 
 
-    public func generateAnalyticsSignature(sdkVersionString: String? = nil, techVersionString: String? = nil, osType: String? = "B", osVersionString: String? = nil) -> String {
-        if sdkVersion == nil {
-            sdkVersion = sdkVersionString
-            if sdkVersion == nil {
-                sdkVersion = CLDNetworkCoordinator.getVersion()
-            }
-        }
-        if techVersion == nil {
-            techVersion = techVersionString
-            if techVersion == nil {
-                techVersion = getiOSVersion()
-            }
-        }
-        if osVersion == nil {
-            osVersion = osVersionString
-            if osVersion == nil {
-                osVersion = getiOSVersion()
-            }
-        }
+    public func generateAnalyticsSignature(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil) -> String {
+        var sdkVersion = sdkVersion ?? self.sdkVersion
+        var techVersion = techVersion ?? self.techVersion
+        var osType = osType ?? self.osType
+        var osVersion = osVersion ?? self.osVersion
         let swiftVersionArray = techVersion!.split(usingRegex: "\\.|\\-")
         guard swiftVersionArray.count > 1, let techVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
             return ERROR_SIGNATURE
