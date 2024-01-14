@@ -148,9 +148,10 @@ class UrlTests: BaseTestCase {
         let config = CLDConfiguration(cloudName: "test123", apiKey: "a", apiSecret: "b", privateCdn: true, secure: true, cdnSubdomain: true, secureCdnSubdomain: true, analytics: true)
         CLDAnalytics.shared.setSDKVersion(version: "3.3.0")
         CLDAnalytics.shared.setTechVersion(version: "5.0")
+        CLDAnalytics.shared.setOsVersion(version: "17.0")
         sut = CLDCloudinary(configuration: config)
         let url = sut?.createUrl().generate("test")
-        XCTAssertEqual(url, "https://test123-res-2.cloudinary.com/image/upload/test?_a=CAEAEvAFBAF0")
+        XCTAssertEqual(url, "https://test123-res-2.cloudinary.com/image/upload/test?_a=DAEAEvAFBRA0")
     }
 
     func testFormat() {

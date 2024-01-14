@@ -11,7 +11,7 @@ import UIKit
 
     public static let shared = CLDAnalytics()
 
-    private final let ALGO_VERSION = "C"
+    private final let ALGO_VERSION = "D"
     private final let PRODUCT = "A"
     private final let SDK = "E"
     private final let OS_TYPE = "B"
@@ -20,38 +20,62 @@ import UIKit
 
     private var sdkVersion: String? = nil
     private var techVersion: String? = nil
+    private var osVersion: String? = nil
+    private var osType: String? = nil
+
+    public init(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil) {
+        super.init()
+        self.sdkVersion = sdkVersion ?? CLDNetworkCoordinator.getVersion()
+        self.techVersion = techVersion ?? getiOSVersion()
+        self.osType = osType
+        self.osVersion = osVersion ?? getiOSVersion()
+    }
 
 
-    public func generateAnalyticsSignature(sdkVersionString: String? = nil, techVersionString: String? = nil) -> String {
-        if sdkVersion == nil {
-            sdkVersion = sdkVersionString
-            if sdkVersion == nil {
-                sdkVersion = CLDNetworkCoordinator.getVersion()
-            }
-        }
-        if techVersion == nil {
-            techVersion = techVersionString
-            if techVersion == nil {
-                techVersion = getiOSVersion()
-            }
-        }
+    public func generateAnalyticsSignature(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil) -> String {
+        var sdkVersion = sdkVersion ?? self.sdkVersion
+        var techVersion = techVersion ?? self.techVersion
+        var osType = osType ?? self.osType
+        var osVersion = osVersion ?? self.osVersion
         let swiftVersionArray = techVersion!.split(usingRegex: "\\.|\\-")
-        guard swiftVersionArray.count > 1, let swiftVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
+        guard swiftVersionArray.count > 1, let techVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
+            return ERROR_SIGNATURE
+        }
+        let osVersionArray = osVersion!.split(usingRegex: "\\.|\\-")
+        guard let osVersionString = generateOSVersionString(major: String(osVersionArray[0]), minor: String(osVersionArray[1])) else {
             return ERROR_SIGNATURE
         }
         let sdkVersionArray = sdkVersion!.split(usingRegex: "\\.|\\-")
         guard sdkVersionArray.count > 1, let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersionArray[2])) else {
             return ERROR_SIGNATURE
         }
-        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(swiftVersionString)\(OS_TYPE)\(swiftVersionString)\(NO_FEATURE_CHAR)"
+        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(techVersionString)\(osType ?? OS_TYPE)\(osVersionString)\(NO_FEATURE_CHAR)"
     }
 
     public func setSDKVersion(version: String) {
-        sdkVersion = version;
+        sdkVersion = version
     }
 
     public func setTechVersion(version: String) {
-        techVersion = version;
+        techVersion = version
+    }
+
+    public func setOsVersion(version: String) {
+        osVersion = version
+    }
+
+    private func generateOSVersionString(major: String, minor: String) -> String? {
+        let majorVersionString = major.leftPadding(toLength: 2, withPad: "0")
+        let minorVersionString = minor.leftPadding(toLength: 2, withPad: "0")
+        guard let majorDoubleValue = Int(majorVersionString), let minorDoubleValue = Int(minorVersionString) else {
+            return nil
+        }
+        let majorString = String(majorDoubleValue, radix: 2)
+        let minorString = String(minorDoubleValue, radix: 2)
+        let majorStr = majorString.toAnalyticsVersionStr()
+        let minorStr = minorString.toAnalyticsVersionStr()
+        
+        return "\(majorStr)\(minorStr)"
     }
 
     private func generateVersionString(major: String, minor: String, patch: String) -> String? {

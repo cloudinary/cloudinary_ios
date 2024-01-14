@@ -102,7 +102,8 @@ import Foundation
      A boolean value specifying whether or not to use analytics. true by default.
     */
    open var analytics: Bool = true
-    
+
+
     internal var userPlatform: CLDUserPlatform?
     
     // MARK: - Init
