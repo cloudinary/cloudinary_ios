@@ -38,7 +38,7 @@ class CLDAnalyticsTests: BaseTestCase {
         analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "1.24.0",techVersionString: "")
         XCTAssertEqual(analyticsString, "E")
 
-        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "43.21.26",techVersionString: "5.0")
-        XCTAssertEqual(analyticsString, "DAE;;;AFBRA0")
+        analyticsString = CLDAnalytics().generateAnalyticsSignature(sdkVersionString: "43.21.26",techVersionString: "5.0", osVersionString: "17.1")
+        XCTAssertEqual(analyticsString, "DAE;;;AFBRB0")
     }
 }
