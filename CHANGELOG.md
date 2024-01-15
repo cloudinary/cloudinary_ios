@@ -1,3 +1,9 @@
+4.4.0 / 2024-01-15
+==================
+Other Changes
+-------------
+  * Update analytics token
+
 4.3.0 / 2023-12-25
 ==================
 Other Changes
