@@ -1,3 +1,9 @@
+4.5.0 / 2024-01-29
+==================
+Other Changes
+-------------
+  * Support Privacy Manifest
+
 4.4.0 / 2024-01-15
 ==================
 Other Changes
