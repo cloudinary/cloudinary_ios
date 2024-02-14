@@ -101,7 +101,13 @@ import Foundation
     /**
      A boolean value specifying whether or not to use analytics. true by default.
     */
-   open var analytics: Bool = true
+    open var analytics: Bool = true
+
+
+    /**
+     An analytics object
+    */
+    open var analyticsObject: CLDAnalytics = CLDAnalytics()
 
 
     internal var userPlatform: CLDUserPlatform?

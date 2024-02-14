@@ -16,12 +16,12 @@ import UIKit
     private final let SDK = "E"
     private final let OS_TYPE = "B"
     private final let ERROR_SIGNATURE = "E"
-    private final let NO_FEATURE_CHAR = "0"
 
     private var sdkVersion: String? = nil
     private var techVersion: String? = nil
     private var osVersion: String? = nil
     private var osType: String? = nil
+    private var featureFlag = "0"
 
     public init(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil) {
         super.init()
@@ -49,7 +49,7 @@ import UIKit
         guard sdkVersionArray.count > 1, let sdkVersionString = generateVersionString(major: String(sdkVersionArray[0]), minor: String(sdkVersionArray[1]), patch: String(sdkVersionArray[2])) else {
             return ERROR_SIGNATURE
         }
-        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(techVersionString)\(osType ?? OS_TYPE)\(osVersionString)\(NO_FEATURE_CHAR)"
+        return "\(ALGO_VERSION)\(PRODUCT)\(SDK)\(sdkVersionString)\(techVersionString)\(osType ?? OS_TYPE)\(osVersionString)\(featureFlag)"
     }
 
     public func setSDKVersion(version: String) {
@@ -62,6 +62,14 @@ import UIKit
 
     public func setOsVersion(version: String) {
         osVersion = version
+    }
+
+    public func setFeatureFlag(flag: String? = nil) {
+        guard let flag = flag else {
+            featureFlag = "0"
+            return
+        }
+        featureFlag = flag
     }
 
     private func generateOSVersionString(major: String, minor: String) -> String? {
