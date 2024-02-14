@@ -100,7 +100,6 @@ class UIImageViewTests: UIBaseTest {
         validateResponsiveGeneration(publicId: pubId, params: params, viewWidth: 20000, viewHeight: 200, expectedImageWidth: 200 * dpr, expectedImageHeight: 200 * dpr, label: "fit, step size rounding, above max")
         validateResponsiveGeneration(publicId: pubId, params: params, viewWidth: 200, viewHeight: 200, expectedImageWidth: 200 * dpr, expectedImageHeight: 200 * dpr, label: "fit, step size rounding, equal to step size")
     }
-
     func testImageDownloadedAndSetFromPublicID() {
         
         var expectation = self.expectation(description: "Upload should succeed")
