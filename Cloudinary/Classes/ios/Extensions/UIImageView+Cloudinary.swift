@@ -55,7 +55,8 @@ public extension UIImageView {
      
      */
     @objc func cldSetImage(publicId: String, cloudinary: CLDCloudinary, signUrl: Bool = false, resourceType:CLDUrlResourceType = CLDUrlResourceType.image, transformation: CLDTransformation? = nil, placeholder: UIImage? = nil) {
-        
+        var cloudinary = cloudinary
+        cloudinary.config.analyticsObject.setFeatureFlag(flag: "E")
         let urlGen = cloudinary.createUrl()
         
         if let transformation = transformation {

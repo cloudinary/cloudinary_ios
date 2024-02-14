@@ -23,20 +23,22 @@ import UIKit
     private var osType: String? = nil
     private var featureFlag = "0"
 
-    public init(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil) {
+    public init(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil, featureFlag: String? = nil) {
         super.init()
         self.sdkVersion = sdkVersion ?? CLDNetworkCoordinator.getVersion()
         self.techVersion = techVersion ?? getiOSVersion()
         self.osType = osType
         self.osVersion = osVersion ?? getiOSVersion()
+        self.featureFlag = featureFlag ?? "0"
     }
 
 
-    public func generateAnalyticsSignature(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil) -> String {
+    public func generateAnalyticsSignature(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil, featureFlag: String? = nil) -> String {
         var sdkVersion = sdkVersion ?? self.sdkVersion
         var techVersion = techVersion ?? self.techVersion
         var osType = osType ?? self.osType
         var osVersion = osVersion ?? self.osVersion
+        var featureFlag = featureFlag ?? self.featureFlag
         let swiftVersionArray = techVersion!.split(usingRegex: "\\.|\\-")
         guard swiftVersionArray.count > 1, let techVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
             return ERROR_SIGNATURE
