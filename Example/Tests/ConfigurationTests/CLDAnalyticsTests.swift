@@ -54,7 +54,10 @@ class CLDAnalyticsTests: BaseTestCase {
 
         analytics.setOsVersion(version: "17.1")
         XCTAssertEqual(analytics.generateAnalyticsSignature(), "DAEAnFANBRB0")
+    }
 
-
+    func test_analyticsFeatureFlag() {
+        let analytics = CLDAnalytics(sdkVersion: "1.24.0",techVersion: "12.0", osType: "B", osVersion: "12.0", featureFlag: "E")
+        XCTAssertEqual(analytics.generateAnalyticsSignature(), "DAEAlhAMBMAE")
     }
 }

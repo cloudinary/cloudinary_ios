@@ -58,6 +58,8 @@ import AVKit
 
      */
     public init(publicId: String, cloudinary: CLDCloudinary, transformation: CLDTransformation? = nil, automaticStreamingProfile: Bool? = true) {
+        var cloudinary = cloudinary
+        cloudinary.config.analyticsObject.setFeatureFlag(flag: "F")
         var transformation = transformation
         var cldUrl = cloudinary.createUrl()
         if automaticStreamingProfile ?? true  && transformation == nil {
