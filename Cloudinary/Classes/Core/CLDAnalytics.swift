@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 @objcMembers open class CLDAnalytics: NSObject {
 
-    public static let shared = CLDAnalytics()
-
     private final let ALGO_VERSION = "D"
     private final let PRODUCT = "A"
     private final let SDK = "E"
@@ -34,11 +32,11 @@ import UIKit
 
 
     public func generateAnalyticsSignature(sdkVersion: String? = nil, techVersion: String? = nil, osType: String? = "B", osVersion: String? = nil, featureFlag: String? = nil) -> String {
-        var sdkVersion = sdkVersion ?? self.sdkVersion
-        var techVersion = techVersion ?? self.techVersion
-        var osType = osType ?? self.osType
-        var osVersion = osVersion ?? self.osVersion
-        var featureFlag = featureFlag ?? self.featureFlag
+        let sdkVersion = sdkVersion ?? self.sdkVersion
+        let techVersion = techVersion ?? self.techVersion
+        let osType = osType ?? self.osType
+        let osVersion = osVersion ?? self.osVersion
+        let featureFlag = featureFlag ?? self.featureFlag
         let swiftVersionArray = techVersion!.split(usingRegex: "\\.|\\-")
         guard swiftVersionArray.count > 1, let techVersionString = generateVersionString(major: String(swiftVersionArray[0]), minor: String(swiftVersionArray[1]), patch: "") else {
             return ERROR_SIGNATURE
