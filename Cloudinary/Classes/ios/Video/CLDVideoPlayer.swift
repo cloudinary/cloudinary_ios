@@ -73,7 +73,7 @@ import AVKit
             super.init()
             return
         }
-        super.init(url: url)
+         super.init(url: url)
     }
 
     /**
