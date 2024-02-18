@@ -153,7 +153,7 @@ class UrlTests: BaseTestCase {
         let url = sut?.createUrl().generate("test")
         XCTAssertEqual(url, "https://test123-res-2.cloudinary.com/image/upload/test?_a=DAEAEvAFBRA0")
     }
-//url    String?    "https://test123-res-2.cloudinary.com/image/upload/test?_a=DAEAGUD\u{15}BRC0"    some
+
     func testFormat() {
         let url = sut?.createUrl().setFormat("jpg").generate("test")
         XCTAssertEqual(url, "\(prefix)/image/upload/test.jpg")
