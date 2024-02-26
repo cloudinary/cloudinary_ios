@@ -29,7 +29,7 @@ jobs:
       install: pod install --project-directory=Example
       env: CLOUDINARY_URL=$CLOUDINARY_URL
       xcode_destination: platform=iOS Simulator,OS=15.2,name=iPhone 8
-    - osx_image: xcode14.0
+    - osx_image: xcode14
       xcode_workspace: Example/Cloudinary.xcworkspace
       xcode_scheme: travis_public_scheme
       podfile: Example/Podfiles
