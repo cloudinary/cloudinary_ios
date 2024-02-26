@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import Firebase
+//import Firebase
 
 class FirebaseEventsHandler: EventsProvider {
     func logEvent(event: EventObject) {
-        Analytics.logEvent(event.getEventName(), parameters: event.getAttributes())
+//        Analytics.logEvent(event.getEventName(), parameters: event.getAttributes())
     }
 }

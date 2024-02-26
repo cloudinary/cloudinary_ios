@@ -3,7 +3,7 @@ use_frameworks!
 
 target 'Cloudinary_Example' do
   pod 'Cloudinary', :path => '../'
-  pod 'Firebase'
+#  pod 'Firebase'
 
   target 'Cloudinary_Tests' do
     inherit! :search_paths
