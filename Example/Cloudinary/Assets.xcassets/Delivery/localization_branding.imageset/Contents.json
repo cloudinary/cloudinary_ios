@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "localization_branding.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

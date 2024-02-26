@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UploadLoadingView" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+            <connections>
+                <outlet property="aiLoading" destination="5E0-Tl-dG8" id="9w3-yo-7QW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="180" height="70"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1pc-7N-QhV">
+                    <rect key="frame" x="0.0" y="0.0" width="180" height="70"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFt-Sc-jd2">
+                            <rect key="frame" x="0.0" y="0.0" width="180" height="35"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="5E0-Tl-dG8">
+                                    <rect key="frame" x="71.666666666666671" y="-1" width="37" height="37"/>
+                                    <color key="color" name="primary"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="5E0-Tl-dG8" firstAttribute="centerY" secondItem="eFt-Sc-jd2" secondAttribute="centerY" id="o4p-i4-qpq"/>
+                                <constraint firstItem="5E0-Tl-dG8" firstAttribute="centerX" secondItem="eFt-Sc-jd2" secondAttribute="centerX" id="qp7-Ti-Xsk"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Enx-jL-zHh">
+                            <rect key="frame" x="0.0" y="35" width="180" height="35"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploading your asset..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zo4-ZJ-OAt">
+                                    <rect key="frame" x="8" y="7.9999999999999982" width="164.33333333333334" height="19.333333333333329"/>
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="zo4-ZJ-OAt" firstAttribute="centerY" secondItem="Enx-jL-zHh" secondAttribute="centerY" id="Fj0-4M-8DZ"/>
+                                <constraint firstItem="zo4-ZJ-OAt" firstAttribute="centerX" secondItem="Enx-jL-zHh" secondAttribute="centerX" id="P6d-ov-QGO"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="eFt-Sc-jd2" firstAttribute="height" secondItem="1pc-7N-QhV" secondAttribute="height" multiplier="0.5" id="DTp-6c-gGu"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="1pc-7N-QhV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="It6-fP-6fO"/>
+                <constraint firstAttribute="bottom" secondItem="1pc-7N-QhV" secondAttribute="bottom" id="KIn-pd-aKS"/>
+                <constraint firstAttribute="trailing" secondItem="1pc-7N-QhV" secondAttribute="trailing" id="RRE-M2-X15"/>
+                <constraint firstItem="1pc-7N-QhV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ucY-RF-XCh"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="6.1068702290076331" y="214.78873239436621"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="primary">
+            <color red="0.27450980392156865" green="0.59607843137254901" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
