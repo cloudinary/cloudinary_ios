@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z1h-bJ-x8h">
-                                <rect key="frame" x="16" y="59" width="361" height="510"/>
+                                <rect key="frame" x="16" y="59" width="353" height="510"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -29,7 +29,7 @@
                             <constraint firstItem="Z1h-bJ-x8h" firstAttribute="leading" secondItem="mTL-8P-xqS" secondAttribute="leadingMargin" id="6ZP-RM-dll"/>
                             <constraint firstItem="Z1h-bJ-x8h" firstAttribute="top" secondItem="ovq-co-4Ko" secondAttribute="bottom" id="Hfn-I1-NZB"/>
                             <constraint firstItem="sj6-xR-yew" firstAttribute="top" secondItem="Z1h-bJ-x8h" secondAttribute="bottom" id="fXR-GA-S4x"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Z1h-bJ-x8h" secondAttribute="trailing" id="mwE-2A-9OJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Z1h-bJ-x8h" secondAttribute="trailing" constant="8" id="mwE-2A-9OJ"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="393" height="603"/>

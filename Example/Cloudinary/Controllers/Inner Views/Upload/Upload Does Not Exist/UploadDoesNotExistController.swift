@@ -24,9 +24,9 @@ class UploadDoesNotExistController: UIViewController {
         super.viewWillAppear(animated)
         setUploadImageView()
         if type == .UploadLarge {
-            EventsHandler.shared.logEvent(event: EventObject(name: "Upload Large"))
+            EventsHandler.shared.logEvent(event: EventObject(name: "Upload Large", attributes: ["cloud_name": CloudinaryHelper.shared.getUploadCloud() ?? ""]))
         } else {
-            EventsHandler.shared.logEvent(event: EventObject(name: "Upload"))
+            EventsHandler.shared.logEvent(event: EventObject(name: "Upload", attributes: ["cloud_name": CloudinaryHelper.shared.getUploadCloud() ?? ""]))
         }
     }
 
