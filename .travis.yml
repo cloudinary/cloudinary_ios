@@ -35,4 +35,4 @@ jobs:
       podfile: Example/Podfiles
       install: pod install --project-directory=Example
       env: CLOUDINARY_URL=$CLOUDINARY_URL
-      xcode_destination: platform=iOS Simulator,OS=16.0,name=iPhone 13
+      xcode_destination: platform=iOS Simulator,OS=16.0,name=iPhone 14
