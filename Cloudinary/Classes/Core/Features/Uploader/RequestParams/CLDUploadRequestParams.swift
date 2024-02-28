@@ -682,7 +682,20 @@ import Foundation
         setBoolParam(.ImageMetadata, value: imageMetadata)
         return self
     }
-    
+
+    /**
+     Set a boolean parameter indicating whether to return IPTC, XMP, and detailed Exif metadata of the uploaded asset in the response. default is false.
+
+     - parameter imageMetadata:     The boolean parameter.
+
+     - returns:                     The same instance of CLDExplicitRequestParams.
+     */
+    @discardableResult
+    open func setMediaMetadata(_ mediaMetadata: Bool) -> Self {
+        setBoolParam(.MediaMetadata, value: mediaMetadata)
+        return self
+    }
+
     /**
      Set a boolean parameter indicating whether to retrieve predominant colors & color histogram of the uploaded asset. default is false.
      
@@ -1193,6 +1206,7 @@ import Foundation
         case Faces =                                "faces"
         case Colors =                               "colors"
         case ImageMetadata =                        "image_metadata"
+        case MediaMetadata =                        "media_metadata"
         case UseFilename =                          "use_filename"
         case UniqueFilename =                       "unique_filename"
         case DiscardOriginalFilename =              "discard_original_filename"
