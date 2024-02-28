@@ -686,7 +686,7 @@ import Foundation
     /**
      Set a boolean parameter indicating whether to return IPTC, XMP, and detailed Exif metadata of the uploaded asset in the response. default is false.
 
-     - parameter imageMetadata:     The boolean parameter.
+     - parameter mediaMetadata:     The boolean parameter.
 
      - returns:                     The same instance of CLDExplicitRequestParams.
      */
