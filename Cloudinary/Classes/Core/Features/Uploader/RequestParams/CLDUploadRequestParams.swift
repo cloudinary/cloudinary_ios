@@ -677,6 +677,7 @@ import Foundation
      
      - returns:                     The same instance of CLDExplicitRequestParams.
      */
+    @available(*, deprecated, message: "Use the new method 'setMediaMetadata' instead.")
     @discardableResult
     open func setImageMetadata(_ imageMetadata: Bool) -> Self {
         setBoolParam(.ImageMetadata, value: imageMetadata)
