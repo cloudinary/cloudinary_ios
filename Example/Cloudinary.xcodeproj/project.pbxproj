@@ -75,7 +75,6 @@
 		9753E077581D46FC1463D265 /* Pods_Cloudinary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAA36BF6CA4E5748DFCD320 /* Pods_Cloudinary_Example.framework */; };
 		B64ED1E22B8C933B00BE653E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64ED1632B8C933900BE653E /* AppDelegate.swift */; };
 		B64ED1E32B8C933B00BE653E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1642B8C933900BE653E /* GoogleService-Info.plist */; };
-		B64ED1E42B8C933B00BE653E /* car-film.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1662B8C933900BE653E /* car-film.mp4 */; };
 		B64ED1E52B8C933B00BE653E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1672B8C933A00BE653E /* Colors.xcassets */; };
 		B64ED1E62B8C933B00BE653E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1682B8C933A00BE653E /* Assets.xcassets */; };
 		B64ED1E72B8C933B00BE653E /* VideoFeedCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64ED16C2B8C933A00BE653E /* VideoFeedCollectionController.swift */; };
@@ -323,7 +322,6 @@
 		B64ED1622B8C933900BE653E /* Cloudinary_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cloudinary_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		B64ED1632B8C933900BE653E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B64ED1642B8C933900BE653E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B64ED1662B8C933900BE653E /* car-film.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "car-film.mp4"; sourceTree = "<group>"; };
 		B64ED1672B8C933A00BE653E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		B64ED1682B8C933A00BE653E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B64ED16C2B8C933A00BE653E /* VideoFeedCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFeedCollectionController.swift; sourceTree = "<group>"; };
@@ -844,7 +842,6 @@
 				B64ED1642B8C933900BE653E /* GoogleService-Info.plist */,
 				B64ED1DA2B8C933B00BE653E /* Helpers */,
 				B64ED1A22B8C933A00BE653E /* Info.plist */,
-				B64ED1652B8C933900BE653E /* Resources */,
 				B64ED1D92B8C933B00BE653E /* SceneDelegate.swift */,
 				B64ED1D42B8C933A00BE653E /* Utils */,
 				B64ED1AF2B8C933A00BE653E /* Views */,
@@ -891,14 +888,6 @@
 				270C1BF623FBBA3C00A503C3 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		B64ED1652B8C933900BE653E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				B64ED1662B8C933900BE653E /* car-film.mp4 */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		B64ED1692B8C933A00BE653E /* Controllers */ = {
@@ -1645,7 +1634,6 @@
 				D73DBB0B258BA0570002E7E5 /* dog.mov in Resources */,
 				B64ED2222B8C933B00BE653E /* InnerUploadFrame.xib in Resources */,
 				B64ED2202B8C933B00BE653E /* UploadWidget.storyboard in Resources */,
-				B64ED1E42B8C933B00BE653E /* car-film.mp4 in Resources */,
 				D73DBB0A258BA0550002E7E5 /* dog2.mp4 in Resources */,
 				B64ED21D2B8C933B00BE653E /* ConditionalProduct.storyboard in Resources */,
 				B64ED2002B8C933B00BE653E /* video_links.plist in Resources */,
