@@ -8,7 +8,7 @@ notifications:
     recipients:
       - sdk_developers@cloudinary.com
 jobs:
-    - osx_image: xcode14.2
+    - osx_image: xcode13.4
       xcode_workspace: Example/Cloudinary.xcworkspace
       xcode_scheme: travis_public_scheme
       podfile: Example/Podfiles
