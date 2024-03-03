@@ -281,7 +281,11 @@ import Foundation
     open var bitRate: Int? {
         return getParam(.bitRate) as? Int
     }
-    
+
+    open var metadata: [String: String]? {
+        return getParam(.videoMetadata) as? [String: String]
+    }
+
     // MARK: - Private Helpers
     
     fileprivate func getParam(_ param: VideoKey) -> AnyObject? {
@@ -289,14 +293,15 @@ import Foundation
     }
     
     fileprivate enum VideoKey: CustomStringConvertible {
-        case pixFormat, codec, level, bitRate
-        
+        case pixFormat, codec, level, bitRate, videoMetadata
+
         var description: String {
             switch self {
             case .pixFormat:        return "pix_format"
             case .codec:            return "codec"
             case .level:            return "level"
             case .bitRate:          return "bit_rate"
+            case .videoMetadata:         return "metadata"
             }
         }
     }
@@ -337,7 +342,7 @@ import Foundation
     open var channelLayout: String? {
         return getParam(.channelLayout) as? String
     }
-    
+
     // MARK: - Private Helpers
     
     fileprivate func getParam(_ param: AudioKey) -> AnyObject? {
@@ -346,7 +351,7 @@ import Foundation
     
     fileprivate enum AudioKey: CustomStringConvertible {
         case codec, bitRate, frequency, channels, channelLayout
-        
+
         var description: String {
             switch self {
             case .codec:            return "codec"
