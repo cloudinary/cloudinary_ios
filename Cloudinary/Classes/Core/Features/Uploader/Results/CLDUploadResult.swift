@@ -343,10 +343,6 @@ import Foundation
         return getParam(.channelLayout) as? String
     }
 
-    open var metadata: [String: String]? {
-        return getParam(.audioMetadata) as? [String: String]
-    }
-
     // MARK: - Private Helpers
     
     fileprivate func getParam(_ param: AudioKey) -> AnyObject? {
@@ -354,7 +350,7 @@ import Foundation
     }
     
     fileprivate enum AudioKey: CustomStringConvertible {
-        case codec, bitRate, frequency, channels, channelLayout, audioMetadata
+        case codec, bitRate, frequency, channels, channelLayout
 
         var description: String {
             switch self {
@@ -363,7 +359,6 @@ import Foundation
             case .frequency:        return "frequency"
             case .channels:         return "channels"
             case .channelLayout:    return "channel_layout"
-            case .audioMetadata:    return "metadata"
             }
         }
     }
