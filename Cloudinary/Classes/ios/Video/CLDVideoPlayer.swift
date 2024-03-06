@@ -207,7 +207,6 @@ extension CLDVideoPlayer {
     func handleTimeControlStatusChanged(_ status: AVPlayer.TimeControlStatus) {
         switch status {
         case .playing:
-            break
             eventsManager.sendPlayEvent(providedData: providedData)
         case .paused:
             // Player paused
