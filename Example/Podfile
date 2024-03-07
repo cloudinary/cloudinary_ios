@@ -1,8 +1,9 @@
-platform :ios, '9.0'
+platform :ios, '13.0'
 use_frameworks!
 
 target 'Cloudinary_Example' do
   pod 'Cloudinary', :path => '../'
+#  pod 'Firebase'
 
   target 'Cloudinary_Tests' do
     inherit! :search_paths

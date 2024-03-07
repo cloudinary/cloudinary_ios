@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Toolbar" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+            <connections>
+                <outlet property="vwDelivery" destination="UWR-T8-bP8" id="7sb-Zi-cZG"/>
+                <outlet property="vwUpload" destination="XIC-XR-k7u" id="Gyr-Uw-dQV"/>
+                <outlet property="vwVideo" destination="9ex-DG-EBH" id="KYc-hr-ll8"/>
+                <outlet property="vwWidgets" destination="8ur-CX-ipd" id="qJA-c9-uKp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="98"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4BX-df-jPb">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="64"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="I7a-Lc-Osd">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="64"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UWR-T8-bP8" customClass="ToolbarItem" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="98.333333333333329" height="64"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIC-XR-k7u" customClass="ToolbarItem" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+                                    <rect key="frame" x="98.333333333333343" y="0.0" width="98.333333333333343" height="64"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ur-CX-ipd" customClass="ToolbarItem" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+                                    <rect key="frame" x="196.66666666666666" y="0.0" width="97.999999999999972" height="64"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ex-DG-EBH" customClass="ToolbarItem" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+                                    <rect key="frame" x="294.66666666666669" y="0.0" width="98.333333333333314" height="64"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="I7a-Lc-Osd" firstAttribute="top" secondItem="4BX-df-jPb" secondAttribute="top" id="01F-ox-adY"/>
+                        <constraint firstAttribute="bottom" secondItem="I7a-Lc-Osd" secondAttribute="bottom" id="Pds-5j-VdR"/>
+                        <constraint firstItem="I7a-Lc-Osd" firstAttribute="leading" secondItem="4BX-df-jPb" secondAttribute="leading" id="Tvv-Hu-nlu"/>
+                        <constraint firstAttribute="trailing" secondItem="I7a-Lc-Osd" secondAttribute="trailing" id="VpS-db-ryQ"/>
+                        <constraint firstAttribute="height" constant="64" id="cDZ-Ic-BAp"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" name="secondary"/>
+            <constraints>
+                <constraint firstItem="4BX-df-jPb" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="9eE-9O-4Ey"/>
+                <constraint firstItem="4BX-df-jPb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fNm-pq-qbN"/>
+                <constraint firstItem="4BX-df-jPb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zPn-C2-7LW"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="33" y="246"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="secondary">
+            <color red="0.24705882352941178" green="0.27843137254901962" blue="0.35294117647058826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Upload Choice Controller-->
+        <scene sceneID="C4L-FY-SLj">
+            <objects>
+                <viewController storyboardIdentifier="UploadChoiceController" id="jud-sL-eES" customClass="UploadChoiceController" customModule="Cloudinary_Sample_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e4w-rX-3i2"/>
+                        <viewControllerLayoutGuide type="bottom" id="pZ8-Cf-h7L"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Kru-22-Ukc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98m-pD-Wtx">
+                                <rect key="frame" x="16" y="59" width="361" height="759"/>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="72U-r2-b7a"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pZ8-Cf-h7L" firstAttribute="top" secondItem="98m-pD-Wtx" secondAttribute="bottom" id="DyJ-ky-9MI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="98m-pD-Wtx" secondAttribute="trailing" id="SdN-mo-gPy"/>
+                            <constraint firstItem="98m-pD-Wtx" firstAttribute="top" secondItem="e4w-rX-3i2" secondAttribute="bottom" id="mKy-z8-lfV"/>
+                            <constraint firstItem="98m-pD-Wtx" firstAttribute="leading" secondItem="Kru-22-Ukc" secondAttribute="leadingMargin" id="oaF-TW-Fvo"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="852"/>
+                    <connections>
+                        <outlet property="vwContainer" destination="98m-pD-Wtx" id="QJU-YN-0ge"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RAd-SV-jW3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-69" y="2"/>
+        </scene>
+    </scenes>
+</document>
