@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ToolbarItem" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+            <connections>
+                <outlet property="ivMain" destination="tM8-8b-Ier" id="KV2-Nj-Av6"/>
+                <outlet property="lbMain" destination="ZwD-EX-0zt" id="SUo-qJ-804"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="98" height="64"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PGD-yS-8ec">
+                    <rect key="frame" x="0.0" y="0.0" width="98" height="64"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QO1-7s-3yO">
+                            <rect key="frame" x="0.0" y="0.0" width="98" height="38.333333333333336"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car-speed-limiter" translatesAutoresizingMaskIntoConstraints="NO" id="tM8-8b-Ier">
+                                    <rect key="frame" x="39" y="13.333333333333336" width="20" height="20"/>
+                                    <color key="tintColor" name="primary"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="CNt-Wx-pqi"/>
+                                        <constraint firstAttribute="width" secondItem="tM8-8b-Ier" secondAttribute="height" multiplier="1:1" id="YaK-IZ-r0A"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="tM8-8b-Ier" firstAttribute="centerX" secondItem="QO1-7s-3yO" secondAttribute="centerX" id="17h-80-lS3"/>
+                                <constraint firstAttribute="bottom" secondItem="tM8-8b-Ier" secondAttribute="bottom" constant="5" id="ste-h7-oUv"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdG-Hc-yLb">
+                            <rect key="frame" x="0.0" y="38.333333333333336" width="98" height="25.666666666666664"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwD-EX-0zt">
+                                    <rect key="frame" x="26" y="0.0" width="46" height="14.333333333333334"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" name="primary"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="ZwD-EX-0zt" firstAttribute="top" secondItem="bdG-Hc-yLb" secondAttribute="top" id="3cz-lL-YeS"/>
+                                <constraint firstItem="ZwD-EX-0zt" firstAttribute="centerX" secondItem="bdG-Hc-yLb" secondAttribute="centerX" id="CeF-KY-Tgy"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="QO1-7s-3yO" firstAttribute="height" secondItem="PGD-yS-8ec" secondAttribute="height" multiplier="0.6" id="hqR-TX-AyE"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="PGD-yS-8ec" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HN5-9O-4fw"/>
+                <constraint firstAttribute="trailing" secondItem="PGD-yS-8ec" secondAttribute="trailing" id="QQz-3V-p67"/>
+                <constraint firstAttribute="bottom" secondItem="PGD-yS-8ec" secondAttribute="bottom" id="c8F-V7-XF5"/>
+                <constraint firstItem="PGD-yS-8ec" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dhr-7v-wWn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="74" y="20"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="car-speed-limiter" width="21" height="20"/>
+        <namedColor name="primary">
+            <color red="0.27450980392156865" green="0.59607843137254901" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

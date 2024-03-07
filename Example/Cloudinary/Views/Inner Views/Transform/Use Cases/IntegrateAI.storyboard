@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--IntegrateAI View Controller-->
+        <scene sceneID="39j-lv-H81">
+            <objects>
+                <viewController storyboardIdentifier="IntegrateAIViewController" id="DEy-ox-0Qs" customClass="IntegrateAIViewController" customModule="Cloudinary_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ovq-co-4Ko"/>
+                        <viewControllerLayoutGuide type="bottom" id="sj6-xR-yew"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mTL-8P-xqS">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z1h-bJ-x8h">
+                                <rect key="frame" x="16" y="59" width="353" height="510"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Z1h-bJ-x8h" firstAttribute="leading" secondItem="mTL-8P-xqS" secondAttribute="leadingMargin" id="6ZP-RM-dll"/>
+                            <constraint firstItem="Z1h-bJ-x8h" firstAttribute="top" secondItem="ovq-co-4Ko" secondAttribute="bottom" id="Hfn-I1-NZB"/>
+                            <constraint firstItem="sj6-xR-yew" firstAttribute="top" secondItem="Z1h-bJ-x8h" secondAttribute="bottom" id="fXR-GA-S4x"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Z1h-bJ-x8h" secondAttribute="trailing" constant="8" id="mwE-2A-9OJ"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="603"/>
+                    <connections>
+                        <outlet property="vwVideoView" destination="Z1h-bJ-x8h" id="8aE-5j-MiF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4er-MV-jE1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200.76335877862596" y="-347.53521126760563"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCFgj2Omu6hBF7frbKT-LHQHJmXiiK2OOo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>554013255617</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.cloudinary.Cloudinary-Sample-App</string>
+	<key>PROJECT_ID</key>
+	<string>ios-sample-app-d3d7d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ios-sample-app-d3d7d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:554013255617:ios:8a787dcf8bc7e668ca3140</string>
+</dict>
+</plist>

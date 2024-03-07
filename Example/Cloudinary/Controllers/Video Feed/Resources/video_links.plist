@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>video1</key>
+	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/v1707051612/sprort-2_zgsr5k.mp4</string>
+	<key>video2</key>
+	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/v1707051597/fashion-2_ewukga.mp4</string>
+	<key>video5</key>
+	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/v1707051159/fashion-1_1_kuwihy.mp4</string>
+</dict>
+</plist>

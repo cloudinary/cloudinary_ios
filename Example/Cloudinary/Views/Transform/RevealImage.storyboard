@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Reveal Image Controller-->
+        <scene sceneID="nWM-t7-WIy">
+            <objects>
+                <viewController storyboardIdentifier="RevealImageController" id="y2e-Qv-th7" customClass="RevealImageController" customModule="Cloudinary_Sample_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CiV-XY-gil"/>
+                        <viewControllerLayoutGuide type="bottom" id="BeY-rb-Q48"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="w6e-k7-za6">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A8J-br-4wp" customClass="RevealImageView" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+                                <rect key="frame" x="16" y="59" width="361" height="510"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ICF-DC-3m3"/>
+                        <color key="backgroundColor" name="surface"/>
+                        <constraints>
+                            <constraint firstItem="ICF-DC-3m3" firstAttribute="bottom" secondItem="A8J-br-4wp" secondAttribute="bottom" id="Oav-t7-dU7"/>
+                            <constraint firstItem="ICF-DC-3m3" firstAttribute="trailing" secondItem="A8J-br-4wp" secondAttribute="trailing" constant="16" id="TBR-Ql-NKc"/>
+                            <constraint firstItem="A8J-br-4wp" firstAttribute="leading" secondItem="ICF-DC-3m3" secondAttribute="leading" constant="16" id="hWN-gu-iqj"/>
+                            <constraint firstItem="A8J-br-4wp" firstAttribute="top" secondItem="ICF-DC-3m3" secondAttribute="top" id="nFV-cX-hfz"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="603"/>
+                    <connections>
+                        <outlet property="ivMain" destination="A8J-br-4wp" id="fHS-YL-S0y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eTu-ab-qil" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-25.190839694656489" y="3.8732394366197185"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="surface">
+            <color red="0.12549019607843137" green="0.14117647058823529" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
