@@ -29,7 +29,7 @@ import AVKit
 @available(iOS 10.0, *)
 @objcMembers open class CLDVideoPlayer: AVPlayer {
 
-    var automaticStreamingProfile: Bool = true
+    var automaticStreamingProfile: Bool = false
 
     var analytics: Bool = true
     var isIntialized: Bool = false
@@ -54,15 +54,15 @@ import AVKit
      - parameter publicId:                      The remote asset's name (e.g. the public id of an uploaded image).
      - parameter cloudinary:                    An instance of CLDCloudinary.
      - parameter transformation:                An instance of CLDTransformation.
-     - parameter automaticStreamingProfile:     A bool to indicate the use of automatic streaming profile default: true
+     - parameter automaticStreamingProfile:     A bool to indicate the use of automatic streaming profile default: false
 
      */
-    public init(publicId: String, cloudinary: CLDCloudinary, transformation: CLDTransformation? = nil, automaticStreamingProfile: Bool? = true) {
+    public init(publicId: String, cloudinary: CLDCloudinary, transformation: CLDTransformation? = nil, automaticStreamingProfile: Bool? = false) {
         var cloudinary = cloudinary
         cloudinary.config.analyticsObject.setFeatureFlag(flag: "F")
         var transformation = transformation
         var cldUrl = cloudinary.createUrl()
-        if automaticStreamingProfile ?? true  && transformation == nil {
+        if automaticStreamingProfile ?? false && transformation == nil {
             cldUrl = cldUrl.setFormat("m3u8")
             transformation = CLDTransformation().setStreamingProfile("auto")
         }
