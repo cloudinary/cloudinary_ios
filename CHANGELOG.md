@@ -1,29 +1,45 @@
+4.6.0 / 2024-03-12
+==================
+
+New functionality
+-----------------
+* Add support for `media_metadata`
+
+Other Changes
+-------------
+* Fix video analytics
+
 4.5.0 / 2024-02-18
 ==================
+
 Other Changes
 -------------
   * Add privacy manifest
 
 4.4.0 / 2024-01-15
 ==================
+
 Other Changes
 -------------
   * Update analytics token
 
 4.3.0 / 2023-12-25
 ==================
+
 Other Changes
 -------------
   * Add video player analytics
 
 4.2.0 / 2023-10-12
 ==================
+
 Other Changes
 -------------
   * Update analytics token
 
 4.1.1 / 2023-09-18
 ==================
+
 Other Changes
 -------------
   * Fix analytics import
