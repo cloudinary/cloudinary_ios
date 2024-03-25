@@ -1,3 +1,12 @@
+4.7.0 / 2024-03-25
+==================
+
+Other Changes
+-------------
+  * Fix privacy manifest
+  * Fix `CLDVideoPlayer`
+
+
 4.6.0 / 2024-03-12
 ==================
 
