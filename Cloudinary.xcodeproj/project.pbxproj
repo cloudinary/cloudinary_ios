@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B690BF5E2BC55992007117AC /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690BF5D2BC55992007117AC /* HTTPStatusCode.swift */; };
 		B694AAEC2B308AF100075041 /* CLDAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAEB2B308AF100075041 /* CLDAnalytics.swift */; };
 		B694AAEF2B308B8400075041 /* VideoAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAEE2B308B8400075041 /* VideoAnalytics.swift */; };
 		B694AAF12B308B9D00075041 /* VideoEventsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAF02B308B9D00075041 /* VideoEventsManager.swift */; };
@@ -30,34 +31,6 @@
 		OBJ_273 /* CLDConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* CLDConfiguration.swift */; };
 		OBJ_274 /* CLDEagerTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* CLDEagerTransformation.swift */; };
 		OBJ_275 /* CLDResponsiveParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* CLDResponsiveParams.swift */; };
-		OBJ_276 /* CLDURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* CLDURLCache.swift */; };
-		OBJ_277 /* CLDURLCacheConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* CLDURLCacheConfiguration.swift */; };
-		OBJ_278 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* HTTPStatusCode.swift */; };
-		OBJ_279 /* ExtensionDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* ExtensionDateFormatter.swift */; };
-		OBJ_280 /* ExtensionHTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* ExtensionHTTPURLResponse.swift */; };
-		OBJ_281 /* ExtensionURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* ExtensionURL.swift */; };
-		OBJ_282 /* ExtensionURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* ExtensionURLRequest.swift */; };
-		OBJ_283 /* ExtensionURLRequestCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* ExtensionURLRequestCachePolicy.swift */; };
-		OBJ_284 /* StorehouseAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* StorehouseAccessor.swift */; };
-		OBJ_285 /* StorehouseAny.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* StorehouseAny.swift */; };
-		OBJ_286 /* StorehouseAnyFileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* StorehouseAnyFileSystem.swift */; };
-		OBJ_287 /* StorehouseAnyInMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* StorehouseAnyInMemory.swift */; };
-		OBJ_288 /* StorehouseConfigurationAutoPurging.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* StorehouseConfigurationAutoPurging.swift */; };
-		OBJ_289 /* StorehouseConfigurationDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* StorehouseConfigurationDisk.swift */; };
-		OBJ_290 /* StorehouseConfigurationInMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* StorehouseConfigurationInMemory.swift */; };
-		OBJ_291 /* StorehouseEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* StorehouseEntry.swift */; };
-		OBJ_292 /* StorehouseExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* StorehouseExpiry.swift */; };
-		OBJ_293 /* StorehouseTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* StorehouseTransformer.swift */; };
-		OBJ_294 /* StorehouseHybrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* StorehouseHybrid.swift */; };
-		OBJ_295 /* StorehouseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* StorehouseProtocol.swift */; };
-		OBJ_296 /* StorehouseAutoPurging.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* StorehouseAutoPurging.swift */; };
-		OBJ_297 /* StorehouseInMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* StorehouseInMemory.swift */; };
-		OBJ_298 /* StorehouseOnDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* StorehouseOnDisk.swift */; };
-		OBJ_299 /* Warehouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* Warehouse.swift */; };
-		OBJ_300 /* WarehouseTransformerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* WarehouseTransformerFactory.swift */; };
-		OBJ_301 /* StorehouseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* StorehouseError.swift */; };
-		OBJ_302 /* ExtensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* ExtensionDate.swift */; };
-		OBJ_303 /* ExtensionOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_71 /* ExtensionOptional.swift */; };
 		OBJ_304 /* CLDDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* CLDDownloader.swift */; };
 		OBJ_305 /* CLDBaseNetworkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* CLDBaseNetworkObject.swift */; };
 		OBJ_306 /* CLDConditionExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* CLDConditionExpression.swift */; };
@@ -173,7 +146,6 @@
 		OBJ_416 /* CLDDictionaryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_216 /* CLDDictionaryUtils.swift */; };
 		OBJ_417 /* CLDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_217 /* CLDError.swift */; };
 		OBJ_418 /* CLDFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_218 /* CLDFileUtils.swift */; };
-		OBJ_419 /* CLDImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_219 /* CLDImageCache.swift */; };
 		OBJ_420 /* CLDImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_221 /* CLDImageGenerator.swift */; };
 		OBJ_421 /* CLDImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_222 /* CLDImageUtils.swift */; };
 		OBJ_422 /* CLDJsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_223 /* CLDJsonUtils.swift */; };
@@ -194,6 +166,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B690BF5D2BC55992007117AC /* HTTPStatusCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPStatusCode.swift; path = CacheSystem/Enum/HTTPStatusCode.swift; sourceTree = "<group>"; };
 		B694AAEB2B308AF100075041 /* CLDAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDAnalytics.swift; sourceTree = "<group>"; };
 		B694AAEE2B308B8400075041 /* VideoAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnalytics.swift; sourceTree = "<group>"; };
 		B694AAF02B308B9D00075041 /* VideoEventsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEventsManager.swift; sourceTree = "<group>"; };
@@ -307,7 +280,6 @@
 		OBJ_216 /* CLDDictionaryUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDDictionaryUtils.swift; sourceTree = "<group>"; };
 		OBJ_217 /* CLDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDError.swift; sourceTree = "<group>"; };
 		OBJ_218 /* CLDFileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDFileUtils.swift; sourceTree = "<group>"; };
-		OBJ_219 /* CLDImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDImageCache.swift; sourceTree = "<group>"; };
 		OBJ_22 /* CLDNValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDNValidation.swift; sourceTree = "<group>"; };
 		OBJ_221 /* CLDImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDImageGenerator.swift; sourceTree = "<group>"; };
 		OBJ_222 /* CLDImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDImageUtils.swift; sourceTree = "<group>"; };
@@ -338,35 +310,7 @@
 		OBJ_26 /* CLDConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDConfiguration.swift; sourceTree = "<group>"; };
 		OBJ_27 /* CLDEagerTransformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDEagerTransformation.swift; sourceTree = "<group>"; };
 		OBJ_28 /* CLDResponsiveParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDResponsiveParams.swift; sourceTree = "<group>"; };
-		OBJ_32 /* CLDURLCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDURLCache.swift; sourceTree = "<group>"; };
-		OBJ_33 /* CLDURLCacheConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDURLCacheConfiguration.swift; sourceTree = "<group>"; };
-		OBJ_35 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
-		OBJ_37 /* ExtensionDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDateFormatter.swift; sourceTree = "<group>"; };
-		OBJ_38 /* ExtensionHTTPURLResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHTTPURLResponse.swift; sourceTree = "<group>"; };
-		OBJ_39 /* ExtensionURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionURL.swift; sourceTree = "<group>"; };
-		OBJ_40 /* ExtensionURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionURLRequest.swift; sourceTree = "<group>"; };
-		OBJ_41 /* ExtensionURLRequestCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionURLRequestCachePolicy.swift; sourceTree = "<group>"; };
-		OBJ_45 /* StorehouseAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseAccessor.swift; sourceTree = "<group>"; };
-		OBJ_47 /* StorehouseAny.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseAny.swift; sourceTree = "<group>"; };
-		OBJ_48 /* StorehouseAnyFileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseAnyFileSystem.swift; sourceTree = "<group>"; };
-		OBJ_49 /* StorehouseAnyInMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseAnyInMemory.swift; sourceTree = "<group>"; };
-		OBJ_51 /* StorehouseConfigurationAutoPurging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationAutoPurging.swift; sourceTree = "<group>"; };
-		OBJ_52 /* StorehouseConfigurationDisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationDisk.swift; sourceTree = "<group>"; };
-		OBJ_53 /* StorehouseConfigurationInMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationInMemory.swift; sourceTree = "<group>"; };
-		OBJ_55 /* StorehouseEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseEntry.swift; sourceTree = "<group>"; };
-		OBJ_56 /* StorehouseExpiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseExpiry.swift; sourceTree = "<group>"; };
-		OBJ_57 /* StorehouseTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseTransformer.swift; sourceTree = "<group>"; };
-		OBJ_59 /* StorehouseHybrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseHybrid.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		OBJ_60 /* StorehouseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseProtocol.swift; sourceTree = "<group>"; };
-		OBJ_62 /* StorehouseAutoPurging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseAutoPurging.swift; sourceTree = "<group>"; };
-		OBJ_63 /* StorehouseInMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseInMemory.swift; sourceTree = "<group>"; };
-		OBJ_64 /* StorehouseOnDisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseOnDisk.swift; sourceTree = "<group>"; };
-		OBJ_65 /* Warehouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Warehouse.swift; sourceTree = "<group>"; };
-		OBJ_66 /* WarehouseTransformerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarehouseTransformerFactory.swift; sourceTree = "<group>"; };
-		OBJ_68 /* StorehouseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseError.swift; sourceTree = "<group>"; };
-		OBJ_70 /* ExtensionDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDate.swift; sourceTree = "<group>"; };
-		OBJ_71 /* ExtensionOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOptional.swift; sourceTree = "<group>"; };
 		OBJ_73 /* CLDDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDDownloader.swift; sourceTree = "<group>"; };
 		OBJ_75 /* CLDBaseNetworkObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDBaseNetworkObject.swift; sourceTree = "<group>"; };
 		OBJ_76 /* CLDConditionExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDConditionExpression.swift; sourceTree = "<group>"; };
@@ -680,7 +624,6 @@
 				OBJ_216 /* CLDDictionaryUtils.swift */,
 				OBJ_217 /* CLDError.swift */,
 				OBJ_218 /* CLDFileUtils.swift */,
-				OBJ_219 /* CLDImageCache.swift */,
 				OBJ_220 /* CLDImageGenerator */,
 				OBJ_222 /* CLDImageUtils.swift */,
 				OBJ_223 /* CLDJsonUtils.swift */,
@@ -767,7 +710,7 @@
 		OBJ_29 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_30 /* CacheSystem */,
+				B690BF5D2BC55992007117AC /* HTTPStatusCode.swift */,
 				OBJ_72 /* Downloader */,
 				OBJ_74 /* Helpers */,
 				OBJ_121 /* ManagementApi */,
@@ -776,90 +719,6 @@
 				OBJ_199 /* Url */,
 			);
 			path = Features;
-			sourceTree = "<group>";
-		};
-		OBJ_30 /* CacheSystem */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_31 /* Class */,
-				OBJ_34 /* Enum */,
-				OBJ_36 /* Extensions */,
-				OBJ_42 /* StorehouseLibrary */,
-			);
-			path = CacheSystem;
-			sourceTree = "<group>";
-		};
-		OBJ_31 /* Class */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_32 /* CLDURLCache.swift */,
-				OBJ_33 /* CLDURLCacheConfiguration.swift */,
-			);
-			path = Class;
-			sourceTree = "<group>";
-		};
-		OBJ_34 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_35 /* HTTPStatusCode.swift */,
-			);
-			path = Enum;
-			sourceTree = "<group>";
-		};
-		OBJ_36 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_37 /* ExtensionDateFormatter.swift */,
-				OBJ_38 /* ExtensionHTTPURLResponse.swift */,
-				OBJ_39 /* ExtensionURL.swift */,
-				OBJ_40 /* ExtensionURLRequest.swift */,
-				OBJ_41 /* ExtensionURLRequestCachePolicy.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		OBJ_42 /* StorehouseLibrary */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_43 /* Core */,
-				OBJ_67 /* Enum */,
-				OBJ_69 /* Extension */,
-			);
-			path = StorehouseLibrary;
-			sourceTree = "<group>";
-		};
-		OBJ_43 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_44 /* StorehouseAccess */,
-				OBJ_46 /* StorehouseAnyType */,
-				OBJ_50 /* StorehouseConfiguration */,
-				OBJ_54 /* StorehouseContent */,
-				OBJ_58 /* StorehouseHybrid */,
-				OBJ_60 /* StorehouseProtocol.swift */,
-				OBJ_61 /* StorehouseType */,
-				OBJ_65 /* Warehouse.swift */,
-				OBJ_66 /* WarehouseTransformerFactory.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		OBJ_44 /* StorehouseAccess */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_45 /* StorehouseAccessor.swift */,
-			);
-			path = StorehouseAccess;
-			sourceTree = "<group>";
-		};
-		OBJ_46 /* StorehouseAnyType */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_47 /* StorehouseAny.swift */,
-				OBJ_48 /* StorehouseAnyFileSystem.swift */,
-				OBJ_49 /* StorehouseAnyInMemory.swift */,
-			);
-			path = StorehouseAnyType;
 			sourceTree = "<group>";
 		};
 		OBJ_5 = {
@@ -877,61 +736,6 @@
 				OBJ_250 /* Cloudinary.podspec */,
 				OBJ_251 /* README.md */,
 			);
-			sourceTree = "<group>";
-		};
-		OBJ_50 /* StorehouseConfiguration */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_51 /* StorehouseConfigurationAutoPurging.swift */,
-				OBJ_52 /* StorehouseConfigurationDisk.swift */,
-				OBJ_53 /* StorehouseConfigurationInMemory.swift */,
-			);
-			path = StorehouseConfiguration;
-			sourceTree = "<group>";
-		};
-		OBJ_54 /* StorehouseContent */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_55 /* StorehouseEntry.swift */,
-				OBJ_56 /* StorehouseExpiry.swift */,
-				OBJ_57 /* StorehouseTransformer.swift */,
-			);
-			path = StorehouseContent;
-			sourceTree = "<group>";
-		};
-		OBJ_58 /* StorehouseHybrid */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_59 /* StorehouseHybrid.swift */,
-			);
-			path = StorehouseHybrid;
-			sourceTree = "<group>";
-		};
-		OBJ_61 /* StorehouseType */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_62 /* StorehouseAutoPurging.swift */,
-				OBJ_63 /* StorehouseInMemory.swift */,
-				OBJ_64 /* StorehouseOnDisk.swift */,
-			);
-			path = StorehouseType;
-			sourceTree = "<group>";
-		};
-		OBJ_67 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_68 /* StorehouseError.swift */,
-			);
-			path = Enum;
-			sourceTree = "<group>";
-		};
-		OBJ_69 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_70 /* ExtensionDate.swift */,
-				OBJ_71 /* ExtensionOptional.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -1162,35 +966,7 @@
 				OBJ_273 /* CLDConfiguration.swift in Sources */,
 				OBJ_274 /* CLDEagerTransformation.swift in Sources */,
 				OBJ_275 /* CLDResponsiveParams.swift in Sources */,
-				OBJ_276 /* CLDURLCache.swift in Sources */,
-				OBJ_277 /* CLDURLCacheConfiguration.swift in Sources */,
-				OBJ_278 /* HTTPStatusCode.swift in Sources */,
-				OBJ_279 /* ExtensionDateFormatter.swift in Sources */,
-				OBJ_280 /* ExtensionHTTPURLResponse.swift in Sources */,
-				OBJ_281 /* ExtensionURL.swift in Sources */,
-				OBJ_282 /* ExtensionURLRequest.swift in Sources */,
-				OBJ_283 /* ExtensionURLRequestCachePolicy.swift in Sources */,
-				OBJ_284 /* StorehouseAccessor.swift in Sources */,
-				OBJ_285 /* StorehouseAny.swift in Sources */,
-				OBJ_286 /* StorehouseAnyFileSystem.swift in Sources */,
-				OBJ_287 /* StorehouseAnyInMemory.swift in Sources */,
-				OBJ_288 /* StorehouseConfigurationAutoPurging.swift in Sources */,
-				OBJ_289 /* StorehouseConfigurationDisk.swift in Sources */,
-				OBJ_290 /* StorehouseConfigurationInMemory.swift in Sources */,
-				OBJ_291 /* StorehouseEntry.swift in Sources */,
-				OBJ_292 /* StorehouseExpiry.swift in Sources */,
-				OBJ_293 /* StorehouseTransformer.swift in Sources */,
-				OBJ_294 /* StorehouseHybrid.swift in Sources */,
-				OBJ_295 /* StorehouseProtocol.swift in Sources */,
-				OBJ_296 /* StorehouseAutoPurging.swift in Sources */,
-				OBJ_297 /* StorehouseInMemory.swift in Sources */,
-				OBJ_298 /* StorehouseOnDisk.swift in Sources */,
-				OBJ_299 /* Warehouse.swift in Sources */,
-				OBJ_300 /* WarehouseTransformerFactory.swift in Sources */,
-				OBJ_301 /* StorehouseError.swift in Sources */,
 				B694AAF12B308B9D00075041 /* VideoEventsManager.swift in Sources */,
-				OBJ_302 /* ExtensionDate.swift in Sources */,
-				OBJ_303 /* ExtensionOptional.swift in Sources */,
 				OBJ_304 /* CLDDownloader.swift in Sources */,
 				OBJ_305 /* CLDBaseNetworkObject.swift in Sources */,
 				OBJ_306 /* CLDConditionExpression.swift in Sources */,
@@ -1286,6 +1062,7 @@
 				OBJ_393 /* CLDVideoView.swift in Sources */,
 				OBJ_394 /* CLDWidgetEditViewController.swift in Sources */,
 				OBJ_395 /* CLDWidgetPreviewViewController.swift in Sources */,
+				B690BF5E2BC55992007117AC /* HTTPStatusCode.swift in Sources */,
 				OBJ_396 /* CLDWidgetViewController.swift in Sources */,
 				OBJ_397 /* CLDUploader.swift in Sources */,
 				OBJ_398 /* CLDPreprocessChain.swift in Sources */,
@@ -1309,7 +1086,6 @@
 				OBJ_416 /* CLDDictionaryUtils.swift in Sources */,
 				OBJ_417 /* CLDError.swift in Sources */,
 				OBJ_418 /* CLDFileUtils.swift in Sources */,
-				OBJ_419 /* CLDImageCache.swift in Sources */,
 				OBJ_420 /* CLDImageGenerator.swift in Sources */,
 				OBJ_421 /* CLDImageUtils.swift in Sources */,
 				OBJ_422 /* CLDJsonUtils.swift in Sources */,

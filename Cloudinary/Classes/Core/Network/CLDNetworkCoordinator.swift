@@ -188,24 +188,23 @@ internal class CLDNetworkCoordinator: NSObject {
     }
 }
 
-class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
+class CLDDownloadCoordinator: CLDNetworkCoordinator {
 
-    let imageCache = CLDImageCache(name: Defines.cacheDefaultName)
-    let urlCache   = CLDURLCache(memoryCapacity: Defines.defaultMemoryTotalCostLimit, diskCapacity: Defines.defaultMaxDiskCapacity, diskPath: Defines.cacheAssetDefaultName, configuration: CLDURLCacheConfiguration.defualt)
-    
+    var enableCache = true
+
     init(configuration: CLDConfiguration) {
+
+        URLCache.shared.diskCapacity = Defines.defaultMaxDiskCapacity
+        URLCache.shared.memoryCapacity = Defines.defaultMaxMemoryCapacity
 
         let downloadConfiguration                   = URLSessionConfiguration.default
         downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
-        downloadConfiguration.urlCache              = urlCache
-        // Turn urlCache as default
-        urlCache.shouldIncludeImages(true)
-        
+        downloadConfiguration.urlCache              = URLCache.shared
+
         let downloadAdapter = CLDDefaultNetworkAdapter(configuration: downloadConfiguration)
         
         super.init(configuration: configuration, networkAdapter: downloadAdapter)
-        
-        urlCache.delegate = self
+
     }
 
     override init(configuration: CLDConfiguration, sessionConfiguration: URLSessionConfiguration) {
@@ -216,13 +215,15 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
         super.init(configuration: configuration, networkAdapter: networkAdapter)
     }
     
-    func shouldExclude(response: HTTPURLResponse, for urlCache: CLDURLCache) -> Bool {
-    
-        if let contentType = response.cld_header.value(for: .contentType),
-           contentType.contains("image") {
-            return true
-        }
-        
-        return false
-    }
+}
+
+internal struct Defines {
+    static let cacheDefaultName            = "defaultImageCache"
+    static let cacheAssetDefaultName       = "defaultAssetCache"
+    static let cacheBaseName               = "com.cloudinary.sdk.imageCache"
+    static let readWriteQueueName          = "com.cloudinary.sdk.imageCache.readWriteQueue"
+    static let defaultMaxMemoryCapacity = 30 * 1024 * 1024   // 30 MB
+    static let defaultMaxDiskCapacity      = 150 * 1024 * 1024  // 150 MB
+    static let thresholdPercentSize        = UInt64(0.8)
+    static let defaultBytesPerPixel        = 4
 }

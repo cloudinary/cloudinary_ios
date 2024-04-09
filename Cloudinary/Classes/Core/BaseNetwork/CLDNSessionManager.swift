@@ -259,6 +259,7 @@ internal class CLDNSessionManager {
 
         do {
             originalRequest = try urlRequest.CLDN_AsURLRequest()
+
             let originalTask = CLDNDataRequest.Requestable(urlRequest: originalRequest!)
 
             let task = try originalTask.CLDN_Task(session: session, adapter: adapter, queue: queue)

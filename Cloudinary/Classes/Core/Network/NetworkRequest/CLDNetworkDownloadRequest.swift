@@ -51,7 +51,6 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
     // MARK: - Private
     @discardableResult
     internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?, _ httpCode: Int?) -> ())?) -> CLDNetworkDataRequest {
-        
         request.responseData { response in
             let statusCode = response.response?.statusCode
             
@@ -64,6 +63,10 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
                     completionHandler?(downloadedData, statusCodeError, statusCode)
                 }
                 else {
+                    if let result = response.response, let data = response.data, let request = self.request.request, URLCache.shared.cachedResponse(for: request) == nil {
+                        let cachedData = CachedURLResponse(response: result, data: data)
+                        URLCache.shared.storeCachedResponse(cachedData, for: request)
+                    }
                     completionHandler?(downloadedData, nil, statusCode)
                 }
             }
