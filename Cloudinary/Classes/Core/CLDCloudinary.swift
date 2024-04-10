@@ -66,10 +66,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
 
     open var enableUrlCache: Bool {
         get {
-            return downloadCoordinator.enableCache
+            return CLDDownloadCoordinator.enableCache
         }
         set {
-            downloadCoordinator.enableCache = newValue
+            CLDDownloadCoordinator.enableCache = newValue
         }
     }
 

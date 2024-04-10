@@ -190,16 +190,15 @@ internal class CLDNetworkCoordinator: NSObject {
 
 class CLDDownloadCoordinator: CLDNetworkCoordinator {
 
-    var enableCache = true
+    static var enableCache = true
+
+    static var urlCache = URLCache.init(memoryCapacity: Defines.defaultMaxMemoryCapacity, diskCapacity: Defines.defaultMaxDiskCapacity, diskPath: Defines.cacheAssetDefaultName)
 
     init(configuration: CLDConfiguration) {
 
-        URLCache.shared.diskCapacity = Defines.defaultMaxDiskCapacity
-        URLCache.shared.memoryCapacity = Defines.defaultMaxMemoryCapacity
-
         let downloadConfiguration                   = URLSessionConfiguration.default
         downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
-        downloadConfiguration.urlCache              = URLCache.shared
+        downloadConfiguration.urlCache              = CLDDownloadCoordinator.urlCache
 
         let downloadAdapter = CLDDefaultNetworkAdapter(configuration: downloadConfiguration)
         
@@ -218,6 +217,7 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator {
 }
 
 internal struct Defines {
+    static let cacheAssetDefaultName       = "defaultAssetCache"
     static let defaultMaxMemoryCapacity    = 30 * 1024 * 1024   // 30 MB
     static let defaultMaxDiskCapacity      = 150 * 1024 * 1024  // 150 MB
 }
