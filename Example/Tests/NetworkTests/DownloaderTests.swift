@@ -103,7 +103,6 @@ class DownloaderTests: NetworkBaseTest {
     }
     func test_downloadImageWithCache_shouldCacheAndRemoveImage() {
         cloudinarySecured.enableUrlCache = true
-//        cloudinarySecured.cachePolicy = .disk
         downloadImageWithCache_shouldCacheImage(cloudinaryObject: cloudinarySecured)
     }
     func test_downloadImageWithoutCache_shouldCacheImage() {
@@ -123,7 +122,6 @@ class DownloaderTests: NetworkBaseTest {
         // When
         let tempSut = CLDCloudinary(configuration: config, networkAdapter: nil, downloadAdapter: nil, sessionConfiguration: nil, downloadSessionConfiguration: nil)
         tempSut.enableUrlCache = true
-//        tempSut.cachePolicy = .disk
 
         downloadImageWithCache_shouldCacheImage(cloudinaryObject: tempSut)
     }

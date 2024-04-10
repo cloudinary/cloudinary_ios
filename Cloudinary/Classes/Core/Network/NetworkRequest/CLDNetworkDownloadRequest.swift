@@ -53,21 +53,17 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
     internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?, _ httpCode: Int?) -> ())?) -> CLDNetworkDataRequest {
         request.responseData { response in
             let statusCode = response.response?.statusCode
-            
             if let downloadedData = response.result.value {
-                
-                if let statusCode = statusCode,
-                   !self.isAcceptableCode(code: statusCode) {
-                    
-                    let statusCodeError = CLDError.error(code: .unacceptableStatusCode, message: "request error - unacceptable statusCode - \(statusCode)", userInfo: ["statusCode": statusCode])
-                    completionHandler?(downloadedData, statusCodeError, statusCode)
-                }
-                else {
-                    if let result = response.response, let data = response.data, let request = self.request.request, URLCache.shared.cachedResponse(for: request) == nil {
+                if let statusCode = statusCode, self.isAcceptableCode(code: statusCode) {
+                    if let result = response.response, let data = response.data, let request = self.request.request, URLCache.shared.cachedResponse(for: request) == nil { // Make sure to check if the urlCache is enabled
                         let cachedData = CachedURLResponse(response: result, data: data)
                         URLCache.shared.storeCachedResponse(cachedData, for: request)
                     }
                     completionHandler?(downloadedData, nil, statusCode)
+                }
+                else {
+                    let statusCodeError = CLDError.error(code: .unacceptableStatusCode, message: "request error - unacceptable statusCode - \(statusCode)", userInfo: ["statusCode": statusCode])
+                    completionHandler?(downloadedData, statusCodeError, statusCode)
                 }
             }
             else if let err = response.result.error {

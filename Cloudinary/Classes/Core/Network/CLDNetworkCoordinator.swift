@@ -218,12 +218,6 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator {
 }
 
 internal struct Defines {
-    static let cacheDefaultName            = "defaultImageCache"
-    static let cacheAssetDefaultName       = "defaultAssetCache"
-    static let cacheBaseName               = "com.cloudinary.sdk.imageCache"
-    static let readWriteQueueName          = "com.cloudinary.sdk.imageCache.readWriteQueue"
     static let defaultMaxMemoryCapacity = 30 * 1024 * 1024   // 30 MB
     static let defaultMaxDiskCapacity      = 150 * 1024 * 1024  // 150 MB
-    static let thresholdPercentSize        = UInt64(0.8)
-    static let defaultBytesPerPixel        = 4
 }
