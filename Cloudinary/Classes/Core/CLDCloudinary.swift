@@ -79,10 +79,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     open var cacheMaxDiskCapacity: Int {
         get {
-            return URLCache.shared.diskCapacity
+            return CLDDownloadCoordinator.urlCache.diskCapacity
         }
         set {
-            URLCache.shared.diskCapacity = newValue
+            CLDDownloadCoordinator.urlCache.diskCapacity = newValue
         }
     }
 
@@ -92,10 +92,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     open var cacheMaxMemoryTotalCost: Int {
         get {
-            return URLCache.shared.memoryCapacity
+            return CLDDownloadCoordinator.urlCache.memoryCapacity
         }
         set {
-            URLCache.shared.memoryCapacity = newValue
+            CLDDownloadCoordinator.urlCache.memoryCapacity = newValue
         }
     }
 

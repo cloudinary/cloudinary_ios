@@ -192,7 +192,7 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator {
 
     static var enableCache = true
 
-    static var urlCache = URLCache.init(memoryCapacity: Defines.defaultMaxMemoryCapacity, diskCapacity: Defines.defaultMaxDiskCapacity, diskPath: Defines.cacheAssetDefaultName)
+    static var urlCache = URLCache.init(memoryCapacity: Defines.defaultMaxMemoryCapacity, diskCapacity: Defines.defaultMaxDiskCapacity, diskPath: "\(Defines.cacheAssetDefaultName)/CLDURLCache.Cache")
 
     init(configuration: CLDConfiguration) {
 

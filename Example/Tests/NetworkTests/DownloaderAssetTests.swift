@@ -39,7 +39,7 @@ class DownloaderAssetTests: NetworkBaseTest {
     
     override func tearDown() {
         
-        URLCache.shared.removeAllCachedResponses()
+        CLDDownloadCoordinator.urlCache.removeAllCachedResponses()
         sut = nil
         super.tearDown()
     }
