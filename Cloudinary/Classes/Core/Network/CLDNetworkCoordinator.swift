@@ -218,6 +218,6 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator {
 }
 
 internal struct Defines {
-    static let defaultMaxMemoryCapacity = 30 * 1024 * 1024   // 30 MB
+    static let defaultMaxMemoryCapacity    = 30 * 1024 * 1024   // 30 MB
     static let defaultMaxDiskCapacity      = 150 * 1024 * 1024  // 150 MB
 }
