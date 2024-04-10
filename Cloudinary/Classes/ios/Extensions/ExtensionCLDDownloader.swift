@@ -30,7 +30,7 @@ extension CLDDownloader
     /**
      Asynchronously fetches a remote image from the specified URL.
      The image is retrieved from the cache if it exists, otherwise its downloaded and cached.
-     
+     //TODO: REMOVE!!!
      - parameter url:                    The image URL to download.
      - parameter progress:          The closure that is called periodically during the data transfer.
      - parameter completionHandler:      The closure to be called once the request has finished, holding either the retrieved UIImage or the error.
