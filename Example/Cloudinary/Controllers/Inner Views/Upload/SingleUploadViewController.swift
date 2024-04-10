@@ -16,12 +16,15 @@ class SingleUploadViewController: UIViewController {
     @IBOutlet weak var vwImage: UIView!
     @IBOutlet weak var ivMain: UIImageView!
     @IBOutlet weak var vwOpenGallery: UIView!
+    @IBOutlet weak var lbButton: UILabel!
 
     weak var delegate: UploadChoiceControllerDelegate!
 
+    var uploadWidget: CLDUploaderWidget!
+
     var url: String?
 
-    var cloudinary = CloudinaryHelper.shared.cloudinary
+    var cloudinary = CLDCloudinary(configuration: CLDConfiguration(cloudName: CloudinaryHelper.shared.getUploadCloud()!))
 
     var uploadLoadingView: UploadLoadingView?
 
@@ -33,10 +36,13 @@ class SingleUploadViewController: UIViewController {
         super.viewWillAppear(animated)
         setOpenGalleryView()
         setMainView()
-        if type == .UploadLarge {
-            EventsHandler.shared.logEvent(event: EventObject(name: "Upload Large", attributes: ["cloud_name": CloudinaryHelper.shared.getUploadCloud() ?? ""]))
-        } else {
-            EventsHandler.shared.logEvent(event: EventObject(name: "Upload", attributes: ["cloud_name": CloudinaryHelper.shared.getUploadCloud() ?? ""]))
+        switch type {
+        case .Upload:
+            EventsHandler.shared.logEvent(event: EventObject(name: "Upload"))
+        case .UploadLarge:
+            EventsHandler.shared.logEvent(event: EventObject(name: "Upload Large"))
+        case .UploadWidget:
+            EventsHandler.shared.logEvent(event: EventObject(name: "Upload Widget"))
         }
     }
 
@@ -44,11 +50,12 @@ class SingleUploadViewController: UIViewController {
         guard let url = url else {
             return
         }
-        if type == .Upload {
+        if type == .Upload || type == .UploadWidget {
             ivMain.isHidden = false
             ivMain.cldSetImage(url , cloudinary: self.cloudinary)
         }
         if type == .UploadLarge {
+            lbButton.text = "Upload Video"
             ivMain.isHidden = true
             let player = CLDVideoPlayer(url: url)
                 let playerController = AVPlayerViewController()
@@ -71,17 +78,21 @@ class SingleUploadViewController: UIViewController {
     }
 
     @objc private func openGalleryClicked() {
-        if imagePicker == nil {
-            imagePicker = UIImagePickerController()
-        }
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            imagePicker.delegate = self
-            if type == .UploadLarge {
-                imagePicker.mediaTypes = ["public.movie"]
+        if type == .UploadWidget {
+
+        } else {
+            if imagePicker == nil {
+                imagePicker = UIImagePickerController()
             }
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = false
-            present(imagePicker, animated: true, completion: nil)
+            if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+                imagePicker.delegate = self
+                if type == .UploadLarge {
+                    imagePicker.mediaTypes = ["public.movie"]
+                }
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.allowsEditing = false
+                present(imagePicker, animated: true, completion: nil)
+            }
         }
     }
 
@@ -103,7 +114,7 @@ class SingleUploadViewController: UIViewController {
     func uploadImage(_ image: UIImage) {
         addUploadingView()
         let data = image.pngData()
-        cloudinary.createUploader().upload(data: data!, uploadPreset: "ml_default", completionHandler:  { response, error in
+        cloudinary.createUploader().upload(data: data!, uploadPreset: "ios_sample", completionHandler:  { response, error in
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3) {
                     self.ivMain.cldSetImage( response!.secureUrl!, cloudinary: self.cloudinary)
@@ -123,4 +134,16 @@ extension SingleUploadViewController:  UINavigationControllerDelegate, UIImagePi
         }
     }
 }
-
+extension SingleUploadViewController: CLDUploaderWidgetDelegate {
+    func uploadWidget(_ widget: CLDUploaderWidget, willCall uploadRequests: [CLDUploadRequest]) {
+        addUploadingView()
+      uploadRequests[0].response( { response, error in
+          self.ivMain.cldSetImage(response!.secureUrl!, cloudinary: self.cloudinary)
+          self.removeUploadingView()
+      } )
+    }
+    func widgetDidCancel(_ widget: CLDUploaderWidget) {
+    }
+    func uploadWidgetDidDismiss() {
+    }
+}

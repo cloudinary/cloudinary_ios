@@ -15,6 +15,8 @@ class BaseViewController: UIViewController {
     var type: BaseControllerType!
     var innerIndex: Int = 0
 
+    var currentController: UIViewController!
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setTitle()
@@ -59,63 +61,63 @@ class BaseViewController: UIViewController {
     }
 
     private func setController() {
-        switch type {
-        case .Optimization:
-            let currentController = UIStoryboard(name: "Optimization", bundle: nil).instantiateViewController(identifier: "OptimizationViewController") as! OptimizationViewController
-            currentController.view.frame = vwContainer.bounds
-            currentController.type = .Optimization
-            addChild(currentController)
-            vwContainer.addSubview(currentController.view)
-            currentController.didMove(toParent: self)
-        case .Transform:
-            let currentController = UIStoryboard(name: "Transform", bundle: nil).instantiateViewController(identifier: "TransformViewController") as! TransformViewController
-            currentController.innerIndex = innerIndex
-            currentController.view.frame = vwContainer.bounds
-            addChild(currentController)
-            vwContainer.addSubview(currentController.view)
-            currentController.didMove(toParent: self)
-        case .UseCases:
-            let currentController = UIStoryboard(name: "UseCases", bundle: nil).instantiateViewController(identifier: "UseCasesViewController") as! UseCasesViewController
-            currentController.view.frame = vwContainer.bounds
-            currentController.innerIndex = innerIndex
-            addChild(currentController)
-            vwContainer.addSubview(currentController.view)
-            currentController.didMove(toParent: self)
-        case .Upload:
-            let currentController = (UIStoryboard(name: "UploadChoice", bundle: nil).instantiateViewController(identifier: "UploadChoiceController") as! UploadChoiceController)
-            currentController.view.frame = vwContainer.bounds
-            currentController.type = .Upload
-            addChild(currentController)
-            vwContainer.addSubview(currentController.view)
-            currentController.didMove(toParent: self)
-        case .UploadLarge:
-            let currentController = (UIStoryboard(name: "UploadChoice", bundle: nil).instantiateViewController(identifier: "UploadChoiceController") as! UploadChoiceController)
-            currentController.view.frame = vwContainer.bounds
-            currentController.type = .UploadLarge
-            addChild(currentController)
-            vwContainer.addSubview(currentController.view)
-            currentController.didMove(toParent: self)
-        case .FetchUpload:
-            let currentController = UIStoryboard(name: "Optimization", bundle: nil).instantiateViewController(identifier: "OptimizationViewController") as! OptimizationViewController
-            currentController.view.frame = vwContainer.bounds
-            currentController.publicId = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg/1600px-Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg?20150402075721"
-            currentController.type = .FetchUpload
-            addChild(currentController)
-            vwContainer.addSubview(currentController.view)
-            currentController.didMove(toParent: self)
-        case .UploadWidget:
-            let currentController = UIStoryboard(name: "UploadWidget", bundle: nil).instantiateViewController(identifier: "UploadWidgetViewController")
-            currentController.view.frame = vwContainer.bounds
-            addChild(currentController)
-            vwContainer.addSubview(currentController.view)
-            currentController.didMove(toParent: self)
-        case .ImageWidget:
-            let currentController = UIStoryboard(name: "ImageWidget", bundle: nil).instantiateViewController(identifier: "ImageWidgetViewController")
-            currentController.view.frame = vwContainer.bounds
-            addChild(currentController)
-            vwContainer.addSubview(currentController.view)
-            currentController.didMove(toParent: self)
-            break
+            switch type {
+            case .Optimization:
+                currentController = UIStoryboard(name: "Optimization", bundle: nil).instantiateViewController(identifier: "OptimizationViewController") as! OptimizationViewController
+                currentController.view.frame = vwContainer.bounds
+                (currentController as! OptimizationViewController).type = .Optimization
+                addChild(currentController)
+                vwContainer.addSubview(currentController.view)
+                currentController.didMove(toParent: self)
+            case .Transform:
+                currentController = UIStoryboard(name: "Transform", bundle: nil).instantiateViewController(identifier: "TransformViewController") as! TransformViewController
+                (currentController as! TransformViewController).innerIndex = innerIndex
+                currentController.view.frame = vwContainer.bounds
+                addChild(currentController)
+                vwContainer.addSubview(currentController.view)
+                currentController.didMove(toParent: self)
+            case .UseCases:
+                currentController = UIStoryboard(name: "UseCases", bundle: nil).instantiateViewController(identifier: "UseCasesViewController") as! UseCasesViewController
+                currentController.view.frame = vwContainer.bounds
+                (currentController as! UseCasesViewController).innerIndex = innerIndex
+                addChild(currentController)
+                vwContainer.addSubview(currentController.view)
+                currentController.didMove(toParent: self)
+            case .Upload:
+                currentController = (UIStoryboard(name: "UploadChoice", bundle: nil).instantiateViewController(identifier: "UploadChoiceController") as! UploadChoiceController)
+                currentController.view.frame = vwContainer.bounds
+                (currentController as! UploadChoiceController).type = .Upload
+                addChild(currentController)
+                vwContainer.addSubview(currentController.view)
+                currentController.didMove(toParent: self)
+            case .UploadLarge:
+                currentController = (UIStoryboard(name: "UploadChoice", bundle: nil).instantiateViewController(identifier: "UploadChoiceController") as! UploadChoiceController)
+                currentController.view.frame = vwContainer.bounds
+                (currentController as! UploadChoiceController).type = .UploadLarge
+                addChild(currentController)
+                vwContainer.addSubview(currentController.view)
+                currentController.didMove(toParent: self)
+            case .FetchUpload:
+                 currentController = UIStoryboard(name: "Optimization", bundle: nil).instantiateViewController(identifier: "OptimizationViewController") as! OptimizationViewController
+                currentController.view.frame = vwContainer.bounds
+                (currentController as! OptimizationViewController).publicId = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg/1600px-Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg?20150402075721"
+                (currentController as! OptimizationViewController).type = .FetchUpload
+                addChild(currentController)
+                vwContainer.addSubview(currentController.view)
+                currentController.didMove(toParent: self)
+            case .UploadWidget:
+                if (currentController == nil || (currentController as? UploadWidgetViewController == nil)) {
+                    currentController = UIStoryboard(name: "UploadWidget", bundle: nil).instantiateViewController(identifier: "UploadWidgetViewController")
+                    currentController.view.frame = vwContainer.bounds
+                    addChild(currentController)
+                    vwContainer.addSubview(currentController.view)
+                    currentController.didMove(toParent: self)
+                }
+            case .ImageWidget:
+                 currentController = UIStoryboard(name: "ImageWidget", bundle: nil).instantiateViewController(identifier: "ImageWidgetViewController")
+                currentController.view.frame = vwContainer.bounds
+                addChild(currentController)
+                vwContainer.addSubview(currentController.view)
         case .none:
             break
         }
@@ -139,6 +141,7 @@ enum BaseControllerType {
 public enum UploadViewType {
     case Upload
     case UploadLarge
+    case UploadWidget
 }
 
 public enum OptimizationViewType {

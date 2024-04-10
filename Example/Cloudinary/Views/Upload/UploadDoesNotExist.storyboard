@@ -28,6 +28,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M7N-e8-QTh">
                                 <rect key="frame" x="16" y="59" width="361" height="753"/>
                                 <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="yqy-D8-7oQ">
+                                        <rect key="frame" x="162" y="358" width="37" height="37"/>
+                                        <color key="color" name="primary"/>
+                                    </activityIndicatorView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AXP-fP-O24">
                                         <rect key="frame" x="68" y="266" width="225" height="221"/>
                                         <subviews>
@@ -73,10 +77,10 @@
                                                         <rect key="frame" x="0.0" y="157" width="225" height="64"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFf-sM-tvJ">
-                                                                <rect key="frame" x="41.666666666666671" y="24" width="142" height="40"/>
+                                                                <rect key="frame" x="39.333333333333329" y="21" width="146.33333333333337" height="43"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5RE-Iq-oLk">
-                                                                        <rect key="frame" x="17.999999999999979" y="9.9999999999999982" width="105.66666666666669" height="20.333333333333329"/>
+                                                                        <rect key="frame" x="20.333333333333321" y="11.333333333333369" width="105.66666666666669" height="20.333333333333329"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -85,7 +89,7 @@
                                                                 <color key="backgroundColor" name="primary"/>
                                                                 <constraints>
                                                                     <constraint firstItem="5RE-Iq-oLk" firstAttribute="centerX" secondItem="NFf-sM-tvJ" secondAttribute="centerX" id="AGa-ZV-3Jv"/>
-                                                                    <constraint firstAttribute="width" secondItem="NFf-sM-tvJ" secondAttribute="height" multiplier="71:20" id="Tla-PI-bs0"/>
+                                                                    <constraint firstAttribute="width" secondItem="NFf-sM-tvJ" secondAttribute="height" multiplier="75:22" id="Tla-PI-bs0"/>
                                                                     <constraint firstItem="5RE-Iq-oLk" firstAttribute="centerY" secondItem="NFf-sM-tvJ" secondAttribute="centerY" id="cJO-Tu-MDS"/>
                                                                 </constraints>
                                                             </view>
@@ -93,7 +97,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="NFf-sM-tvJ" firstAttribute="centerX" secondItem="Nl2-Bp-xYL" secondAttribute="centerX" id="UMO-e9-9Mb"/>
-                                                            <constraint firstItem="NFf-sM-tvJ" firstAttribute="width" secondItem="Nl2-Bp-xYL" secondAttribute="width" multiplier="0.631111" id="Vbx-tc-H2M"/>
+                                                            <constraint firstItem="NFf-sM-tvJ" firstAttribute="width" secondItem="Nl2-Bp-xYL" secondAttribute="width" multiplier="0.65" id="Vbx-tc-H2M"/>
                                                             <constraint firstAttribute="bottom" secondItem="NFf-sM-tvJ" secondAttribute="bottom" id="aQ6-go-oqs"/>
                                                         </constraints>
                                                     </view>
@@ -113,12 +117,23 @@
                                             <constraint firstAttribute="width" secondItem="AXP-fP-O24" secondAttribute="height" multiplier="225:221" id="rAc-6U-uh1"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please add the upload preset “ios_sample” to your account for successful upload" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsZ-JJ-1Hz">
+                                        <rect key="frame" x="16" y="703.33333333333337" width="329" height="33.666666666666629"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="ZsZ-JJ-1Hz" secondAttribute="trailing" constant="16" id="4p4-MW-XM4"/>
+                                    <constraint firstItem="yqy-D8-7oQ" firstAttribute="centerY" secondItem="M7N-e8-QTh" secondAttribute="centerY" id="E0m-dg-Uqm"/>
                                     <constraint firstItem="AXP-fP-O24" firstAttribute="centerX" secondItem="M7N-e8-QTh" secondAttribute="centerX" id="GbA-5K-fbD"/>
+                                    <constraint firstItem="yqy-D8-7oQ" firstAttribute="centerX" secondItem="M7N-e8-QTh" secondAttribute="centerX" id="Otx-2t-OSP"/>
                                     <constraint firstItem="AXP-fP-O24" firstAttribute="width" secondItem="M7N-e8-QTh" secondAttribute="width" multiplier="0.623269" id="g1X-Ae-C3m"/>
                                     <constraint firstItem="AXP-fP-O24" firstAttribute="centerY" secondItem="M7N-e8-QTh" secondAttribute="centerY" id="i7c-Kd-DH4"/>
+                                    <constraint firstItem="ZsZ-JJ-1Hz" firstAttribute="leading" secondItem="M7N-e8-QTh" secondAttribute="leading" constant="16" id="wmH-JG-DNl"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZsZ-JJ-1Hz" secondAttribute="bottom" constant="16" id="z6g-ct-hU8"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -137,7 +152,11 @@
                     </view>
                     <size key="freeformSize" width="393" height="852"/>
                     <connections>
+                        <outlet property="aiLoading" destination="yqy-D8-7oQ" id="sfy-HY-hGq"/>
+                        <outlet property="lbUploadButton" destination="5RE-Iq-oLk" id="aW9-u2-mbM"/>
+                        <outlet property="lbUploadContainer" destination="CfS-to-hm9" id="TxD-PF-gvx"/>
                         <outlet property="vwUpload" destination="NFf-sM-tvJ" id="HcV-rd-CdO"/>
+                        <outlet property="vwUploadContainer" destination="AXP-fP-O24" id="V2M-qE-qg0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Rl-Js-vnT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
