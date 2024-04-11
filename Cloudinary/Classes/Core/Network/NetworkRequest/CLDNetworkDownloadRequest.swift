@@ -60,8 +60,6 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
                        let data = response.data,
                        let request = self.request.request,
                        CLDDownloadCoordinator.urlCache.cachedResponse(for: request) == nil {
-                        var request = request
-                        request.url = request.url?.removingQueryParameters()
                         let cachedData = CachedURLResponse(response: result, data: data)
                         CLDDownloadCoordinator.urlCache.storeCachedResponse(cachedData, for: request)
                     }
