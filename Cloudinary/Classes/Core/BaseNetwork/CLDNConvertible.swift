@@ -46,6 +46,16 @@ extension String: CLDNURLConvertible {
     }
 }
 
+extension URL {
+    func removingQueryParameters() -> URL? {
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: true) else {
+            return nil
+        }
+        components.query = nil
+        return components.url
+    }
+}
+
 extension URL: CLDNURLConvertible {
     /// Returns self.
     internal func CLDN_AsURL() throws -> URL { return self }
