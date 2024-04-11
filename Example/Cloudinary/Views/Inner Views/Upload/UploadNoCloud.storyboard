@@ -186,11 +186,31 @@
                                     <constraint firstAttribute="width" secondItem="QUw-Ge-iDz" secondAttribute="height" multiplier="333:319" id="lCq-H1-EnB"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctr-KM-6Ut">
+                                <rect key="frame" x="277" y="32" width="100" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Close" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6OJ-eW-yDo">
+                                        <rect key="frame" x="27.333333333333311" y="11.333333333333337" width="45.666666666666657" height="21.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Bsh-0g-fXQ"/>
+                                    <constraint firstAttribute="width" secondItem="Ctr-KM-6Ut" secondAttribute="height" multiplier="50:22" id="ESh-92-bPK"/>
+                                    <constraint firstItem="6OJ-eW-yDo" firstAttribute="centerY" secondItem="Ctr-KM-6Ut" secondAttribute="centerY" id="PrN-Mb-Uic"/>
+                                    <constraint firstItem="6OJ-eW-yDo" firstAttribute="centerX" secondItem="Ctr-KM-6Ut" secondAttribute="centerX" id="pgC-R6-LlR"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="wgW-d3-5fz" firstAttribute="top" secondItem="rht-LB-R9i" secondAttribute="bottom" constant="-59" id="6f7-LP-Ihp"/>
+                            <constraint firstItem="Ctr-KM-6Ut" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="32" id="Bol-Ru-e6K"/>
                             <constraint firstAttribute="trailing" secondItem="wgW-d3-5fz" secondAttribute="trailing" id="HMG-cp-bRW"/>
+                            <constraint firstAttribute="trailing" secondItem="Ctr-KM-6Ut" secondAttribute="trailing" constant="16" id="JZQ-FF-aoa"/>
                             <constraint firstItem="QOw-8g-xS4" firstAttribute="top" secondItem="wgW-d3-5fz" secondAttribute="bottom" constant="-34" id="WnG-Mg-LVp"/>
                             <constraint firstItem="QUw-Ge-iDz" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="Y3h-u9-xzN"/>
                             <constraint firstItem="QUw-Ge-iDz" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="afw-mb-UG6"/>
@@ -202,6 +222,7 @@
                     <connections>
                         <outlet property="tfCloudName" destination="Dyc-Pr-WD2" id="LUl-fU-ezO"/>
                         <outlet property="vwCantFindCloud" destination="oBy-GA-5e4" id="2hn-YR-hUS"/>
+                        <outlet property="vwClose" destination="Ctr-KM-6Ut" id="gCQ-Vo-mra"/>
                         <outlet property="vwGetStarted" destination="h7N-Pp-L64" id="Sbl-df-dVb"/>
                     </connections>
                 </viewController>

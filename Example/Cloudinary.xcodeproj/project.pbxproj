@@ -133,7 +133,6 @@
 		B64ED21D2B8C933B00BE653E /* ConditionalProduct.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1BC2B8C933A00BE653E /* ConditionalProduct.storyboard */; };
 		B64ED21E2B8C933B00BE653E /* Base.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1BE2B8C933A00BE653E /* Base.storyboard */; };
 		B64ED21F2B8C933B00BE653E /* ImageWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1C02B8C933A00BE653E /* ImageWidget.storyboard */; };
-		B64ED2202B8C933B00BE653E /* UploadWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1C12B8C933A00BE653E /* UploadWidget.storyboard */; };
 		B64ED2212B8C933B00BE653E /* Widgets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1C22B8C933A00BE653E /* Widgets.storyboard */; };
 		B64ED2222B8C933B00BE653E /* InnerUploadFrame.xib in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1C42B8C933A00BE653E /* InnerUploadFrame.xib */; };
 		B64ED2232B8C933B00BE653E /* Upload.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64ED1C52B8C933A00BE653E /* Upload.storyboard */; };
@@ -157,6 +156,7 @@
 		B64ED2352B8C933B00BE653E /* FirebaseEventsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64ED1DF2B8C933B00BE653E /* FirebaseEventsHandler.swift */; };
 		B64ED2362B8C933B00BE653E /* EventObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64ED1E02B8C933B00BE653E /* EventObject.swift */; };
 		B64ED2372B8C933B00BE653E /* EventsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64ED1E12B8C933B00BE653E /* EventsProvider.swift */; };
+		B64F0DDD2BC6541000B94590 /* UploadWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64F0DDC2BC6541000B94590 /* UploadWidget.storyboard */; };
 		B67476152B8CA0D2006ED6C2 /* IntegrateAIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67476142B8CA0D2006ED6C2 /* IntegrateAIViewController.swift */; };
 		B67476172B8CA0EF006ED6C2 /* IntegrateAI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B67476162B8CA0EF006ED6C2 /* IntegrateAI.storyboard */; };
 		B694AAF32B308C3C00075041 /* VideoEventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAF22B308C3C00075041 /* VideoEventsTests.swift */; };
@@ -362,7 +362,6 @@
 		B64ED19F2B8C933A00BE653E /* WidgetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetsViewController.swift; sourceTree = "<group>"; };
 		B64ED1A02B8C933A00BE653E /* ImageWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWidgetViewController.swift; sourceTree = "<group>"; };
 		B64ED1A12B8C933A00BE653E /* UploadWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadWidgetViewController.swift; sourceTree = "<group>"; };
-		B64ED1A22B8C933A00BE653E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../../Sample/Cloudinary_Sample_App/Cloudinary_Sample_App/Info.plist; sourceTree = "<group>"; };
 		B64ED1A52B8C933A00BE653E /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		B64ED1A62B8C933A00BE653E /* Toolbar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Toolbar.xib; sourceTree = "<group>"; };
 		B64ED1A82B8C933A00BE653E /* ToolbarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarItem.swift; sourceTree = "<group>"; };
@@ -381,7 +380,6 @@
 		B64ED1BC2B8C933A00BE653E /* ConditionalProduct.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ConditionalProduct.storyboard; sourceTree = "<group>"; };
 		B64ED1BE2B8C933A00BE653E /* Base.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Base.storyboard; sourceTree = "<group>"; };
 		B64ED1C02B8C933A00BE653E /* ImageWidget.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ImageWidget.storyboard; sourceTree = "<group>"; };
-		B64ED1C12B8C933A00BE653E /* UploadWidget.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UploadWidget.storyboard; sourceTree = "<group>"; };
 		B64ED1C22B8C933A00BE653E /* Widgets.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Widgets.storyboard; sourceTree = "<group>"; };
 		B64ED1C42B8C933A00BE653E /* InnerUploadFrame.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InnerUploadFrame.xib; sourceTree = "<group>"; };
 		B64ED1C52B8C933A00BE653E /* Upload.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Upload.storyboard; sourceTree = "<group>"; };
@@ -405,6 +403,8 @@
 		B64ED1DF2B8C933B00BE653E /* FirebaseEventsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseEventsHandler.swift; sourceTree = "<group>"; };
 		B64ED1E02B8C933B00BE653E /* EventObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventObject.swift; sourceTree = "<group>"; };
 		B64ED1E12B8C933B00BE653E /* EventsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsProvider.swift; sourceTree = "<group>"; };
+		B64F0DDA2BC6506700B94590 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B64F0DDC2BC6541000B94590 /* UploadWidget.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UploadWidget.storyboard; sourceTree = "<group>"; };
 		B67476142B8CA0D2006ED6C2 /* IntegrateAIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrateAIViewController.swift; sourceTree = "<group>"; };
 		B67476162B8CA0EF006ED6C2 /* IntegrateAI.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntegrateAI.storyboard; sourceTree = "<group>"; };
 		B694AAF22B308C3C00075041 /* VideoEventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEventsTests.swift; sourceTree = "<group>"; };
@@ -841,8 +841,7 @@
 				B64ED1D72B8C933B00BE653E /* Extensions */,
 				B64ED1642B8C933900BE653E /* GoogleService-Info.plist */,
 				B64ED1DA2B8C933B00BE653E /* Helpers */,
-				B64ED1A22B8C933A00BE653E /* Info.plist */,
-				B64ED1652B8C933900BE653E /* Resources */,
+				B64F0DDA2BC6506700B94590 /* Info.plist */,
 				B64ED1D92B8C933B00BE653E /* SceneDelegate.swift */,
 				B64ED1D42B8C933A00BE653E /* Utils */,
 				B64ED1AF2B8C933A00BE653E /* Views */,
@@ -889,13 +888,6 @@
 				270C1BF623FBBA3C00A503C3 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		B64ED1652B8C933900BE653E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		B64ED1692B8C933A00BE653E /* Controllers */ = {
@@ -1203,8 +1195,8 @@
 			isa = PBXGroup;
 			children = (
 				B64ED1C02B8C933A00BE653E /* ImageWidget.storyboard */,
-				B64ED1C12B8C933A00BE653E /* UploadWidget.storyboard */,
 				B64ED1C22B8C933A00BE653E /* Widgets.storyboard */,
+				B64F0DDC2BC6541000B94590 /* UploadWidget.storyboard */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -1641,7 +1633,6 @@
 				B67476172B8CA0EF006ED6C2 /* IntegrateAI.storyboard in Resources */,
 				D73DBB0B258BA0570002E7E5 /* dog.mov in Resources */,
 				B64ED2222B8C933B00BE653E /* InnerUploadFrame.xib in Resources */,
-				B64ED2202B8C933B00BE653E /* UploadWidget.storyboard in Resources */,
 				D73DBB0A258BA0550002E7E5 /* dog2.mp4 in Resources */,
 				B64ED21D2B8C933B00BE653E /* ConditionalProduct.storyboard in Resources */,
 				B64ED2002B8C933B00BE653E /* video_links.plist in Resources */,
@@ -1663,6 +1654,7 @@
 				B64ED2172B8C933B00BE653E /* VideoSocialOverlays.storyboard in Resources */,
 				B64ED2212B8C933B00BE653E /* Widgets.storyboard in Resources */,
 				B64ED2162B8C933B00BE653E /* VideoFeed.storyboard in Resources */,
+				B64F0DDD2BC6541000B94590 /* UploadWidget.storyboard in Resources */,
 				B64ED2242B8C933B00BE653E /* UploadNoCloud.storyboard in Resources */,
 				B64ED2182B8C933B00BE653E /* Video.storyboard in Resources */,
 				B64ED2232B8C933B00BE653E /* Upload.storyboard in Resources */,

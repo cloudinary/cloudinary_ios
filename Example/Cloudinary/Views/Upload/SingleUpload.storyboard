@@ -20,14 +20,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="93" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-ia-B96">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-ia-B96">
                                 <rect key="frame" x="16" y="59" width="361" height="759"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sX3-kw-sr0">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="552"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="645"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4AA-Lm-DWa">
-                                                <rect key="frame" x="0.0" y="0.0" width="361" height="552"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="361" height="645"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,6 +43,12 @@
                                             <constraint firstAttribute="trailing" secondItem="4AA-Lm-DWa" secondAttribute="trailing" id="SL8-Ci-ink"/>
                                             <constraint firstItem="4AA-Lm-DWa" firstAttribute="top" secondItem="sX3-kw-sr0" secondAttribute="top" id="bxZ-SM-Nkp"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eqk-h1-s5q">
                                         <rect key="frame" x="0.0" y="645" width="361" height="114"/>
@@ -83,6 +95,7 @@
                     <size key="freeformSize" width="393" height="852"/>
                     <connections>
                         <outlet property="ivMain" destination="4AA-Lm-DWa" id="6l6-cO-zxX"/>
+                        <outlet property="lbButton" destination="PEf-Ou-BJK" id="Ag7-JA-CXS"/>
                         <outlet property="vwImage" destination="sX3-kw-sr0" id="kS3-oI-YKw"/>
                         <outlet property="vwOpenGallery" destination="RZI-Ii-ZYD" id="aYd-wg-GsX"/>
                     </connections>
