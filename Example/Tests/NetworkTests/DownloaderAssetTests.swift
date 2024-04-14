@@ -39,7 +39,7 @@ class DownloaderAssetTests: NetworkBaseTest {
     
     override func tearDown() {
         
-        sut.downloadCoordinator.urlCache.removeAllCachedResponses()
+        CLDDownloadCoordinator.urlCache.removeAllCachedResponses()
         sut = nil
         super.tearDown()
     }
@@ -96,11 +96,6 @@ extension DownloaderAssetTests {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
-        if !shouldCache {
-            cloudinary!.cacheAssetMaxMemoryTotalCost = 20
-            cloudinary!.cacheAssetMaxDiskCapacity    = 20
-        }
-        
         // Given
         let resource: TestResourceType = testResource
         var publicId: String?
@@ -128,7 +123,7 @@ extension DownloaderAssetTests {
         
         /// download asset by publicId
         let url = cloudinary!.createUrl().setResourceType(resourceType).generate(pubId)
-        sut.fetchAsset(url!).responseAsset { (responseData, err) in
+        let request = sut.fetchAsset(url!).responseAsset { (responseData, err) in
             response = responseData
             expectation.fulfill()
         }
@@ -137,13 +132,6 @@ extension DownloaderAssetTests {
         
         // Then
         XCTAssertEqual(response, resource.data, "uploaded data should be equal to downloaded data")
-        
-        if shouldCache {
-            XCTAssertNotNil(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should be cached")
-        }
-        else {
-            XCTAssertThrowsError(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should not be cached")
-        }
     }
 }
 

@@ -35,7 +35,7 @@ class UIBaseTest: NetworkBaseTest {
     override func setUp() {
         super.setUp()
         
-        cloudinary!.cachePolicy = .none
+        cloudinary!.enableUrlCache = false
         continueAfterFailure = false        
     }
     

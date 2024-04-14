@@ -51,20 +51,23 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
     // MARK: - Private
     @discardableResult
     internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?, _ httpCode: Int?) -> ())?) -> CLDNetworkDataRequest {
-        
         request.responseData { response in
             let statusCode = response.response?.statusCode
-            
             if let downloadedData = response.result.value {
-                
-                if let statusCode = statusCode,
-                   !self.isAcceptableCode(code: statusCode) {
-                    
-                    let statusCodeError = CLDError.error(code: .unacceptableStatusCode, message: "request error - unacceptable statusCode - \(statusCode)", userInfo: ["statusCode": statusCode])
-                    completionHandler?(downloadedData, statusCodeError, statusCode)
+                if let statusCode = statusCode, self.isAcceptableCode(code: statusCode) {
+                    if CLDDownloadCoordinator.enableCache,
+                       let result = response.response,
+                       let data = response.data,
+                       let request = self.request.request,
+                       CLDDownloadCoordinator.urlCache.cachedResponse(for: request) == nil {
+                        let cachedData = CachedURLResponse(response: result, data: data)
+                        CLDDownloadCoordinator.urlCache.storeCachedResponse(cachedData, for: request)
+                    }
+                    completionHandler?(downloadedData, nil, statusCode)
                 }
                 else {
-                    completionHandler?(downloadedData, nil, statusCode)
+                    let statusCodeError = CLDError.error(code: .unacceptableStatusCode, message: "request error - unacceptable statusCode - \(statusCode)", userInfo: ["statusCode": statusCode])
+                    completionHandler?(downloadedData, statusCodeError, statusCode)
                 }
             }
             else if let err = response.result.error {
