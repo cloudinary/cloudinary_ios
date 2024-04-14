@@ -1,3 +1,17 @@
+5.0.0 / 2024-04-14
+==================
+
+Breaking Changes
+----------------
+* Remove CLDURLCache in favor of native URLCache
+* Remove ImageCache
+* Old cache saved to the disk will be purged
+
+New functionality
+-----------------
+* Add URLCache support for `CLDUIImageVIew`
+
+
 4.7.0 / 2024-03-25
 ==================
 
