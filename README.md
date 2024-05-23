@@ -26,7 +26,7 @@ For the complete documentation, see the [iOS SDK Guide](https://cloudinary.com/d
 | SDK Version    | iOS 9+    |   iOS 8   |
 |----------------|-----------|-----------|
 | 2.0.0 - 2.10.1 | V         | V         |
-| 3.0.0 - 4.3.0  | V         | X         |
+| 3.0.0 - 5.x.x  | V         | X         |
 
 ## Installation
 ### CocoaPods
@@ -50,7 +50,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'MyApp' do
-  pod 'Cloudinary', '~> 4.0'
+  pod 'Cloudinary', '~> 5.0'
 end
 ```
 
@@ -70,7 +70,7 @@ touch Cartfile
 Open `Cartfile` and enter the following line
 
 ```bash
-github "cloudinary/cloudinary_ios" ~> 4.0
+github "cloudinary/cloudinary_ios" ~> 5.0
 ```
 
 Then, run the command:
@@ -84,7 +84,7 @@ Drag the built `.xcframework` bundles from `Carthage/Build` into the `Frameworks
 ### Swift Package Manager
 * File > Add Packages... >
 * Add https://github.com/cloudinary/cloudinary_ios.git
-* Select "Up to Next Major" with "4.0.0"
+* Select "Up to Next Major" with "5.0.0"
 
 ### Working with the Cloudinary iOS SDK Manually
 
