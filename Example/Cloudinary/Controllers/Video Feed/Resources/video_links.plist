@@ -3,10 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>video1</key>
-	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/v1707051612/sprort-2_zgsr5k.mp4</string>
+	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/ar_9:16,c_fill,g_auto,w_600/f_auto:video,q_auto:eco/sprort-2_zgsr5k.mp4</string>
 	<key>video2</key>
-	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/v1707051597/fashion-2_ewukga.mp4</string>
+	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/ar_9:16,c_fill,g_auto,w_600/f_auto:video,q_auto:eco/fashion-2_ewukga.mp4</string>
+	<key>video3</key>
+	<string>https://res.cloudinary.com/demo/video/upload/ar_9:16,c_fill,g_auto,w_600/f_auto:video,q_auto:eco/v1/docs/surfers</string>
+	<key>video4</key>
+	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/ar_9:16,c_fill,g_auto,w_600/f_auto:video,q_auto:eco/fashion-1_1_kuwihy.mp4</string>
 	<key>video5</key>
-	<string>https://res.cloudinary.com/mobiledemoapp/video/upload/v1707051159/fashion-1_1_kuwihy.mp4</string>
+	<string>https://res.cloudinary.com/demo/video/upload/ar_9:16,c_fill,g_auto,w_600/f_auto:video,q_auto:eco/v1/docs/car-film</string>
+	<key>video6</key>
+	<string>https://res.cloudinary.com/demo/video/upload/ar_9:16,c_fill,g_auto,w_600/f_auto:video,q_auto:eco/v1/docs/rocky-mountains</string>
+	<key>video7</key>
+	<string>https://res.cloudinary.com/demo/video/upload/ar_9:16,c_fill,g_auto,w_600/f_auto:video,q_auto:eco/v1/docs/sailing_boat</string>
 </dict>
 </plist>
