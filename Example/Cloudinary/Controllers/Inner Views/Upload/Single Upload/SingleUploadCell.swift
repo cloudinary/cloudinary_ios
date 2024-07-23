@@ -33,17 +33,17 @@ class SingleUploadCell: UICollectionViewCell {
         }
         
         // Get the last path component
-        let lastPathComponent = url.lastPathComponent
-        
+        let lastComponent = url.lastPathComponent
+
         // Get the path extension
-        let pathExtension = (lastPathComponent as NSString).pathExtension
-        
+        let pathExtension = (lastComponent as NSString).pathExtension
+
         // Replace the path extension with ".jpg"
-        let newLastPathComponent = (lastPathComponent as NSString).deletingPathExtension + ".jpg"
-        
+        let newLastPathComponent = (lastComponent as NSString).deletingPathExtension + ".jpg"
+
         // Create a new URL instance with the updated path component
         if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-            urlComponents.path = urlComponents.path.replacingOccurrences(of: lastPathComponent, with: newLastPathComponent)
+            urlComponents.path = urlComponents.path.replacingOccurrences(of: lastComponent, with: newLastPathComponent)
             
             // Get the updated URL string
             if let updatedURLString = urlComponents.string {
