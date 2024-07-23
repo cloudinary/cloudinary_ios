@@ -25,6 +25,7 @@ class UploadLoadingView: UIView {
         guard let view = loadViewFromNib() else { return }
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.layer.cornerRadius = 4
         addSubview(view)
     }
 

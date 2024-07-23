@@ -96,11 +96,16 @@ class UploadDoesNotExistController: UIViewController {
         showUploadingView()
         let data = image.pngData()
         cloudinary.createUploader().upload(data: data!, uploadPreset: "ios_sample", completionHandler:  { response, error in
-            DispatchQueue.main.async {
-                self.delegate.switchToController(.UploadExist, url: response?.secureUrl)
-                self.hideUploadingView()
-            }
-        })
+                    guard let response = response else {
+                        return
+                    }
+                    CoreDataHelper.shared.insertData(AssetModel(deliveryType: response.type ?? "upload", assetType: response.resourceType ?? "image", transformation: "", publicId: response.publicId ?? "", url: response.secureUrl ?? ""))
+
+                    DispatchQueue.main.async {
+                        self.delegate.switchToController(.UploadExist, url: response.secureUrl)
+                        self.hideUploadingView()
+                    }
+                })
     }
 
     func uploadVideo(_ url: NSURL) {

@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,22 +27,71 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sX3-kw-sr0">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="645"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4AA-Lm-DWa">
+                                            <view alpha="0.20000000298023224" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Eg-dx-zT8">
                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="645"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </imageView>
+                                                <color key="backgroundColor" name="primary"/>
+                                            </view>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QJ8-yv-TyP">
+                                                <rect key="frame" x="0.0" y="8" width="361" height="629"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="N6X-V6-QDS">
+                                                    <size key="itemSize" width="100" height="100"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="uploadCell" id="Wag-4J-5Wa" customClass="SingleUploadCell" customModule="Cloudinary_Sample_App" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Etu-68-QqO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L3c-YS-aCl" customClass="CLDUIImageView" customModule="Cloudinary">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                            <integer key="value" value="4"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </imageView>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.resize" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qey-lu-Ipa">
+                                                                    <rect key="frame" x="8" y="9.3333333333333321" width="20" height="17.33333333333335"/>
+                                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="20" id="onC-ev-Ke2"/>
+                                                                        <constraint firstAttribute="width" secondItem="Qey-lu-Ipa" secondAttribute="height" multiplier="1:1" id="rTR-F7-gNf"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="L3c-YS-aCl" firstAttribute="leading" secondItem="Etu-68-QqO" secondAttribute="leading" id="8yw-rH-U7f"/>
+                                                                <constraint firstAttribute="bottom" secondItem="L3c-YS-aCl" secondAttribute="bottom" id="BFe-m3-5mx"/>
+                                                                <constraint firstItem="Qey-lu-Ipa" firstAttribute="top" secondItem="L3c-YS-aCl" secondAttribute="top" constant="8" id="Dvl-ve-vpC"/>
+                                                                <constraint firstItem="L3c-YS-aCl" firstAttribute="top" secondItem="Etu-68-QqO" secondAttribute="top" id="To2-nm-YFd"/>
+                                                                <constraint firstItem="Qey-lu-Ipa" firstAttribute="leading" secondItem="L3c-YS-aCl" secondAttribute="leading" constant="8" id="bsa-dM-Jcr"/>
+                                                                <constraint firstAttribute="trailing" secondItem="L3c-YS-aCl" secondAttribute="trailing" id="lUv-tp-0K2"/>
+                                                            </constraints>
+                                                        </collectionViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="ivMain" destination="L3c-YS-aCl" id="7rc-F6-XQU"/>
+                                                        </connections>
+                                                    </collectionViewCell>
+                                                </cells>
+                                            </collectionView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="4AA-Lm-DWa" secondAttribute="bottom" id="Hqv-yK-tKJ"/>
-                                            <constraint firstItem="4AA-Lm-DWa" firstAttribute="leading" secondItem="sX3-kw-sr0" secondAttribute="leading" id="OUY-Lo-BCl"/>
-                                            <constraint firstAttribute="trailing" secondItem="4AA-Lm-DWa" secondAttribute="trailing" id="SL8-Ci-ink"/>
-                                            <constraint firstItem="4AA-Lm-DWa" firstAttribute="top" secondItem="sX3-kw-sr0" secondAttribute="top" id="bxZ-SM-Nkp"/>
+                                            <constraint firstItem="QJ8-yv-TyP" firstAttribute="leading" secondItem="sX3-kw-sr0" secondAttribute="leading" id="0IZ-La-W1b"/>
+                                            <constraint firstItem="QJ8-yv-TyP" firstAttribute="top" secondItem="sX3-kw-sr0" secondAttribute="top" constant="8" id="Eo1-eU-VtQ"/>
+                                            <constraint firstItem="0Eg-dx-zT8" firstAttribute="leading" secondItem="sX3-kw-sr0" secondAttribute="leading" id="JoD-tk-UxV"/>
+                                            <constraint firstAttribute="bottom" secondItem="QJ8-yv-TyP" secondAttribute="bottom" constant="8" id="SQk-iA-3KJ"/>
+                                            <constraint firstItem="0Eg-dx-zT8" firstAttribute="top" secondItem="sX3-kw-sr0" secondAttribute="top" id="cWQ-7x-iWU"/>
+                                            <constraint firstAttribute="trailing" secondItem="QJ8-yv-TyP" secondAttribute="trailing" id="ee2-4X-zpp"/>
+                                            <constraint firstAttribute="bottom" secondItem="0Eg-dx-zT8" secondAttribute="bottom" id="euL-h5-r2n"/>
+                                            <constraint firstAttribute="trailing" secondItem="0Eg-dx-zT8" secondAttribute="trailing" id="fjI-AB-yNc"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -94,7 +144,7 @@
                     </view>
                     <size key="freeformSize" width="393" height="852"/>
                     <connections>
-                        <outlet property="ivMain" destination="4AA-Lm-DWa" id="6l6-cO-zxX"/>
+                        <outlet property="cvMain" destination="QJ8-yv-TyP" id="Tky-Xp-y6Y"/>
                         <outlet property="lbButton" destination="PEf-Ou-BJK" id="Ag7-JA-CXS"/>
                         <outlet property="vwImage" destination="sX3-kw-sr0" id="kS3-oI-YKw"/>
                         <outlet property="vwOpenGallery" destination="RZI-Ii-ZYD" id="aYd-wg-GsX"/>
@@ -106,6 +156,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="square.resize" catalog="system" width="128" height="116"/>
         <namedColor name="primary">
             <color red="0.27450980392156865" green="0.59607843137254901" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
