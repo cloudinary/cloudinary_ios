@@ -116,6 +116,7 @@ class SingleUploadViewController: UIViewController {
 
     func uploadVideo(_ url: URL) {
         addUploadingView()
+
         let params = CLDUploadRequestParams()
         params.setResourceType("video")
 
