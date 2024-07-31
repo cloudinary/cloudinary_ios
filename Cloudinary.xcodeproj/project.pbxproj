@@ -11,6 +11,9 @@
 		B694AAEC2B308AF100075041 /* CLDAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAEB2B308AF100075041 /* CLDAnalytics.swift */; };
 		B694AAEF2B308B8400075041 /* VideoAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAEE2B308B8400075041 /* VideoAnalytics.swift */; };
 		B694AAF12B308B9D00075041 /* VideoEventsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAF02B308B9D00075041 /* VideoEventsManager.swift */; };
+		B6B4C49A2C560FEE00C9B604 /* CLDVideoPreprocessChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B4C4992C560FEE00C9B604 /* CLDVideoPreprocessChain.swift */; };
+		B6B4C49C2C56100600C9B604 /* CLDVideoTranscode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B4C49B2C56100600C9B604 /* CLDVideoTranscode.swift */; };
+		B6B4C4A12C5615CF00C9B604 /* CLDVideoPreprocessHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B4C4A02C5615CF00C9B604 /* CLDVideoPreprocessHelpers.swift */; };
 		B6C2D4862A724C4200AA0039 /* CLDVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2D4852A724C4200AA0039 /* CLDVideoPlayer.swift */; };
 		OBJ_257 /* CLDNConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* CLDNConvertible.swift */; };
 		OBJ_258 /* CLDNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* CLDNError.swift */; };
@@ -170,6 +173,9 @@
 		B694AAEB2B308AF100075041 /* CLDAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDAnalytics.swift; sourceTree = "<group>"; };
 		B694AAEE2B308B8400075041 /* VideoAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnalytics.swift; sourceTree = "<group>"; };
 		B694AAF02B308B9D00075041 /* VideoEventsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEventsManager.swift; sourceTree = "<group>"; };
+		B6B4C4992C560FEE00C9B604 /* CLDVideoPreprocessChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoPreprocessChain.swift; sourceTree = "<group>"; };
+		B6B4C49B2C56100600C9B604 /* CLDVideoTranscode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoTranscode.swift; sourceTree = "<group>"; };
+		B6B4C4A02C5615CF00C9B604 /* CLDVideoPreprocessHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoPreprocessHelpers.swift; sourceTree = "<group>"; };
 		B6C2D4852A724C4200AA0039 /* CLDVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoPlayer.swift; sourceTree = "<group>"; };
 		"Cloudinary::Cloudinary::Product" /* Cloudinary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cloudinary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* CLDNConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDNConvertible.swift; sourceTree = "<group>"; };
@@ -688,6 +694,9 @@
 			children = (
 				OBJ_240 /* CLDImagePreprocessChain.swift */,
 				OBJ_241 /* CLDPreprocessHelpers.swift */,
+				B6B4C4992C560FEE00C9B604 /* CLDVideoPreprocessChain.swift */,
+				B6B4C49B2C56100600C9B604 /* CLDVideoTranscode.swift */,
+				B6B4C4A02C5615CF00C9B604 /* CLDVideoPreprocessHelpers.swift */,
 			);
 			path = Uploader;
 			sourceTree = "<group>";
@@ -975,6 +984,7 @@
 				OBJ_309 /* CLDOperators.swift in Sources */,
 				OBJ_310 /* CLDTransformation.swift in Sources */,
 				OBJ_311 /* CLDVariable.swift in Sources */,
+				B6B4C49C2C56100600C9B604 /* CLDVideoTranscode.swift in Sources */,
 				OBJ_312 /* CLDFetchLayer.swift in Sources */,
 				OBJ_313 /* CLDLayer.swift in Sources */,
 				OBJ_314 /* CLDSubtitlesLayer.swift in Sources */,
@@ -1002,6 +1012,7 @@
 				OBJ_335 /* CLDOcrResult.swift in Sources */,
 				OBJ_336 /* CLDOcrSymbolResult.swift in Sources */,
 				OBJ_337 /* CLDOcrTextAnnotationResult.swift in Sources */,
+				B6B4C49A2C560FEE00C9B604 /* CLDVideoPreprocessChain.swift in Sources */,
 				OBJ_338 /* CLDOcrWordResult.swift in Sources */,
 				OBJ_339 /* CLDQualityAnalysis.swift in Sources */,
 				OBJ_340 /* CLDRekognitionFace.swift in Sources */,
@@ -1076,6 +1087,7 @@
 				OBJ_406 /* CLDDefaultNetworkAdapter.swift in Sources */,
 				OBJ_407 /* CLDNetworkCoordinator.swift in Sources */,
 				OBJ_408 /* CLDAsyncNetworkUploadRequest.swift in Sources */,
+				B6B4C4A12C5615CF00C9B604 /* CLDVideoPreprocessHelpers.swift in Sources */,
 				OBJ_409 /* CLDErrorRequest.swift in Sources */,
 				OBJ_410 /* CLDGenericNetworkRequest.swift in Sources */,
 				OBJ_411 /* CLDNetworkDataRequestImpl.swift in Sources */,
