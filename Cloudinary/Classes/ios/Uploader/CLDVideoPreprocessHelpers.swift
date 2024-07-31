@@ -1,38 +1,54 @@
-import AVFoundation
-import UIKit
+import Foundation
+import AVKit
 
 public class CLDVideoPreprocessHelpers {
-
-    public static func setOutputDimensions(dimensions: CGSize) -> (CLDVideoTranscode) throws -> CLDVideoTranscode {
-        return { transcode in
-            transcode.outputDimensions = dimensions
-            return transcode
+    
+    private var steps: [(CLDVideoTranscode) throws -> CLDVideoTranscode] = []
+    
+    public func addStep(_ step: @escaping (CLDVideoTranscode) throws -> CLDVideoTranscode) {
+        steps.append(step)
+    }
+    
+    public static func setOutputFormat(format: AVFileType) -> CLDVideoPreprocessStep {
+        return { videoTranscode in
+            do {
+                try videoTranscode.setOutputFormat(format: format)
+                return videoTranscode
+            } catch {
+                // Handle or propagate the error as needed
+                throw error
+            }
         }
     }
-
-    public static func setOutputFormat(format: AVFileType) -> (CLDVideoTranscode) throws -> CLDVideoTranscode {
-        return { transcode in
-            transcode.outputFormat = format
-            return transcode
+    
+    
+    public static func setOutputDimensions(dimensions: CGSize) -> CLDVideoPreprocessStep {
+        return { videoTranscode in
+            videoTranscode.setOutputDimensions(dimensions: dimensions)
+            return videoTranscode
         }
     }
-
-    public static func setCompressionPreset(preset: String) -> (CLDVideoTranscode) throws -> CLDVideoTranscode {
-        return { transcode in
-            transcode.compressionPreset = preset
-            return transcode
+    
+    public static func setCompressionPreset(preset: String) -> CLDVideoPreprocessStep {
+        return { videoTranscode in
+            videoTranscode.setCompressionPreset(preset: preset)
+            return videoTranscode
         }
     }
-
-    public static func dimensionsValidator(minWidth: CGFloat, maxWidth: CGFloat, minHeight: CGFloat, maxHeight: CGFloat) -> ((CLDVideoTranscode) throws -> CLDVideoTranscode) {
+    
+    public static func dimensionsValidator(minWidth: CGFloat, maxWidth: CGFloat, minHeight: CGFloat, maxHeight: CGFloat) -> CLDVideoPreprocessStep {
         return { videoTranscode in
             guard let dimensions = videoTranscode.outputDimensions else {
-                throw NSError(domain: "CLDVideoPreprocessHelpers", code: 0, userInfo: [NSLocalizedDescriptionKey: "Video dimensions not set"])
+                throw NSError(domain: "CLDVideoPreprocessHelpers", code: -1, userInfo: [NSLocalizedDescriptionKey: "Dimensions not set"])
             }
             if dimensions.width < minWidth || dimensions.width > maxWidth || dimensions.height < minHeight || dimensions.height > maxHeight {
-                throw NSError(domain: "CLDVideoPreprocessHelpers", code: 0, userInfo: [NSLocalizedDescriptionKey: "Video dimensions out of bounds"])
+                throw VideoPreprocessError.dimensionsOutOfRange
             }
             return videoTranscode
         }
     }
+}
+
+enum VideoPreprocessError: Error {
+    case dimensionsOutOfRange
 }

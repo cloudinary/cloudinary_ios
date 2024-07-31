@@ -35,7 +35,16 @@ public class CLDVideoTranscode {
         self.sourceURL = sourceURL
     }
 
-    func setOutputFormat(format: AVFileType) {
+    func setOutputFormat(format: AVFileType) throws {
+        guard FileManager.default.fileExists(atPath: sourceURL.path) else {
+            throw NSError(domain: "CLDVideoPreprocessHelpers", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid source URL"])
+        }
+
+        let asset = AVAsset(url: sourceURL)
+        guard asset.tracks(withMediaType: .video).first != nil else {
+            throw NSError(domain: "CLDVideoPreprocessHelpers", code: -1, userInfo: [NSLocalizedDescriptionKey: "No video track found"])
+        }
+
         self.outputFormat = format
     }
 
@@ -45,6 +54,11 @@ public class CLDVideoTranscode {
 
     func setCompressionPreset(preset: String) {
         self.compressionPreset = preset
+    }
+
+    var hasVideoTrack: Bool {
+        let asset = AVAsset(url: sourceURL)
+        return asset.tracks(withMediaType: .video).first != nil
     }
 
     func transcode(completion: @escaping (Bool, Error?) -> Void) {
@@ -82,10 +96,10 @@ public class CLDVideoTranscode {
         return URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension(outputFormat.fileExtension)
     }
 
-    private func createVideoComposition(asset: AVAsset, dimensions: CGSize) -> AVMutableVideoComposition {
+    private func createVideoComposition(asset: AVAsset, dimensions: CGSize, frameDurationValue: Int64 = 1, frameDurationTimeScale: Int32 = 30) -> AVMutableVideoComposition {
         let videoComposition = AVMutableVideoComposition()
         videoComposition.renderSize = dimensions
-        videoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
+        videoComposition.frameDuration = CMTimeMake(value: frameDurationValue, timescale: frameDurationTimeScale)
 
         let instruction = AVMutableVideoCompositionInstruction()
         instruction.timeRange = CMTimeRange(start: .zero, duration: asset.duration)
@@ -156,3 +170,4 @@ private extension AVFileType {
         }
     }
 }
+

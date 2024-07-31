@@ -38,13 +38,13 @@ public class CLDVideoPreprocessChain: CLDPreprocessChain<CLDVideoTranscode> {
         if let url = resourceData as? URL {
             return CLDVideoTranscode(sourceURL: url)
         } else {
-            throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "Invalid resource type")
+            throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "resource type should be URL only!")
         }
     }
 
     public func setOutputFormat(format: AVFileType) -> Self {
         addStep { videoTranscode in
-            videoTranscode.setOutputFormat(format: format)
+            try videoTranscode.setOutputFormat(format: format)
             return videoTranscode
         }
         return self
@@ -108,11 +108,6 @@ public class CLDVideoPreprocessChain: CLDPreprocessChain<CLDVideoTranscode> {
             throw resultError ?? CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "Unknown error")
         }
     }
-
-
-
-
-
 
     internal override func verifyEncoder() throws {
         if encoder == nil {
