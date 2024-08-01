@@ -37,8 +37,24 @@ public class CLDVideoPreprocessChain: CLDPreprocessChain<CLDVideoTranscode> {
     internal override func decodeResource(_ resourceData: Any) throws -> CLDVideoTranscode? {
         if let url = resourceData as? URL {
             return CLDVideoTranscode(sourceURL: url)
+        } else if let data = resourceData as? Data {
+            // Write the data to a temporary file
+            var tempDirectory: URL!
+            if #available(iOS 10.0, *) {
+                tempDirectory = FileManager.default.temporaryDirectory
+            } else {
+                tempDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
+            }
+            let tempURL = tempDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("mp4")
+
+            do {
+                try data.write(to: tempURL)
+                return CLDVideoTranscode(sourceURL: tempURL)
+            } catch {
+                throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "Failed to write data to temporary file: \(error.localizedDescription)")
+            }
         } else {
-            throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "resource type should be URL only!")
+            throw CLDError.error(code: CLDError.CloudinaryErrorCode.preprocessingError, message: "Resource type should be URL or Data only!")
         }
     }
 

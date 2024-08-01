@@ -62,7 +62,15 @@ public class CLDVideoTranscode {
     }
 
     func transcode(completion: @escaping (Bool, Error?) -> Void) {
-        let asset = AVAsset(url: sourceURL)
+        let asset: AVAsset
+        if sourceURL.isFileURL {
+            asset = AVAsset(url: sourceURL)
+        } else {
+            // Handle other source types if needed
+            completion(false, NSError(domain: "CLDVideoTranscode", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid source URL"]))
+            return
+        }
+
         guard let exportSession = createExportSession(asset: asset) else {
             completion(false, NSError(domain: "CLDVideoTranscode", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create export session"]))
             return
@@ -76,6 +84,13 @@ public class CLDVideoTranscode {
         }
 
         exportSession.exportAsynchronously {
+            defer {
+                let tempFileURL = self.sourceURL
+                if tempFileURL.isFileURL {
+                    try? FileManager.default.removeItem(at: tempFileURL)
+                }
+            }
+
             switch exportSession.status {
             case .completed:
                 self.outputURL = exportSession.outputURL
