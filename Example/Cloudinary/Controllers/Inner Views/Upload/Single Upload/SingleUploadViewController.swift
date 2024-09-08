@@ -115,10 +115,18 @@ class SingleUploadViewController: UIViewController {
     }
 
     func uploadVideo(_ url: URL) {
+
+        let preprocessChain = CLDVideoPreprocessChain()
+            .addStep(CLDVideoPreprocessHelpers.setOutputDimensions(dimensions: CGSize(width: 640, height: 640)))
+            .addStep(CLDVideoPreprocessHelpers.setOutputFormat(format: .mov))
+            .addStep(CLDVideoPreprocessHelpers.setCompressionPreset(preset: AVAssetExportPresetHighestQuality))
+            .addStep(CLDVideoPreprocessHelpers.dimensionsValidator(minWidth: 100, maxWidth: 2000, minHeight: 100, maxHeight: 1000))
+
+
         addUploadingView()
         let params = CLDUploadRequestParams()
         params.setResourceType("video")
-        cloudinary.createUploader().upload(url: url as URL, uploadPreset: "ios_sample", params: params, completionHandler:  { response, error in
+        cloudinary.createUploader().upload(url: url as URL, uploadPreset: "ios_sample", params: params, preprocessChain: preprocessChain, completionHandler:  { response, error in
             if let response = response {
                 CoreDataHelper.shared.insertData(AssetModel(deliveryType: response.type ?? "upload", assetType: response.resourceType ?? "video", transformation: "", publicId: response.publicId ?? "", url: response.secureUrl ?? ""))
             }

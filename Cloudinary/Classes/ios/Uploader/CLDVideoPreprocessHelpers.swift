@@ -34,7 +34,6 @@ public class CLDVideoPreprocessHelpers {
         }
     }
 
-
     public static func dimensionsValidator(minWidth: CGFloat, maxWidth: CGFloat, minHeight: CGFloat, maxHeight: CGFloat) -> CLDVideoPreprocessStep {
         return { videoTranscode in
             guard let dimensions = videoTranscode.outputDimensions else {
