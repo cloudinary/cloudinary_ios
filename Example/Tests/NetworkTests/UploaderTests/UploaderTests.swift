@@ -1457,6 +1457,60 @@ class UploaderTests: NetworkBaseTest {
         XCTAssertTrue(isUsedFilename(filename: filename, publicId: requestResult?.publicId))
     }
 
+    func testAutoChaptering() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed and return playback url")
+        let file = TestResourceType.dog.url
+
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setColors(true)
+        params.setResourceType(.video)
+        params.setAutoChpatering(true)
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNotNil(result?.playbackUrl, "playback url should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
+
+    func testAutoTranscription() {
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed and return playback url")
+        let file = TestResourceType.dog.url
+
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        params.setColors(true)
+        params.setResourceType(.video)
+        params.setAutoTranscription(true)
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNotNil(result?.playbackUrl, "playback url should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
+
 
     func validateQualityOverride(publicId: String, quality: String, shouldSucceed: Bool){
 

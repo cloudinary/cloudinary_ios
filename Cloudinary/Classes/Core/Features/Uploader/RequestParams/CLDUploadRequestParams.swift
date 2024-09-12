@@ -242,7 +242,15 @@ import Foundation
     open var displayName: String? {
         return getParam(.DisplayName) as? String
     }
-    
+
+    open var autoChaptering: Bool? {
+        return getParam(.AutoChaptering) as? Bool
+    }
+
+    open var autoTranscription: Bool? {
+        return getParam(.AutoTranscription) as? Bool
+    }
+
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
         return params[param.rawValue] as AnyObject
     }
@@ -352,7 +360,33 @@ import Foundation
         setParam(UploadRequestParams.FilenameOverride.rawValue, value: filenameOverride)
         return self
     }
-    
+
+    /**
+     Setting this will generate chapters file.
+
+     - parameter autoChaptering: The boolean paramter
+
+     - returns:                    The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setAutoChpatering(_ autoChaptering: Bool) -> Self {
+        setParam(UploadRequestParams.AutoChaptering.rawValue, value: autoChaptering)
+        return self
+    }
+
+    /**
+     Setting this will generate transcription file.
+
+     - parameter autoChaptering: The boolean paramter
+
+     - returns:                    The same instance of CLDUploadRequestParams.
+     */
+    @discardableResult
+    open func setAutoTranscription(_ autoTranscription: Bool) -> Self {
+        setParam(UploadRequestParams.AutoTranscription.rawValue, value: autoTranscription)
+        return self
+    }
+
     /**
      Set an HTTP URL to send notification to (a webhook) when the generation of eager transformations is completed.
      
@@ -1232,5 +1266,7 @@ import Foundation
         case Ocr =                                  "ocr"
         case BackgroundRemoval =                    "background_removal"
         case FilenameOverride =                     "filename_override"
+        case AutoChaptering =                       "auto_chaptering"
+        case AutoTranscription =                    "auto_transcription"
     }
 }
