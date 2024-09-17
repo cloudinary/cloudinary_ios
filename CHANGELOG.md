@@ -1,3 +1,11 @@
+5.1.0 / 2024-09-17
+==================
+
+New functionality
+-----------------
+* Add video transcode
+* Add auto_chaptering and auto_transcription to Upload API
+
 5.0.0 / 2024-04-14
 ==================
 

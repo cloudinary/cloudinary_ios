@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'Cloudinary'
-    s.version          = '5.0.0'
+    s.version          = '5.1.0'
     s.summary          = "Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline."
     
     s.description      = <<-DESC
