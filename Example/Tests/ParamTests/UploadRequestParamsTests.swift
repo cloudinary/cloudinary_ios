@@ -164,4 +164,13 @@ class UploadRequestParamsTests: BaseTestCase {
         // Then
         XCTAssertEqual(sut.qualityAnalysis, updatedInput, "updated property should be stored in params")
     }
+
+    func test_getHeaders() {
+        let headers = ["Test": "Test2"]
+
+        sut.setHeaders(headers)
+
+        XCTAssert(sut.headers == "Test: Test2\\n")
+        XCTAssert(sut.getHeaders() == ["Test": "Test2\\n"])
+    }
 }

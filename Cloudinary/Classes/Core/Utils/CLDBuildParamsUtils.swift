@@ -48,3 +48,13 @@ internal func encodeContextValue(_ value: String) -> String {
 internal func buildHeadersString(_ headers: [String : String]) -> String {    
     return headers.map{"\($0): \($1)\\n"}.joined(separator: "")
 }
+
+internal func parseStringToDictionary(_ input: String?, separator: Character = ":") -> [String: String]? {
+    guard let input = input, let separatorIndex = input.firstIndex(of: separator) else {
+        return nil
+    }
+    let key = String(input[..<separatorIndex]).trimmingCharacters(in: .whitespacesAndNewlines)
+    let value = String(input[input.index(after: separatorIndex)...]).trimmingCharacters(in: .whitespacesAndNewlines)
+
+    return [key: value]
+}

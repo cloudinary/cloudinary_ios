@@ -206,7 +206,7 @@ import Foundation
     open var headers: String? {
         return getParam(.Headers) as? String
     }
-    
+
     open var qualityAnalysis: Bool? {
         return getParam(.QualityAnalysis) as? Bool
     }
@@ -254,7 +254,11 @@ import Foundation
     fileprivate func getParam(_ param: UploadRequestParams) -> AnyObject? {
         return params[param.rawValue] as AnyObject
     }
-    
+
+    func getHeaders() -> [String : String]? {
+        return parseStringToDictionary(headers)
+    }
+
     // MARK: Set Simple Params
     
     /**

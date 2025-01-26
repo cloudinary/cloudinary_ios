@@ -350,8 +350,9 @@ The URL can either be of a local file (i.e. from the bundle) or can point to a r
 
     fileprivate func performUpload<T>(data: Any, params: CLDUploadRequestParams, extraHeaders: [String:String]? = [:], preprocessChain:CLDPreprocessChain<T>, progress: ((Progress) -> Void)? = nil, completionHandler:((_ response: CLDUploadResult?, _ error: NSError?) -> ())? = nil) -> CLDUploadRequest {
         
+        var extraHeaders = extraHeaders
         let uploadRequest:CLDUploadRequest
-        
+        extraHeaders?.cldMerge(params.getHeaders())
         // if preprocess or validations are required, we'll need to offload the work to a background queue
         if preprocessChain.isEmpty(){
             let request = networkCoordinator.upload(data, params: params, extraHeaders: extraHeaders)
