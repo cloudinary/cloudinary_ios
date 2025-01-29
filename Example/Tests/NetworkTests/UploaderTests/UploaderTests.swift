@@ -809,6 +809,32 @@ class UploaderTests: NetworkBaseTest {
         let params = CLDUploadRequestParams()
         params.setHeaders(["Link": "1"])
         params.setContext(["caption": "My Logo"])
+        cloudinary?.setExtraHeaderes(["Test": "Test"])
+        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
+            result = resultRes
+            error = errorRes
+
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertNil(error, "error should be nil")
+    }
+
+    func testExtraHeaders() {
+
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+
+        let expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        let file = resource.url
+        var result: CLDUploadResult?
+        var error: NSError?
+
+        let params = CLDUploadRequestParams()
+        cloudinary?.setExtraHeaderes(["Test": "Test"])
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes

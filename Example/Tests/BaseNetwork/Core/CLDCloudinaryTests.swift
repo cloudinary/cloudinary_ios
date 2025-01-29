@@ -128,4 +128,21 @@ class CLDCloudinaryTests: XCTestCase {
         XCTAssertEqual (tempSut.config, tempConfiguration, "Initilized object should contain expected value")
     }
 
+    func test_init_configSessionAdapter_shouldStoreExtraHeaders() {
+
+        // Given
+        let extraHeaders      = ["Test": "Test"]
+        var adapter           = CLDDefaultNetworkAdapter()
+        let cloudinaryUrl     = "cloudinary://a:b@test123"
+        let tempConfiguration = CLDConfiguration(cloudinaryUrl: cloudinaryUrl)!
+
+        // When
+        let tempSut           = CLDCloudinary(configuration: tempConfiguration, networkAdapter: adapter, sessionConfiguration: .default)
+        tempSut.setExtraHeaderes(extraHeaders)
+
+        // Then
+        XCTAssertNotNil(tempSut, "initialized object should not be nil")
+        XCTAssertEqual (tempSut.config, tempConfiguration, "Initilized object should contain expected value")
+    }
+
 }

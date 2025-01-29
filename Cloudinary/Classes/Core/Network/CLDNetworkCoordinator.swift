@@ -36,7 +36,8 @@ internal class CLDNetworkCoordinator: NSObject {
     
     fileprivate var config: CLDConfiguration
     fileprivate var networkAdapter: CLDNetworkAdapter
-    
+    fileprivate var extraHeaders: [String: String]?
+
     // MARK: - Init
     
     init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter = CLDDefaultNetworkAdapter.sharedAdapter) {
@@ -68,6 +69,7 @@ internal class CLDNetworkCoordinator: NSObject {
         let requestParams = params.signed ? getSignedRequestParams(params) : params.params
         var headers :[String : String] = getHeaders()
         headers.cldMerge(extraHeaders)
+        headers.cldMerge(self.extraHeaders) //User's configed extra headers
         return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data)
     }
     
@@ -185,6 +187,14 @@ internal class CLDNetworkCoordinator: NSObject {
     
     internal func setMaxConcurrentDownloads(_ maxConcurrentDownloads: Int) {
         networkAdapter.setMaxConcurrentDownloads(maxConcurrentDownloads)
+    }
+
+    internal func setExtraHeaders(_ extraHeaders: [String: String]) {
+        self.extraHeaders = extraHeaders
+    }
+
+    internal func getExtraHeaders() -> [String: String]? {
+        return extraHeaders
     }
 }
 
