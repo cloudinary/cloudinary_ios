@@ -25,7 +25,7 @@
 import Foundation
 
 internal enum CommonResultKeys: CustomStringConvertible {
-    case publicId, format, version, resourceType, urlType, createdAt, length, width, height, x, y, url, secureUrl, exif, metadata, faces, colors, tags, moderation, context, phash, info, accessControl, eager, qualityAnalysis, coordinates, accessibilityAnalysis, originalFilename, assetFolder, displayName, playbackUrl
+    case publicId, format, version, resourceType, urlType, createdAt, length, width, height, x, y, url, secureUrl, exif, metadata, faces, colors, tags, moderation, context, phash, info, accessControl, eager, qualityAnalysis, coordinates, accessibilityAnalysis, originalFilename, assetFolder, displayName, playbackUrl, metadata_object
 
     var description: String {
         switch self {
@@ -59,7 +59,8 @@ internal enum CommonResultKeys: CustomStringConvertible {
         case .originalFilename:      return "original_filename"
         case .assetFolder:           return "asset_folder"
         case .displayName:           return "display_name"
-        case .playbackUrl:            return "playback_url"
+        case .playbackUrl:           return "playback_url"
+        case .metadata_object:       return "metadata"
         }
     }
 }

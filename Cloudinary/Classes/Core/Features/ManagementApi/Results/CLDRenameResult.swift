@@ -86,7 +86,11 @@ import Foundation
     open var metadata: [String : String]? {
         return getParam(.metadata) as? [String : String]
     }
-    
+
+    open var metadataObject: [String: String]? {
+        return getParam(.metadata_object) as? [String: String]
+    }
+
     open var faces: AnyObject? {
         return getParam(.faces)
     }

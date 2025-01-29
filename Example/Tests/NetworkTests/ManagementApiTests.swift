@@ -67,7 +67,8 @@ class ManagementApiTests: NetworkBaseTest {
         uploadFile().response({ (uploadResult, uploadError) in
             if let publicId = uploadResult?.publicId {
                 let toRename = publicId + "__APPENDED STRING"
-                self.cloudinary!.createManagementApi().rename(publicId, to: toRename, overwrite: true, invalidate: true).response({ (resultRes, errorRes) in
+                let params = CLDRenameRequestParams(fromPublicId: publicId, toPublicId: toRename, notificationUrl: "http://www.test.com", context: true, metadata: true)
+                self.cloudinary!.createManagementApi().rename(publicId, to: toRename, overwrite: true, invalidate: true, params: params).response({ (resultRes, errorRes) in
                     result = resultRes
                     error = errorRes
                     
@@ -84,6 +85,7 @@ class ManagementApiTests: NetworkBaseTest {
 
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result, "response should not be nil")
+        XCTAssertNotNil(result?.metadataObject, "metadata should not be nil")
     }
     
     // MARK: - explicit
