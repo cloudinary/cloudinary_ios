@@ -57,8 +57,38 @@ class ManagementApiTests: NetworkBaseTest {
         XCTAssertNil(error, "error should be nil")
         XCTAssertNotNil(result, "response should not be nil")
     }
+
     func testRenameWithParams() {
-        
+
+           let expectation = self.expectation(description: "Rename should succeed")
+
+           var result: CLDRenameResult?
+           var error: Error?
+
+           uploadFile().response({ (uploadResult, uploadError) in
+               if let publicId = uploadResult?.publicId {
+                   let toRename = publicId + "__APPENDED STRING"
+                   self.cloudinary!.createManagementApi().rename(publicId, to: toRename, overwrite: true, invalidate: true).response({ (resultRes, errorRes) in
+                       result = resultRes
+                       error = errorRes
+
+                       expectation.fulfill()
+                   })
+               }
+               else {
+                   error = uploadError
+                   expectation.fulfill()
+               }
+           })
+
+           waitForExpectations(timeout: timeout, handler: nil)
+
+           XCTAssertNil(error, "error should be nil")
+           XCTAssertNotNil(result, "response should not be nil")
+       }
+
+    func testRenameWithRenameParams() throws {
+        try XCTSkipUnless(NetworkTestUtils.skipFolderDecouplingTest(), "prevents redundant call to Cloudinary PAID Folder Decoupling service. to allow Folder Decoupling service testing - set to true")
         let expectation = self.expectation(description: "Rename should succeed")
         
         var result: CLDRenameResult?

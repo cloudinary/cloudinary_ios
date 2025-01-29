@@ -290,7 +290,7 @@ class UploaderTests: NetworkBaseTest {
 
     func testUploadFolderDecoupling() throws {
 
-        try XCTSkipUnless(skipFolderDecouplingTest(), "prevents redundant call to Cloudinary PAID Folder Decoupling service. to allow Folder Decoupling service testing - set to true")
+        try XCTSkipUnless(NetworkTestUtils.skipFolderDecouplingTest(), "prevents redundant call to Cloudinary PAID Folder Decoupling service. to allow Folder Decoupling service testing - set to true")
 
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
 
@@ -1578,15 +1578,5 @@ class UploaderTests: NetworkBaseTest {
 
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
-
-    let environmentFolderDecoupling = "CLD_FOLDER_DECOUPLING"
-
-    func skipFolderDecouplingTest() -> Bool {
-        guard let _ = ProcessInfo.processInfo.environment[environmentFolderDecoupling] else {
-            return false
-        }
-        return true
-    }
-
 }
 
