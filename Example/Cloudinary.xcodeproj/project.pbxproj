@@ -171,6 +171,7 @@
 		B67476172B8CA0EF006ED6C2 /* IntegrateAI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B67476162B8CA0EF006ED6C2 /* IntegrateAI.storyboard */; };
 		B694AAF32B308C3C00075041 /* VideoEventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAF22B308C3C00075041 /* VideoEventsTests.swift */; };
 		B694AAF52B308C5A00075041 /* VideoEventsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694AAF42B308C5A00075041 /* VideoEventsManagerTests.swift */; };
+		B6AF51632D4A2A430037965A /* NetworkTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AF51622D4A2A430037965A /* NetworkTestUtils.swift */; };
 		B6B4C49F2C56152700C9B604 /* VideoPreprocessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B4C49E2C56152700C9B604 /* VideoPreprocessTests.swift */; };
 		B6C2D4882A72741B00AA0039 /* CLDVideoPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2D4872A72741B00AA0039 /* CLDVideoPlayerTests.swift */; };
 		B6F11F3D288FC20900A895CD /* CLDAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F11F3C288FC20900A895CD /* CLDAnalyticsTests.swift */; };
@@ -414,6 +415,7 @@
 		B67476162B8CA0EF006ED6C2 /* IntegrateAI.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntegrateAI.storyboard; sourceTree = "<group>"; };
 		B694AAF22B308C3C00075041 /* VideoEventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEventsTests.swift; sourceTree = "<group>"; };
 		B694AAF42B308C5A00075041 /* VideoEventsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEventsManagerTests.swift; sourceTree = "<group>"; };
+		B6AF51622D4A2A430037965A /* NetworkTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTestUtils.swift; sourceTree = "<group>"; };
 		B6B4C49E2C56152700C9B604 /* VideoPreprocessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreprocessTests.swift; sourceTree = "<group>"; };
 		B6C2D4872A72741B00AA0039 /* CLDVideoPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVideoPlayerTests.swift; sourceTree = "<group>"; };
 		B6F11F3C288FC20900A895CD /* CLDAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDAnalyticsTests.swift; sourceTree = "<group>"; };
@@ -676,6 +678,7 @@
 				274C6D2023FBAF5E0090BC40 /* ManagementApiTests.swift */,
 				274C6D2123FBAF5E0090BC40 /* DownloaderTests.swift */,
 				D7519FEB25E26BE9006839B1 /* DownloaderAssetTests.swift */,
+				B6AF51622D4A2A430037965A /* NetworkTestUtils.swift */,
 			);
 			path = NetworkTests;
 			sourceTree = "<group>";
@@ -1810,6 +1813,7 @@
 				D71ADD9C247D976500235AD4 /* CryptoUtilsTests.m in Sources */,
 				272C5187242B6C360093AB1B /* URLProtocolTests.swift in Sources */,
 				272C517F242B6C360093AB1B /* SessionManagerTests.swift in Sources */,
+				B6AF51632D4A2A430037965A /* NetworkTestUtils.swift in Sources */,
 				274C6D3823FBAF5E0090BC40 /* DownloaderTests.swift in Sources */,
 				5D7C2DCF245E93F7007E95F7 /* CLDExpressionTests.swift in Sources */,
 				272C51B0242B6C360093AB1B /* UploadTests.swift in Sources */,

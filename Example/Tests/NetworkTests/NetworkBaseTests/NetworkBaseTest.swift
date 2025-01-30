@@ -150,6 +150,8 @@ class NetworkBaseTest: BaseTestCase {
     @discardableResult
     func uploadFile(_ resource: TestResourceType = .borderCollie, params: CLDUploadRequestParams? = nil) -> CLDUploadRequest {
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        var params = params
+        params?.setContext(["test1": "test2"])
         return cloudinary!.createUploader().signedUpload(data: resource.data, params: params)
     }
     

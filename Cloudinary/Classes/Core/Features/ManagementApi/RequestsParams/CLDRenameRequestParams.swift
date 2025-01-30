@@ -43,15 +43,20 @@ import Foundation
     - parameter toPublicId:         The new identifier to assign to the uploaded asset.
     - parameter overwrite:          A boolean parameter indicating whether or not to overwrite an existing image with the target Public ID. Default: false.
     - parameter invalidate:         A boolean parameter whether to invalidate CDN cached copies of the image (and all its transformed versions). Default: false.
-    
+    - parameter notification_url         An HTTP or HTTPS URL to notify your application (a webhook) when the process has completed. If not specified, the response is sent to the Notification URL (if defined)                                                                        in the Webhook Notifications settings of your Cloudinary Console.
+    - parameter context:            A boolean parameter indicating whether to include contextual metadata for the asset in the response. Default: false.
+    - parameter metadata:           A boolean parameter indicating whether to include structured metadata for the asset in the response. Default: false.
     - returns:                       A new instance of CLDRenameRequestParams.
     */
-    internal init(fromPublicId: String, toPublicId: String, overwrite: Bool? = nil, invalidate: Bool? = nil) {
+    internal init(fromPublicId: String, toPublicId: String, overwrite: Bool? = nil, invalidate: Bool? = nil, notificationUrl: String? = nil, context: Bool? = nil, metadata: Bool? = nil) {
         super.init()
         setParam(RenameParams.FromPublicId.rawValue, value: fromPublicId)
         setParam(RenameParams.ToPublicId.rawValue, value: toPublicId)        
         setParam(RenameParams.Overwrite.rawValue, value: overwrite)
         setParam(RenameParams.Invalidate.rawValue, value: invalidate)
+        setParam(RenameParams.NotificationUrl.rawValue, value: notificationUrl)
+        setParam(RenameParams.Context.rawValue, value: context)
+        setParam(RenameParams.Metadata.rawValue, value: metadata)
     }
     
     /**
@@ -73,5 +78,8 @@ import Foundation
         case ToPublicId =           "to_public_id"
         case Overwrite =            "overwrite"
         case Invalidate =           "invalidate"
+        case NotificationUrl =      "notification_url"
+        case Context =              "context"
+        case Metadata =             "metadata"
     }
 }
