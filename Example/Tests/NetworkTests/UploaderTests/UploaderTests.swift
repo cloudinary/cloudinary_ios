@@ -824,28 +824,11 @@ class UploaderTests: NetworkBaseTest {
     }
 
     func testExtraHeaders() {
-
-        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-
-        let expectation = self.expectation(description: "Upload should succeed")
-        let resource: TestResourceType = .borderCollie
-        let file = resource.url
-        var result: CLDUploadResult?
-        var error: NSError?
-
-        let params = CLDUploadRequestParams()
-        cloudinary?.setExtraHeaderes(["Test": "Test"])
-        cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
-            result = resultRes
-            error = errorRes
-
-            expectation.fulfill()
-        })
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        XCTAssertNotNil(result, "result should not be nil")
-        XCTAssertNil(error, "error should be nil")
+        let extraHeaders = ["Test": "Test"]
+        let testCloudinary = CLDCloudinary(configuration: cloudinary!.config)
+        testCloudinary.setExtraHeaderes(extraHeaders)
+        let networkCoordinator = TestableCloudinary.getNetworkCoordinator(from: testCloudinary) as! CLDNetworkCoordinator
+        XCTAssertEqual(networkCoordinator.getExtraHeaders(), extraHeaders)
     }
 
     func testFaceCoordinates() {
