@@ -68,8 +68,8 @@ internal class CLDNetworkCoordinator: NSObject {
         params.setTimeout(from: config)
         let requestParams = params.signed ? getSignedRequestParams(params) : params.params
         var headers :[String : String] = getHeaders()
+        headers.cldMerge(self.extraHeaders) //User's configured extra headers
         headers.cldMerge(extraHeaders)
-        headers.cldMerge(self.extraHeaders) //User's configed extra headers
         return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data)
     }
     
