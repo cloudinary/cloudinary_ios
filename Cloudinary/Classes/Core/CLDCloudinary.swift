@@ -226,4 +226,8 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         config.setUserPlatform(platformName, version: version)
     }
 
+    open func setExtraHeaderes(_ extraHeaders: [String: String]) {
+        networkCoordinator.setExtraHeaders(extraHeaders)
+    }
+
 }

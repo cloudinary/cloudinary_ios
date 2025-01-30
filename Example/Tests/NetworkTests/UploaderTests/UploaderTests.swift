@@ -809,6 +809,7 @@ class UploaderTests: NetworkBaseTest {
         let params = CLDUploadRequestParams()
         params.setHeaders(["Link": "1"])
         params.setContext(["caption": "My Logo"])
+        cloudinary?.setExtraHeaderes(["Test": "Test"])
         cloudinary!.createUploader().signedUpload(url: file, params: params).response({ (resultRes, errorRes) in
             result = resultRes
             error = errorRes
@@ -820,6 +821,14 @@ class UploaderTests: NetworkBaseTest {
 
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertNil(error, "error should be nil")
+    }
+
+    func testExtraHeaders() {
+        let extraHeaders = ["Test": "Test"]
+        let testCloudinary = CLDCloudinary(configuration: cloudinary!.config)
+        testCloudinary.setExtraHeaderes(extraHeaders)
+        let networkCoordinator = TestableCloudinary.getNetworkCoordinator(from: testCloudinary) as! CLDNetworkCoordinator
+        XCTAssertEqual(networkCoordinator.getExtraHeaders(), extraHeaders)
     }
 
     func testFaceCoordinates() {
