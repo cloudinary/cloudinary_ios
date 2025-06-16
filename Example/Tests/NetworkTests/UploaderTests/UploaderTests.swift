@@ -599,6 +599,18 @@ class UploaderTests: NetworkBaseTest {
         }
     }
 
+    func testSignatureWithEscapingCharacters() {
+        let expectedIncorrectSignature = "d299558d4cc46917f4fc9d5d47dfecac08666a61"
+
+        let toSign: [String: Any] = [
+            "public_id": "publicid&tags=blabla"
+        ]
+
+        let actualSignature = cloudinarySignParamsUsingSecret(toSign, cloudinaryApiSecret: "your_api_secret_here")
+
+        XCTAssertNotEqual(actualSignature, expectedIncorrectSignature)
+    }
+
 
     func testUploadRemoteUrl() {
 

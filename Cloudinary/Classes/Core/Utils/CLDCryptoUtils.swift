@@ -24,32 +24,35 @@
 import Foundation
 import CommonCrypto
 
-public func cloudinarySignParamsUsingSecret(_ paramsToSign: [String : Any],cloudinaryApiSecret: String) -> String {
+public func cloudinarySignParamsUsingSecret(
+    _ paramsToSign: [String: Any],
+    cloudinaryApiSecret: String
+) -> String {
     var paramsArr: [String] = []
-    let sortedKeys = paramsToSign.keys.sorted(){$0 < $1} // sort by dictionary keys
-    for key in sortedKeys {
-        if let value = paramsToSign[key] {
-            var paramValue: String?
-            if value is [String] {
-                if let valueArr: [String] = value as? [String] , valueArr.count > 0 {
-                    paramValue = valueArr.joined(separator: ",")
-                }
-                else {continue}
-            }
-            else if let valueStr = cldParamValueAsString(value: value) {
-                paramValue = valueStr
-            }
+    let sortedKeys = paramsToSign.keys.sorted(by: <) // Sort by dictionary keys
 
-            if let paramValue = paramValue {
-                let encodedParam = [key, paramValue]
-                paramsArr.append(encodedParam.joined(separator: "="))
-            }
+    for key in sortedKeys {
+        guard let value = paramsToSign[key] else { continue }
+        var paramValue: String?
+
+        if let valueArr = value as? [String], !valueArr.isEmpty {
+            paramValue = valueArr.joined(separator: ",")
+        } else if let valueStr = cldParamValueAsString(value: value) {
+            paramValue = valueStr
+        }
+
+        if var paramValue = paramValue {
+            // Replace & with %26
+            paramValue = paramValue.replacingOccurrences(of: "&", with: "%26")
+            let encodedParam = [key, paramValue]
+            paramsArr.append(encodedParam.joined(separator: "="))
         }
     }
 
     let toSign = paramsArr.joined(separator: "&")
     return toSign.sha1_base8(cloudinaryApiSecret)
 }
+
 
 internal extension String {
 
