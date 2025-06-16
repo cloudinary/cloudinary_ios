@@ -28,30 +28,37 @@ public func cloudinarySignParamsUsingSecret(
     _ paramsToSign: [String: Any],
     cloudinaryApiSecret: String
 ) -> String {
+    let sortedKeys = paramsToSign.keys.sorted()
     var paramsArr: [String] = []
-    let sortedKeys = paramsToSign.keys.sorted(by: <) // Sort by dictionary keys
 
     for key in sortedKeys {
-        guard let value = paramsToSign[key] else { continue }
-        var paramValue: String?
-
-        if let valueArr = value as? [String], !valueArr.isEmpty {
-            paramValue = valueArr.joined(separator: ",")
-        } else if let valueStr = cldParamValueAsString(value: value) {
-            paramValue = valueStr
+        guard let value = paramsToSign[key],
+              let encodedValue = encodedParamValue(value) else {
+            continue
         }
-
-        if var paramValue = paramValue {
-            // Replace & with %26
-            paramValue = paramValue.replacingOccurrences(of: "&", with: "%26")
-            let encodedParam = [key, paramValue]
-            paramsArr.append(encodedParam.joined(separator: "="))
-        }
+        paramsArr.append("\(key)=\(encodedValue)")
     }
 
     let toSign = paramsArr.joined(separator: "&")
     return toSign.sha1_base8(cloudinaryApiSecret)
 }
+
+private func encodedParamValue(_ value: Any) -> String? {
+    var stringValue: String?
+
+    if let array = value as? [String], !array.isEmpty {
+        stringValue = array.joined(separator: ",")
+    } else if let str = cldParamValueAsString(value: value) {
+        stringValue = str
+    }
+
+    guard let result = stringValue else {
+        return nil
+    }
+
+    return result.replacingOccurrences(of: "&", with: "%26")
+}
+
 
 
 internal extension String {
