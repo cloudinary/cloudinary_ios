@@ -81,7 +81,7 @@ import Foundation
     /**
         A int value specifying the signature version to use.
      */
-    open fileprivate(set) var signatureVesion : Int = 1
+    open fileprivate(set) var signatureVesion : Int = 2
 
     /**
      Your secure distribution domain to be set when using a secure distribution (advanced plan only). nil by default.
