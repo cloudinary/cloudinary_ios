@@ -95,7 +95,7 @@ internal class CLDNetworkCoordinator: NSObject {
             let timestamp = Int(Date().timeIntervalSince1970)
             params[CLDSignature.SignatureParam.Timestamp.rawValue] = cldParamValueAsString(value: timestamp)
             
-            let signature = cloudinarySignParamsUsingSecret(getSignParams(from: params), cloudinaryApiSecret: apiSecret)
+            let signature = cloudinarySignParamsUsingSecret(getSignParams(from: params), cloudinaryApiSecret: apiSecret, signatureVersion: config.signatureVesion)
             params[CLDSignature.SignatureParam.Signature.rawValue] = signature
         }
         else {

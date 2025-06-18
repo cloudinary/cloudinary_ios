@@ -26,7 +26,8 @@ import CommonCrypto
 
 public func cloudinarySignParamsUsingSecret(
     _ paramsToSign: [String: Any],
-    cloudinaryApiSecret: String
+    cloudinaryApiSecret: String,
+    signatureVersion: Int? = 2
 ) -> String {
     let sortedKeys = paramsToSign.keys.sorted()
     var paramsArr: [String] = []

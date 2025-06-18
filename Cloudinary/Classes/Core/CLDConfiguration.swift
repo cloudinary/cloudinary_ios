@@ -77,7 +77,12 @@ import Foundation
      An enum value specifying the desired hash algorithm. sha1 by default.
      */
     open fileprivate(set) var signatureAlgorithm: SignatureAlgorithm = .sha1
-    
+
+    /**
+        A int value specifying the signature version to use.
+     */
+    open fileprivate(set) var signatureVesion : Int = 1
+
     /**
      Your secure distribution domain to be set when using a secure distribution (advanced plan only). nil by default.
      */
@@ -190,6 +195,10 @@ import Foundation
                         signatureAlgorithm = SignatureAlgorithm(stringValue: value)
                     }
                     break
+                case .SignatureVersion:
+                    if let value = options[ConfigParam.SignatureVersion.rawValue] as? Int {
+                        signatureVesion = value
+                    }
                 case .CName:
                     if let value = options[ConfigParam.CName.rawValue] as? String {
                         cname = value
@@ -268,6 +277,7 @@ import Foundation
         secureCdnSubdomain: Bool = false,
         longUrlSignature: Bool = false,
         signatureAlgorithm: SignatureAlgorithm = .sha1,
+        signatureVersion: Int = 2,
         secureDistribution: String? = nil,
         cname: String? = nil,
         uploadPrefix: String? = nil,
@@ -283,6 +293,7 @@ import Foundation
         self.secureCdnSubdomain = secureCdnSubdomain
         self.longUrlSignature = longUrlSignature
         self.signatureAlgorithm = signatureAlgorithm
+        self.signatureVesion = signatureVersion
         self.secureDistribution = secureDistribution
         self.cname = cname
         self.uploadPrefix = uploadPrefix
@@ -336,6 +347,7 @@ import Foundation
                 case .SecureCdnSubdomain: secureCdnSubdomain = value.cldAsBool()
                 case .LongUrlSignature: longUrlSignature = value.cldAsBool()
                 case .SignatureAlgorithm: signatureAlgorithm = SignatureAlgorithm(stringValue: value)
+                case .SignatureVersion: signatureVesion = Int(value) ?? 2
                 case .CName: cname = value
                 case .UploadPrefix: uploadPrefix = value
                 case .Timeout: timeout = value.cldAsNSNumber()
@@ -355,6 +367,7 @@ import Foundation
         case SecureCdnSubdomain = "secure_cdn_subdomain"
         case LongUrlSignature   = "long_url_signature"
         case SignatureAlgorithm = "signature_algorithm"
+        case SignatureVersion   = "signature_version"
         case CName              = "cname"
         case UploadPrefix       = "upload_prefix"
         case APIKey             = "api_key"
@@ -372,6 +385,7 @@ import Foundation
             case .SecureCdnSubdomain:   return "secure_cdn_subdomain"
             case .LongUrlSignature:     return "long_url_signature"
             case .SignatureAlgorithm:   return "signature_algorithm"
+            case .SignatureVersion:     return "signature_version"
             case .CName:                return "cname"
             case .UploadPrefix:         return "upload_prefix"
             case .APIKey:               return "api_key"

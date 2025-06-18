@@ -116,6 +116,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                                          signatureVersion: 2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -147,6 +148,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -180,6 +182,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -212,6 +215,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -243,6 +247,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:NO
                                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -273,6 +278,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -337,6 +343,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:NO
                                                         signatureAlgorithm:SignatureAlgorithmSha256
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -368,6 +375,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:NO
                                                         signatureAlgorithm:SignatureAlgorithmSha256
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -401,6 +409,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:NO
                                                         signatureAlgorithm:SignatureAlgorithmSha256
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -434,6 +443,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:NO
                                                         signatureAlgorithm:SignatureAlgorithmSha256
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -465,6 +475,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:NO
                                                         signatureAlgorithm:0
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -496,6 +507,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:NO
                                                         signatureAlgorithm:SignatureAlgorithmSha256
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -559,6 +571,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -590,6 +603,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha256
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -621,6 +635,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil
@@ -650,6 +665,7 @@ NSString* prefix = @"https://res.cloudinary.com/test123";
                                                         secureCdnSubdomain:NO
                                                           longUrlSignature:YES
                                                         signatureAlgorithm:SignatureAlgorithmSha256
+                                                          signatureVersion:2
                                                         secureDistribution:nil
                                                                      cname:nil
                                                               uploadPrefix:nil

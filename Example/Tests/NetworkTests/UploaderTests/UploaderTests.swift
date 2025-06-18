@@ -630,6 +630,9 @@ class UploaderTests: NetworkBaseTest {
 
                 let expectedSmuggledSignature = "7b4e3a539ff1fa6e6700c41b3a2ee77586a025f9"
                 XCTAssertEqual(signatureSmuggled, expectedSmuggledSignature)
+
+                let versionOneSignature = cloudinarySignParamsUsingSecret(paramsSmuggled, cloudinaryApiSecret: apiSecret, signatureVersion: 1)
+                XCTAssertEqual(signatureSmuggled, versionOneSignature)
     }
 
 
