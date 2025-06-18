@@ -552,7 +552,7 @@ class ManagementApiTests: NetworkBaseTest {
         var paramsToSign: [String : Any] = [:]
         paramsToSign["public_id"] = pubId
         paramsToSign["timestamp"] = String(describing: timestamp)
-        let signatureStr = cloudinarySignParamsUsingSecret(paramsToSign, cloudinaryApiSecret: (cloudinary?.config.apiSecret!)!)
+        let signatureStr = cloudinarySignParamsUsingSecret(paramsToSign, cloudinaryApiSecret: (cloudinary?.config.apiSecret!)!, signatureVersion: cloudinary?.config.signatureVesion)
         let signature = CLDSignature(signature: signatureStr, timestamp: NSNumber(integerLiteral: timestamp))
         params.setSignature (signature)
 

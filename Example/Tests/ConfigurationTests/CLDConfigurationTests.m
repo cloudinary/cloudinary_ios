@@ -60,6 +60,7 @@
                                         secureCdnSubdomain:NO
                                           longUrlSignature:NO
                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                          signatureVersion:2
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
@@ -82,6 +83,7 @@
                                         secureCdnSubdomain:NO
                                           longUrlSignature:NO
                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                          signatureVersion:2
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
@@ -155,6 +157,7 @@
                                         secureCdnSubdomain:NO
                                           longUrlSignature:input
                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                          signatureVersion:2
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
@@ -176,6 +179,7 @@
                                         secureCdnSubdomain:NO
                                           longUrlSignature:NO
                                         signatureAlgorithm:SignatureAlgorithmSha1
+                                          signatureVersion:2
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
@@ -243,6 +247,7 @@
                                         secureCdnSubdomain:NO
                                           longUrlSignature:NO
                                         signatureAlgorithm:input
+                                          signatureVersion:2
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil
@@ -264,6 +269,7 @@
                                         secureCdnSubdomain:NO
                                           longUrlSignature:NO
                                         signatureAlgorithm:0
+                                          signatureVersion:2
                                         secureDistribution:nil
                                                      cname:nil
                                               uploadPrefix:nil

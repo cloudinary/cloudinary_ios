@@ -599,6 +599,42 @@ class UploaderTests: NetworkBaseTest {
         }
     }
 
+    func testSignatureWithEscapingCharacters() {
+        let cloudName = "dn6ot3ged"
+                let apiSecret = "hdcixPpR2iKERPwqvH6sHdK9cyac"
+
+                let paramsWithAmpersand: [String: Any] = [
+                    "cloud_name": cloudName,
+                    "timestamp": 1568810420,
+                    "notification_url": "https://fake.com/callback?a=1&tags=hello,world"
+                ]
+
+                let signatureWithAmpersand = cloudinarySignParamsUsingSecret(paramsWithAmpersand, cloudinaryApiSecret: apiSecret)
+
+                let paramsSmuggled: [String: Any] = [
+                    "cloud_name": cloudName,
+                    "timestamp": 1568810420,
+                    "notification_url": "https://fake.com/callback?a=1",
+                    "tags": "hello,world"
+                ]
+
+                let signatureSmuggled = cloudinarySignParamsUsingSecret(paramsSmuggled, cloudinaryApiSecret: apiSecret)
+
+                // Assert that smuggling changes the signature
+                XCTAssertNotEqual(signatureWithAmpersand, signatureSmuggled,
+                                  "Signatures should be different to prevent parameter smuggling")
+
+                // Assert expected signatures
+                let expectedSignature = "4fdf465dd89451cc1ed8ec5b3e314e8a51695704"
+                XCTAssertEqual(signatureWithAmpersand, expectedSignature)
+
+                let expectedSmuggledSignature = "7b4e3a539ff1fa6e6700c41b3a2ee77586a025f9"
+                XCTAssertEqual(signatureSmuggled, expectedSmuggledSignature)
+
+                let versionOneSignature = cloudinarySignParamsUsingSecret(paramsSmuggled, cloudinaryApiSecret: apiSecret, signatureVersion: 1)
+                XCTAssertEqual(signatureSmuggled, versionOneSignature)
+    }
+
 
     func testUploadRemoteUrl() {
 

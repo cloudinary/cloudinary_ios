@@ -24,32 +24,43 @@
 import Foundation
 import CommonCrypto
 
-public func cloudinarySignParamsUsingSecret(_ paramsToSign: [String : Any],cloudinaryApiSecret: String) -> String {
+public func cloudinarySignParamsUsingSecret(
+    _ paramsToSign: [String: Any],
+    cloudinaryApiSecret: String,
+    signatureVersion: Int? = 2
+) -> String {
+    let sortedKeys = paramsToSign.keys.sorted()
     var paramsArr: [String] = []
-    let sortedKeys = paramsToSign.keys.sorted(){$0 < $1} // sort by dictionary keys
-    for key in sortedKeys {
-        if let value = paramsToSign[key] {
-            var paramValue: String?
-            if value is [String] {
-                if let valueArr: [String] = value as? [String] , valueArr.count > 0 {
-                    paramValue = valueArr.joined(separator: ",")
-                }
-                else {continue}
-            }
-            else if let valueStr = cldParamValueAsString(value: value) {
-                paramValue = valueStr
-            }
 
-            if let paramValue = paramValue {
-                let encodedParam = [key, paramValue]
-                paramsArr.append(encodedParam.joined(separator: "="))
-            }
+    for key in sortedKeys {
+        guard let value = paramsToSign[key],
+              let encodedValue = encodedParamValue(value) else {
+            continue
         }
+        paramsArr.append("\(key)=\(encodedValue)")
     }
 
     let toSign = paramsArr.joined(separator: "&")
     return toSign.sha1_base8(cloudinaryApiSecret)
 }
+
+private func encodedParamValue(_ value: Any) -> String? {
+    var stringValue: String?
+
+    if let array = value as? [String], !array.isEmpty {
+        stringValue = array.joined(separator: ",")
+    } else if let str = cldParamValueAsString(value: value) {
+        stringValue = str
+    }
+
+    guard let result = stringValue else {
+        return nil
+    }
+
+    return result.replacingOccurrences(of: "&", with: "%26")
+}
+
+
 
 internal extension String {
 
