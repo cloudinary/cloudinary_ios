@@ -1,3 +1,16 @@
+5.2.0 / 2025-06-18
+==================
+
+New functionality
+-----------------
+* Add support for `auto_chaptering` and `auto_transcription` in Upload API
+* Add extra headers support
+
+Other Changes
+--------------
+* Fix API parameters signature
+
+
 5.1.0 / 2024-09-17
 ==================
 
