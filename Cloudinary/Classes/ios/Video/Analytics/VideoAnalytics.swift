@@ -23,7 +23,7 @@ public enum PlayerKeyPath: String {
     case duration = "duration"
 }
 
-enum AnalyticsType {
+public enum AnalyticsType {
     case auto
     case manual
     case disabled

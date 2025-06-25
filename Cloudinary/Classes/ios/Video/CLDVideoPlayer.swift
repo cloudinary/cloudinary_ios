@@ -111,7 +111,7 @@ import AVKit
         super.init(url: url)
     }
 
-    func setAnalytics(_ analyticsType: AnalyticsType, cloudName: String?, publicId: String?) {
+    public func setAnalytics(_ analyticsType: AnalyticsType, cloudName: String?, publicId: String?) {
         switch analyticsType {
         case .auto:
             eventsManager.trackingType = .auto
