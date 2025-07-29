@@ -8,7 +8,7 @@ env:
 jobs:
   build:
     name: Xcode ${{ matrix.osx_image }} - iOS ${{ matrix.os_version }}
-    runs-on: macos-12
+    runs-on: macos-latest
     strategy:
       matrix:
         include:
