@@ -43,8 +43,6 @@ import AVKit
 
     var providedData: [String: Any]?
 
-    var durationObserver: NSKeyValueObservation?
-
     override init() {
         super.init()
         setAnalyticsObservers()
@@ -134,8 +132,6 @@ import AVKit
         if analytics {
             removeObserver(self, forKeyPath: PlayerKeyPath.status.rawValue)
             removeObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue)
-            removeObserver(self, forKeyPath: PlayerKeyPath.duration.rawValue)
-            durationObserver = nil
             eventsManager.sendViewEndEvent(providedData: providedData)
             eventsManager.sendEvents()
         }
@@ -173,15 +169,6 @@ import AVKit
 
 @available(iOS 10.0, *)
 extension CLDVideoPlayer {
-    func observeDuration(of playerItem: AVPlayerItem) {
-        let duration = playerItem.asset.duration
-
-        let durationInSeconds = Int(CMTimeGetSeconds(duration))
-        if !loadMetadataSent {
-            loadMetadataSent = true
-            self.eventsManager.sendLoadMetadataEvent(duration: durationInSeconds)
-        }
-    }
     func handleStatusChanged(_ status: AVPlayer.Status) {
         switch status {
         case .readyToPlay:
@@ -190,16 +177,7 @@ extension CLDVideoPlayer {
                 eventsManager.sendViewStartEvent(videoUrl: mediaURL.absoluteString, providedData: providedData)
                 isIntialized = true
 
-                if let currentItem = self.currentItem, durationObserver == nil {
-                    durationObserver = currentItem.observe(\.duration, options: [.new]) { [weak self] item, change in
-                        guard let self = self else { return }
-                        let seconds = CMTimeGetSeconds(item.duration)
-                        if !self.loadMetadataSent && seconds.isFinite {
-                            self.loadMetadataSent = true
-                            self.eventsManager.sendLoadMetadataEvent(duration: Int(seconds))
-                        }
-                    }
-                }
+                loadDurationAsynchronously()
             }
             break
         case .failed:
@@ -210,6 +188,44 @@ extension CLDVideoPlayer {
             break
         @unknown default:
             break
+        }
+    }
+    
+    private func loadDurationAsynchronously() {
+        guard let currentItem = self.currentItem else { return }
+        
+        let asset = currentItem.asset
+        let durationKey = "duration"
+        
+        // Load the duration key asynchronously
+        asset.loadValuesAsynchronously(forKeys: [durationKey]) { [weak self] in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                
+                var error: NSError?
+                let status = asset.statusOfValue(forKey: durationKey, error: &error)
+                
+                switch status {
+                case .loaded:
+                    let duration = asset.duration
+                    let durationInSeconds = Int(CMTimeGetSeconds(duration))
+                    
+                    if !self.loadMetadataSent && durationInSeconds > 0 && duration.isValid {
+                        self.loadMetadataSent = true
+                        self.eventsManager.sendLoadMetadataEvent(duration: durationInSeconds)
+                    }
+                case .failed, .cancelled:
+                    print("Failed to load duration: \(error?.localizedDescription ?? "Unknown error")")
+                case .loading:
+                    // Still loading, could retry or wait
+                    break
+                case .unknown:
+                    // Unknown status
+                    break
+                @unknown default:
+                    break
+                }
+            }
         }
     }
 
