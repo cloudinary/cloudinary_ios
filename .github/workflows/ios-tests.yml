@@ -8,7 +8,7 @@ env:
 jobs:
   build:
     name: Xcode ${{ matrix.osx_image }} - iOS ${{ matrix.os_version }}
-    runs-on: macos-latest
+    runs-on: macos-13
     strategy:
       matrix:
         include:
@@ -26,28 +26,40 @@ jobs:
         with:
           ruby-version: 3.2
 
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode_version }}.app/Contents/Developer
+
       - name: Install CocoaPods
         run: sudo gem install cocoapods
 
-      - name: Setup test cloud URL
+      - name: Setup CLOUDINARY_URL
         run: |
-          echo "Setting CLOUDINARY_URL from tools/get_test_cloud.sh"
           echo "CLOUDINARY_URL=$(bash tools/get_test_cloud.sh)" >> $GITHUB_ENV
           echo "cloud_name: $(echo $CLOUDINARY_URL | cut -d'@' -f2)"
+
+      - name: Clean Derived Data
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
       - name: Install Pods
         working-directory: Example
         run: pod install
 
-      - name: Run Xcode build and tests
+      - name: Build for Testing
         run: |
-          xcodebuild test \
+          xcodebuild build-for-testing \
             -workspace Example/Cloudinary.xcworkspace \
             -scheme travis_public_scheme \
             -destination "platform=iOS Simulator,OS=${{ matrix.os_version }},name=${{ matrix.ios_name }}" \
-            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
-      - name: Send notification (if desired)
-        if: failure()
+      - name: Run Tests
         run: |
-          echo "Notify sdk_developers@cloudinary.com of failure (implement via webhook/email API if needed)"
+          xcodebuild test-without-building \
+            -workspace Example/Cloudinary.xcworkspace \
+            -scheme travis_public_scheme \
+            -destination "platform=iOS Simulator,OS=${{ matrix.os_version }},name=${{ matrix.ios_name }}" \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
+
+      - name: Notify on Failure
+        if: failure()
+        run: echo "Notify sdk_developers@cloudinary.com of failure"
