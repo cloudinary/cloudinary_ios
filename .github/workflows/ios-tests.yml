@@ -12,10 +12,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - osx_image: xcode13.2
-            xcode_version: '13.2'
-            ios_name: 'iPhone 8'
-            os_version: '15.2'
+          - osx_image: xcode15.4
+            xcode_version: '15.4'
+            ios_name: 'iPhone 14'
+            os_version: '16.4'
 
     steps:
       - name: Checkout repository
