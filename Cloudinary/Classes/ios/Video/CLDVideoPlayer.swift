@@ -39,9 +39,11 @@ import AVKit
 
     var transformation: CLDTransformation?
 
-     var eventsManager: VideoEventsManager = VideoEventsManager()
+    var eventsManager: VideoEventsManager = VideoEventsManager()
 
     var providedData: [String: Any]?
+
+    var durationObserver: NSKeyValueObservation?
 
     override init() {
         super.init()
@@ -73,7 +75,7 @@ import AVKit
             super.init()
             return
         }
-         super.init(url: url)
+        super.init(url: url)
     }
 
     /**
@@ -133,6 +135,7 @@ import AVKit
             removeObserver(self, forKeyPath: PlayerKeyPath.status.rawValue)
             removeObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue)
             removeObserver(self, forKeyPath: PlayerKeyPath.duration.rawValue)
+            durationObserver = nil
             eventsManager.sendViewEndEvent(providedData: providedData)
             eventsManager.sendEvents()
         }
@@ -144,7 +147,6 @@ import AVKit
         }
         addObserver(self, forKeyPath: PlayerKeyPath.status.rawValue, options: [.new], context: nil)
         addObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue, options: [.new], context: nil)
-        addObserver(self, forKeyPath: PlayerKeyPath.duration.rawValue, options: [.new], context: nil)
     }
 
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -161,10 +163,6 @@ import AVKit
         case PlayerKeyPath.timeControlStatus.rawValue:
             if let newStatusNumber = changes[.newKey] as? NSNumber, let newStatus = AVPlayer.TimeControlStatus(rawValue: newStatusNumber.intValue) {
                 handleTimeControlStatusChanged(newStatus)
-            }
-        case PlayerKeyPath.duration.rawValue:
-            if let playerItem = changes[.newKey] as? AVPlayerItem {
-                observeDuration(of: playerItem)
             }
         default:
             super.observeValue(forKeyPath: path, of: object, change: changes, context: context)
@@ -191,6 +189,17 @@ extension CLDVideoPlayer {
                 let mediaURL = assetURL.url
                 eventsManager.sendViewStartEvent(videoUrl: mediaURL.absoluteString, providedData: providedData)
                 isIntialized = true
+
+                if let currentItem = self.currentItem, durationObserver == nil {
+                    durationObserver = currentItem.observe(\.duration, options: [.new]) { [weak self] item, change in
+                        guard let self = self else { return }
+                        let seconds = CMTimeGetSeconds(item.duration)
+                        if !self.loadMetadataSent && seconds.isFinite {
+                            self.loadMetadataSent = true
+                            self.eventsManager.sendLoadMetadataEvent(duration: Int(seconds))
+                        }
+                    }
+                }
             }
             break
         case .failed:
