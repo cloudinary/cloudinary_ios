@@ -12,14 +12,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - osx_image: xcode12
-            xcode_version: '12.5'
-            ios_name: 'iPhone 8'
-            os_version: '13.0'
-          - osx_image: xcode12
-            xcode_version: '12.5'
-            ios_name: 'iPhone 8'
-            os_version: '14.0'
           - osx_image: xcode13.2
             xcode_version: '13.2'
             ios_name: 'iPhone 8'
