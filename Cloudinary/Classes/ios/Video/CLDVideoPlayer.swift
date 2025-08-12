@@ -130,17 +130,20 @@ import AVKit
 
     public func flushEvents() {
         guard analytics else { return }
-        eventsManager.sendViewEndEvent(providedData: providedData)
         eventsManager.sendEvents()
     }
 
+    public func flushEventsAndCloseSession() {
+        guard analytics else { return }
+        eventsManager.sendViewEndEvent(providedData: providedData)
+        flushEvents()
+    }
+
     deinit {
-        if analytics {
-            removeObserver(self, forKeyPath: PlayerKeyPath.status.rawValue)
-            removeObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue)
-            eventsManager.sendViewEndEvent(providedData: providedData)
-            eventsManager.sendEvents()
-        }
+        guard analytics else { return }
+        removeObserver(self, forKeyPath: PlayerKeyPath.status.rawValue)
+        removeObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue)
+        flushEventsAndCloseSession()
     }
 
     func setAnalyticsObservers() {
