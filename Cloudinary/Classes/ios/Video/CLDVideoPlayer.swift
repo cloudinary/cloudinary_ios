@@ -247,7 +247,7 @@ extension CLDVideoPlayer {
         }
     }
 
-    func setProvidedData(data: [String: Any]) {
+    public func setProvidedData(data: [String: Any]) {
         providedData = data
     }
 }
