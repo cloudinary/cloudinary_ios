@@ -128,6 +128,12 @@ import AVKit
         }
     }
 
+    public func flushEvents() {
+        guard analytics else { return }
+        eventsManager.sendViewEndEvent(providedData: providedData)
+        eventsManager.sendEvents()
+    }
+
     deinit {
         if analytics {
             removeObserver(self, forKeyPath: PlayerKeyPath.status.rawValue)
