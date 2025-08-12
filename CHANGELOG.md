@@ -1,3 +1,11 @@
+5.2.3 / 2025-08-12
+==================
+
+Other Changes
+-------------
+* Add video analytics duration event
+* Add flush events support to video analytics
+
 5.2.2 / 2025-07-30
 ==================
 
