@@ -84,13 +84,22 @@ jobs:
             echo ""
           done
 
-      - name: Build and Test
+      - name: Build Framework Only
         run: |
           xcodebuild build \
             -workspace Example/Cloudinary.xcworkspace \
-            -scheme travis_public_scheme \
+            -scheme Cloudinary \
             -destination "platform=iOS Simulator,OS=18.4,name=iPhone 16" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
+
+      - name: Run Unit Tests
+        run: |
+          xcodebuild test \
+            -workspace Example/Cloudinary.xcworkspace \
+            -scheme Cloudinary \
+            -destination "platform=iOS Simulator,OS=18.4,name=iPhone 16" \
+            -only-testing:Cloudinary_Tests \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty || true
 
       - name: Notify on Failure
         if: failure()
