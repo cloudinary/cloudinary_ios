@@ -92,12 +92,18 @@ jobs:
             -destination "platform=macOS,variant=Mac Catalyst" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
-      - name: Test Results
+      - name: Test Results (Success)
+        if: success()
         run: |
-          echo "✅ Tests completed using Xcode 16.2!"
-          echo "✅ Running iOS code via Mac Catalyst"
-          echo "⚠️  Note: Using Mac Catalyst due to iOS 18.2 scheme requirements"
-          echo "💡 To get iOS Simulator testing, update Xcode project deployment targets to iOS 18.4+"
+          echo "✅ Tests PASSED using Xcode 16.2!"
+          echo "✅ Successfully running iOS code via Mac Catalyst"
+
+      - name: Test Results (Failure)  
+        if: failure()
+        run: |
+          echo "❌ Tests FAILED - iOS 18.2 requirement issue persists"
+          echo "🔧 ROOT CAUSE: Xcode project requires iOS 18.2, but GitHub Actions only has iOS 18.4+"
+          echo "💡 SOLUTION: Update Xcode project deployment targets from iOS 18.2 → iOS 18.4+"
 
       - name: Notify on Failure
         if: failure()
