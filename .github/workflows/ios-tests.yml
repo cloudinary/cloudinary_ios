@@ -45,15 +45,6 @@ jobs:
       - name: Clean Derived Data
         run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
-      - name: List available simulators
-        run: |
-          echo "Available iOS Simulators:"
-          xcrun simctl list devices
-          echo "Available runtimes:"
-          xcrun simctl list runtimes
-          echo "Available destinations for scheme:"
-          cd Example && xcodebuild -workspace Cloudinary.xcworkspace -scheme travis_public_scheme -showdestinations
-
       - name: Install Pods
         working-directory: Example
         run: pod install
