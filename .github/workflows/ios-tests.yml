@@ -90,7 +90,9 @@ jobs:
             -workspace Example/Cloudinary.xcworkspace \
             -scheme Cloudinary-Example \
             -destination "platform=iOS Simulator,OS=18.4,name=iPhone 16" \
-            IPHONEOS_DEPLOYMENT_TARGET=13.0 \
+            IPHONEOS_DEPLOYMENT_TARGET=18.4 \
+            SUPPORTED_PLATFORMS="iphonesimulator" \
+            TARGETED_DEVICE_FAMILY="1,2" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
       - name: Notify on Failure
