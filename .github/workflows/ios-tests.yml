@@ -14,8 +14,8 @@ jobs:
       matrix:
         include:
           - xcode_version: '16.2'
-            ios_name: 'iPhone 15 Pro'
-            os_version: '17.5'
+            ios_name: 'iPhone 15'
+            os_version: '17.2'
 
     steps:
       - name: Checkout repository
@@ -51,6 +51,8 @@ jobs:
           xcrun simctl list devices
           echo "Available runtimes:"
           xcrun simctl list runtimes
+          echo "Available destinations for scheme:"
+          xcodebuild -workspace Example/Cloudinary.xcworkspace -scheme travis_public_scheme -showdestinations
 
       - name: Install Pods
         working-directory: Example
@@ -61,7 +63,7 @@ jobs:
           xcodebuild build-for-testing \
             -workspace Example/Cloudinary.xcworkspace \
             -scheme travis_public_scheme \
-            -destination "platform=iOS Simulator,OS=${{ matrix.os_version }},name=${{ matrix.ios_name }}" \
+            -destination "platform=iOS Simulator,name=${{ matrix.ios_name }}" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
       - name: Run Tests
@@ -69,7 +71,7 @@ jobs:
           xcodebuild test-without-building \
             -workspace Example/Cloudinary.xcworkspace \
             -scheme travis_public_scheme \
-            -destination "platform=iOS Simulator,OS=${{ matrix.os_version }},name=${{ matrix.ios_name }}" \
+            -destination "platform=iOS Simulator,name=${{ matrix.ios_name }}" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
       - name: Notify on Failure
