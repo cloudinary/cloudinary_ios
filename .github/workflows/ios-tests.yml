@@ -84,17 +84,9 @@ jobs:
             echo ""
           done
 
-      - name: Build for Testing
+      - name: Build and Test
         run: |
-          xcodebuild build-for-testing \
-            -workspace Example/Cloudinary.xcworkspace \
-            -scheme Pods-Cloudinary_Tests \
-            -destination "platform=iOS Simulator,id=dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder" \
-            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
-
-      - name: Run Tests
-        run: |
-          xcodebuild test-without-building \
+          xcodebuild test \
             -workspace Example/Cloudinary.xcworkspace \
             -scheme Pods-Cloudinary_Tests \
             -destination "platform=iOS Simulator,id=dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder" \
