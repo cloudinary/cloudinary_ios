@@ -15,7 +15,7 @@ jobs:
         include:
           - xcode_version: '16.2'
             ios_name: 'iPhone 16'
-            os_version: '18.6'
+            os_version: '18.4'
 
     steps:
       - name: Checkout repository
@@ -45,6 +45,12 @@ jobs:
       - name: Clean Derived Data
         run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
+      - name: List available schemes
+        working-directory: Example
+        run: |
+          echo "Available schemes:"
+          xcodebuild -workspace Cloudinary.xcworkspace -list
+
       - name: Install Pods
         working-directory: Example
         run: pod install
@@ -54,7 +60,7 @@ jobs:
           xcodebuild build-for-testing \
             -workspace Example/Cloudinary.xcworkspace \
             -scheme travis_public_scheme \
-            -destination "platform=iOS Simulator,OS=${{ matrix.os_version }},name=${{ matrix.ios_name }}" \
+            -destination "platform=iOS Simulator,name=${{ matrix.ios_name }}" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
       - name: Run Tests
@@ -62,7 +68,7 @@ jobs:
           xcodebuild test-without-building \
             -workspace Example/Cloudinary.xcworkspace \
             -scheme travis_public_scheme \
-            -destination "platform=iOS Simulator,OS=${{ matrix.os_version }},name=${{ matrix.ios_name }}" \
+            -destination "platform=iOS Simulator,name=${{ matrix.ios_name }}" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
       - name: Notify on Failure
