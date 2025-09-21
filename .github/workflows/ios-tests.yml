@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - xcode_version: '15.4'
+          - xcode_version: '16.2'
             ios_name: 'iPhone 15 Pro'
             os_version: '17.5'
 
@@ -44,6 +44,13 @@ jobs:
 
       - name: Clean Derived Data
         run: rm -rf ~/Library/Developer/Xcode/DerivedData
+
+      - name: List available simulators
+        run: |
+          echo "Available iOS Simulators:"
+          xcrun simctl list devices
+          echo "Available runtimes:"
+          xcrun simctl list runtimes
 
       - name: Install Pods
         working-directory: Example
