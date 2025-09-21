@@ -84,20 +84,20 @@ jobs:
             echo ""
           done
 
-      - name: Build Cloudinary Framework (Mac Catalyst)
+      - name: Build and Test (Mac Catalyst)
         run: |
-          xcodebuild build \
+          xcodebuild test \
             -workspace Example/Cloudinary.xcworkspace \
-            -scheme Cloudinary \
+            -scheme travis_public_scheme \
             -destination "platform=macOS,variant=Mac Catalyst" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
-      - name: Build Success
+      - name: Test Results
         run: |
-          echo "✅ Successfully built Cloudinary framework!"
-          echo "✅ Using Xcode 16.2 with Mac Catalyst"
-          echo "✅ Framework compilation completed without errors"
-          echo "⚠️  Note: Built for Mac Catalyst due to iOS 18.2 scheme requirements"
+          echo "✅ Tests completed using Xcode 16.2!"
+          echo "✅ Running iOS code via Mac Catalyst"
+          echo "⚠️  Note: Using Mac Catalyst due to iOS 18.2 scheme requirements"
+          echo "💡 To get iOS Simulator testing, update Xcode project deployment targets to iOS 18.4+"
 
       - name: Notify on Failure
         if: failure()
