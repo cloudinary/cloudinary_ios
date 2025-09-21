@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "Current directory contents:"
           ls -la
-          echo "Available schemes:"
+          echo "Available schemes and destinations:"
           if [ -d "Cloudinary.xcworkspace" ]; then
             xcodebuild -workspace Cloudinary.xcworkspace -list
           else
@@ -71,17 +71,24 @@ jobs:
         working-directory: Example
         run: pod install
 
-      - name: Check Cloudinary_Tests scheme destinations
+      - name: Check all scheme destinations
         working-directory: Example
         run: |
-          echo "Checking destinations for Cloudinary_Tests scheme:"
-          xcodebuild -workspace Cloudinary.xcworkspace -scheme Cloudinary_Tests -showdestinations
+          echo "Getting list of all schemes first..."
+          SCHEMES=$(xcodebuild -workspace Cloudinary.xcworkspace -list | grep -A 100 "Schemes:" | grep "^    " | sed 's/^    //')
+          echo "Found schemes: $SCHEMES"
+          
+          for scheme in $SCHEMES; do
+            echo "=== Checking destinations for scheme: $scheme ==="
+            xcodebuild -workspace Cloudinary.xcworkspace -scheme "$scheme" -showdestinations 2>/dev/null || echo "Could not get destinations for $scheme"
+            echo ""
+          done
 
       - name: Build for Testing
         run: |
           xcodebuild build-for-testing \
             -workspace Example/Cloudinary.xcworkspace \
-            -scheme Cloudinary_Tests \
+            -scheme Cloudinary \
             -destination "platform=iOS Simulator,name=${{ matrix.ios_name }}" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
@@ -89,7 +96,7 @@ jobs:
         run: |
           xcodebuild test-without-building \
             -workspace Example/Cloudinary.xcworkspace \
-            -scheme Cloudinary_Tests \
+            -scheme Cloudinary \
             -destination "platform=iOS Simulator,name=${{ matrix.ios_name }}" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
