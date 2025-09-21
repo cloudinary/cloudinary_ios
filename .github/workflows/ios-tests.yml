@@ -45,11 +45,27 @@ jobs:
       - name: Clean Derived Data
         run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
+      - name: Debug directory structure
+        run: |
+          echo "Contents of root directory:"
+          ls -la
+          echo "Contents of Example directory:"
+          ls -la Example/
+          echo "Looking for workspace files:"
+          find . -name "*.xcworkspace" -type d
+
       - name: List available schemes
         working-directory: Example
         run: |
+          echo "Current directory contents:"
+          ls -la
           echo "Available schemes:"
-          xcodebuild -workspace Cloudinary.xcworkspace -list
+          if [ -d "Cloudinary.xcworkspace" ]; then
+            xcodebuild -workspace Cloudinary.xcworkspace -list
+          else
+            echo "Cloudinary.xcworkspace not found, trying alternative paths..."
+            find . -name "*.xcworkspace" -type d
+          fi
 
       - name: Install Pods
         working-directory: Example
