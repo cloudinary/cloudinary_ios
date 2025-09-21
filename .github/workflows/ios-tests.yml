@@ -71,11 +71,17 @@ jobs:
         working-directory: Example
         run: pod install
 
+      - name: Check Cloudinary_Tests scheme destinations
+        working-directory: Example
+        run: |
+          echo "Checking destinations for Cloudinary_Tests scheme:"
+          xcodebuild -workspace Cloudinary.xcworkspace -scheme Cloudinary_Tests -showdestinations
+
       - name: Build for Testing
         run: |
           xcodebuild build-for-testing \
             -workspace Example/Cloudinary.xcworkspace \
-            -scheme travis_public_scheme \
+            -scheme Cloudinary_Tests \
             -destination "platform=iOS Simulator,name=${{ matrix.ios_name }}" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
@@ -83,7 +89,7 @@ jobs:
         run: |
           xcodebuild test-without-building \
             -workspace Example/Cloudinary.xcworkspace \
-            -scheme travis_public_scheme \
+            -scheme Cloudinary_Tests \
             -destination "platform=iOS Simulator,name=${{ matrix.ios_name }}" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
