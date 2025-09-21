@@ -89,7 +89,7 @@ jobs:
           xcodebuild test \
             -workspace Example/Cloudinary.xcworkspace \
             -scheme Cloudinary-Example \
-            -destination "platform=iOS Simulator" \
+            -destination "platform=iOS Simulator,OS=18.4,name=iPhone 16" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
       - name: Notify on Failure
