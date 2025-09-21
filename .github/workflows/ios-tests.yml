@@ -88,7 +88,7 @@ jobs:
         run: |
           xcodebuild test \
             -workspace Example/Cloudinary.xcworkspace \
-            -scheme Pods-Cloudinary_Tests \
+            -scheme Cloudinary-Example \
             -destination "platform=iOS Simulator,id=dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
 
