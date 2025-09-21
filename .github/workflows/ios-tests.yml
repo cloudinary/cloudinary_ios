@@ -8,14 +8,14 @@ env:
 jobs:
   build:
     name: Xcode ${{ matrix.xcode_version }} - iOS ${{ matrix.os_version }}
-    runs-on: macos-13
+    runs-on: macos-latest
 
     strategy:
       matrix:
         include:
-          - xcode_version: '15.4'
-            ios_name: 'iPhone 14'
-            os_version: '16.4'
+          - xcode_version: '16.1'
+            ios_name: 'iPhone 16'
+            os_version: '18.1'
 
     steps:
       - name: Checkout repository

@@ -43,6 +43,8 @@ import AVKit
 
     var providedData: [String: Any]?
 
+
+
     override init() {
         super.init()
         setAnalyticsObservers()
@@ -128,22 +130,13 @@ import AVKit
         }
     }
 
-    public func flushEvents() {
-        guard analytics else { return }
-        eventsManager.sendEvents()
-    }
-
-    public func flushEventsAndCloseSession() {
-        guard analytics else { return }
-        eventsManager.sendViewEndEvent(providedData: providedData)
-        flushEvents()
-    }
-
     deinit {
-        guard analytics else { return }
-        removeObserver(self, forKeyPath: PlayerKeyPath.status.rawValue)
-        removeObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue)
-        flushEventsAndCloseSession()
+        if analytics {
+            removeObserver(self, forKeyPath: PlayerKeyPath.status.rawValue)
+            removeObserver(self, forKeyPath: PlayerKeyPath.timeControlStatus.rawValue)
+            eventsManager.sendViewEndEvent(providedData: providedData)
+            eventsManager.sendEvents()
+        }
     }
 
     func setAnalyticsObservers() {
@@ -178,6 +171,15 @@ import AVKit
 
 @available(iOS 10.0, *)
 extension CLDVideoPlayer {
+    func observeDuration(of playerItem: AVPlayerItem) {
+        let duration = playerItem.asset.duration
+
+        let durationInSeconds = Int(CMTimeGetSeconds(duration))
+        if !loadMetadataSent {
+            loadMetadataSent = true
+            self.eventsManager.sendLoadMetadataEvent(duration: durationInSeconds)
+        }
+    }
     func handleStatusChanged(_ status: AVPlayer.Status) {
         switch status {
         case .readyToPlay:
@@ -186,6 +188,7 @@ extension CLDVideoPlayer {
                 eventsManager.sendViewStartEvent(videoUrl: mediaURL.absoluteString, providedData: providedData)
                 isIntialized = true
 
+                // Load duration asynchronously - more reliable on iOS 18+
                 loadDurationAsynchronously()
             }
             break
@@ -256,7 +259,7 @@ extension CLDVideoPlayer {
         }
     }
 
-    public func setProvidedData(data: [String: Any]) {
+    func setProvidedData(data: [String: Any]) {
         providedData = data
     }
 }
