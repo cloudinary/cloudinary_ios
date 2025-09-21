@@ -13,9 +13,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - xcode_version: '16.1'
-            ios_name: 'iPhone 16'
-            os_version: '18.1'
+          - xcode_version: '15.4'
+            ios_name: 'iPhone 15 Pro'
+            os_version: '17.5'
 
     steps:
       - name: Checkout repository
@@ -33,6 +33,9 @@ jobs:
 
       - name: Install CocoaPods
         run: sudo gem install cocoapods
+
+      - name: Install xcpretty
+        run: sudo gem install xcpretty
 
       - name: Setup CLOUDINARY_URL
         run: |
