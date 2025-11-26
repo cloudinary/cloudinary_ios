@@ -217,22 +217,17 @@ extension CLDVideoPlayer {
                 switch status {
                 case .loaded:
                     let duration = asset.duration
-
-                    guard duration.isValid && duration.isNumeric && !duration.isIndefinite else {
-                        print("Duration is invalid, not numeric, or indefinite")
-                        return
+                    var durationInSeconds = 0
+                    
+                    if duration.isValid && duration.isNumeric && !duration.isIndefinite {
+                        let durationSeconds = CMTimeGetSeconds(duration)
+                        
+                        if durationSeconds.isFinite && !durationSeconds.isNaN {
+                            durationInSeconds = Int(durationSeconds)
+                        }
                     }
                     
-                    let durationSeconds = CMTimeGetSeconds(duration)
-                    
-                    guard durationSeconds.isFinite && !durationSeconds.isNaN else {
-                        print("Duration seconds is not finite or is NaN: \(durationSeconds)")
-                        return
-                    }
-                    
-                    let durationInSeconds = Int(durationSeconds)
-                    
-                    if !self.loadMetadataSent && durationInSeconds > 0 {
+                    if !self.loadMetadataSent {
                         self.loadMetadataSent = true
                         self.eventsManager.sendLoadMetadataEvent(duration: durationInSeconds)
                     }
