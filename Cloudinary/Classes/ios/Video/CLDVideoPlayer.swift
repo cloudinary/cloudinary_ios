@@ -217,8 +217,7 @@ extension CLDVideoPlayer {
                 switch status {
                 case .loaded:
                     let duration = asset.duration
-                    
-                    // Check if duration is valid and finite before converting to Int
+
                     guard duration.isValid && duration.isNumeric && !duration.isIndefinite else {
                         print("Duration is invalid, not numeric, or indefinite")
                         return
@@ -226,7 +225,6 @@ extension CLDVideoPlayer {
                     
                     let durationSeconds = CMTimeGetSeconds(duration)
                     
-                    // Additional check for finite values
                     guard durationSeconds.isFinite && !durationSeconds.isNaN else {
                         print("Duration seconds is not finite or is NaN: \(durationSeconds)")
                         return
