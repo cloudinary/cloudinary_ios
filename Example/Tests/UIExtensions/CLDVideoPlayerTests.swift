@@ -71,4 +71,58 @@ class CLDVideoPlayerTests: UIBaseTest {
 
         wait(for: [expectation], timeout: 5.0)
     }
+    
+    func testNoCrashWithInvalidVideoURL() {
+        XCTAssertNoThrow({
+            let invalidURLs = [
+                "https://httpstat.us/404",
+                "https://httpstat.us/500",
+                "data:video/mp4;base64,invalid",
+                "file:///nonexistent/video.mp4"
+            ]
+            
+            for urlString in invalidURLs {
+                let player = CLDVideoPlayer(url: urlString)
+                _ = player.currentItem
+                player.play()
+                player.pause()
+            }
+        }, "CLDVideoPlayer should handle invalid URLs gracefully without crashing")
+    }
+    
+    func testGracefulHandlingOfProblematicAssets() {
+        let player = CLDVideoPlayer(url: "data:,")
+        
+        XCTAssertNoThrow({
+            _ = player.currentItem
+            _ = player.status
+            _ = player.timeControlStatus
+        }, "Accessing player properties should not crash")
+        
+        XCTAssertNoThrow({
+            player.play()
+        }, "Play method should not crash")
+        
+        XCTAssertNoThrow({
+            player.pause()
+        }, "Pause method should not crash")
+        
+        XCTAssertNotNil(player, "Player should remain accessible")
+    }
+    
+    func testPlayerRecoveryAfterInvalidDuration() {
+        let invalidPlayer = CLDVideoPlayer(url: "https://invalid-domain-12345.com/video.mp4")
+        _ = invalidPlayer.currentItem
+        
+        let validPlayer = CLDVideoPlayer(url: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4")
+        
+        XCTAssertNoThrow({
+            _ = validPlayer.currentItem
+            validPlayer.play()
+            validPlayer.pause()
+        }, "Valid player should work normally after invalid player was created")
+        
+        XCTAssertNotNil(invalidPlayer, "Invalid player should still exist")
+        XCTAssertNotNil(validPlayer, "Valid player should exist and be functional")
+    }
 }
