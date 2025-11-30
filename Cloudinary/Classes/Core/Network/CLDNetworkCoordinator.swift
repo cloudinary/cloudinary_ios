@@ -27,7 +27,7 @@ import UIKit
 
 internal class CLDNetworkCoordinator: NSObject {
 
-    static let DEFAULT_VERSION =        "5.2.3"
+    static let DEFAULT_VERSION =        "5.2.4"
     
     fileprivate struct CLDNetworkCoordinatorConsts {
         static let BASE_CLOUDINARY_URL =    "https://api.cloudinary.com"

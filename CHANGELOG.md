@@ -1,3 +1,10 @@
+5.2.4 / 2025-11-30
+==================
+
+Other changes
+-------------
+* Fix duration attribute for video analytics 
+
 5.2.3 / 2025-08-12
 ==================
 
