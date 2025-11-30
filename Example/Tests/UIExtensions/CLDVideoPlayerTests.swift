@@ -71,4 +71,46 @@ class CLDVideoPlayerTests: UIBaseTest {
 
         wait(for: [expectation], timeout: 5.0)
     }
+    
+    func testEventsManagerReceivesDurationValues() {
+        let eventsManager = VideoEventsManager()
+        
+        XCTAssertNoThrow({
+            eventsManager.sendLoadMetadataEvent(duration: 0)
+        }, "Sending duration 0 should not crash")
+        
+        XCTAssertNoThrow({
+            eventsManager.sendLoadMetadataEvent(duration: 10)
+        }, "Sending valid duration should not crash")
+        
+        XCTAssertNoThrow({
+            eventsManager.sendLoadMetadataEvent(duration: -1)
+        }, "Events manager should handle any integer value")
+        
+        XCTAssertNoThrow({
+            eventsManager.sendLoadMetadataEvent(duration: Int.max)
+        }, "Events manager should handle large values")
+    }
+    
+    func testDurationHandlingFlowIntegration() {
+        let expectation = XCTestExpectation(description: "Duration flow should complete")
+        
+        let player = CLDVideoPlayer(url: "data:,")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            XCTAssertNoThrow({
+                _ = player.currentItem
+                _ = player.status
+            }, "Accessing player properties should not crash")
+            
+            XCTAssertNoThrow({
+                player.play()
+                player.pause()
+            }, "Player methods should work after problematic URL")
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2.0)
+    }
 }

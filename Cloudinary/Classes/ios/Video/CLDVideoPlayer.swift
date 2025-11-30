@@ -217,9 +217,17 @@ extension CLDVideoPlayer {
                 switch status {
                 case .loaded:
                     let duration = asset.duration
-                    let durationInSeconds = Int(CMTimeGetSeconds(duration))
+                    var durationInSeconds = 0
                     
-                    if !self.loadMetadataSent && durationInSeconds > 0 && duration.isValid {
+                    if duration.isValid && duration.isNumeric && !duration.isIndefinite {
+                        let durationSeconds = CMTimeGetSeconds(duration)
+                        
+                        if durationSeconds.isFinite && !durationSeconds.isNaN {
+                            durationInSeconds = Int(durationSeconds)
+                        }
+                    }
+                    
+                    if !self.loadMetadataSent {
                         self.loadMetadataSent = true
                         self.eventsManager.sendLoadMetadataEvent(duration: durationInSeconds)
                     }
