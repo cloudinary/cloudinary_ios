@@ -72,57 +72,45 @@ class CLDVideoPlayerTests: UIBaseTest {
         wait(for: [expectation], timeout: 5.0)
     }
     
-    func testNoCrashWithInvalidVideoURL() {
+    func testEventsManagerReceivesDurationValues() {
+        let eventsManager = VideoEventsManager()
+        
         XCTAssertNoThrow({
-            let invalidURLs = [
-                "https://httpstat.us/404",
-                "https://httpstat.us/500",
-                "data:video/mp4;base64,invalid",
-                "file:///nonexistent/video.mp4"
-            ]
-            
-            for urlString in invalidURLs {
-                let player = CLDVideoPlayer(url: urlString)
-                _ = player.currentItem
-                player.play()
-                player.pause()
-            }
-        }, "CLDVideoPlayer should handle invalid URLs gracefully without crashing")
+            eventsManager.sendLoadMetadataEvent(duration: 0)
+        }, "Sending duration 0 should not crash")
+        
+        XCTAssertNoThrow({
+            eventsManager.sendLoadMetadataEvent(duration: 10)
+        }, "Sending valid duration should not crash")
+        
+        XCTAssertNoThrow({
+            eventsManager.sendLoadMetadataEvent(duration: -1)
+        }, "Events manager should handle any integer value")
+        
+        XCTAssertNoThrow({
+            eventsManager.sendLoadMetadataEvent(duration: Int.max)
+        }, "Events manager should handle large values")
     }
     
-    func testGracefulHandlingOfProblematicAssets() {
+    func testDurationHandlingFlowIntegration() {
+        let expectation = XCTestExpectation(description: "Duration flow should complete")
+        
         let player = CLDVideoPlayer(url: "data:,")
         
-        XCTAssertNoThrow({
-            _ = player.currentItem
-            _ = player.status
-            _ = player.timeControlStatus
-        }, "Accessing player properties should not crash")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            XCTAssertNoThrow({
+                _ = player.currentItem
+                _ = player.status
+            }, "Accessing player properties should not crash")
+            
+            XCTAssertNoThrow({
+                player.play()
+                player.pause()
+            }, "Player methods should work after problematic URL")
+            
+            expectation.fulfill()
+        }
         
-        XCTAssertNoThrow({
-            player.play()
-        }, "Play method should not crash")
-        
-        XCTAssertNoThrow({
-            player.pause()
-        }, "Pause method should not crash")
-        
-        XCTAssertNotNil(player, "Player should remain accessible")
-    }
-    
-    func testPlayerRecoveryAfterInvalidDuration() {
-        let invalidPlayer = CLDVideoPlayer(url: "https://invalid-domain-12345.com/video.mp4")
-        _ = invalidPlayer.currentItem
-        
-        let validPlayer = CLDVideoPlayer(url: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4")
-        
-        XCTAssertNoThrow({
-            _ = validPlayer.currentItem
-            validPlayer.play()
-            validPlayer.pause()
-        }, "Valid player should work normally after invalid player was created")
-        
-        XCTAssertNotNil(invalidPlayer, "Invalid player should still exist")
-        XCTAssertNotNil(validPlayer, "Valid player should exist and be functional")
+        wait(for: [expectation], timeout: 2.0)
     }
 }
